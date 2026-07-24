@@ -1,0 +1,30 @@
+{
+  "Table": {
+    "loading": "Loading...",
+    "noResults": "No results found",
+    "search": "Search",
+    "searchPlaceholder": "Search...",
+    "selectAll": "Select all",
+    "selectColumn": "Selection",
+    "selectRow": "Select row",
+    "filters": "Filters",
+    "closeFilters": "Close filters",
+    "clearFilters": "Clear filters",
+    "actions": "Actions",
+    "clearSelection": "Clear selection",
+    "selected": "{count, plural, one {# selected} other {# selected}}",
+    "firstPage": "First page",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "lastPage": "Last page",
+    "goToPage": "Go to page {page}",
+    "rowsPerPage": "Rows per page",
+    "pageInfo": "Page <strong>{page}</strong> of <strong>{pageCount}</strong> · <strong>{total}</strong> records",
+    "Columns": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status"
+    }
+  }
+}

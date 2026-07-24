@@ -1,0 +1,76 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.contact {
+  &__hero {
+    background: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+    @include py(4.5rem);
+  }
+
+  &__hero-inner {
+    max-width: 46rem;
+    @include flex(column, flex-start, center, 1.1rem);
+  }
+
+  &__hero-title {
+    margin: 0;
+    font-family: $font-title;
+    font-weight: $font-semibold;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  &__hero-subtitle {
+    margin: 0;
+    max-width: 44ch;
+    color: var(--neutral-color);
+    font-size: $text-lg;
+    line-height: 1.7;
+  }
+
+  &__hero-stats {
+    margin: 1.5rem 0 0;
+    width: 100%;
+    @include grid(1, 1.25rem);
+
+    @include screen(sm) {
+      @include grid(3, 1.5rem);
+    }
+  }
+
+  &__hero-stat {
+    @include flex(row, center, center, 0.7rem);
+
+    @include screen(sm, max) {
+      justify-content: flex-start;
+    }
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: var(--primary-color);
+      flex-shrink: 0;
+    }
+
+    dt {
+      font-family: $font-title;
+      font-size: $text-xl;
+      font-weight: $font-bold;
+      color: var(--primary-color);
+      text-align: left;
+    }
+
+    dd {
+      margin: 0.1rem 0 0;
+      font-size: $text-xs;
+      color: var(--neutral-color);
+      text-align: left;
+      max-width: 20ch;
+      line-height: 1.35;
+    }
+  }
+}

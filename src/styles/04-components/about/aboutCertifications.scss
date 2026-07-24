@@ -1,0 +1,59 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.about {
+  &__certifications {
+    background: var(--surface-color);
+    @include py(4.5rem);
+  }
+
+  &__certifications-header {
+    max-width: 60ch;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+
+    .about__title-lg {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  &__certifications-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include grid(2, 1.25rem);
+
+    @include screen(sm) {
+      @include grid(4, 1.25rem);
+    }
+  }
+
+  &__certification-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    @include rounded(0.5rem);
+    @include p(1.5rem);
+    @include flex(column, center, center, 0.6rem);
+
+    img {
+      height: 4.25rem;
+      width: auto;
+    }
+  }
+
+  &__certification-code {
+    margin: 0;
+    font-family: $font-title;
+    font-weight: $font-bold;
+    font-size: $text-sm;
+  }
+
+  &__certification-label {
+    margin: 0;
+    font-size: $text-xs;
+    color: var(--neutral-color);
+    line-height: 1.4;
+  }
+}

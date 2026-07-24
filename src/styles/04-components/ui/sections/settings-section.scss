@@ -1,0 +1,65 @@
+// Estilos de SettingsSection (components/ui/sections/SettingsSection.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.settings-section {
+  background-color: var(--surface-color);
+  @include rounded();
+  @include p(1.5rem);
+  @include space-y(1.5rem);
+
+  &__header {
+    @include flex($justify: space-between, $align: center, $gap: 1rem);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--primary-color);
+    @include flex($justify: center, $gap: 0);
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  &__heading {
+    flex: 1;
+    min-width: 0;
+    @include flex(
+      $direction: column,
+      $justify: flex-start,
+      $align: flex-start,
+      $gap: 0.25rem
+    );
+  }
+
+  &__title {
+    font-size: $text-lg;
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+
+  &__description {
+    font-size: $text-xs;
+    line-height: 1.5;
+    color: var(--neutral-color);
+  }
+
+  &__actions {
+    @include flex($justify: flex-end, $gap: 0.5rem);
+    flex-shrink: 0;
+  }
+
+  &__content {
+    @include flex(
+      $direction: column,
+      $justify: flex-start,
+      $align: stretch,
+      $gap: 1rem
+    );
+  }
+}

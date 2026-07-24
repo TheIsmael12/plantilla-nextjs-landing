@@ -1,0 +1,192 @@
+// Estilos compartidos de DateCalendarMonth y DateCalendarLegend, usados por
+// el panel de DatePicker y DateRangePicker (components/ui/inputs/).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+// Tamaño fijo de columna/día: si las celdas fueran `1fr` (proporcionales al
+// ancho del contenedor), una leyenda más ancha que el propio calendario
+// estiraría `.date-calendar-panel` (flex column, $align: stretch) y con él
+// la rejilla — pero solo el `<span>` de cada día de la semana ocupa esa
+// celda más ancha (se estira solo), mientras que el botón de cada número de
+// día mantenía un `width` fijo (no se estiraba), quedando descentrado
+// respecto a su letra de cabecera. Con columnas de tamaño fijo, la rejilla
+// nunca cambia de ancho pase lo que pase con la leyenda.
+$day-size: 2.25rem;
+$day-gap: 0.25rem;
+$calendar-width: $day-size * 7 + $day-gap * 6;
+
+.date-calendar-panel {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+  @include p(1rem);
+  width: calc(#{$calendar-width} + 2rem);
+
+  &--range {
+    width: calc(#{$calendar-width} * 2 + 1.5rem + 2rem);
+  }
+
+  &__nav {
+    @include flex($justify: flex-end, $gap: 0.5rem);
+  }
+
+  &__nav-btn {
+    @include flex($justify: center, $gap: 0);
+    width: 2rem;
+    height: 2rem;
+    background-color: transparent;
+    color: var(--color);
+    @include rounded();
+
+    &:hover:not(:disabled) {
+      background-color: var(--neutral-color-light);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+  }
+
+  &__months {
+    @include flex($justify: flex-start, $align: flex-start, $gap: 1.5rem);
+  }
+}
+
+.date-calendar {
+  width: $calendar-width;
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.5rem);
+
+  &__month-label {
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    color: var(--color);
+    text-align: center;
+  }
+
+  &__weekdays {
+    @include grid($columns: repeat(7, #{$day-size}), $gap: $day-gap);
+  }
+
+  &__weekday {
+    font-size: $text-xxs;
+    font-weight: $font-semibold;
+    color: var(--neutral-color);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__grid {
+    @include flex($direction: column, $justify: flex-start, $gap: $day-gap);
+  }
+
+  &__week {
+    @include grid($columns: repeat(7, #{$day-size}), $gap: $day-gap);
+  }
+
+  &__day {
+    position: relative;
+    width: $day-size;
+    height: $day-size;
+    background-color: transparent;
+    color: var(--color);
+    font-size: $text-sm;
+    @include rounded(50%);
+    @include flex($direction: column, $justify: center, $gap: 0.125rem);
+
+    &:hover:not(:disabled) {
+      background-color: var(--neutral-color-light);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: var(--neutral-color);
+      opacity: 0.5;
+    }
+
+    &--outside {
+      color: var(--neutral-color);
+    }
+
+    &--today {
+      font-weight: $font-semibold;
+      border: 1px solid var(--primary-color);
+    }
+
+    &--selected {
+      background-color: var(--primary-color);
+      color: var(--light-color);
+
+      &:hover:not(:disabled) {
+        background-color: var(--primary-color-hover);
+      }
+    }
+
+    &--range-start,
+    &--range-end {
+      background-color: var(--primary-color);
+      color: var(--light-color);
+    }
+
+    &--in-range {
+      background-color: var(--info-color-light);
+      @include rounded(0);
+    }
+  }
+
+  &__day-number {
+    line-height: 1;
+  }
+
+  &__day-dots {
+    @include flex($justify: center, $gap: 0.125rem);
+    position: absolute;
+    bottom: 0.125rem;
+  }
+
+  &__day-dot {
+    width: 0.25rem;
+    height: 0.25rem;
+    @include rounded(50%);
+  }
+}
+
+.date-calendar-legend {
+  @include flex($justify: flex-start, $gap: 0.25rem);
+  flex-wrap: wrap;
+
+  &__item {
+    @include flex($justify: flex-start, $gap: 0.375rem);
+    font-size: $text-xs;
+    color: var(--neutral-color);
+  }
+
+  &__swatch {
+    width: 0.75rem;
+    height: 0.75rem;
+    @include rounded(50%);
+    border: 1px solid var(--border-color);
+
+    &--today {
+      border-color: var(--primary-color);
+    }
+
+    &--selected {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    &--in-range {
+      background-color: var(--info-color-light);
+    }
+
+    &--disabled {
+      background-color: var(--neutral-color-light);
+    }
+  }
+
+  &__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    @include rounded(50%);
+  }
+}

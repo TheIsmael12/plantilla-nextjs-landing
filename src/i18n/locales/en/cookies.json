@@ -1,0 +1,24 @@
+{
+  "CookieConsent": {
+    "title": "We use cookies",
+    "powered": "Privacy management",
+    "closeAriaLabel": "Reject optional cookies and close",
+    "desc": "We use our own and third-party cookies to improve your experience, analyze traffic and personalize content. You can accept all, reject optional ones or customize your preferences.",
+    "policyLink": "Cookie policy",
+    "configure": "Customize preferences",
+    "necessary": "Essential",
+    "necessaryDesc": "Required for the site to function properly. Includes session, language, and security cookies. Cannot be disabled.",
+    "functional": "Functional",
+    "functionalDesc": "Remember your preferences (theme, language, region) to offer you a personalized experience on future visits.",
+    "analytics": "Analytics",
+    "analyticsDesc": "Help us understand how you interact with the site anonymously. Used to improve performance and user experience.",
+    "marketing": "Marketing",
+    "marketingDesc": "Allow us to show relevant advertising on this and other sites. They measure the effectiveness of advertising campaigns.",
+    "rejectAll": "Reject optional",
+    "saveSelection": "Save selection",
+    "acceptAll": "Accept all",
+    "saved": "Preferences saved",
+    "alwaysOn": "Always on",
+    "optional": "Optional"
+  }
+}

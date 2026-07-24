@@ -1,0 +1,456 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+// ── Wrapper ──────────────────────────────────────────────────────────────────
+
+.legal {
+  margin: 0 auto;
+  max-width: var(--max-width);
+  @include py(2rem);
+  @include px(1.25rem);
+  @include screen(md) {
+    @include px(2rem);
+    @include py(3rem);
+  }
+}
+
+// ── Link ─────────────────────────────────────────────────────────────────────
+
+.legal__link {
+  color: var(--primary-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+  font-weight: $font-medium;
+}
+
+// ── Hero ─────────────────────────────────────────────────────────────────────
+
+.legal__hero {
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 2rem;
+  @include rounded();
+  @include py(2rem);
+  @include px(2rem);
+
+  // Decorative orbs
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.15;
+
+    &--1 {
+      width: 22rem;
+      height: 22rem;
+      top: -8rem;
+      right: -6rem;
+    }
+
+    &--2 {
+      width: 10rem;
+      height: 10rem;
+      bottom: -4rem;
+      left: 30%;
+    }
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 52rem;
+    @include flex(column, flex-start, flex-start, 1rem);
+  }
+
+  &__icon {
+    width: 4rem;
+    height: 4rem;
+    color: var(--light-color);
+    @include rounded();
+    @include flex(row, center, center, 0);
+  }
+
+  &__title {
+    line-height: 1.15;
+    font-size: $text-3xl;
+    @include screen(md) {
+      font-size: $text-4xl;
+    }
+  }
+
+  &__subtitle {
+    font-size: $text-sm;
+    max-width: 42rem;
+    line-height: 1.6;
+  }
+
+  &__meta {
+    backdrop-filter: blur(8px);
+    background-color: rgba(var(--info-color-rgb), 0.2);
+    font-size: $text-sm;
+    width: fit-content;
+    @include rounded();
+    @include px(1rem);
+    @include py(0.5rem);
+    @include flex(row, flex-start, center, 0.5rem);
+
+    &__item {
+      @include flex(row, center, center, 0.5rem);
+
+      svg {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+  }
+
+  // ── Hero variants ─────────────────────────────────────────────────────────
+
+  &--terms {
+    background: var(--info-color-light);
+
+    .legal__hero__orb {
+      background: var(--info-color);
+    }
+    .legal__hero__icon--terms {
+      background: var(--info-color);
+    }
+  }
+
+  &--privacy {
+    background: var(--success-color-light);
+
+    .legal__hero__orb {
+      background: var(--success-color);
+    }
+    .legal__hero__icon--privacy {
+      background: var(--success-color);
+    }
+  }
+
+  &--cookies {
+    background: var(--warning-color-light);
+
+    .legal__hero__orb {
+      background: var(--warning-color);
+    }
+    .legal__hero__icon--cookies {
+      background: var(--warning-color);
+    }
+  }
+
+  &--complaints {
+    background: var(--danger-color-light);
+
+    .legal__hero__orb {
+      background: var(--danger-color);
+    }
+    .legal__hero__icon--complaints {
+      background: var(--danger-color);
+    }
+  }
+}
+
+// ── Layout ───────────────────────────────────────────────────────────────────
+
+.legal__layout {
+  @include grid(1fr, 2rem, 1, start);
+
+  @include screen(lg) {
+    grid-template-columns: 16rem 1fr;
+  }
+
+  @include screen(xl) {
+    grid-template-columns: 18rem 1fr;
+  }
+}
+
+// ── TOC ──────────────────────────────────────────────────────────────────────
+
+.legal__toc {
+  border: 1px solid var(--border-color);
+  @include rounded();
+  @include px(1.5rem);
+  @include py(1.5rem);
+  @include flex(column, flex-start, flex-start, 1rem);
+
+  @include screen(lg) {
+    position: sticky;
+    top: 5.5rem;
+  }
+
+  &__title {
+    font-size: $text-lg;
+    color: var(--primary-color);
+    font-weight: $font-semibold;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include flex(column, flex-start, flex-start, 0.75rem);
+  }
+
+  li {
+    counter-increment: toc-counter;
+  }
+
+  &__link {
+    text-decoration: none;
+    font-size: $text-sm;
+    @include rounded();
+  }
+}
+
+// ── Body ─────────────────────────────────────────────────────────────────────
+
+.legal__body {
+  @include flex(column, flex-start, flex-start, 1.5rem);
+}
+
+// ── Section ──────────────────────────────────────────────────────────────────
+
+.legal__section {
+  width: 100%;
+  @include space-y(0.5rem);
+
+  &__title {
+    font-size: $text-xl;
+    font-weight: $font-semibold;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
+    @include pb(0.5rem);
+    width: 100%;
+  }
+
+  &__subtitle {
+    margin: 1rem 0 0.5rem;
+    font-weight: $font-semibold;
+  }
+
+  &__text {
+    line-height: 1.75;
+    font-size: $text-sm;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__list {
+    @include pl(2rem);
+
+    li {
+      font-size: $text-sm;
+      line-height: 1.65;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// ── Highlight ────────────────────────────────────────────────────────────────
+
+.legal__highlight {
+  border-left: 3px solid;
+  font-size: $text-sm;
+  @include px(1rem);
+  @include py(1rem);
+
+  p {
+    margin: 0;
+    color: inherit;
+  }
+
+  strong {
+    font-weight: $font-semibold;
+  }
+
+  &--info {
+    color: var(--info-color);
+    border-color: var(--info-color);
+    background-color: var(--info-color-light);
+  }
+
+  &--warning {
+    border-color: var(--warning-color);
+    color: var(--warning-color-active);
+    background-color: var(--warning-color-light);
+  }
+}
+
+// ── Contact card ─────────────────────────────────────────────────────────────
+
+.legal__contact-card {
+  border: 1px solid var(--border-color);
+  background-color: var(--neutral-color-light);
+  @include px(1.25rem);
+  @include py(1.25rem);
+  @include rounded();
+
+  p {
+    line-height: 1.7;
+    font-size: $text-sm;
+  }
+
+  strong {
+    color: var(--primary-color);
+    font-weight: $font-semibold;
+  }
+}
+
+// ── Manage cookies button ────────────────────────────────────────────────────
+
+.legal__manage-btn {
+  color: var(--light-color);
+  background-color: var(--primary-color);
+  @include px(1rem);
+  @include py(0.75rem);
+  @include rounded();
+  @include flex(row, center, center, 0.5rem);
+
+  &:hover {
+    transform: translateY(-1px);
+    background-color: var(--primary-color-hover);
+  }
+}
+
+// ── Cookies grid ─────────────────────────────────────────────────────────────
+
+.legal__cookies-grid {
+  @include grid(1fr, 1rem, 1, start);
+
+  @include screen(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.legal__cookie-card {
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
+  @include py(1rem);
+  @include px(1rem);
+
+  &__header {
+    margin-bottom: 0.75rem;
+    @include flex(row, space-between, center, 0.5rem);
+  }
+
+  &__type {
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+  }
+
+  &__badge {
+    font-size: $text-xs;
+    @include px(0.5rem);
+    @include py(0.25rem);
+    @include rounded();
+
+    &--optional {
+      color: var(--warning-color-active);
+      background-color: var(--warning-color-light);
+    }
+
+    &--required {
+      color: var(--info-color);
+      background-color: var(--info-color-light);
+    }
+  }
+
+  &__purpose {
+    font-size: $text-sm;
+    margin: 0 0 0.5rem;
+  }
+
+  &__examples {
+    font-size: $text-xs;
+    color: var(--neutral-color);
+  }
+
+  // Color variants
+  &--blue {
+    border-top: 3px solid var(--info-color);
+  }
+  &--green {
+    border-top: 3px solid var(--success-color);
+  }
+  &--amber {
+    border-top: 3px solid var(--fill-color);
+  }
+  &--purple {
+    border-top: 3px solid var(--danger-color);
+  }
+  &--red {
+    border-top: 3px solid var(--error-color);
+  }
+}
+
+// ── Table ────────────────────────────────────────────────────────────────────
+
+.legal__table-wrap {
+  overflow-x: auto;
+  margin-top: 1rem;
+  border: 1px solid var(--border-color);
+  @include rounded();
+}
+
+.legal__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $text-sm;
+
+  th,
+  td {
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border-color);
+    @include px(1rem);
+    @include py(0.75rem);
+  }
+
+  th {
+    white-space: nowrap;
+    color: var(--neutral-color);
+    background-color: var(--neutral-color-light);
+  }
+
+  td {
+    line-height: 1.5;
+
+    code {
+      font-family: monospace;
+      font-size: $text-xs;
+      color: var(--primary-color);
+      background-color: var(--neutral-color-light);
+      @include px(0.25rem);
+      @include py(0.25rem);
+      @include rounded();
+    }
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover td {
+    background-color: var(--neutral-color-light);
+  }
+}
+
+// ── Browser list ─────────────────────────────────────────────────────────────
+
+.legal__browser-list {
+  @include flex(wrap, flex-start, flex-start, 1.5rem);
+
+  &__link {
+    text-decoration: none;
+    font-size: $text-sm;
+    color: var(--primary-color);
+    font-weight: $font-semibold;
+  }
+}

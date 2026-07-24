@@ -1,0 +1,74 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.home {
+  &__trust-bar {
+    background: var(--neutral-color-light);
+    @include py(2.25rem);
+  }
+
+  &__trust-bar-grid {
+    @include grid(1, 2rem);
+
+    @include screen(lg) {
+      @include grid(3fr 2fr, 3rem, 1, center);
+    }
+  }
+
+  &__trust-bar-stats {
+    margin: 0;
+    @include grid(1, 1.5rem);
+
+    @include screen(sm) {
+      @include grid(3, 1.5rem);
+    }
+  }
+
+  &__trust-bar-stat {
+    dt {
+      font-family: $font-title;
+      font-size: $text-3xl;
+      font-weight: $font-bold;
+      color: var(--color);
+      margin: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    dd {
+      margin: 0.2rem 0 0;
+      font-size: $text-sm;
+      color: var(--neutral-color);
+      line-height: 1.4;
+      max-width: 22ch;
+    }
+  }
+
+  &__trust-bar-certs {
+    @include screen(lg) {
+      border-left: 1px solid var(--border-color);
+      padding-left: 3rem;
+    }
+  }
+
+  &__trust-bar-certs-label {
+    margin: 0 0 0.75rem;
+    font-size: $text-xs;
+    color: var(--neutral-color);
+    max-width: 34ch;
+  }
+
+  &__trust-bar-certs-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include flex(row, flex-start, center, 1.25rem);
+    flex-wrap: wrap;
+
+    img {
+      height: 3.25rem;
+      width: auto;
+      opacity: 0.85;
+      filter: grayscale(0.15);
+    }
+  }
+}

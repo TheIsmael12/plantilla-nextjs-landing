@@ -1,0 +1,30 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.support__hero {
+  position: relative;
+  background: var(--light-color);
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+  overflow: hidden;
+  @include py(4rem);
+}
+
+.support__hero-decor {
+  position: absolute;
+  bottom: -3rem;
+  left: -3rem;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+
+  @include screen(sm, max) {
+    display: none;
+  }
+}
+
+.support__hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+}

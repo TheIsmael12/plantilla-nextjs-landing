@@ -1,0 +1,323 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.footer {
+  line-height: 1.6;
+  color: var(--light-color);
+  background-color: var(--primary-color);
+
+  & a {
+    color: var(--light-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--fill-color);
+      text-decoration: underline;
+    }
+  }
+
+  &__container {
+    margin: 0 auto;
+    max-width: var(--max-width);
+    @include pt(2rem);
+    @include px(1.5rem);
+    @include grid(1fr, 2rem);
+  }
+}
+
+// ─── Contact column ─────────────────────────────────────────────────────────
+
+.footer__contact {
+  @include flex(column, flex-start, flex-start, 1rem);
+  @include screen(lg) {
+    @include flex(row, space-between, center, 0rem);
+  }
+
+  &__info {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include flex(row, flex-start, center, 1.5rem);
+
+    // Separador puramente decorativo entre enlaces: una barra dibujada por
+    // CSS (`::before`, sin `content` de texto) en vez de un carácter "|" en
+    // el propio contenido, que un lector de pantalla anunciaría como texto
+    // real y que además necesitaría el mismo contraste que un texto legible.
+    li:not(:first-child) {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: -0.75rem;
+        top: 50%;
+        width: 1px;
+        height: 1em;
+        background-color: var(--fill-color);
+        transform: translateY(-50%);
+      }
+    }
+
+    &-link {
+      color: var(--light-color);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include flex(column, flex-start, flex-start, 0.5rem);
+    @include screen(md) {
+      @include flex(row, flex-start, flex-end, 1.5rem);
+    }
+
+    // Mismo separador decorativo que `__info`, pero solo a partir de `md`:
+    // por debajo, la lista pasa a columna (sin gap horizontal que dividir).
+    li:not(:first-child) {
+      @include screen(md) {
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: -0.75rem;
+          top: 50%;
+          width: 1px;
+          height: 1em;
+          background-color: var(--fill-color);
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    &-link {
+      text-decoration: none;
+      transition: color 0.2s ease;
+      color: var(--light-color);
+      @include flex(row, flex-start, center, 0.5rem);
+
+      & svg {
+        width: 1.15rem;
+        height: 1.15rem;
+      }
+    }
+  }
+}
+
+// ─── Brand & Controls column ────────────────────────────────────────────────
+
+.footer__brand-controls {
+  @include flex(column, flex-start, flex-start, 1.25rem);
+  @include screen(sm) {
+    @include flex(row, space-between, center, 0rem);
+  }
+}
+
+.footer__brand {
+  @include flex(column, flex-start, flex-start, 1rem);
+
+  &__logo {
+    display: inline-block;
+    letter-spacing: -0.03em;
+  }
+
+  &__tagline {
+    max-width: 15rem;
+    font-size: $text-sm;
+    line-height: 1.65;
+  }
+
+  &__socials {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include flex(row, flex-start, center, 0.6rem);
+
+    &-link {
+      width: 2.25rem;
+      height: 2.25rem;
+      background-color: rgba(255, 255, 255, 0.08);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      @include rounded(999px);
+      @include flex(row, center, center, 0);
+
+      img {
+        width: 1.125rem;
+        height: 1.125rem;
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: var(--fill-color);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+.footer__controls {
+  @include flex(row, flex-start, center, 0.6rem);
+
+  &__locale {
+    .change-locale__trigger {
+      height: 2.25rem;
+      padding: 0 0.7rem 0 0.4rem;
+      gap: 0.4rem;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.08);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+
+      &:hover {
+        background-color: var(--fill-color);
+        transform: translateY(-2px);
+      }
+
+      &--open {
+        background-color: var(--fill-color);
+      }
+    }
+
+    .change-locale__trigger__flag {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+
+    .change-locale__trigger__label {
+      font-size: $text-sm;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--light-color);
+    }
+
+    .change-locale__trigger__chevron {
+      width: 0.9rem;
+      height: 0.9rem;
+      color: var(--light-color);
+      opacity: 0.7;
+    }
+  }
+
+  &__theme {
+    @include flex(row, flex-start, center, 0.1rem);
+    padding: 0.2rem;
+    background-color: rgba(255, 255, 255, 0.08);
+    @include rounded(999px);
+
+    &-option {
+      width: 1.85rem;
+      height: 1.85rem;
+      border: none;
+      cursor: pointer;
+      color: var(--light-color);
+      background-color: transparent;
+      opacity: 0.65;
+      transition: background-color 0.2s ease, opacity 0.2s ease;
+      @include rounded(999px);
+      @include flex(row, center, center, 0);
+
+      svg {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      &:hover:not(:disabled) {
+        opacity: 1;
+      }
+
+      &--active {
+        background-color: var(--fill-color);
+        opacity: 1;
+      }
+
+      &:disabled {
+        cursor: default;
+      }
+    }
+  }
+}
+
+// ─── Nav grid ──────────────────────────────────────────────────────────────
+
+.footer__nav {
+  @include grid(1fr, 2rem);
+
+  @include screen(sm) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include screen(lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &__group {
+    @include flex(column, flex-start, flex-start, 0.5rem);
+  }
+
+  &__heading {
+    font-weight: bold;
+    color: var(--light-color);
+
+    &:hover {
+      text-decoration: none;
+      color: var(--primary-color-hover);
+    }
+  }
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include flex(column, flex-start, flex-start, 0.5rem);
+
+    &-link {
+      color: var(--light-color);
+      transition: color 0.2s ease;
+    }
+  }
+}
+
+// ─── Bottom ────────────────────────────────────────────────────────────
+
+.footer__bottom {
+  border-top: 1px solid var(--border-color);
+  @include py(1.25rem);
+  @include flex(column, center, center);
+  @include screen(lg) {
+    @include flex(row, space-between, center);
+  }
+
+  &__copy {
+    font-size: $text-sm;
+
+    a {
+      color: var(--light-color);
+      text-decoration: underline;
+      text-underline-offset: 0.25rem;
+      &:hover {
+        color: #a27aff;
+      }
+    }
+  }
+
+  &__legal {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include flex(column, center, center, 0.5rem);
+    @include screen(sm) {
+      @include flex(row, wrap, center);
+    }
+
+    &-link {
+      text-decoration: none;
+      color: var(--light-color);
+      font-size: $text-sm;
+      transition: color 0.2s ease;
+      text-decoration: underline;
+      text-underline-offset: 0.25rem;
+    }
+  }
+}

@@ -1,0 +1,415 @@
+// Estilos de Table, TablePagination, TableFilters y RowActionsMenu
+// (components/ui/tables/): las cuatro comparten este único parcial porque
+// TablePagination, TableFilters y RowActionsMenu son piezas internas de
+// Table sin story propia.
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.table__container {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+  width: 100%;
+}
+
+.table__toolbar {
+  @include flex($justify: space-between, $gap: 1rem);
+  flex-wrap: wrap;
+
+  &__left {
+    @include flex($justify: flex-start, $align: flex-start, $gap: 0.75rem);
+    flex-wrap: wrap;
+  }
+
+  &__right {
+    position: relative;
+    @include flex($justify: flex-end, $gap: 0.75rem);
+  }
+}
+
+.table__search {
+  width: 100%;
+  max-width: 18rem;
+}
+
+.table__filters {
+  position: relative;
+
+  &__trigger {
+    @include flex($justify: center, $gap: 0.5rem);
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    color: var(--color);
+    font-size: $text-sm;
+    @include rounded();
+    @include py(0.5rem);
+    @include px(0.75rem);
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+      color: var(--neutral-color);
+    }
+  }
+
+  &__count {
+    @include flex($justify: center, $gap: 0);
+    min-width: 1.25rem;
+    height: 1.25rem;
+    font-size: $text-xxs;
+    font-weight: $font-semibold;
+    color: var(--light-color);
+    background-color: var(--primary-color);
+    @include rounded(999px);
+    @include px(0.25rem);
+  }
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + 0.375rem);
+    left: 0;
+    z-index: 50;
+    width: max-content;
+    min-width: 16rem;
+    max-width: 18rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.06);
+    @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+    @include rounded();
+    @include p(0.75rem);
+  }
+
+  &__panel__header {
+    @include flex($justify: space-between, $align: center, $gap: 0.75rem);
+  }
+
+  &__panel__title {
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+
+  &__panel__close {
+    @include flex($justify: center, $gap: 0);
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    background-color: transparent;
+    color: var(--neutral-color);
+    @include rounded();
+
+    &:hover {
+      background-color: var(--neutral-color-light);
+      color: var(--color);
+    }
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  &__field {
+    width: 100%;
+  }
+
+  &__clear {
+    align-self: flex-start;
+    @include flex($justify: flex-start, $gap: 0.375rem);
+    font-size: $text-xs;
+    color: var(--neutral-color);
+    background-color: transparent;
+
+    &:hover {
+      color: var(--color);
+    }
+
+    svg {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+  }
+}
+
+.table__selected-count {
+  @include flex($justify: flex-start, $gap: 0.375rem);
+  font-size: $text-sm;
+  color: var(--neutral-color);
+
+  &__clear {
+    @include flex($justify: center, $gap: 0);
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: transparent;
+    color: var(--neutral-color);
+
+    &:hover {
+      color: var(--color);
+    }
+  }
+}
+
+.table__actions {
+  position: relative;
+
+  &__trigger {
+    @include flex($justify: center, $gap: 0.5rem);
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    color: var(--color);
+    font-size: $text-sm;
+    @include rounded();
+    @include py(0.5rem);
+    @include px(0.75rem);
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  &__menu {
+    position: absolute;
+    top: calc(100% + 0.375rem);
+    right: 0;
+    z-index: 50;
+    min-width: 12rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.06);
+    @include rounded();
+    @include p(0.375rem);
+    list-style: none;
+  }
+
+  &__item {
+    width: 100%;
+    @include flex($justify: flex-start, $gap: 0.5rem);
+    font-size: $text-sm;
+    color: var(--color);
+    background-color: transparent;
+    @include rounded();
+    @include py(0.5rem);
+    @include px(0.5rem);
+
+    &:hover:not(:disabled) {
+      background-color: var(--neutral-color-light);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    &--danger {
+      color: var(--error-color);
+    }
+
+    &__icon {
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.table__row-actions__trigger {
+  @include flex($justify: center, $gap: 0);
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent;
+  color: var(--neutral-color);
+  @include rounded();
+
+  &:hover {
+    background-color: var(--neutral-color-light);
+  }
+}
+
+.table__scroll {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  @include rounded();
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $text-sm;
+
+  th,
+  td {
+    text-align: left;
+    @include py(0.5rem);
+    @include px(1rem);
+  }
+
+  th {
+    background-color:  var(--surface-color)
+  }
+
+  tbody tr {
+    border-top: 1px solid var(--border-color);
+
+    &:hover {
+      background-color: var(--neutral-color-light);
+    }
+  }
+}
+
+.table__head {
+  color: var(--color);
+  font-size: $text-sm;
+}
+
+.table__header {
+  @include flex($justify: flex-start, $gap: 0.375rem);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+
+  &--sortable {
+    cursor: pointer;
+  }
+}
+
+.table__sort-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+
+  &--idle {
+    color: var(--neutral-color);
+  }
+}
+
+.table__state {
+  @include flex($direction: column, $justify: center, $align: center, $gap: 0.5rem);
+  color: var(--neutral-color);
+  font-size: $text-sm;
+  @include py(2rem);
+
+  &--loading svg {
+    animation: table-spin 0.8s linear infinite;
+  }
+}
+
+@keyframes table-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.table__row--selected {
+  background-color: var(--info-color-light);
+}
+
+.table__checkbox {
+  @include flex($justify: center, $gap: 0);
+  cursor: pointer;
+
+  input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  &__box {
+    @include flex($justify: center, $gap: 0);
+    width: 1.125rem;
+    height: 1.125rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    color: transparent;
+    @include rounded();
+
+    svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+  }
+
+  &--checked,
+  &--indeterminate {
+    .table__checkbox__box {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: var(--light-color);
+    }
+  }
+
+  &--radio {
+    .table__checkbox__box {
+      @include rounded(50%);
+    }
+  }
+}
+
+.table__footer {
+  @include flex($justify: space-between, $gap: 1rem);
+  flex-wrap: wrap;
+  font-size: $text-sm;
+  color: var(--neutral-color);
+
+  &__info {
+    strong {
+      color: var(--color);
+    }
+  }
+}
+
+.table__pagination {
+  @include flex($justify: center, $gap: 0.25rem);
+
+  button {
+    @include flex($justify: center, $gap: 0);
+    width: 2rem;
+    height: 2rem;
+    background-color: transparent;
+    color: var(--color);
+    @include rounded();
+
+    &:hover:not(:disabled) {
+      background-color: var(--neutral-color-light);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  &__page {
+    font-size: $text-sm;
+
+    &--active {
+      background-color: var(--primary-color);
+      color: var(--light-color);
+
+      &:hover {
+        background-color: var(--primary-color-hover);
+      }
+    }
+  }
+}
+
+.table__page-size {
+  @include flex($justify: flex-end, $gap: 0.5rem);
+
+  &__select {
+    width: auto;
+    min-width: 4rem;
+  }
+}

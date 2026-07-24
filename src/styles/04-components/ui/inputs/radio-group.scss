@@ -1,0 +1,117 @@
+// Estilos de RadioGroup (components/ui/inputs/RadioGroup.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+// Por defecto (sin modificador) el ancho es automático; &__full y &__md son opt-in.
+.radio-group__field {
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: flex-start,
+    $gap: 0.625rem
+  );
+  width: auto;
+
+  &.radio-group__normal {
+    width: auto;
+    align-items: flex-start;
+  }
+
+  &.radio-group__full {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  &.radio-group__md {
+    min-width: 18rem;
+    align-items: flex-start;
+  }
+}
+
+.radio-group__info {
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: flex-start,
+    $gap: 0.125rem
+  );
+}
+
+.radio-group__label {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.radio-group__description {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+.radio-group {
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: flex-start,
+    $gap: 0.625rem
+  );
+
+  &__option {
+    @include flex($justify: flex-start, $gap: 0.5rem);
+    font-size: $text-sm;
+    color: var(--color);
+    cursor: pointer;
+
+    input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+
+      &:focus-visible + .radio-group__option__indicator {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+      }
+    }
+
+    &__indicator {
+      flex-shrink: 0;
+      width: 1.125rem;
+      height: 1.125rem;
+      border: 1px solid var(--border-color);
+      background-color: var(--surface-color-light);
+      @include rounded(50%);
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0.5rem;
+        height: 0.5rem;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform 0.15s ease;
+      }
+    }
+
+    &--active {
+      .radio-group__option__indicator {
+        border-color: var(--primary-color);
+
+        &::after {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "Routes": {
+    "/": "Inicio",
+    "/services": "Servicios",
+    "/about": "Sobre nosotros",
+    "/blog": "Blog",
+    "/contact": "Contacto",
+    "/careers": "Empleo",
+    "/help": "Ayuda",
+    "/help/support": "Soporte",
+    "/help/faq": "Preguntas frecuentes",
+    "/login": "Acceder",
+    "/privacy-policy": "Política de privacidad",
+    "/conditions": "Condiciones de uso",
+    "/cookies-policy": "Política de cookies",
+    "/complaints-channel": "Canal de reclamaciones"
+  },
+  "Navbar": {
+    "login": "Acceso clientes",
+    "ariaLabel": "Navegación principal",
+    "logoAlt": "Logo de la empresa",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "services": {
+      "allServices": "Todos los servicios"
+    }
+  },
+  "Footer": {
+    "rightsReserved": "Todos los derechos reservados.",
+    "tagline": "",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "location": "Ubicación",
+    "changeLanguage": "Cambiar idioma",
+    "changeTheme": "Cambiar tema",
+    "lightTheme": "Tema claro",
+    "systemTheme": "Tema del sistema",
+    "darkTheme": "Tema oscuro"
+  },
+  "Navigation": {
+    "Routes": {
+      "/dashboard": "Panel",
+      "/users": "Usuarios",
+      "/profile": "Mi perfil",
+      "/profile/sessions": "Sesiones",
+      "/profile/security": "Seguridad",
+      "/profile/notifications": "Notificaciones",
+      "/profile/preferences": "Preferencias",
+      "/profile/preferences/locale": "Idioma",
+      "/profile/preferences/theme": "Apariencia",
+      "/profile/preferences/datetime": "Fecha y hora",
+      "categories": {
+        "menu": "Menú",
+        "account": "Cuenta",
+        "sessionsAndSecurity": "Sesiones y seguridad"
+      }
+    },
+    "Navbar": {
+      "mainNavigation": "Navegación principal",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "notifications": "Notificaciones"
+    },
+    "User": {
+      "userAvatar": "Avatar de usuario"
+    },
+    "Breadcrumbs": {
+      "home": "Inicio",
+      "profile": "Perfil",
+      "sessions": "Sesiones",
+      "security": "Seguridad",
+      "notifications": "Notificaciones",
+      "preferences": "Preferencias",
+      "locale": "Idioma",
+      "theme": "Apariencia",
+      "users": "Usuarios"
+    },
+    "TitleComponent": {
+      "back": "Volver a"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+// Estilos propios de SelectSearch, además de los compartidos con Select (`select.scss`).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.select-search {
+  &__dropdown {
+    // Por encima del modal (z-index 95): este dropdown se porta a
+    // `document.body` igual que `ModalComponent`, así que si se abre un
+    // `SelectSearch` dentro de un modal necesita superar su z-index para no
+    // quedar oculto detrás.
+    z-index: 96;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.06);
+    @include rounded();
+    @include p(0.375rem);
+  }
+
+  &__listbox {
+    max-height: 12rem;
+    overflow-y: auto;
+    @include pr(0.25rem);
+  }
+
+  &__search {
+    @include mb(0.375rem);
+  }
+
+  &__empty {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    text-align: center;
+    @include py(0.75rem);
+  }
+
+  &__match {
+    color: var(--dark-color);
+    font-weight: $font-semibold;
+    background-color: var(--fill-color);
+  }
+}

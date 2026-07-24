@@ -1,0 +1,38 @@
+// Estilos de OtpInput (components/ui/inputs/OtpInput.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.otp-input__group {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.5rem);
+}
+
+.otp-input {
+  @include flex($justify: center, $gap: 0.5rem);
+
+  &--error &__slot {
+    border-color: var(--error-color);
+  }
+
+  &__slot {
+    width: 2.75rem;
+    height: 3rem;
+    text-align: center;
+    font-size: $text-xl;
+    font-weight: $font-semibold;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color-light);
+    color: var(--color);
+    @include rounded();
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    &:disabled {
+      background-color: var(--neutral-color-light);
+      cursor: not-allowed;
+    }
+  }
+}

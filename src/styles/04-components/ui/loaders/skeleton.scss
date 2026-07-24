@@ -1,0 +1,42 @@
+// Estilos de Skeleton (components/ui/loaders/Skeleton.tsx).
+
+@use "../../../01-tools/mixins" as *;
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.skeleton {
+  display: inline-block;
+  background-color: var(--neutral-color);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+
+  &--text {
+    width: 100%;
+    height: 0.875rem;
+    @include rounded(0.25rem);
+  }
+
+  &--circular {
+    width: 2.5rem;
+    height: 2.5rem;
+    @include rounded(50%);
+  }
+
+  &--rectangular {
+    width: 100%;
+    height: 6rem;
+    @include rounded(0.5rem);
+  }
+
+  &__group {
+    @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.5rem);
+  }
+}

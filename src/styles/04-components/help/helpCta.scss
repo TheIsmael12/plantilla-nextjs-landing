@@ -1,0 +1,29 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.help__cta {
+  text-align: center;
+  background: var(--surface-color);
+  @include py(4rem);
+}
+
+.help__cta-inner {
+  max-width: 34rem;
+  @include flex(column, flex-start, center, 1.1rem);
+}
+
+.help__cta-eyebrow {
+  margin: 0;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  opacity: 0.75;
+}
+
+.help__cta-title {
+  margin: 0;
+  font-family: $font-title;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: $font-semibold;
+  line-height: 1.2;
+  text-wrap: balance;
+}

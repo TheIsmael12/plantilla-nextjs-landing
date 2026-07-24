@@ -1,0 +1,17 @@
+@use "../01-tools/mixins" as *;
+
+::selection {
+    color: var(--light-color);
+    background-color: var(--fill-color);
+}
+
+:focus-visible {
+    outline-offset: 3px;
+    outline: 2px solid var(--fill-color-active);
+    @include rounded();
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color-active) var(--background-color);
+}

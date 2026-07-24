@@ -1,0 +1,62 @@
+// Estilos de SessionCard (components/ui/cards/SessionCard.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.session-card {
+  max-width: 35rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
+  @include rounded();
+  @include p(1rem);
+  @include flex($justify: flex-start, $align: center, $gap: 1rem);
+
+  &__icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--neutral-color);
+    background-color: var(--primary-color-light);
+    @include rounded();
+    @include flex($justify: center, $gap: 0);
+  }
+
+  &__info {
+    flex: 1;
+    @include flex(
+      $direction: column,
+      $justify: flex-start,
+      $align: flex-start,
+      $gap: 0.25rem
+    );
+  }
+
+  &__device {
+    @include flex($justify: flex-start, $gap: 0.5rem);
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+
+  &__badge {
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    background-color: var(--success-color-light);
+    @include rounded(999px);
+    @include px(1rem);
+    @include py(0.25rem);
+  }
+
+  &__meta {
+    font-size: $text-xs;
+    color: var(--neutral-color);
+  }
+
+  &__close {
+    flex-shrink: 0;
+
+    &:hover {
+      color: var(--error-color);
+    }
+  }
+}

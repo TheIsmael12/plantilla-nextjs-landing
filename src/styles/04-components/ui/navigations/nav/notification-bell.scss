@@ -1,0 +1,21 @@
+// Estilos de NotificationBell (components/ui/navigations/NotificationBell.tsx).
+
+@use "../../../../01-tools/mixins" as *;
+
+.navbar__notification-bell {
+  @include flex($justify: center, $gap: 0);
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: transparent;
+  color: var(--color);
+  @include rounded(50%);
+
+  &:hover {
+    background-color: var(--neutral-color-light);
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}

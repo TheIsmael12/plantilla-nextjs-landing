@@ -1,0 +1,30 @@
+{
+  "Table": {
+    "loading": "Cargando...",
+    "noResults": "No hay resultados",
+    "search": "Buscar",
+    "searchPlaceholder": "Buscar...",
+    "selectAll": "Seleccionar todo",
+    "selectColumn": "Selección",
+    "selectRow": "Seleccionar fila",
+    "filters": "Filtros",
+    "closeFilters": "Cerrar filtros",
+    "clearFilters": "Limpiar filtros",
+    "actions": "Acciones",
+    "clearSelection": "Limpiar selección",
+    "selected": "{count, plural, one {# seleccionada} other {# seleccionadas}}",
+    "firstPage": "Primera página",
+    "previousPage": "Página anterior",
+    "nextPage": "Página siguiente",
+    "lastPage": "Última página",
+    "goToPage": "Ir a la página {page}",
+    "rowsPerPage": "Filas por página",
+    "pageInfo": "Página <strong>{page}</strong> de <strong>{pageCount}</strong> · <strong>{total}</strong> registros",
+    "Columns": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "role": "Rol",
+      "status": "Estado"
+    }
+  }
+}

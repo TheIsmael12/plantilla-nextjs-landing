@@ -1,0 +1,132 @@
+// Estilos de ChangeLocale (components/ui/inputs/ChangeLocale.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+// Por defecto (sin modificador) el ancho es automático; &__full y &__md son opt-in.
+.change-locale {
+  position: relative;
+  width: auto;
+
+  &.change-locale__normal {
+    width: auto;
+  }
+
+  &.change-locale__full {
+    width: 100%;
+  }
+
+  &.change-locale__md {
+    min-width: 18rem;
+  }
+
+  &__description {
+    font-size: $text-xs;
+    color: var(--neutral-color);
+    @include mt(0.375rem);
+  }
+
+  &__sr-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  &__trigger {
+    @include flex($justify: flex-start, $gap: 0.5rem);
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color-light);
+    color: var(--color);
+    @include rounded();
+    @include py(0.5rem);
+    @include px(0.75rem);
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--border-color-active);
+    }
+
+    &--open {
+      border-color: var(--primary-color);
+    }
+
+    &__flag {
+      position: relative;
+      flex-shrink: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      overflow: hidden;
+      @include rounded(50%);
+    }
+
+    &__label {
+      font-size: $text-sm;
+      flex: 1;
+      text-align: left;
+    }
+
+    &__chevron {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      color: var(--neutral-color);
+    }
+  }
+
+  &__listbox {
+    // Por encima del modal (z-index 95): este listbox se porta a
+    // `document.body` igual que `ModalComponent`, así que si se abre un
+    // `ChangeLocale` dentro de un modal necesita superar su z-index para no
+    // quedar oculto detrás.
+    z-index: 96;
+    max-height: 16rem;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.06);
+    @include rounded();
+    @include p(0.375rem);
+  }
+
+  &__option {
+    @include flex($justify: flex-start, $gap: 0.5rem);
+    font-size: $text-sm;
+    color: var(--color);
+    cursor: pointer;
+    @include rounded();
+    @include py(0.5rem);
+    @include px(0.5rem);
+
+    &--highlighted {
+      background-color: var(--neutral-color-light);
+    }
+
+    &--selected {
+      font-weight: $font-semibold;
+    }
+
+    &__flag {
+      position: relative;
+      flex-shrink: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      overflow: hidden;
+      @include rounded(50%);
+    }
+
+    &__label {
+      flex: 1;
+    }
+
+    &__check {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      color: var(--primary-color);
+    }
+  }
+}

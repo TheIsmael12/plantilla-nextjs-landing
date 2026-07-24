@@ -1,0 +1,73 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.help__topics {
+  @include py(4.5rem);
+}
+
+.help__topics-grid {
+  @include grid(1, 1.5rem);
+
+  @include screen(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.help__topic-card {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  color: inherit;
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+  @include rounded(0.5rem);
+  @include p(2rem);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color-active);
+    box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.12);
+    text-decoration: none;
+  }
+
+  h2 {
+    font-family: $font-title;
+    font-size: $text-xl;
+    color: var(--primary-color);
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+    color: var(--neutral-color);
+    line-height: 1.6;
+  }
+}
+
+.help__topic-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  display: grid;
+  place-items: center;
+  background: rgba(var(--primary-color-rgb), 0.08);
+  color: var(--primary-color);
+  @include rounded(0.5rem);
+}
+
+.help__topic-cta {
+  margin-top: 0.5rem;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--primary-color-active);
+  @include flex(row, flex-start, center, 0.4rem);
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+}
+
+.help__topic-card:hover .help__topic-cta svg {
+  transform: translateX(3px);
+}

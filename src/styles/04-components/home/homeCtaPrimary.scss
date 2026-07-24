@@ -1,0 +1,132 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.home__cta {
+  @include py(4.5rem);
+
+  .home__eyebrow {
+    opacity: 0.75;
+  }
+
+  .home__text-muted {
+    opacity: 0.86;
+  }
+}
+
+.home__cta-grid {
+  @include grid(1, 2.5rem, 1, center);
+
+  @include screen(lg) {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.home__cta-copy {
+  max-width: 34rem;
+}
+
+.home__cta-pills {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  @include flex(column, flex-start, flex-start, 0.85rem);
+}
+
+.home__cta-pill {
+  font-size: $text-base;
+  font-weight: $font-medium;
+  @include flex(row, flex-start, center, 0.6rem);
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--fill-color);
+    flex-shrink: 0;
+  }
+}
+
+.home__cta-action {
+  @include flex(column, flex-start, stretch, 1rem);
+  width: 100%;
+
+  @include screen(lg) {
+    justify-self: end;
+    max-width: 22rem;
+  }
+}
+
+.home__cta-card {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.35);
+  @include rounded(1rem);
+  @include p(1.75rem);
+  @include flex(column, center, center, 1rem);
+}
+
+.home__cta-icon {
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  background: var(--primary-color);
+  color: var(--light-color);
+  @include rounded(999px);
+}
+
+.home__cta-card-label {
+  margin: 0;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.home__cta-button {
+  width: 100%;
+}
+
+.home__cta-divider {
+  @include flex(row, center, center, 0.75rem);
+  color: var(--neutral-color);
+  font-size: $text-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+  }
+}
+
+.home__cta-call {
+  font-size: $text-sm;
+  text-decoration: none;
+  justify-content: center;
+  color: var(--color);
+  @include flex(row, center, center, 0.6rem);
+
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--primary-color-active);
+    flex-shrink: 0;
+  }
+
+  strong {
+    font-weight: $font-semibold;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.home__cta-aside {
+  font-size: $text-xs;
+  opacity: 0.7;
+  margin: 0;
+  text-align: center;
+}

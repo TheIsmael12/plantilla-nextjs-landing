@@ -1,0 +1,43 @@
+{
+  "Common": {
+    "loading": "Cargando...",
+    "imageLogoAlt": "Logo de la aplicación",
+    "goToTop": "Volver arriba",
+    "skipToContent": "Saltar al contenido principal",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "noResults": "No hay resultados",
+    "DatePicker": {
+      "selectDate": "Selecciona una fecha",
+      "selectDateRange": "Selecciona un rango de fechas",
+      "previousMonth": "Mes anterior",
+      "nextMonth": "Mes siguiente",
+      "clearDate": "Borrar fecha",
+      "clearDates": "Borrar fechas",
+      "today": "Hoy",
+      "selected": "Seleccionado",
+      "rangeStartEnd": "Fecha de inicio/fin",
+      "inRange": "Rango seleccionado",
+      "unavailable": "No disponible"
+    },
+    "OtpInput": {
+      "digitLabel": "Dígito {current} de {total}"
+    },
+    "Toast": {
+      "close": "Cerrar",
+      "region": "Notificaciones ({position})",
+      "positions": {
+        "top-left": "arriba a la izquierda",
+        "top-center": "arriba centro",
+        "top-right": "arriba a la derecha",
+        "bottom-left": "abajo a la izquierda",
+        "bottom-center": "abajo centro",
+        "bottom-right": "abajo a la derecha"
+      }
+    },
+    "Errors": {
+      "generic": "Ha ocurrido un error.",
+      "unexpectedError": "Ha ocurrido un error inesperado."
+    }
+  }
+}

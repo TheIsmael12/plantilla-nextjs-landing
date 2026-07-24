@@ -1,0 +1,75 @@
+// Estilos de Sidebar (components/ui/navigations/sidebar/Sidebar.tsx).
+
+@use "../../../../00-settings/typography" as *;
+@use "../../../../01-tools/mixins" as *;
+
+.sidebar__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  @include screen(lg, min) {
+    display: none;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  top: 5rem;
+  left: -18rem;
+  bottom: 0;
+  z-index: 45;
+  width: 18rem;
+  background-color: var(--surface-color);
+  border-right: 1px solid var(--border-color);
+  @include flex(
+    $direction: column,
+    $justify: space-between,
+    $align: stretch,
+    $gap: 1rem
+  );
+  @include p(1.25rem);
+  transition: left 0.2s ease;
+  overflow-y: auto;
+
+  &--open {
+    left: 0;
+  }
+
+  @include screen(lg, min) {
+    left: 0;
+  }
+
+  &__container {
+    @include flex(
+      $direction: column,
+      $justify: flex-start,
+      $align: stretch,
+      $gap: 0.5rem
+    );
+
+    > p {
+      font-size: $text-xxs;
+      font-weight: $font-semibold;
+      color: var(--neutral-color);
+      text-transform: uppercase;
+      @include mb(0.25rem);
+    }
+  }
+
+  &__footer {
+    font-size: $text-xs;
+    color: var(--neutral-color);
+    text-align: center;
+
+    a {
+      color: var(--neutral-color);
+
+      &:hover {
+        color: var(--primary-color);
+      }
+    }
+  }
+}

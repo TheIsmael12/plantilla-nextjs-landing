@@ -1,0 +1,142 @@
+// Estilos propios de DatePicker (components/ui/inputs/DatePicker.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+// Por defecto (sin modificador) el ancho es automático (acotado por el
+// min-width: 22rem de .date-picker); &__full y &__md son opt-in.
+.date-picker__group {
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: flex-start,
+    $gap: 0.375rem
+  );
+  width: auto;
+
+  .date-picker__wrapper,
+  .date-picker {
+    width: auto;
+  }
+
+  &.date-picker__normal {
+    width: auto;
+
+    .date-picker__wrapper,
+    .date-picker {
+      width: auto;
+    }
+  }
+
+  &.date-picker__full {
+    width: 100%;
+
+    .date-picker__wrapper,
+    .date-picker {
+      width: 100%;
+    }
+  }
+
+  &.date-picker__md {
+    min-width: 18rem;
+  }
+}
+
+.date-picker__label {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.date-picker__required {
+  color: var(--error-color);
+}
+
+.date-picker__wrapper {
+  position: relative;
+  width: auto;
+
+  &--sm {
+    .date-picker {
+      @include py(0.375rem);
+    }
+  }
+}
+
+.date-picker {
+  min-width: 18rem;
+  width: auto;
+  text-align: left;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color-light);
+  color: var(--color);
+  font-size: $text-sm;
+  @include rounded();
+  @include py(0.625rem);
+  @include px(0.75rem);
+  padding-right: 4.5rem;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+
+  &:disabled {
+    background-color: var(--neutral-color-light);
+    cursor: not-allowed;
+  }
+
+  &__error {
+    border-color: var(--error-color);
+  }
+
+  &__value {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &--placeholder {
+      color: var(--neutral-color);
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.125rem;
+    height: 1.125rem;
+    color: var(--neutral-color);
+    pointer-events: none;
+  }
+
+  &__clear {
+    position: absolute;
+    right: 2.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--neutral-color);
+    cursor: pointer;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &__panel {
+    // Por encima del modal (z-index 95): este panel se porta a
+    // `document.body` igual que `ModalComponent`, así que si se abre un
+    // `DatePicker` dentro de un modal necesita superar su z-index para no
+    // quedar oculto detrás.
+    z-index: 96;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.06);
+    @include rounded();
+  }
+}

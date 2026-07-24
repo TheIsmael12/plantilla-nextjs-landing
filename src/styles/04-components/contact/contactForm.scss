@@ -1,0 +1,117 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.contact {
+  &__form {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    @include rounded(0.5rem);
+    @include p(2rem);
+    display: grid;
+    gap: 1.5rem;
+
+    @include screen(sm) {
+      @include p(2.5rem);
+    }
+  }
+
+  &__form-header {
+    display: grid;
+    gap: 0.5rem;
+
+    .contact__title-lg {
+      font-size: $text-2xl;
+      margin: 0;
+    }
+  }
+
+  &__form-global-error {
+    background-color: var(--error-color-light);
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
+    font-size: $text-sm;
+    margin: 0;
+    @include px(1rem);
+    @include py(0.75rem);
+    @include rounded(0.5rem);
+  }
+
+  &__form-grid {
+    @include grid(1, 0.25rem);
+
+    @include screen(md) {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1.25rem;
+    }
+
+    // Ensure input groups fill their cell
+    > .input__group,
+    > div > .input__group {
+      width: 100%;
+      margin-bottom: 0;
+    }
+  }
+
+  &__form-full {
+    grid-column: 1 / -1;
+  }
+
+  &__form-footer {
+    @include flex(column, flex-start, stretch, 1rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+
+    @include screen(sm) {
+      @include flex(row, space-between, center, 1.5rem);
+    }
+
+    .btn {
+      justify-content: center;
+
+      @include screen(sm, max) {
+        width: 100%;
+      }
+    }
+  }
+
+  &__form-privacy {
+    font-size: $text-xs;
+    color: var(--neutral-color);
+    margin: 0;
+    line-height: 1.5;
+
+    a {
+      color: var(--primary-color-active);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      &:hover {
+        color: var(--primary-color-hover);
+      }
+    }
+  }
+
+  &__form--success {
+    @include flex(row, center, center, 0);
+  }
+
+  &__form-success {
+    @include flex(column, center, center, 1rem);
+    @include py(4rem);
+    text-align: center;
+
+    svg {
+      width: 3.5rem;
+      height: 3.5rem;
+      color: var(--success-color);
+    }
+
+    p {
+      font-size: $text-lg;
+      font-weight: $font-medium;
+      color: var(--color);
+      margin: 0;
+      max-width: 24rem;
+    }
+  }
+}

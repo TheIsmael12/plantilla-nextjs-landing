@@ -1,0 +1,82 @@
+{
+  "Routes": {
+    "/": "Home",
+    "/services": "Services",
+    "/about": "About us",
+    "/blog": "Blog",
+    "/contact": "Contact",
+    "/careers": "Careers",
+    "/help": "Help",
+    "/help/support": "Support",
+    "/help/faq": "FAQ",
+    "/login": "Sign in",
+    "/privacy-policy": "Privacy policy",
+    "/conditions": "Terms of use",
+    "/cookies-policy": "Cookie policy",
+    "/complaints-channel": "Complaints channel"
+  },
+  "Navbar": {
+    "login": "Client access",
+    "ariaLabel": "Main navigation",
+    "logoAlt": "Company logo",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "services": {
+      "allServices": "All services"
+    }
+  },
+  "Footer": {
+    "rightsReserved": "All rights reserved.",
+    "tagline": "",
+    "email": "Email",
+    "phone": "Phone",
+    "location": "Location",
+    "changeLanguage": "Change language",
+    "changeTheme": "Change theme",
+    "lightTheme": "Light theme",
+    "systemTheme": "System theme",
+    "darkTheme": "Dark theme"
+  },
+  "Navigation": {
+    "Routes": {
+      "/dashboard": "Dashboard",
+      "/users": "Users",
+      "/profile": "My profile",
+      "/profile/sessions": "Sessions",
+      "/profile/security": "Security",
+      "/profile/notifications": "Notifications",
+      "/profile/preferences": "Preferences",
+      "/profile/preferences/locale": "Language",
+      "/profile/preferences/theme": "Appearance",
+      "/profile/preferences/datetime": "Date & time",
+      "categories": {
+        "menu": "Menu",
+        "account": "Account",
+        "sessionsAndSecurity": "Sessions & security"
+      }
+    },
+    "Navbar": {
+      "mainNavigation": "Main navigation",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "notifications": "Notifications"
+    },
+    "User": {
+      "userAvatar": "User avatar"
+    },
+    "Breadcrumbs": {
+      "home": "Home",
+      "profile": "Profile",
+      "sessions": "Sessions",
+      "security": "Security",
+      "notifications": "Notifications",
+      "preferences": "Preferences",
+      "locale": "Language",
+      "theme": "Appearance",
+      "users": "Users"
+    },
+    "TitleComponent": {
+      "back": "Back to"
+    }
+  }
+}

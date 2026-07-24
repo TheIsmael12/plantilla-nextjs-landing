@@ -1,0 +1,13 @@
+// Estilos de TwoFactorDisableModal (components/ui/modals/TwoFactorDisableModal.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.two-factor-disable-modal {
+  @include flex($direction: column, $justify: flex-start, $align: center, $gap: 1rem);
+
+  &__description {
+    font-size: $text-sm;
+    color: var(--neutral-color-active);
+  }
+}

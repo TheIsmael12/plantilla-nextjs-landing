@@ -1,0 +1,855 @@
+{
+  "About": {
+    "hero": {
+      "eyebrow": "About us",
+      "title": "The team that looks after your community, your building and your business",
+      "subtitle": "Imora is a full-service facility management company for businesses, homeowner communities, buildings and shopping centres in Madrid: concierge, security, cleaning, gardening, pools and maintenance, with our own team and 24-hour support.",
+      "cta": "Talk to us",
+      "imageAlt": "Imora concierge helping a resident in the lobby"
+    },
+    "approach": {
+      "eyebrow": "How we work",
+      "title": "Our own team, coordinated by an inspection department",
+      "descriptionA": "Concierges, controllers and technicians hired directly, not subcontracted: the same team that knows your building is the one that looks after it every day.",
+      "descriptionB": "Before proposing anything, we analyse the real needs of each community, building or business and design a tailored maintenance plan, with guaranteed cover and 24-hour support, every day of the year.",
+      "descriptionC": "Our inspection department visits every service on site to check that what was agreed is being delivered, and to spot improvements before they become incidents.",
+      "imageAlt": "Imora maintenance technician checking an installation"
+    },
+    "certifications": {
+      "eyebrow": "Guarantees",
+      "title": "Certifications that back every service",
+      "subtitle": "We have our processes audited externally, so quality, environmental care, workplace safety and data protection don't rest on our word alone.",
+      "items": {
+        "iso9001": {
+          "code": "ISO 9001",
+          "label": "Quality management"
+        },
+        "iso14001": {
+          "code": "ISO 14001",
+          "label": "Environmental management"
+        },
+        "iso45001": {
+          "code": "ISO 45001",
+          "label": "Occupational health and safety"
+        },
+        "iso27001": {
+          "code": "ISO 27001",
+          "label": "Information security"
+        }
+      }
+    },
+    "values": {
+      "eyebrow": "Advantages",
+      "title": "Why communities, buildings and businesses keep trusting Imora",
+      "items": {
+        "team": {
+          "title": "Our own, qualified team",
+          "description": "Concierges, controllers and technicians with the highest guarantee of professionalism, mostly hired directly."
+        },
+        "availability": {
+          "title": "24-hour support",
+          "description": "Available 365 days a year for any incident or emergency that may arise."
+        },
+        "substitutions": {
+          "title": "Guaranteed cover",
+          "description": "We cover any absence at no extra cost, so the service is never interrupted."
+        }
+      }
+    },
+    "cta": {
+      "eyebrow": "Coverage areas",
+      "title": "We work across Madrid and its Community",
+      "zonesLabel": "Madrid Capital and surrounding areas",
+      "zones": [
+        "Madrid capital",
+        "Pozuelo de Alarcón",
+        "Alcorcón"
+      ],
+      "zonesNote": "And nearby municipalities across its metropolitan area.",
+      "button": "Request a quote",
+      "scheduleLabel": "Opening hours",
+      "addressLabel": "Head office"
+    }
+  },
+  "Contact": {
+    "hero": {
+      "eyebrow": "Contact",
+      "title": "Let’s talk?",
+      "subtitle": "We’re here to help. Write to us, call us or come visit us — we’ll get back to you within 24 h."
+    },
+    "form": {
+      "title": "Write to Us",
+      "subtitle": "Fill out the form and we will get back to you within 24 hours.",
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "subject": "Subject",
+        "message": "Message"
+      },
+      "placeholders": {
+        "name": "Your full name",
+        "email": "you@email.com",
+        "subject": "How can we help you?",
+        "message": "Tell us about your enquiry..."
+      },
+      "submit": "Send message",
+      "submitting": "Sending...",
+      "success": "Message sent! We will get back to you as soon as possible.",
+      "privacy": "By submitting you accept our",
+      "privacyLink": "privacy policy"
+    },
+    "map": {
+      "label": "Where We Are",
+      "title": "Come Visit Us",
+      "mapTitle": "Office location map",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "schedule": "Hours",
+      "cta": "Get Directions",
+      "viewOnMaps": "View on Maps",
+      "emergencyLabel": "24h emergencies"
+    },
+    "departments": {
+      "eyebrow": "Departments",
+      "title": "Who would you like to talk to?",
+      "sales": {
+        "name": "Sales",
+        "description": "Tell us what service you need and we'll prepare a tailored quote.",
+        "cta": "Request a quote"
+      },
+      "support": {
+        "name": "Customer service",
+        "description": "Already a customer? We'll resolve incidents and questions about your service as soon as possible.",
+        "cta": "Contact customer service"
+      },
+      "billing": {
+        "name": "Billing",
+        "description": "Invoicing, contracts and administrative management for your community or building.",
+        "cta": "Email billing"
+      }
+    },
+    "trust": {
+      "response": {
+        "value": "< 24 h",
+        "label": "Response time"
+      },
+      "team": {
+        "value": "100%",
+        "label": "Direct contact with the team, no middlemen"
+      },
+      "office": {
+        "value": "Madrid",
+        "label": "Single office, visits by appointment"
+      }
+    }
+  },
+  "Help": {
+    "hero": {
+      "eyebrow": "Help",
+      "title": "How can we help you?",
+      "subtitle": "Whether you're looking for a quick answer or need to talk to our team, choose the option that best fits what you need."
+    },
+    "topics": {
+      "faq": {
+        "title": "Frequently asked questions",
+        "description": "Services, coverage, quotes and guarantees: instant answers to the most common questions, organised by topic.",
+        "cta": "View frequently asked questions"
+      },
+      "support": {
+        "title": "Client support",
+        "description": "Already working with us? Resolve incidents, billing questions or any query about your service with direct attention.",
+        "cta": "Go to support"
+      }
+    },
+    "ctaLabel": "Would rather talk to us directly?",
+    "ctaTitle": "Write to us and we'll reply within 24 hours",
+    "ctaButton": "Contact us"
+  },
+  "Faq": {
+    "hero": {
+      "eyebrow": "Help",
+      "title": "Frequently asked questions",
+      "subtitle": "Everything you need to know about our services, coverage, quotes and how we work, organised by topic. If you can't find what you're looking for, write to us and we'll reply within 24 hours."
+    },
+    "categories": {
+      "services": {
+        "title": "Services",
+        "items": {
+          "overview": {
+            "question": "What services does Imora offer?",
+            "answer": "Concierge and access control, security and CCTV, pool maintenance, cleaning and gardening, and building maintenance. All with our own team, never subcontracted."
+          },
+          "conserjeria": {
+            "question": "What does the concierge service include?",
+            "answer": "Reception, access control, mail distribution and resident assistance, with flexible hours from 6 to 24 hours depending on each building's needs."
+          },
+          "seguridad": {
+            "question": "How does the security and CCTV service work?",
+            "answer": "We handle the project, installation and maintenance of video surveillance and access control systems, protecting your building or shopping centre end to end."
+          },
+          "maintenance": {
+            "question": "Do you handle building maintenance?",
+            "answer": "Yes. Our own technical team covers plumbing, electrics, locksmithing and small works in common areas, with a fast response to faults."
+          }
+        }
+      },
+      "coverageSchedule": {
+        "title": "Coverage and hours",
+        "items": {
+          "coverage": {
+            "question": "Which areas do you work in?",
+            "answer": "We serve businesses, homeowner communities, buildings, shopping centres and car parks in Madrid capital, Pozuelo de Alarcón, Alcorcón and nearby municipalities across its metropolitan area."
+          },
+          "schedule": {
+            "question": "What concierge hours can I contract?",
+            "answer": "Whatever your building needs: from 6 to 24 hours of service. We adapt the schedule to each community's reality, not the other way round."
+          },
+          "availability": {
+            "question": "Do you offer support outside office hours?",
+            "answer": "Yes. In addition to office hours, we provide 24-hour emergency support, 365 days a year, for any incident that can't wait."
+          }
+        }
+      },
+      "quotes": {
+        "title": "Quotes and contracting",
+        "items": {
+          "quote": {
+            "question": "How do I request a quote?",
+            "answer": "Fill in the contact form or call us directly. We carry out an on-site visit and assessment of your community or building, and prepare a fixed quote with a reply within 48 hours, with no obligation."
+          },
+          "financing": {
+            "question": "Do you offer payment facilities?",
+            "answer": "Yes, we defer 40% of the first year's billing, spread across the following monthly payments, interest-free."
+          },
+          "changeService": {
+            "question": "I want to extend or change my contracted service, who do I talk to?",
+            "answer": "Our sales team, who will review your new needs with you and prepare an updated proposal. You can write to them directly from the contact page."
+          }
+        }
+      },
+      "trust": {
+        "title": "Company and guarantees",
+        "items": {
+          "substitutions": {
+            "question": "What happens if a concierge or technician is absent or on leave?",
+            "answer": "We cover any absence with a guaranteed substitute at no extra cost, so the service is never interrupted."
+          },
+          "quality": {
+            "question": "How do you monitor service quality?",
+            "answer": "Our inspection department visits every service on site on a regular basis, to check that what was agreed is being delivered and to spot improvements before they become incidents."
+          },
+          "certifications": {
+            "question": "Are you certified?",
+            "answer": "Yes, we hold ISO 9001 (quality management), ISO 14001 (environmental management), ISO 45001 (occupational health and safety) and ISO 27001 (information security) certifications."
+          },
+          "existingClient": {
+            "question": "I'm already an Imora client, where do I get support?",
+            "answer": "Visit our support page to see the right channel for your query (incidents, sales or billing), or write directly to soporte@imora.es."
+          }
+        }
+      }
+    },
+    "ctaLabel": "Can't find the answer you're looking for?",
+    "ctaTitle": "Write to us and we'll help",
+    "ctaButton": "Contact us"
+  },
+  "Support": {
+    "hero": {
+      "eyebrow": "Help",
+      "title": "Already a client? We're here to help",
+      "subtitle": "No call centres, no middlemen: your query goes straight to the team looking after your community or building. Pick the reason for your query below, or write to us directly."
+    },
+    "routing": {
+      "title": "What kind of help do you need?",
+      "subtitle": "Route your query to the right team and we'll resolve it faster."
+    },
+    "process": {
+      "eyebrow": "How we work",
+      "title": "What happens when you write to us",
+      "steps": {
+        "one": {
+          "title": "Tell us your case",
+          "description": "By email, phone or the contact form: tell us about the incident or question in as much detail as you can."
+        },
+        "two": {
+          "title": "Your team reviews it",
+          "description": "Your query goes straight to the team that already knows and looks after your community or building, with no middlemen."
+        },
+        "three": {
+          "title": "We reply",
+          "description": "Within 24 hours, or immediately if it's an emergency outside office hours."
+        }
+      }
+    },
+    "channels": {
+      "title": "Direct contact",
+      "subtitle": "If you'd rather not wait, write or call us right now.",
+      "email": {
+        "title": "Write to us",
+        "description": "Incidents, questions about your service, or matters concerning your community."
+      },
+      "phone": {
+        "title": "Call us",
+        "description": "General queries about your service, during office hours."
+      },
+      "emergency": {
+        "title": "24-hour emergencies",
+        "description": "Outside office hours, for incidents that can't wait."
+      }
+    },
+    "info": {
+      "eyebrow": "Our office",
+      "title": "One office, close attention",
+      "subtitle": "We welcome visits by appointment; outside office hours, we're still available by phone for any emergency.",
+      "scheduleLabel": "Opening hours",
+      "addressLabel": "Address",
+      "mapLabel": "Map of Imora's office location",
+      "mapCta": "Get directions",
+      "viewOnMaps": "View on Maps",
+      "emergencyLabel": "24h emergency phone"
+    },
+    "faqPrompt": {
+      "eyebrow": "Looking for a quick answer?",
+      "title": "Check our frequently asked questions",
+      "button": "View frequently asked questions"
+    }
+  },
+  "Home": {
+    "hero": {
+      "eyebrow": "Services for businesses, communities and buildings",
+      "title": "We take care of your community, your building, your business",
+      "subtitle": "Concierge, security, cleaning, pool maintenance and full building upkeep for businesses, homeowner communities, shopping centres and buildings in Madrid.",
+      "primaryCta": "Request a quote",
+      "secondaryCta": "View services",
+      "trust": "24/7 support, 365 days a year",
+      "imageAlt": "Imora's concierge and maintenance team",
+      "chipsLabel": "Our most requested services",
+      "chips": {
+        "conserjeria": "Concierge",
+        "seguridad": "Security",
+        "limpieza": "Cleaning",
+        "jardineria": "Gardening",
+        "piscinas": "Pools"
+      }
+    },
+    "trustBar": {
+      "ariaLabel": "Why trust Imora",
+      "items": {
+        "availability": {
+          "value": "24h",
+          "label": "Support every day of the year"
+        },
+        "response": {
+          "value": "48h",
+          "label": "Response to every quote request"
+        },
+        "coverage": {
+          "value": "0€",
+          "label": "Guaranteed cover, no extra cost"
+        },
+        "certifications": {
+          "label": "Certified for quality, environment, workplace safety and information security"
+        }
+      }
+    },
+    "expansion": {
+      "title": "Coverage across Madrid and its Community",
+      "description": "We serve businesses, homeowner communities, shopping centres, car parks and buildings across the city of Madrid and its metropolitan area.",
+      "zonesLabel": "Madrid Capital and surrounding areas",
+      "zones": [
+        "Madrid capital",
+        "Pozuelo de Alarcón",
+        "Alcorcón"
+      ],
+      "zonesNote": "And nearby municipalities across its metropolitan area.",
+      "cta": "Learn about us",
+      "mapLabel": "Imora's coverage areas across the Community of Madrid"
+    },
+    "video": {
+      "cardLabel": "Imora team video",
+      "imageAlt": "Maintenance and concierge team at work",
+      "playLabel": "Play video",
+      "caption": "This is how we take care of every community, step by step",
+      "title": "This is Imora",
+      "descriptionA": "An in-house team of concierges, controllers and technicians, coordinated by an inspection department that checks every service on site.",
+      "descriptionB": "We analyse each property's needs and design a tailored maintenance plan, with guaranteed cover for absences and 24-hour support."
+    },
+    "services": {
+      "title": "Our services",
+      "subtitle": "A full range of services for communities, buildings, shopping centres and car parks, backed by the Imora guarantee.",
+      "prev": "Previous services",
+      "next": "Next services",
+      "slideLabel": "Service {index}: {name}",
+      "viewService": "View service",
+      "serviceLinkAria": "View service: {name}"
+    },
+    "mosaic": {
+      "title": "Advantages of working with Imora",
+      "subtitle": "Resources, flexibility and guarantees designed for your community's day-to-day needs.",
+      "cards": {
+        "experts": {
+          "title": "Our own qualified team",
+          "description": "Concierges, controllers and technicians with the highest guarantee of professionalism, mostly hired directly.",
+          "imageAlt": "Imora concierge professional"
+        },
+        "model": {
+          "title": "Maximum schedule flexibility",
+          "description": "From 6 to 24 hours of service, adapted to the real needs of each property."
+        },
+        "business": {
+          "title": "Guaranteed cover for absences",
+          "description": "We cover any absence at no extra cost, so the service is never interrupted."
+        },
+        "support": {
+          "title": "24-hour support",
+          "description": "Available 365 days a year for any incident or emergency that may arise."
+        },
+        "purchase": {
+          "title": "Interest-free financing",
+          "description": "We defer 40% of the first year's billing, spread across the following years' instalments."
+        },
+        "feature": {
+          "title": "Periodic quality inspection",
+          "description": "Our inspection department visits every service to ensure its continuous improvement.",
+          "imageAlt": "Facilities inspection"
+        }
+      }
+    },
+    "reviews": {
+      "title": "What our clients say",
+      "subtitle": "Real communities and businesses that trust Imora to look after their facilities.",
+      "prev": "Previous reviews",
+      "next": "Next reviews",
+      "ratingLabel": "5 out of 5 stars",
+      "slideLabel": "Review {index}: {name}",
+      "items": {
+        "marta": {
+          "name": "Marta Iglesias",
+          "role": "President - Homeowners' Community, Pozuelo",
+          "quote": "Since Imora took over the concierge and maintenance service, we no longer worry about incidents. They always respond the same day."
+        },
+        "luis": {
+          "name": "Luis Herrera",
+          "role": "Manager - Shopping Centre, Alcorcón",
+          "quote": "The security and CCTV service gives us peace of mind around the clock. Imora's team is always approachable and professional."
+        },
+        "anna": {
+          "name": "Ana Belén Ruiz",
+          "role": "Property manager - Madrid",
+          "quote": "I manage several communities, and in every one where Imora comes in, conflicts drop: fixed concierges, covered absences and a fixed quote."
+        }
+      }
+    },
+    "ctaPrimary": {
+      "eyebrow": "Quote",
+      "title": "Need a service for your business, community or building?",
+      "subtitle": "Tell us what you need and we'll prepare a tailored proposal, with no obligation.",
+      "pillsLabel": "Included",
+      "pillA": "On-site visit and assessment",
+      "pillB": "Fixed quote",
+      "pillC": "Reply within 48h",
+      "button": "Request a quote",
+      "callCta": "Or call us directly",
+      "aside": "No obligation. We'll call you to understand your needs.",
+      "cardLabel": "We reply within 48 hours",
+      "orLabel": "or"
+    }
+  },
+  "Services": {
+    "index": {
+      "eyebrow": "Services",
+      "title": "Everything your business, community or building needs, from a single provider",
+      "subtitle": "Six specialised services for businesses, homeowner communities, buildings and shopping centres, coordinated by a single team."
+    },
+    "items": {
+      "concierge": {
+        "tag": "Service 01",
+        "title": "Concierge and access control",
+        "summary": "Reception, access control, mail handling and support for residents, staff or customers, with flexible schedules from 6 to 24 hours for communities, buildings, businesses and shopping centres.",
+        "description": "A concierge is the first impression of your community, your building or your business, and the filter that keeps unauthorised people out. We select and train our own staff for residential lobbies, company premises and shopping-centre entrances, and cover sick leave and holidays without ever leaving the desk empty.",
+        "cta": "Request concierge for my community, building or business",
+        "subservices": [
+          {
+            "icon": "UserCheck",
+            "title": "Reception and resident support",
+            "image": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80",
+            "description": "The concierge knows every resident by name and which suppliers each home has authorised. Anything they can't resolve on the spot gets logged in a daily report and reaches the property administrator that same day, not at month's end."
+          },
+          {
+            "icon": "ScanLine",
+            "title": "Access control",
+            "image": "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?auto=format&fit=crop&w=900&q=80",
+            "description": "Every visit is logged with an entry time, and the concierge checks identity before letting in anyone they don't recognise. Couriers follow a specific protocol so as not to disturb residents at night."
+          },
+          {
+            "icon": "Package",
+            "title": "Mail and parcels",
+            "image": "https://images.unsplash.com/photo-1560184611-ff3e53f00e8f?auto=format&fit=crop&w=900&q=80",
+            "description": "Parcels that need a signature are kept in a marked area and residents are notified through whatever channel the community chooses: a note, WhatsApp or an app. Registered mail and official notices are always handled with proof of receipt."
+          },
+          {
+            "icon": "RefreshCcw",
+            "title": "Cover for sick leave and holidays",
+            "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80",
+            "description": "Before starting their shift, the substitute is briefed on the building's particulars: residents with special needs, regular suppliers, open incidents. The goal is for the change of person to go unnoticed by the community."
+          }
+        ],
+        "faq": [
+          {
+            "question": "How much does the concierge service cost?",
+            "answer": "It depends on the coverage hours (part-time or 24 hours) and the size of the building. We prepare a fixed quote after visiting the property, with no hidden fees."
+          },
+          {
+            "question": "Can I switch concierge providers without issues?",
+            "answer": "Yes. We handle the transition with the current property administrator, and if the existing concierge wants to stay on, we consider bringing them onto Imora's team."
+          },
+          {
+            "question": "What happens if the concierge gets sick?",
+            "answer": "We cover the absence with another professional of the same profile, at no extra cost and with no interruption to the service."
+          },
+          {
+            "question": "Can I hire coverage for mornings only?",
+            "answer": "Yes, shifts are adapted to what each community needs: half-day, split shift or full 6-to-24-hour coverage."
+          }
+        ]
+      },
+      "security": {
+        "tag": "Service 02",
+        "title": "Security and CCTV",
+        "summary": "Design, installation and maintenance of video surveillance and access control systems to protect your community, building, business or shopping centre.",
+        "description": "We design the security system around the actual access points of each community, building, business or shopping centre, install it, and maintain it so cameras and access controls are still working the day they're actually needed.",
+        "cta": "Request a security assessment for my building or business",
+        "subservices": [
+          {
+            "icon": "Camera",
+            "title": "Video surveillance (CCTV)",
+            "image": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=900&q=80",
+            "description": "Cameras go where the building's actual blind spots are (entrances, garage, common areas), not in a standard pattern. Footage is kept for a maximum of 30 days, following the Spanish data protection authority's general guidance on video surveillance."
+          },
+          {
+            "icon": "KeyRound",
+            "title": "Electronic access control",
+            "image": "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&w=900&q=80",
+            "description": "Each card or code is tied to a specific home and, if the community asks, to a specific time window. For example, to let an external cleaning crew in only during their contracted hours, with no one needing to open the door for them."
+          },
+          {
+            "icon": "Wrench",
+            "title": "Equipment maintenance",
+            "image": "https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=900&q=80",
+            "description": "We check cameras and recorders every quarter, and replace recording drives before they fail from wear. The goal is to catch the problem before the community realises it has gone weeks without recording anything."
+          },
+          {
+            "icon": "Siren",
+            "title": "Incident response",
+            "image": "https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?auto=format&fit=crop&w=900&q=80",
+            "description": "A technician reviews the report within 24 working hours. If the fault compromises the building's security, such as a downed access camera or a door that won't lock, it becomes an immediate priority."
+          }
+        ],
+        "faq": [
+          {
+            "question": "How long is footage kept?",
+            "answer": "A maximum of 30 days, following the Spanish data protection authority's general guidance, unless it's needed for an ongoing investigation."
+          },
+          {
+            "question": "Who can view the recordings?",
+            "answer": "Only staff authorised by the community, usually the president and the property administrator, with restricted, logged access."
+          },
+          {
+            "question": "Can the system be expanded later?",
+            "answer": "Yes, the project is designed so cameras or access-control points can be added later without replacing the whole system."
+          },
+          {
+            "question": "What happens if a camera stops working?",
+            "answer": "The report is treated as a security incident, not routine maintenance: a technician reviews the fault within 24 working hours."
+          }
+        ]
+      },
+      "pools": {
+        "tag": "Service 03",
+        "title": "Pool maintenance",
+        "summary": "Full pool service, with qualified lifeguards throughout the summer season, for homeowner communities, buildings and complexes with a swimming area.",
+        "description": "We handle the chemical maintenance and cleaning of the community pool, and provide qualified lifeguards throughout the swimming season so the community, building or complex can enjoy the pool fully up to code.",
+        "cta": "Get my pool ready for the season",
+        "subservices": [
+          {
+            "icon": "Droplet",
+            "title": "Water chemical maintenance",
+            "image": "https://images.unsplash.com/photo-1470723710355-95304d8aece4?auto=format&fit=crop&w=900&q=80",
+            "description": "We measure pH (target 7.2-7.6) and free chlorine (0.5-2 mg/l) daily, following Spanish health regulations for collective-use pools. Dosing is adjusted to that day's actual pool usage, not a fixed factory routine."
+          },
+          {
+            "icon": "Brush",
+            "title": "Cleaning the pool and deck",
+            "image": "https://images.unsplash.com/photo-1611843467160-25afb8df1074?auto=format&fit=crop&w=900&q=80",
+            "description": "The pool floor and walls are brushed to prevent algae, and the deck area is cleaned daily during peak season, which is when it actually gets dirty. The goal is for it to actually be clean, not just look it."
+          },
+          {
+            "icon": "LifeBuoy",
+            "title": "Qualified lifeguards",
+            "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=80",
+            "description": "Lifeguards hold a current official water-rescue qualification and cover the full swimming hours the community sets, with no unwatched gap at midday or on the last weekend of the season."
+          },
+          {
+            "icon": "CalendarClock",
+            "title": "Season opening and closing",
+            "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80",
+            "description": "Before opening we check pumps, filters and the dosing system, and deep-clean after winter. When closing, we cover the pool and protect the equipment from humidity and cold so it reaches next season intact."
+          }
+        ],
+        "faq": [
+          {
+            "question": "When does the service run, from and to?",
+            "answer": "Usually from June to September, but we adjust the dates to the actual opening and closing calendar the community decides on."
+          },
+          {
+            "question": "Do I need a lifeguard if the pool is small?",
+            "answer": "It depends on regional regulations and the pool's capacity; we advise you based on your community's specific case."
+          },
+          {
+            "question": "What happens if the lifeguard is out for a day?",
+            "answer": "We cover the absence with another qualified lifeguard; the pool is never left unwatched during the contracted hours."
+          },
+          {
+            "question": "Can I hire just the chemical maintenance, without a lifeguard?",
+            "answer": "Yes, water maintenance and lifeguarding can be contracted separately, depending on what the community already has covered."
+          }
+        ]
+      },
+      "cleaning": {
+        "tag": "Service 04",
+        "title": "Complete cleaning",
+        "summary": "Cleaning of common areas, windows and garages so your community, building, business or shopping centre looks its best all year round.",
+        "description": "A fixed team takes care of cleaning the entrance, stairs, common areas and garage, at whatever frequency each community, building, business or shopping centre needs.",
+        "cta": "Ask about a cleaning plan",
+        "subservices": [
+          {
+            "icon": "Brush",
+            "title": "Cleaning common areas",
+            "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80",
+            "description": "The team follows a task plan by area (entrance, stairs, lift) so no corner gets skipped, at whatever frequency the community, building or business decides: from daily to twice a week."
+          },
+          {
+            "icon": "AppWindow",
+            "title": "Window cleaning",
+            "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+            "description": "Entrance and common-area windows are part of the regular plan. Accessible façade cleaning with a pole is scheduled as an add-on depending on the building's height and access, not bundled by default in every case."
+          },
+          {
+            "icon": "Warehouse",
+            "title": "Garage cleaning",
+            "image": "https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=900&q=80",
+            "description": "Sweeping and mopping the ramp, parking spaces and aisles, with specific treatment for oil and grease stains. Scheduled at whatever frequency the community's, building's or business's car park needs."
+          },
+          {
+            "icon": "PackageCheck",
+            "title": "Supply of materials",
+            "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=900&q=80",
+            "description": "Cleaning products meet current regulations, and Imora offers eco-friendly alternatives at no extra cost if the community prefers them. The community or business never has to buy or store products."
+          }
+        ],
+        "faq": [
+          {
+            "question": "How often is the building cleaned?",
+            "answer": "Whatever the community, building or business decides: from a weekly clean to a daily team, depending on the size and use of the property."
+          },
+          {
+            "question": "Does it include cleaning inside private homes or offices?",
+            "answer": "No, the service covers common areas only: entrance, stairs, garage and shared outdoor areas."
+          },
+          {
+            "question": "Can I request a one-off clean, not a recurring one?",
+            "answer": "Yes, for example after building work or before a community or business event, as an add-on to the regular plan."
+          },
+          {
+            "question": "Is garage cleaning included?",
+            "answer": "It can be included in the general plan or hired as an add-on, depending on the condition and use of the garage or car park."
+          }
+        ]
+      },
+      "gardening": {
+        "tag": "Service 05",
+        "title": "Gardening and green areas",
+        "summary": "Design, upkeep and pruning of gardens and green areas for communities, buildings, businesses and shopping centres.",
+        "description": "A gardening team experienced in communities and commercial spaces handles pruning, irrigation and the upkeep of lawns, hedges and green areas, with periodic visits or an annual plan depending on what each property or business needs.",
+        "cta": "Ask about a gardening plan",
+        "subservices": [
+          {
+            "icon": "Trees",
+            "title": "Pruning and tree care",
+            "image": "https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=900&q=80",
+            "description": "Pruning is planned around each plant's species and flowering season, not a fixed date for the whole garden. Pruning a tree or rose bush at the wrong time can cost you a whole year's blooms or growth."
+          },
+          {
+            "icon": "Droplet",
+            "title": "Automatic irrigation and water control",
+            "image": "https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&w=900&q=80",
+            "description": "We check and program automatic irrigation systems to match water use to the season, avoiding both plant water stress and unnecessary spending across common areas, outdoor car parks or business and shopping-centre entrances."
+          },
+          {
+            "icon": "Flower2",
+            "title": "Lawns, hedges and ornamental areas",
+            "image": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=900&q=80",
+            "description": "Mowing, hedge trimming and care of ornamental areas at whatever frequency the season sets, so the green areas of the community, building or shopping centre stay well kept all year round."
+          },
+          {
+            "icon": "Leaf",
+            "title": "Green waste removal",
+            "image": "https://images.unsplash.com/photo-1592210454359-9043f067919b?auto=format&fit=crop&w=900&q=80",
+            "description": "Pruning, mowing and leaf waste is removed after every visit, so the garden area and vehicle or pedestrian access are never left cluttered with green waste."
+          }
+        ],
+        "faq": [
+          {
+            "question": "Can gardening be hired together with cleaning?",
+            "answer": "Yes, it can be hired together with the cleaning service or on its own, depending on what the community, building or business already has in place."
+          },
+          {
+            "question": "How often is the upkeep carried out?",
+            "answer": "Whatever each community or business decides: from fortnightly visits to a weekly plan during peak season, when growth is highest."
+          },
+          {
+            "question": "Do you service gardens for small communities as well as shopping centres or business parks?",
+            "answer": "Yes, we adapt the team and frequency to the real size of the green area, from a lobby garden to the outdoor areas of a shopping centre or business park."
+          },
+          {
+            "question": "Does it include replacing plants that don't survive?",
+            "answer": "Replacing dead or damaged plants is quoted as an add-on service, since it depends on the species and the cause of the damage."
+          }
+        ]
+      },
+      "maintenance": {
+        "tag": "Service 06",
+        "title": "Building maintenance",
+        "summary": "Plumbing, electrics, locksmithing and small works for communities, buildings, businesses and shopping centres, with an in-house technical team and fast response times.",
+        "description": "We resolve day-to-day maintenance issues across communities, buildings, businesses and shopping centres with our own technical team (not subcontracted), which lets us respond quickly to plumbing, electrical, locksmith or small building work issues.",
+        "cta": "Request technical maintenance for my community or business",
+        "subservices": [
+          {
+            "icon": "Droplet",
+            "title": "Plumbing",
+            "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80",
+            "description": "Leaks and faults in common areas are handled with the tools the technician already carries, without waiting to source a part. More complex repairs get a quote before any work starts, with no surprises on the bill."
+          },
+          {
+            "icon": "Zap",
+            "title": "Electrics",
+            "image": "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=900&q=80",
+            "description": "We check the main distribution board and common-area lighting, and progressively swap old fittings for LED on request. The community sees the difference directly on its electricity bill."
+          },
+          {
+            "icon": "KeyRound",
+            "title": "Locksmithing",
+            "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=900&q=80",
+            "description": "A locksmith problem on a common-area entrance is treated as urgent because it's a security issue, not routine maintenance that can wait until Monday."
+          },
+          {
+            "icon": "Hammer",
+            "title": "Small works",
+            "image": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=900&q=80",
+            "description": "One-off masonry, painting or carpentry repairs in common areas that many property administrators leave pending for months for lack of someone to call."
+          }
+        ],
+        "faq": [
+          {
+            "question": "How do I report a fault?",
+            "answer": "By phone, email, or through the building's concierge if you also have that service; the technician reviews the report within the agreed time."
+          },
+          {
+            "question": "Are parts and materials included?",
+            "answer": "Labour is covered by the contracted plan; materials and replacement parts are quoted separately before any work starts."
+          },
+          {
+            "question": "Do you handle emergencies outside office hours?",
+            "answer": "Yes, through the 24-hour emergency phone line for issues that can't wait until the next day."
+          },
+          {
+            "question": "Can I hire just one type of maintenance, like electrics?",
+            "answer": "Yes, each area (plumbing, electrics, locksmithing, small works) can be contracted independently."
+          }
+        ]
+      }
+    },
+    "detail": {
+      "back": "All services",
+      "otherServicesTitle": "Other services we also manage",
+      "ctaEyebrow": "Contact",
+      "ctaTitle": "Shall we talk about your building?",
+      "ctaSubtitle": "Tell us what you need and we'll prepare a tailored proposal, no strings attached.",
+      "ctaButton": "Contact us now",
+      "ctaCardLabel": "We'll have a proposal ready in under 48 hours",
+      "ctaOrLabel": "or",
+      "ctaPillAvailability": "24-hour support, 365 days a year",
+      "ctaPillGuarantee": "Guaranteed cover at no extra cost",
+      "subservicesTitle": "Everything we do, no fine print",
+      "ctaSecondaryButton": "See all services",
+      "ctaUrgentLabel": "Is it urgent?",
+      "subservicesCount": "{count} services included",
+      "subservicesEyebrow": "In detail",
+      "faqTitle": "Frequently asked questions about this service"
+    },
+    "viewService": "View service",
+    "process": {
+      "eyebrow": "How we work",
+      "title": "From the first call to the service up and running",
+      "steps": {
+        "one": {
+          "title": "Tell us what you need",
+          "description": "By phone, email or the contact form: tell us about your community or building and what service you're looking for."
+        },
+        "two": {
+          "title": "We prepare a tailored proposal",
+          "description": "We visit the site if needed and send you a quote adjusted to your real needs, with no surprises."
+        },
+        "three": {
+          "title": "The assigned team gets started",
+          "description": "The same team that prepared the proposal is the one that gets to work, followed up by our inspection department."
+        }
+      }
+    }
+  },
+  "NotFound": {
+    "code": "Error 404",
+    "title": "This page does not exist",
+    "description": "The link might be broken, or the page may have moved. Go back home or visit the help centre.",
+    "helpLink": "Go to the help centre"
+  },
+  "Views": {
+    "Profile": {
+      "Sessions": {
+        "unknownBrowser": "Unknown browser",
+        "unknownOs": "Unknown operating system",
+        "current": "Current session",
+        "lastUsed": "Last used:",
+        "expires": "Expires:"
+      },
+      "Security": {
+        "TwoFactor": {
+          "BackupCodes": {
+            "title": "Save your backup codes",
+            "description": "Save these codes somewhere safe. Each one can only be used once, and they'll let you access your account if you lose access to your authenticator app.",
+            "fileName": "backup-codes.txt"
+          },
+          "Setup": {
+            "confirmTitle": "Confirm the code",
+            "confirmDescription": "Enter the 6-digit code generated by your authenticator app to complete the activation.",
+            "scanTitle": "Set up two-factor authentication",
+            "loadingSetup": "Generating your QR code...",
+            "step1": "Install an authenticator app on your phone.",
+            "step2": "Scan the QR code or enter the key manually.",
+            "step3": "Enter the 6-digit code the app generates.",
+            "appsTitle": "Recommended apps",
+            "download": "Download",
+            "mobileOnly": "Only available on mobile",
+            "scanDescription": "Scan this QR code with your authenticator app",
+            "manualEntry": "Can't scan it? Enter this key manually:"
+          },
+          "Disable": {
+            "title": "Disable two-factor authentication",
+            "description": "Enter your current password and the code from your authenticator app to disable two-factor authentication."
+          }
+        }
+      }
+    }
+  }
+}

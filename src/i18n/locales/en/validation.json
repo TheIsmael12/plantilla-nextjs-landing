@@ -1,0 +1,26 @@
+{
+  "Validations": {
+    "contact": {
+      "nameRequired": "Name is required.",
+      "emailRequired": "Email is required.",
+      "emailInvalid": "Please enter a valid email address.",
+      "subjectRequired": "Subject is required.",
+      "messageRequired": "Message is required.",
+      "messageMin": "Message must be at least 10 characters."
+    },
+    "common": {
+      "required": "This field is required.",
+      "invalid": "The value entered is not valid."
+    },
+    "generic": {
+      "required": "This field is required."
+    },
+    "security": {
+      "passwordRequired": "This field is required.",
+      "codeRequired": "Enter the complete 6-digit code."
+    },
+    "required": "This field is required.",
+    "otpLength": "Enter the complete 6-digit code.",
+    "passwordMin": "Password must be at least 8 characters."
+  }
+}

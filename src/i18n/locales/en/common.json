@@ -1,0 +1,43 @@
+{
+  "Common": {
+    "loading": "Loading...",
+    "imageLogoAlt": "Application logo",
+    "goToTop": "Back to top",
+    "skipToContent": "Skip to main content",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "noResults": "No results found",
+    "DatePicker": {
+      "selectDate": "Select a date",
+      "selectDateRange": "Select a date range",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "clearDate": "Clear date",
+      "clearDates": "Clear dates",
+      "today": "Today",
+      "selected": "Selected",
+      "rangeStartEnd": "Start/end date",
+      "inRange": "Selected range",
+      "unavailable": "Unavailable"
+    },
+    "OtpInput": {
+      "digitLabel": "Digit {current} of {total}"
+    },
+    "Toast": {
+      "close": "Close",
+      "region": "Notifications ({position})",
+      "positions": {
+        "top-left": "top left",
+        "top-center": "top center",
+        "top-right": "top right",
+        "bottom-left": "bottom left",
+        "bottom-center": "bottom center",
+        "bottom-right": "bottom right"
+      }
+    },
+    "Errors": {
+      "generic": "An error has occurred.",
+      "unexpectedError": "An unexpected error has occurred."
+    }
+  }
+}

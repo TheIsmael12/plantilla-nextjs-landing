@@ -1,0 +1,55 @@
+// Estilos de Navbar (components/ui/navigations/Navbar.tsx).
+
+@use "../../../../01-tools/mixins" as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  @include flex($justify: space-between, $gap: 1rem);
+  background-color: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  height: 5rem;
+  @include px(1.5rem);
+  @include py(0.75rem);
+  transition: box-shadow 0.2s ease;
+
+  // Solo sombra añadida al hacer scroll; la posición ya es fija siempre (el
+  // hueco lo reserva `.main` con padding-top, sin depender de JS).
+  &--scrolled {
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+
+  &__header {
+    @include flex($justify: flex-start, $gap: 1rem);
+
+    &__button {
+      // `flex()` fija su propio display:flex; hay que declarar el "none" de
+      // base DESPUÉS del include para que no quede anulado y el botón sea
+      // visible en todos los tamaños.
+      @include flex($justify: center, $gap: 0);
+      display: none;
+      width: 2.25rem;
+      height: 2.25rem;
+      background-color: transparent;
+      color: var(--color);
+      @include rounded();
+
+      &:hover {
+        background-color: var(--neutral-color-light);
+      }
+
+      @include screen(lg, max) {
+        display: flex;
+      }
+    }
+  }
+
+  &__container {
+    @include flex($justify: flex-end, $gap: 1rem);
+  }
+}

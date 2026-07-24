@@ -1,0 +1,140 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.services__detail-cta {
+  background: var(--surface-color);
+  @include py(4.5rem);
+}
+
+.services__detail-cta-grid {
+  @include grid(1, 2.5rem, 1, center);
+
+  @include screen(lg) {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.services__detail-cta-copy {
+  max-width: 34rem;
+}
+
+.services__detail-cta-title {
+  margin: 0;
+  font-family: $font-title;
+  font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+  font-weight: $font-semibold;
+  line-height: 1.25;
+  text-wrap: balance;
+  color: var(--primary-color);
+}
+
+.services__detail-cta-pills {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  @include flex(column, flex-start, flex-start, 0.75rem);
+}
+
+.services__detail-cta-pill {
+  font-size: $text-base;
+  font-weight: $font-medium;
+  color: var(--color);
+  @include flex(row, flex-start, center, 0.6rem);
+
+  svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    color: var(--fill-color-active);
+    flex-shrink: 0;
+  }
+}
+
+.services__detail-cta-secondary {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--primary-color-active);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.services__detail-cta-action {
+  @include flex(column, flex-start, stretch, 1rem);
+  width: 100%;
+
+  @include screen(lg) {
+    justify-self: end;
+    max-width: 22rem;
+  }
+}
+
+.services__detail-cta-card {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.35);
+  @include rounded(1rem);
+  @include p(1.75rem);
+  @include flex(column, center, center, 1rem);
+}
+
+.services__detail-cta-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  display: grid;
+  place-items: center;
+  background: var(--primary-color);
+  color: var(--light-color);
+  box-shadow: 0 10px 20px -10px rgba(var(--primary-color-rgb), 0.5);
+  @include rounded(999px);
+}
+
+.services__detail-cta-card-label {
+  margin: 0;
+  text-align: center;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.services__detail-cta-button {
+  width: 100%;
+}
+
+.services__detail-cta-divider {
+  width: 100%;
+  @include flex(row, center, center, 0.75rem);
+  color: var(--neutral-color);
+  font-size: $text-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+  }
+}
+
+.services__detail-cta-urgent {
+  @include flex(row, center, center, 0.5rem);
+  font-size: $text-sm;
+  color: var(--warning-color-active);
+  background: var(--warning-color-light);
+  @include px(1rem);
+  @include py(0.5rem);
+  @include rounded(999px);
+
+  strong {
+    font-weight: $font-semibold;
+  }
+
+  &:hover {
+    text-decoration: none;
+    background: var(--warning-color-light);
+  }
+}

@@ -1,0 +1,133 @@
+// Bloques base compartidos por todas las secciones de Home
+// (`home__container`, `home__eyebrow`, `home__title-lg`, `home__text-muted`,
+// `home__btn`). Cada sección puede sobreescribir puntualmente algún valor
+// (p. ej. el color del título sobre fondos oscuros) mediante un selector más
+// específico, pero la definición base vive aquí para no duplicarla.
+//
+// Usa siempre los tokens de color globales (`00-settings/_colors.scss`) y
+// los mixins de `01-tools/` — nada de variables ni colores nuevos.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.home {
+  overflow-x: hidden;
+}
+
+.home__container {
+  margin: 0 auto;
+  max-width: var(--max-width);
+  @include px(1.5rem);
+}
+
+.home__eyebrow {
+  font-family: $font-family-base;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--primary-color-active);
+  margin: 0 0 0.6rem;
+}
+
+.home__title-lg {
+  font-family: $font-title;
+  font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+  font-weight: $font-semibold;
+  color: var(--primary-color);
+  line-height: 1.14;
+  text-wrap: balance;
+  margin: 0 0 0.85rem;
+}
+
+.home__text-muted {
+  font-family: $font-family-base;
+  font-size: $text-base;
+  color: var(--neutral-color);
+  line-height: 1.68;
+  margin: 0;
+}
+
+.home__btn {
+  @include flex(row, center, center, 0.55rem);
+  @include px(1.6rem);
+  height: 3rem;
+  width: fit-content;
+  font-family: $font-family-base;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  @include rounded(0.5rem);
+
+  &:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color-active);
+    outline-offset: 2px;
+  }
+
+  &--primary {
+    background: var(--primary-color);
+    color: var(--light-color);
+    border-color: var(--primary-color);
+
+    &:hover {
+      background: var(--primary-color-hover);
+    }
+  }
+  &--accent {
+    background: var(--fill-color);
+    color: var(--dark-color);
+    border-color: var(--fill-color);
+    box-shadow: 0 10px 24px -8px rgba(var(--primary-color-rgb), 0.35);
+
+    &:hover {
+      background: var(--fill-color-hover);
+      border-color: var(--fill-color-hover);
+    }
+  }
+
+  &--light {
+    background: var(--light-color);
+    color: var(--primary-color);
+    border-color: var(--light-color);
+
+    &:hover {
+      background: var(--neutral-color-light);
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: var(--color);
+    border-color: var(--border-color);
+
+    &:hover {
+      background: var(--neutral-color-light);
+      border-color: var(--primary-color-active);
+      color: var(--primary-color-active);
+    }
+  }
+
+  &--ghost-light {
+    background: transparent;
+    color: var(--light-color);
+    border-color: rgba(255, 255, 255, 0.4);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--light-color);
+    }
+  }
+}

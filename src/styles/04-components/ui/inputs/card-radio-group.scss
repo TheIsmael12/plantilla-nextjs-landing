@@ -1,0 +1,161 @@
+// Estilos de CardRadioGroup (components/ui/inputs/CardRadioGroup.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+// Por defecto (sin modificador) las tarjetas tienen un ancho fijo en vez de
+// estirarse a ocupar toda la fila; &__full y &__md son opt-in.
+.card-radio-group__field {
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: flex-start,
+    $gap: 0.625rem
+  );
+  width: auto;
+
+  .card-radio-group {
+    grid-template-columns: repeat(2, 12rem);
+  }
+
+  &.card-radio-group__normal {
+    width: auto;
+    align-items: flex-start;
+
+    .card-radio-group {
+      grid-template-columns: repeat(2, 12rem);
+    }
+  }
+
+  &.card-radio-group__full {
+    width: 100%;
+    align-items: stretch;
+
+    .card-radio-group {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &.card-radio-group__md {
+    min-width: 18rem;
+    align-items: flex-start;
+  }
+}
+
+.card-radio-group__info {
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: flex-start,
+    $gap: 0.125rem
+  );
+}
+
+.card-radio-group__label {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.card-radio-group__description {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+.card-radio-group {
+  @include grid($columns: 2, $gap: 1rem);
+
+  @include screen(sm, max) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-radio-group__option {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
+  transition: border-color 0.15s ease;
+  @include rounded();
+
+  input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  &:hover {
+    border-color: var(--border-color-active);
+  }
+
+  &:has(input:focus-visible) {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
+  &--active {
+    border-color: var(--primary-color);
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.card-radio-group__preview {
+  border-bottom: 1px solid var(--border-color);
+  @include p(0.75rem);
+}
+
+.card-radio-group__content {
+  @include flex($justify: flex-start, $align: flex-start, $gap: 0.5rem);
+  @include p(0.75rem);
+}
+
+.card-radio-group__icon {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--primary-color);
+}
+
+.card-radio-group__text {
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: flex-start,
+    $gap: 0.125rem
+  );
+}
+
+.card-radio-group__option-label {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.card-radio-group__option-description {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+.card-radio-group__check {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  color: var(--light-color);
+  background-color: var(--primary-color);
+  @include flex($justify: center, $gap: 0);
+  width: 1.25rem;
+  height: 1.25rem;
+  @include rounded(50%);
+
+  svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+}

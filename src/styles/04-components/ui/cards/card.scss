@@ -1,0 +1,43 @@
+// Estilos de Card (components/ui/cards/Card.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.card {
+  @include rounded();
+  @include p(1.5rem);
+  @include space-y(1rem);
+
+  &--surface {
+    background-color: var(--surface-color);
+  }
+
+  &--outline {
+    border: 1px solid var(--border-color);
+    background-color: var(--background-color);
+  }
+
+  &__header {
+    @include flex($justify: space-between, $align: center, $gap: 1rem);
+  }
+
+  &__title {
+    font-size: $text-base;
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+
+  &__actions {
+    @include flex($justify: flex-end, $gap: 0.5rem);
+    flex-shrink: 0;
+  }
+
+  &__content {
+    @include flex(
+      $direction: column,
+      $justify: flex-start,
+      $align: stretch,
+      $gap: 1rem
+    );
+  }
+}

@@ -1,0 +1,62 @@
+// Estilos de TitleComponent (components/ui/navigations/TitleComponent.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.page-title {
+  @include pb(1rem);
+  @include flex($justify: flex-start, $align: center, $gap: 0.625rem);
+
+  &__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--primary-color);
+    background-color: var(--primary-color-light);
+    @include flex($justify: center, $gap: 0);
+    @include rounded();
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  &__content {
+    min-width: 0;
+    @include flex($direction: column, $justify: center, $align: flex-start, $gap: 0.25rem);
+  }
+
+  &__text {
+    color: var(--color);
+    font-size: $text-2xl;
+    font-weight: $font-semibold;
+    font-family: $font-family-heading;
+  }
+
+  &__description {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+  }
+
+  &__extra {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    @include pl(0.25rem);
+  }
+
+  &__return {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    @include mt(1rem);
+    @include flex($justify: flex-start, $gap: 0.375rem);
+
+    &:hover {
+      color: var(--color);
+    }
+
+    svg {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+  }
+}

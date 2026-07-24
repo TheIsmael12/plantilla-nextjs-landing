@@ -1,0 +1,613 @@
+{
+  "Legal": {
+    "Common": {
+      "updatedAt": "Last updated:",
+      "toc": "On this page",
+      "optional": "Optional",
+      "required": "Required",
+      "examples": "Examples:"
+    },
+    "Terms": {
+      "title": "Terms and Conditions",
+      "subtitle": "Please read these terms carefully before using our services. By accessing and using the platform, you agree to be bound by these conditions.",
+      "updatedDate": "January 1, 2025",
+      "tocAriaLabel": "Terms and Conditions index",
+      "toc": [
+        {
+          "href": "#aceptacion",
+          "label": "1. Acceptance of terms"
+        },
+        {
+          "href": "#servicios",
+          "label": "2. Services description"
+        },
+        {
+          "href": "#cuenta",
+          "label": "3. User account"
+        },
+        {
+          "href": "#uso-aceptable",
+          "label": "4. Acceptable use"
+        },
+        {
+          "href": "#propiedad",
+          "label": "5. Intellectual property"
+        },
+        {
+          "href": "#pagos",
+          "label": "6. Payments"
+        },
+        {
+          "href": "#privacidad",
+          "label": "7. Privacy"
+        },
+        {
+          "href": "#garantias",
+          "label": "8. Warranties"
+        },
+        {
+          "href": "#terminacion",
+          "label": "9. Termination"
+        },
+        {
+          "href": "#ley",
+          "label": "10. Governing law"
+        },
+        {
+          "href": "#contacto",
+          "label": "11. Contact"
+        }
+      ],
+      "sections": {
+        "aceptacion": {
+          "title": "1. Acceptance of terms",
+          "p1": "By accessing or using this platform's services, you confirm that you have read, understood and agreed to be bound by these Terms and Conditions, as well as our Privacy Policy.",
+          "p2": "If you do not agree with any part of these terms, you may not access the service. These terms apply to all visitors, users and anyone else who accesses or uses the service."
+        },
+        "servicios": {
+          "title": "2. Services description",
+          "intro": "The platform offers the following services:",
+          "list": [
+            {
+              "strong": "Content publishing: ",
+              "rest": "Tools to create, edit and publish articles and blog posts."
+            },
+            {
+              "strong": "User management: ",
+              "rest": "Registration, authentication and profile administration system."
+            },
+            {
+              "strong": "Analytics: ",
+              "rest": "Access to performance metrics for published content."
+            }
+          ],
+          "outro": "We reserve the right to modify, suspend or discontinue any aspect of the service at any time, with or without notice."
+        },
+        "cuenta": {
+          "title": "3. User account",
+          "sub1": "Registration and responsibilities",
+          "list1": [
+            "You must provide accurate, complete and up-to-date information during registration.",
+            "You are responsible for maintaining the confidentiality of your credentials.",
+            "You are responsible for all activities that occur under your account.",
+            "You must notify us immediately of any unauthorized use of your account."
+          ],
+          "sub2": "Account security",
+          "securityText": "We implement reasonable security measures to protect your account. We recommend using unique, complex passwords and enabling two-factor authentication when available."
+        },
+        "uso_aceptable": {
+          "title": "4. Acceptable use",
+          "intro": "By using our services, you agree not to:",
+          "list": [
+            "Post illegal, defamatory, harassing, abusive, threatening or harmful content.",
+            "Infringe the intellectual property rights of third parties.",
+            "Attempt to gain unauthorized access to any part of the services.",
+            "Interfere with or disrupt the integrity or performance of the services.",
+            "Transmit malware, viruses or other harmful code.",
+            "Use the services for fraudulent or illegal purposes."
+          ],
+          "warning": "Violation of these conditions may result in the immediate suspension or cancellation of your account, and we may take legal action if necessary."
+        },
+        "propiedad": {
+          "title": "5. Intellectual property",
+          "sub1": "Our content",
+          "p1": "The service and its original content are the exclusive property of the company and its licensors. They are protected by copyright and other intellectual property laws.",
+          "sub2": "Your content",
+          "p2": "You retain all rights to the content you post. By posting it, you grant us a worldwide, non-exclusive license to use it in the context of providing the service.",
+          "sub3": "Permitted use",
+          "p3": "You may not reproduce, distribute or modify our content without our express written authorization."
+        },
+        "pagos": {
+          "title": "6. Payments",
+          "list": [
+            "Prices for paid services are clearly indicated before purchase.",
+            "Payments are processed securely through certified payment gateways.",
+            "Subscriptions renew automatically unless cancelled before the renewal date.",
+            "Refunds will be handled in accordance with our current refund policy.",
+            "We reserve the right to modify prices with 30 days prior notice."
+          ]
+        },
+        "privacidad": {
+          "title": "7. Privacy",
+          "text": "Your privacy is important to us. Please review our",
+          "linkLabel": "Privacy Policy",
+          "textAfter": "to understand how we collect, use and protect your personal information."
+        },
+        "garantias": {
+          "title": "8. Warranties and liability",
+          "intro": "The service is provided 'as is' and 'without warranties'. To the maximum extent permitted by law, we expressly disclaim:",
+          "list": [
+            "Any implied warranties of merchantability or fitness for a particular purpose.",
+            "Warranties regarding the accuracy, reliability or completeness of the content.",
+            "Our liability for indirect, incidental or consequential damages."
+          ]
+        },
+        "terminacion": {
+          "title": "9. Termination",
+          "p1": "We may terminate or suspend your access to the service immediately, without prior notice or liability, for any reason, including breach of these Terms.",
+          "p2": "Upon termination, your right to use the service will cease immediately. If you wish to cancel your account, contact us to request deletion.",
+          "p3": "Provisions of these Terms that by their nature should survive termination will continue in effect."
+        },
+        "ley": {
+          "title": "10. Governing law",
+          "p1": "These Terms shall be governed by and construed in accordance with the laws of the Kingdom of Spain.",
+          "p2": "Any disputes arising in connection with these Terms shall be subject to the exclusive jurisdiction of the competent courts of Spain."
+        },
+        "contacto": {
+          "title": "11. Contact",
+          "intro": "If you have any questions about these Terms and Conditions, you can contact us:",
+          "cifLabel": "VAT:",
+          "emailLabel": "Legal email:",
+          "addressLabel": "Address:"
+        }
+      }
+    },
+    "Privacy": {
+      "title": "Privacy Policy",
+      "subtitle": "Your privacy is our priority. Here you will find all the information about how we collect, use and protect your personal data.",
+      "updatedDate": "January 1, 2025",
+      "tocAriaLabel": "Privacy Policy index",
+      "toc": [
+        {
+          "href": "#recopilacion",
+          "label": "1. Data we collect"
+        },
+        {
+          "href": "#uso",
+          "label": "2. How we use your data"
+        },
+        {
+          "href": "#compartir",
+          "label": "3. Sharing information"
+        },
+        {
+          "href": "#cookies",
+          "label": "4. Cookies"
+        },
+        {
+          "href": "#seguridad",
+          "label": "5. Security"
+        },
+        {
+          "href": "#derechos",
+          "label": "6. Your rights"
+        },
+        {
+          "href": "#retencion",
+          "label": "7. Data retention"
+        },
+        {
+          "href": "#transferencias",
+          "label": "8. International transfers"
+        },
+        {
+          "href": "#contacto",
+          "label": "9. Contact"
+        }
+      ],
+      "sections": {
+        "recopilacion": {
+          "title": "1. Data we collect",
+          "intro": "We collect information you provide directly and data generated by your use of our services.",
+          "sub1": "Data you provide",
+          "list1": [
+            {
+              "strong": "Account information: ",
+              "rest": "name, email address and password when you register."
+            },
+            {
+              "strong": "Profile information: ",
+              "rest": "photo, bio and other data you add voluntarily."
+            },
+            {
+              "strong": "Communications: ",
+              "rest": "messages you send us through the contact form."
+            }
+          ],
+          "sub2": "Automatically collected data",
+          "list2": [
+            {
+              "strong": "Usage data: ",
+              "rest": "pages visited, time spent and actions performed."
+            },
+            {
+              "strong": "Device data: ",
+              "rest": "device type, operating system and browser."
+            },
+            {
+              "strong": "Location data: ",
+              "rest": "country and region inferred from IP address."
+            }
+          ]
+        },
+        "uso": {
+          "title": "2. How we use your data",
+          "intro": "We use the information collected for the following purposes:",
+          "list": [
+            "Provide, operate and maintain our services.",
+            "Improve, personalize and expand the user experience.",
+            "Communicate with you about updates and support.",
+            "Process transactions and send related information.",
+            "Comply with applicable legal obligations."
+          ],
+          "highlightLabel": "Legal basis:",
+          "highlight": "The processing of your data is based on consent, contract performance and legitimate interest, as applicable to each purpose."
+        },
+        "compartir": {
+          "title": "3. Sharing information",
+          "intro": "We do not sell or rent your personal data. We may share information with:",
+          "list": [
+            {
+              "strong": "Service providers: ",
+              "rest": "third parties that help us operate the platform (hosting, payments, email)."
+            },
+            {
+              "strong": "Legal compliance: ",
+              "rest": "competent authorities when required by law or to protect rights."
+            },
+            {
+              "strong": "Business transfers: ",
+              "rest": "in case of merger or acquisition, your data may be transferred to the new owner."
+            }
+          ]
+        },
+        "cookies": {
+          "title": "4. Cookies",
+          "text": "We use cookies and similar technologies. See our",
+          "linkLabel": "Cookies Policy",
+          "textAfter": "for detailed information on the types of cookies we use and how to manage them."
+        },
+        "seguridad": {
+          "title": "5. Security",
+          "intro": "We implement appropriate technical and organizational measures to protect your data:",
+          "list": [
+            "SSL/TLS encryption for all communications.",
+            "Encrypted password storage.",
+            "Restricted access to personal data to authorized personnel only.",
+            "Periodic security audits."
+          ],
+          "outro": "To report a security incident, contact our team at"
+        },
+        "derechos": {
+          "title": "6. Your rights",
+          "intro": "As a user within the scope of GDPR, you have the following rights:",
+          "list": [
+            {
+              "strong": "Access: ",
+              "rest": "request a copy of the personal data we hold about you."
+            },
+            {
+              "strong": "Rectification: ",
+              "rest": "correct inaccurate or incomplete data."
+            },
+            {
+              "strong": "Erasure: ",
+              "rest": "request deletion of your data ('right to be forgotten')."
+            },
+            {
+              "strong": "Portability: ",
+              "rest": "receive your data in a structured, commonly used format."
+            },
+            {
+              "strong": "Objection: ",
+              "rest": "object to the processing of your data in certain circumstances."
+            }
+          ],
+          "outro": "To exercise any of these rights, email us at",
+          "outroEnd": "We will respond within a maximum of 30 days."
+        },
+        "retencion": {
+          "title": "7. Data retention",
+          "p1": "We retain your personal data for as long as necessary to fulfill the purposes described in this policy, including compliance with legal obligations.",
+          "p2": "When your data is no longer needed, we will securely delete or anonymize it."
+        },
+        "transferencias": {
+          "title": "8. International transfers",
+          "p1": "Your data may be transferred to countries outside the European Economic Area. In such cases, we will ensure appropriate safeguards are in place, such as standard contractual clauses approved by the European Commission."
+        },
+        "contacto": {
+          "title": "9. Contact the controller",
+          "intro": "For any queries about this policy or to exercise your rights, contact our Data Protection Officer:",
+          "dpo": "Data Protection Officer",
+          "emailLabel": "Email:",
+          "addressLabel": "Address:"
+        }
+      }
+    },
+    "Cookies": {
+      "title": "Cookies Policy",
+      "subtitle": "We use cookies and similar technologies to improve your experience. Here we explain what they are, how we use them and how you can manage them.",
+      "updatedDate": "January 1, 2025",
+      "tocAriaLabel": "Cookies Policy index",
+      "toc": [
+        {
+          "href": "#que-son",
+          "label": "1. What are cookies?"
+        },
+        {
+          "href": "#tipos",
+          "label": "2. Types of cookies"
+        },
+        {
+          "href": "#tabla",
+          "label": "3. Cookies used"
+        },
+        {
+          "href": "#terceros",
+          "label": "4. Third-party cookies"
+        },
+        {
+          "href": "#gestion",
+          "label": "5. How to manage them"
+        },
+        {
+          "href": "#contacto",
+          "label": "6. Contact"
+        }
+      ],
+      "sections": {
+        "que_son": {
+          "title": "1. What are cookies?",
+          "p1": "Cookies are small text files that websites place on your device when you visit them. They are used to make websites work more efficiently.",
+          "p2": "Cookies allow the website to remember your actions and preferences so you don't have to re-enter them every time you return.",
+          "highlight": "Under European regulations (GDPR and ePrivacy Directive), we need your consent to install non-essential cookies on your device."
+        },
+        "tipos": {
+          "title": "2. Types of cookies we use",
+          "intro": "We classify our cookies into the following categories:",
+          "items": [
+            {
+              "type": "Essential cookies",
+              "color": "blue",
+              "canDisable": false,
+              "purpose": "Necessary for the basic functioning of the website.",
+              "examples": "User session, language preferences."
+            },
+            {
+              "type": "Analytics cookies",
+              "color": "green",
+              "canDisable": true,
+              "purpose": "Help us understand how you interact with the site to improve it.",
+              "examples": "Google Analytics, Plausible."
+            },
+            {
+              "type": "Marketing cookies",
+              "color": "amber",
+              "canDisable": true,
+              "purpose": "Used to show you relevant advertising.",
+              "examples": "Google Ads, Meta Pixel."
+            },
+            {
+              "type": "Functional cookies",
+              "color": "purple",
+              "canDisable": true,
+              "purpose": "Remember your preferences for a personalized experience.",
+              "examples": "Dark/light theme, preferred language."
+            }
+          ]
+        },
+        "tabla": {
+          "title": "3. List of cookies used",
+          "headers": {
+            "name": "Name",
+            "type": "Type",
+            "duration": "Duration",
+            "purpose": "Purpose"
+          },
+          "rows": [
+            {
+              "name": "NEXT_LOCALE",
+              "type": "Essential",
+              "duration": "1 year",
+              "purpose": "Stores the user's preferred language."
+            },
+            {
+              "name": "next-auth.session-token",
+              "type": "Essential",
+              "duration": "Session",
+              "purpose": "Maintains the user's authenticated session."
+            },
+            {
+              "name": "_ga",
+              "type": "Analytics",
+              "duration": "2 years",
+              "purpose": "Google Analytics unique identifier."
+            },
+            {
+              "name": "_ga_XXXXXX",
+              "type": "Analytics",
+              "duration": "2 years",
+              "purpose": "Persists session state in Google Analytics."
+            },
+            {
+              "name": "cookie_consent",
+              "type": "Functional",
+              "duration": "1 year",
+              "purpose": "Stores cookie consent preferences."
+            }
+          ]
+        },
+        "terceros": {
+          "title": "4. Third-party cookies",
+          "p1": "Some of our partners and service providers may place third-party cookies on your device. These third parties have their own privacy policies.",
+          "p2": "We do not control third-party cookies. For more information, please check each third party's privacy policy."
+        },
+        "gestion": {
+          "title": "5. How to manage cookies",
+          "sub1": "Preferences panel",
+          "manageIntro": "You can manage your cookie preferences at any time through our panel:",
+          "manageBtnLabel": "Manage cookie preferences",
+          "sub2": "Browser settings",
+          "browserIntro": "You can also control cookies from your browser settings:",
+          "browsers": [
+            {
+              "label": "Google Chrome",
+              "url": "https://support.google.com/chrome/answer/95647"
+            },
+            {
+              "label": "Mozilla Firefox",
+              "url": "https://support.mozilla.org/kb/cookies-information-websites-store-on-your-computer"
+            },
+            {
+              "label": "Safari",
+              "url": "https://support.apple.com/guide/safari/manage-cookies-sfri11471"
+            },
+            {
+              "label": "Microsoft Edge",
+              "url": "https://support.microsoft.com/microsoft-edge/delete-cookies-in-microsoft-edge-63947406"
+            }
+          ]
+        },
+        "contacto": {
+          "title": "6. Contact",
+          "intro": "If you have questions about our cookie policy, you can contact us:",
+          "emailLabel": "Email:"
+        }
+      }
+    },
+    "Complaints": {
+      "title": "Complaints channel",
+      "subtitle": "A direct, confidential channel for reporting breaches, irregularities or conduct contrary to regulations related to our activity.",
+      "updatedDate": "1 January 2025",
+      "tocAriaLabel": "Complaints channel index",
+      "toc": [
+        {
+          "href": "#que-es",
+          "label": "1. What this channel is"
+        },
+        {
+          "href": "#quien-puede-usarlo",
+          "label": "2. Who can use it"
+        },
+        {
+          "href": "#que-comunicar",
+          "label": "3. What can be reported"
+        },
+        {
+          "href": "#como-comunicar",
+          "label": "4. How to report it"
+        },
+        {
+          "href": "#garantias",
+          "label": "5. Guarantees"
+        },
+        {
+          "href": "#contacto",
+          "label": "6. Contact"
+        }
+      ],
+      "sections": {
+        "queEs": {
+          "title": "What this channel is",
+          "intro": "The complaints channel is Imora's internal route for directly reporting any regulatory breach, irregularity or conduct contrary to professional ethics detected in the course of our activity, in line with Spanish Law 2/2023 protecting whistleblowers."
+        },
+        "quienPuedeUsarlo": {
+          "title": "Who can use it",
+          "intro": "This channel can be used by anyone with a direct relationship with Imora, including:",
+          "list": [
+            {
+              "strong": "Employees and staff: ",
+              "rest": "concierges, controllers, technicians and administrative staff."
+            },
+            {
+              "strong": "Clients: ",
+              "rest": "homeowner communities, buildings and shopping centres that receive our services."
+            },
+            {
+              "strong": "Suppliers and subcontractors: ",
+              "rest": "companies and self-employed professionals who work with Imora."
+            },
+            {
+              "strong": "Candidates and former employees: ",
+              "rest": "people who have had or will have an employment relationship with Imora."
+            }
+          ]
+        },
+        "queComunicar": {
+          "title": "What can be reported",
+          "intro": "This channel can be used to report matters such as:",
+          "list": [
+            {
+              "strong": "Legal breaches: ",
+              "rest": "infringements of employment, safety or environmental law."
+            },
+            {
+              "strong": "Harassment or discrimination: ",
+              "rest": "workplace, sexual or discriminatory conduct towards anyone."
+            },
+            {
+              "strong": "Service irregularities: ",
+              "rest": "serious breaches of what was agreed with a community or building."
+            },
+            {
+              "strong": "Misuse of data: ",
+              "rest": "personal data processing contrary to data protection regulations."
+            },
+            {
+              "strong": "Corruption or fraud: ",
+              "rest": "bribery, undeclared conflicts of interest or misuse of company resources."
+            }
+          ]
+        },
+        "comoComunicar": {
+          "title": "How to report it",
+          "intro": "You can send your report by email to the channel's contact, describing the facts in as much detail as possible: what happened, when, who is involved and whether you have any evidence. You can also use the general contact form, stating explicitly that it is a report for the complaints channel.",
+          "highlightLabel": "Confidentiality:",
+          "highlight": "The identity of the person reporting and of any third party mentioned is treated confidentially throughout the process, with access restricted solely to the staff responsible for handling it."
+        },
+        "garantias": {
+          "title": "Guarantees",
+          "intro": "Managing this channel is governed by the following guarantees:",
+          "list": [
+            {
+              "strong": "Confidentiality: ",
+              "rest": "the reporting person's identity is not disclosed without their express consent."
+            },
+            {
+              "strong": "No retaliation: ",
+              "rest": "no form of retaliation is tolerated against anyone reporting in good faith."
+            },
+            {
+              "strong": "Acknowledgement: ",
+              "rest": "receipt of the report is confirmed within a maximum of 7 days."
+            },
+            {
+              "strong": "Response time: ",
+              "rest": "the investigation and response are resolved within a maximum of 3 months."
+            },
+            {
+              "strong": "Data protection: ",
+              "rest": "personal data processed is limited to what is strictly necessary for the investigation."
+            }
+          ]
+        },
+        "contacto": {
+          "title": "Contact",
+          "responsible": "Channel contact",
+          "emailLabel": "Email:",
+          "addressLabel": "Postal address:"
+        }
+      }
+    }
+  }
+}

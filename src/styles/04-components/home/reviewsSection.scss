@@ -1,0 +1,202 @@
+@use '../../00-settings/variables' as *;
+@use '../../01-tools/mixins' as *;
+
+.home {
+  &__reviews {
+    padding: clamp(2.8rem, 7vw, 6rem) 0;
+    background: var(--primary-color);
+
+    .home__title-lg {
+      color: var(--light-color);
+    }
+
+    .home__text-muted {
+      color: var(--light-color);
+      opacity: 0.86;
+    }
+  }
+
+  &__reviews-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    @include flex(column, flex-start, center, 0.8rem);
+
+    .home__text-muted {
+      max-width: 50ch;
+    }
+  }
+
+  &__reviews-shell {
+    position: relative;
+    @include px(2.5rem);
+
+    @include screen(md, max) {
+      @include px(1.5rem);
+    }
+
+    // Sin flechas por debajo de `sm` (ver `&__reviews-nav`): no hace falta
+    // reservarles hueco y la tarjeta aprovecha todo el ancho del contenedor.
+    @include screen(sm, max) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  &__reviews-swiper {
+    overflow: visible;
+
+    .swiper-slide {
+      height: auto;
+    }
+
+    // `overflow: visible` deja asomar la siguiente tarjeta y respeta su
+    // sombra a la vez, pero con `slidesPerView: 1.1` y sin flechas que
+    // reserven margen (ver `&__reviews-nav`), ese trozo asomado puede
+    // sobresalir del viewport y provocar scroll horizontal de la página.
+    // Por debajo de `sm` se recorta.
+    @include screen(sm, max) {
+      overflow: hidden;
+    }
+  }
+
+  &__reviews-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 8;
+    width: 2.7rem;
+    height: 2.7rem;
+    border: 1px solid transparent;
+    background: var(--light-color);
+    color: var(--primary-color);
+    box-shadow: 0 12px 24px rgba(var(--primary-color-rgb), 0.24);
+    @include rounded(999px);
+    @include flex(row, center, center, 0);
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+      transform: translateY(-50%) scale(1.05);
+      border-color: var(--primary-color);
+    }
+
+    span {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+
+    &--prev {
+      left: 0;
+    }
+
+    &--next {
+      right: 0;
+    }
+
+    &.swiper-button-disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    @include screen(md, max) {
+      width: 2.2rem;
+      height: 2.2rem;
+
+      span {
+        font-size: 1.35rem;
+      }
+    }
+
+    // Con una sola tarjeta casi a pantalla completa (`slidesPerView: 1.1`),
+    // las flechas se solapaban con el contenido de la reseña. Por debajo de
+    // `sm` se ocultan y la navegación queda en el gesto de deslizar y los
+    // puntos de paginación.
+    @include screen(sm, max) {
+      display: none;
+    }
+  }
+
+  &__reviews-pagination {
+    margin-top: 1.5rem;
+    @include flex(row, center, center, 0.5rem);
+
+    .swiper-pagination-bullet {
+      width: 0.5rem;
+      height: 0.5rem;
+      background: var(--light-color);
+      opacity: 0.35;
+      transition: all 0.2s ease;
+    }
+
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+      width: 1.8rem;
+      background: var(--fill-color);
+      @include rounded(999px);
+    }
+  }
+
+  &__review-card {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    background: var(--surface-color);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
+    @include rounded(0.5rem);
+    @include p(1.75rem);
+  }
+
+  &__review-mark {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    color: rgba(var(--primary-color-rgb), 0.1);
+  }
+
+  &__stars {
+    position: relative;
+    color: var(--warning-color);
+    margin-bottom: 1rem;
+    @include flex(row, flex-start, center, 0.25rem);
+  }
+
+  &__review-quote {
+    position: relative;
+    margin: 0 0 1.5rem;
+    line-height: 1.55;
+    color: var(--color);
+  }
+
+  &__review-author {
+    @include flex(row, flex-start, center, 0.85rem);
+  }
+
+  &__review-avatar {
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: grid;
+    place-items: center;
+    background: var(--primary-color);
+    color: var(--light-color);
+    font-family: $font-title;
+    font-weight: $font-bold;
+    @include rounded(999px);
+  }
+
+  &__review-name {
+    margin: 0;
+    font-family: $font-title;
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+
+  &__review-role {
+    margin: 0.15rem 0 0;
+    color: var(--neutral-color);
+    font-size: $text-xs;
+  }
+}

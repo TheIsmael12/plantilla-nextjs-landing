@@ -1,0 +1,36 @@
+// Estilos de BreadCrumbs (components/ui/navigations/BreadCrumbs.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.breadcrumb {
+  ol {
+    flex-wrap: wrap;
+    list-style: none;
+    @include flex($justify: flex-start, $gap: 0.5rem);
+  }
+
+  &__item {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    @include flex($justify: flex-start, $gap: 0.5rem);
+
+    &:not(:last-child)::after {
+      content: "/";
+      color: var(--border-color-active);
+    }
+
+    &__link {
+      color: var(--neutral-color);
+
+      &:hover {
+        color: var(--primary-color);
+      }
+    }
+
+    p {
+      color: var(--primary-color-active);
+      font-weight: $font-semibold;
+    }
+  }
+}

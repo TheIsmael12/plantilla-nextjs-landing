@@ -1,0 +1,416 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 5rem;
+  background-color: var(--surface-color);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  &--scrolled {
+    border-bottom-color: var(--border-color);
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+
+  &__container {
+    position: relative;
+    height: 100%;
+    margin: 0 auto;
+    max-width: var(--max-width);
+    @include flex(row, space-between, center, 1rem);
+    @include py(1rem);
+    @include px(1.5rem);
+  }
+
+  &__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    line-height: 0;
+  }
+
+  &__toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--color);
+    cursor: pointer;
+    padding: 0.25rem;
+
+    svg {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+
+    @include screen(md, max) {
+      display: block;
+    }
+  }
+
+  &__panel {
+    @include screen(md) {
+      @include flex(row, space-between, center, 2rem);
+      flex: 1;
+    }
+    @include screen(md, max) {
+      display: none;
+
+      &--open {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 1.5rem;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 90;
+        background: var(--surface-color);
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: 0 16px 24px -12px rgba(0, 0, 0, 0.16);
+        max-height: calc(100vh - 5rem);
+        overflow-y: auto;
+        @include p(1.25rem);
+      }
+    }
+  }
+
+  &__links {
+    @include flex(row, flex-start, center, 2rem);
+
+    @include screen(md, max) {
+      @include flex(column, flex-start, stretch, 0.25rem);
+    }
+  }
+
+  &__item {
+    @include screen(md, max) {
+      width: 100%;
+    }
+  }
+
+  &__link {
+    color: var(--color);
+    transition: color 0.3s ease;
+    font-size: $text-lg;
+
+    &:hover {
+      color: var(--primary-color);
+    }
+
+    &--active {
+      color: var(--primary-color-active);
+      text-decoration: underline;
+      text-underline-offset: 0.25rem;
+    }
+
+    &--trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      @include flex(row, flex-start, center, 0.375rem);
+      font-size: $text-lg;
+      color: inherit;
+      padding: 0;
+    }
+
+    @include screen(md, max) {
+      @include py(0.6rem);
+    }
+  }
+
+  &__chevron {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    height: 1rem;
+    width: 1rem;
+
+    &--open {
+      transform: rotate(-180deg);
+    }
+  }
+
+  &__dropdown {
+    z-index: 100;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    @include rounded();
+    @include py(0.5rem);
+    @include px(0.5rem);
+    @include flex(column, flex-start, stretch, 0.125rem);
+
+    @include screen(md) {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 0.5rem;
+      width: max-content;
+      min-width: 12rem;
+    }
+
+    @include screen(md, max) {
+      margin: 0.25rem 0 0.5rem;
+    }
+
+    &-link {
+      white-space: nowrap;
+      transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+      @include py(0.5rem);
+      @include px(0.5rem);
+      @include rounded();
+
+      &:hover {
+        text-decoration: none;
+        color: var(--light-color);
+        background-color: var(--primary-color);
+      }
+
+      &--active {
+        color: var(--primary-color);
+      }
+    }
+
+    // Mega-menú de "Servicios": ocupa todo el ancho de `.nav__container`
+    // (que ya está acotado a `var(--max-width)` y centrado), en vez del
+    // popover estrecho por defecto.
+    &--mega {
+      @include screen(md) {
+        left: 0;
+        right: 0;
+        width: auto;
+        min-width: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  &__mega {
+    @include flex(column, flex-start, stretch, 0);
+  }
+
+  &__mega-body {
+    @include grid(1, 1.5rem);
+    @include p(1.5rem);
+
+    @include screen(md) {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+      @include p(2rem);
+    }
+  }
+
+  &__mega-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.25rem;
+
+    @include screen(md) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.375rem;
+    }
+  }
+
+  &__mega-item {
+    @include flex(row, flex-start, flex-start, 0.75rem);
+    @include p(0.75rem);
+    height: 100%;
+    @include rounded(0.5rem);
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      text-decoration: none;
+      background-color: var(--background-color);
+    }
+  }
+
+  &__mega-icon {
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: grid;
+    place-items: center;
+    background: rgba(var(--primary-color-rgb), 0.08);
+    color: var(--primary-color);
+    @include rounded(999px);
+  }
+
+  &__mega-text {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  &__mega-title {
+    font-family: $font-title;
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+
+  &__mega-summary {
+    font-size: $text-xs;
+    color: var(--neutral-color);
+    line-height: 1.5;
+  }
+
+  &__mega-visual {
+    position: relative;
+    display: none;
+    overflow: hidden;
+    min-height: 14rem;
+    @include rounded(0.5rem);
+
+    @include screen(md) {
+      display: block;
+    }
+  }
+
+  &__mega-swiper {
+    position: absolute;
+    inset: 0;
+
+    // El punto de paginación de Swiper por defecto se solapa con la
+    // leyenda inferior: se sube a la esquina superior derecha de la foto.
+    .swiper-pagination {
+      top: 0.75rem;
+      right: 0.75rem;
+      left: auto;
+      bottom: auto;
+      width: auto;
+    }
+
+    .swiper-pagination-bullet {
+      background: var(--light-color);
+      opacity: 0.55;
+    }
+
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+    }
+  }
+
+  &__mega-visual-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__mega-visual-image {
+    object-fit: cover;
+  }
+
+  &__mega-visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.72) 100%);
+  }
+
+  &__mega-visual-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    color: var(--light-color);
+    font-size: $text-sm;
+    line-height: 1.5;
+    @include p(1.25rem);
+  }
+
+  &__mega-footer {
+    border-top: 1px solid var(--border-color);
+    @include flex(row, flex-end, center, 0.4rem);
+    @include px(1.5rem);
+    @include py(1rem);
+
+    @include screen(md) {
+      @include px(2rem);
+    }
+  }
+
+  &__mega-all {
+    @include flex(row, flex-start, center, 0.4rem);
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    color: var(--primary-color-active);
+
+    &:hover {
+      text-decoration: none;
+      color: var(--primary-color);
+    }
+
+    svg {
+      transition: transform 0.2s ease;
+    }
+
+    &:hover svg {
+      transform: translateX(3px);
+    }
+  }
+
+  &__actions {
+    @include flex(row, flex-start, center, 1rem);
+
+    @include screen(md, max) {
+      @include flex(column, stretch, stretch, 0.5rem);
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+    }
+  }
+
+  &__login {
+    color: var(--light-color);
+    background-color: var(--primary-color);
+    transition: background-color 0.3s ease;
+    @include rounded();
+    @include px(1rem);
+    @include py(0.5rem);
+
+    @include screen(md, max) {
+      text-align: center;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: var(--light-color);
+      background-color: var(--primary-color-hover);
+    }
+  }
+}
+
+// Hueco para la navbar fija (misma altura que `.nav`), reservado en CSS
+// puro para que el contenido de cada página no arranque tapado debajo.
+.public-layout {
+  padding-top: 5rem;
+}
+
+// Enlace "saltar al contenido principal" (§2.4.1 WCAG): fuera de pantalla
+// hasta que recibe el foco por teclado, momento en el que se hace visible
+// por encima de todo lo demás.
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: 1rem;
+  z-index: 200;
+  padding: 0.6rem 1rem;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  border-radius: 0.375rem;
+  text-decoration: none;
+  transition: top 0.2s ease;
+
+  &:focus-visible {
+    top: 1rem;
+  }
+}

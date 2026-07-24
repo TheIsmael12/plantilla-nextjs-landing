@@ -1,0 +1,174 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.home {
+  &__services {
+    background: var(--surface-color);
+    @include py(4rem);
+  }
+
+  &__services-header {
+    @include mb(3rem);
+    @include flex(column, center, center, 0.5rem);
+  }
+
+  &__carousel-shell {
+    position: relative;
+    isolation: isolate;
+  }
+
+  &__services-nav {
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    z-index: 8;
+    width: 2.7rem;
+    height: 2.7rem;
+    border: none;
+    color: var(--light-color);
+    background: var(--primary-color);
+    @include rounded(999px);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background: var(--primary-color-hover);
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    &--prev {
+      left: 0.35rem;
+    }
+
+    &--next {
+      right: 0.35rem;
+    }
+
+    &.swiper-button-disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    // Con una sola tarjeta casi a pantalla completa (`slidesPerView: 1.08`),
+    // las flechas quedaban encima de la imagen del servicio. Por debajo de
+    // `sm` se ocultan y la navegación queda en el gesto de deslizar y los
+    // puntos de paginación, igual que en `&__reviews-nav`.
+    @include screen(sm, max) {
+      display: none;
+    }
+  }
+
+  &__services-pagination {
+    width: fit-content;
+    margin: 0 auto;
+    @include py(1rem);
+    @include px(0.5rem);
+    @include flex(row, center, center, 0.5rem);
+
+    .swiper-pagination-bullet {
+      width: 0.5rem;
+      height: 0.5rem;
+      margin: 0;
+      opacity: 1;
+      background: var(--border-color);
+      transform: scale(0.92);
+      @include rounded(999px);
+      transition: all 0.2s ease;
+    }
+
+    .swiper-pagination-bullet-active {
+      width: 1.9rem;
+      background: var(--primary-color);
+      transform: scale(1);
+    }
+  }
+
+  &__service-card {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    min-height: 30rem;
+    color: var(--light-color);
+    @include rounded();
+
+    &:hover {
+      .home__service-image {
+        transform: scale(1.04);
+      }
+    }
+  }
+
+  &__service-image {
+    object-fit: cover;
+    transition: transform 0.45s ease;
+  }
+
+  &__service-overlay {
+    inset: 0;
+    z-index: 1;
+    position: absolute;
+    // Degradado (no un tono plano) para que el texto —siempre en la franja
+    // inferior— tenga suficiente contraste sobre cualquier foto, sin oscurecer
+    // de más la parte superior de la imagen.
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.55) 55%,
+      rgba(0, 0, 0, 0.82) 100%
+    );
+  }
+
+  &__service-content {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 2;
+    display: grid;
+    gap: 0.5rem;
+
+    h3 {
+      color: var(--light-color);
+    }
+  }
+
+  &__service-tag {
+    margin: 0;
+    width: fit-content;
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    color: var(--light-color);
+    background: var(--primary-color);
+    @include rounded();
+    @include px(0.5rem);
+    @include py(0.5rem);
+  }
+
+  &__service-summary {
+    margin: 0;
+    max-width: 36ch;
+    font-size: $text-sm;
+    line-height: 1.5;
+    color: var(--light-color);
+  }
+
+  &__service-link {
+    width: fit-content;
+    color: var(--light-color);
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    border: 1px solid var(--light-color);
+    @include rounded();
+    @include px(0.75rem);
+    @include py(0.5rem);
+    @include flex(row, center, center, 0.5rem);
+
+    &:hover {
+      background: var(--light-color);
+      color: var(--dark-color);
+      text-decoration: none;
+    }
+  }
+}

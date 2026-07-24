@@ -1,0 +1,37 @@
+@use "../00-settings/typography" as *;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-heading;
+  font-weight: $font-semibold;
+  line-height: 1.25;
+  color: var(--color);
+}
+
+h1 {
+  font-size: $text-3xl;
+}
+
+h2 {
+  font-size: $text-2xl;
+}
+
+h3 {
+  font-size: $text-xl;
+}
+
+h4 {
+  font-size: $text-lg;
+}
+
+h5 {
+  font-size: $text-sm;
+}
+
+h6 {
+  font-size: $text-xs;
+}

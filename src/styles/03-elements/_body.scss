@@ -1,0 +1,23 @@
+@use "../00-settings/typography" as *;
+
+body {
+  font-family: $font-family-base;
+  font-weight: $font-normal;
+  font-size: $text-base;
+  line-height: 1.5;
+  color: var(--color);
+  background-color: var(--background-color);
+}
+
+p {
+  text-wrap: pretty;
+  font-size: $text-base;
+}
+
+span {
+  font-weight: $font-medium;
+}
+
+strong {
+  font-weight: $font-semibold;
+}

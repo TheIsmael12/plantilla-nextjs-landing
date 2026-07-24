@@ -1,0 +1,133 @@
+// Estilos de TwoFactorSetupModal (components/ui/modals/TwoFactorSetupModal.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.two-factor-setup-modal {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.25rem);
+
+  &__loading {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    text-align: center;
+  }
+
+  &__steps {
+    @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.5rem);
+    list-style: none;
+    font-size: $text-sm;
+    color: var(--neutral-color-active);
+  }
+
+  &__body {
+    @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.5rem);
+    border-top: 1px solid var(--border-color);
+    @include pt(1.25rem);
+
+    @include screen(md, min) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  &__section-title {
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    color: var(--color);
+    @include mb(0.75rem);
+  }
+
+  &__apps {
+    flex: 1;
+  }
+
+  &__apps-list {
+    @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.5rem);
+  }
+
+  &__app {
+    @include flex($justify: space-between, $align: center, $gap: 0.75rem);
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    @include rounded();
+    @include py(0.5rem);
+    @include px(0.75rem);
+  }
+
+  &__app-name {
+    font-size: $text-sm;
+    color: var(--color);
+  }
+
+  &__app-link {
+    @include flex($justify: center, $gap: 0.375rem);
+    flex-shrink: 0;
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    color: var(--primary-color);
+    white-space: nowrap;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    svg {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+  }
+
+  &__app-unavailable {
+    flex-shrink: 0;
+    font-size: $text-xs;
+    color: var(--neutral-color);
+    white-space: nowrap;
+  }
+
+  &__qr-section {
+    @include flex($direction: column, $justify: flex-start, $align: center, $gap: 0.75rem);
+    text-align: center;
+
+    @include screen(md, min) {
+      flex: 1;
+    }
+  }
+
+  &__qr {
+    border: 1px solid var(--border-color);
+    background-color: var(--light-color);
+    @include rounded();
+    @include p(0.75rem);
+
+    img {
+      display: block;
+    }
+  }
+
+  &__manual {
+    font-size: $text-xs;
+    color: var(--neutral-color);
+  }
+
+  &__secret {
+    @include flex($justify: center, $gap: 0.5rem);
+    width: 100%;
+    border: 1px dashed var(--border-color);
+    background-color: var(--neutral-color-light);
+    color: var(--color);
+    font-family: monospace;
+    font-size: $text-sm;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    @include rounded();
+    @include py(0.625rem);
+    @include px(1rem);
+
+    svg {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      color: var(--neutral-color);
+    }
+  }
+}

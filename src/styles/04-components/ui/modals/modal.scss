@@ -1,0 +1,85 @@
+// Estilos de ModalComponent (components/ui/modals/ModalComponent.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.modal__overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 90;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 95;
+  width: min(28rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  border: none;
+  background-color: var(--surface-color);
+  color: var(--color);
+  @include rounded();
+  @include p(1.5rem);
+
+  &--large {
+    width: min(52rem, calc(100vw - 2rem));
+  }
+
+  &__header {
+    margin-bottom: 1rem;
+    @include flex($justify: space-between, $gap: 1rem);
+
+    &__title {
+      font-size: $text-lg;
+      font-weight: $font-semibold;
+    }
+
+    &__close {
+      margin-left: auto;
+      background-color: transparent;
+      color: var(--neutral-color);
+      &:hover {
+        background-color: var(--neutral-color-light);
+      }
+    }
+  }
+
+  &__content {
+    &__title {
+      text-align: center;
+      font-size: $text-lg;
+      font-weight: $font-semibold;
+    }
+  }
+
+  &__form {
+    &__content {
+      @include flex($direction: column, $justify: flex-start, $gap: 1rem);
+    }
+
+    &__footer {
+      @include flex($justify: center, $gap: 0.75rem);
+      margin-top: 1.5rem;
+    }
+  }
+
+  &__footer {
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    @include flex($justify: center, $gap: 0.75rem);
+
+    & .btn {
+      min-width: 8rem;
+    }
+
+    &__error {
+      flex: 1 0 100%;
+      color: var(--error-color);
+      font-size: $text-sm;
+    }
+  }
+}

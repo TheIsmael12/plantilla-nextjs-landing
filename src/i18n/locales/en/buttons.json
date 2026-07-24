@@ -1,0 +1,26 @@
+{
+  "Buttons": {
+    "goHome": "Back to home",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "closeSession": "Sign out",
+    "closingSession": "Signing out...",
+    "revoke": "Revoke",
+    "revoking": "Revoking...",
+    "revokeOthers": "Revoke other sessions",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "continue": "Continue",
+    "copy": "Copy",
+    "copied": "Copied",
+    "deactivate": "Deactivate",
+    "deactivating": "Deactivating...",
+    "deselectAll": "Deselect all",
+    "done": "Done",
+    "download": "Download",
+    "selectAll": "Select all",
+    "verify": "Verify",
+    "verifying": "Verifying..."
+  }
+}

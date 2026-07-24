@@ -1,0 +1,8 @@
+// Estilos de BackendImage (components/ui/images/BackendImage.tsx).
+
+@use "../../../01-tools/mixins" as *;
+
+.backend-image__fallback {
+  @include flex($justify: center, $gap: 0);
+  background-color: var(--neutral-color-light);
+}

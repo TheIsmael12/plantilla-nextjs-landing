@@ -1,0 +1,35 @@
+@use "sass:meta";
+
+@mixin flex($direction: row, $justify: flex-start, $align: center, $gap: 1rem) {
+    & {
+        display: flex;
+        flex-direction: $direction;
+        justify-content: $justify;
+        align-items: $align;
+        gap: $gap;
+    }
+}
+
+// $columns/$rows acepta un entero (se expande a `repeat(n, 1fr)`) o una
+// plantilla de pistas literal (p. ej. "16rem 1fr" o "repeat(4, minmax(0, 1fr))").
+@mixin grid($columns: 12, $gap: 1rem, $rows: auto, $align: stretch) {
+    & {
+        display: grid;
+
+        @if meta.type-of($columns) == "number" {
+            grid-template-columns: repeat($columns, 1fr);
+        } @else {
+            grid-template-columns: $columns;
+        }
+
+        @if meta.type-of($rows) == "number" {
+            grid-template-rows: repeat($rows, 1fr);
+        } @else {
+            grid-template-rows: $rows;
+        }
+
+        gap: $gap;
+        align-items: $align;
+    }
+}
+

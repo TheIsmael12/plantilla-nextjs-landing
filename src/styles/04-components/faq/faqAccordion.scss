@@ -1,0 +1,81 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.faq__accordion {
+  @include py(4rem);
+}
+
+.faq__category {
+  max-width: 46rem;
+  margin: 0 auto;
+
+  & + & {
+    margin-top: 3rem;
+  }
+}
+
+.faq__category-title {
+  font-family: $font-title;
+  font-size: $text-xl;
+  font-weight: $font-semibold;
+  color: var(--primary-color);
+  margin: 0 0 1rem;
+}
+
+.faq__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.faq__item {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+
+  &[open] {
+    border-color: var(--primary-color-active);
+
+    .faq__item-icon {
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.faq__item-question {
+  cursor: pointer;
+  list-style: none;
+  font-family: $font-title;
+  font-size: $text-base;
+  font-weight: $font-semibold;
+  color: var(--color);
+  @include p(1.1rem);
+  @include flex(row, space-between, center, 1rem);
+
+  // Oculta el triángulo/marcador nativo de `<summary>` en todos los motores.
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color-active);
+    outline-offset: -2px;
+  }
+}
+
+.faq__item-icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--primary-color-active);
+  transition: transform 0.2s ease;
+}
+
+.faq__item-answer {
+  margin: 0;
+  color: var(--neutral-color);
+  line-height: 1.65;
+  padding: 0 1.1rem 1.1rem;
+}

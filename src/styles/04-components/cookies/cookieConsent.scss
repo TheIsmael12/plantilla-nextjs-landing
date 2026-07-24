@@ -1,0 +1,225 @@
+﻿@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+// -- Panel --------------------------------------------------------------------
+
+.cookie-consent {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  max-width: 30rem;
+  width: calc(100vw - 2rem);
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.06),
+    0 20px 48px -8px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  @include rounded();
+
+  // -- Header -----------------------------------------------------------------
+
+  &__header {
+    @include pt(1rem);
+    @include px(1rem);
+    @include flex(row, space-between, center, 0);
+  }
+
+  &__header__brand {
+    @include flex(row, flex-start, center, 0.5rem);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: var(--light-color);
+    background: var(--primary-color);
+    @include rounded();
+    @include flex(row, center, center, 0);
+
+    svg {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+  }
+
+  &__title {
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    @include mb(0.25rem);
+  }
+
+  &__powered {
+    font-size: $text-xs;
+    color: var(--neutral-color);
+  }
+
+  &__close {
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    border: 1px solid var(--border-color);
+    @include rounded();
+    @include flex(row, center, center, 0);
+
+    &:hover {
+      color: var(--error-color);
+    }
+  }
+
+  // -- Body -------------------------------------------------------------------
+
+  &__body {
+    @include px(1rem);
+    @include pt(0.75rem);
+    @include pb(0.5rem);
+    @include flex(column, flex-start, flex-start, 0.75rem);
+  }
+
+  &__desc {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+  }
+
+  &__link {
+    color: var(--primary-color);
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
+  // -- Expand toggle ----------------------------------------------------------
+
+  &__toggle {
+    cursor: pointer;
+    transition: color 0.15s ease;
+    font-size: $text-sm;
+    font-weight: $font-medium;
+    @include flex(row, flex-start, center, 0.3rem);
+
+    &:hover {
+      color: var(--primary-color);
+    }
+
+    &__chevron {
+      margin-left: auto;
+      transition: transform 0.25s ease;
+    }
+
+    &--open {
+      color: var(--primary-color);
+
+      .cookie-consent__toggle__chevron {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  // -- Preferences panel ------------------------------------------------------
+
+  &__prefs {
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    @include rounded();
+  }
+
+  &__pref {
+    @include px(0.5rem);
+    @include py(0.5rem);
+    @include flex(row, space-between, center, 0.75rem);
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    &:hover {
+      background: rgba(var(--primary-color-rgb), 0.025);
+    }
+
+    &__info {
+      flex: 1;
+      min-width: 0;
+      & div {
+        @include flex(column, flex-start, flex-start, 0.5rem);
+      }
+    }
+
+    &__name {
+      flex-wrap: wrap;
+      font-size: $text-xs;
+      font-weight: $font-semibold;
+      @include flex(row, flex-start, center, 0.5rem);
+    }
+
+    &__desc {
+      font-size: $text-xs;
+      color: var(--neutral-color);
+    }
+
+    // Locked row: override system Toggle to show "always-on" in info-color
+    &--locked {
+      .switch input:checked:disabled + .slider {
+        opacity: 0.85;
+        cursor: not-allowed;
+        background-color: var(--info-color);
+
+        &::before {
+          background-color: var(--light-color);
+        }
+      }
+    }
+  }
+
+  // -- System component overrides (Badge, Toggle, Button) --------------------
+
+  // Badge: compact pill for category labels
+  .badge {
+    line-height: 1.4;
+    font-size: $text-xxs;
+    font-weight: $font-semibold;
+    @include px(0.5rem);
+    @include py(0.15rem);
+  }
+
+  // Toggle: collapse input__group wrapper so the pref row stays row-layout
+  .input__group {
+    width: auto;
+    flex-shrink: 0;
+    @include flex(row, flex-start, center, 0);
+  }
+
+  .toggle-container {
+    gap: 0;
+  }
+
+  // Actions: use system .btn with adjustments for the compact panel
+  &__actions {
+    @include px(1rem);
+    @include pb(1rem);
+    @include pt(0.5rem);
+    @include flex(row, flex-end, center, 0.375rem);
+    flex-wrap: wrap;
+
+    .btn {
+      white-space: nowrap;
+      font-size: $text-xs;
+    }
+  }
+
+  // -- Saved feedback ---------------------------------------------------------
+
+  &__saved {
+    font-size: $text-xs;
+    font-weight: $font-medium;
+    color: var(--success-color);
+    background: var(--success-color-light);
+    border-top: 1px solid rgba(var(--success-color-rgb, 26, 92, 42), 0.2);
+    @include flex(row, center, center, 0.5rem);
+    @include px(1rem);
+    @include py(0.5rem);
+  }
+}

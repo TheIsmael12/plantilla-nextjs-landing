@@ -1,0 +1,26 @@
+{
+  "Buttons": {
+    "goHome": "Volver al inicio",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "loading": "Cargando...",
+    "closeSession": "Cerrar sesión",
+    "closingSession": "Cerrando sesión...",
+    "revoke": "Revocar",
+    "revoking": "Revocando...",
+    "revokeOthers": "Revocar otras sesiones",
+    "submit": "Enviar",
+    "submitting": "Enviando...",
+    "continue": "Continuar",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "deactivate": "Desactivar",
+    "deactivating": "Desactivando...",
+    "deselectAll": "Deseleccionar todo",
+    "done": "Listo",
+    "download": "Descargar",
+    "selectAll": "Seleccionar todo",
+    "verify": "Verificar",
+    "verifying": "Verificando..."
+  }
+}

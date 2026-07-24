@@ -1,0 +1,113 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.services__grid-section {
+  @include py(4.5rem);
+}
+
+.services__grid {
+  @include grid(1, 1.75rem);
+
+  @include screen(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include screen(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.services__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  @include rounded(0.5rem);
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color-active);
+    box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.services__card-media {
+  position: relative;
+  height: 12rem;
+}
+
+.services__card-image {
+  object-fit: cover;
+}
+
+.services__card-icon {
+  position: absolute;
+  left: 1rem;
+  bottom: -1.1rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  box-shadow: 0 10px 20px -12px rgba(var(--primary-color-rgb), 0.4);
+  @include rounded(999px);
+}
+
+.services__card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  @include p(1.75rem);
+  padding-top: 1.9rem;
+  gap: 0.5rem;
+}
+
+.services__card-tag {
+  margin: 0;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary-color-active);
+}
+
+.services__card-title {
+  margin: 0;
+  font-family: $font-title;
+  font-size: $text-xl;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.services__card-summary {
+  margin: 0;
+  color: var(--neutral-color);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.services__card-link {
+  margin-top: 0.5rem;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--primary-color-active);
+  @include flex(row, flex-start, center, 0.4rem);
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+
+  &:hover svg {
+    transform: translateX(3px);
+  }
+}

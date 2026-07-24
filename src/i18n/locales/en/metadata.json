@@ -1,0 +1,91 @@
+{
+  "Metadata": {
+    "default": {
+      "title": "Imora Servicios S.L.",
+      "description": "Full-service facility management company for businesses, homeowner communities, buildings and shopping centres in Madrid.",
+      "keywords": "Imora, services for businesses and communities, concierge, security, cleaning, maintenance"
+    },
+    "routes": {
+      "/": {
+        "title": "Concierge, security, cleaning and maintenance for businesses and communities",
+        "description": "Imora manages concierge, security, cleaning, pools and maintenance for businesses, communities and buildings in Madrid, with our own team and 24-hour support.",
+        "keywords": "concierge Madrid, services for businesses, facility management company, building maintenance, security and CCTV, community and shopping centre cleaning"
+      },
+      "/services": {
+        "title": "Our services for businesses, communities and buildings",
+        "description": "Concierge, security, pool maintenance, cleaning and gardening, and building maintenance: five specialised services for businesses, communities and shopping centres, from a single provider.",
+        "keywords": "services for businesses and homeowner communities, concierge, security CCTV, pool maintenance, cleaning and gardening, building maintenance"
+      },
+      "/services/concierge": {
+        "title": "Concierge and access control for your building",
+        "description": "Reception, access control and mail handling with 6 to 24-hour shifts, for communities, buildings and businesses, with guaranteed cover for sick leave and holidays.",
+        "keywords": "concierge for communities and businesses, access control, Madrid concierge, building doorman"
+      },
+      "/services/security": {
+        "title": "Security and CCTV for buildings, businesses and communities",
+        "description": "Design, installation and maintenance of video surveillance and electronic access control to protect your building, business or shopping centre.",
+        "keywords": "security and CCTV for businesses, community video surveillance, electronic access control, camera installation Madrid"
+      },
+      "/services/pools": {
+        "title": "Community pool maintenance",
+        "description": "Water chemical maintenance, pool cleaning and qualified lifeguards throughout the swimming season, following Spanish pool regulations.",
+        "keywords": "pool maintenance, community pool lifeguards, pool cleaning Madrid, pool season opening and closing"
+      },
+      "/services/cleaning": {
+        "title": "Cleaning and gardening for communities and businesses",
+        "description": "Cleaning of the entrance, stairs and garage, and upkeep of gardens and green areas, at whatever frequency each community, building or business needs.",
+        "keywords": "cleaning for communities and businesses, common area cleaning, gardening for communities, building entrance cleaning Madrid"
+      },
+      "/services/maintenance": {
+        "title": "Building and business maintenance: plumbing, electrics and locksmithing",
+        "description": "In-house technical team for plumbing, electrics, locksmithing and small works in buildings, communities and businesses, with a fast response to faults.",
+        "keywords": "building and business maintenance, community plumbing, common area electrics, emergency locksmith, technical maintenance Madrid"
+      },
+      "/about": {
+        "title": "About Imora: our own team and 24-hour support",
+        "description": "How we work: our own team, an inspection department, ISO certifications and coverage for businesses, communities and buildings across Madrid and its metropolitan area.",
+        "keywords": "facility management company Madrid, services for businesses and communities, in-house concierge team, ISO 9001 certification, 24-hour support"
+      },
+      "/contact": {
+        "title": "Contact Imora",
+        "description": "Write to us, call us or visit us: we reply within 24 hours to resolve any question about our services.",
+        "keywords": "contact facility management company, homeowner community quote, Imora phone number, Imora Madrid office"
+      },
+      "/help": {
+        "title": "Help centre",
+        "description": "Frequently asked questions and support for Imora clients: find your answer or contact our team directly.",
+        "keywords": "Imora help, client support, FAQ community services"
+      },
+      "/help/faq": {
+        "title": "Frequently asked questions",
+        "description": "Answers to the most common questions about our services, coverage, quotes and how we work.",
+        "keywords": "Imora FAQ, community services questions, concierge and maintenance FAQ"
+      },
+      "/help/support": {
+        "title": "Client support",
+        "description": "Already an Imora client? Resolve incidents and questions about your service with direct attention, no middlemen.",
+        "keywords": "Imora client support, community incidents, concierge customer service"
+      },
+      "/privacy-policy": {
+        "title": "Privacy policy",
+        "description": "How Imora collects, uses and protects the personal data of clients, residents and website visitors.",
+        "keywords": "Imora privacy policy, data protection, GDPR communities"
+      },
+      "/conditions": {
+        "title": "Terms of use",
+        "description": "Terms and conditions of use for the Imora Servicios S.L. website and services.",
+        "keywords": "Imora terms of use, legal terms, legal notice"
+      },
+      "/cookies-policy": {
+        "title": "Cookie policy",
+        "description": "Which cookies the Imora website uses, for what purpose, and how you can manage them.",
+        "keywords": "Imora cookie policy, cookie management, GDPR cookies"
+      },
+      "/complaints-channel": {
+        "title": "Complaints channel",
+        "description": "A direct, confidential channel for reporting breaches or irregularities related to Imora's activity, under Spanish Law 2/2023.",
+        "keywords": "complaints channel, whistleblowing channel, Spanish Law 2/2023, Imora whistleblowing"
+      }
+    }
+  }
+}

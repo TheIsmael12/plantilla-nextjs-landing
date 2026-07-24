@@ -1,0 +1,39 @@
+// Estilos compartidos de EmptyState y ErrorState (components/ui/errors/).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.state {
+  @include flex($direction: column, $justify: center, $align: center, $gap: 0.75rem);
+  text-align: center;
+  @include p(2rem);
+
+  &__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--neutral-color);
+  }
+
+  &__title {
+    font-size: $text-lg;
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+
+  &__description,
+  &__message {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    max-width: 28rem;
+  }
+
+  &__action {
+    @include mt(0.5rem);
+  }
+
+  &--error {
+    .state__icon {
+      color: var(--error-color);
+    }
+  }
+}

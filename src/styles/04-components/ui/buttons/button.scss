@@ -1,0 +1,234 @@
+// Estilos de Button (components/ui/buttons/Button.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.btn {
+  border: 1px solid transparent;
+  font-family: $font-family-base;
+  font-weight: $font-semibold;
+  font-size: $text-sm;
+  line-height: 1;
+  cursor: pointer;
+  @include rounded();
+  @include flex($justify: center, $gap: 0.5rem);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+
+  & svg {
+    flex: 1;
+    height: 1.15rem;
+    width: 1.15rem;
+  }
+
+  &--sm {
+    @include p(0.25rem);
+  }
+
+  &--md {
+    height: 2.5rem;
+    @include px(0.75rem);
+  }
+
+  &--full {
+    width: 100%;
+    height: 2.5rem;
+    @include px(1rem);
+  }
+
+  &--disabled,
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &--primary {
+    color: var(--light-color);
+    background-color: var(--primary-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--primary-color-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--primary-color-active);
+    }
+  }
+
+  &--secondary {
+    color: var(--light-color);
+    background-color: var(--secondary-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--secondary-color-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--secondary-color-active);
+    }
+  }
+
+  &--outline {
+    background-color: transparent;
+    border-color: var(--border-color);
+    color: var(--color);
+
+    &:hover:not(:disabled) {
+      border-color: var(--border-color-active);
+      background-color: var(--neutral-color-light);
+    }
+  }
+
+  &--danger {
+    background-color: var(--danger-color);
+    color: var(--light-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--danger-color-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--danger-color-active);
+    }
+  }
+
+  &--error {
+    background-color: var(--error-color);
+    color: var(--light-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--error-color-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--error-color-active);
+    }
+  }
+
+  &--info {
+    background-color: var(--info-color);
+    color: var(--light-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--info-color-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--info-color-active);
+    }
+  }
+
+  &--success {
+    background-color: var(--success-color);
+    color: var(--light-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--success-color-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--success-color-active);
+    }
+  }
+
+  &--warning {
+    background-color: var(--warning-color);
+    color: var(--light-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--warning-color-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--warning-color-active);
+    }
+  }
+
+  // Acento lima (`--fill-color`), distinto de los colores semánticos de
+  // estado anteriores: texto oscuro en vez de claro, por contraste con un
+  // fondo tan claro.
+  &--fill-color {
+    background-color: var(--fill-color);
+    color: var(--dark-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--fill-color-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--fill-color-active);
+    }
+  }
+
+  &--outline-primary {
+    background-color: transparent;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--primary-color-light);
+    }
+  }
+
+  &--outline-secondary {
+    background-color: transparent;
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--neutral-color-light);
+    }
+  }
+
+  &--outline-danger {
+    background-color: transparent;
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--danger-color-light);
+    }
+  }
+
+  &--outline-error {
+    background-color: transparent;
+    border-color: var(--error-color);
+    color: var(--error-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--error-color-light);
+    }
+  }
+
+  &--outline-info {
+    background-color: transparent;
+    border-color: var(--info-color);
+    color: var(--info-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--info-color-light);
+    }
+  }
+
+  &--outline-success {
+    background-color: transparent;
+    border-color: var(--success-color);
+    color: var(--success-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--success-color-light);
+    }
+  }
+
+  &--outline-warning {
+    background-color: transparent;
+    border-color: var(--warning-color);
+    color: var(--warning-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--warning-color-light);
+    }
+  }
+}

@@ -1,0 +1,80 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.services__faq {
+  background: var(--primary-color);
+  @include py(4.5rem);
+}
+
+.services__faq-title {
+  text-align: center;
+  max-width: 38rem;
+  margin: 0 auto 2.5rem;
+  color: var(--light-color);
+}
+
+.services__faq-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 46rem;
+  margin-inline: auto;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.services__faq-item {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+
+  &[open] {
+    border-color: var(--primary-color-active);
+
+    .services__faq-icon {
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.services__faq-question {
+  cursor: pointer;
+  list-style: none;
+  font-family: $font-title;
+  font-size: $text-base;
+  font-weight: $font-semibold;
+  color: var(--color);
+  @include p(1.1rem);
+  @include flex(row, space-between, center, 1rem);
+
+  // Oculta el triángulo/marcador nativo de `<summary>` en todos los motores.
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color-active);
+    outline-offset: -2px;
+  }
+}
+
+.services__faq-icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--primary-color-active);
+  transition: transform 0.2s ease;
+}
+
+.services__faq-answer {
+  margin: 0;
+  // Fondo explícito (en vez de heredarlo solo de `.services__faq-item`):
+  // al estar oculto mientras el `<details>` está cerrado, algunos
+  // auditores de accesibilidad no resuelven el fondo blanco de la tarjeta
+  // y calculan el contraste contra el fondo oscuro de `.services__faq`,
+  // dando un falso positivo de contraste insuficiente.
+  background: var(--surface-color);
+  color: var(--neutral-color);
+  line-height: 1.65;
+  padding: 0 1.1rem 1.1rem;
+}

@@ -1,0 +1,48 @@
+// Estilos de Badge (components/ui/buttons/Badge.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.badge {
+  @include flex($justify: center, $gap: 0.25rem);
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  @include rounded(999px);
+  @include px(0.75rem);
+  @include py(0.25rem);
+
+  &__icon {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  &--info {
+    color: var(--info-color);
+    background-color: var(--info-color-light);
+  }
+
+  &--success {
+    color: var(--success-color);
+    background-color: var(--success-color-light);
+  }
+
+  &--warning {
+    color: var(--warning-color);
+    background-color: var(--warning-color-light);
+  }
+
+  &--error {
+    color: var(--error-color);
+    background-color: var(--error-color-light);
+  }
+
+  &--danger {
+    color: var(--danger-color);
+    background-color: var(--danger-color-light);
+  }
+
+  &--neutral {
+    color: var(--neutral-color-active);
+    background-color: var(--neutral-color-light);
+  }
+}

@@ -1,0 +1,47 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.go-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 80;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  background: var(--fill-color);
+  color: var(--light-color);
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(0.75rem);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.2s ease;
+  box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.35);
+  @include rounded(999px);
+
+  @include screen(md) {
+    right: 2rem;
+    bottom: 2rem;
+  }
+
+  &--visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  &:hover {
+    background: var(--primary-color-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color-active);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: opacity 0.01s linear;
+  }
+}

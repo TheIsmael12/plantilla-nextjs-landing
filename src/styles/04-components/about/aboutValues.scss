@@ -1,0 +1,64 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.about {
+  &__values {
+    margin: 0 auto;
+    max-width: var(--max-width);
+    @include py(4.5rem);
+  }
+
+  &__values-header {
+    text-align: center;
+    max-width: 60ch;
+    margin: 0 auto 2.5rem;
+
+    .about__title-lg {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  &__values-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include grid(1, 1.5rem);
+
+    @include screen(md) {
+      @include grid(3, 1.5rem);
+    }
+  }
+
+  &__value-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    @include rounded(0.5rem);
+    @include p(1.75rem);
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+
+    h3 {
+      font-family: $font-title;
+      font-size: $text-xl;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--neutral-color);
+      line-height: 1.6;
+    }
+  }
+
+  &__value-icon {
+    width: 3rem;
+    height: 3rem;
+    display: grid;
+    place-items: center;
+    background: rgba(var(--primary-color-rgb), 0.08);
+    color: var(--primary-color);
+    @include rounded(0.5rem);
+  }
+}

@@ -1,0 +1,38 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.about {
+  &__approach {
+    margin: 0 auto;
+    max-width: var(--max-width);
+    @include py(4.5rem);
+  }
+
+  &__approach-grid {
+    @include grid(1, 2.5rem);
+
+    @include screen(lg) {
+      @include grid(1fr 1.05fr, 3.5rem, 1, center);
+    }
+  }
+
+  &__approach-media {
+    position: relative;
+    min-height: 20rem;
+    overflow: hidden;
+    @include rounded(0.5rem);
+
+    @include screen(lg) {
+      min-height: 24rem;
+    }
+  }
+
+  &__approach-image {
+    object-fit: cover;
+  }
+
+  &__approach-copy {
+    display: grid;
+    gap: 1rem;
+  }
+}

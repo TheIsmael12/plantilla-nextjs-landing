@@ -1,0 +1,99 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.home {
+  &__expansion {
+    padding: clamp(3rem, 7vw, 6rem) 0;
+    background: var(--primary-color);
+    color: var(--light-color);
+
+    .home__title-lg {
+      color: var(--light-color);
+    }
+
+    .home__text-muted {
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .home__btn--light {
+      border-color: transparent;
+    }
+  }
+
+  &__expansion-grid {
+    @include grid(1, 2.5rem);
+
+    @include screen(lg) {
+      @include grid(1fr 1fr, 3rem, 1, center);
+    }
+  }
+
+  &__expansion-zones-label {
+    margin: 1.75rem 0 0.75rem;
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &__expansion-zones {
+    list-style: none;
+    margin: 0 0 0.9rem;
+    padding: 0;
+    @include flex(row, flex-start, center, 0.6rem);
+    flex-wrap: wrap;
+
+    li {
+      font-size: $text-sm;
+      font-weight: $font-semibold;
+      color: var(--light-color);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      @include rounded(0.4rem);
+      @include px(0.85rem);
+      padding-top: 0.45rem;
+      padding-bottom: 0.45rem;
+    }
+  }
+
+  &__expansion-zones-note {
+    margin: 0 0 1.5rem;
+    font-size: $text-sm;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &__spain-map-frame {
+    min-height: 320px;
+    display: grid;
+    place-items: center;
+
+    @include screen(lg) {
+      min-height: 420px;
+    }
+  }
+
+  &__spain-map {
+    width: 100%;
+    max-width: 30rem;
+    height: auto;
+    overflow: visible;
+  }
+
+  // Resto de comunidades autónomas: solo de contexto, discretas sobre el
+  // fondo de la sección.
+  &__spain-region {
+    fill: rgba(255, 255, 255, 0.14);
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    transition: fill 0.2s ease;
+
+    // Única región iluminada con el color de marca: la Comunidad de
+    // Madrid, la zona de cobertura real de Imora.
+    &--madrid {
+      fill: var(--fill-color);
+      stroke: var(--fill-color-hover);
+      filter: drop-shadow(0 0 10px rgba(var(--primary-color-rgb), 0.35));
+    }
+  }
+}

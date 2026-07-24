@@ -1,0 +1,77 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.support__channels {
+  background: var(--surface-color);
+  @include py(4rem);
+}
+
+.support__channels-header {
+  text-align: center;
+  max-width: 40rem;
+  margin: 0 auto 2.5rem;
+
+  .help__title-lg {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.support__channels-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  @include grid(1, 1.25rem);
+
+  @include screen(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.support__channel-card {
+  background: var(--primary-color);
+  border: 1px solid var(--border-color);
+  text-align: center;
+  @include rounded(0.5rem);
+  @include p(1.75rem);
+  display: grid;
+  gap: 0.6rem;
+  justify-items: center;
+
+  h3 {
+    font-family: $font-title;
+    font-size: $text-lg;
+    color: var(--light-color);
+    margin: 0;
+  }
+}
+
+.support__channel-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  color: var(--fill-color);
+  background: rgba(var(--info-color-rgb), 0.25);
+  @include rounded(0.5rem);
+}
+
+.support__channel-description {
+  margin: 0;
+  font-size: $text-sm;
+  color: var(--light-color);
+  line-height: 1.55;
+}
+
+.support__channel-link {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--fill-color);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--light-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}

@@ -1,0 +1,40 @@
+// Estilos de Textarea (components/ui/inputs/Textarea.tsx).
+// Reutiliza `.input__group`/`.label__title`/`.label__error` de `input.scss`.
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.textarea {
+  display: block;
+  width: 100%;
+  color: var(--color);
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color-light);
+  font-family: inherit;
+  font-size: $text-sm;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 7rem;
+  @include px(1rem);
+  @include py(0.75rem);
+  @include rounded();
+
+  &::placeholder {
+    color: var(--neutral-color);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+
+  &:disabled {
+    background-color: var(--neutral-color-light);
+    cursor: not-allowed;
+    resize: none;
+  }
+
+  &__error {
+    border-color: var(--error-color);
+  }
+}

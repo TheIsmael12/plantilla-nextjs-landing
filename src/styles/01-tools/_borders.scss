@@ -1,0 +1,17 @@
+@mixin border-style($border-color) {
+    & {
+        border-width: 1px;
+        border-color: $border-color;
+        box-shadow:
+            0 4px 6px rgba(0, 0, 0, 0.1),
+            0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+}
+
+@mixin rounded($radius: 0.33rem) {
+    & {
+        border-radius: $radius;
+        -webkit-border-radius: $radius;
+        -moz-border-radius: $radius;
+    }
+}

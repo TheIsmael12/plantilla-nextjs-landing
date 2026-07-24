@@ -1,0 +1,137 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.services__detail-hero {
+  background: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  @include px(2rem);
+  @include py(3.5rem);
+  overflow: hidden;
+}
+
+.services__detail-hero-grid {
+  @include grid(1, 2.5rem);
+
+  @include screen(lg) {
+    @include grid(1.05fr 1fr, 3rem, 1, center);
+  }
+}
+
+.services__detail-hero-copy {
+  display: grid;
+  gap: 1.1rem;
+  align-items: start;
+}
+
+.services__detail-back {
+  @include flex(row, flex-start, center, 0.4rem);
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--neutral-color);
+  margin-bottom: 0.4rem;
+
+  &:hover {
+    text-decoration: none;
+    color: var(--primary-color-active);
+  }
+}
+
+.services__detail-hero-tag {
+  display: inline-flex;
+  width: fit-content;
+  margin: 0 0 0.35rem;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary-color-active);
+  background: rgba(var(--primary-color-rgb), 0.08);
+  @include px(0.85rem);
+  @include py(0.4rem);
+  @include rounded(999px);
+}
+
+.services__detail-hero-actions {
+  @include flex(row, flex-start, center, 0.85rem);
+  flex-wrap: wrap;
+  margin-top: 0.4rem;
+}
+
+.services__detail-hero-title {
+  margin: 0;
+  font-family: $font-title;
+  font-weight: $font-semibold;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: var(--color);
+}
+
+.services__detail-hero-description {
+  max-width: 52ch;
+  font-size: $text-lg;
+}
+
+.services__detail-hero-media {
+  position: relative;
+}
+
+.services__detail-hero-media-frame {
+  position: relative;
+  overflow: hidden;
+  min-height: 20rem;
+  @include rounded(0.5rem);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -0.9rem -0.9rem auto auto;
+    width: 55%;
+    height: 50%;
+    background: var(--primary-color);
+    z-index: -1;
+    @include rounded(0.5rem);
+  }
+
+  @include screen(lg) {
+    min-height: 26rem;
+  }
+}
+
+.services__detail-hero-image {
+  object-fit: cover;
+}
+
+.services__detail-hero-badge {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 2;
+  background: var(--primary-color);
+  color: var(--light-color);
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.45);
+  @include flex(row, flex-start, center, 0.65rem);
+  @include px(1rem);
+  @include py(0.65rem);
+  @include rounded(999px);
+
+  @include screen(sm, max) {
+    left: 0.75rem;
+    bottom: 0.75rem;
+    font-size: $text-xs;
+  }
+}
+
+.services__detail-hero-badge-icon {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: grid;
+  place-items: center;
+  background: var(--fill-color);
+  color: var(--color);
+  @include rounded(999px);
+}

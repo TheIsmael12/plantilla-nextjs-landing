@@ -1,0 +1,85 @@
+// Padding en los cuatro lados (p)
+@mixin p($value) {
+    padding: $value;
+}
+
+// Margin en los cuatro lados (m)
+@mixin m($value) {
+    margin: $value;
+}
+
+// Padding vertical (py)
+@mixin py($value) {
+    & {
+        padding-top: $value;
+        padding-bottom: $value;
+    }
+}
+
+// Padding horizontal (px)
+@mixin px($value) {
+    & {
+        padding-left: $value;
+        padding-right: $value;
+    }
+}
+
+// Padding top (pt)
+@mixin pt($value) {
+    padding-top: $value;
+}
+
+// Padding bottom (pb)
+@mixin pb($value) {
+    padding-bottom: $value;
+}
+
+// Padding left (pl)
+@mixin pl($value) {
+    padding-left: $value;
+}
+
+// Padding right (pr)
+@mixin pr($value) {
+    padding-right: $value;
+}
+
+// Margin top (mt)
+@mixin mt($value) {
+    margin-top: $value;
+}
+
+// Margin bottom (mb)
+@mixin mb($value) {
+    margin-bottom: $value;
+}
+
+// Margin vertical (my)
+@mixin my($value) {
+    & {
+        margin-top: $value;
+        margin-bottom: $value;
+    }
+}
+
+// Margin horizontal (mx)
+@mixin mx($value) {
+    & {
+        margin-left: $value;
+        margin-right: $value;
+    }
+}
+
+// Espaciado vertical entre hijos (space-y)
+@mixin space-y($value) {
+    >*+* {
+        margin-top: $value;
+    }
+}
+
+// Espaciado horizontal entre hijos (space-x)
+@mixin space-x($value) {
+    >*+* {
+        margin-left: $value;
+    }
+}

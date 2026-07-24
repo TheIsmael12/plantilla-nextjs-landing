@@ -1,0 +1,48 @@
+// Bloques base compartidos por todas las secciones de Contact
+// (`contact__container`, `contact__eyebrow`, `contact__title-lg`,
+// `contact__text-muted`), igual que `home/homeBase.scss` y
+// `about/aboutBase.scss`.
+//
+// Usa siempre los tokens de color globales (`00-settings/_colors.scss`) y
+// los mixins de `01-tools/` — nada de variables ni colores nuevos.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.contact {
+  overflow-x: hidden;
+}
+
+.contact__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  @include px(1.5rem);
+}
+
+.contact__eyebrow {
+  font-family: $font-family-base;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--primary-color-active);
+  margin: 0 0 0.6rem;
+}
+
+.contact__title-lg {
+  font-family: $font-title;
+  font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+  font-weight: $font-semibold;
+  color: var(--primary-color);
+  line-height: 1.14;
+  text-wrap: balance;
+  margin: 0 0 0.85rem;
+}
+
+.contact__text-muted {
+  font-family: $font-family-base;
+  font-size: $text-base;
+  color: var(--neutral-color);
+  line-height: 1.68;
+  margin: 0;
+}

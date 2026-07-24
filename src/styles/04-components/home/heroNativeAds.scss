@@ -1,0 +1,126 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.home {
+  &__hero {
+    background: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+    @include py(4.5rem);
+    overflow: hidden;
+  }
+
+  &__hero-grid {
+    @include grid(1, 2.5rem);
+
+    @include screen(lg) {
+      @include grid(1.05fr 1fr, 3rem, 1, center);
+    }
+  }
+
+  &__hero-copy {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  &__hero-title {
+    margin: 0;
+    font-family: $font-title;
+    font-weight: $font-semibold;
+    font-size: clamp(2.1rem, 4.3vw, 3.75rem);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    color: var(--color);
+    max-width: 16ch;
+  }
+
+  &__hero-subtitle {
+    margin: 0;
+    max-width: 46ch;
+    color: var(--neutral-color);
+    font-size: $text-lg;
+    line-height: 1.7;
+  }
+
+  &__hero-actions {
+    @include flex(row, flex-start, center, 0.8rem);
+    flex-wrap: wrap;
+    margin-top: 0.4rem;
+  }
+
+  &__hero-trust {
+    @include flex(row, flex-start, center, 0.6rem);
+
+    svg {
+      width: 1.15rem;
+      height: 1.15rem;
+      color: var(--fill-color-active);
+      flex-shrink: 0;
+    }
+
+    p {
+      margin: 0;
+      font-size: $text-sm;
+      font-weight: $font-medium;
+      color: var(--neutral-color);
+    }
+  }
+
+  &__hero-media {
+    position: relative;
+  }
+
+  &__hero-media-frame {
+    position: relative;
+    overflow: hidden;
+    min-height: 22rem;
+    @include rounded(0.5rem);
+
+    // Marco en dos capas: una segunda tarjeta del color de marca asomando
+    // en la esquina, en vez del recuadro redondeado plano habitual.
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -0.9rem -0.9rem auto auto;
+      width: 60%;
+      height: 55%;
+      background: var(--primary-color);
+      z-index: -1;
+      @include rounded(0.5rem);
+    }
+
+    @include screen(lg) {
+      min-height: 30rem;
+    }
+  }
+
+  &__hero-image {
+    object-fit: cover;
+  }
+
+  &__chip-row {
+    position: relative;
+    margin: -1.75rem 1rem 0;
+    padding: 0.85rem;
+    list-style: none;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 16px 32px -16px rgba(var(--primary-color-rgb), 0.28);
+    @include rounded(0.5rem);
+    @include flex(row, flex-start, center, 0.5rem);
+    flex-wrap: wrap;
+
+    @include screen(lg) {
+      margin: -2rem 1.5rem 0;
+    }
+  }
+
+  &__chip {
+    @include rounded(0.4rem);
+    padding: 0.4rem 0.75rem;
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    color: var(--primary-color-active);
+    background-color: rgba(var(--primary-color-rgb), 0.08);
+  }
+}

@@ -1,0 +1,855 @@
+{
+  "About": {
+    "hero": {
+      "eyebrow": "Sobre nosotros",
+      "title": "El equipo que cuida tu comunidad, tu edificio y tu negocio",
+      "subtitle": "Imora es una empresa de servicios integrales para empresas, comunidades de propietarios, edificios y centros comerciales en Madrid: conserjería, seguridad, limpieza, jardinería, piscinas y mantenimiento, con equipo propio y atención 24 horas.",
+      "cta": "Habla con nosotros",
+      "imageAlt": "Conserje de Imora atendiendo a un vecino en el portal"
+    },
+    "approach": {
+      "eyebrow": "Cómo trabajamos",
+      "title": "Un equipo propio, coordinado por un departamento de inspección",
+      "descriptionA": "Conserjes, controladores y técnicos de contratación directa, no subcontratados: el mismo equipo que conoce tu finca es el que la atiende cada día.",
+      "descriptionB": "Antes de proponer nada, analizamos las necesidades reales de cada comunidad, edificio o negocio y diseñamos un plan de mantenimiento a medida, con sustituciones garantizadas y atención 24 horas los 365 días del año.",
+      "descriptionC": "Nuestro departamento de inspección visita cada servicio sobre el terreno para comprobar que se cumple lo acordado y detectar mejoras antes de que se conviertan en incidencias.",
+      "imageAlt": "Técnico de mantenimiento de Imora revisando una instalación"
+    },
+    "certifications": {
+      "eyebrow": "Garantías",
+      "title": "Certificaciones que respaldan cada servicio",
+      "subtitle": "Auditamos nuestros procesos externamente para que la calidad, el respeto ambiental, la seguridad laboral y la protección de datos no dependan solo de nuestra palabra.",
+      "items": {
+        "iso9001": {
+          "code": "ISO 9001",
+          "label": "Gestión de la calidad"
+        },
+        "iso14001": {
+          "code": "ISO 14001",
+          "label": "Gestión ambiental"
+        },
+        "iso45001": {
+          "code": "ISO 45001",
+          "label": "Seguridad y salud en el trabajo"
+        },
+        "iso27001": {
+          "code": "ISO 27001",
+          "label": "Seguridad de la información"
+        }
+      }
+    },
+    "values": {
+      "eyebrow": "Ventajas",
+      "title": "Por qué comunidades, edificios y empresas siguen confiando en Imora",
+      "items": {
+        "team": {
+          "title": "Equipo propio y cualificado",
+          "description": "Conserjes, controladores y técnicos con la máxima garantía de profesionalidad, mayoritariamente de contratación directa."
+        },
+        "availability": {
+          "title": "Atención 24 horas",
+          "description": "Disponibles 365 días al año para cualquier incidencia o urgencia que pueda surgir."
+        },
+        "substitutions": {
+          "title": "Sustituciones garantizadas",
+          "description": "Cubrimos cualquier ausencia sin coste añadido, para que el servicio nunca se interrumpa."
+        }
+      }
+    },
+    "cta": {
+      "eyebrow": "Zonas de cobertura",
+      "title": "Trabajamos en Madrid y su Comunidad",
+      "zonesLabel": "Madrid Capital y alrededores",
+      "zones": [
+        "Madrid capital",
+        "Pozuelo de Alarcón",
+        "Alcorcón"
+      ],
+      "zonesNote": "Y municipios cercanos de su área metropolitana.",
+      "button": "Solicitar presupuesto",
+      "scheduleLabel": "Horario",
+      "addressLabel": "Sede"
+    }
+  },
+  "Contact": {
+    "hero": {
+      "eyebrow": "Contacto",
+      "title": "¿Hablamos?",
+      "subtitle": "Estamos aquí para ayudarte. Escríbenos, llámanos o vísitanos; te responderemos en menos de 24 h."
+    },
+    "form": {
+      "title": "Escríbenos",
+      "subtitle": "Rellena el formulario y te contestamos en menos de 24 h.",
+      "fields": {
+        "name": "Nombre",
+        "email": "Correo electrónico",
+        "subject": "Asunto",
+        "message": "Mensaje"
+      },
+      "placeholders": {
+        "name": "Tu nombre completo",
+        "email": "tu@email.com",
+        "subject": "¿En qué podemos ayudarte?",
+        "message": "Cuéntanos con detalle tu consulta…"
+      },
+      "submit": "Enviar mensaje",
+      "submitting": "Enviando…",
+      "success": "¡Mensaje enviado! Te responderemos lo antes posible.",
+      "privacy": "Al enviar aceptas nuestra",
+      "privacyLink": "política de privacidad"
+    },
+    "map": {
+      "label": "Dónde estamos",
+      "title": "Ven a visitarnos",
+      "mapTitle": "Mapa de ubicación de la oficina",
+      "address": "Dirección",
+      "phone": "Teléfono",
+      "email": "Email",
+      "schedule": "Horario",
+      "cta": "Cómo llegar",
+      "viewOnMaps": "Ver en Maps",
+      "emergencyLabel": "Urgencias 24h"
+    },
+    "departments": {
+      "eyebrow": "Departamentos",
+      "title": "¿Con quién quieres hablar?",
+      "sales": {
+        "name": "Comercial",
+        "description": "Cuéntanos qué servicio necesitas y te preparamos un presupuesto a medida.",
+        "cta": "Solicitar presupuesto"
+      },
+      "support": {
+        "name": "Atención al cliente",
+        "description": "¿Ya eres cliente? Resolvemos incidencias y dudas sobre tu servicio lo antes posible.",
+        "cta": "Contactar con atención al cliente"
+      },
+      "billing": {
+        "name": "Administración",
+        "description": "Facturación, contratos y gestión administrativa de tu comunidad o edificio.",
+        "cta": "Escribir a administración"
+      }
+    },
+    "trust": {
+      "response": {
+        "value": "< 24 h",
+        "label": "Tiempo de respuesta"
+      },
+      "team": {
+        "value": "100%",
+        "label": "Trato directo con el equipo, sin intermediarios"
+      },
+      "office": {
+        "value": "Madrid",
+        "label": "Sede única, visitas con cita previa"
+      }
+    }
+  },
+  "Help": {
+    "hero": {
+      "eyebrow": "Ayuda",
+      "title": "¿En qué podemos ayudarte?",
+      "subtitle": "Tanto si buscas una respuesta rápida como si necesitas hablar con nuestro equipo, elige la opción que mejor encaje con lo que necesitas."
+    },
+    "topics": {
+      "faq": {
+        "title": "Preguntas frecuentes",
+        "description": "Servicios, cobertura, presupuestos y garantías: respuestas inmediatas a las dudas más habituales, organizadas por tema.",
+        "cta": "Ver preguntas frecuentes"
+      },
+      "support": {
+        "title": "Soporte para clientes",
+        "description": "¿Ya trabajas con nosotros? Resuelve incidencias, dudas de facturación o cualquier consulta sobre tu servicio con trato directo.",
+        "cta": "Ir a soporte"
+      }
+    },
+    "ctaLabel": "¿Prefieres hablar con nosotros directamente?",
+    "ctaTitle": "Escríbenos y te respondemos en menos de 24 horas",
+    "ctaButton": "Contactar con nosotros"
+  },
+  "Faq": {
+    "hero": {
+      "eyebrow": "Ayuda",
+      "title": "Preguntas frecuentes",
+      "subtitle": "Todo lo que necesitas saber sobre nuestros servicios, la cobertura, los presupuestos y cómo trabajamos, organizado por temas. Si no encuentras lo que buscas, escríbenos y te respondemos en menos de 24 horas."
+    },
+    "categories": {
+      "services": {
+        "title": "Servicios",
+        "items": {
+          "overview": {
+            "question": "¿Qué servicios ofrece Imora?",
+            "answer": "Conserjería y control de accesos, seguridad y CCTV, mantenimiento de piscinas, limpieza y jardinería y mantenimiento de edificios. Todos con equipo propio, no subcontratado."
+          },
+          "conserjeria": {
+            "question": "¿Qué incluye el servicio de conserjería?",
+            "answer": "Recepción, control de accesos, reparto de correspondencia y atención a los vecinos, con horarios flexibles de 6 a 24 horas según las necesidades de cada finca."
+          },
+          "seguridad": {
+            "question": "¿Cómo funciona el servicio de seguridad y CCTV?",
+            "answer": "Nos encargamos del proyecto, la instalación y el mantenimiento de los sistemas de videovigilancia y control de accesos, para proteger tu edificio o centro comercial de principio a fin."
+          },
+          "mantenimiento": {
+            "question": "¿Hacéis mantenimiento de edificios?",
+            "answer": "Sí. Nuestro equipo técnico propio cubre fontanería, electricidad, cerrajería y pequeñas obras en las zonas comunes, con respuesta rápida ante averías."
+          }
+        }
+      },
+      "coverageSchedule": {
+        "title": "Cobertura y horarios",
+        "items": {
+          "coverage": {
+            "question": "¿En qué zonas trabajáis?",
+            "answer": "Atendemos empresas, comunidades de propietarios, edificios, centros comerciales y aparcamientos en Madrid capital, Pozuelo de Alarcón, Alcorcón y municipios cercanos de su área metropolitana."
+          },
+          "schedule": {
+            "question": "¿Qué horario de conserjería puedo contratar?",
+            "answer": "El que necesite tu finca: desde 6 hasta 24 horas de servicio. Adaptamos el horario a la realidad de cada comunidad, no al revés."
+          },
+          "availability": {
+            "question": "¿Tenéis atención fuera del horario de oficina?",
+            "answer": "Sí. Además del horario de oficina, disponemos de atención a urgencias 24 horas, los 365 días del año, para cualquier incidencia que no pueda esperar."
+          }
+        }
+      },
+      "quotes": {
+        "title": "Presupuestos y contratación",
+        "items": {
+          "quote": {
+            "question": "¿Cómo solicito un presupuesto?",
+            "answer": "Rellena el formulario de contacto o llámanos directamente. Hacemos una visita y estudio previo de tu comunidad o edificio, y te preparamos un presupuesto cerrado con respuesta en 48 horas, sin compromiso."
+          },
+          "financing": {
+            "question": "¿Ofrecéis facilidades de pago?",
+            "answer": "Sí, aplazamos el 40% de la facturación del primer año, repartido en las mensualidades siguientes, sin intereses."
+          },
+          "changeService": {
+            "question": "Quiero ampliar o cambiar el servicio que tengo contratado, ¿con quién hablo?",
+            "answer": "Con el departamento comercial, que revisa contigo las nuevas necesidades y prepara la propuesta actualizada. Puedes escribirle directamente desde la página de contacto."
+          }
+        }
+      },
+      "trust": {
+        "title": "Empresa y garantías",
+        "items": {
+          "substitutions": {
+            "question": "¿Qué pasa si un conserje o técnico falta o está de baja?",
+            "answer": "Cubrimos cualquier ausencia con una sustitución garantizada y sin coste añadido, para que el servicio no se interrumpa nunca."
+          },
+          "quality": {
+            "question": "¿Cómo controláis la calidad del servicio?",
+            "answer": "Nuestro departamento de inspección visita cada servicio sobre el terreno de forma periódica, para comprobar que se cumple lo acordado y detectar mejoras antes de que se conviertan en incidencias."
+          },
+          "certifications": {
+            "question": "¿Estáis certificados?",
+            "answer": "Sí, contamos con certificaciones ISO 9001 (gestión de la calidad), ISO 14001 (gestión ambiental), ISO 45001 (seguridad y salud en el trabajo) e ISO 27001 (seguridad de la información)."
+          },
+          "existingClient": {
+            "question": "Ya soy cliente de Imora, ¿dónde pido soporte?",
+            "answer": "Visita nuestra página de soporte para ver los canales según el tipo de consulta (incidencias, comercial o administración), o escribe directamente a soporte@imora.es."
+          }
+        }
+      }
+    },
+    "ctaLabel": "¿No encuentras la respuesta que buscas?",
+    "ctaTitle": "Escríbenos y te ayudamos",
+    "ctaButton": "Contactar con nosotros"
+  },
+  "Support": {
+    "hero": {
+      "eyebrow": "Ayuda",
+      "title": "¿Ya eres cliente? Estamos para ayudarte",
+      "subtitle": "Sin centralitas ni intermediarios: tu consulta llega directa al equipo que atiende tu comunidad o edificio. Elige abajo el motivo de tu consulta o escríbenos directamente."
+    },
+    "routing": {
+      "title": "¿Qué tipo de ayuda necesitas?",
+      "subtitle": "Dirige tu consulta al equipo adecuado y la resolveremos antes."
+    },
+    "process": {
+      "eyebrow": "Cómo trabajamos",
+      "title": "Qué ocurre cuando nos escribes",
+      "steps": {
+        "one": {
+          "title": "Nos cuentas tu caso",
+          "description": "Por email, teléfono o el formulario de contacto: cuéntanos la incidencia o duda con el mayor detalle posible."
+        },
+        "two": {
+          "title": "Lo revisa tu equipo",
+          "description": "Tu consulta llega directamente al equipo que ya conoce y atiende tu comunidad o edificio, sin intermediarios."
+        },
+        "three": {
+          "title": "Te respondemos",
+          "description": "En menos de 24 horas, o de inmediato si se trata de una urgencia fuera de horario."
+        }
+      }
+    },
+    "channels": {
+      "title": "Contacto directo",
+      "subtitle": "Si prefieres no esperar, escríbenos o llámanos ahora mismo.",
+      "email": {
+        "title": "Escríbenos",
+        "description": "Incidencias, dudas sobre tu servicio o gestiones con tu comunidad."
+      },
+      "phone": {
+        "title": "Llámanos",
+        "description": "Consultas generales sobre tu servicio, en horario de oficina."
+      },
+      "emergency": {
+        "title": "Urgencias 24 horas",
+        "description": "Fuera de horario de oficina, para incidencias que no puedan esperar."
+      }
+    },
+    "info": {
+      "eyebrow": "Nuestra sede",
+      "title": "Una sede única, trato cercano",
+      "subtitle": "Atendemos visitas con cita previa; fuera de horario de oficina, seguimos disponibles por teléfono para cualquier urgencia.",
+      "scheduleLabel": "Horario",
+      "addressLabel": "Dirección",
+      "mapLabel": "Mapa de ubicación de la sede de Imora",
+      "mapCta": "Cómo llegar",
+      "viewOnMaps": "Ver en Maps",
+      "emergencyLabel": "Teléfono de urgencias 24h"
+    },
+    "faqPrompt": {
+      "eyebrow": "¿Buscas una respuesta rápida?",
+      "title": "Consulta las preguntas frecuentes",
+      "button": "Ver preguntas frecuentes"
+    }
+  },
+  "Home": {
+    "hero": {
+      "eyebrow": "Servicios para empresas, comunidades y edificios",
+      "title": "Cuidamos tu comunidad, tu edificio, tu negocio",
+      "subtitle": "Conserjería, seguridad, limpieza, piscinas y mantenimiento integral para empresas, comunidades de propietarios, centros comerciales y edificios en Madrid.",
+      "primaryCta": "Solicitar presupuesto",
+      "secondaryCta": "Ver servicios",
+      "trust": "Atención 24 horas, 365 días al año",
+      "imageAlt": "Equipo de conserjería y mantenimiento de Imora",
+      "chipsLabel": "Nuestros servicios más solicitados",
+      "chips": {
+        "conserjeria": "Conserjería",
+        "seguridad": "Seguridad",
+        "limpieza": "Limpieza",
+        "jardineria": "Jardinería",
+        "piscinas": "Piscinas"
+      }
+    },
+    "trustBar": {
+      "ariaLabel": "Por qué confiar en Imora",
+      "items": {
+        "availability": {
+          "value": "24h",
+          "label": "Atención los 365 días del año"
+        },
+        "response": {
+          "value": "48h",
+          "label": "Respuesta a cada solicitud de presupuesto"
+        },
+        "coverage": {
+          "value": "0€",
+          "label": "Sustituciones garantizadas sin coste añadido"
+        },
+        "certifications": {
+          "label": "Certificados en calidad, ambiente, PRL y seguridad de la información"
+        }
+      }
+    },
+    "expansion": {
+      "title": "Cobertura en Madrid y su Comunidad",
+      "description": "Atendemos empresas, comunidades de propietarios, centros comerciales, aparcamientos y edificios en Madrid capital y municipios de su área metropolitana.",
+      "zonesLabel": "Madrid Capital y alrededores",
+      "zones": [
+        "Madrid capital",
+        "Pozuelo de Alarcón",
+        "Alcorcón"
+      ],
+      "zonesNote": "Y municipios cercanos de su área metropolitana.",
+      "cta": "Conocer la empresa",
+      "mapLabel": "Zonas de cobertura de Imora en la Comunidad de Madrid"
+    },
+    "video": {
+      "cardLabel": "Vídeo del equipo de Imora",
+      "imageAlt": "Equipo de mantenimiento y conserjería trabajando",
+      "playLabel": "Reproducir vídeo",
+      "caption": "Así cuidamos cada comunidad, paso a paso",
+      "title": "Esto es Imora",
+      "descriptionA": "Un equipo propio de conserjes, controladores y técnicos, coordinado por un departamento de inspección que revisa cada servicio sobre el terreno.",
+      "descriptionB": "Analizamos las necesidades de cada finca y diseñamos un plan de mantenimiento a medida, con sustituciones garantizadas y atención 24 horas."
+    },
+    "services": {
+      "title": "Nuestros servicios",
+      "subtitle": "Una gama completa de servicios para comunidades, edificios, centros comerciales y aparcamientos, con la garantía de Imora.",
+      "prev": "Servicios anteriores",
+      "next": "Siguientes servicios",
+      "slideLabel": "Servicio {index}: {name}",
+      "viewService": "Ver servicio",
+      "serviceLinkAria": "Ver servicio: {name}"
+    },
+    "mosaic": {
+      "title": "Ventajas de trabajar con Imora",
+      "subtitle": "Recursos, flexibilidad y garantías pensadas para el día a día de tu comunidad.",
+      "cards": {
+        "experts": {
+          "title": "Equipo propio y cualificado",
+          "description": "Conserjes, controladores y técnicos con la máxima garantía de profesionalidad, mayoritariamente de contratación directa.",
+          "imageAlt": "Profesional de conserjería de Imora"
+        },
+        "model": {
+          "title": "Máxima flexibilidad horaria",
+          "description": "Desde 6 hasta 24 horas de servicio, adaptado a las necesidades reales de cada finca."
+        },
+        "business": {
+          "title": "Sustituciones garantizadas",
+          "description": "Cubrimos cualquier ausencia sin coste añadido, para que el servicio nunca se interrumpa."
+        },
+        "support": {
+          "title": "Atención 24 horas",
+          "description": "Disponibles 365 días al año para cualquier incidencia o urgencia que pueda surgir."
+        },
+        "purchase": {
+          "title": "Financiación sin intereses",
+          "description": "Aplazamos el 40% de la facturación del primer año, repartido en las mensualidades siguientes."
+        },
+        "feature": {
+          "title": "Inspección de calidad periódica",
+          "description": "Nuestro departamento de inspección visita cada servicio para garantizar su mejora continua.",
+          "imageAlt": "Inspección de instalaciones"
+        }
+      }
+    },
+    "reviews": {
+      "title": "Lo que dicen nuestros clientes",
+      "subtitle": "Comunidades y empresas reales que confían en Imora para el cuidado de sus instalaciones.",
+      "prev": "Reseñas anteriores",
+      "next": "Siguientes reseñas",
+      "ratingLabel": "5 de 5 estrellas",
+      "slideLabel": "Reseña {index}: {name}",
+      "items": {
+        "marta": {
+          "name": "Marta Iglesias",
+          "role": "Presidenta - Comunidad de Propietarios, Pozuelo",
+          "quote": "Desde que Imora lleva la conserjería y el mantenimiento no hemos vuelto a preocuparnos por incidencias. Responden siempre en el mismo día."
+        },
+        "luis": {
+          "name": "Luis Herrera",
+          "role": "Gerente - Centro Comercial, Alcorcón",
+          "quote": "El servicio de seguridad y CCTV nos da tranquilidad las 24 horas. El trato con el equipo de Imora es siempre cercano y profesional."
+        },
+        "anna": {
+          "name": "Ana Belén Ruiz",
+          "role": "Administradora de fincas - Madrid",
+          "quote": "Gestiono varias comunidades y en todas donde entra Imora baja la conflictividad: conserjes fijos, sustituciones cubiertas y presupuesto cerrado."
+        }
+      }
+    },
+    "ctaPrimary": {
+      "eyebrow": "Presupuesto",
+      "title": "¿Necesitas un servicio para tu empresa, comunidad o edificio?",
+      "subtitle": "Cuéntanos qué necesitas y te preparamos una propuesta a medida, sin compromiso.",
+      "pillsLabel": "Incluye",
+      "pillA": "Visita y estudio previo",
+      "pillB": "Presupuesto cerrado",
+      "pillC": "Respuesta en 48h",
+      "button": "Solicitar presupuesto",
+      "callCta": "O llámanos directamente",
+      "aside": "Sin compromiso. Te llamamos para entender tu caso.",
+      "cardLabel": "Te respondemos en menos de 48 horas",
+      "orLabel": "o"
+    }
+  },
+  "Services": {
+    "index": {
+      "eyebrow": "Servicios",
+      "title": "Todo lo que tu empresa, comunidad o edificio necesita, con un solo proveedor",
+      "subtitle": "Seis servicios especializados para empresas, comunidades de vecinos, edificios, negocios y centros comerciales, coordinados por un único equipo."
+    },
+    "items": {
+      "concierge": {
+        "tag": "Servicio 01",
+        "title": "Conserjería y control de accesos",
+        "summary": "Recepción, control de accesos, reparto de correspondencia y atención a vecinos, empleados o clientes, con horarios flexibles de 6 a 24 horas para comunidades, edificios, empresas y centros comerciales.",
+        "description": "Un conserje es la primera imagen de tu comunidad, tu edificio o tu negocio, y el filtro que evita que cualquiera entre sin control. Seleccionamos y formamos a nuestro propio personal para portales de vecinos, sedes de empresa y accesos de centros comerciales, y cubrimos bajas y vacaciones sin dejar el puesto vacío.",
+        "cta": "Solicitar conserjería para mi comunidad, edificio o negocio",
+        "subservices": [
+          {
+            "icon": "UserCheck",
+            "title": "Recepción y atención al vecino",
+            "image": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80",
+            "description": "El conserje conoce a cada vecino por su nombre y sabe qué proveedores tiene autorizados cada vivienda. Las incidencias que no puede resolver en el momento quedan registradas en un parte diario y llegan a la administración de fincas ese mismo día, no a final de mes."
+          },
+          {
+            "icon": "ScanLine",
+            "title": "Control de accesos",
+            "image": "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?auto=format&fit=crop&w=900&q=80",
+            "description": "Cada visita queda registrada con hora de entrada, y el conserje verifica la identidad antes de dejar pasar a cualquier persona que no reconoce. Los repartidores y mensajeros siguen un protocolo específico para no interrumpir el descanso de los vecinos por la noche."
+          },
+          {
+            "icon": "Package",
+            "title": "Correspondencia y paquetería",
+            "image": "https://images.unsplash.com/photo-1560184611-ff3e53f00e8f?auto=format&fit=crop&w=900&q=80",
+            "description": "Los paquetes que requieren firma se guardan en un espacio identificado y se avisa al vecino por el canal que la comunidad decida: nota física, WhatsApp o una app. El correo certificado y las notificaciones oficiales se gestionan siempre con acuse de recibo."
+          },
+          {
+            "icon": "RefreshCcw",
+            "title": "Cobertura de bajas y vacaciones",
+            "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80",
+            "description": "Antes de empezar su turno, el sustituto recibe el traspaso de las particularidades del edificio: vecinos con necesidades especiales, proveedores habituales, incidencias abiertas. El objetivo es que el cambio de persona pase desapercibido para la comunidad."
+          }
+        ],
+        "faq": [
+          {
+            "question": "¿Cuánto cuesta el servicio de conserjería?",
+            "answer": "Depende del horario de cobertura (parcial o 24 horas) y del tamaño del edificio. Preparamos un presupuesto cerrado tras visitar la finca, sin cuotas ocultas."
+          },
+          {
+            "question": "¿Puedo cambiar de empresa de conserjería sin problemas?",
+            "answer": "Sí. Nos encargamos de la transición con la administración de fincas actual y, si el conserje quiere continuar en el edificio, valoramos su incorporación al equipo de Imora."
+          },
+          {
+            "question": "¿Qué pasa si el conserje se pone enfermo?",
+            "answer": "Cubrimos la baja con otro profesional del mismo perfil, sin coste adicional ni interrupción del servicio."
+          },
+          {
+            "question": "¿Puedo contratar cobertura solo por las mañanas?",
+            "answer": "Sí, los turnos se ajustan a lo que necesite cada comunidad: media jornada, turno partido o cobertura completa de 6 a 24 horas."
+          }
+        ]
+      },
+      "security": {
+        "tag": "Servicio 02",
+        "title": "Seguridad y CCTV",
+        "summary": "Proyecto, instalación y mantenimiento de sistemas de videovigilancia y control de accesos para proteger tu comunidad, edificio, negocio o centro comercial.",
+        "description": "Diseñamos el sistema de seguridad según los puntos de acceso reales de cada comunidad, edificio, negocio o centro comercial, lo instalamos y nos encargamos de su mantenimiento para que las cámaras y los controles de acceso sigan funcionando el día que se necesiten.",
+        "cta": "Pedir estudio de seguridad para mi edificio o negocio",
+        "subservices": [
+          {
+            "icon": "Camera",
+            "title": "Videovigilancia (CCTV)",
+            "image": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=900&q=80",
+            "description": "Las cámaras se ubican en los puntos ciegos reales del edificio (accesos, garaje, zonas comunes), no en un patrón estándar. La grabación se conserva un máximo de 30 días, siguiendo el criterio orientativo de la Agencia Española de Protección de Datos para uso de videovigilancia."
+          },
+          {
+            "icon": "KeyRound",
+            "title": "Control de accesos electrónico",
+            "image": "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&w=900&q=80",
+            "description": "Cada tarjeta o código queda asociado a una vivienda y, si la comunidad lo pide, a una franja horaria concreta. Por ejemplo, para limitar el acceso del personal de limpieza externo a las horas contratadas, sin necesidad de que nadie les abra la puerta."
+          },
+          {
+            "icon": "Wrench",
+            "title": "Mantenimiento de los equipos",
+            "image": "https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=900&q=80",
+            "description": "Revisamos el estado de cámaras y grabadores cada trimestre, y sustituimos los discos de grabación antes de que fallen por desgaste. La idea es detectar el problema antes de que la comunidad se dé cuenta de que llevaba semanas sin grabar."
+          },
+          {
+            "icon": "Siren",
+            "title": "Respuesta ante incidencias",
+            "image": "https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?auto=format&fit=crop&w=900&q=80",
+            "description": "Un técnico revisa el aviso en menos de 24 horas laborables. Si el fallo compromete la seguridad del edificio, como una cámara de acceso caída o una puerta que no cierra, la prioridad pasa a ser inmediata."
+          }
+        ],
+        "faq": [
+          {
+            "question": "¿Cuánto tiempo se conservan las grabaciones?",
+            "answer": "Un máximo de 30 días, siguiendo el criterio orientativo de la Agencia Española de Protección de Datos, salvo que se necesiten para una investigación en curso."
+          },
+          {
+            "question": "¿Quién puede ver las grabaciones?",
+            "answer": "Solo el personal autorizado por la comunidad, normalmente el presidente y el administrador de fincas, con acceso restringido y registrado."
+          },
+          {
+            "question": "¿Puedo ampliar el sistema más adelante?",
+            "answer": "Sí, el proyecto se diseña pensando en poder añadir cámaras o puntos de control de acceso sin sustituir el sistema completo."
+          },
+          {
+            "question": "¿Qué pasa si una cámara deja de funcionar?",
+            "answer": "El aviso se trata como incidencia de seguridad, no como mantenimiento ordinario: un técnico revisa el fallo en menos de 24 horas laborables."
+          }
+        ]
+      },
+      "pools": {
+        "tag": "Servicio 03",
+        "title": "Mantenimiento de piscinas",
+        "summary": "Servicio integral de piscina, con socorristas cualificados durante toda la temporada de verano, para comunidades de propietarios, edificios y complejos con zona de baño.",
+        "description": "Nos encargamos del mantenimiento químico y de la limpieza de la piscina comunitaria, y aportamos socorristas titulados durante toda la temporada de baño para que la comunidad, el edificio o el complejo disfrute de la piscina con las garantías legales al día.",
+        "cta": "Preparar mi piscina para la temporada",
+        "subservices": [
+          {
+            "icon": "Droplet",
+            "title": "Mantenimiento químico del agua",
+            "image": "https://images.unsplash.com/photo-1470723710355-95304d8aece4?auto=format&fit=crop&w=900&q=80",
+            "description": "Medimos el pH (objetivo 7,2-7,6) y el cloro libre (0,5-2 mg/l) a diario, según los parámetros del Real Decreto 742/2013 sobre piscinas de uso colectivo. La dosis se ajusta al uso real de la piscina cada día, no a una pauta fija de fábrica."
+          },
+          {
+            "icon": "Brush",
+            "title": "Limpieza de vaso y playa",
+            "image": "https://images.unsplash.com/photo-1611843467160-25afb8df1074?auto=format&fit=crop&w=900&q=80",
+            "description": "El fondo y las paredes del vaso se cepillan para evitar la formación de algas, y la zona de playa se limpia a diario en temporada alta, que es cuando de verdad se ensucia. El objetivo no es que \"parezca\" limpia, sino que lo esté."
+          },
+          {
+            "icon": "LifeBuoy",
+            "title": "Socorrismo titulado",
+            "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=80",
+            "description": "Los socorristas tienen el título oficial de socorrismo acuático en vigor y cubren todo el horario de baño que fije la comunidad, sin huecos sin vigilancia a mediodía ni el último fin de semana de la temporada."
+          },
+          {
+            "icon": "CalendarClock",
+            "title": "Apertura y cierre de temporada",
+            "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80",
+            "description": "Antes de abrir revisamos bombas, filtros y el sistema de dosificación, y limpiamos a fondo tras el invierno. Al cerrar, cubrimos el vaso y protegemos la maquinaria de la humedad y el frío para que llegue intacta a la siguiente temporada."
+          }
+        ],
+        "faq": [
+          {
+            "question": "¿Desde cuándo hasta cuándo dura el servicio?",
+            "answer": "Normalmente de junio a septiembre, pero ajustamos las fechas al calendario real de apertura y cierre que decida la comunidad."
+          },
+          {
+            "question": "¿Es obligatorio tener socorrista si la piscina es pequeña?",
+            "answer": "Depende de la normativa autonómica y del aforo de la piscina; te asesoramos según el caso concreto de tu comunidad."
+          },
+          {
+            "question": "¿Qué pasa si el socorrista falta un día?",
+            "answer": "Cubrimos la ausencia con otro socorrista titulado; la piscina no se queda sin vigilancia ningún día del horario contratado."
+          },
+          {
+            "question": "¿Puedo contratar solo el mantenimiento químico, sin socorrista?",
+            "answer": "Sí, el mantenimiento del agua y el socorrismo se pueden contratar por separado, según lo que ya tenga cubierto la comunidad."
+          }
+        ]
+      },
+      "cleaning": {
+        "tag": "Servicio 04",
+        "title": "Limpieza integral",
+        "summary": "Limpieza de zonas comunes, cristales y garajes para que tu comunidad, edificio, negocio o centro comercial luzca impecable todo el año.",
+        "description": "Un equipo fijo se encarga de la limpieza de portal, escaleras, zonas comunes y garaje, con la frecuencia que necesite cada comunidad, edificio, negocio o centro comercial.",
+        "cta": "Consultar plan de limpieza",
+        "subservices": [
+          {
+            "icon": "Brush",
+            "title": "Limpieza de zonas comunes",
+            "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80",
+            "description": "El equipo sigue un plan de tareas por zona (portal, escaleras, ascensor) para no dejar rincones sin repasar, con la frecuencia que decida la comunidad, el edificio o el negocio: desde diaria hasta dos veces por semana."
+          },
+          {
+            "icon": "AppWindow",
+            "title": "Limpieza de cristales",
+            "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+            "description": "Los cristales de portal y zonas comunes entran en el plan habitual. La fachada accesible con pértiga se programa como servicio adicional según la altura y el tipo de acceso del edificio, no como algo incluido \"de oficio\" en todos los casos."
+          },
+          {
+            "icon": "Warehouse",
+            "title": "Limpieza de garajes",
+            "image": "https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=900&q=80",
+            "description": "Barrido y fregado de rampa, plazas y pasillos, con tratamiento específico para manchas de aceite y grasa. Se programa con la frecuencia que necesite el garaje de la comunidad, el edificio o el aparcamiento del negocio."
+          },
+          {
+            "icon": "PackageCheck",
+            "title": "Suministro de material",
+            "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=900&q=80",
+            "description": "Los productos de limpieza cumplen la normativa vigente, e Imora ofrece alternativas ecológicas sin coste adicional si la comunidad las prefiere. La comunidad o la empresa no gestiona compras ni almacenaje de productos."
+          }
+        ],
+        "faq": [
+          {
+            "question": "¿Con qué frecuencia se limpia el edificio?",
+            "answer": "La que decida la comunidad, el edificio o el negocio: desde una limpieza semanal hasta un equipo a diario, según el tamaño y el uso del inmueble."
+          },
+          {
+            "question": "¿Incluye la limpieza de las viviendas u oficinas privadas?",
+            "answer": "No, el servicio cubre únicamente zonas comunes: portal, escaleras, garaje y zonas exteriores compartidas."
+          },
+          {
+            "question": "¿Puedo pedir una limpieza puntual, no periódica?",
+            "answer": "Sí, por ejemplo tras una obra o antes de un evento de la comunidad o del negocio, como servicio adicional al plan habitual."
+          },
+          {
+            "question": "¿La limpieza de garajes está incluida?",
+            "answer": "Se puede incluir en el plan general o contratarse como servicio adicional, según el estado y el uso del garaje o aparcamiento."
+          }
+        ]
+      },
+      "gardening": {
+        "tag": "Servicio 05",
+        "title": "Jardinería y zonas verdes",
+        "summary": "Diseño, mantenimiento y poda de jardines y zonas verdes para comunidades, edificios, empresas y centros comerciales.",
+        "description": "Un equipo de jardinería con experiencia en comunidades y espacios comerciales se encarga de la poda, el riego y el mantenimiento de céspedes, setos y zonas verdes, con visitas periódicas o un plan anual según lo que necesite cada finca o negocio.",
+        "cta": "Consultar plan de jardinería",
+        "subservices": [
+          {
+            "icon": "Trees",
+            "title": "Poda y mantenimiento de arbolado",
+            "image": "https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=900&q=80",
+            "description": "La poda se planifica según la especie de cada planta y su época de floración, no en una fecha fija para todo el jardín. Podar un árbol o un rosal en el momento equivocado puede costarle la floración o el crecimiento de todo el año siguiente."
+          },
+          {
+            "icon": "Droplet",
+            "title": "Riego automático y control de consumo",
+            "image": "https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&w=900&q=80",
+            "description": "Revisamos y programamos los sistemas de riego automático para ajustar el consumo de agua a la temporada, evitando tanto el estrés hídrico de las plantas como el gasto innecesario en zonas comunes, aparcamientos exteriores o accesos de negocios y centros comerciales."
+          },
+          {
+            "icon": "Flower2",
+            "title": "Céspedes, setos y zonas ornamentales",
+            "image": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=900&q=80",
+            "description": "Siega, perfilado de setos y cuidado de zonas ornamentales con la frecuencia que marque la temporada, para que las zonas verdes de la comunidad, el edificio o el centro comercial mantengan una imagen cuidada todo el año."
+          },
+          {
+            "icon": "Leaf",
+            "title": "Retirada de restos vegetales",
+            "image": "https://images.unsplash.com/photo-1592210454359-9043f067919b?auto=format&fit=crop&w=900&q=80",
+            "description": "Los restos de poda, siega y hojas se retiran tras cada visita, sin dejar la zona ajardinada ni los accesos de vehículos o peatones ocupados con residuos vegetales."
+          }
+        ],
+        "faq": [
+          {
+            "question": "¿La jardinería se puede contratar junto con la limpieza?",
+            "answer": "Sí, se puede contratar de forma conjunta con el servicio de limpieza o de manera independiente, según lo que ya tenga resuelto la comunidad, el edificio o el negocio."
+          },
+          {
+            "question": "¿Con qué frecuencia se realiza el mantenimiento?",
+            "answer": "La que decida cada comunidad o empresa: desde visitas quincenales hasta un plan semanal en temporada alta, cuando el crecimiento es mayor."
+          },
+          {
+            "question": "¿Atendéis jardines de comunidades pequeñas y también de centros comerciales o parques empresariales?",
+            "answer": "Sí, adaptamos el equipo y la frecuencia al tamaño real de la zona verde, desde el jardín de un portal hasta las zonas exteriores de un centro comercial o un parque empresarial."
+          },
+          {
+            "question": "¿Incluye la reposición de plantas que no sobreviven?",
+            "answer": "La reposición de planta muerta o dañada se presupuesta como servicio adicional, ya que depende de la especie y de la causa del daño."
+          }
+        ]
+      },
+      "maintenance": {
+        "tag": "Servicio 06",
+        "title": "Mantenimiento de edificios",
+        "summary": "Fontanería, electricidad, cerrajería y pequeñas obras para comunidades, edificios, empresas y centros comerciales, con un equipo técnico propio y respuesta rápida.",
+        "description": "Resolvemos las incidencias de mantenimiento del día a día en comunidades, edificios, negocios y centros comerciales con un equipo técnico propio (no subcontratado), lo que nos permite responder rápido ante averías de fontanería, electricidad, cerrajería o pequeñas obras.",
+        "cta": "Solicitar mantenimiento técnico para mi comunidad o negocio",
+        "subservices": [
+          {
+            "icon": "Droplet",
+            "title": "Fontanería",
+            "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80",
+            "description": "Las fugas y averías en zonas comunes se atienden con las herramientas que ya lleva el propio técnico, sin depender de conseguir la pieza en el momento. Las reparaciones más complejas se presupuestan antes de intervenir, sin sorpresas en la factura."
+          },
+          {
+            "icon": "Zap",
+            "title": "Electricidad",
+            "image": "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=900&q=80",
+            "description": "Revisamos el cuadro eléctrico general y la iluminación de zonas comunes, y sustituimos progresivamente el alumbrado antiguo por LED cuando se pide. El cambio se nota directamente en el recibo de la luz de la comunidad."
+          },
+          {
+            "icon": "KeyRound",
+            "title": "Cerrajería",
+            "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=900&q=80",
+            "description": "Un problema de cerrajería en un acceso común se trata como urgente porque compromete la seguridad del edificio, no como una incidencia de mantenimiento ordinaria que puede esperar al lunes."
+          },
+          {
+            "icon": "Hammer",
+            "title": "Pequeñas obras",
+            "image": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=900&q=80",
+            "description": "Reparaciones puntuales de albañilería, pintura o carpintería en zonas comunes que muchas administraciones de fincas dejan pendientes durante meses por no tener a quién encargárselas."
+          }
+        ],
+        "faq": [
+          {
+            "question": "¿Cómo se avisa de una avería?",
+            "answer": "Por teléfono, email o a través del conserje del edificio si también contratas ese servicio; el técnico revisa el aviso en el plazo acordado."
+          },
+          {
+            "question": "¿Las piezas y materiales están incluidos?",
+            "answer": "La mano de obra se ajusta al plan contratado; los materiales y piezas de repuesto se presupuestan aparte antes de intervenir."
+          },
+          {
+            "question": "¿Atendéis urgencias fuera de horario?",
+            "answer": "Sí, a través del teléfono de urgencias 24 horas para incidencias que no pueden esperar al día siguiente."
+          },
+          {
+            "question": "¿Puedo contratar solo un tipo de mantenimiento, por ejemplo electricidad?",
+            "answer": "Sí, cada área (fontanería, electricidad, cerrajería, obras) se puede contratar de forma independiente."
+          }
+        ]
+      }
+    },
+    "detail": {
+      "back": "Todos los servicios",
+      "otherServicesTitle": "Otros servicios que también gestionamos",
+      "ctaEyebrow": "Contacto",
+      "ctaTitle": "¿Hablamos de tu edificio?",
+      "ctaSubtitle": "Cuéntanos qué necesitas y te preparamos una propuesta a medida, sin compromiso.",
+      "ctaButton": "Contactar ahora",
+      "ctaCardLabel": "Te preparamos una propuesta en menos de 48 horas",
+      "ctaOrLabel": "o",
+      "ctaPillAvailability": "Atención 24 horas, 365 días al año",
+      "ctaPillGuarantee": "Sustituciones garantizadas sin coste añadido",
+      "subservicesTitle": "Todo lo que hacemos, sin letra pequeña",
+      "ctaSecondaryButton": "Ver todos los servicios",
+      "ctaUrgentLabel": "¿Es urgente?",
+      "subservicesCount": "{count} sub-servicios incluidos",
+      "subservicesEyebrow": "En detalle",
+      "faqTitle": "Preguntas frecuentes sobre este servicio"
+    },
+    "viewService": "Ver servicio",
+    "process": {
+      "eyebrow": "Cómo lo hacemos",
+      "title": "De la primera llamada al servicio en marcha",
+      "steps": {
+        "one": {
+          "title": "Nos cuentas qué necesitas",
+          "description": "Por teléfono, email o el formulario de contacto: nos cuentas la situación de tu comunidad o edificio y qué servicio buscas."
+        },
+        "two": {
+          "title": "Preparamos una propuesta a medida",
+          "description": "Visitamos la instalación si hace falta y te enviamos un presupuesto ajustado a las necesidades reales, sin sorpresas."
+        },
+        "three": {
+          "title": "Empieza el equipo asignado",
+          "description": "El mismo equipo que ha preparado la propuesta es el que se pone en marcha, con seguimiento del departamento de inspección."
+        }
+      }
+    }
+  },
+  "NotFound": {
+    "code": "Error 404",
+    "title": "Esta página no existe",
+    "description": "Puede que el enlace esté roto o que la página se haya movido. Vuelve al inicio o visita el centro de ayuda.",
+    "helpLink": "Ir al centro de ayuda"
+  },
+  "Views": {
+    "Profile": {
+      "Sessions": {
+        "unknownBrowser": "Navegador desconocido",
+        "unknownOs": "Sistema operativo desconocido",
+        "current": "Sesión actual",
+        "lastUsed": "Último uso:",
+        "expires": "Expira:"
+      },
+      "Security": {
+        "TwoFactor": {
+          "BackupCodes": {
+            "title": "Guarda tus códigos de recuperación",
+            "description": "Guarda estos códigos en un lugar seguro. Cada uno solo se puede usar una vez y te permitirán acceder a tu cuenta si pierdes el acceso a tu aplicación autenticadora.",
+            "fileName": "codigos-recuperacion.txt"
+          },
+          "Setup": {
+            "confirmTitle": "Confirma el código",
+            "confirmDescription": "Introduce el código de 6 dígitos generado por tu aplicación autenticadora para completar la activación.",
+            "scanTitle": "Configura la verificación en dos pasos",
+            "loadingSetup": "Generando tu código QR...",
+            "step1": "Instala una aplicación autenticadora en tu móvil.",
+            "step2": "Escanea el código QR o introduce la clave manualmente.",
+            "step3": "Introduce el código de 6 dígitos que genere la aplicación.",
+            "appsTitle": "Aplicaciones recomendadas",
+            "download": "Descargar",
+            "mobileOnly": "Solo disponible en móvil",
+            "scanDescription": "Escanea este código QR con tu aplicación autenticadora",
+            "manualEntry": "¿No puedes escanearlo? Introduce esta clave manualmente:"
+          },
+          "Disable": {
+            "title": "Desactivar verificación en dos pasos",
+            "description": "Introduce tu contraseña actual y el código de tu aplicación autenticadora para desactivar la verificación en dos pasos."
+          }
+        }
+      }
+    }
+  }
+}

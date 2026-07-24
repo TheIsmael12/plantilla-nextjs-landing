@@ -1,0 +1,75 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.about {
+  &__hero {
+    background: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+    @include px(2rem);
+    @include py(4.5rem);
+    overflow: hidden;
+  }
+
+  &__hero-grid {
+    @include grid(1, 2.5rem);
+
+    @include screen(lg) {
+      @include grid(1.05fr 1fr, 3rem, 1, center);
+    }
+  }
+
+  &__hero-copy {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  &__hero-title {
+    margin: 0;
+    font-family: $font-title;
+    font-weight: $font-semibold;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    color: var(--color);
+    max-width: 18ch;
+  }
+
+  &__hero-subtitle {
+    margin: 0;
+    max-width: 50ch;
+    color: var(--neutral-color);
+    font-size: $text-lg;
+    line-height: 1.7;
+  }
+
+  &__hero-media {
+    position: relative;
+  }
+
+  &__hero-media-frame {
+    position: relative;
+    overflow: hidden;
+    min-height: 20rem;
+    @include rounded(0.5rem);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -0.9rem -0.9rem auto auto;
+      width: 55%;
+      height: 50%;
+      background: var(--primary-color);
+      z-index: -1;
+      @include rounded(0.5rem);
+    }
+
+    @include screen(lg) {
+      min-height: 26rem;
+    }
+  }
+
+  &__hero-image {
+    object-fit: cover;
+  }
+}

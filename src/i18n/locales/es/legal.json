@@ -1,0 +1,613 @@
+{
+  "Legal": {
+    "Common": {
+      "updatedAt": "Última actualización:",
+      "toc": "En esta página",
+      "optional": "Opcional",
+      "required": "Requerida",
+      "examples": "Ejemplos:"
+    },
+    "Terms": {
+      "title": "Términos y Condiciones",
+      "subtitle": "Lee detenidamente estos términos antes de usar nuestros servicios. Al acceder y utilizar la plataforma, aceptas quedar vinculado por estas condiciones.",
+      "updatedDate": "1 de enero de 2025",
+      "tocAriaLabel": "Índice de Términos y Condiciones",
+      "toc": [
+        {
+          "href": "#aceptacion",
+          "label": "1. Aceptación de los términos"
+        },
+        {
+          "href": "#servicios",
+          "label": "2. Descripción de los servicios"
+        },
+        {
+          "href": "#cuenta",
+          "label": "3. Cuenta de usuario"
+        },
+        {
+          "href": "#uso-aceptable",
+          "label": "4. Uso aceptable"
+        },
+        {
+          "href": "#propiedad",
+          "label": "5. Propiedad intelectual"
+        },
+        {
+          "href": "#pagos",
+          "label": "6. Pagos y facturación"
+        },
+        {
+          "href": "#privacidad",
+          "label": "7. Privacidad"
+        },
+        {
+          "href": "#garantias",
+          "label": "8. Garantías y responsabilidad"
+        },
+        {
+          "href": "#terminacion",
+          "label": "9. Terminación del servicio"
+        },
+        {
+          "href": "#ley",
+          "label": "10. Ley aplicable"
+        },
+        {
+          "href": "#contacto",
+          "label": "11. Contacto"
+        }
+      ],
+      "sections": {
+        "aceptacion": {
+          "title": "1. Aceptación de los términos",
+          "p1": "Al acceder o utilizar los servicios de esta plataforma, confirmas que has leído, entendido y aceptado quedar vinculado por estos Términos y Condiciones, así como por nuestra Política de Privacidad.",
+          "p2": "Si no estás de acuerdo con alguna parte de estos términos, no podrás acceder al servicio. Estos términos se aplican a todos los visitantes, usuarios y cualquier otra persona que acceda o utilice el servicio."
+        },
+        "servicios": {
+          "title": "2. Descripción de los servicios",
+          "intro": "La plataforma ofrece los siguientes servicios:",
+          "list": [
+            {
+              "strong": "Publicación de contenido: ",
+              "rest": "Herramientas para crear, editar y publicar artículos y entradas de blog."
+            },
+            {
+              "strong": "Gestión de usuarios: ",
+              "rest": "Sistema de registro, autenticación y administración de perfiles."
+            },
+            {
+              "strong": "Análisis y estadísticas: ",
+              "rest": "Acceso a métricas de rendimiento del contenido publicado."
+            }
+          ],
+          "outro": "Nos reservamos el derecho de modificar, suspender o discontinuar cualquier aspecto del servicio en cualquier momento, con o sin previo aviso."
+        },
+        "cuenta": {
+          "title": "3. Cuenta de usuario",
+          "sub1": "Registro y responsabilidades",
+          "list1": [
+            "Debes proporcionar información precisa, completa y actualizada durante el proceso de registro.",
+            "Eres responsable de mantener la confidencialidad de tus credenciales de acceso.",
+            "Eres responsable de todas las actividades que ocurran bajo tu cuenta.",
+            "Debes notificarnos inmediatamente de cualquier uso no autorizado de tu cuenta."
+          ],
+          "sub2": "Seguridad de la cuenta",
+          "securityText": "Implementamos medidas de seguridad razonables para proteger tu cuenta. Te recomendamos usar contraseñas únicas y complejas, y activar la autenticación de dos factores cuando esté disponible."
+        },
+        "uso_aceptable": {
+          "title": "4. Uso aceptable",
+          "intro": "Al utilizar nuestros servicios, aceptas no realizar ninguna de las siguientes acciones:",
+          "list": [
+            "Publicar contenido ilegal, difamatorio, acosador, abusivo, amenazante, dañino u objetable.",
+            "Infringir los derechos de propiedad intelectual de terceros.",
+            "Intentar acceder de manera no autorizada a cualquier parte de los servicios.",
+            "Interferir o interrumpir la integridad o el rendimiento de los servicios.",
+            "Transmitir malware, virus u otros códigos dañinos.",
+            "Utilizar los servicios con fines fraudulentos o ilegales."
+          ],
+          "warning": "El incumplimiento de estas condiciones puede resultar en la suspensión o cancelación inmediata de tu cuenta, y podríamos emprender acciones legales si fuera necesario."
+        },
+        "propiedad": {
+          "title": "5. Propiedad intelectual",
+          "sub1": "Nuestro contenido",
+          "p1": "El servicio y su contenido original son propiedad exclusiva de la empresa y sus licenciantes. Están protegidos por las leyes de derechos de autor y otras leyes de propiedad intelectual.",
+          "sub2": "Tu contenido",
+          "p2": "Conservas todos los derechos sobre el contenido que publicas. Al publicarlo, nos otorgas una licencia mundial no exclusiva para usarlo en el contexto de la prestación del servicio.",
+          "sub3": "Uso permitido",
+          "p3": "No puedes reproducir, distribuir o modificar nuestro contenido sin nuestra autorización expresa por escrito."
+        },
+        "pagos": {
+          "title": "6. Pagos y facturación",
+          "list": [
+            "Los precios de los servicios de pago se indican claramente antes de la compra.",
+            "Los pagos se procesan de forma segura a través de pasarelas de pago certificadas.",
+            "Las suscripciones se renuevan automáticamente salvo cancelación previa a la fecha de renovación.",
+            "Los reembolsos se gestionarán de acuerdo con nuestra política de reembolsos vigente.",
+            "Nos reservamos el derecho de modificar los precios con un aviso previo de 30 días."
+          ]
+        },
+        "privacidad": {
+          "title": "7. Privacidad",
+          "text": "Tu privacidad es importante para nosotros. Consulta nuestra",
+          "linkLabel": "Política de Privacidad",
+          "textAfter": "para entender cómo recopilamos, usamos y protegemos tu información personal."
+        },
+        "garantias": {
+          "title": "8. Garantías y responsabilidad",
+          "intro": "El servicio se proporciona «tal cual» y «sin garantías». En la medida máxima permitida por la ley, excluimos expresamente:",
+          "list": [
+            "Cualquier garantía implícita de comerciabilidad o idoneidad para un propósito particular.",
+            "Garantías relativas a la exactitud, fiabilidad o integridad del contenido.",
+            "Nuestra responsabilidad por daños indirectos, incidentales o consecuentes."
+          ]
+        },
+        "terminacion": {
+          "title": "9. Terminación del servicio",
+          "p1": "Podemos terminar o suspender tu acceso al servicio inmediatamente, sin previo aviso ni responsabilidad, por cualquier razón, incluyendo el incumplimiento de estos Términos.",
+          "p2": "Tras la terminación, tu derecho a usar el servicio cesará inmediatamente. Si deseas cancelar tu cuenta, contáctanos para solicitar la eliminación.",
+          "p3": "Las disposiciones de estos Términos que por su naturaleza deban sobrevivir a la terminación, continuarán vigentes."
+        },
+        "ley": {
+          "title": "10. Ley aplicable",
+          "p1": "Estos Términos se regirán e interpretarán de acuerdo con las leyes del Reino de España.",
+          "p2": "Cualquier disputa que surja en relación con estos Términos estará sujeta a la jurisdicción exclusiva de los tribunales competentes de España."
+        },
+        "contacto": {
+          "title": "11. Contacto",
+          "intro": "Si tienes alguna pregunta sobre estos Términos y Condiciones, puedes ponerte en contacto con nosotros:",
+          "cifLabel": "CIF:",
+          "emailLabel": "Email legal:",
+          "addressLabel": "Dirección:"
+        }
+      }
+    },
+    "Privacy": {
+      "title": "Política de Privacidad",
+      "subtitle": "Tu privacidad es nuestra prioridad. Aquí encontrarás toda la información sobre cómo recopilamos, usamos y protegemos tus datos personales.",
+      "updatedDate": "1 de enero de 2025",
+      "tocAriaLabel": "Índice de Política de Privacidad",
+      "toc": [
+        {
+          "href": "#recopilacion",
+          "label": "1. Datos que recopilamos"
+        },
+        {
+          "href": "#uso",
+          "label": "2. Cómo usamos tus datos"
+        },
+        {
+          "href": "#compartir",
+          "label": "3. Compartir información"
+        },
+        {
+          "href": "#cookies",
+          "label": "4. Cookies"
+        },
+        {
+          "href": "#seguridad",
+          "label": "5. Seguridad"
+        },
+        {
+          "href": "#derechos",
+          "label": "6. Tus derechos"
+        },
+        {
+          "href": "#retencion",
+          "label": "7. Retención de datos"
+        },
+        {
+          "href": "#transferencias",
+          "label": "8. Transferencias internacionales"
+        },
+        {
+          "href": "#contacto",
+          "label": "9. Contacto"
+        }
+      ],
+      "sections": {
+        "recopilacion": {
+          "title": "1. Datos que recopilamos",
+          "intro": "Recopilamos información que nos proporcionas directamente y datos generados por el uso de nuestros servicios.",
+          "sub1": "Datos que nos proporcionas",
+          "list1": [
+            {
+              "strong": "Información de cuenta: ",
+              "rest": "nombre, email y contraseña al registrarte."
+            },
+            {
+              "strong": "Información de perfil: ",
+              "rest": "foto, biografía y demás datos que añadas voluntariamente."
+            },
+            {
+              "strong": "Comunicaciones: ",
+              "rest": "mensajes que nos envías a través del formulario de contacto."
+            }
+          ],
+          "sub2": "Datos recopilados automáticamente",
+          "list2": [
+            {
+              "strong": "Datos de uso: ",
+              "rest": "páginas visitadas, tiempo de permanencia y acciones realizadas."
+            },
+            {
+              "strong": "Datos del dispositivo: ",
+              "rest": "tipo de dispositivo, sistema operativo y navegador."
+            },
+            {
+              "strong": "Datos de ubicación: ",
+              "rest": "país y región inferidos a partir de la dirección IP."
+            }
+          ]
+        },
+        "uso": {
+          "title": "2. Cómo usamos tus datos",
+          "intro": "Utilizamos la información recopilada para los siguientes propósitos:",
+          "list": [
+            "Proporcionar, operar y mantener nuestros servicios.",
+            "Mejorar, personalizar y ampliar la experiencia de usuario.",
+            "Comunicarnos contigo sobre actualizaciones y soporte.",
+            "Procesar transacciones y enviar la información relacionada.",
+            "Cumplir con las obligaciones legales aplicables."
+          ],
+          "highlightLabel": "Base legal:",
+          "highlight": "El tratamiento de tus datos se basa en el consentimiento, la ejecución del contrato y el interés legítimo, según corresponda a cada finalidad."
+        },
+        "compartir": {
+          "title": "3. Compartir información",
+          "intro": "No vendemos ni alquilamos tus datos personales. Podemos compartir información con:",
+          "list": [
+            {
+              "strong": "Proveedores de servicios: ",
+              "rest": "terceros que nos ayudan a operar la plataforma (alojamiento, pagos, email)."
+            },
+            {
+              "strong": "Cumplimiento legal: ",
+              "rest": "autoridades competentes cuando lo exija la ley o para proteger derechos."
+            },
+            {
+              "strong": "Transferencias empresariales: ",
+              "rest": "en caso de fusión o adquisición, tus datos podrían transferirse al nuevo titular."
+            }
+          ]
+        },
+        "cookies": {
+          "title": "4. Cookies",
+          "text": "Utilizamos cookies y tecnologías similares. Consulta nuestra",
+          "linkLabel": "Política de Cookies",
+          "textAfter": "para obtener información detallada sobre los tipos de cookies que usamos y cómo gestionarlas."
+        },
+        "seguridad": {
+          "title": "5. Seguridad",
+          "intro": "Implementamos medidas técnicas y organizativas adecuadas para proteger tus datos:",
+          "list": [
+            "Cifrado SSL/TLS para todas las comunicaciones.",
+            "Almacenamiento cifrado de contraseñas.",
+            "Acceso restringido a datos personales solo al personal autorizado.",
+            "Auditorías de seguridad periódicas."
+          ],
+          "outro": "Para notificar un incidente de seguridad, contacta con nuestro equipo en"
+        },
+        "derechos": {
+          "title": "6. Tus derechos",
+          "intro": "Como usuario dentro del ámbito del RGPD, tienes los siguientes derechos:",
+          "list": [
+            {
+              "strong": "Acceso: ",
+              "rest": "solicitar una copia de los datos personales que tenemos sobre ti."
+            },
+            {
+              "strong": "Rectificación: ",
+              "rest": "corregir datos inexactos o incompletos."
+            },
+            {
+              "strong": "Supresión: ",
+              "rest": "solicitar la eliminación de tus datos («derecho al olvido»)."
+            },
+            {
+              "strong": "Portabilidad: ",
+              "rest": "recibir tus datos en un formato estructurado y de uso común."
+            },
+            {
+              "strong": "Oposición: ",
+              "rest": "oponerte al tratamiento de tus datos en determinadas circunstancias."
+            }
+          ],
+          "outro": "Para ejercer cualquiera de estos derechos, envíanos un correo a",
+          "outroEnd": "Responderemos en un plazo máximo de 30 días."
+        },
+        "retencion": {
+          "title": "7. Retención de datos",
+          "p1": "Conservamos tus datos personales durante el tiempo necesario para cumplir con los fines descritos en esta política, incluyendo el cumplimiento de obligaciones legales.",
+          "p2": "Cuando tus datos ya no sean necesarios, los eliminaremos o anonimizaremos de forma segura."
+        },
+        "transferencias": {
+          "title": "8. Transferencias internacionales",
+          "p1": "Tus datos pueden ser transferidos a países fuera del Espacio Económico Europeo. En tal caso, nos aseguraremos de que existan salvaguardas adecuadas, como cláusulas contractuales tipo aprobadas por la Comisión Europea."
+        },
+        "contacto": {
+          "title": "9. Contacto con el responsable",
+          "intro": "Para cualquier consulta sobre esta política o para ejercer tus derechos, contacta con nuestro Delegado de Protección de Datos:",
+          "dpo": "Delegado de Protección de Datos",
+          "emailLabel": "Email:",
+          "addressLabel": "Dirección:"
+        }
+      }
+    },
+    "Cookies": {
+      "title": "Política de Cookies",
+      "subtitle": "Utilizamos cookies y tecnologías similares para mejorar tu experiencia. Aquí te explicamos qué son, cómo las usamos y cómo puedes gestionarlas.",
+      "updatedDate": "1 de enero de 2025",
+      "tocAriaLabel": "Índice de Política de Cookies",
+      "toc": [
+        {
+          "href": "#que-son",
+          "label": "1. ¿Qué son las cookies?"
+        },
+        {
+          "href": "#tipos",
+          "label": "2. Tipos de cookies"
+        },
+        {
+          "href": "#tabla",
+          "label": "3. Cookies utilizadas"
+        },
+        {
+          "href": "#terceros",
+          "label": "4. Cookies de terceros"
+        },
+        {
+          "href": "#gestion",
+          "label": "5. Cómo gestionarlas"
+        },
+        {
+          "href": "#contacto",
+          "label": "6. Contacto"
+        }
+      ],
+      "sections": {
+        "que_son": {
+          "title": "1. ¿Qué son las cookies?",
+          "p1": "Las cookies son pequeños archivos de texto que los sitios web colocan en tu dispositivo cuando los visitas. Se utilizan para hacer que los sitios funcionen de manera más eficiente.",
+          "p2": "Las cookies permiten al sitio web recordar tus acciones y preferencias, para que no tengas que volver a introducirlas cada vez que regreses.",
+          "highlight": "Según la normativa europea (RGPD y directiva ePrivacy), es necesario que consientas el uso de cookies no esenciales antes de que las instalemos en tu dispositivo."
+        },
+        "tipos": {
+          "title": "2. Tipos de cookies que utilizamos",
+          "intro": "Clasificamos nuestras cookies en las siguientes categorías:",
+          "items": [
+            {
+              "type": "Cookies esenciales",
+              "color": "blue",
+              "canDisable": false,
+              "purpose": "Necesarias para el funcionamiento básico del sitio web.",
+              "examples": "Sesión de usuario, preferencias de idioma."
+            },
+            {
+              "type": "Cookies analíticas",
+              "color": "green",
+              "canDisable": true,
+              "purpose": "Nos ayudan a entender cómo interactúas con el sitio para mejorarlo.",
+              "examples": "Google Analytics, Plausible."
+            },
+            {
+              "type": "Cookies de marketing",
+              "color": "amber",
+              "canDisable": true,
+              "purpose": "Utilizadas para mostrarte publicidad relevante.",
+              "examples": "Google Ads, Meta Pixel."
+            },
+            {
+              "type": "Cookies funcionales",
+              "color": "purple",
+              "canDisable": true,
+              "purpose": "Recuerdan tus preferencias para ofrecerte una experiencia personalizada.",
+              "examples": "Tema oscuro/claro, idioma preferido."
+            }
+          ]
+        },
+        "tabla": {
+          "title": "3. Listado de cookies utilizadas",
+          "headers": {
+            "name": "Nombre",
+            "type": "Tipo",
+            "duration": "Duración",
+            "purpose": "Finalidad"
+          },
+          "rows": [
+            {
+              "name": "NEXT_LOCALE",
+              "type": "Esencial",
+              "duration": "1 año",
+              "purpose": "Guarda el idioma preferido del usuario."
+            },
+            {
+              "name": "next-auth.session-token",
+              "type": "Esencial",
+              "duration": "Sesión",
+              "purpose": "Mantiene la sesión autenticada del usuario."
+            },
+            {
+              "name": "_ga",
+              "type": "Analítica",
+              "duration": "2 años",
+              "purpose": "Identificador único de Google Analytics."
+            },
+            {
+              "name": "_ga_XXXXXX",
+              "type": "Analítica",
+              "duration": "2 años",
+              "purpose": "Persiste el estado de la sesión en Google Analytics."
+            },
+            {
+              "name": "cookie_consent",
+              "type": "Funcional",
+              "duration": "1 año",
+              "purpose": "Almacena las preferencias de consentimiento de cookies."
+            }
+          ]
+        },
+        "terceros": {
+          "title": "4. Cookies de terceros",
+          "p1": "Algunos de nuestros socios y proveedores pueden colocar cookies de terceros en tu dispositivo. Estos terceros tienen sus propias políticas de privacidad.",
+          "p2": "No controlamos las cookies de terceros. Para más información, consulta las políticas de privacidad de cada tercero."
+        },
+        "gestion": {
+          "title": "5. Cómo gestionar las cookies",
+          "sub1": "Panel de preferencias",
+          "manageIntro": "Puedes gestionar tus preferencias de cookies en cualquier momento a través de nuestro panel:",
+          "manageBtnLabel": "Gestionar preferencias de cookies",
+          "sub2": "Configuración del navegador",
+          "browserIntro": "También puedes controlar las cookies desde la configuración de tu navegador:",
+          "browsers": [
+            {
+              "label": "Google Chrome",
+              "url": "https://support.google.com/chrome/answer/95647"
+            },
+            {
+              "label": "Mozilla Firefox",
+              "url": "https://support.mozilla.org/kb/cookies-information-websites-store-on-your-computer"
+            },
+            {
+              "label": "Safari",
+              "url": "https://support.apple.com/guide/safari/manage-cookies-sfri11471"
+            },
+            {
+              "label": "Microsoft Edge",
+              "url": "https://support.microsoft.com/microsoft-edge/delete-cookies-in-microsoft-edge-63947406"
+            }
+          ]
+        },
+        "contacto": {
+          "title": "6. Contacto",
+          "intro": "Si tienes preguntas sobre nuestra política de cookies, puedes contactarnos:",
+          "emailLabel": "Email:"
+        }
+      }
+    },
+    "Complaints": {
+      "title": "Canal de reclamaciones",
+      "subtitle": "Un canal directo y confidencial para comunicar incumplimientos, irregularidades o conductas contrarias a la normativa relacionadas con nuestra actividad.",
+      "updatedDate": "1 de enero de 2025",
+      "tocAriaLabel": "Índice del canal de reclamaciones",
+      "toc": [
+        {
+          "href": "#que-es",
+          "label": "1. Qué es este canal"
+        },
+        {
+          "href": "#quien-puede-usarlo",
+          "label": "2. Quién puede usarlo"
+        },
+        {
+          "href": "#que-comunicar",
+          "label": "3. Qué se puede comunicar"
+        },
+        {
+          "href": "#como-comunicar",
+          "label": "4. Cómo comunicarlo"
+        },
+        {
+          "href": "#garantias",
+          "label": "5. Garantías"
+        },
+        {
+          "href": "#contacto",
+          "label": "6. Contacto"
+        }
+      ],
+      "sections": {
+        "queEs": {
+          "title": "Qué es este canal",
+          "intro": "El canal de reclamaciones es el cauce interno de Imora para comunicar de forma directa cualquier incumplimiento normativo, irregularidad o conducta contraria a la ética profesional detectada en el desarrollo de nuestra actividad, conforme a la Ley 2/2023 reguladora de la protección de las personas que informen sobre infracciones normativas."
+        },
+        "quienPuedeUsarlo": {
+          "title": "Quién puede usarlo",
+          "intro": "Puede utilizar este canal cualquier persona con una relación directa con Imora, entre otras:",
+          "list": [
+            {
+              "strong": "Empleados y colaboradores: ",
+              "rest": "conserjes, controladores, técnicos y personal de administración."
+            },
+            {
+              "strong": "Clientes: ",
+              "rest": "comunidades de propietarios, edificios y centros comerciales que reciben nuestros servicios."
+            },
+            {
+              "strong": "Proveedores y subcontratistas: ",
+              "rest": "empresas y autónomos que colaboran con Imora."
+            },
+            {
+              "strong": "Candidatos y antiguos empleados: ",
+              "rest": "personas que hayan tenido o vayan a tener una relación laboral con Imora."
+            }
+          ]
+        },
+        "queComunicar": {
+          "title": "Qué se puede comunicar",
+          "intro": "A través de este canal se pueden comunicar hechos como:",
+          "list": [
+            {
+              "strong": "Incumplimientos legales: ",
+              "rest": "infracciones del ordenamiento jurídico laboral, de seguridad o medioambiental."
+            },
+            {
+              "strong": "Acoso o discriminación: ",
+              "rest": "conductas de acoso laboral, sexual o discriminatorias hacia cualquier persona."
+            },
+            {
+              "strong": "Irregularidades en el servicio: ",
+              "rest": "incumplimientos graves de lo acordado con una comunidad o edificio."
+            },
+            {
+              "strong": "Uso indebido de datos: ",
+              "rest": "tratamientos de datos personales contrarios a la normativa de protección de datos."
+            },
+            {
+              "strong": "Corrupción o fraude: ",
+              "rest": "sobornos, conflictos de interés no declarados o uso indebido de recursos de la empresa."
+            }
+          ]
+        },
+        "comoComunicar": {
+          "title": "Cómo comunicarlo",
+          "intro": "Puedes presentar tu comunicación por correo electrónico al responsable del canal, detallando los hechos con el mayor detalle posible: qué ha ocurrido, cuándo, quién está implicado y si dispones de alguna evidencia. También puedes utilizar el formulario general de contacto indicando expresamente que se trata de una comunicación para el canal de reclamaciones.",
+          "highlightLabel": "Confidencialidad:",
+          "highlight": "La identidad de quien presenta la comunicación y la de cualquier tercero mencionado se tratan de forma confidencial durante todo el proceso, con acceso restringido únicamente al personal encargado de su gestión."
+        },
+        "garantias": {
+          "title": "Garantías",
+          "intro": "La gestión de este canal se rige por las siguientes garantías:",
+          "list": [
+            {
+              "strong": "Confidencialidad: ",
+              "rest": "la identidad de la persona informante no se revela sin su consentimiento expreso."
+            },
+            {
+              "strong": "Prohibición de represalias: ",
+              "rest": "no se admite ninguna forma de represalia contra quien comunique de buena fe."
+            },
+            {
+              "strong": "Acuse de recibo: ",
+              "rest": "se confirma la recepción de la comunicación en un plazo máximo de 7 días."
+            },
+            {
+              "strong": "Plazo de respuesta: ",
+              "rest": "la investigación y respuesta se resuelven en un plazo máximo de 3 meses."
+            },
+            {
+              "strong": "Protección de datos: ",
+              "rest": "los datos personales tratados se limitan a los estrictamente necesarios para la investigación."
+            }
+          ]
+        },
+        "contacto": {
+          "title": "Contacto",
+          "responsible": "Responsable del canal",
+          "emailLabel": "Correo electrónico:",
+          "addressLabel": "Dirección postal:"
+        }
+      }
+    }
+  }
+}

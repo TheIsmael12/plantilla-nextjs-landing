@@ -1,0 +1,24 @@
+{
+  "CookieConsent": {
+    "title": "Utilizamos cookies",
+    "powered": "Gestión de privacidad",
+    "closeAriaLabel": "Rechazar todo y cerrar",
+    "desc": "Usamos cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico y personalizar el contenido. Puedes aceptarlas todas, rechazar las opcionales o configurarlas.",
+    "policyLink": "Política de cookies",
+    "configure": "Personalizar preferencias",
+    "necessary": "Esenciales",
+    "necessaryDesc": "Imprescindibles para el funcionamiento del sitio. Incluyen cookies de sesión, idioma y seguridad. No pueden desactivarse.",
+    "functional": "Funcionales",
+    "functionalDesc": "Recuerdan tus preferencias (tema, idioma, región) para ofrecerte una experiencia personalizada en futuras visitas.",
+    "analytics": "Analíticas",
+    "analyticsDesc": "Nos ayudan a entender cómo interactúas con el sitio de forma anónima. Usadas para mejorar el rendimiento y la experiencia de usuario.",
+    "marketing": "Marketing",
+    "marketingDesc": "Permiten mostrar publicidad relevante en este y otros sitios. Miden la efectividad de las campañas publicitarias.",
+    "rejectAll": "Rechazar opcionales",
+    "saveSelection": "Guardar selección",
+    "acceptAll": "Aceptar todo",
+    "saved": "Preferencias guardadas",
+    "alwaysOn": "Siempre activa",
+    "optional": "Opcional"
+  }
+}

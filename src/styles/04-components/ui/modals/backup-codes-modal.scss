@@ -1,0 +1,33 @@
+// Estilos de BackupCodesModal (components/ui/modals/BackupCodesModal.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.backup-codes-modal {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+
+  &__description {
+    font-size: $text-sm;
+    color: var(--neutral-color-active);
+  }
+
+  &__list {
+    list-style: none;
+    border: 1px solid var(--border-color);
+    background-color: var(--neutral-color-light);
+    @include p(1rem);
+    @include rounded();
+    @include grid($columns: 2, $align: center, $gap: 0.5rem);
+  }
+
+  &__code {
+    font-family: monospace;
+    font-size: $text-sm;
+    letter-spacing: 0.05em;
+    color: var(--color);
+  }
+
+  &__actions {
+    @include flex($justify: flex-end, $gap: 0.5rem);
+  }
+}

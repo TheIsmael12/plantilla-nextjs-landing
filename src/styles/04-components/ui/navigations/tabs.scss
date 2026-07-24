@@ -1,0 +1,170 @@
+// Estilos de Tabs (components/ui/navigations/Tabs.tsx).
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.tabs {
+  width: 100%;
+  position: relative;
+  @include flex(column, flex-start, flex-start, 0);
+
+  & svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  &--full {
+    height: 100%;
+  }
+
+  &__content {
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    border-radius: 0rem 0.5rem 0.5rem 0.5rem;
+    @include p(1rem);
+    @include space-y(1.5rem);
+
+    &--no-scroll {
+      overflow: visible;
+    }
+
+    @include screen(lg) {
+      @include p(1.5rem);
+    }
+  }
+
+  &__selector {
+    position: relative;
+    width: fit-content;
+
+    &__button {
+      z-index: 2;
+      position: relative;
+      min-width: 14rem;
+      height: 2.75rem;
+      border-bottom: none;
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+      font-size: $text-sm;
+      border: 1px solid var(--border-color);
+      background-color: var(--surface-color);
+      @include px(1rem);
+      @include flex(row, space-between, center);
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: var(--surface-color);
+      }
+
+      &:hover {
+        color: var(--primary-color-hover);
+      }
+
+      &__content {
+        @include flex(row, flex-start, center, 0.5rem);
+      }
+    }
+
+    &__dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 100%;
+      max-height: 20rem;
+      overflow-y: auto;
+      z-index: 999999 !important;
+      border-radius: 0 0 0.5rem 0.5rem;
+      border: 1px solid var(--border-color);
+      border-top: none;
+      border-bottom-left-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+      background-color: var(--surface-color);
+      @include flex(column, flex-start, flex-start, 0);
+
+      &__item {
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: var(--color);
+        @include px(1rem);
+        @include py(0.75rem);
+        @include flex(row, flex-start, center, 0.5rem);
+
+        &:hover {
+          color: var(--primary-color-hover);
+          background-color: rgba(var(--primary-color-rgb), 0.15);
+        }
+      }
+    }
+  }
+
+  &__list {
+    flex-shrink: 0;
+    @include flex(row, flex-start, flex-end, 0rem);
+
+    &__item {
+      height: 2.75rem;
+      position: relative;
+      cursor: pointer;
+      border-bottom: none;
+      transition: all 0.3s ease;
+      color: var(--color);
+      border-top: 1px solid var(--border-color);
+      background-color: var(--surface-color);
+      font-size: $text-sm;
+      @include px(1.5rem);
+      @include flex(row, center, center, 0.5rem);
+
+      & + * {
+        border-left: 1px solid var(--border-color);
+      }
+
+      &:first-child {
+        border-left: 1px solid var(--border-color);
+      }
+
+      &:last-child {
+        border-right: 1px solid var(--border-color);
+      }
+
+      &:hover {
+        color: var(--primary-color-hover);
+      }
+
+      svg {
+        color: var(--primary-color-active);
+      }
+
+      &--active {
+        z-index: 1;
+        border-top: 3px solid var(--primary-color-active);
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background-color: var(--surface-color);
+        }
+      }
+
+      &--disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+
+        &:hover {
+          color: var(--color);
+        }
+      }
+    }
+  }
+}

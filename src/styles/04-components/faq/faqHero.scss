@@ -1,0 +1,17 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.faq__hero {
+  position: relative;
+  background: var(--light-color);
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+  overflow: hidden;
+  @include py(4rem);
+}
+
+.faq__hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+}

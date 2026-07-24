@@ -1,0 +1,87 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.contact {
+  &__departments {
+    @include py(4.5rem);
+  }
+
+  &__departments-header {
+    text-align: center;
+    max-width: 40rem;
+    margin: 0 auto 2.5rem;
+
+    .contact__title-lg {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  &__departments-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include grid(1, 1.25rem);
+
+    @include screen(md) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__department-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    @include rounded(0.5rem);
+    @include p(1.75rem);
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary-color-active);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &__department-icon {
+    width: 3rem;
+    height: 3rem;
+    background: rgba(var(--primary-color-rgb), 0.08);
+    color: var(--primary-color);
+    @include rounded(0.5rem);
+    @include flex(row, center, center, 0);
+
+    svg {
+      width: 1.375rem;
+      height: 1.375rem;
+    }
+  }
+
+  &__department-name {
+    font-family: $font-title;
+    font-size: $text-lg;
+    font-weight: $font-semibold;
+    margin: 0;
+  }
+
+  &__department-description {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  &__department-link {
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    color: var(--primary-color-active);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+}

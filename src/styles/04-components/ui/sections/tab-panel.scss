@@ -1,0 +1,32 @@
+// Estilos de TabPanel (components/ui/sections/TabPanel.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.tab-panel {
+  background-color: var(--surface-color);
+  @include rounded();
+  @include space-y(1rem);
+
+  &__header {
+    @include flex($justify: flex-end, $align: center, $gap: 1rem);
+  }
+
+  &__title {
+    font-size: $text-base;
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+
+  &__actions {
+    @include flex($justify: flex-end, $gap: 0.5rem);
+    flex-shrink: 0;
+  }
+
+  &__content {
+    @include flex($direction: column,
+      $justify: flex-start,
+      $align: stretch,
+      $gap: 1rem);
+  }
+}
