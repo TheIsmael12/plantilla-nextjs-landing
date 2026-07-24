@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/next-with-port.mjs dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node scripts/next-with-port.mjs start",
     "lint": "eslint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -25,6 +25,7 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
+    "@next/env": "16.2.9",
     "@storybook/addon-a11y": "^10.5.2",
     "@storybook/addon-docs": "^10.5.2",
     "@storybook/addon-mcp": "^0.7.0",

@@ -1,12 +1,16 @@
 "use client";
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import '@/styles/04-components/home/homeBase.scss';
+import '@/styles/04-components/home/servicesCarouselSection.scss';
+
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { Navigation, Pagination, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import '@/styles/04-components/home/homeBase.scss';
-import '@/styles/04-components/home/servicesCarouselSection.scss';
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 
 import { SERVICE_SLUGS, SERVICE_VISUALS } from '@/config/routing';

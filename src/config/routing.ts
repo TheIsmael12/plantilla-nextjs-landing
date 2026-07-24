@@ -43,18 +43,12 @@ export const SERVICE_ICONS: Record<ServiceSlug, LucideIcon> = {
 // Misma foto real por servicio en toda la web (mega-menú, carrusel de la
 // home, listado y detalle de `/services`), para no repetir URLs sueltas.
 export const SERVICE_VISUALS: Record<ServiceSlug, string> = {
-  concierge:
-    "https://images.unsplash.com/photo-1562577309-4932fdd64cd1?auto=format&fit=crop&w=1000&q=80",
-  security:
-    "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80",
-  pools:
-    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1000&q=80",
-  cleaning:
-    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80",
-  gardening:
-    "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1000&q=80",
-  maintenance:
-    "https://images.unsplash.com/photo-1516216628859-9bccecab13ca?auto=format&fit=crop&w=1000&q=80",
+  concierge: "/images/services/concierge.jpg",
+  security: "/images/services/security.jpg",
+  pools: "/images/services/pools.jpg",
+  cleaning: "/images/services/cleaning.jpg",
+  gardening: "/images/services/gardening.jpg",
+  maintenance: "/images/services/maintenance.jpg",
 };
 
 

@@ -200,3 +200,9 @@
     font-size: $text-xs;
   }
 }
+
+// En modo oscuro `--primary-color` es más claro, así que el 86% de opacidad
+// deja el texto por debajo de 4.5:1 sobre el panel de esta sección.
+.dark .home__reviews .home__text-muted {
+  opacity: 0.92;
+}

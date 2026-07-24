@@ -35,7 +35,7 @@ export default function FeatureMosaicSection() {
             </div>
             <div className="home__tile-media">
               <Image
-                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&w=900&q=80"
+                src="/images/home/mosaic-experts.jpg"
                 alt={t('cards.experts.imageAlt')}
                 fill
                 sizes="(max-width: 1024px) 100vw, 30vw"
@@ -101,10 +101,11 @@ export default function FeatureMosaicSection() {
             </div>
             <div className="home__tile-feature-media">
               <Image
-                src="https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&w=1000&q=80"
+                src="/images/home/mosaic-feature.jpg"
                 alt={t('cards.feature.imageAlt')}
                 width={340}
                 height={240}
+                sizes="(min-width: 1024px) 256px, 90vw"
                 className="home__tile-feature-image"
               />
             </div>

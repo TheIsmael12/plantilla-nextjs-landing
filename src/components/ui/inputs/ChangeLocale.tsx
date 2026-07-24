@@ -55,6 +55,15 @@ export default function ChangeLocale({
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const [position, setPosition] = useState<DropdownPosition | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  // El portal solo puede montarse tras la hidratación: `document` ya existe
+  // en el primer render del cliente (a diferencia del servidor), así que
+  // condicionar el portal a `typeof document !== "undefined"` provocaría un
+  // mismatch de hidratación (servidor sin portal, cliente con portal).
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const selectedIndex = options.findIndex((opt) => opt.value === value);
   const selectedOption = selectedIndex >= 0 ? options[selectedIndex] : null;
@@ -301,7 +310,7 @@ export default function ChangeLocale({
         <p className="change-locale__description">{description}</p>
       )}
 
-      {typeof document !== "undefined" && createPortal(dropdown, document.body)}
+      {mounted && createPortal(dropdown, document.body)}
     </div>
   );
 }

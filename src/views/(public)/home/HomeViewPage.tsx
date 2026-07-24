@@ -3,8 +3,8 @@ import FeatureMosaicSection from '@/components/ui/home/FeatureMosaicSection';
 import FutureVideoSection from '@/components/ui/home/FutureVideoSection';
 import HeroNativeAds from '@/components/ui/home/HeroNativeAds';
 import HomeCtaPrimary from '@/components/ui/home/HomeCtaPrimary';
-import ServicesCarouselSection from '@/components/ui/home/ServicesCarouselSection';
-import ReviewsSection from '@/components/ui/home/ReviewsSection';
+import ServicesCarouselSectionLazy from '@/components/ui/home/ServicesCarouselSectionLazy';
+import ReviewsSectionLazy from '@/components/ui/home/ReviewsSectionLazy';
 import TrustBarSection from '@/components/ui/home/TrustBarSection';
 
 /**
@@ -21,9 +21,9 @@ export default function HomeViewPage() {
       <TrustBarSection />
       <ExpansionMapSection />
       <FutureVideoSection />
-      <ServicesCarouselSection />
+      <ServicesCarouselSectionLazy />
       <FeatureMosaicSection />
-      <ReviewsSection />
+      <ReviewsSectionLazy />
       <HomeCtaPrimary />
     </main>
   );

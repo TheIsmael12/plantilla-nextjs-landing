@@ -473,25 +473,25 @@
           {
             "icon": "UserCheck",
             "title": "Reception and resident support",
-            "image": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/concierge-1.jpg",
             "description": "The concierge knows every resident by name and which suppliers each home has authorised. Anything they can't resolve on the spot gets logged in a daily report and reaches the property administrator that same day, not at month's end."
           },
           {
             "icon": "ScanLine",
             "title": "Access control",
-            "image": "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/concierge-2.jpg",
             "description": "Every visit is logged with an entry time, and the concierge checks identity before letting in anyone they don't recognise. Couriers follow a specific protocol so as not to disturb residents at night."
           },
           {
             "icon": "Package",
             "title": "Mail and parcels",
-            "image": "https://images.unsplash.com/photo-1560184611-ff3e53f00e8f?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/concierge-3.jpg",
             "description": "Parcels that need a signature are kept in a marked area and residents are notified through whatever channel the community chooses: a note, WhatsApp or an app. Registered mail and official notices are always handled with proof of receipt."
           },
           {
             "icon": "RefreshCcw",
             "title": "Cover for sick leave and holidays",
-            "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/concierge-4.jpg",
             "description": "Before starting their shift, the substitute is briefed on the building's particulars: residents with special needs, regular suppliers, open incidents. The goal is for the change of person to go unnoticed by the community."
           }
         ],
@@ -524,25 +524,25 @@
           {
             "icon": "Camera",
             "title": "Video surveillance (CCTV)",
-            "image": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/security-1.jpg",
             "description": "Cameras go where the building's actual blind spots are (entrances, garage, common areas), not in a standard pattern. Footage is kept for a maximum of 30 days, following the Spanish data protection authority's general guidance on video surveillance."
           },
           {
             "icon": "KeyRound",
             "title": "Electronic access control",
-            "image": "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/security-2.jpg",
             "description": "Each card or code is tied to a specific home and, if the community asks, to a specific time window. For example, to let an external cleaning crew in only during their contracted hours, with no one needing to open the door for them."
           },
           {
             "icon": "Wrench",
             "title": "Equipment maintenance",
-            "image": "https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/security-3.jpg",
             "description": "We check cameras and recorders every quarter, and replace recording drives before they fail from wear. The goal is to catch the problem before the community realises it has gone weeks without recording anything."
           },
           {
             "icon": "Siren",
             "title": "Incident response",
-            "image": "https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/security-4.jpg",
             "description": "A technician reviews the report within 24 working hours. If the fault compromises the building's security, such as a downed access camera or a door that won't lock, it becomes an immediate priority."
           }
         ],
@@ -575,25 +575,25 @@
           {
             "icon": "Droplet",
             "title": "Water chemical maintenance",
-            "image": "https://images.unsplash.com/photo-1470723710355-95304d8aece4?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/pools-1.jpg",
             "description": "We measure pH (target 7.2-7.6) and free chlorine (0.5-2 mg/l) daily, following Spanish health regulations for collective-use pools. Dosing is adjusted to that day's actual pool usage, not a fixed factory routine."
           },
           {
             "icon": "Brush",
             "title": "Cleaning the pool and deck",
-            "image": "https://images.unsplash.com/photo-1611843467160-25afb8df1074?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/pools-2.jpg",
             "description": "The pool floor and walls are brushed to prevent algae, and the deck area is cleaned daily during peak season, which is when it actually gets dirty. The goal is for it to actually be clean, not just look it."
           },
           {
             "icon": "LifeBuoy",
             "title": "Qualified lifeguards",
-            "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/pools-3.jpg",
             "description": "Lifeguards hold a current official water-rescue qualification and cover the full swimming hours the community sets, with no unwatched gap at midday or on the last weekend of the season."
           },
           {
             "icon": "CalendarClock",
             "title": "Season opening and closing",
-            "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/pools-4.jpg",
             "description": "Before opening we check pumps, filters and the dosing system, and deep-clean after winter. When closing, we cover the pool and protect the equipment from humidity and cold so it reaches next season intact."
           }
         ],
@@ -626,25 +626,25 @@
           {
             "icon": "Brush",
             "title": "Cleaning common areas",
-            "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/cleaning-1.jpg",
             "description": "The team follows a task plan by area (entrance, stairs, lift) so no corner gets skipped, at whatever frequency the community, building or business decides: from daily to twice a week."
           },
           {
             "icon": "AppWindow",
             "title": "Window cleaning",
-            "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/cleaning-2.jpg",
             "description": "Entrance and common-area windows are part of the regular plan. Accessible façade cleaning with a pole is scheduled as an add-on depending on the building's height and access, not bundled by default in every case."
           },
           {
             "icon": "Warehouse",
             "title": "Garage cleaning",
-            "image": "https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/cleaning-3.jpg",
             "description": "Sweeping and mopping the ramp, parking spaces and aisles, with specific treatment for oil and grease stains. Scheduled at whatever frequency the community's, building's or business's car park needs."
           },
           {
             "icon": "PackageCheck",
             "title": "Supply of materials",
-            "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/cleaning-4.jpg",
             "description": "Cleaning products meet current regulations, and Imora offers eco-friendly alternatives at no extra cost if the community prefers them. The community or business never has to buy or store products."
           }
         ],
@@ -677,25 +677,25 @@
           {
             "icon": "Trees",
             "title": "Pruning and tree care",
-            "image": "https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/gardening-1.jpg",
             "description": "Pruning is planned around each plant's species and flowering season, not a fixed date for the whole garden. Pruning a tree or rose bush at the wrong time can cost you a whole year's blooms or growth."
           },
           {
             "icon": "Droplet",
             "title": "Automatic irrigation and water control",
-            "image": "https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/gardening-2.jpg",
             "description": "We check and program automatic irrigation systems to match water use to the season, avoiding both plant water stress and unnecessary spending across common areas, outdoor car parks or business and shopping-centre entrances."
           },
           {
             "icon": "Flower2",
             "title": "Lawns, hedges and ornamental areas",
-            "image": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/gardening-3.jpg",
             "description": "Mowing, hedge trimming and care of ornamental areas at whatever frequency the season sets, so the green areas of the community, building or shopping centre stay well kept all year round."
           },
           {
             "icon": "Leaf",
             "title": "Green waste removal",
-            "image": "https://images.unsplash.com/photo-1592210454359-9043f067919b?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/gardening-4.jpg",
             "description": "Pruning, mowing and leaf waste is removed after every visit, so the garden area and vehicle or pedestrian access are never left cluttered with green waste."
           }
         ],
@@ -728,25 +728,25 @@
           {
             "icon": "Droplet",
             "title": "Plumbing",
-            "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/maintenance-1.jpg",
             "description": "Leaks and faults in common areas are handled with the tools the technician already carries, without waiting to source a part. More complex repairs get a quote before any work starts, with no surprises on the bill."
           },
           {
             "icon": "Zap",
             "title": "Electrics",
-            "image": "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/maintenance-2.jpg",
             "description": "We check the main distribution board and common-area lighting, and progressively swap old fittings for LED on request. The community sees the difference directly on its electricity bill."
           },
           {
             "icon": "KeyRound",
             "title": "Locksmithing",
-            "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/maintenance-3.jpg",
             "description": "A locksmith problem on a common-area entrance is treated as urgent because it's a security issue, not routine maintenance that can wait until Monday."
           },
           {
             "icon": "Hammer",
             "title": "Small works",
-            "image": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/maintenance-4.jpg",
             "description": "One-off masonry, painting or carpentry repairs in common areas that many property administrators leave pending for months for lack of someone to call."
           }
         ],

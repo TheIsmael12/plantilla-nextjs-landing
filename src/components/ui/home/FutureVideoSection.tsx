@@ -16,7 +16,7 @@ export default function FutureVideoSection() {
       <div className="home__container home__video-grid">
         <div className="home__video-card">
           <Image
-            src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1400&q=80"
+            src="/images/home/video-cover.jpg"
             alt={t('imageAlt')}
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"

@@ -97,3 +97,22 @@
     }
   }
 }
+
+// En modo oscuro `--primary-color` es un azul más claro (pensado para
+// resaltar sobre el fondo casi negro de la app), lo que deja estos textos
+// translúcidos por debajo del contraste mínimo (WCAG AA 4.5:1) sobre el
+// panel de esta sección. Se sube la opacidad solo aquí, sin tocar el token
+// global ni el modo claro.
+.dark .home {
+  &__expansion .home__text-muted {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  &__expansion-zones-label {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  &__expansion-zones-note {
+    color: rgba(255, 255, 255, 0.92);
+  }
+}

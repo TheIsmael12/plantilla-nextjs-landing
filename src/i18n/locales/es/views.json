@@ -473,25 +473,25 @@
           {
             "icon": "UserCheck",
             "title": "Recepción y atención al vecino",
-            "image": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/concierge-1.jpg",
             "description": "El conserje conoce a cada vecino por su nombre y sabe qué proveedores tiene autorizados cada vivienda. Las incidencias que no puede resolver en el momento quedan registradas en un parte diario y llegan a la administración de fincas ese mismo día, no a final de mes."
           },
           {
             "icon": "ScanLine",
             "title": "Control de accesos",
-            "image": "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/concierge-2.jpg",
             "description": "Cada visita queda registrada con hora de entrada, y el conserje verifica la identidad antes de dejar pasar a cualquier persona que no reconoce. Los repartidores y mensajeros siguen un protocolo específico para no interrumpir el descanso de los vecinos por la noche."
           },
           {
             "icon": "Package",
             "title": "Correspondencia y paquetería",
-            "image": "https://images.unsplash.com/photo-1560184611-ff3e53f00e8f?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/concierge-3.jpg",
             "description": "Los paquetes que requieren firma se guardan en un espacio identificado y se avisa al vecino por el canal que la comunidad decida: nota física, WhatsApp o una app. El correo certificado y las notificaciones oficiales se gestionan siempre con acuse de recibo."
           },
           {
             "icon": "RefreshCcw",
             "title": "Cobertura de bajas y vacaciones",
-            "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/concierge-4.jpg",
             "description": "Antes de empezar su turno, el sustituto recibe el traspaso de las particularidades del edificio: vecinos con necesidades especiales, proveedores habituales, incidencias abiertas. El objetivo es que el cambio de persona pase desapercibido para la comunidad."
           }
         ],
@@ -524,25 +524,25 @@
           {
             "icon": "Camera",
             "title": "Videovigilancia (CCTV)",
-            "image": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/security-1.jpg",
             "description": "Las cámaras se ubican en los puntos ciegos reales del edificio (accesos, garaje, zonas comunes), no en un patrón estándar. La grabación se conserva un máximo de 30 días, siguiendo el criterio orientativo de la Agencia Española de Protección de Datos para uso de videovigilancia."
           },
           {
             "icon": "KeyRound",
             "title": "Control de accesos electrónico",
-            "image": "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/security-2.jpg",
             "description": "Cada tarjeta o código queda asociado a una vivienda y, si la comunidad lo pide, a una franja horaria concreta. Por ejemplo, para limitar el acceso del personal de limpieza externo a las horas contratadas, sin necesidad de que nadie les abra la puerta."
           },
           {
             "icon": "Wrench",
             "title": "Mantenimiento de los equipos",
-            "image": "https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/security-3.jpg",
             "description": "Revisamos el estado de cámaras y grabadores cada trimestre, y sustituimos los discos de grabación antes de que fallen por desgaste. La idea es detectar el problema antes de que la comunidad se dé cuenta de que llevaba semanas sin grabar."
           },
           {
             "icon": "Siren",
             "title": "Respuesta ante incidencias",
-            "image": "https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/security-4.jpg",
             "description": "Un técnico revisa el aviso en menos de 24 horas laborables. Si el fallo compromete la seguridad del edificio, como una cámara de acceso caída o una puerta que no cierra, la prioridad pasa a ser inmediata."
           }
         ],
@@ -575,25 +575,25 @@
           {
             "icon": "Droplet",
             "title": "Mantenimiento químico del agua",
-            "image": "https://images.unsplash.com/photo-1470723710355-95304d8aece4?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/pools-1.jpg",
             "description": "Medimos el pH (objetivo 7,2-7,6) y el cloro libre (0,5-2 mg/l) a diario, según los parámetros del Real Decreto 742/2013 sobre piscinas de uso colectivo. La dosis se ajusta al uso real de la piscina cada día, no a una pauta fija de fábrica."
           },
           {
             "icon": "Brush",
             "title": "Limpieza de vaso y playa",
-            "image": "https://images.unsplash.com/photo-1611843467160-25afb8df1074?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/pools-2.jpg",
             "description": "El fondo y las paredes del vaso se cepillan para evitar la formación de algas, y la zona de playa se limpia a diario en temporada alta, que es cuando de verdad se ensucia. El objetivo no es que \"parezca\" limpia, sino que lo esté."
           },
           {
             "icon": "LifeBuoy",
             "title": "Socorrismo titulado",
-            "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/pools-3.jpg",
             "description": "Los socorristas tienen el título oficial de socorrismo acuático en vigor y cubren todo el horario de baño que fije la comunidad, sin huecos sin vigilancia a mediodía ni el último fin de semana de la temporada."
           },
           {
             "icon": "CalendarClock",
             "title": "Apertura y cierre de temporada",
-            "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/pools-4.jpg",
             "description": "Antes de abrir revisamos bombas, filtros y el sistema de dosificación, y limpiamos a fondo tras el invierno. Al cerrar, cubrimos el vaso y protegemos la maquinaria de la humedad y el frío para que llegue intacta a la siguiente temporada."
           }
         ],
@@ -626,25 +626,25 @@
           {
             "icon": "Brush",
             "title": "Limpieza de zonas comunes",
-            "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/cleaning-1.jpg",
             "description": "El equipo sigue un plan de tareas por zona (portal, escaleras, ascensor) para no dejar rincones sin repasar, con la frecuencia que decida la comunidad, el edificio o el negocio: desde diaria hasta dos veces por semana."
           },
           {
             "icon": "AppWindow",
             "title": "Limpieza de cristales",
-            "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/cleaning-2.jpg",
             "description": "Los cristales de portal y zonas comunes entran en el plan habitual. La fachada accesible con pértiga se programa como servicio adicional según la altura y el tipo de acceso del edificio, no como algo incluido \"de oficio\" en todos los casos."
           },
           {
             "icon": "Warehouse",
             "title": "Limpieza de garajes",
-            "image": "https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/cleaning-3.jpg",
             "description": "Barrido y fregado de rampa, plazas y pasillos, con tratamiento específico para manchas de aceite y grasa. Se programa con la frecuencia que necesite el garaje de la comunidad, el edificio o el aparcamiento del negocio."
           },
           {
             "icon": "PackageCheck",
             "title": "Suministro de material",
-            "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/cleaning-4.jpg",
             "description": "Los productos de limpieza cumplen la normativa vigente, e Imora ofrece alternativas ecológicas sin coste adicional si la comunidad las prefiere. La comunidad o la empresa no gestiona compras ni almacenaje de productos."
           }
         ],
@@ -677,25 +677,25 @@
           {
             "icon": "Trees",
             "title": "Poda y mantenimiento de arbolado",
-            "image": "https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/gardening-1.jpg",
             "description": "La poda se planifica según la especie de cada planta y su época de floración, no en una fecha fija para todo el jardín. Podar un árbol o un rosal en el momento equivocado puede costarle la floración o el crecimiento de todo el año siguiente."
           },
           {
             "icon": "Droplet",
             "title": "Riego automático y control de consumo",
-            "image": "https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/gardening-2.jpg",
             "description": "Revisamos y programamos los sistemas de riego automático para ajustar el consumo de agua a la temporada, evitando tanto el estrés hídrico de las plantas como el gasto innecesario en zonas comunes, aparcamientos exteriores o accesos de negocios y centros comerciales."
           },
           {
             "icon": "Flower2",
             "title": "Céspedes, setos y zonas ornamentales",
-            "image": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/gardening-3.jpg",
             "description": "Siega, perfilado de setos y cuidado de zonas ornamentales con la frecuencia que marque la temporada, para que las zonas verdes de la comunidad, el edificio o el centro comercial mantengan una imagen cuidada todo el año."
           },
           {
             "icon": "Leaf",
             "title": "Retirada de restos vegetales",
-            "image": "https://images.unsplash.com/photo-1592210454359-9043f067919b?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/gardening-4.jpg",
             "description": "Los restos de poda, siega y hojas se retiran tras cada visita, sin dejar la zona ajardinada ni los accesos de vehículos o peatones ocupados con residuos vegetales."
           }
         ],
@@ -728,25 +728,25 @@
           {
             "icon": "Droplet",
             "title": "Fontanería",
-            "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/maintenance-1.jpg",
             "description": "Las fugas y averías en zonas comunes se atienden con las herramientas que ya lleva el propio técnico, sin depender de conseguir la pieza en el momento. Las reparaciones más complejas se presupuestan antes de intervenir, sin sorpresas en la factura."
           },
           {
             "icon": "Zap",
             "title": "Electricidad",
-            "image": "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/maintenance-2.jpg",
             "description": "Revisamos el cuadro eléctrico general y la iluminación de zonas comunes, y sustituimos progresivamente el alumbrado antiguo por LED cuando se pide. El cambio se nota directamente en el recibo de la luz de la comunidad."
           },
           {
             "icon": "KeyRound",
             "title": "Cerrajería",
-            "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/maintenance-3.jpg",
             "description": "Un problema de cerrajería en un acceso común se trata como urgente porque compromete la seguridad del edificio, no como una incidencia de mantenimiento ordinaria que puede esperar al lunes."
           },
           {
             "icon": "Hammer",
             "title": "Pequeñas obras",
-            "image": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=900&q=80",
+            "image": "/images/services/subservices/maintenance-4.jpg",
             "description": "Reparaciones puntuales de albañilería, pintura o carpintería en zonas comunes que muchas administraciones de fincas dejan pendientes durante meses por no tener a quién encargárselas."
           }
         ],

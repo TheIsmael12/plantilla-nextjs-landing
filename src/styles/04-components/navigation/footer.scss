@@ -240,6 +240,22 @@
   }
 }
 
+// En modo oscuro `--primary-color` del footer ya es un azul más claro; el
+// overlay blanco al 8% lo aclara todavía más y el texto blanco del trigger
+// de idioma se queda justo por debajo de 4.5:1. Se oscurece el overlay solo
+// aquí en vez de aclarar el texto (que ya es blanco puro).
+.dark .footer__controls__locale .change-locale__trigger {
+  background-color: rgba(0, 0, 0, 0.18);
+
+  &:hover {
+    background-color: var(--fill-color);
+  }
+
+  &--open {
+    background-color: var(--fill-color);
+  }
+}
+
 // ─── Nav grid ──────────────────────────────────────────────────────────────
 
 .footer__nav {

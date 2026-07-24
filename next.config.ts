@@ -10,14 +10,9 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const NEXT_AUTH_REACT_STUB = path.resolve(__dirname, 'src/lib/next-auth-react.tsx');
 
 const nextConfig: NextConfig = {
-	images: {
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: 'images.unsplash.com',
-			},
-		],
-	},
+	// `babel-plugin-react-compiler` ya está instalado como devDependency:
+	// esta flag lo activa de verdad (si no, el paquete no hace nada).
+	reactCompiler: true,
 	webpack: (config) => {
 		config.resolve.alias['next-auth/react'] = NEXT_AUTH_REACT_STUB;
 		return config;

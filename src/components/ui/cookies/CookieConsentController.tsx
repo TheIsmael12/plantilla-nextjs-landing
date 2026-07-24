@@ -175,10 +175,10 @@ export default function CookieConsentController() {
                         <div className="cookie-consent__pref cookie-consent__pref--locked">
                             <div className="cookie-consent__pref__info">
                                 <div>
-                                    <p className="cookie-consent__pref__name">
+                                    <span className="cookie-consent__pref__name">
                                         {t('necessary')}
                                         <Badge status="success" value={t('alwaysOn')} />
-                                    </p>
+                                    </span>
                                     <p className="cookie-consent__pref__desc">{t('necessaryDesc')}</p>
                                 </div>
                             </div>
@@ -197,10 +197,10 @@ export default function CookieConsentController() {
                         <div className="cookie-consent__pref">
                             <div className="cookie-consent__pref__info">
                                 <div>
-                                    <p className="cookie-consent__pref__name">
+                                    <span className="cookie-consent__pref__name">
                                         {t('functional')}
                                         <Badge status="pending" value={t('optional')} />
-                                    </p>
+                                    </span>
                                     <p className="cookie-consent__pref__desc">{t('functionalDesc')}</p>
                                 </div>
                             </div>
@@ -218,10 +218,10 @@ export default function CookieConsentController() {
                         <div className="cookie-consent__pref">
                             <div className="cookie-consent__pref__info">
                                 <div>
-                                    <p className="cookie-consent__pref__name">
+                                    <span className="cookie-consent__pref__name">
                                         {t('analytics')}
                                         <Badge status="pending" value={t('optional')} />
-                                    </p>
+                                    </span>
                                     <p className="cookie-consent__pref__desc">{t('analyticsDesc')}</p>
                                 </div>
                             </div>
@@ -239,10 +239,10 @@ export default function CookieConsentController() {
                         <div className="cookie-consent__pref">
                             <div className="cookie-consent__pref__info">
                                 <div>
-                                    <p className="cookie-consent__pref__name">
+                                    <span className="cookie-consent__pref__name">
                                         {t('marketing')}
                                         <Badge status="pending" value={t('optional')} />
-                                    </p>
+                                    </span>
                                     <p className="cookie-consent__pref__desc">{t('marketingDesc')}</p>
                                 </div>
                             </div>
@@ -262,11 +262,11 @@ export default function CookieConsentController() {
 
             {/* Actions */}
             <div className="cookie-consent__actions">
-                <Button title={t('rejectAll')} variant="secondary" size="sm" onClick={rejectAll} />
+                <Button variant="secondary" size="sm" onClick={rejectAll}>{t('rejectAll')}</Button>
                 {expanded && (
-                    <Button title={t('saveSelection')} variant="outline" size="sm" onClick={saveSelection} />
+                    <Button variant="outline" size="sm" onClick={saveSelection}>{t('saveSelection')}</Button>
                 )}
-                <Button title={t('acceptAll')} variant="primary" size="sm" onClick={acceptAll} />
+                <Button variant="primary" size="sm" onClick={acceptAll}>{t('acceptAll')}</Button>
             </div>
 
             {/* Saved feedback */}

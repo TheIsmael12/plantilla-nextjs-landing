@@ -291,3 +291,20 @@
     }
   }
 }
+
+// En modo oscuro `--primary-color-active` es un azul claro pensado para
+// acentos, no para paneles grandes de texto blanco: el título y el cuerpo de
+// estas tarjetas no llegan a 4.5:1. Se usa el tono base (`--primary-color`,
+// más oscuro en dark) solo para el fondo de estas dos tarjetas, y se sube la
+// opacidad de los párrafos (incluido `home__tile-feature-summary`) para
+// compensar el nuevo fondo.
+.dark .home {
+  &__tile--portrait,
+  &__tile--feature {
+    background: var(--primary-color);
+
+    p {
+      opacity: 0.96;
+    }
+  }
+}

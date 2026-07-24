@@ -1,11 +1,15 @@
 ﻿"use client";
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import '@/styles/04-components/home/homeBase.scss';
+import '@/styles/04-components/home/reviewsSection.scss';
+
 import { Quote, Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import '@/styles/04-components/home/homeBase.scss';
-import '@/styles/04-components/home/reviewsSection.scss';
 
 const reviews = [
   {

@@ -1,7 +1,7 @@
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
-import SpainMap from '@/components/ui/home/SpainMap';
+import SpainMapLazy from '@/components/ui/home/SpainMapLazy';
 
 import '@/styles/04-components/home/homeBase.scss';
 import '@/styles/04-components/home/expansionMapSection.scss';
@@ -38,7 +38,7 @@ export default function ExpansionMapSection() {
         </div>
 
         <div className="home__spain-map-frame">
-          <SpainMap />
+          <SpainMapLazy />
         </div>
       </div>
     </section>

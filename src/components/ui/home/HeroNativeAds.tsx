@@ -42,7 +42,7 @@ export default function HeroNativeAds() {
         <div className="home__hero-media">
           <div className="home__hero-media-frame">
             <Image
-              src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80"
+              src="/images/home/hero.jpg"
               alt={t('imageAlt')}
               fill
               sizes="(max-width: 1024px) 100vw, 45vw"

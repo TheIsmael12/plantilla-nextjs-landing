@@ -1,15 +1,25 @@
 'use client';
 
+// El CSS de Swiper vive aquí (no en `NavMegaVisual.tsx`, que se carga vía
+// `dynamic(..., { ssr: false })`): Next no aplica de forma fiable el CSS de
+// un módulo client-only cargado así (se queda "preloaded" pero sin usar,
+// y el carrusel se renderiza sin tamaño). Este archivo es el punto de
+// entrada eager del navbar, así que aquí el CSS sí se aplica siempre.
+// Va ANTES que `navbar.scss`: `.nav__mega-swiper` necesita sobreescribir
+// `position: absolute` sobre el `.swiper { position: relative }` base de
+// Swiper, y con igual especificidad (una sola clase) gana quien se declare
+// después en la cascada — si el CSS de Swiper entrara después, su
+// `position: relative` ganaría y el carrusel se quedaría a 0 de alto.
+import 'swiper/css';
+import 'swiper/css/pagination';
 import '@/styles/04-components/navigation/navbar.scss';
 
 import { useEffect, useId, useRef, useState } from "react";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
-import { Autoplay, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Link, usePathname } from "@/i18n/navigation";
 
-import { PUBLIC_ROUTES, SERVICE_SLUGS, SERVICE_ICONS, SERVICE_VISUALS } from "@/config/routing";
+import { PUBLIC_ROUTES, SERVICE_SLUGS, SERVICE_ICONS } from "@/config/routing";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 
@@ -18,6 +28,11 @@ import ImageLogo from '../images/ImageLogo';
 import { Route } from "@/types/route";
 
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
+
+// El carrusel de fotos del mega-menú (Swiper) solo se ve si el usuario abre
+// el desplegable de "Servicios": cargarlo aparte evita que su JS se ejecute
+// en cada carga de página, ya que el navbar es global.
+const NavMegaVisual = dynamic(() => import('./NavMegaVisual'), { ssr: false });
 
 type NavTranslator = ReturnType<typeof useTranslations>;
 
@@ -116,31 +131,7 @@ function NavDropdownItem({
                             </ul>
 
                             <div className="nav__mega-visual">
-                                <Swiper
-                                    modules={[Autoplay, Pagination]}
-                                    autoplay={{ delay: 3200, disableOnInteraction: false, pauseOnMouseEnter: true }}
-                                    pagination={{ clickable: true }}
-                                    loop
-                                    className="nav__mega-swiper"
-                                >
-                                    {SERVICE_SLUGS.map((slug) => (
-                                        <SwiperSlide key={slug}>
-                                            <div className="nav__mega-visual-slide">
-                                                <Image
-                                                    src={SERVICE_VISUALS[slug]}
-                                                    alt={servicesT(`${slug}.title`)}
-                                                    fill
-                                                    sizes="(max-width: 768px) 0px, 28vw"
-                                                    className="nav__mega-visual-image"
-                                                />
-                                                <div className="nav__mega-visual-overlay" />
-                                                <p className="nav__mega-visual-caption">
-                                                    {servicesT(`${slug}.title`)}
-                                                </p>
-                                            </div>
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
+                                <NavMegaVisual />
                             </div>
                         </div>
 
