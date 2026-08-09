@@ -1,0 +1,55 @@
+// Estilos de ProfileLayout (components/layouts/ProfileLayout.tsx): shell de
+// las páginas de `/profile/*`, con navegación lateral fija y contenido a la derecha.
+
+@use "../../01-tools/mixins" as *;
+
+.profile-layout {
+  margin-top: 2rem;
+  @include flex($justify: flex-start, $align: flex-start, $gap: 2rem);
+
+  @include screen(md, max) {
+    @include flex(
+      $direction: column,
+      $justify: flex-start,
+      $align: stretch,
+      $gap: 1.5rem
+    );
+  }
+
+  &__nav {
+    display: none;
+    @include pr(1rem);
+
+    @include screen(xl) {
+      width: 16rem;
+      flex-shrink: 0;
+      display: block;
+      border-right: 1px solid var(--border-color);
+    }
+  }
+
+  &__container {
+    flex: 1;
+    min-width: 0;
+    @include flex(
+      $direction: column,
+      $justify: flex-start,
+      $align: stretch,
+      $gap: 1.5rem
+    );
+  }
+
+  &__content {
+    @include rounded();
+    @include flex(
+      $direction: column,
+      $justify: flex-start,
+      $align: stretch,
+      $gap: 1.5rem
+    );
+  }
+}
+
+.profile__skeleton {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.5rem);
+}

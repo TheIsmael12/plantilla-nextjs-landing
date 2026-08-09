@@ -6,3 +6,13 @@
   @include flex($justify: center, $gap: 0);
   background-color: var(--neutral-color-light);
 }
+
+// Equivalente a `next/image`'s `fill`: ocupa el contenedor posicionado más
+// cercano por completo, recortando el objeto sin deformarlo.
+.backend-image--fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

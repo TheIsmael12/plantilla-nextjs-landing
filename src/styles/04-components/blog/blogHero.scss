@@ -1,0 +1,31 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.blog__hero {
+  position: relative;
+  background: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+  overflow: hidden;
+  @include py(4.5rem);
+}
+
+.blog__hero-decor {
+  position: absolute;
+  bottom: -3rem;
+  right: -3rem;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+
+  @include screen(sm, max) {
+    display: none;
+  }
+}
+
+.blog__hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+  margin: 0 auto;
+}

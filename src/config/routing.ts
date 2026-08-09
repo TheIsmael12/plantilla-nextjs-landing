@@ -1,8 +1,24 @@
 import {
-  LayoutDashboard,
+  Bell,
+  Briefcase,
+  Building2,
+  Calendar,
+  DoorClosed,
+  FileText,
+  KeyRound,
+  Languages,
+  Lock,
+  Monitor,
+  Receipt,
+  ScrollText,
+  Settings,
   ShieldCheck,
+  SlidersHorizontal,
   Sparkles,
+  SunMoon,
+  TriangleAlert,
   Trees,
+  User,
   Users,
   Waves,
   Wrench,
@@ -50,7 +66,6 @@ export const SERVICE_VISUALS: Record<ServiceSlug, string> = {
   gardening: "/images/services/gardening.jpg",
   maintenance: "/images/services/maintenance.jpg",
 };
-
 
 export const PUBLIC_ROUTES: Route[] = [
   {
@@ -136,7 +151,17 @@ export const PUBLIC_ROUTES: Route[] = [
     shownInFooter: false,
   },
   {
+    pathname: "/forgot-password",
+    shownInNavbar: false,
+    shownInFooter: false,
+  },
+  {
     pathname: "/reset-password",
+    shownInNavbar: false,
+    shownInFooter: false,
+  },
+  {
+    pathname: "/change-password",
     shownInNavbar: false,
     shownInFooter: false,
   },
@@ -154,7 +179,17 @@ export const AUTH_ROUTES: Route[] = [
     shownInFooter: false,
   },
   {
+    pathname: "/forgot-password",
+    shownInNavbar: false,
+    shownInFooter: false,
+  },
+  {
     pathname: "/reset-password",
+    shownInNavbar: false,
+    shownInFooter: false,
+  },
+  {
+    pathname: "/change-password",
     shownInNavbar: false,
     shownInFooter: false,
   },
@@ -165,60 +200,227 @@ export const AUTH_ROUTES: Route[] = [
   },
 ];
 
+// Todo el área privada del portal cuelga de `/private-area`: perfil (datos
+// personales + seguridad) y las tres secciones de servicios/presupuestos/
+// facturas son subrutas hermanas, todas bajo el mismo layout común
+// (`ClientAreaHeader`). El portal no tiene RBAC ni sesiones/dispositivos
+// listables (backend `client-portal-panel.controller.ts`).
+//
+// Las 4 secciones de primer nivel (`profile`, `services`, `quotes`,
+// `invoices`) llevan `isShownInSidebar: true` para aparecer tanto en el
+// menú desplegable de `User` (`MenuItems path="/private-area"`) como en
+// cualquier sidebar futuro del home. Las rutas de detalle (`.../[id]`) se
+// registran sin `shownInNavbar` a propósito: no son ítems de navegación,
+// solo entradas del catálogo para que `findRouteByPathname` resuelva su
+// icono y su título traducido.
 export const PRIVATE_ROUTES: Route[] = [
   {
-    pathname: "/dashboard",
-    category: "general",
-    icon: LayoutDashboard,
-    isShownInSidebar: true,
-  },
-  {
-    pathname: "/users",
-    category: "general",
-    icon: Users,
-    isShownInSidebar: true,
-  },
-  {
-    pathname: "/users/[id]",
-    hasPage: false,
-  },
-  {
-    pathname: "/profile",
+    pathname: "/private-area",
+    icon: User,
     subRoutes: [
       {
-        pathname: "/profile/sessions",
-        category: "sessionsAndSecurity",
-        isShownInSidebar: true,
-      },
-      {
-        pathname: "/profile/security",
-        category: "sessionsAndSecurity",
-        isShownInSidebar: true,
-      },
-      {
-        pathname: "/profile/notifications",
-        category: "account",
-        isShownInSidebar: true,
-      },
-      {
-        pathname: "/profile/preferences",
-        category: "account",
+        pathname: "/private-area/profile",
+        category: "menu",
+        icon: User,
         isShownInSidebar: true,
         subRoutes: [
           {
-            pathname: "/profile/preferences/locale",
+            pathname: "/private-area/profile/security",
+            category: "account",
+            icon: Lock,
             isShownInSidebar: true,
           },
           {
-            pathname: "/profile/preferences/theme",
+            pathname: "/private-area/profile/sessions",
+            category: "account",
+            icon: Monitor,
             isShownInSidebar: true,
           },
           {
-            pathname: "/profile/preferences/datetime",
+            // Solo agrupa: la pantalla real es cada una de sus subrutas
+            // (mismo patrón que `plantilla-nextjs`).
+            pathname: "/private-area/profile/preferences",
+            category: "preferences",
+            icon: SlidersHorizontal,
             isShownInSidebar: true,
+            hasPage: false,
+            subRoutes: [
+              {
+                pathname: "/private-area/profile/preferences/locale",
+                icon: Languages,
+                isShownInSidebar: true,
+              },
+              {
+                pathname: "/private-area/profile/preferences/theme",
+                icon: SunMoon,
+                isShownInSidebar: true,
+              },
+              {
+                pathname: "/private-area/profile/preferences/datetime",
+                icon: Calendar,
+                isShownInSidebar: true,
+              },
+              {
+                pathname: "/private-area/profile/preferences/notifications",
+                icon: Bell,
+                isShownInSidebar: true,
+              },
+            ],
           },
         ],
+      },
+      {
+        // Sin `isShownInSidebar`: ya está en el navbar horizontal del área de
+        // cliente (`shownInNavbar`), y `MenuItems path="/private-area"` (el
+        // desplegable del menú de usuario) solo debe llevar lo que no está ahí.
+        pathname: "/private-area/services",
+        category: "menu",
+        shownInNavbar: true,
+        icon: Briefcase,
+      },
+      {
+        pathname: "/private-area/services/[id]",
+        shownInNavbar: false,
+        icon: Briefcase,
+      },
+      {
+        // Sin `shownInNavbar`: el enlace del navbar lo pinta `ClientAreaHeaderNav`
+        // a partir de `communityHref` (resuelto en `ClientAreaHeader`, que decide
+        // entre saltar directo a la única comunidad o al selector) — con esta
+        // entrada también marcada `shownInNavbar: true` aparecían los dos enlaces
+        // a la vez, ambos con el mismo texto "Comunidades".
+        pathname: "/private-area/communities",
+        category: "menu",
+        icon: Building2,
+      },
+      {
+        pathname: "/private-area/communities/[serviceId]",
+        shownInNavbar: false,
+        icon: Building2,
+      },
+      {
+        pathname: "/private-area/communities/[serviceId]/residents",
+        shownInNavbar: false,
+        icon: Users,
+      },
+      {
+        pathname: "/private-area/communities/[serviceId]/units",
+        shownInNavbar: false,
+        icon: Building2,
+      },
+      {
+        pathname: "/private-area/communities/[serviceId]/keyrings",
+        shownInNavbar: false,
+        icon: KeyRound,
+      },
+      {
+        pathname: "/private-area/communities/[serviceId]/locks",
+        shownInNavbar: false,
+        icon: DoorClosed,
+      },
+      {
+        pathname: "/private-area/communities/[serviceId]/incidents",
+        shownInNavbar: false,
+        icon: TriangleAlert,
+      },
+      {
+        pathname: "/private-area/communities/[serviceId]/access-log",
+        shownInNavbar: false,
+        icon: ScrollText,
+      },
+      {
+        pathname: "/private-area/communities/[serviceId]/settings",
+        shownInNavbar: false,
+        icon: Settings,
+      },
+      {
+        pathname: "/private-area/quotes",
+        category: "menu",
+        shownInNavbar: true,
+        icon: FileText,
+      },
+      {
+        pathname: "/private-area/quotes/[id]",
+        shownInNavbar: false,
+        icon: FileText,
+      },
+      {
+        pathname: "/private-area/invoices",
+        category: "menu",
+        shownInNavbar: true,
+        icon: Receipt,
+      },
+      {
+        pathname: "/private-area/invoices/[id]",
+        shownInNavbar: false,
+        icon: Receipt,
+      },
+      {
+        pathname: "/private-area/incidents",
+        category: "menu",
+        shownInNavbar: true,
+        icon: TriangleAlert,
+      },
+      {
+        pathname: "/private-area/incidents/[id]",
+        shownInNavbar: false,
+        icon: TriangleAlert,
+      },
+      {
+        pathname: "/private-area/notifications",
+        shownInNavbar: false,
+        icon: Bell,
       },
     ],
   },
 ];
+
+// Secciones internas de una comunidad ya seleccionada. Es una lista propia y
+// no un `MenuItems` sobre `PRIVATE_ROUTES` a propósito: el catálogo de
+// `routing.ts` fue diseñado para rutas estáticas y `MenuItems` no sabe
+// resolver el segmento `[serviceId]`, que aquí llega en tiempo de ejecución.
+// `CommunitySidebar` construye los `href` a partir de estas claves canónicas,
+// y usa `requiredFlag` para no ofrecer una sección cuyo módulo el cliente no
+// tiene activado: el backend ya rechaza esas rutas con 403
+// (`assertKeyringEnabled`, requisitos-app-comunidad.md sección 7.6), así que
+// mostrarlas sin más llevaría a un enlace que siempre falla.
+export const COMMUNITY_SECTION_ROUTES: {
+  pathname: string;
+  icon: LucideIcon;
+  requiredFlag?: "keyringEnabled";
+}[] = [
+  { pathname: "/private-area/communities/[serviceId]/residents", icon: Users },
+  { pathname: "/private-area/communities/[serviceId]/units", icon: Building2 },
+  {
+    pathname: "/private-area/communities/[serviceId]/keyrings",
+    icon: KeyRound,
+    requiredFlag: "keyringEnabled",
+  },
+  {
+    pathname: "/private-area/communities/[serviceId]/locks",
+    icon: DoorClosed,
+    requiredFlag: "keyringEnabled",
+  },
+  {
+    pathname: "/private-area/communities/[serviceId]/incidents",
+    icon: TriangleAlert,
+  },
+  {
+    pathname: "/private-area/communities/[serviceId]/access-log",
+    icon: ScrollText,
+    requiredFlag: "keyringEnabled",
+  },
+  {
+    pathname: "/private-area/communities/[serviceId]/settings",
+    icon: Settings,
+  },
+];
+
+// Servicios, presupuestos y facturas de primer nivel (sin perfil), para los
+// enlaces centrados de `ClientAreaHeader` — no necesita todo `PRIVATE_ROUTES`.
+// El `Navbar` público NO debe mostrar estos enlaces: solo tienen sentido
+// dentro del área privada, con sesión ya iniciada.
+export const AREA_PRIVADA_ROUTES: Route[] =
+  PRIVATE_ROUTES[0].subRoutes?.filter(
+    (route) => route.pathname !== "/private-area/profile",
+  ) ?? [];

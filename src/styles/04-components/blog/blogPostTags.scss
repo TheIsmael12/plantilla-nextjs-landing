@@ -1,0 +1,31 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.blog__post-tags {
+  @include flex(row, flex-start, center, 0.5rem);
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  color: var(--neutral-color);
+}
+
+.blog__post-tags-item {
+  @include px(0.85rem);
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  color: var(--color);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  @include rounded(999px);
+
+  &:hover {
+    border-color: var(--primary-color-active);
+    color: var(--primary-color-active);
+    text-decoration: none;
+  }
+}

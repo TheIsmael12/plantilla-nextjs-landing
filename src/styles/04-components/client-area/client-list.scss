@@ -1,0 +1,182 @@
+// Listados del portal de cliente (servicios, presupuestos y facturas):
+// filtros por estado, filas tipo tabla ligera y paginación.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+// Contenedor de página de `/private-area/*` (servicios, presupuestos,
+// facturas): no cuelgan de `ProfileLayout`, así que aportan su propio ancho
+// máximo dentro de `.client-area__content`.
+.client-area-page {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+  @include py(2.5rem);
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.5rem);
+}
+
+.client-area-page__title {
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.client-area-page__back {
+  @include flex($justify: flex-start, $align: center, $gap: 0.4rem);
+  align-self: flex-start;
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--primary-color-active);
+  }
+}
+
+.client-list {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.5rem);
+}
+
+.client-list__toolbar {
+  @include flex($justify: space-between, $align: center, $gap: 1rem);
+  flex-wrap: wrap;
+}
+
+.client-list__search {
+  flex-shrink: 0;
+}
+
+.client-list__filters {
+  @include flex($justify: flex-start, $align: center, $gap: 0.5rem);
+  flex-wrap: wrap;
+}
+
+.client-list__filter-pill {
+  @include px(0.85rem);
+  @include py(0.4rem);
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--neutral-color-active);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  @include rounded(2rem);
+
+  &:hover {
+    border-color: var(--primary-color-active);
+    color: var(--primary-color-active);
+  }
+}
+
+.client-list__filter-pill--active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--light-color);
+
+  &:hover {
+    color: var(--light-color);
+  }
+}
+
+.client-list__rows {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+}
+
+.client-list__row {
+  @include flex($justify: space-between, $align: center, $gap: 1rem);
+  flex-wrap: wrap;
+  @include p(1rem);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  color: var(--color);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  @include rounded(0.75rem);
+
+  &:hover {
+    border-color: var(--primary-color-active);
+    text-decoration: none;
+  }
+}
+
+.client-list__row-main {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.25rem);
+  min-width: 0;
+  flex: 1 1 14rem;
+}
+
+.client-list__row-code {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.client-list__row-subtitle {
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+}
+
+.client-list__row-meta {
+  @include flex($justify: flex-end, $align: center, $gap: 1.25rem);
+  flex-wrap: wrap;
+}
+
+.client-list__row-field {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.15rem);
+}
+
+.client-list__row-label {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.client-list__row-value {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--color);
+}
+
+.client-list__pagination {
+  @include flex(row, center, center, 0.4rem);
+  margin-top: 1.5rem;
+}
+
+.client-list__pagination-page,
+.client-list__pagination-arrow {
+  display: grid;
+  place-items: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  @include px(0.5rem);
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--color);
+  text-decoration: none;
+  border: 1px solid var(--border-color);
+  background: var(--surface-color);
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  @include rounded(0.5rem);
+
+  &:hover {
+    border-color: var(--primary-color-active);
+    color: var(--primary-color-active);
+    text-decoration: none;
+  }
+}
+
+.client-list__pagination-page--active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--light-color);
+
+  &:hover {
+    color: var(--light-color);
+  }
+}
+
+.client-list__pagination-arrow--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}

@@ -23,6 +23,17 @@
     "OtpInput": {
       "digitLabel": "Digit {current} of {total}"
     },
+    "Pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "goToPage": "Go to page {page}",
+      "currentPage": "Page {page}"
+    },
+    "TagsInput": {
+      "add": "Add",
+      "remove": "Remove {value}",
+      "counter": "{count} of {max}"
+    },
     "Toast": {
       "close": "Close",
       "region": "Notifications ({position})",
@@ -37,7 +48,17 @@
     },
     "Errors": {
       "generic": "An error has occurred.",
-      "unexpectedError": "An unexpected error has occurred."
+      "unexpectedError": "An unexpected error has occurred.",
+      "networkError": "We couldn't connect to the server. Check your connection and try again.",
+      "unauthenticated": "Your session has expired. Please sign in again."
+    },
+    "Map": {
+      "title": "Location",
+      "locating": "Locating the address on the map...",
+      "notFound": "We couldn't place this address on the map.",
+      "openExternal": "View on Google Maps",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
     }
   }
 }

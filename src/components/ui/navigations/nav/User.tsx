@@ -28,10 +28,7 @@ export default function User() {
 
   const session = useSession();
   const user = useMemo(() => session.data?.user, [session.data?.user]);
-  const fullName = useMemo(
-    () => [user?.firstName, user?.lastName].filter(Boolean).join(" "),
-    [user?.firstName, user?.lastName],
-  );
+  const fullName = user?.name ?? "";
 
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -61,7 +58,6 @@ export default function User() {
           onClick={() => setIsOpenMenu((prev) => !prev)}
         >
           <Avatar
-            src={user?.avatarUrl}
             alt={fullName ? `${fullName} avatar` : t("userAvatar")}
             size="sm"
             bordered

@@ -2,6 +2,10 @@
   "Labels": {
     "email": "Correo electrónico",
     "password": "Contraseña",
-    "roles": "Roles"
+    "roles": "Roles",
+    "taxId": "CIF/NIF",
+    "currentPassword": "Contraseña actual",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Confirmar contraseña"
   }
 }

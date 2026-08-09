@@ -1,0 +1,160 @@
+// Páginas de detalle del portal de cliente (servicio, presupuesto y factura):
+// pares dato/valor, tablas de líneas y bloques de totales.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.client-detail {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.5rem);
+}
+
+.client-detail__actions {
+  @include flex($justify: flex-start, $align: center, $gap: 0.75rem);
+  flex-wrap: wrap;
+}
+
+.client-detail__download {
+  @include flex($justify: center, $align: center, $gap: 0.5rem);
+  @include px(1rem);
+  @include py(0.5rem);
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--primary-color-active);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  @include rounded(0.5rem);
+
+  &:hover {
+    border-color: var(--primary-color-active);
+    text-decoration: none;
+  }
+}
+
+.client-detail__list {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+}
+
+.client-detail__row {
+  @include flex($justify: space-between, $align: flex-start, $gap: 1rem);
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border-color);
+  @include pb(0.75rem);
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.client-detail__term {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--neutral-color-active);
+}
+
+.client-detail__value {
+  @include flex($justify: flex-end, $align: center, $gap: 0.5rem);
+  font-size: $text-sm;
+  color: var(--color);
+  text-align: right;
+}
+
+.client-detail__placeholder {
+  color: var(--neutral-color);
+  font-style: italic;
+}
+
+// Las tablas de líneas/cobros pueden desbordar en móvil: se hace scroll
+// horizontal dentro del contenedor en vez de romper el layout de la página.
+.client-detail__table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.client-detail__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $text-sm;
+
+  th,
+  td {
+    @include px(0.75rem);
+    @include py(0.6rem);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+
+  th {
+    font-weight: $font-semibold;
+    color: var(--neutral-color-active);
+    font-size: $text-xs;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  td:not(:first-child),
+  th:not(:first-child) {
+    text-align: right;
+  }
+
+  td:first-child {
+    white-space: normal;
+    min-width: 12rem;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.client-detail__totals {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.5rem);
+  margin-left: auto;
+  max-width: 22rem;
+  width: 100%;
+}
+
+.client-detail__totals-row {
+  @include flex($justify: space-between, $align: center, $gap: 1rem);
+  font-size: $text-sm;
+  color: var(--color);
+}
+
+.client-detail__totals-row--emphasis {
+  @include pt(0.5rem);
+  border-top: 1px solid var(--border-color);
+  font-weight: $font-semibold;
+}
+
+.client-detail__terms {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+}
+
+.client-detail__terms-block {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.25rem);
+}
+
+.client-detail__terms-title {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--neutral-color-active);
+}
+
+.client-detail__terms-text {
+  font-size: $text-sm;
+  color: var(--color);
+}
+
+.client-detail__empty {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  font-style: italic;
+}
+
+.client-detail__quote-actions {
+  @include flex($justify: flex-start, $align: center, $gap: 0.75rem);
+  flex-wrap: wrap;
+}

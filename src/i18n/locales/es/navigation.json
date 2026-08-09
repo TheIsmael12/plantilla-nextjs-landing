@@ -13,10 +13,17 @@
     "/privacy-policy": "Política de privacidad",
     "/conditions": "Condiciones de uso",
     "/cookies-policy": "Política de cookies",
-    "/complaints-channel": "Canal de reclamaciones"
+    "/complaints-channel": "Canal de reclamaciones",
+    "/private-area/services": "Mis servicios",
+    "/private-area/quotes": "Presupuestos",
+    "/private-area/invoices": "Facturas",
+    "/private-area/communities": "Comunidades",
+    "/private-area/incidents": "Incidencias",
+    "/private-area/notifications": "Notificaciones"
   },
   "Navbar": {
     "login": "Acceso clientes",
+    "clientArea": "Área de clientes",
     "ariaLabel": "Navegación principal",
     "logoAlt": "Logo de la empresa",
     "openMenu": "Abrir menú",
@@ -39,20 +46,34 @@
   },
   "Navigation": {
     "Routes": {
-      "/dashboard": "Panel",
-      "/users": "Usuarios",
-      "/profile": "Mi perfil",
-      "/profile/sessions": "Sesiones",
-      "/profile/security": "Seguridad",
-      "/profile/notifications": "Notificaciones",
-      "/profile/preferences": "Preferencias",
-      "/profile/preferences/locale": "Idioma",
-      "/profile/preferences/theme": "Apariencia",
-      "/profile/preferences/datetime": "Fecha y hora",
+      "/private-area": "Área privada",
+      "/private-area/profile": "Mi perfil",
+      "/private-area/profile/security": "Seguridad",
+      "/private-area/profile/sessions": "Sesiones",
+      "/private-area/profile/preferences": "Preferencias",
+      "/private-area/profile/preferences/locale": "Idioma",
+      "/private-area/profile/preferences/theme": "Tema",
+      "/private-area/profile/preferences/datetime": "Fecha y hora",
+      "/private-area/profile/preferences/notifications": "Notificaciones",
+      "/private-area/services": "Mis servicios",
+      "/private-area/services/[id]": "Detalle del servicio",
+      "/private-area/quotes": "Presupuestos",
+      "/private-area/quotes/[id]": "Detalle del presupuesto",
+      "/private-area/invoices": "Facturas",
+      "/private-area/invoices/[id]": "Detalle de la factura",
+      "/private-area/communities": "Comunidades",
+      "/private-area/communities/[serviceId]": "Comunidad",
+      "/private-area/communities/[serviceId]/residents": "Vecinos",
+      "/private-area/communities/[serviceId]/units": "Unidades",
+      "/private-area/communities/[serviceId]/keyrings": "Llaveros",
+      "/private-area/communities/[serviceId]/locks": "Puertas",
+      "/private-area/communities/[serviceId]/incidents": "Incidencias",
+      "/private-area/communities/[serviceId]/access-log": "Registro de accesos",
+      "/private-area/communities/[serviceId]/settings": "Configuración",
       "categories": {
         "menu": "Menú",
         "account": "Cuenta",
-        "sessionsAndSecurity": "Sesiones y seguridad"
+        "preferences": "Preferencias"
       }
     },
     "Navbar": {
@@ -67,16 +88,17 @@
     "Breadcrumbs": {
       "home": "Inicio",
       "profile": "Perfil",
-      "sessions": "Sesiones",
       "security": "Seguridad",
-      "notifications": "Notificaciones",
-      "preferences": "Preferencias",
-      "locale": "Idioma",
-      "theme": "Apariencia",
-      "users": "Usuarios"
+      "services": "Servicios",
+      "quotes": "Presupuestos",
+      "invoices": "Facturas"
     },
     "TitleComponent": {
       "back": "Volver a"
+    },
+    "ClientArea": {
+      "logout": "Cerrar sesión",
+      "welcomeBack": "Hola, {name}"
     }
   }
 }

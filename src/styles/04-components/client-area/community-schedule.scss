@@ -1,0 +1,90 @@
+// Editor de horario semanal de una puerta y sus excepciones: filas de tramo
+// (día + desde/hasta + etiqueta) que se añaden y se quitan, más el bloque de
+// liberación temporal.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.schedule-editor {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+}
+
+.schedule-editor__slots {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.5rem);
+}
+
+.schedule-editor__slot {
+  display: grid;
+  gap: 0.5rem;
+  align-items: end;
+  grid-template-columns: 1fr;
+  @include p(0.75rem);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.6rem);
+
+  @include screen(md) {
+    grid-template-columns: minmax(7rem, 1fr) 7rem 7rem minmax(6rem, 1fr) auto;
+  }
+}
+
+.schedule-editor__slot-remove {
+  @include flex($justify: center, $align: center, $gap: 0);
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--danger-color-active);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  @include rounded(0.5rem);
+
+  &:hover {
+    background: var(--danger-color-light);
+    border-color: var(--danger-color);
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.schedule-editor__actions {
+  @include flex($justify: flex-start, $align: center, $gap: 0.5rem);
+  flex-wrap: wrap;
+}
+
+.schedule-lock__grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+
+  @include screen(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.schedule-lock__header {
+  @include flex($justify: space-between, $align: flex-start, $gap: 0.75rem);
+  flex-wrap: wrap;
+}
+
+.schedule-lock__badges {
+  @include flex($justify: flex-start, $align: center, $gap: 0.35rem);
+  flex-wrap: wrap;
+}
+
+.schedule-lock__battery {
+  @include flex($justify: flex-start, $align: center, $gap: 0.35rem);
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.schedule-lock__battery--low {
+  color: var(--danger-color-active);
+}

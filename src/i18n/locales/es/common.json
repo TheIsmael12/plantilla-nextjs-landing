@@ -23,6 +23,17 @@
     "OtpInput": {
       "digitLabel": "Dígito {current} de {total}"
     },
+    "Pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "goToPage": "Ir a la página {page}",
+      "currentPage": "Página {page}"
+    },
+    "TagsInput": {
+      "add": "Añadir",
+      "remove": "Quitar {value}",
+      "counter": "{count} de {max}"
+    },
     "Toast": {
       "close": "Cerrar",
       "region": "Notificaciones ({position})",
@@ -37,7 +48,17 @@
     },
     "Errors": {
       "generic": "Ha ocurrido un error.",
-      "unexpectedError": "Ha ocurrido un error inesperado."
+      "unexpectedError": "Ha ocurrido un error inesperado.",
+      "networkError": "No se ha podido conectar con el servidor. Comprueba tu conexión e inténtalo de nuevo.",
+      "unauthenticated": "Tu sesión ha caducado. Inicia sesión de nuevo."
+    },
+    "Map": {
+      "title": "Ubicación",
+      "locating": "Localizando la dirección en el mapa...",
+      "notFound": "No se ha podido situar esta dirección en el mapa.",
+      "openExternal": "Ver en Google Maps",
+      "zoomIn": "Acercar",
+      "zoomOut": "Alejar"
     }
   }
 }

@@ -90,6 +90,27 @@
     }
   }
 
+  // Enlaces del área privada (servicios/presupuestos/facturas), solo con
+  // sesión iniciada: centrados respecto a `.nav__container` en escritorio
+  // (posición absoluta, no participa del `space-between` de logo/acciones);
+  // en mobile caen al flujo normal del panel, como el resto de enlaces.
+  &__center {
+    @include flex(row, center, center, 2rem);
+
+    @include screen(md) {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @include screen(md, max) {
+      @include flex(column, flex-start, stretch, 0.25rem);
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+    }
+  }
+
   &__item {
     @include screen(md, max) {
       width: 100%;

@@ -1,0 +1,66 @@
+// Fila de formulario de ancho compartido entre 1-4 campos (no un grid
+// uniforme de N columnas para todo el formulario): cada fila declara
+// explícitamente cuántos campos contiene, así que un campo ancho (nombre,
+// URL, lista de tags) puede ir solo en su fila mientras otros más cortos
+// (país, código postal) se agrupan de 2 o 3 en la suya — el layout se
+// decide fila a fila, no columna a columna. Usado por los formularios de
+// cliente (alta por pasos, edición, direcciones).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem 1.25rem;
+  align-items: start;
+
+  &--cols-2 {
+    @include screen(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &--cols-3 {
+    @include screen(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include screen(lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &--cols-4 {
+    @include screen(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include screen(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  // Estira las columnas a la misma altura en vez de alinearlas arriba (por defecto): para cuando
+  // una columna es un bloque con su propia altura natural (p. ej. un selector de imagen) que debe
+  // igualar a la de su vecina en vez de dejar un hueco muerto debajo.
+  &--stretch {
+    align-items: stretch;
+  }
+}
+
+.form-rows {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+// Texto de ayuda bajo un campo o grupo de campos, repetido antes en cada
+// vista de formulario por separado — unificado aquí para no seguir
+// duplicándolo.
+.field-hint {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  margin-top: -0.5rem;
+}

@@ -1,0 +1,50 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.blog__toc {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+  @include p(1.5rem);
+  margin-bottom: 2rem;
+
+  ol {
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+    @include space-y(0.5rem);
+  }
+}
+
+.blog__toc-title {
+  margin: 0;
+  font-size: $text-sm;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary-color-active);
+}
+
+.blog__toc-item {
+  a {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    text-decoration: none;
+    line-height: 1.5;
+
+    &:hover {
+      color: var(--primary-color-active);
+      text-decoration: underline;
+    }
+  }
+
+  &--level-3 {
+    padding-left: 0rem;
+  }
+
+  &--level-4,
+  &--level-5,
+  &--level-6 {
+    padding-left: 2rem;
+  }
+}

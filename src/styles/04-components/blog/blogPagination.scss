@@ -1,0 +1,45 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.blog__pagination {
+  @include flex(row, center, center, 0.4rem);
+  margin-top: 3rem;
+}
+
+.blog__pagination-page,
+.blog__pagination-arrow {
+  display: grid;
+  place-items: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  @include px(0.5rem);
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--color);
+  text-decoration: none;
+  border: 1px solid var(--border-color);
+  background: var(--surface-color);
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  @include rounded(0.5rem);
+
+  &:hover {
+    border-color: var(--primary-color-active);
+    color: var(--primary-color-active);
+    text-decoration: none;
+  }
+}
+
+.blog__pagination-page--active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--light-color);
+
+  &:hover {
+    color: var(--light-color);
+  }
+}
+
+.blog__pagination-arrow--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}

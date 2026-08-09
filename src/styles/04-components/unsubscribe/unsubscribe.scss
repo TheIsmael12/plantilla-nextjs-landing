@@ -1,0 +1,36 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.unsubscribe {
+  @include flex(row, center, center, 0);
+  min-height: 60vh;
+  @include px(1.5rem);
+  @include py(4rem);
+}
+
+.unsubscribe__container {
+  width: 100%;
+  max-width: 32rem;
+}
+
+.unsubscribe__card {
+  text-align: center;
+}
+
+.unsubscribe__title {
+  font-family: $font-title;
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  color: var(--primary-color);
+  margin: 0 0 1rem;
+}
+
+.unsubscribe__description {
+  color: var(--neutral-color);
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+}
+
+.unsubscribe__actions {
+  @include flex(row, center, center, 0);
+}

@@ -56,6 +56,63 @@
     grid-column: 1 / -1;
   }
 
+  &__form-hint {
+    margin: -0.5rem 0 0;
+    font-size: $text-xs;
+    color: var(--neutral-color);
+  }
+
+  // El campo trampa (honeypot) debe seguir presente y "visible" para un bot que
+  // rellena el DOM sin ejecutar CSS, pero invisible y sin foco para una persona:
+  // se saca de flujo visual en vez de `display: none`, que algunos rastreadores
+  // de spam ya detectan y evitan.
+  &__form-honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  &__form-consents {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  &__form-consent {
+    @include flex(row, flex-start, flex-start, 0.75rem);
+  }
+
+  &__form-checkbox {
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.15rem;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+  }
+
+  &__form-consent-text {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    line-height: 1.5;
+    cursor: pointer;
+
+    a {
+      color: var(--primary-color-active);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      &:hover {
+        color: var(--primary-color-hover);
+      }
+    }
+  }
+
   &__form-footer {
     @include flex(column, flex-start, stretch, 1rem);
     padding-top: 1.5rem;

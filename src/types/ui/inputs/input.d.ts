@@ -3,7 +3,7 @@ import type { LucideIcon } from "lucide-react";
 
 /**
  * Tipos HTML soportados por {@link Input}.
- * @typedef {("text"|"email"|"password"|"number"|"tel"|"url"|"search"|"date")} InputType
+ * @typedef {("text"|"email"|"password"|"number"|"tel"|"url"|"search"|"date"|"time"|"datetime-local")} InputType
  */
 export type InputType =
   | "text"
@@ -13,7 +13,12 @@ export type InputType =
   | "tel"
   | "url"
   | "search"
-  | "date";
+  | "date"
+  // Los horarios de puerta y la vigencia de una credencial son los primeros
+  // campos del portal que editan hora: `text` con patrón obligaría a teclear
+  // "08:00" a mano en vez de usar el selector nativo del navegador.
+  | "time"
+  | "datetime-local";
 
 /**
  * Props de {@link Input}.

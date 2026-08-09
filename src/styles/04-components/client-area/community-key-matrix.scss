@@ -1,0 +1,123 @@
+// Matriz vecino×puerta: la pantalla que responde a "quién tiene llave del
+// garaje". Filas = vecinos, columnas = puertas, una celda coloreada por
+// estado. La primera columna queda fija al hacer scroll horizontal para no
+// perder de vista de quién es cada fila.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.key-matrix__scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+}
+
+.key-matrix {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: $text-sm;
+  background: var(--surface-color);
+}
+
+.key-matrix th,
+.key-matrix td {
+  @include px(0.75rem);
+  @include py(0.6rem);
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.key-matrix thead th {
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: var(--neutral-color);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-align: center;
+  background: var(--surface-color);
+}
+
+.key-matrix__resident-header,
+.key-matrix__resident {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  text-align: left;
+  background: var(--surface-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.key-matrix__resident-name {
+  display: block;
+  font-weight: $font-medium;
+  color: var(--color);
+}
+
+.key-matrix__resident-unit {
+  display: block;
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+.key-matrix__lock-name {
+  @include flex($direction: column, $justify: center, $align: center, $gap: 0.1rem);
+}
+
+.key-matrix__cell {
+  text-align: center;
+}
+
+// Cada estado se distingue por color Y por glifo: el color solo no basta para
+// quien no lo percibe.
+.key-matrix__state {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  @include rounded(999px);
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.key-matrix__state--granted {
+  background: var(--success-color-light);
+  color: var(--success-color-active);
+}
+
+.key-matrix__state--pending {
+  background: var(--warning-color-light);
+  color: var(--warning-color-active);
+}
+
+.key-matrix__state--expired {
+  background: var(--error-color-light);
+  color: var(--error-color-active);
+}
+
+.key-matrix__state--out-of-schedule {
+  background: var(--info-color-light);
+  color: var(--info-color-active);
+}
+
+.key-matrix__state--none {
+  background: var(--fill-color);
+  color: var(--neutral-color);
+}
+
+.key-matrix__legend {
+  @include flex($justify: flex-start, $align: center, $gap: 1rem);
+  flex-wrap: wrap;
+  margin-top: 0.85rem;
+  font-size: $text-xs;
+  color: var(--neutral-color-active);
+}
+
+.key-matrix__legend-item {
+  @include flex($justify: flex-start, $align: center, $gap: 0.4rem);
+}

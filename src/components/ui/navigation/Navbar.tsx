@@ -16,6 +16,7 @@ import '@/styles/04-components/navigation/navbar.scss';
 
 import { useEffect, useId, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 
@@ -24,6 +25,7 @@ import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 import ImageLogo from '../images/ImageLogo';
+import User from '../navigations/User';
 
 import { Route } from "@/types/route";
 
@@ -165,17 +167,19 @@ function NavDropdownItem({
 /**
  * Barra de navegación principal del sitio público: logo, enlaces de
  * `PUBLIC_ROUTES` (con desplegables para rutas con `subRoutes`) resaltando la
- * ruta activa, y el acceso de clientes. Siempre fija (el hueco lo reserva
- * `padding-top` en `.public-layout`, en CSS — sin JS de por medio), sin
- * borde inferior hasta que se hace scroll, donde aparece junto a una
- * sombra — mismo patrón que la barra de navegación del área privada. En
- * mobile, los enlaces viven detrás de un botón hamburguesa que abre un
- * panel desplegable; cada desplegable de sub-rutas se despliega en línea
- * bajo su propio disparador (funciona igual dentro del panel mobile que en
- * la barra horizontal de escritorio). El desplegable de "Servicios" es un
- * mega-menú propio: lista los servicios reales de `Services.items` (mismos
- * slugs e iconos que `config/routing.ts`) con icono y resumen, un carrusel
- * de fotos de apoyo y un enlace a "Todos los servicios". Cierra cualquier
+ * ruta activa, y el acceso de clientes (`User`, solo el enlace/menú de
+ * entrada al área privada — los enlaces a servicios/presupuestos/facturas
+ * viven exclusivamente en `ClientAreaHeader`, dentro de `/private-area/*`,
+ * no aquí). Siempre fija (el hueco lo reserva `padding-top` en
+ * `.public-layout`, en CSS — sin JS de por medio), sin borde inferior hasta
+ * que se hace scroll, donde aparece junto a una sombra. En mobile, los
+ * enlaces viven detrás de un botón hamburguesa que abre un panel
+ * desplegable; cada desplegable de sub-rutas se despliega en línea bajo su
+ * propio disparador (funciona igual dentro del panel mobile que en la barra
+ * horizontal de escritorio). El desplegable de "Servicios" es un mega-menú
+ * propio: lista los servicios reales de `Services.items` (mismos slugs e
+ * iconos que `config/routing.ts`) con icono y resumen, un carrusel de fotos
+ * de apoyo y un enlace a "Todos los servicios". Cierra cualquier
  * desplegable/panel abierto al navegar o al hacer clic fuera.
  * @returns {JSX.Element} La barra de navegación renderizada
  */
@@ -184,6 +188,8 @@ export default function Navbar() {
     const t = useTranslations("Navbar");
     const routeT = useTranslations("Routes");
     const servicesT = useTranslations("Services.items");
+
+    const { data: session } = useSession();
 
     const pathname = usePathname();
     const navRef = useRef<HTMLDivElement>(null);
@@ -283,9 +289,13 @@ export default function Navbar() {
                     </nav>
 
                     <div className="nav__actions">
-                        <Link href="/login" className="nav__login">
-                            {t("login")}
-                        </Link>
+                        {session ? (
+                            <User />
+                        ) : (
+                            <Link href="/login" className="nav__login">
+                                {t("login")}
+                            </Link>
+                        )}
                     </div>
 
                 </div>

@@ -1,0 +1,111 @@
+// Tarjetas de servicios contratados en `/private-area/services`: grid con
+// icono destacado y badge de estado flotante, más atractivo que la fila de
+// tabla ligera que comparten presupuestos/facturas (`client-list.scss`).
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.service-card__grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+
+  @include screen(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include screen(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.service-card {
+  position: relative;
+  display: block;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(1rem);
+  @include p(1.5rem);
+  text-decoration: none;
+  color: var(--color);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    text-decoration: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.18);
+    transform: translateY(-2px);
+  }
+}
+
+.service-card__header {
+  @include flex($justify: space-between, $align: flex-start, $gap: 0.75rem);
+  margin-bottom: 1rem;
+}
+
+.service-card__icon {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  color: var(--primary-color);
+  @include rounded(999px);
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.service-card__status {
+  margin: 0;
+}
+
+.service-card__body {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.2rem);
+  margin-bottom: 1rem;
+}
+
+.service-card__code {
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: var(--neutral-color);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.service-card__title {
+  font-family: $font-title;
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: var(--color);
+  margin: 0;
+}
+
+.service-card__meta {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.5rem);
+  margin: 0 0 1rem;
+}
+
+.service-card__meta-item {
+  @include flex($justify: flex-start, $align: center, $gap: 0.5rem);
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+
+  svg {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    color: var(--neutral-color);
+  }
+}
+
+.service-card__price {
+  font-size: $text-xl;
+  font-weight: $font-semibold;
+  color: var(--primary-color-active);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
+}

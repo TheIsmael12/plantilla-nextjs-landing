@@ -2,11 +2,10 @@
   "Validations": {
     "contact": {
       "nameRequired": "El nombre es obligatorio.",
-      "emailRequired": "El correo electrónico es obligatorio.",
       "emailInvalid": "Introduce un correo electrónico válido.",
-      "subjectRequired": "El asunto es obligatorio.",
-      "messageRequired": "El mensaje es obligatorio.",
-      "messageMin": "El mensaje debe tener al menos 10 caracteres."
+      "emailOrPhoneRequired": "Indica al menos un correo electrónico o un teléfono.",
+      "privacyRequired": "Debes aceptar la política de privacidad para continuar.",
+      "maxLength": "Este campo es demasiado largo."
     },
     "common": {
       "required": "Este campo es obligatorio.",
@@ -19,8 +18,29 @@
       "passwordRequired": "Este campo es obligatorio.",
       "codeRequired": "Introduce el código completo de 6 dígitos."
     },
+    "auth": {
+      "taxIdRequired": "El CIF/NIF es obligatorio.",
+      "passwordRequired": "La contraseña es obligatoria.",
+      "passwordMinLength": "La contraseña debe tener al menos 8 caracteres.",
+      "passwordLowercase": "La contraseña debe incluir al menos una minúscula.",
+      "passwordUppercase": "La contraseña debe incluir al menos una mayúscula.",
+      "passwordNumber": "La contraseña debe incluir al menos un número.",
+      "passwordSpecialChar": "La contraseña debe incluir al menos un carácter especial.",
+      "passwordsMustMatch": "Las contraseñas no coinciden."
+    },
     "required": "Este campo es obligatorio.",
     "otpLength": "Introduce el código completo de 6 dígitos.",
-    "passwordMin": "La contraseña debe tener al menos 8 caracteres."
+    "passwordMin": "La contraseña debe tener al menos 8 caracteres.",
+    "tagsInputDuplicate": "Este valor ya se ha añadido",
+    "tagsInputInvalidEmail": "Introduce un correo electrónico válido",
+    "incident": {
+      "titleRequired": "El título es obligatorio.",
+      "titleMaxLength": "El título no puede superar los 255 caracteres.",
+      "descriptionRequired": "La descripción es obligatoria.",
+      "descriptionMaxLength": "La descripción no puede superar los 5000 caracteres.",
+      "typeRequired": "Elige un tipo de incidencia.",
+      "commentRequired": "Escribe un comentario antes de enviarlo.",
+      "commentMaxLength": "El comentario no puede superar los 5000 caracteres."
+    }
   }
 }

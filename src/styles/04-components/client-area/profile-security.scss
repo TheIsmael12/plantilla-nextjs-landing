@@ -1,0 +1,13 @@
+// Estilos de ChangePasswordSection y TwoFactorSection
+// (components/ui/client-area/).
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.profile-change-password-section__form {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 1rem);
+}
+
+.profile-two-factor-section__toggle {
+  width: 100%;
+}

@@ -1,0 +1,113 @@
+// Detalle de un servicio contratado en `/private-area/services/[id]`:
+// cabecera destacada (hero) + grid de tarjetas para el resto de secciones,
+// en vez de bloques apilados en una sola columna.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.service-detail__hero {
+  position: relative;
+  @include flex($justify: flex-start, $align: flex-start, $gap: 1.5rem);
+  flex-wrap: wrap;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(1rem);
+  @include p(2rem);
+
+  @include screen(sm, max) {
+    @include p(1.25rem);
+  }
+}
+
+.service-detail__hero-icon {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  display: grid;
+  place-items: center;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  color: var(--primary-color);
+  @include rounded(999px);
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.service-detail__hero-body {
+  flex: 1;
+  min-width: 14rem;
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.5rem);
+}
+
+.service-detail__hero-title {
+  font-family: $font-title;
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  color: var(--color);
+  margin: 0;
+}
+
+.service-detail__hero-description {
+  color: var(--neutral-color-active);
+  margin: 0;
+}
+
+.service-detail__hero-meta {
+  @include flex($justify: flex-start, $align: center, $gap: 2rem);
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.service-detail__hero-meta-item {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.15rem);
+}
+
+.service-detail__hero-meta-label {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.service-detail__hero-meta-value {
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: var(--primary-color-active);
+}
+
+.service-detail__hero-download {
+  @include flex($justify: center, $align: center, $gap: 0.5rem);
+  flex-shrink: 0;
+  @include px(1.25rem);
+  @include py(0.65rem);
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--light-color);
+  background: var(--primary-color);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  @include rounded(0.5rem);
+
+  &:hover {
+    text-decoration: none;
+    background: var(--primary-color-hover);
+  }
+}
+
+.service-detail__grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+
+  @include screen(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.service-detail__grid-full {
+  @include screen(md) {
+    grid-column: 1 / -1;
+  }
+}

@@ -5,7 +5,6 @@ import "@/styles/04-components/ui/navigations/sidebar/menu-items.scss";
 import { Fragment, useEffect, useRef, useState } from "react";
 
 import { useParams } from "next/navigation";
-import { useSession } from "next-auth/react";
 
 import { Link, resolveHref, usePathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
@@ -72,8 +71,10 @@ function matchesPathOrDescendant(pathname: string, route: Route): boolean {
 export default function MenuItems({ path, onNavigate }: MenuItemsProps) {
   const t = useTranslations("Navigation.Routes");
 
-  const { data: session } = useSession();
-  const permissions = session?.user?.permissions ?? [];
+  // El portal de cliente no tiene RBAC (§ backend `client-portal-panel.controller.ts`):
+  // `isPermitted` sigue funcionando igual (toda ruta sin `requiredPermission`
+  // se muestra), simplemente no hay ningún permiso que comprobar.
+  const permissions: string[] = [];
 
   const pathname = usePathname();
   const params = useParams<Record<string, string | string[] | undefined>>();

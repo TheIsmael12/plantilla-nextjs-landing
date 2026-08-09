@@ -12,10 +12,17 @@
     $gap: 0.375rem
   );
   width: auto;
+  // min-width: 0 evita que, dentro de un contenedor flex/grid (p. ej.
+  // .form-row--cols-N), el ancho intrínseco del <button> (que varía según la
+  // longitud del texto de la opción seleccionada) fuerce a crecer la pista
+  // del grid por encima del 100% que le corresponde — el valor inicial
+  // min-width: auto respeta el contenido y rompe el ancho fijo.
+  min-width: 0;
 
   .select__wrapper,
   .select {
     width: auto;
+    min-width: 0;
   }
 
   &.select__normal {
@@ -33,6 +40,7 @@
     .select__wrapper,
     .select {
       width: 100%;
+      min-width: 0;
     }
   }
 
@@ -77,7 +85,7 @@
 }
 
 .select {
-  min-width: auto;
+  min-width: 0;
   width: auto;
   text-align: left;
   border: 1px solid var(--border-color);

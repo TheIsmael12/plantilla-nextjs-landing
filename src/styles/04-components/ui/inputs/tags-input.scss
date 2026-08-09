@@ -1,0 +1,139 @@
+// Estilos de TagsInput (components/ui/inputs/TagsInput.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.tags-input {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.5rem);
+}
+
+.tags-input__list {
+  list-style: none;
+  @include flex($justify: flex-start, $align: center, $gap: 0.375rem);
+  flex-wrap: wrap;
+}
+
+.tags-input__tag {
+  font-size: $text-sm;
+  color: var(--color);
+  background-color: var(--surface-color-active);
+  border: 1px solid var(--border-color);
+  @include rounded(999px);
+  @include pl(0.75rem);
+  @include pr(0.375rem);
+  @include py(0.25rem);
+  @include flex($justify: flex-start, $align: center, $gap: 0.375rem);
+
+  span {
+    overflow-wrap: anywhere;
+  }
+}
+
+.tags-input__tag__remove {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--neutral-color);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  @include rounded(999px);
+  @include flex($justify: center, $align: center);
+
+  svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  &:hover {
+    color: var(--error-color);
+    background-color: var(--error-color-light);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.tags-input__composer {
+  @include flex($justify: flex-start, $align: center, $gap: 0.5rem);
+}
+
+.tags-input__input {
+  flex: 1 1 auto;
+}
+
+.tags-input__add {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--primary-color);
+  background-color: var(--primary-color-light);
+  border: none;
+  cursor: pointer;
+  @include rounded();
+  @include flex($justify: center, $align: center);
+
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: var(--border-color-active);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.tags-input__counter {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+// `layout="rows"`: una fila por valor, apiladas hacia abajo con su número de orden. Mismo
+// campo de alta con el "+" a la derecha que en `layout="tags"`; lo que cambia es cómo se
+// leen los valores ya añadidos — en una lista larga de códigos parecidos (números de
+// serie) las etiquetas en línea son ilegibles.
+.tags-input__rows {
+  list-style: none;
+  border: 1px solid var(--border-color);
+  @include rounded();
+  overflow: hidden;
+}
+
+.tags-input__row {
+  @include flex($justify: flex-start, $align: center, $gap: 0.75rem);
+  @include px(0.75rem);
+  @include py(0.5rem);
+  font-size: $text-sm;
+  color: var(--color);
+
+  & + & {
+    border-top: 1px solid var(--border-color);
+  }
+
+  // Cebreado para no perder la fila al recorrer la lista con el dedo o la vista.
+  &:nth-child(even) {
+    background-color: var(--surface-color-active);
+  }
+}
+
+.tags-input__row__index {
+  flex-shrink: 0;
+  min-width: 1.5rem;
+  font-size: $text-xs;
+  color: var(--neutral-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.tags-input__row__value {
+  flex: 1 1 auto;
+  font-family: monospace;
+  overflow-wrap: anywhere;
+}

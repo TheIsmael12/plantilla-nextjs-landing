@@ -1,5 +1,7 @@
 import React from "react";
 
+import "@/styles/04-components/ui/avatars/avatar.scss";
+
 interface AvatarProps {
   name?: string;
   image?: string;

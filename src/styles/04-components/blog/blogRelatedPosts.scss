@@ -1,0 +1,16 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.blog__related {
+  border-top: 1px solid var(--border-color);
+  @include py(3.5rem);
+}
+
+.blog__related-title {
+  font-family: $font-title;
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  color: var(--primary-color);
+  margin: 0 0 1.75rem;
+  text-align: center;
+}

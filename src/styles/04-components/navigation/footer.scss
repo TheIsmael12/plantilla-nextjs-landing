@@ -6,6 +6,11 @@
   color: var(--light-color);
   background-color: var(--primary-color);
 
+  .dark & {
+    color: var(--light-color);
+    background-color: var(--neutral-color-light);
+  }
+
   & a {
     color: var(--light-color);
     text-decoration: none;

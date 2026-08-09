@@ -1,0 +1,99 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.auth-form {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+  @include p(2rem);
+  display: grid;
+  gap: 1.25rem;
+
+  @include screen(sm) {
+    @include p(2.5rem);
+  }
+
+  .input__group {
+    margin-bottom: 0;
+  }
+}
+
+.auth-form__header {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.auth-form__title {
+  margin: 0;
+  font-family: $font-title;
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  color: var(--primary-color);
+}
+
+.auth-form__subtitle {
+  margin: 0;
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  line-height: 1.5;
+}
+
+.auth-form__forgot {
+  text-align: right;
+  margin-top: -0.5rem;
+
+  a {
+    font-size: $text-sm;
+    color: var(--primary-color-active);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.auth-form__error {
+  background-color: var(--error-color-light);
+  border: 1px solid var(--error-color);
+  color: var(--error-color);
+  font-size: $text-sm;
+  margin: 0;
+  @include px(1rem);
+  @include py(0.75rem);
+  @include rounded(0.5rem);
+}
+
+.auth-form__success {
+  @include flex(column, center, center, 1rem);
+  @include py(2rem);
+  text-align: center;
+
+  svg {
+    width: 3rem;
+    height: 3rem;
+    color: var(--success-color);
+  }
+
+  p {
+    font-size: $text-base;
+    color: var(--color);
+    margin: 0;
+  }
+}
+
+.auth-form__back-to-login {
+  text-align: center;
+  font-size: $text-sm;
+
+  a {
+    color: var(--primary-color-active);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

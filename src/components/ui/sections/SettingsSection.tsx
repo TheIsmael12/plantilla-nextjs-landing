@@ -18,11 +18,12 @@ export default function SettingsSection({
   icon: Icon,
   actions,
   children,
+  className,
 }: SettingsSectionProps) {
   const hasHeader = title || description || actions;
 
   return (
-    <section className="settings-section">
+    <section className={`settings-section${className ? ` ${className}` : ""}`}>
       {hasHeader && (
         <div className="settings-section__header">
           {Icon && (

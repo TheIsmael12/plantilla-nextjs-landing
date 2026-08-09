@@ -1,0 +1,80 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+// Mismo patrón visual que `.nav` (navigation/navbar.scss): barra fija de
+// 5rem con sombra al hacer scroll, para que el área de cliente se sienta
+// continuación del sitio público en vez de una sección aparte.
+.client-area-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 5rem;
+  background-color: var(--surface-color);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &--scrolled {
+    border-bottom-color: var(--border-color);
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+}
+
+.client-area-header__container {
+  height: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  @include px(1.5rem);
+  @include py(1rem);
+  @include flex(row, space-between, center, 1rem);
+}
+
+.client-area-header__logo {
+  display: block;
+  line-height: 0;
+}
+
+.client-area-header__links {
+  @include flex(row, center, center, 2rem);
+  flex: 1;
+
+  @include screen(md, max) {
+    display: none;
+  }
+}
+
+.client-area-header__link {
+  color: var(--color);
+  transition: color 0.3s ease;
+  font-size: $text-lg;
+
+  &:hover {
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+
+  &--active {
+    color: var(--primary-color-active);
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+  }
+}
+
+.client-area-header__actions {
+  @include flex(row, flex-end, center, 1rem);
+}
+
+// Hueco para la cabecera fija (misma altura que `.client-area-header`).
+.client-area {
+  padding-top: 5rem;
+}
+
+.client-area__content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  @include px(1.5rem);
+  @include py(2.5rem);
+}

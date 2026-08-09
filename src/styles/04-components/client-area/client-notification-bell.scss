@@ -1,0 +1,151 @@
+// Estilos de ClientNotificationBell (components/ui/client-area/ClientNotificationBell.tsx).
+
+@use "../../01-tools/mixins" as *;
+
+.client-notification-bell {
+  position: relative;
+}
+
+.client-notification-bell__trigger {
+  position: relative;
+  @include flex($justify: center, $gap: 0);
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: transparent;
+  color: var(--color);
+  cursor: pointer;
+  @include rounded(50%);
+
+  &:hover {
+    background-color: var(--neutral-color-light);
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+.client-notification-bell__count {
+  position: absolute;
+  top: -0.15rem;
+  right: -0.15rem;
+  min-width: 1.15rem;
+  height: 1.15rem;
+  @include flex($justify: center, $gap: 0);
+  @include px(0.25rem);
+  background-color: var(--danger-color, #dc2626);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  @include rounded(999px);
+}
+
+.client-notification-bell__dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 200;
+  width: min(22rem, calc(100vw - 2rem));
+  max-height: 28rem;
+  overflow-y: auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  box-shadow:
+    0 10px 15px rgba(0, 0, 0, 0.1),
+    0 4px 6px rgba(0, 0, 0, 0.05);
+  @include rounded(0.5rem);
+}
+
+.client-notification-bell__header {
+  @include flex(row, space-between, center, 0.5rem);
+  @include px(1rem);
+  @include py(0.75rem);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.client-notification-bell__title {
+  font-weight: 600;
+}
+
+.client-notification-bell__mark-all {
+  @include flex($gap: 0.35rem);
+  background-color: transparent;
+  color: var(--primary-color);
+  font-size: 0.8rem;
+  cursor: pointer;
+
+  svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.client-notification-bell__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.client-notification-bell__item {
+  width: 100%;
+  @include flex(column, flex-start, flex-start, 0.35rem);
+  @include px(1rem);
+  @include py(0.75rem);
+  background-color: transparent;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-color);
+
+  &:hover {
+    background-color: var(--neutral-color-light);
+  }
+
+  &--unread {
+    background-color: var(--neutral-color-light);
+
+    .client-notification-bell__item-title {
+      font-weight: 700;
+    }
+  }
+}
+
+.client-notification-bell__item-header {
+  width: 100%;
+  @include flex(row, space-between, flex-start, 0.5rem);
+}
+
+.client-notification-bell__item-title {
+  font-size: 0.9rem;
+}
+
+.client-notification-bell__item-body {
+  font-size: 0.82rem;
+  color: var(--muted-color, var(--color));
+  opacity: 0.85;
+}
+
+.client-notification-bell__empty {
+  @include px(1rem);
+  @include py(1.5rem);
+  font-size: 0.85rem;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.client-notification-bell__view-all {
+  display: block;
+  @include py(0.75rem);
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  text-align: center;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

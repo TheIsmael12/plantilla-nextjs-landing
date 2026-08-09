@@ -1,0 +1,136 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.blog__featured {
+  margin-bottom: 3rem;
+}
+
+.blog__featured-media {
+  position: relative;
+  display: block;
+  height: 22rem;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  background: var(--light-color);
+  @include rounded(0.85rem);
+
+  @include screen(lg) {
+    height: 28rem;
+  }
+
+  &:hover .blog__featured-image {
+    transform: scale(1.04);
+  }
+
+  &:hover .blog__featured-cta {
+    gap: 0.65rem;
+  }
+}
+
+.blog__featured-media-fallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--neutral-color);
+}
+
+.blog__featured-image {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blog__featured-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.5) 45%,
+    rgba(0, 0, 0, 0.05) 80%
+  );
+}
+
+.blog__featured-content {
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 2;
+  display: grid;
+  gap: 0.6rem;
+  max-width: 42rem;
+
+  @include screen(sm) {
+    left: 2.5rem;
+    right: 2.5rem;
+    bottom: 2.5rem;
+  }
+}
+
+.blog__featured-tag {
+  width: fit-content;
+  @include px(0.75rem);
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--dark-color);
+  background: var(--fill-color);
+  @include rounded(999px);
+}
+
+.blog__featured-title {
+  margin: 0;
+  font-family: $font-title;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: $font-semibold;
+  line-height: 1.22;
+  color: var(--light-color);
+}
+
+.blog__featured-excerpt {
+  margin: 0;
+  max-width: 48ch;
+  font-size: $text-sm;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  @include screen(sm, max) {
+    display: none;
+  }
+}
+
+.blog__featured-meta {
+  @include flex(row, flex-start, center, 0.5rem);
+  flex-wrap: wrap;
+  font-size: $text-xs;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 0.2rem;
+}
+
+.blog__featured-meta-sep {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.blog__featured-reading {
+  @include flex(row, flex-start, center, 0.3rem);
+}
+
+.blog__featured-cta {
+  @include flex(row, flex-start, center, 0.4rem);
+  margin-top: 0.5rem;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--light-color);
+  transition: gap 0.25s ease;
+}

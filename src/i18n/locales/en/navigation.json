@@ -13,10 +13,17 @@
     "/privacy-policy": "Privacy policy",
     "/conditions": "Terms of use",
     "/cookies-policy": "Cookie policy",
-    "/complaints-channel": "Complaints channel"
+    "/complaints-channel": "Complaints channel",
+    "/private-area/services": "My services",
+    "/private-area/quotes": "Quotes",
+    "/private-area/invoices": "Invoices",
+    "/private-area/communities": "Communities",
+    "/private-area/incidents": "Incidents",
+    "/private-area/notifications": "Notifications"
   },
   "Navbar": {
     "login": "Client access",
+    "clientArea": "Client area",
     "ariaLabel": "Main navigation",
     "logoAlt": "Company logo",
     "openMenu": "Open menu",
@@ -39,20 +46,34 @@
   },
   "Navigation": {
     "Routes": {
-      "/dashboard": "Dashboard",
-      "/users": "Users",
-      "/profile": "My profile",
-      "/profile/sessions": "Sessions",
-      "/profile/security": "Security",
-      "/profile/notifications": "Notifications",
-      "/profile/preferences": "Preferences",
-      "/profile/preferences/locale": "Language",
-      "/profile/preferences/theme": "Appearance",
-      "/profile/preferences/datetime": "Date & time",
+      "/private-area": "Private area",
+      "/private-area/profile": "My profile",
+      "/private-area/profile/security": "Security",
+      "/private-area/profile/sessions": "Sessions",
+      "/private-area/profile/preferences": "Preferences",
+      "/private-area/profile/preferences/locale": "Language",
+      "/private-area/profile/preferences/theme": "Theme",
+      "/private-area/profile/preferences/datetime": "Date and time",
+      "/private-area/profile/preferences/notifications": "Notifications",
+      "/private-area/services": "My services",
+      "/private-area/services/[id]": "Service detail",
+      "/private-area/quotes": "Quotes",
+      "/private-area/quotes/[id]": "Quote detail",
+      "/private-area/invoices": "Invoices",
+      "/private-area/invoices/[id]": "Invoice detail",
+      "/private-area/communities": "Communities",
+      "/private-area/communities/[serviceId]": "Community",
+      "/private-area/communities/[serviceId]/residents": "Residents",
+      "/private-area/communities/[serviceId]/units": "Units",
+      "/private-area/communities/[serviceId]/keyrings": "Keyrings",
+      "/private-area/communities/[serviceId]/locks": "Doors",
+      "/private-area/communities/[serviceId]/incidents": "Incidents",
+      "/private-area/communities/[serviceId]/access-log": "Access log",
+      "/private-area/communities/[serviceId]/settings": "Settings",
       "categories": {
         "menu": "Menu",
         "account": "Account",
-        "sessionsAndSecurity": "Sessions & security"
+        "preferences": "Preferences"
       }
     },
     "Navbar": {
@@ -67,16 +88,17 @@
     "Breadcrumbs": {
       "home": "Home",
       "profile": "Profile",
-      "sessions": "Sessions",
       "security": "Security",
-      "notifications": "Notifications",
-      "preferences": "Preferences",
-      "locale": "Language",
-      "theme": "Appearance",
-      "users": "Users"
+      "services": "Services",
+      "quotes": "Quotes",
+      "invoices": "Invoices"
     },
     "TitleComponent": {
       "back": "Back to"
+    },
+    "ClientArea": {
+      "logout": "Sign out",
+      "welcomeBack": "Hi, {name}"
     }
   }
 }

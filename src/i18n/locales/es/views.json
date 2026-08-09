@@ -81,20 +81,30 @@
       "title": "Escríbenos",
       "subtitle": "Rellena el formulario y te contestamos en menos de 24 h.",
       "fields": {
-        "name": "Nombre",
+        "contactName": "Nombre",
+        "companyName": "Empresa o comunidad",
         "email": "Correo electrónico",
-        "subject": "Asunto",
+        "phone": "Teléfono",
         "message": "Mensaje"
       },
       "placeholders": {
-        "name": "Tu nombre completo",
+        "contactName": "Tu nombre completo",
+        "companyName": "Nombre de tu empresa o comunidad (opcional)",
         "email": "tu@email.com",
-        "subject": "¿En qué podemos ayudarte?",
+        "phone": "+34 600 000 000",
         "message": "Cuéntanos con detalle tu consulta…"
+      },
+      "contactHint": "Indica al menos un correo electrónico o un teléfono de contacto.",
+      "consents": {
+        "privacyLabel": "He leído y acepto la",
+        "privacyLink": "política de privacidad",
+        "marketingLabel": "Quiero recibir novedades y ofertas comerciales por email",
+        "attributionLabel": "Permite guardar el origen de esta consulta (campañas, referidos) para mejorar nuestro servicio de atención"
       },
       "submit": "Enviar mensaje",
       "submitting": "Enviando…",
       "success": "¡Mensaje enviado! Te responderemos lo antes posible.",
+      "error": "No se ha podido enviar tu mensaje. Inténtalo de nuevo en unos minutos.",
       "privacy": "Al enviar aceptas nuestra",
       "privacyLink": "política de privacidad"
     },
@@ -143,6 +153,50 @@
         "label": "Sede única, visitas con cita previa"
       }
     }
+  },
+  "Blog": {
+    "hero": {
+      "eyebrow": "Blog",
+      "title": "Noticias y consejos sobre gestión de comunidades y edificios",
+      "subtitle": "Actualidad, guías y recomendaciones de nuestro equipo para comunidades de propietarios, edificios y empresas."
+    },
+    "filters": {
+      "allCategories": "Todas las categorías",
+      "categoryLabel": "Categoría",
+      "tagLabel": "Etiqueta"
+    },
+    "card": {
+      "readingMinutes": "{minutes} min de lectura",
+      "by": "Por {author}",
+      "readMore": "Leer artículo"
+    },
+    "empty": {
+      "title": "No hay artículos todavía",
+      "description": "Prueba con otra categoría o vuelve más adelante: estamos preparando nuevo contenido."
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "goToPage": "Ir a la página {page}",
+      "currentPage": "Página {page}"
+    },
+    "detail": {
+      "tocTitle": "Índice",
+      "authorTitle": "Sobre el autor",
+      "relatedTitle": "Artículos relacionados",
+      "backToBlog": "Volver al blog"
+    },
+    "notFound": {
+      "title": "Entrada no encontrada",
+      "description": "Es posible que este artículo se haya movido o ya no esté disponible.",
+      "backToBlog": "Volver al blog"
+    }
+  },
+  "Unsubscribe": {
+    "title": "Baja de comunicaciones comerciales",
+    "description": "¿Confirmas que quieres dejar de recibir nuestras comunicaciones comerciales? Puedes volver a suscribirte en cualquier momento contactando con nosotros.",
+    "done": "Baja confirmada. No volverás a recibir comunicaciones comerciales.",
+    "invalidToken": "Este enlace no es válido o ha caducado."
   },
   "Help": {
     "hero": {
@@ -450,7 +504,7 @@
       "pillB": "Presupuesto cerrado",
       "pillC": "Respuesta en 48h",
       "button": "Solicitar presupuesto",
-      "callCta": "O llámanos directamente",
+      "callCta": "Llámanos al",
       "aside": "Sin compromiso. Te llamamos para entender tu caso.",
       "cardLabel": "Te respondemos en menos de 48 horas",
       "orLabel": "o"
@@ -848,6 +902,883 @@
             "title": "Desactivar verificación en dos pasos",
             "description": "Introduce tu contraseña actual y el código de tu aplicación autenticadora para desactivar la verificación en dos pasos."
           }
+        }
+      }
+    },
+    "Auth": {
+      "Login": {
+        "title": "Área de clientes",
+        "subtitle": "Accede con tu CIF/NIF y contraseña.",
+        "forgotPassword": "¿Has olvidado tu contraseña?"
+      },
+      "Mfa": {
+        "title": "Verificación en dos pasos",
+        "description": "Introduce el código de 6 dígitos generado por tu aplicación autenticadora.",
+        "useRecoveryCode": "¿No tienes acceso a tu app? Usa un código de recuperación",
+        "useAuthenticatorApp": "Usar la app autenticadora en su lugar",
+        "recoveryTitle": "Código de recuperación",
+        "recoveryDescription": "Introduce uno de los códigos de recuperación que guardaste al activar la verificación en dos pasos."
+      },
+      "ForgotPassword": {
+        "title": "Recuperar acceso",
+        "subtitle": "Introduce tu CIF/NIF y te enviaremos un enlace para restablecer tu contraseña.",
+        "successTitle": "Revisa tu correo",
+        "successMessage": "Si el CIF/NIF introducido está registrado, recibirás un enlace para restablecer tu contraseña en unos minutos.",
+        "backToLogin": "Volver a iniciar sesión"
+      },
+      "ResetPassword": {
+        "title": "Restablecer contraseña",
+        "subtitle": "Elige una nueva contraseña para tu cuenta.",
+        "successTitle": "Contraseña actualizada",
+        "successMessage": "Tu contraseña se ha actualizado correctamente.",
+        "invalidToken": "Este enlace no es válido o ha caducado. Solicita uno nuevo.",
+        "backToLogin": "Ir a iniciar sesión"
+      },
+      "ChangePasswordRequired": {
+        "title": "Actualiza tu contraseña",
+        "subtitle": "Por seguridad, debes fijar una nueva contraseña antes de continuar.",
+        "invalidToken": "Este enlace no es válido o ha caducado. Vuelve a iniciar sesión."
+      }
+    },
+    "ClientArea": {
+      "Home": {
+        "title": "Área privada",
+        "description": "Consulta tu perfil, tus servicios contratados, tus presupuestos y tus facturas.",
+        "profileDescription": "Tus datos personales y la seguridad de tu cuenta.",
+        "servicesDescription": "Consulta los servicios que tienes contratados y su estado.",
+        "quotesDescription": "Revisa, acepta o rechaza los presupuestos que te hemos enviado.",
+        "invoicesDescription": "Consulta y descarga tus facturas."
+      },
+      "Profile": {
+        "title": "Mi perfil",
+        "PersonalData": {
+          "title": "Datos personales",
+          "clientCode": "Código de cliente",
+          "name": "Nombre",
+          "email": "Correo electrónico",
+          "phone": "Teléfono",
+          "noEmail": "Sin correo registrado",
+          "noPhone": "Sin teléfono registrado"
+        },
+        "Password": {
+          "title": "Contraseña",
+          "description": "Cambia la contraseña de tu cuenta.",
+          "submit": "Actualizar contraseña",
+          "success": "Contraseña actualizada correctamente."
+        },
+        "TwoFactor": {
+          "title": "Verificación en dos pasos",
+          "description": "Añade una capa extra de seguridad: además de tu contraseña, te pediremos un código de tu aplicación autenticadora al iniciar sesión.",
+          "enabled": "Activada",
+          "enabledHint": "Tu cuenta tiene una capa extra de protección: al iniciar sesión también te pediremos un código de tu aplicación autenticadora.",
+          "disabled": "Desactivada",
+          "disabledHint": "Tu cuenta solo está protegida con tu contraseña. Actívala para añadir una capa extra de seguridad.",
+          "RecoveryCodes": {
+            "title": "Códigos de recuperación",
+            "description": "Úsalos para iniciar sesión si pierdes el acceso a tu aplicación autenticadora. Cada código solo sirve una vez.",
+            "confirmTitle": "Regenerar códigos de recuperación",
+            "confirmDescription": "Los códigos anteriores dejarán de funcionar en cuanto generes unos nuevos. Guarda los nuevos códigos en un lugar seguro."
+          }
+        },
+        "Sessions": {
+          "title": "Sesiones abiertas",
+          "description": "Estos son los dispositivos donde tu cuenta tiene la sesión iniciada. Si no reconoces alguno, ciérralo y cambia tu contraseña.",
+          "empty": "No hay ninguna sesión abierta.",
+          "confirmRevokeAllTitle": "Cerrar el resto de sesiones",
+          "confirmRevokeAllDescription": "Se cerrará la sesión en todos los demás dispositivos. Seguirás conectado en este."
+        },
+        "Preferences": {
+          "Theme": {
+            "title": "Tema",
+            "description": "Elige cómo quieres ver el portal. Se aplicará en todos tus dispositivos.",
+            "light": "Claro",
+            "lightDescription": "Fondo claro, apropiado para entornos bien iluminados.",
+            "dark": "Oscuro",
+            "darkDescription": "Fondo oscuro, más cómodo con poca luz."
+          },
+          "Locale": {
+            "title": "Idioma",
+            "description": "Elige el idioma en el que quieres ver tu portal.",
+            "fieldDescription": "Se aplica al instante, sin recargar la página."
+          },
+          "DateTime": {
+            "title": "Fecha y hora",
+            "description": "Configura cómo se muestran las fechas y las horas en tu portal.",
+            "dateFormat": "Formato de fecha",
+            "dateFormatDescription": "Orden en el que se muestran el día, el mes y el año.",
+            "timeFormat": "Formato de hora",
+            "timeFormatDescription": "Elige si las horas se muestran en formato de 24 horas o de 12 horas con AM/PM.",
+            "timeFormat24h": "24 horas",
+            "timeFormat12h": "12 horas (AM/PM)",
+            "firstDayOfWeek": "Primer día de la semana",
+            "firstDayOfWeekDescription": "Qué día aparece primero en los calendarios y selectores de fecha.",
+            "monday": "Lunes",
+            "sunday": "Domingo",
+            "timezone": "Zona horaria",
+            "timezoneDescription": "Se usa para mostrarte siempre la hora correcta según tu ubicación."
+          },
+          "Notifications": {
+            "title": "Notificaciones",
+            "description": "Elige si quieres recibir avisos en la campana del portal.",
+            "inAppNotifications": "Notificaciones en la app",
+            "inAppNotificationsDescription": "Avisos de nuevos presupuestos, facturas e incidencias en la campana del portal."
+          }
+        }
+      },
+      "Common": {
+        "filterAll": "Todos",
+        "filterLabel": "Filtrar por estado",
+        "statusLabel": "Estado",
+        "viewDetail": "Ver detalle",
+        "notAvailable": "No disponible",
+        "backToList": "Volver al listado",
+        "search": "Buscar",
+        "searchPlaceholder": "Buscar..."
+      },
+      "Services": {
+        "title": "Mis servicios",
+        "description": "Consulta los servicios que tienes contratados y su estado.",
+        "searchPlaceholder": "Buscar por código o nombre del servicio",
+        "emptyTitle": "Todavía no tienes servicios contratados",
+        "emptyDescription": "Cuando contrates un servicio, aparecerá aquí junto a su contrato y su historial de precios.",
+        "contractCode": "Contrato",
+        "serviceCode": "Código de servicio",
+        "startDate": "Fecha de inicio",
+        "endDate": "Fecha de fin",
+        "billingFrequency": "Facturación",
+        "basePrice": "Precio base",
+        "baseQuantity": "Cantidad",
+        "baseUnit": "Unidad",
+        "noEndDate": "Sin fecha de fin",
+        "pricesHidden": "Importes no disponibles para tu usuario",
+        "Detail": {
+          "title": "Detalle del servicio",
+          "descriptionLabel": "Descripción",
+          "noDescription": "Este servicio no tiene descripción.",
+          "downloadContract": "Descargar contrato",
+          "teamTitle": "Equipo asignado",
+          "teamEmpty": "Todavía no hay personal asignado a este servicio.",
+          "extrasTitle": "Extras contratados",
+          "extrasEmpty": "Este servicio no tiene extras contratados.",
+          "hourBankTitle": "Bolsa de horas",
+          "contractedHours": "Horas contratadas",
+          "approvedHours": "Horas aprobadas",
+          "tasksTitle": "Tareas",
+          "tasksEmpty": "No hay tareas planificadas.",
+          "dueDate": "Vencimiento",
+          "quotesTitle": "Presupuestos asociados",
+          "quotesEmpty": "Este servicio no tiene presupuestos puntuales asociados.",
+          "locationTitle": "Dónde se presta el servicio",
+          "priceRevisionsTitle": "Revisiones de precio",
+          "priceRevisionsEmpty": "No hay revisiones de precio registradas.",
+          "previousPrice": "Precio anterior",
+          "newPrice": "Precio nuevo",
+          "effectiveFrom": "Aplica desde",
+          "reason": "Motivo",
+          "notFound": "No hemos encontrado este servicio."
+        },
+        "Status": {
+          "PENDING_PAYMENT": "Pendiente de pago",
+          "ACTIVE": "Activo",
+          "PAUSED": "Pausado",
+          "CANCELLED": "Cancelado",
+          "COMPLETED": "Finalizado"
+        },
+        "BillingFrequency": {
+          "ONE_OFF": "Pago único",
+          "MONTHLY": "Mensual",
+          "QUARTERLY": "Trimestral",
+          "SEMIANNUAL": "Semestral",
+          "ANNUAL": "Anual"
+        },
+        "MemberRole": {
+          "RESPONSIBLE": "Responsable",
+          "EXECUTOR": "Ejecutor"
+        },
+        "TaskStatus": {
+          "PENDING": "Pendiente",
+          "IN_PROGRESS": "En curso",
+          "DONE": "Completada",
+          "BLOCKED": "Bloqueada"
+        },
+        "PriceRevisionStatus": {
+          "SCHEDULED": "Programada",
+          "APPLIED": "Aplicada",
+          "CANCELLED": "Cancelada"
+        }
+      },
+      "Quotes": {
+        "title": "Presupuestos",
+        "description": "Revisa, acepta o rechaza los presupuestos que te hemos enviado.",
+        "emptyTitle": "No tienes presupuestos",
+        "emptyDescription": "Cuando te enviemos un presupuesto, lo verás aquí para poder revisarlo y aceptarlo.",
+        "quoteCode": "Presupuesto",
+        "issueDate": "Fecha de emisión",
+        "validUntil": "Válido hasta",
+        "total": "Total",
+        "notes": "Notas",
+        "downloadPdf": "Descargar PDF",
+        "Detail": {
+          "title": "Detalle del presupuesto",
+          "linesTitle": "Conceptos",
+          "totalsTitle": "Totales",
+          "termsTitle": "Condiciones",
+          "contractMonths": "Duración del contrato",
+          "months": "{count} meses",
+          "notFound": "No hemos encontrado este presupuesto.",
+          "acceptTitle": "Aceptar presupuesto",
+          "acceptDescription": "Al aceptarlo confirmas las condiciones y los importes indicados. Si el presupuesto lleva un servicio asociado, se generará automáticamente su contrato.",
+          "rejectTitle": "Rechazar presupuesto",
+          "rejectDescription": "Esta acción no se puede deshacer. Si rechazas el presupuesto tendremos que emitirte uno nuevo para poder contratar el servicio.",
+          "paymentTerms": "Condiciones de pago",
+          "billingTerms": "Condiciones de facturación",
+          "latePaymentTerms": "Demora en el pago",
+          "terminationTerms": "Resolución del contrato",
+          "jurisdictionTerms": "Legislación y fuero"
+        },
+        "Lines": {
+          "description": "Concepto",
+          "quantity": "Cantidad",
+          "unitPrice": "Precio unitario",
+          "discount": "Dto.",
+          "taxRate": "Impuesto",
+          "total": "Total"
+        },
+        "Totals": {
+          "subtotal": "Subtotal",
+          "documentDiscount": "Descuento",
+          "subtotalAfterDiscount": "Base imponible",
+          "tax": "Impuestos",
+          "withholding": "Retenciones",
+          "total": "Total"
+        },
+        "Status": {
+          "DRAFT": "Borrador",
+          "SENT": "Pendiente de respuesta",
+          "ACCEPTED": "Aceptado",
+          "REJECTED": "Rechazado",
+          "EXPIRED": "Caducado"
+        }
+      },
+      "Invoices": {
+        "title": "Facturas",
+        "description": "Consulta y descarga tus facturas.",
+        "searchPlaceholder": "Buscar por número de factura",
+        "emptyTitle": "No tienes facturas",
+        "emptyDescription": "Cuando emitamos una factura a tu nombre, aparecerá aquí para que puedas consultarla y descargarla.",
+        "invoiceNumber": "Factura",
+        "noNumber": "Sin numerar",
+        "issueDate": "Fecha de emisión",
+        "dueDate": "Vencimiento",
+        "total": "Total",
+        "pendingAmount": "Pendiente",
+        "downloadPdf": "Descargar PDF",
+        "Detail": {
+          "title": "Detalle de la factura",
+          "linesTitle": "Conceptos",
+          "totalsTitle": "Totales",
+          "paymentsTitle": "Cobros registrados",
+          "paymentsEmpty": "Todavía no hay cobros registrados para esta factura.",
+          "paymentDate": "Fecha",
+          "amount": "Importe",
+          "method": "Medio de pago",
+          "reference": "Referencia",
+          "creditNotesTitle": "Abonos",
+          "creditNotesEmpty": "Esta factura no tiene abonos asociados.",
+          "notFound": "No hemos encontrado esta factura."
+        },
+        "Status": {
+          "DRAFT": "Borrador",
+          "ISSUED": "Emitida",
+          "PARTIALLY_PAID": "Parcialmente pagada",
+          "PAID": "Pagada",
+          "OVERDUE": "Vencida",
+          "CANCELLED": "Anulada"
+        }
+      },
+      "Communities": {
+        "title": "Comunidades",
+        "description": "Administra los vecinos, las unidades y los accesos de tu comunidad.",
+        "emptyTitle": "No tienes ninguna comunidad activa",
+        "emptyDescription": "La app de comunidad se activa sobre un servicio contratado. Habla con nosotros si quieres ofrecérsela a tus vecinos.",
+        "selectorTitle": "Elige una comunidad",
+        "selectorDescription": "Tienes la app de comunidad activa en estos servicios contratados.",
+        "unitsCount": "Unidades",
+        "residentsCount": "Vecinos",
+        "serviceCode": "Contrato",
+        "manage": "Gestionar",
+        "loadError": "No se han podido cargar los datos de la comunidad.",
+        "notFoundTitle": "Esta comunidad no existe o no está activa",
+        "notFoundDescription": "El servicio contratado que buscas no tiene la app de comunidad habilitada.",
+        "Modules": {
+          "incidents": "Incidencias",
+          "keyring": "Llaveros",
+          "noticeboard": "Tablón",
+          "managedByClient": "Vecinos gestionados por ti"
+        },
+        "Nav": {
+          "ariaLabel": "Secciones de la comunidad",
+          "backToCommunities": "Todas las comunidades"
+        },
+        "Residents": {
+          "title": "Vecinos",
+          "description": "Quién vive en el edificio, con qué rol y en qué unidad.",
+          "searchPlaceholder": "Buscar por nombre o correo",
+          "invitationsSearchPlaceholder": "Buscar por correo",
+          "emptyTitle": "Todavía no hay vecinos",
+          "emptyDescription": "Invita a tus vecinos por correo para que puedan usar la app.",
+          "invite": "Invitar vecinos",
+          "inviteTitle": "Invitar vecinos",
+          "inviteDescription": "Añade uno o varios correos, hasta un máximo de 50.",
+          "emailsLabel": "Correos",
+          "emailsPlaceholder": "vecino@ejemplo.com",
+          "emailsHelp": "Escribe un correo y pulsa Enter para añadirlo. Puedes invitar a varios vecinos a la vez.",
+          "nameLabel": "Nombre",
+          "namePlaceholder": "Juan Pérez",
+          "nameHelp": "Solo se aplica si invitas a una única persona.",
+          "unitLabel": "Unidad",
+          "unitPlaceholder": "Elige una unidad",
+          "unitHelp": "Puedes dejarlo sin unidad y asignársela más tarde, cuando sepas dónde vive.",
+          "roleLabel": "Rol",
+          "rolePlaceholder": "Elige un rol",
+          "roleHelp": "Presidente y administrador ven la comunidad entera; propietario e inquilino solo lo suyo.",
+          "keyringsLabel": "Llaveros a conceder",
+          "keyringsHelp": "Al activar un llavero se emite la credencial en cuanto el vecino acepte la invitación.",
+          "keyringsEmpty": "Todavía no hay llaveros creados.",
+          "credentialTypeLabel": "Tipo de credencial",
+          "credentialTypePlaceholder": "Elige un tipo",
+          "credentialTypeHelp": "App y móvil NFC abren desde el teléfono. El PIN se teclea en el portero. La tarjeta hay que entregarla en mano y enrolarla en el lector.",
+          "noUnit": "Sin unidad",
+          "unitColumn": "Unidad",
+          "roleColumn": "Rol",
+          "statusColumn": "Estado",
+          "accountColumn": "Cuenta",
+          "canSignIn": "Puede acceder",
+          "cannotSignIn": "Acceso bloqueado",
+          "edit": "Cambiar unidad o rol",
+          "editTitle": "Cambiar unidad o rol",
+          "editDescription": "El correo del vecino no se puede cambiar desde el portal.",
+          "revoke": "Revocar acceso",
+          "revokeTitle": "Revocar el acceso de este vecino",
+          "revokeDescription": "Perderá el acceso a la app y sus credenciales dejarán de funcionar. Puedes volver a invitarlo más adelante.",
+          "invitationsTitle": "Invitaciones",
+          "invitationsDescription": "Invitaciones enviadas que todavía no se han aceptado.",
+          "invitationsEmpty": "No hay invitaciones pendientes.",
+          "showClosed": "Ver también las cerradas",
+          "hideClosed": "Ver solo las pendientes",
+          "expiresAt": "Caduca",
+          "acceptedAt": "Aceptada",
+          "resend": "Reenviar",
+          "revokeInvitation": "Revocar invitación",
+          "revokeInvitationTitle": "Revocar esta invitación",
+          "revokeInvitationDescription": "El enlace que se envió dejará de funcionar.",
+          "invitedKeyrings": "Llaveros"
+        },
+        "Units": {
+          "title": "Unidades",
+          "description": "Portales, viviendas, locales y zonas comunes del edificio.",
+          "searchPlaceholder": "Buscar por código, bloque o puerta",
+          "emptyTitle": "Todavía no hay unidades",
+          "emptyDescription": "Da de alta las unidades del edificio para poder asignarles vecinos.",
+          "create": "Nueva unidad",
+          "createTitle": "Nueva unidad",
+          "editTitle": "Editar unidad",
+          "codeLabel": "Código",
+          "codePlaceholder": "1ºA",
+          "blockLabel": "Bloque o portal",
+          "blockPlaceholder": "Bloque A",
+          "floorLabel": "Planta",
+          "floorPlaceholder": "1º",
+          "doorLabel": "Puerta",
+          "doorPlaceholder": "A",
+          "typeLabel": "Tipo",
+          "activeLabel": "Unidad activa",
+          "activeHelp": "Una unidad inactiva deja de ofrecerse al invitar o al cambiar de unidad, pero conserva su histórico.",
+          "residentsColumn": "Vecinos",
+          "active": "Activa",
+          "inactive": "Inactiva",
+          "edit": "Editar",
+          "delete": "Eliminar",
+          "deleteTitle": "Eliminar esta unidad",
+          "deleteDescription": "Se eliminará la unidad del edificio. Los vecinos asignados se quedarán sin unidad.",
+          "import": "Importar CSV",
+          "importTitle": "Importar unidades desde CSV",
+          "importDescription": "El fichero debe tener una cabecera con las columnas code, block, floor, door y type. Solo code es obligatorio.",
+          "importFileLabel": "Fichero CSV",
+          "importFileHelp": "Nada se da de alta hasta que confirmes: primero verás cuántas filas se han leído. Acepta separador por comas o por punto y coma.",
+          "importPreview": "Se van a dar de alta {count} unidades",
+          "importEmpty": "No se ha encontrado ninguna fila válida en el fichero.",
+          "importConfirm": "Importar",
+          "importInvalidRows": "{count} filas se han descartado por no tener código."
+        },
+        "Keyrings": {
+          "title": "Llaveros y credenciales",
+          "description": "Agrupa puertas en llaveros y emite las credenciales con las que tus vecinos abren.",
+          "searchPlaceholder": "Buscar por nombre",
+          "emptyTitle": "Todavía no hay llaveros",
+          "emptyDescription": "Crea un llavero para conceder varias puertas de una vez.",
+          "create": "Nuevo llavero",
+          "createTitle": "Nuevo llavero",
+          "editTitle": "Editar llavero",
+          "nameLabel": "Nombre",
+          "namePlaceholder": "Portales y zonas comunes",
+          "descriptionLabel": "Descripción",
+          "descriptionPlaceholder": "Puertas que abren todos los vecinos del edificio",
+          "isDefaultLabel": "Llavero por defecto",
+          "isDefaultHelp": "Es el llavero que se propone al invitar a un vecino nuevo. Solo puede haber uno por comunidad.",
+          "locksLabel": "Puertas incluidas",
+          "locksHelp": "Al editar, esta selección sustituye a las puertas que ya tenía el llavero: lo que desmarques deja de abrirse.",
+          "locksRequired": "Selecciona al menos una puerta.",
+          "locksEmpty": "Todavía no hay puertas dadas de alta en esta comunidad.",
+          "isDefault": "Por defecto",
+          "activeCredentials": "Credenciales activas",
+          "edit": "Editar",
+          "delete": "Eliminar",
+          "deleteTitle": "Eliminar este llavero",
+          "deleteDescription": "Las credenciales emitidas sobre este llavero dejarán de dar acceso.",
+          "CredentialsSection": {
+            "title": "Credenciales",
+            "description": "Tarjetas, PIN y accesos desde la app emitidos en esta comunidad.",
+            "searchPlaceholder": "Buscar por etiqueta o titular",
+            "empty": "Todavía no se ha emitido ninguna credencial.",
+            "create": "Nueva credencial",
+            "createTitle": "Nueva credencial",
+            "targetLabel": "Da acceso a",
+            "targetHelp": "Con un llavero, la credencial abre todas sus puertas y se actualiza sola si cambias el llavero. Con una puerta concreta, solo esa.",
+            "targetKeyring": "Un llavero",
+            "targetLock": "Una puerta concreta",
+            "keyringLabel": "Llavero",
+            "keyringPlaceholder": "Elige un llavero",
+            "lockLabel": "Puerta",
+            "lockPlaceholder": "Elige una puerta",
+            "residentLabel": "Vecino",
+            "residentPlaceholder": "Elige un vecino",
+            "residentHelp": "Déjalo sin vecino para credenciales de terceros (obra, limpieza) y pon a quién se la das en «Emitida a nombre de».",
+            "noResident": "Sin vecino asignado",
+            "typeLabel": "Tipo",
+            "typePlaceholder": "Elige un tipo",
+            "typeHelp": "El tipo no se puede cambiar luego: para pasar de PIN a tarjeta hay que revocar y emitir otra.",
+            "labelLabel": "Etiqueta",
+            "labelPlaceholder": "Tarjeta de Juan",
+            "nfcUidLabel": "UID de la tarjeta",
+            "nfcUidPlaceholder": "04A2B3C4D5",
+            "nfcUidHelp": "Si no lo sabes ahora, déjalo vacío y enrola la tarjeta después pasándola por el lector.",
+            "pinLabel": "PIN",
+            "pinPlaceholder": "1234",
+            "pinHelp": "Entre 4 y 10 dígitos. Déjalo vacío para que se genere uno.",
+            "issuedForNameLabel": "Emitida a nombre de",
+            "issuedForNamePlaceholder": "Fontanero de guardia",
+            "issuedForNameHelp": "Solo para el registro: es el nombre que verás en el historial de accesos si la credencial no es de un vecino.",
+            "validFromLabel": "Válida desde",
+            "validFromHelp": "Déjalo vacío para que empiece a valer ya.",
+            "validUntilLabel": "Válida hasta",
+            "validUntilHelp": "Déjalo vacío y no caduca. Ponle fecha para visitas, obras o alquileres de temporada.",
+            "bypassLabel": "Puede saltarse el horario de la puerta",
+            "bypassHelp": "Abre a cualquier hora, incluso fuera del horario de la puerta. Úsalo solo con quien lo necesite de verdad: queda listado aparte para que lo revises.",
+            "bypassReasonLabel": "Motivo del salto de horario",
+            "bypassReasonPlaceholder": "Mudanza fuera de horario",
+            "bypassReasonHelp": "Se muestra en la revisión de credenciales con salto de horario, para saber por qué se concedió.",
+            "statusColumn": "Estado",
+            "typeColumn": "Tipo",
+            "targetColumn": "Acceso a",
+            "holderColumn": "Titular",
+            "revoke": "Revocar",
+            "revokeTitle": "Revocar esta credencial",
+            "revokeDescription": "Dejará de dar acceso. En cerraduras sin conexión permanente el cambio puede tardar en aplicarse.",
+            "revokeReasonLabel": "Motivo",
+            "revokeReasonPlaceholder": "Se ha perdido la tarjeta",
+            "revokeReasonHelp": "Opcional, pero queda guardado: ayuda a distinguir una baja normal de una tarjeta perdida.",
+            "enrollCard": "Enrolar tarjeta",
+            "enrollCardTitle": "Enrolar una tarjeta",
+            "enrollCardDescription": "Pasa la tarjeta por el lector y escribe aquí su UID.",
+            "pendingLocks": "Pendiente de aplicarse en {count} cerraduras",
+            "syncedLocks": "Aplicada en todas las cerraduras",
+            "syncTitle": "Estado por cerradura",
+            "pinModalTitle": "Apunta este PIN ahora",
+            "pinModalDescription": "Es la única vez que se muestra: no se puede volver a consultar. Si lo pierdes, tendrás que emitir una credencial nueva."
+          },
+          "MatrixSection": {
+            "title": "Matriz de llaves",
+            "description": "Quién tiene llave de cada puerta.",
+            "empty": "Todavía no hay vecinos con credenciales.",
+            "residentColumn": "Vecino",
+            "legend": "Leyenda"
+          },
+          "BypassSection": {
+            "title": "Quién puede saltarse el horario",
+            "description": "Credenciales que abren aunque la puerta esté fuera de su horario. Revísalas de vez en cuando.",
+            "empty": "Ninguna credencial puede saltarse el horario.",
+            "reasonColumn": "Motivo"
+          }
+        },
+        "Locks": {
+          "title": "Puertas",
+          "description": "Estado de las cerraduras, su horario y sus liberaciones.",
+          "searchPlaceholder": "Buscar por nombre",
+          "emptyTitle": "Todavía no hay puertas",
+          "emptyDescription": "Las cerraduras las damos de alta nosotros cuando se instalan. Avísanos si falta alguna.",
+          "readOnlyNotice": "El alta y la baja de cerraduras las gestionamos nosotros: aquí puedes configurar su horario y liberarlas temporalmente.",
+          "mainAccess": "Acceso principal",
+          "battery": "Batería",
+          "lastSeen": "Última conexión",
+          "connectivity": "Conexión",
+          "provider": "Proveedor",
+          "scheduleMode": "Modo de horario",
+          "releasedUntil": "Liberada hasta",
+          "released": "Liberada",
+          "unit": "Unidad",
+          "supports": "Admite",
+          "informationalOnlyWarning": "Este modelo de cerradura no aplica horarios por sí mismo: lo que configures aquí es solo informativo y no impedirá ninguna apertura.",
+          "mainAccessScheduleWarning": "Es un acceso principal del edificio, así que no puede ponerse en modo horario: siempre abre.",
+          "alwaysOpenNotice": "Sin tramos configurados, la puerta abre siempre.",
+          "openNow": "Abierta ahora",
+          "closedNow": "Cerrada ahora",
+          "enforced": "Horario en vigor",
+          "ScheduleSection": {
+            "title": "Horario semanal",
+            "description": "Tramos en los que la puerta abre. Si no hay ninguno, abre siempre.",
+            "empty": "Sin tramos: la puerta abre siempre.",
+            "addSlot": "Añadir tramo",
+            "dayLabel": "Día",
+            "dayPlaceholder": "Elige un día",
+            "startLabel": "Desde",
+            "endLabel": "Hasta",
+            "slotLabel": "Etiqueta",
+            "slotPlaceholder": "Horario de mañana",
+            "removeSlot": "Quitar tramo",
+            "save": "Guardar horario",
+            "clearAll": "Vaciar (abrir siempre)",
+            "invalidRange": "La hora de fin debe ser posterior a la de inicio."
+          },
+          "ExceptionsSection": {
+            "title": "Excepciones",
+            "description": "Días sueltos en los que el horario habitual no aplica.",
+            "empty": "No hay excepciones configuradas.",
+            "add": "Nueva excepción",
+            "addTitle": "Nueva excepción",
+            "dateLabel": "Día",
+            "dateHelp": "Ese día la excepción manda: el horario semanal no se aplica.",
+            "typeLabel": "Qué hace ese día",
+            "typePlaceholder": "Elige una opción",
+            "typeHelp": "Cerrada todo el día, abierta todo el día, o abierta solo en el tramo que indiques abajo.",
+            "modifiedStartLabel": "Abre desde",
+            "modifiedEndLabel": "Abre hasta",
+            "reasonLabel": "Motivo",
+            "reasonPlaceholder": "Fiesta local",
+            "reasonHelp": "Te ayuda a recordar por qué está ahí cuando revises la lista dentro de unos meses.",
+            "delete": "Eliminar",
+            "deleteTitle": "Eliminar esta excepción",
+            "deleteDescription": "Ese día volverá a regirse por el horario semanal."
+          },
+          "ReleaseSection": {
+            "title": "Liberar la puerta",
+            "description": "Deja la puerta abierta durante las horas que indiques, como máximo 24.",
+            "release": "Liberar",
+            "releaseTitle": "Liberar esta puerta",
+            "opensWithoutCredential": "Mientras esté liberada, la puerta se abre sin necesidad de credencial.",
+            "hoursLabel": "Horas",
+            "hoursHelp": "Cuentan desde ahora mismo. Al terminar, la puerta vuelve sola a su horario; también puedes cancelar la liberación antes.",
+            "reasonLabel": "Motivo",
+            "reasonPlaceholder": "Mudanza en el 3ºB",
+            "reasonHelp": "Queda guardado junto a la apertura en el historial, por si luego hay que justificarla.",
+            "maxHours": "Como máximo {max} horas.",
+            "audited": "Esta acción queda registrada en el historial de accesos.",
+            "cancel": "Cancelar liberación",
+            "cancelTitle": "Cancelar la liberación",
+            "cancelDescription": "La puerta volverá a regirse por su horario."
+          }
+        },
+        "Incidents": {
+          "title": "Incidencias",
+          "description": "Lo que tus vecinos han reportado desde la app.",
+          "emptyTitle": "No hay incidencias",
+          "emptyDescription": "Cuando un vecino reporte algo desde la app, aparecerá aquí.",
+          "readOnlyNotice": "Aquí ves lo que reportan tus vecinos desde la app. Para abrir una incidencia tú mismo, ve a la sección de incidencias de tu portal.",
+          "codeColumn": "Código",
+          "typeColumn": "Tipo",
+          "priorityColumn": "Prioridad",
+          "statusColumn": "Estado",
+          "unitColumn": "Unidad",
+          "reportedByColumn": "Reportada por",
+          "createdAtColumn": "Fecha",
+          "overdue": "Fuera de plazo",
+          "noUnit": "Sin unidad",
+          "unknownResident": "Vecino no identificado",
+          "createButton": "Nueva incidencia",
+          "createTitle": "Abrir una incidencia",
+          "createDescription": "Cuéntanos qué ocurre y le daremos seguimiento.",
+          "titleField": "Título",
+          "titlePlaceholder": "Resume en una línea qué ocurre",
+          "descriptionField": "Descripción",
+          "descriptionPlaceholder": "Explica con detalle qué ha pasado, dónde y desde cuándo",
+          "typeField": "Tipo",
+          "priorityField": "Prioridad",
+          "serviceField": "Servicio contratado",
+          "serviceNone": "Sin servicio concreto",
+          "submit": "Crear incidencia",
+          "cancel": "Cancelar",
+          "createSuccess": "Incidencia creada correctamente.",
+          "createError": "No se ha podido crear la incidencia.",
+          "detailTitle": "Detalle de la incidencia",
+          "propertiesTitle": "Propiedades",
+          "datesTitle": "Plazos",
+          "descriptionLabel": "Descripción",
+          "resolutionLabel": "Resolución",
+          "serviceLabel": "Servicio contratado",
+          "assignedToLabel": "Asignada a",
+          "dueAtLabel": "Fecha compromiso",
+          "resolvedAtLabel": "Resuelta el",
+          "closedAtLabel": "Cerrada el",
+          "channelLabel": "Canal de entrada",
+          "unassigned": "Sin asignar",
+          "commentTitle": "Añadir un comentario",
+          "commentPlaceholder": "Escribe tu comentario",
+          "commentSubmit": "Enviar comentario",
+          "commentSuccess": "Comentario enviado.",
+          "commentError": "No se ha podido enviar el comentario.",
+          "commentSentNotice": "Tu comentario se ha enviado al equipo que gestiona la incidencia.",
+          "threadTitle": "Comentarios",
+          "threadEmpty": "Todavía no hay comentarios en esta incidencia.",
+          "threadYou": "Tú",
+          "threadSupport": "Soporte",
+          "notFoundTitle": "Incidencia no encontrada",
+          "notFoundDescription": "Esta incidencia no existe o no está disponible en tu portal.",
+          "allTitle": "Mis incidencias",
+          "allDescription": "Las incidencias abiertas desde tu portal y las que nos han llegado por otros canales.",
+          "allEmptyTitle": "No tienes incidencias",
+          "allEmptyDescription": "Cuando abras una incidencia, aparecerá aquí con su estado.",
+          "Type": {
+            "AVERIA": "Avería",
+            "MANTENIMIENTO": "Mantenimiento",
+            "LIMPIEZA": "Limpieza",
+            "SUMINISTRO": "Suministro",
+            "ACCESO": "Acceso",
+            "CONSULTA": "Consulta",
+            "OTRO": "Otro"
+          }
+        },
+        "AccessLog": {
+          "title": "Registro de accesos",
+          "description": "Cuántas aperturas ha habido en cada puerta.",
+          "emptyTitle": "Todavía no hay accesos registrados",
+          "emptyDescription": "Cuando alguien abra una puerta, el resumen aparecerá aquí.",
+          "aggregatedNotice": "Este resumen no identifica a ningún vecino. Para ver el detalle nominal de una puerta hay que justificar el motivo, y esa consulta queda registrada.",
+          "granted": "Concedidos",
+          "denied": "Denegados",
+          "deniedBySchedule": "Por horario",
+          "lastAccessAt": "Último acceso",
+          "viewDetail": "Ver detalle",
+          "reasonTitle": "¿Por qué necesitas ver este detalle?",
+          "reasonDescription": "El detalle identifica a cada vecino. Explica brevemente el motivo: quedará registrado junto a tu consulta.",
+          "reasonLabel": "Motivo",
+          "reasonPlaceholder": "Revisión de un incidente del 12 de marzo",
+          "reasonTooShort": "Escribe al menos 5 caracteres.",
+          "detailTitle": "Detalle de accesos de {lock}",
+          "detailEmpty": "No hay accesos registrados con esos criterios.",
+          "fromLabel": "Desde",
+          "toLabel": "Hasta",
+          "methodColumn": "Método",
+          "resultColumn": "Resultado",
+          "occurredAtColumn": "Cuándo",
+          "residentColumn": "Vecino",
+          "credentialColumn": "Credencial",
+          "approximateTime": "Hora aproximada",
+          "consult": "Consultar"
+        },
+        "Settings": {
+          "title": "Configuración",
+          "description": "Qué pueden hacer tus vecinos desde la app.",
+          "saved": "Configuración guardada.",
+          "save": "Guardar cambios",
+          "incidentsEnabled": "Permitir que los vecinos abran incidencias",
+          "incidentsEnabledHelp": "Si lo desactivas, la sección desaparece de la app y solo tú puedes abrir incidencias. Las ya abiertas se mantienen.",
+          "noticeboardEnabled": "Mostrar el tablón de anuncios",
+          "noticeboardEnabledHelp": "El tablón es de solo lectura para los vecinos: publicas tú, ellos leen.",
+          "allowGoogleSignIn": "Permitir acceder con Google",
+          "allowGoogleSignInHelp": "Entran con su cuenta de Google, sin contraseña que gestionar ni recuperar.",
+          "allowPasswordSignIn": "Permitir acceder con contraseña",
+          "allowPasswordSignInHelp": "Pensado para vecinos sin cuenta de Google. Al menos uno de los dos métodos tiene que quedar activo.",
+          "signInRequired": "Tiene que quedar activo al menos un método de acceso.",
+          "defaultResidentRole": "Rol por defecto de un vecino nuevo",
+          "defaultResidentRolePlaceholder": "Elige un rol",
+          "defaultResidentRoleHelp": "Es el rol que se propone al invitar. Puedes cambiárselo a cada vecino después.",
+          "maxOpenIncidentsPerResident": "Máximo de incidencias abiertas por vecino",
+          "maxOpenIncidentsPerResidentHelp": "Evita que un mismo vecino sature la lista. Al llegar al tope no podrá abrir más hasta que se le cierre alguna.",
+          "maxPhotosPerIncident": "Máximo de fotos por incidencia",
+          "maxPhotosPerIncidentHelp": "Se aplica al adjuntar desde la app, tanto al abrir la incidencia como al comentarla.",
+          "readOnlyTitle": "Fijado por tu contrato",
+          "readOnlyDescription": "Estos valores dependen del servicio que tienes contratado y no se pueden cambiar desde aquí.",
+          "isEnabled": "App de comunidad activa",
+          "keyringEnabled": "Módulo de llaveros",
+          "maxResidents": "Máximo de vecinos",
+          "residentsManagedByClient": "Gestionas tú a los vecinos",
+          "timeZone": "Zona horaria",
+          "activeResidents": "Vecinos activos",
+          "yes": "Sí",
+          "no": "No"
+        },
+        "UnitType": {
+          "PORTAL": "Portal",
+          "VIVIENDA": "Vivienda",
+          "LOCAL": "Local",
+          "GARAJE": "Garaje",
+          "TRASTERO": "Trastero",
+          "COMUN": "Zona común"
+        },
+        "ResidentRole": {
+          "PROPIETARIO": "Propietario",
+          "INQUILINO": "Inquilino",
+          "PRESIDENTE": "Presidente",
+          "ADMINISTRADOR": "Administrador"
+        },
+        "MembershipStatus": {
+          "ACTIVE": "Activo",
+          "REVOKED": "Revocado"
+        },
+        "AccountStatus": {
+          "ACTIVE": "Activa",
+          "BLOCKED": "Bloqueada"
+        },
+        "InvitationStatus": {
+          "PENDING": "Pendiente",
+          "ACCEPTED": "Aceptada",
+          "REVOKED": "Revocada",
+          "EXPIRED": "Caducada"
+        },
+        "LockStatus": {
+          "ACTIVE": "Activa",
+          "OFFLINE": "Sin conexión",
+          "MAINTENANCE": "En mantenimiento",
+          "RETIRED": "Retirada"
+        },
+        "LockConnectivity": {
+          "BLE_ONLY": "Solo Bluetooth",
+          "GATEWAY": "Pasarela",
+          "WIFI": "Wi-Fi"
+        },
+        "LockProvider": {
+          "AKILES": "Akiles",
+          "GENERIC_MANUAL": "Manual"
+        },
+        "ScheduleMode": {
+          "ALWAYS_OPEN": "Siempre abierta",
+          "SCHEDULED": "Con horario"
+        },
+        "ExceptionType": {
+          "CLOSED": "Cerrada todo el día",
+          "MODIFIED": "Horario distinto",
+          "OPEN_ALL_DAY": "Abierta todo el día"
+        },
+        "CredentialType": {
+          "NFC_CARD": "Tarjeta NFC",
+          "NFC_PHONE": "Móvil NFC",
+          "PIN": "PIN",
+          "APP": "App"
+        },
+        "CredentialStatus": {
+          "PENDING_SYNC": "Pendiente de aplicar",
+          "ACTIVE": "Activa",
+          "PARTIALLY_SYNCED": "Aplicada a medias",
+          "PENDING_REVOKE": "Revocación pendiente",
+          "REVOKED": "Revocada",
+          "EXPIRED": "Caducada"
+        },
+        "SyncStatus": {
+          "PENDING": "Pendiente",
+          "SYNCED": "Aplicada",
+          "FAILED": "Fallida",
+          "PENDING_REVOKE": "Revocación pendiente",
+          "REVOKED": "Revocada"
+        },
+        "AccessMethod": {
+          "NFC": "NFC",
+          "PIN": "PIN",
+          "APP": "App",
+          "BUTTON": "Botón",
+          "PHYSICAL_KEY": "Llave física",
+          "REMOTE": "Apertura remota"
+        },
+        "AccessResult": {
+          "GRANTED": "Concedido",
+          "GRANTED_BYPASS": "Concedido saltando horario",
+          "GRANTED_RELEASED": "Concedido con puerta liberada",
+          "DENIED_UNKNOWN": "Denegado: no reconocido",
+          "DENIED_EXPIRED": "Denegado: credencial caducada",
+          "DENIED_LOCK_SCHEDULE": "Denegado: fuera del horario de la puerta",
+          "DENIED_CREDENTIAL_SCHEDULE": "Denegado: fuera del horario de la credencial",
+          "DENIED_LOCK_DISABLED": "Denegado: puerta desactivada",
+          "ERROR": "Error"
+        },
+        "MatrixState": {
+          "GRANTED": "Con llave",
+          "PENDING": "Pendiente de aplicar",
+          "EXPIRED": "Caducada",
+          "OUT_OF_SCHEDULE": "Fuera de horario",
+          "NONE": "Sin llave"
+        },
+        "DayOfWeek": {
+          "MON": "Lunes",
+          "TUE": "Martes",
+          "WED": "Miércoles",
+          "THU": "Jueves",
+          "FRI": "Viernes",
+          "SAT": "Sábado",
+          "SUN": "Domingo"
+        },
+        "IncidentPriority": {
+          "LOW": "Baja",
+          "NORMAL": "Normal",
+          "HIGH": "Alta",
+          "CRITICAL": "Crítica"
+        },
+        "IncidentStatus": {
+          "NUEVA": "Nueva",
+          "EN_CURSO": "En curso",
+          "ESPERANDO_TERCERO": "Esperando a un tercero",
+          "RESUELTA": "Resuelta",
+          "CERRADA": "Cerrada",
+          "RECHAZADA": "Rechazada"
+        }
+      },
+      "Notifications": {
+        "title": "Notificaciones",
+        "description": "Todo lo que ha pasado en tu cuenta, de lo más reciente a lo más antiguo.",
+        "ariaLabel": "Notificaciones",
+        "unreadBadge": "{count} sin leer",
+        "markAllAsRead": "Marcar todas como leídas",
+        "viewAll": "Ver todas",
+        "emptyTitle": "No tienes notificaciones",
+        "emptyDescription": "Cuando haya novedades en tus presupuestos o facturas, te avisaremos aquí.",
+        "markAllError": "No se han podido marcar como leídas. Inténtalo de nuevo.",
+        "unreadFilter": "Solo sin leer",
+        "allFilter": "Todas",
+        "Types": {
+          "QUOTE_SENT": {
+            "title": "Nuevo presupuesto",
+            "body": "Tienes el presupuesto {quoteCode} listo para revisar."
+          },
+          "QUOTE_EXPIRING_SOON": {
+            "title": "Presupuesto a punto de caducar",
+            "body": "El presupuesto {quoteCode} caduca pronto."
+          },
+          "INVOICE_ISSUED": {
+            "title": "Nueva factura",
+            "body": "Se ha emitido la factura {invoiceNumber}."
+          },
+          "INVOICE_OVERDUE_PORTAL": {
+            "title": "Factura vencida",
+            "body": "La factura {invoiceNumber} ha pasado su fecha de vencimiento."
+          },
+          "INVOICE_PAID_PORTAL": {
+            "title": "Factura pagada",
+            "body": "Hemos registrado el pago de la factura {invoiceNumber}."
+          }
+        },
+        "Severity": {
+          "INFO": "Información",
+          "SUCCESS": "Correcto",
+          "WARNING": "Aviso",
+          "CRITICAL": "Crítico"
         }
       }
     }

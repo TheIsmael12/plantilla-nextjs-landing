@@ -1,0 +1,11 @@
+// Estilos de Captcha (components/ui/inputs/Captcha.tsx).
+
+@use "../../../01-tools/mixins" as *;
+
+// El widget lo pinta Turnstile en un iframe de tamaño fijo: aquí solo se
+// reserva el hueco y se deja que se ajuste en pantallas estrechas.
+.captcha {
+  @include my(0.75rem);
+  max-width: 100%;
+  overflow-x: auto;
+}

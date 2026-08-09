@@ -1,0 +1,99 @@
+// Bloques base compartidos por las páginas de blog (listado y detalle):
+// `blog__container`, `blog__eyebrow`, `blog__title-lg`, `blog__text-muted`,
+// igual que `04-components/services/servicesBase.scss` y
+// `04-components/contact/contactBase.scss`.
+//
+// Usa siempre los tokens de color globales (`00-settings/_colors.scss`) y
+// los mixins de `01-tools/` — nada de variables ni colores nuevos.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.blog {
+  overflow-x: hidden;
+}
+
+.blog__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  @include px(1.5rem);
+}
+
+.blog__eyebrow {
+  font-family: $font-family-base;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--primary-color-active);
+  margin: 0 0 0.6rem;
+}
+
+.blog__title-lg {
+  font-family: $font-title;
+  font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+  font-weight: $font-semibold;
+  color: var(--primary-color);
+  line-height: 1.14;
+  text-wrap: balance;
+  margin: 0 0 0.85rem;
+}
+
+.blog__text-muted {
+  font-family: $font-family-base;
+  font-size: $text-base;
+  color: var(--neutral-color);
+  line-height: 1.68;
+  margin: 0;
+}
+
+.blog__list-section {
+  @include py(3.5rem);
+}
+
+// Layout de 2 columnas de la página de detalle: TOC fijo a la izquierda
+// (sticky, no se desplaza con el scroll salvo para no invadir el footer) y
+// el cuerpo del artículo a la derecha. Sin TOC (`--no-toc`, posts cortos
+// sin subtítulos), el contenido ocupa el ancho completo de la columna de
+// lectura, centrado.
+.blog__post-layout {
+  display: grid;
+  gap: 1.5rem;
+  @include py(2rem);
+
+  @include screen(lg) {
+    grid-template-columns: 20rem minmax(0, 1fr);
+    align-items: start;
+  }
+
+  &--no-toc {
+    display: block;
+
+    .blog__post-layout-content {
+      max-width: 60rem;
+      margin: 0 auto;
+    }
+  }
+}
+
+.blog__post-layout-aside {
+  @include screen(lg) {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+.blog__post-layout-content {
+  min-width: 0;
+
+  @include screen(lg) {
+    max-width: 60rem;
+  }
+}
+
+.blog__author-view {
+  .blog__author-card {
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+  }
+}

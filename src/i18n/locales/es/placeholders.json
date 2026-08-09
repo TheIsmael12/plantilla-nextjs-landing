@@ -2,6 +2,10 @@
   "Placeholders": {
     "email": "tu@correo.com",
     "password": "Introduce tu contraseña",
-    "search": "Buscar..."
+    "search": "Buscar...",
+    "taxId": "B12345678",
+    "currentPassword": "Introduce tu contraseña actual",
+    "newPassword": "Introduce tu nueva contraseña",
+    "confirmPassword": "Repite tu nueva contraseña"
   }
 }

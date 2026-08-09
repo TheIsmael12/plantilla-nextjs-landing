@@ -2,6 +2,10 @@
   "Labels": {
     "email": "Email",
     "password": "Password",
-    "roles": "Roles"
+    "roles": "Roles",
+    "taxId": "Tax ID",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password"
   }
 }

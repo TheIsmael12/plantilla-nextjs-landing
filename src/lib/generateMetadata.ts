@@ -102,6 +102,9 @@ export async function generateTranslatedMetadata({
         "x-default": languages[DEFAULT_LOCALE],
         ...languages,
       },
+      types: {
+        "application/rss+xml": `${baseUrl}/feed.xml`,
+      },
     },
     openGraph: {
       title: fullTitle,

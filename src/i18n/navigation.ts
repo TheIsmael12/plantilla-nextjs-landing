@@ -20,6 +20,21 @@ export const { Link, redirect, usePathname, useRouter, getPathname } = navigatio
 export type AnyHref = any;
 
 /**
+ * Construye el `href` de una ruta con un segmento dinámico `[id]` para
+ * {@link Link}. A diferencia de {@link resolveHref}, que devuelve una cadena
+ * ya montada, aquí se entrega el pathname sin resolver más sus `params`: es
+ * lo único que permite a next-intl localizar el segmento estático antes de
+ * sustituir el id, sin que cada llamante tenga que saber cómo se traduce esa
+ * ruta en el locale activo.
+ * @param {string} pathname - Pathname canónico con el segmento dinámico (p. ej. `/private-area/services/[id]`)
+ * @param {string} id - Valor real del segmento `[id]`
+ * @returns {Parameters<typeof Link>[0]["href"]} El `href` listo para {@link Link}
+ */
+export function resolveDetailHref(pathname: string, id: string) {
+  return { pathname, params: { id } } as Parameters<typeof Link>[0]["href"];
+}
+
+/**
  * Resuelve un `href` (ruta simple o con `pathname`) a la cadena final,
  * añadiendo la query string si se proporciona.
  * @param {string | {pathname: string}} href Ruta destino, como cadena o con `pathname`

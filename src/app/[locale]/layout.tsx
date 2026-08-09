@@ -8,6 +8,8 @@ import { Fraunces, Public_Sans } from "next/font/google";
 
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import CookieConsentController from "@/components/ui/cookies/CookieConsentController";
+import Toaster from "@/components/ui/toasts/Toaster";
+import SessionAuthProvider from "@/context/SessionAuthProvider";
 
 import { generateTranslatedMetadata } from "@/lib/generateMetadata";
 
@@ -73,10 +75,13 @@ export default async function LocaleLayout({
             </head>
             <body>
                 <NextIntlClientProvider locale={locale} messages={messages}>
-                    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-                        {children}
-                        <CookieConsentController />
-                    </ThemeProvider>
+                    <SessionAuthProvider>
+                        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                            {children}
+                            <CookieConsentController />
+                            <Toaster />
+                        </ThemeProvider>
+                    </SessionAuthProvider>
                 </NextIntlClientProvider>
             </body>
         </html>

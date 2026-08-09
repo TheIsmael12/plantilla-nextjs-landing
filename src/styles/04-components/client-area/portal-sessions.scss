@@ -1,0 +1,13 @@
+// Estilos de PortalSessionsSection (components/ui/client-area/).
+
+@use "../../01-tools/mixins" as *;
+
+.portal-sessions-section {
+  &__list {
+    @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+  }
+
+  &__empty {
+    color: var(--neutral-color);
+  }
+}

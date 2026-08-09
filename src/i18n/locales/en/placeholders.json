@@ -2,6 +2,10 @@
   "Placeholders": {
     "email": "you@email.com",
     "password": "Enter your password",
-    "search": "Search..."
+    "search": "Search...",
+    "taxId": "B12345678",
+    "currentPassword": "Enter your current password",
+    "newPassword": "Enter your new password",
+    "confirmPassword": "Repeat your new password"
   }
 }

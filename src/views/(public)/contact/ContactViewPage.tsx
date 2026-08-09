@@ -3,6 +3,11 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
+import { submitContactLead } from '@/actions/leads/leads-actions';
+import { PRIVACY_NOTICE_VERSION } from '@/config/settings';
+import { isErrorStatus } from '@/utils/httpStatusUtils';
+import { readAttribution } from '@/utils/leadAttributionUtils';
+
 import ContactHero from '@/components/ui/contact/ContactHero';
 import ContactDepartments from '@/components/ui/contact/ContactDepartments';
 import ContactForm from '@/components/ui/contact/ContactForm';
@@ -17,7 +22,7 @@ import '@/styles/04-components/contact/contactPage.scss';
  * ({@link ContactDepartments}) para dirigir cada consulta al equipo
  * adecuado. Gestiona el ciclo de envío del formulario
  * (`loading`/`success`/`formError`) delegando la validación en
- * `ContactForm`.
+ * `ContactForm` y el envío real en `submitContactLead` (POST /public/leads).
  * @returns {JSX.Element} La página de contacto renderizada
  */
 export default function ContactViewPage() {
@@ -27,22 +32,42 @@ export default function ContactViewPage() {
     const [formError, setFormError] = useState<string | undefined>();
 
     /**
-     * Envía los datos del formulario de contacto y actualiza el estado de
-     * carga/éxito/error de la página.
+     * Envía los datos del formulario de contacto al backend y actualiza el
+     * estado de carga/éxito/error de la página. El honeypot y el captcha no
+     * cambian el flujo visible: el backend responde `201` igual si descarta
+     * el envío en silencio (anti-enumeración), así que un envío "aceptado"
+     * aquí no garantiza que se haya creado un lead real.
+     * @param {ContactFormValues} values - Valores validados del formulario
+     * @param {string} [captchaToken] - Token de Turnstile, si el widget está activo y se resolvió
      * @returns {Promise<void>} Se resuelve cuando finaliza el intento de envío
      */
-    async function handleSubmit(/* values: ContactFormValues */) {
+    async function handleSubmit(values: ContactFormValues, captchaToken?: string) {
         setLoading(true);
         setFormError(undefined);
-        try {
-            // TODO: wire up actual API call (e.g. server action)
-            await new Promise<void>(r => setTimeout(r, 1200));
-            setSuccess(true);
-        } catch {
-            setFormError(t('form.error'));
-        } finally {
-            setLoading(false);
+
+        const response = await submitContactLead({
+            contactName: values.contactName,
+            email: values.email || undefined,
+            phone: values.phone || undefined,
+            companyName: values.companyName || undefined,
+            message: values.message || undefined,
+            privacyNoticeVersion: PRIVACY_NOTICE_VERSION,
+            privacyNoticeAcknowledged: values.privacyNoticeAcknowledged,
+            marketingConsent: values.marketingConsent,
+            attributionConsent: values.attributionConsent,
+            captchaToken,
+            honeypot: values.honeypot || undefined,
+            ...(values.attributionConsent ? readAttribution() : {}),
+        });
+
+        setLoading(false);
+
+        if (isErrorStatus(response.status)) {
+            setFormError(response.message || t('form.error'));
+            return;
         }
+
+        setSuccess(true);
     }
 
     return (

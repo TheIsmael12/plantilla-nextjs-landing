@@ -37,9 +37,9 @@ const config: StorybookConfig = {
       // Specificadores exactos primero: deben resolverse antes que el alias
       // genérico "@" de más abajo, o este los interceptaría primero.
       {
-        // El paquete `next-auth` no está instalado (todavía no hay
-        // autenticación real conectada): se redirige al stub local, igual
-        // que hace `types/next-auth.d.ts` para el tipado.
+        // La app real ya usa el paquete `next-auth` instalado de verdad;
+        // este alias es solo para Storybook, que no puede montar una sesión
+        // NextAuth real sin un backend detrás. Se redirige al stub local.
         find: "next-auth/react",
         replacement: path.resolve(dirname, "../src/lib/next-auth-react.tsx"),
       },
@@ -58,6 +58,25 @@ const config: StorybookConfig = {
         // a un mock controlable con `mockReturnValue`/`mockReturnValueOnce`.
         find: "@/utils/userAgentUtils",
         replacement: path.resolve(dirname, "mocks/userAgentUtils.ts"),
+      },
+      {
+        // `blog-actions.ts` es una Server Action de Next.js que llama al
+        // backend real vía `fetchData`; se redirige a un mock con `fn()`
+        // reales (spies), igual que `security-actions.ts`.
+        find: "@/actions/blog/blog-actions",
+        replacement: path.resolve(dirname, "mocks/blog-actions.ts"),
+      },
+      {
+        // Igual que `blog-actions.ts`: `leads-actions.ts` llama al backend
+        // real vía `fetchData`.
+        find: "@/actions/leads/leads-actions",
+        replacement: path.resolve(dirname, "mocks/leads-actions.ts"),
+      },
+      {
+        // `profile-actions.ts` (portal de cliente) llama al backend real vía
+        // `fetchDataToken`, que además exige una sesión de NextAuth.
+        find: "@/actions/client-portal/profile-actions",
+        replacement: path.resolve(dirname, "mocks/profile-actions.ts"),
       },
       ...existingEntries,
       // La resolución nativa de `paths` de tsconfig que trae Vite 8 (usada

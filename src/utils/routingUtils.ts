@@ -4,7 +4,7 @@ import { getPathname, type AnyHref } from "@/i18n/navigation";
 import type { Route, StaticPathname } from "@/types/route";
 
 import { pathnames } from "@/config/pathnames";
-import { AUTH_ROUTES, PRIVATE_ROUTES } from "@/config/routing";
+import { AREA_PRIVADA_ROUTES, AUTH_ROUTES, PRIVATE_ROUTES } from "@/config/routing";
 import { isSupportedLocale, type AppLocale, DEFAULT_LOCALE } from "@/config/locales";
 
 /**
@@ -21,7 +21,7 @@ function flattenPathnames(routes: Route[]): StaticPathname[] {
 }
 
 const AUTH_PATHNAMES = flattenPathnames(AUTH_ROUTES);
-const PRIVATE_PATHNAMES = flattenPathnames(PRIVATE_ROUTES);
+const PRIVATE_PATHNAMES = flattenPathnames(PRIVATE_ROUTES).concat(flattenPathnames(AREA_PRIVADA_ROUTES));
 
 /**
  * Detecta el locale con el que debe servirse una petición cuando su URL
@@ -145,5 +145,5 @@ export function findRouteByPathname(pathname: string): Route | undefined {
     return undefined;
   }
 
-  return search(PRIVATE_ROUTES) ?? search(AUTH_ROUTES);
+  return search(PRIVATE_ROUTES) ?? search(AREA_PRIVADA_ROUTES) ?? search(AUTH_ROUTES);
 }

@@ -9,6 +9,7 @@ import type { ReactNode } from "react";
  * @property {LucideIcon} [icon] - Icono que identifica la sección a simple vista cuando hay varias en la misma página (p. ej. tema, idioma, notificaciones)
  * @property {ReactNode} [actions] - Contenido opcional alineado con la cabecera (p. ej. un botón)
  * @property {ReactNode} [children] - Contenido propio de la sección
+ * @property {string} [className] - Clases adicionales en el `<section>` raíz (p. ej. para ocupar varias columnas de un grid contenedor)
  */
 export interface SettingsSectionProps {
   title?: string;
@@ -16,4 +17,5 @@ export interface SettingsSectionProps {
   icon?: LucideIcon;
   actions?: ReactNode;
   children?: ReactNode;
+  className?: string;
 }

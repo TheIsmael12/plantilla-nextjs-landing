@@ -1,0 +1,19 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.auth-layout {
+  min-height: 100vh;
+  background: var(--light-color);
+  @include flex(column, flex-start, center, 2.5rem);
+  @include py(3rem);
+  @include px(1.5rem);
+}
+
+.auth-layout__logo {
+  display: block;
+}
+
+.auth-layout__content {
+  width: 100%;
+  max-width: 26rem;
+}

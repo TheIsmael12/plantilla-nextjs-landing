@@ -2,11 +2,10 @@
   "Validations": {
     "contact": {
       "nameRequired": "Name is required.",
-      "emailRequired": "Email is required.",
       "emailInvalid": "Please enter a valid email address.",
-      "subjectRequired": "Subject is required.",
-      "messageRequired": "Message is required.",
-      "messageMin": "Message must be at least 10 characters."
+      "emailOrPhoneRequired": "Please provide at least an email address or a phone number.",
+      "privacyRequired": "You must accept the privacy policy to continue.",
+      "maxLength": "This field is too long."
     },
     "common": {
       "required": "This field is required.",
@@ -19,8 +18,29 @@
       "passwordRequired": "This field is required.",
       "codeRequired": "Enter the complete 6-digit code."
     },
+    "auth": {
+      "taxIdRequired": "Tax ID is required.",
+      "passwordRequired": "Password is required.",
+      "passwordMinLength": "Password must be at least 8 characters.",
+      "passwordLowercase": "Password must include at least one lowercase letter.",
+      "passwordUppercase": "Password must include at least one uppercase letter.",
+      "passwordNumber": "Password must include at least one number.",
+      "passwordSpecialChar": "Password must include at least one special character.",
+      "passwordsMustMatch": "Passwords do not match."
+    },
     "required": "This field is required.",
     "otpLength": "Enter the complete 6-digit code.",
-    "passwordMin": "Password must be at least 8 characters."
+    "passwordMin": "Password must be at least 8 characters.",
+    "tagsInputDuplicate": "This value has already been added",
+    "tagsInputInvalidEmail": "Enter a valid email address",
+    "incident": {
+      "titleRequired": "The title is required.",
+      "titleMaxLength": "The title cannot exceed 255 characters.",
+      "descriptionRequired": "The description is required.",
+      "descriptionMaxLength": "The description cannot exceed 5000 characters.",
+      "typeRequired": "Choose an incident type.",
+      "commentRequired": "Write a comment before sending it.",
+      "commentMaxLength": "The comment cannot exceed 5000 characters."
+    }
   }
 }

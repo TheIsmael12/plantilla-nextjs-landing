@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Botón de campana para notificaciones ubicado en la navbar. Placeholder — la lógica de notificaciones se añadirá en una iteración posterior.",
+          "Botón de campana decorativo de la navbar pública, sin lógica: fuera del área privada no hay sesión con la que pedir notificaciones. La campana real del portal, con contador y desplegable, es `ClientNotificationBell`.",
       },
     },
   },

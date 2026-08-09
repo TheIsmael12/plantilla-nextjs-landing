@@ -49,7 +49,14 @@ export const pathnames = {
   // Otras páginas
   // Blog
   "/blog": "/blog",
-  "/blog/[id]": "/blog/[id]",
+  "/blog/[slug]": "/blog/[slug]",
+  "/blog/author/[slug]": "/blog/author/[slug]",
+
+  // Baja de comunicaciones comerciales (solo accesible desde el enlace del email)
+  "/unsubscribe": {
+    en: "/unsubscribe",
+    es: "/darse-de-baja",
+  },
 
   // Empleo
   "/careers": {
@@ -95,59 +102,143 @@ export const pathnames = {
     en: "/login",
     es: "/iniciar-sesion",
   },
+  "/forgot-password": {
+    en: "/forgot-password",
+    es: "/recuperar-acceso",
+  },
   "/reset-password": {
     en: "/reset-password",
     es: "/recuperar-contrasena",
+  },
+  "/change-password": {
+    en: "/change-password",
+    es: "/cambiar-contrasena",
   },
   "/verify-email": {
     en: "/verify-email",
     es: "/verificar-email",
   },
 
-  /* Área de cliente */
+  /* Área privada del cliente: perfil (datos personales + seguridad),
+     servicios contratados, presupuestos y facturas, todo bajo el mismo
+     prefijo `/private-area` (`/area-privada` en español). Clave canónica en
+     inglés, como el resto del catálogo. */
 
-  "/dashboard": {
-    en: "/dashboard",
-    es: "/panel",
+  "/private-area": {
+    en: "/private-area",
+    es: "/area-privada",
   },
-  "/profile": {
-    en: "/profile",
-    es: "/perfil",
+  "/private-area/profile": {
+    en: "/private-area/profile",
+    es: "/area-privada/perfil",
   },
-  "/profile/sessions": {
-    en: "/profile/sessions",
-    es: "/perfil/sesiones",
+  "/private-area/profile/security": {
+    en: "/private-area/profile/security",
+    es: "/area-privada/perfil/seguridad",
   },
-  "/profile/security": {
-    en: "/profile/security",
-    es: "/perfil/seguridad",
+  "/private-area/profile/sessions": {
+    en: "/private-area/profile/sessions",
+    es: "/area-privada/perfil/sesiones",
   },
-  "/profile/notifications": {
-    en: "/profile/notifications",
-    es: "/perfil/notificaciones",
+  "/private-area/profile/preferences": {
+    en: "/private-area/profile/preferences",
+    es: "/area-privada/perfil/preferencias",
   },
-  "/profile/preferences": {
-    en: "/profile/preferences",
-    es: "/perfil/preferencias",
+  "/private-area/profile/preferences/locale": {
+    en: "/private-area/profile/preferences/locale",
+    es: "/area-privada/perfil/preferencias/idioma",
   },
-  "/profile/preferences/locale": {
-    en: "/profile/preferences/locale",
-    es: "/perfil/preferencias/idioma",
+  "/private-area/profile/preferences/theme": {
+    en: "/private-area/profile/preferences/theme",
+    es: "/area-privada/perfil/preferencias/tema",
   },
-  "/profile/preferences/theme": {
-    en: "/profile/preferences/theme",
-    es: "/perfil/preferencias/apariencia",
+  "/private-area/profile/preferences/datetime": {
+    en: "/private-area/profile/preferences/datetime",
+    es: "/area-privada/perfil/preferencias/fecha-hora",
   },
-  "/profile/preferences/datetime": {
-    en: "/profile/preferences/datetime",
-    es: "/perfil/preferencias/fecha-hora",
+  "/private-area/profile/preferences/notifications": {
+    en: "/private-area/profile/preferences/notifications",
+    es: "/area-privada/perfil/preferencias/notificaciones",
   },
-  "/users": {
-    en: "/users",
-    es: "/usuarios",
+  "/private-area/services": {
+    en: "/private-area/services",
+    es: "/area-privada/servicios",
   },
-  "/users/[id]": {
-    en: "/users/[id]",
-    es: "/usuarios/[id]",
+  "/private-area/services/[id]": {
+    en: "/private-area/services/[id]",
+    es: "/area-privada/servicios/[id]",
+  },
+  "/private-area/quotes": {
+    en: "/private-area/quotes",
+    es: "/area-privada/presupuestos",
+  },
+  "/private-area/quotes/[id]": {
+    en: "/private-area/quotes/[id]",
+    es: "/area-privada/presupuestos/[id]",
+  },
+  "/private-area/notifications": {
+    en: "/private-area/notifications",
+    es: "/area-privada/notificaciones",
+  },
+  /* Las incidencias del portal no cuelgan de una comunidad: `clientServiceId`
+     puede ser `null`, así que viven en su propia ruta de primer nivel en vez
+     de bajo `/communities/[serviceId]`. */
+  "/private-area/incidents": {
+    en: "/private-area/incidents",
+    es: "/area-privada/incidencias",
+  },
+  "/private-area/incidents/[id]": {
+    en: "/private-area/incidents/[id]",
+    es: "/area-privada/incidencias/[id]",
+  },
+  "/private-area/invoices": {
+    en: "/private-area/invoices",
+    es: "/area-privada/facturas",
+  },
+  "/private-area/invoices/[id]": {
+    en: "/private-area/invoices/[id]",
+    es: "/area-privada/facturas/[id]",
+  },
+
+  /* Módulo de comunidad: solo existe para los servicios contratados que
+     tienen la app de comunidad activada, así que el segmento dinámico es el
+     `serviceId` de ese servicio (no un id de comunidad propio). Cada
+     subsección es una ruta estática colgando de él. */
+
+  "/private-area/communities": {
+    en: "/private-area/communities",
+    es: "/area-privada/comunidades",
+  },
+  "/private-area/communities/[serviceId]": {
+    en: "/private-area/communities/[serviceId]",
+    es: "/area-privada/comunidades/[serviceId]",
+  },
+  "/private-area/communities/[serviceId]/residents": {
+    en: "/private-area/communities/[serviceId]/residents",
+    es: "/area-privada/comunidades/[serviceId]/vecinos",
+  },
+  "/private-area/communities/[serviceId]/units": {
+    en: "/private-area/communities/[serviceId]/units",
+    es: "/area-privada/comunidades/[serviceId]/unidades",
+  },
+  "/private-area/communities/[serviceId]/keyrings": {
+    en: "/private-area/communities/[serviceId]/keyrings",
+    es: "/area-privada/comunidades/[serviceId]/llaveros",
+  },
+  "/private-area/communities/[serviceId]/locks": {
+    en: "/private-area/communities/[serviceId]/locks",
+    es: "/area-privada/comunidades/[serviceId]/puertas",
+  },
+  "/private-area/communities/[serviceId]/incidents": {
+    en: "/private-area/communities/[serviceId]/incidents",
+    es: "/area-privada/comunidades/[serviceId]/incidencias",
+  },
+  "/private-area/communities/[serviceId]/access-log": {
+    en: "/private-area/communities/[serviceId]/access-log",
+    es: "/area-privada/comunidades/[serviceId]/registro-accesos",
+  },
+  "/private-area/communities/[serviceId]/settings": {
+    en: "/private-area/communities/[serviceId]/settings",
+    es: "/area-privada/comunidades/[serviceId]/configuracion",
   },
 } as const;

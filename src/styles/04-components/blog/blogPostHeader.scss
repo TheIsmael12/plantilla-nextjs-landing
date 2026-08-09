@@ -1,0 +1,118 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.blog__post-header {
+  position: relative;
+  color: var(--light-color);
+  overflow: hidden;
+  &--plain {
+    color: var(--color);
+    background: var(--light-color);
+    border-bottom: 1px solid var(--border-color);
+    @include py(3.5rem);
+  }
+}
+
+.blog__post-header-media {
+  position: relative;
+  height: 24rem;
+
+  @include screen(lg) {
+    height: 20rem;
+  }
+
+  @include screen(sm, max) {
+    height: 18rem;
+  }
+}
+
+.blog__post-header-image {
+  object-fit: cover;
+}
+
+.blog__post-header-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.45) 55%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+}
+
+.blog__post-header-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 60rem;
+  margin: 0 auto;
+  text-align: center;
+
+  .blog__post-header--plain & {
+    position: static;
+  }
+
+  .blog__post-header:not(.blog__post-header--plain) & {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    transform: translateX(-50%);
+    width: 100%;
+    @include px(1.5rem);
+
+    @include screen(sm) {
+      bottom: 2.75rem;
+    }
+  }
+}
+
+.blog__post-title {
+  margin: 0 0 1rem;
+  font-family: $font-title;
+  color: var(--light-color);
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  font-weight: $font-semibold;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.blog__post-header-meta {
+  flex-wrap: wrap;
+  font-size: $text-sm;
+  opacity: 0.92;
+  @include flex(row, center, center, 0.5rem);
+}
+
+.blog__post-header-author {
+  color: inherit;
+  text-decoration: none;
+  font-weight: $font-semibold;
+  @include flex(row, center, center, 0.5rem);
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}
+
+.blog__post-header-avatar {
+  position: relative;
+  width: 1.4rem;
+  height: 1.4rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--light-color);
+  color: var(--primary-color-active);
+  @include rounded(999px);
+}
+
+.blog__post-header-meta-sep {
+  opacity: 0.6;
+}
+
+.blog__post-header-reading {
+  @include flex(row, flex-start, center, 0.3rem);
+}

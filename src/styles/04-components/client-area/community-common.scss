@@ -1,0 +1,290 @@
+// Piezas compartidas por las pantallas de comunidad: barra de acciones,
+// tabla ligera, definiciones clave/valor, avisos permanentes y las tarjetas
+// del selector de comunidades. Los listados simples siguen reutilizando
+// `client-list.scss`; aquí solo está lo que ese fichero no cubre.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.community-toolbar {
+  @include flex($justify: space-between, $align: center, $gap: 0.75rem);
+  flex-wrap: wrap;
+}
+
+.community-toolbar__actions {
+  @include flex($justify: flex-end, $align: center, $gap: 0.5rem);
+  flex-wrap: wrap;
+}
+
+// Aviso permanente (no descartable): horario meramente informativo, acceso
+// principal que no admite horario, listados de solo lectura...
+.community-notice {
+  @include flex($justify: flex-start, $align: flex-start, $gap: 0.6rem);
+  @include p(0.85rem);
+  font-size: $text-sm;
+  color: var(--color);
+  background: var(--info-color-light);
+  border: 1px solid var(--info-color);
+  @include rounded(0.6rem);
+
+  svg {
+    flex-shrink: 0;
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--info-color-active);
+  }
+}
+
+.community-notice--warning {
+  background: var(--warning-color-light);
+  border-color: var(--warning-color);
+
+  svg {
+    color: var(--warning-color-active);
+  }
+}
+
+.community-notice--danger {
+  background: var(--danger-color-light);
+  border-color: var(--danger-color);
+
+  svg {
+    color: var(--danger-color-active);
+  }
+}
+
+// Tabla ligera del portal: la `Table` de TanStack es demasiado pesada para
+// estos listados, pero algunas pantallas (credenciales, accesos, matriz)
+// necesitan rejilla de verdad, no filas apiladas.
+.community-table__scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+}
+
+.community-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $text-sm;
+  background: var(--surface-color);
+}
+
+.community-table th {
+  @include px(0.85rem);
+  @include py(0.65rem);
+  text-align: left;
+  white-space: nowrap;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: var(--neutral-color);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.community-table td {
+  @include px(0.85rem);
+  @include py(0.7rem);
+  color: var(--color);
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.community-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.community-table__actions {
+  @include flex($justify: flex-end, $align: center, $gap: 0.4rem);
+  flex-wrap: wrap;
+}
+
+.community-table__muted {
+  color: var(--neutral-color);
+}
+
+// Pares clave/valor de los bloques de solo lectura (configuración fijada por
+// contrato, ficha de una cerradura...).
+.community-facts {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: 1fr;
+  margin: 0;
+
+  @include screen(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include screen(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.community-facts__item {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.15rem);
+}
+
+.community-facts__label {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.community-facts__value {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--color);
+}
+
+.community-card__grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+
+  @include screen(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include screen(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.community-card {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.85rem);
+  @include p(1.5rem);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(1rem);
+  color: var(--color);
+  text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    text-decoration: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.18);
+    transform: translateY(-2px);
+  }
+}
+
+.community-card__icon {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  color: var(--primary-color);
+  @include rounded(999px);
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.community-card__code {
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: var(--neutral-color);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.community-card__title {
+  font-family: $font-title;
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  margin: 0;
+}
+
+.community-card__stats {
+  @include flex($justify: flex-start, $align: center, $gap: 1.5rem);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.community-card__stat {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.1rem);
+}
+
+.community-card__stat-value {
+  font-size: $text-xl;
+  font-weight: $font-semibold;
+  color: var(--primary-color-active);
+}
+
+.community-card__stat-label {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+.community-card__modules {
+  @include flex($justify: flex-start, $align: center, $gap: 0.35rem);
+  flex-wrap: wrap;
+}
+
+// Formularios en modal/panel: campos nativos y bloques de casillas. La
+// disposición en columnas la aporta `form-row` (04-components/ui/forms).
+.community-form {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+}
+
+.community-form__field {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.3rem);
+  min-width: 0;
+}
+
+.community-form__label {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--color);
+}
+
+.community-form__help {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+.community-form__error {
+  font-size: $text-xs;
+  color: var(--error-color-active);
+}
+
+.community-form__input {
+  width: 100%;
+  @include px(0.75rem);
+  @include py(0.55rem);
+  font-family: inherit;
+  font-size: $text-sm;
+  color: var(--color);
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+  }
+}
+
+.community-form__check-list {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.5rem);
+  max-height: 14rem;
+  overflow-y: auto;
+  @include p(0.75rem);
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+}
+
+.community-empty {
+  @include p(1.25rem);
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+  text-align: center;
+  background: var(--surface-color);
+  border: 1px dashed var(--border-color);
+  @include rounded(0.75rem);
+}

@@ -24,6 +24,7 @@ export default function OtpCodeModal({
   description,
   submitText = "verify",
   submittingText = "verifying",
+  footerContent,
   onClose,
   onSubmit,
 }: OtpCodeModalProps) {
@@ -74,6 +75,8 @@ export default function OtpCodeModal({
         />
 
         {error && <p className="otp-code-modal__error">{error}</p>}
+
+        {footerContent}
       </div>
     </ModalComponent>
   );

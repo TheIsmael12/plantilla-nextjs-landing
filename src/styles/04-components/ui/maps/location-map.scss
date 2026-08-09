@@ -1,0 +1,99 @@
+// Estilos de LocationMap (components/ui/maps/LocationMap.tsx).
+
+@use "../../../00-settings/variables" as *;
+@use "../../../01-tools/mixins" as *;
+
+.location-map {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+  @include rounded();
+  @include p(1rem);
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+}
+
+.location-map__title {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.location-map__address {
+  @include flex($justify: flex-start, $align: flex-start, $gap: 0.5rem);
+  font-size: $text-sm;
+  color: var(--color);
+
+  svg {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.15rem;
+    color: var(--primary-color);
+  }
+
+  > span {
+    @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.125rem);
+    min-width: 0;
+  }
+}
+
+.location-map__label {
+  font-weight: $font-medium;
+}
+
+.location-map__street {
+  color: var(--neutral-color);
+}
+
+.location-map__canvas {
+  @include rounded();
+  width: 100%;
+  // Alto fijo: el mapa acompaña a la ficha, no compite con ella. En móvil se recorta un poco
+  // para que no empuje el resto del contenido fuera de la primera pantalla.
+  height: 16rem;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+
+  @include screen(sm, max) {
+    height: 12rem;
+  }
+}
+
+.location-map__hint {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+.location-map__link {
+  @include flex($justify: flex-start, $align: center, $gap: 0.35rem);
+  align-self: flex-start;
+  font-size: $text-xs;
+  color: var(--primary-color);
+  text-decoration: none;
+
+  svg {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// El marcador único del mapa: un pin del color primario, dibujado en CSS
+// puro (sin catálogo de iconos de Leaflet) porque aquí solo hace falta uno.
+.location-map__marker {
+  background: transparent;
+  border: none;
+}
+
+.location-map__pin {
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+  background: var(--primary-color);
+  border: 2px solid var(--light-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+}

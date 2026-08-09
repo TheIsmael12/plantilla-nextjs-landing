@@ -1,0 +1,38 @@
+// Estilos de PersonalDataSection (components/ui/client-area/PersonalDataSection.tsx).
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.profile-info__list {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+}
+
+.profile-info__row {
+  @include flex($justify: space-between, $align: flex-start, $gap: 1rem);
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border-color);
+  @include pb(0.75rem);
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.profile-info__term {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--neutral-color-active);
+}
+
+.profile-info__value {
+  @include flex($justify: flex-end, $gap: 0.5rem);
+  font-size: $text-sm;
+  color: var(--color);
+  text-align: right;
+}
+
+.profile-info__placeholder {
+  color: var(--neutral-color);
+  font-style: italic;
+}

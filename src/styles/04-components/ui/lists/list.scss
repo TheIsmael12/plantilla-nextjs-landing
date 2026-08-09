@@ -1,0 +1,107 @@
+// Estilos de List, ListToolbar, ListItem y ListSkeleton
+// (components/ui/lists/): el equivalente a table.scss para los listados que
+// se presentan como tarjeta/fila libre en vez de como tabla de celdas. La
+// barra de herramientas replica la de `Table` (mismo alto y separación) para
+// que las dos pantallas de listado se vean iguales, y el pie de paginación se
+// reutiliza tal cual de table.scss (`List` monta `TablePagination`).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.list__container {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+  width: 100%;
+}
+
+.list__toolbar {
+  @include flex($justify: space-between, $gap: 1rem);
+  flex-wrap: wrap;
+
+  &__left {
+    @include flex($justify: flex-start, $align: flex-start, $gap: 0.75rem);
+    flex-wrap: wrap;
+  }
+
+  &__right {
+    @include flex($justify: flex-end, $align: center, $gap: 0.75rem);
+    flex-wrap: wrap;
+  }
+}
+
+.list__search {
+  width: 100%;
+  max-width: 18rem;
+}
+
+.list {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+  list-style: none;
+}
+
+.list__row {
+  display: block;
+}
+
+.list__empty {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  text-align: center;
+  background-color: var(--surface-color);
+  @include rounded();
+  @include p(2rem);
+}
+
+.list__item {
+  background-color: var(--surface-color);
+  @include rounded();
+  @include p(1rem);
+  @include flex($justify: space-between, $align: center, $gap: 1rem);
+  flex-wrap: wrap;
+
+  &--clickable .list__item__body {
+    cursor: pointer;
+
+    &:hover .list__item__title {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.list__item__body {
+  @include flex($justify: flex-start, $align: center, $gap: 0.75rem);
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+  background-color: transparent;
+  color: inherit;
+}
+
+.list__item__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  color: var(--neutral-color);
+}
+
+.list__item__info {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.25rem);
+  min-width: 0;
+}
+
+.list__item__title {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+  @include flex($justify: flex-start, $align: center, $gap: 0.5rem);
+  flex-wrap: wrap;
+}
+
+.list__item__subtitle {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+.list__item__actions {
+  @include flex($justify: flex-end, $align: center, $gap: 0.5rem);
+  flex-shrink: 0;
+}

@@ -1,0 +1,298 @@
+// Estilos del detalle de incidencia
+// (views/(client-area)/private-area/incidents/[id]/IncidentDetailViewPage.tsx).
+
+@use "../../01-tools/mixins" as *;
+@use "../../01-tools/query" as *;
+
+.incident-detail__badges {
+  @include flex($gap: 0.5rem);
+  flex-wrap: wrap;
+}
+
+// Layout de dos columnas, mismo criterio que la intranet: la conversación es
+// lo que se viene a leer, y las propiedades quedan siempre a la vista al lado.
+.incident-detail__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+
+  @include screen(lg) {
+    grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr);
+  }
+}
+
+.incident-detail__aside {
+  @include flex(column, flex-start, stretch, 1.5rem);
+}
+
+// Cada bloque del sidebar ("Propiedades", "Plazos") es su propia tarjeta,
+// mismo criterio que la intranet: separa visualmente grupos de datos que no
+// tienen relación entre sí, en vez de una única lista larga sin respiro.
+.incident-detail__sidebar-block {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded();
+  @include p(1.25rem);
+}
+
+.incident-detail__sidebar-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  opacity: 0.7;
+  @include mb(1rem);
+}
+
+.incident-detail__grid {
+  @include flex(column, flex-start, stretch, 0.85rem);
+}
+
+.incident-detail__field {
+  @include flex(column, flex-start, flex-start, 0.2rem);
+}
+
+.incident-detail__label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  opacity: 0.7;
+}
+
+.incident-detail__value {
+  margin: 0;
+  font-weight: 600;
+}
+
+.incident-detail__block {
+  @include mb(1.5rem);
+}
+
+.incident-detail__block-title {
+  @include mb(0.5rem);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.incident-detail__text {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.incident-detail__comment-form {
+  @include flex(column, flex-start, stretch, 0.75rem);
+
+  button {
+    align-self: flex-start;
+  }
+}
+
+// Hilo de conversación: cada mensaje es una fila avatar + burbuja, igual que
+// la intranet. Lo propio se alinea a la derecha para reconocerlo de un
+// vistazo, mismo criterio que `incident-thread--mine` en `plantilla-nextjs`.
+.incident-detail__thread {
+  @include flex(column, flex-start, stretch, 1rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.incident-detail__thread-item {
+  @include flex(row, flex-start, flex-start, 0.75rem);
+  max-width: 34rem;
+
+  // Lo propio se alinea a la derecha del hilo entero (no solo invierte el
+  // orden interno de avatar+burbuja): sin el `margin-left: auto` en el
+  // propio `<li>`, un `row-reverse` dentro de un `<ul>` en columna no separa
+  // el mensaje del borde izquierdo, porque el `<li>` sigue ocupando todo el
+  // ancho disponible.
+  &--mine {
+    flex-direction: row-reverse;
+    margin-left: auto;
+
+    .incident-detail__thread-bubble {
+      background-color: var(--primary-color-light, #e8ecfb);
+    }
+  }
+}
+
+.incident-detail__thread-bubble {
+  @include flex(column, flex-start, stretch, 0.35rem);
+  @include p(0.85rem 1rem);
+  @include rounded();
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.incident-detail__thread-meta {
+  @include flex(row, flex-start, center, 0.5rem);
+  font-size: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.incident-detail__thread-author {
+  font-weight: 600;
+}
+
+.incident-detail__thread-date {
+  opacity: 0.65;
+}
+
+.incident-detail__thread-files {
+  @include mt(0.5rem);
+}
+
+// Composer: textarea + botón de enviar + botón de adjuntar, en fila, dentro
+// de su propia tarjeta (igual que la barra inferior del hilo en intranet).
+.incident-detail__composer {
+  @include flex(row, flex-start, flex-end, 0.75rem);
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded();
+  @include p(0.75rem);
+  @include mt(1rem);
+
+  &__field {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  textarea {
+    border: none;
+    resize: none;
+    background: transparent;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  &__actions {
+    @include flex(row, flex-start, center, 0.5rem);
+    flex-shrink: 0;
+  }
+}
+
+.incident-detail__composer-attach,
+.incident-detail__composer-send {
+  @include flex($justify: center, $align: center, $gap: 0);
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  @include rounded(50%);
+  cursor: pointer;
+  flex-shrink: 0;
+
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.incident-detail__composer-attach {
+  background-color: var(--neutral-color-light);
+  color: var(--color);
+
+  &:hover:not(:disabled) {
+    background-color: var(--border-color);
+  }
+}
+
+.incident-detail__composer-send {
+  background-color: var(--primary-color);
+  color: var(--primary-contrast-color, #fff);
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+}
+
+.incident-detail__composer-files {
+  @include flex(row, flex-start, center, 0.5rem);
+  flex-wrap: wrap;
+  @include mb(0.5rem);
+}
+
+.incident-detail__composer-file {
+  @include flex(row, flex-start, center, 0.35rem);
+  font-size: 0.8rem;
+  background-color: var(--neutral-color-light);
+  @include rounded();
+  @include px(0.6rem);
+  @include py(0.3rem);
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    color: inherit;
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// Adjuntos del hilo: tarjeta con icono + nombre + tamaño + descarga, mismo
+// criterio visual que la lista de adjuntos de la intranet.
+.incident-detail__attachment-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  @include flex(column, flex-start, stretch, 0.4rem);
+}
+
+.incident-detail__attachment {
+  @include flex(row, flex-start, center, 0.5rem);
+  width: 100%;
+  background-color: var(--background-color, #fff);
+  border: 1px solid var(--border-color);
+  @include rounded();
+  @include px(0.75rem);
+  @include py(0.5rem);
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: inherit;
+
+  &:hover:not(:disabled) {
+    border-color: var(--primary-color);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    opacity: 0.7;
+  }
+}
+
+.incident-detail__attachment-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.incident-detail__attachment-size {
+  flex-shrink: 0;
+  opacity: 0.65;
+  font-size: 0.75rem;
+}
