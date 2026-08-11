@@ -23,16 +23,28 @@ interface IncidentsTableProps {
   data: PaginatedResult<CommunityIncident>;
   locale: string;
   statusOptions: IncidentStatus[];
+  /** Añade las columnas de vivienda y de quién la abrió, que solo tienen sentido dentro de una comunidad. */
+  showCommunityColumns?: boolean;
 }
 
 /**
  * Tabla de incidencias del portal, con paginación, orden y filtro por estado
  * delegados al servidor y sincronizados con la URL vía `useClientTableUrlState`.
  * `data` es siempre la página actual, ya filtrada/ordenada por el backend.
- * @param {IncidentsTableProps} props - Página actual de incidencias, locale y opciones del filtro de estado
+ *
+ * La usan las dos pantallas de incidencias —la lista general y la de una comunidad—, y por eso las columnas
+ * de **vivienda** y **quién la abrió** son opcionales: dentro de una comunidad son la mitad de la información
+ * («el 3.º D, y lo avisó su inquilino»), mientras que en la lista general, donde una incidencia puede no
+ * pertenecer a ninguna comunidad, serían dos columnas casi siempre vacías.
+ * @param {IncidentsTableProps} props - Página actual de incidencias, locale, opciones del filtro y si se muestran las columnas de comunidad
  * @returns {JSX.Element} La tabla de incidencias renderizada
  */
-export default function IncidentsTable({ data, locale, statusOptions }: IncidentsTableProps) {
+export default function IncidentsTable({
+  data,
+  locale,
+  statusOptions,
+  showCommunityColumns = false,
+}: IncidentsTableProps) {
   const t = useTranslations('Views.ClientArea.Communities.Incidents');
   const tCommunities = useTranslations('Views.ClientArea.Communities');
   const tCommon = useTranslations('Views.ClientArea.Common');
@@ -78,6 +90,39 @@ export default function IncidentsTable({ data, locale, statusOptions }: Incident
         header: () => t('typeColumn'),
         enableSorting: false,
       },
+      /*
+       * Las dos de comunidad van juntas y detrás del tipo, no al final.
+       *
+       * Leyendo una fila, «avería · 3.º D · lo avisó el inquilino» es una frase; con la vivienda al final,
+       * después del estado y la fecha, hay que volver atrás para saber de qué casa se hablaba.
+       *
+       * `enableSorting: false` en las dos: el backend solo ordena por los campos de su lista blanca, y
+       * ofrecer una flecha que no ordena nada es peor que no ofrecerla.
+       */
+      ...(showCommunityColumns
+        ? ([
+            {
+              id: 'communityUnitCode',
+              accessorKey: 'communityUnitCode',
+              header: () => t('unitColumn'),
+              enableSorting: false,
+              cell: ({ row }) =>
+                row.original.communityUnitCode ?? (
+                  <span className="community-table__muted">{t('noUnit')}</span>
+                ),
+            },
+            {
+              id: 'reportedByResidentName',
+              accessorKey: 'reportedByResidentName',
+              header: () => t('reportedByColumn'),
+              enableSorting: false,
+              cell: ({ row }) =>
+                row.original.reportedByResidentName ?? (
+                  <span className="community-table__muted">{t('unknownResident')}</span>
+                ),
+            },
+          ] satisfies ColumnDef<CommunityIncident>[])
+        : []),
       {
         id: 'priority',
         accessorKey: 'priority',
@@ -95,19 +140,21 @@ export default function IncidentsTable({ data, locale, statusOptions }: Incident
         accessorKey: 'status',
         header: () => t('statusColumn'),
         enableSorting: false,
+        /*
+         * Las dos chapas en una fila que envuelve, no separadas por un `<br>`.
+         *
+         * Con el salto forzado, cada incidencia fuera de plazo hacía su fila el doble de alta que las demás y
+         * la tabla quedaba con los renglones a distinta altura. Envolviendo solo cuando no caben, en una
+         * pantalla normal van juntas y en una estrecha se apilan sin que nadie lo tenga que decidir.
+         */
         cell: ({ row }) => (
-          <>
+          <span className="incidents__status-badges">
             <Badge
               variant={INCIDENT_STATUS_VARIANTS[row.original.status]}
               text={tCommunities(`IncidentStatus.${row.original.status}`)}
             />
-            {row.original.isOverdue && (
-              <>
-                <br />
-                <Badge variant="danger" text={t('overdue')} />
-              </>
-            )}
-          </>
+            {row.original.isOverdue && <Badge variant="danger" text={t('overdue')} />}
+          </span>
         ),
       },
       {
@@ -132,7 +179,7 @@ export default function IncidentsTable({ data, locale, statusOptions }: Incident
         ),
       },
     ],
-    [t, tCommunities, tCommon, locale],
+    [t, tCommunities, tCommon, locale, showCommunityColumns],
   );
 
   return (

@@ -1,0 +1,213 @@
+// Selector de vecinos a los que dar una llave (ResidentKeyPicker).
+//
+// Vive dentro de un modal, así que la lista tiene su propio alto máximo y su propio desplazamiento: si
+// creciera con el número de vecinos, un edificio de treinta viviendas empujaría los botones del pie fuera de
+// la pantalla y habría que desplazar el modal entero para poder confirmar.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.key-picker {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+}
+
+.key-picker__head {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.5rem);
+}
+
+.key-picker__actions {
+  @include flex($justify: space-between, $align: center, $gap: 0.75rem);
+  flex-wrap: wrap;
+}
+
+.key-picker__count {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+// Enlace y no botón con marco: es un atajo de la lista, no una acción del formulario, y con marco competía
+// con «Crear» por ser lo siguiente que se pulsa.
+.key-picker__toggle-all {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: $text-sm;
+  color: var(--primary-color-active);
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    text-decoration: underline;
+  }
+
+  &:disabled {
+    color: var(--neutral-color);
+    cursor: not-allowed;
+  }
+}
+
+.key-picker__hint,
+.key-picker__empty {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+.key-picker__empty {
+  text-align: center;
+  border: 1px dashed var(--border-color);
+  @include rounded(0.5rem);
+  @include py(1.25rem);
+  @include px(1rem);
+}
+
+.key-picker__list {
+  list-style: none;
+  max-height: 17rem;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+}
+
+.key-picker__item + .key-picker__item {
+  border-top: 1px solid var(--border-color);
+}
+
+.key-picker__row {
+  cursor: pointer;
+  @include flex($justify: flex-start, $align: center, $gap: 0.75rem);
+  @include px(0.85rem);
+  @include py(0.6rem);
+
+  &:hover {
+    background-color: var(--neutral-color-light);
+  }
+
+  // Quien ya tiene llave: se ve, se entiende que está dado, y no se puede volver a marcar.
+  &--has {
+    cursor: default;
+    color: var(--neutral-color);
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+/*
+ * La casilla nativa se esconde pero **sigue estando**: es la que recibe el foco, la que responde a la barra
+ * espaciadora y la que anuncia su estado un lector de pantalla. Lo que se pinta es `__box`, que solo es el
+ * cuadrado visible.
+ */
+.key-picker__checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.key-picker__box {
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  @include rounded(0.3rem);
+  @include flex($justify: center, $align: center, $gap: 0);
+
+  svg {
+    width: 0.85rem;
+    height: 0.85rem;
+    color: var(--light-color);
+  }
+}
+
+.key-picker__checkbox:checked + .key-picker__box {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.key-picker__checkbox:disabled + .key-picker__box {
+  background-color: var(--neutral-color);
+  border-color: var(--neutral-color);
+}
+
+// El foco se pinta sobre el cuadrado, ya que la casilla real es invisible.
+.key-picker__checkbox:focus-visible + .key-picker__box {
+  outline: 2px solid var(--primary-color-active);
+  outline-offset: 2px;
+}
+
+.key-picker__who {
+  flex: 1 1 auto;
+  min-width: 0;
+  @include flex($direction: column, $justify: center, $align: flex-start, $gap: 0.1rem);
+}
+
+.key-picker__name {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: inherit;
+}
+
+.key-picker__meta {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+// ---------------------------------------------------------------------------
+// Vista previa del reparto y los PIN del parte
+// ---------------------------------------------------------------------------
+
+/*
+ * La lista de lo que se va a crear.
+ *
+ * Tiene su propio alto máximo por lo mismo que la del selector: con veinte vecinos marcados, la vista previa
+ * sola llenaría el modal y dejaría el botón de repartir fuera de la pantalla.
+ */
+.key-plan {
+  list-style: none;
+  max-height: 11rem;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+}
+
+.key-plan__item {
+  @include flex($justify: space-between, $align: center, $gap: 0.75rem);
+  @include px(0.85rem);
+  @include py(0.45rem);
+  font-size: $text-sm;
+
+  & + & {
+    border-top: 1px solid var(--border-color);
+  }
+}
+
+.key-plan__label {
+  min-width: 0;
+  color: var(--color);
+  // La etiqueta puede llegar al tope de 100 caracteres: se recorta en vez de romper la fila.
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.key-plan__unit {
+  flex-shrink: 0;
+  color: var(--neutral-color);
+}
+
+/*
+ * Un PIN, para leerlo y copiarlo de un vistazo.
+ *
+ * Monoespaciado y espaciado entre cifras porque se va a transcribir a mano o dictar por teléfono, y en una
+ * tipografía proporcional el 1 y el 7 o el 0 y el 8 se confunden justo cuando más importa.
+ */
+.key-plan__pin {
+  font-family: monospace;
+  font-size: $text-base;
+  font-weight: $font-semibold;
+  letter-spacing: 0.15em;
+  color: var(--color);
+  user-select: all;
+}

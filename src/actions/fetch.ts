@@ -29,13 +29,36 @@ export type HttpMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
  * Opciones de {@link fetchData}.
  * @interface FetchDataOptions
  * @property {Record<string, string>} [extraHeaders] - Cabeceras adicionales propias de la llamada
- * @property {(number|false)} [revalidate] - Segundos de revalidación ISR (`fetch`'s `next.revalidate`). `false` (por defecto) desactiva la Data Cache, adecuado para peticiones de escritura (`POST`/`PATCH`/...); los listados/detalle de blog pasan un número (300s, alineado con el `Cache-Control` del backend) para aprovechar ISR
+ * @property {number} [revalidate] - Segundos de revalidación ISR (`next.revalidate`). Sin él **no se cachea nada**; los listados y el detalle del blog pasan 300s, alineado con el `Cache-Control` del backend, para aprovechar ISR
  * @property {string[]} [tags] - Tags de la Data Cache, para poder invalidar bajo demanda con `revalidateTag`
  */
 export interface FetchDataOptions {
   extraHeaders?: Record<string, string>;
-  revalidate?: number | false;
+  revalidate?: number;
   tags?: string[];
+}
+
+/**
+ * Las opciones de caché de una petición.
+ *
+ * **`next: { revalidate: false }` no desactiva la caché: la hace permanente.** Es lo contrario de lo que
+ * decía aquí, y el precio de la confusión fue alto: la petición de login del portal se cacheaba para siempre,
+ * así que cada intento de identificarse devolvía **los tokens del primero**. A los quince minutos esos tokens
+ * ya no valían, su `refreshToken` estaba rotado y la renovación fallaba, de modo que uno se identificaba
+ * correctamente y acababa con una sesión muerta: todas las pantallas del área privada vacías y el vigilante de
+ * sesión echándote fuera. Se comprobó midiendo el token que servía la sesión recién creada — llevaba 58
+ * minutos caducado, justo el rato que hacía desde el primer login.
+ *
+ * Sin `revalidate` explícito se manda `cache: "no-store"`, que es lo que quiere cualquier petición de
+ * escritura y cualquier lectura autenticada. Solo se cachea lo que pide un número, y eso hoy es el blog.
+ * @param {number} [revalidate] - Segundos de ISR, si esta petición se puede cachear
+ * @param {string[]} [tags] - Tags de la Data Cache
+ * @returns {RequestInit} El trozo de `RequestInit` con la política de caché
+ */
+function cacheOptions(revalidate?: number, tags?: string[]): RequestInit {
+  if (typeof revalidate !== "number") return { cache: "no-store" };
+
+  return { next: { revalidate, tags } };
 }
 
 const baseURL = ENV.BACKEND_URL;
@@ -73,7 +96,7 @@ export async function fetchData<T, Y>(
       method,
       headers: requestHeaders,
       body: method !== "GET" ? JSON.stringify(data) : undefined,
-      next: { revalidate: options?.revalidate ?? false, tags: options?.tags },
+      ...cacheOptions(options?.revalidate, options?.tags),
       signal: AbortSignal.timeout(30_000),
     });
   } catch (err) {
@@ -147,7 +170,7 @@ export async function fetchDataToken<T, Y>(
       method,
       headers: requestHeaders,
       body: method !== "GET" ? (isFormData ? data : JSON.stringify(data)) : undefined,
-      next: { revalidate: options?.revalidate ?? false, tags: options?.tags },
+      ...cacheOptions(options?.revalidate, options?.tags),
       signal: AbortSignal.timeout(30_000),
     });
   } catch (err) {

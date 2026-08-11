@@ -1,6 +1,6 @@
 // Estilos de User (components/ui/navigations/User.tsx).
 
-@use "../../../../00-settings/typography" as *;
+@use "../../../../00-settings/variables" as *;
 @use "../../../../01-tools/mixins" as *;
 
 .navbar__user {
@@ -33,7 +33,7 @@
     position: absolute;
     top: calc(100% + 0.5rem);
     right: 0;
-    z-index: 50;
+    z-index: $layer-dropdown;
     min-width: 16rem;
     border: 1px solid var(--border-color);
     background-color: var(--surface-color);

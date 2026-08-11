@@ -3,6 +3,7 @@
 import { fetchDataToken } from "@/actions/fetch";
 import type {
   PortalCommunity,
+  PortalCommunityAnnouncement,
   PortalCommunityConfig,
   UpdatePortalCommunityConfigDto,
 } from "@/types/client-portal/community";
@@ -30,6 +31,25 @@ export async function getCommunityConfig(
 ): Promise<FetchResponse<PortalCommunityConfig>> {
   return fetchDataToken<PortalCommunityConfig, never>(
     `client/me/communities/${encodeURIComponent(serviceId)}/config`,
+    "GET",
+  );
+}
+
+/**
+ * Los avisos del tablón de una comunidad
+ * (`GET client/me/communities/:serviceId/announcements`).
+ *
+ * Vienen **todos**, no solo los que un vecino ve hoy: cada uno trae `isVisible`, así que la portada puede
+ * separar lo publicado de lo programado y lo caducado. Es de solo lectura — el tablón lo escribe personal
+ * interno, porque un aviso ahí habla en nombre de la administración.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @returns {Promise<FetchResponse<PortalCommunityAnnouncement[]>>} Los avisos, fijados primero y luego por fecha de publicación descendente
+ */
+export async function getCommunityAnnouncements(
+  serviceId: string,
+): Promise<FetchResponse<PortalCommunityAnnouncement[]>> {
+  return fetchDataToken<PortalCommunityAnnouncement[], never>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/announcements`,
     "GET",
   );
 }

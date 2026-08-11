@@ -59,6 +59,46 @@
       "openExternal": "Ver en Google Maps",
       "zoomIn": "Acercar",
       "zoomOut": "Alejar"
+    },
+    "Chart": {
+      "empty": "Sin datos para este periodo",
+      "description": "Gráfico de {series}",
+      "showTable": "Ver los datos en una tabla",
+      "category": "Periodo",
+      "tableTitle": "Los datos del gráfico",
+      "tableIntro": "La misma información del gráfico, cifra a cifra. Está aquí para consultar un valor exacto —el dibujo da la forma, no el número— y para poder leerlo sin depender de la vista ni de distinguir los colores.",
+      "tableTotal": "Total",
+      "tableRows": "{count, plural, =1 {# fila} other {# filas}}",
+      "item": "Concepto"
+    },
+    "FileViewer": {
+      "title": "Visor de archivos",
+      "counter": "{current} de {total}",
+      "unsupported": "No se puede previsualizar {fileName}.",
+      "csvError": "No se pudo leer {fileName}.",
+      "csvEmpty": "{fileName} no tiene ninguna fila.",
+      "csvRows": "{count, plural, one {# fila} other {# filas}}",
+      "csvColumns": "{count, plural, one {# columna} other {# columnas}}",
+      "pdfError": "No se pudo mostrar {fileName}.",
+      "pdfPage": "Página {current} de {total}"
+    },
+    "FileUpload": {
+      "dropzone": "Arrastra tus archivos aquí o pulsa para seleccionarlos",
+      "hint": "Hasta {maxFiles} archivos, {maxSize} MB cada uno",
+      "view": "Ver {fileName}",
+      "maxFilesExceeded": "Solo puedes adjuntar {maxFiles} archivos.",
+      "fileTooLarge": "{fileName} supera el tamaño máximo de {maxSize} MB.",
+      "invalidType": "El formato de {fileName} no está admitido.",
+      "totalSizeExceeded": "Los archivos suman {totalSize} MB y el máximo son {maxTotalSize} MB.",
+      "inputLabel": "Seleccionar archivos",
+      "fileTooLargeForZone": "El archivo supera el máximo de {maxSize} MB permitido aquí.",
+      "invalidTypeForZone": "Ese formato de archivo no se admite aquí."
+    },
+    "ImageUpload": {
+      "hint": "Formatos {formats}, hasta {maxSizeMB} MB. Se ve mejor con fondo transparente y proporción horizontal.",
+      "chooseImage": "Elegir una imagen",
+      "confirmRemoveTitle": "Quitar la imagen",
+      "confirmRemoveDescription": "Se eliminará la imagen actual. Para recuperarla habrá que volver a subir el fichero."
     }
   }
 }

@@ -124,6 +124,20 @@ export function useClientTableUrlState({
           } as unknown as Parameters<typeof router.replace>[0],
           { scroll: false },
         );
+
+        /*
+         * Y se fuerza el refresco, porque cambiar solo la query string no vuelve a pedir la página.
+         *
+         * La caché de router del cliente indexa por los segmentos de la ruta, **no por la query string**: al
+         * pulsar una cabecera para ordenar, la URL pasaba a `?sortBy=createdAt&sortOrder=ASC` y la tabla
+         * seguía enseñando exactamente las mismas filas. Se comprobó midiendo: entrando por URL, ASC y DESC
+         * devuelven listas distintas; pulsando la cabecera, las tres veces salía la misma. Es decir, el orden
+         * y los filtros de **todas** las tablas del portal cambiaban la dirección y no los datos.
+         *
+         * Va dentro de la misma transición que el `replace`, así que el indicador de carga que ya expone este
+         * hook (`isPending`) cubre las dos cosas y no aparece un parpadeo intermedio.
+         */
+        router.refresh();
       });
     },
     [searchParams, router, pathname, routeParams],

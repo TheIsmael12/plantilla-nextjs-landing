@@ -6,6 +6,7 @@
   --primary-color: #1e3a5f;
   --primary-color-hover: #16304f;
   --primary-color-active: #0f2440;
+  --primary-color-light: #dde6f0;
   --primary-color-rgb: 30, 58, 95;
 
   // Secondary
@@ -72,6 +73,35 @@
   --error-color-hover: #9e211a;
   --error-color-active: #891c16;
   --error-color-light: #f9d6d3;
+
+  /*
+   * Colores de los gráficos (`components/ui/charts`), leídos del documento por `readChartTheme()`.
+   *
+   * La rampa va del primario al relleno en ocho pasos **interpolados en OKLab**, no elegidos a ojo: en sRGB
+   * la recta de marino a lima pasa por un oliva sucio que no se parece a ninguno de los extremos. OKLab hace
+   * que la distancia numérica se corresponda con la diferencia que se ve, así que dos series contiguas se
+   * distinguen siempre y el orden se lee en el propio color —la 1 es la más oscura y la 8 la más clara—.
+   *
+   * Son los mismos valores que la intranet porque el primario y el relleno son los mismos. Para
+   * regenerarlos: interpolar linealmente en OKLab entre `--primary-color` y `--fill-color` de cada tema, en
+   * ocho pasos incluyendo los dos extremos.
+   *
+   * El extremo claro contrasta poco sobre blanco, y es aceptable **solo** porque el color nunca es el único
+   * canal: `Chart` garantiza leyenda con dos o más series, tooltip en cada punto y la tabla de datos debajo.
+   */
+  --chart-ink: var(--neutral-color);
+  --chart-grid: var(--border-color);
+  --chart-surface: var(--surface-color);
+
+  --chart-1: #1e3a5f; // el primario, tal cual
+  --chart-2: #2e5062;
+  --chart-3: #406764;
+  --chart-4: #537d63;
+  --chart-5: #679360;
+  --chart-6: #7caa59;
+  --chart-7: #92c14e;
+  --chart-8: #a8d93a; // el fill, tal cual
+
 }
 
 .dark {
@@ -79,6 +109,7 @@
   --primary-color: #3b6ea5;
   --primary-color-hover: #4a7fb8;
   --primary-color-active: #5a8fc7;
+  --primary-color-light: #1e2c3d;
   --primary-color-rgb: 59, 110, 165;
 
   // Secondary
@@ -98,10 +129,10 @@
   --dark-color: #1a1d21;
   --background-color: #14161a;
   --surface-color: #000000;
-  --surface-color-light: #2b2a2a;
+  --surface-color-light: #333333;
 
   // Border
-  --border-color: #141313;
+  --border-color: #2e2e2e;
   --border-color-active: #3d434d;
 
   // Fill
@@ -145,4 +176,19 @@
   --error-color-hover: #ea6b62;
   --error-color-active: #ef837b;
   --error-color-light: #3a211f;
+
+  // Misma rampa que en claro, recalculada entre el primario y el relleno del tema oscuro.
+  --chart-ink: var(--neutral-color);
+  --chart-grid: var(--border-color);
+  --chart-surface: var(--surface-color);
+
+  --chart-1: #3b6ea5; // el primario, tal cual
+  --chart-2: #4a81a0;
+  --chart-3: #5b939a;
+  --chart-4: #6ca491;
+  --chart-5: #7eb687;
+  --chart-6: #91c779;
+  --chart-7: #a4d866;
+  --chart-8: #b8e94a; // el fill, tal cual
+
 }

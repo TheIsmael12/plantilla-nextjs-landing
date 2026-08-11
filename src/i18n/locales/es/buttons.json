@@ -53,8 +53,23 @@
     "consult": "Consultar",
     "consulting": "Consultando...",
     "viewDetail": "Ver detalle",
-    "back": "Volver",
+    "back": "Atrás",
     "send": "Enviar",
-    "sending": "Enviando"
+    "sending": "Enviando",
+    "grantKeys": "Repartir llaves",
+    "removeSlot": "Quitar el tramo",
+    "previousFile": "Archivo anterior",
+    "nextFile": "Archivo siguiente",
+    "previousPage": "Página anterior",
+    "nextPage": "Página siguiente",
+    "zoomIn": "Acercar",
+    "zoomOut": "Alejar",
+    "resetZoom": "Restablecer zoom",
+    "close": "Cerrar",
+    "removeFile": "Quitar archivo",
+    "chooseFile": "Elegir fichero",
+    "next": "Siguiente",
+    "createIncident": "Abrir la incidencia",
+    "attachFile": "Adjuntar un archivo"
   }
 }

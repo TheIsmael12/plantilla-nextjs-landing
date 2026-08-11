@@ -1,0 +1,8 @@
+// Estilos de FileList (components/ui/files/FileList.tsx).
+
+@use "../../../01-tools/mixins" as *;
+
+.file-list {
+  @include flex($direction: column, $align: stretch, $gap: 0.5rem);
+  width: 100%;
+}

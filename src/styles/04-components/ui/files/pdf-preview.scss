@@ -1,0 +1,66 @@
+// Estilos de PdfPreview (components/ui/files/PdfPreview.tsx): el documento
+// completo con scroll continuo entre páginas, montado sobre el componente
+// `PDFViewer` real de PDF.js (`pdfjs-dist/web/pdf_viewer.mjs` +
+// `pdf_viewer.css`, importado aparte junto a este archivo). El layout de
+// `.pdfViewer` y sus páginas lo define ese CSS del paquete — aquí solo se
+// ajusta el contenedor que lo aloja dentro del visor de la aplicación.
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.pdf-preview {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &--message {
+    @include flex($justify: center, $align: center);
+    @include rounded();
+    @include p(2rem);
+    max-width: 24rem;
+    margin: auto;
+    background-color: var(--surface-color);
+    color: var(--color);
+    font-size: $text-sm;
+    text-align: center;
+  }
+
+  // El propio `PDFViewer` exige que su contenedor tenga posicionamiento y
+  // `overflow: auto` para que el scroll continuo funcione — no es una
+  // preferencia de estilo, es un requisito estructural del componente.
+  &__container {
+    position: absolute;
+    inset: 0;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    @include rounded();
+  }
+
+  &__loading {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    @include flex($justify: center, $align: center);
+    background-color: var(--background-color);
+  }
+
+  &__pager {
+    @include flex($justify: center, $align: center, $gap: 0.75rem);
+    position: absolute;
+    bottom: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    @include rounded();
+    @include px(0.75rem);
+    @include py(0.375rem);
+    background-color: var(--surface-color);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+
+    &__count {
+      font-size: $text-sm;
+      color: var(--color);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}

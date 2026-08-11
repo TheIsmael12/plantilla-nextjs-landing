@@ -7,6 +7,7 @@ import {
   FileText,
   KeyRound,
   Languages,
+  LayoutDashboard,
   Lock,
   Monitor,
   Receipt,
@@ -389,6 +390,9 @@ export const COMMUNITY_SECTION_ROUTES: {
   icon: LucideIcon;
   requiredFlag?: "keyringEnabled";
 }[] = [
+  // La portada de la comunidad va primera y sin `requiredFlag`: es el resumen, y siempre hay algo que
+  // resumir aunque no haya llaveros contratados.
+  { pathname: "/private-area/communities/[serviceId]", icon: LayoutDashboard },
   { pathname: "/private-area/communities/[serviceId]/residents", icon: Users },
   { pathname: "/private-area/communities/[serviceId]/units", icon: Building2 },
   {

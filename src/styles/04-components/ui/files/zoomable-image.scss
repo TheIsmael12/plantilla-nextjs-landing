@@ -1,0 +1,33 @@
+// Estilos de ZoomableImage (components/ui/files/ZoomableImage.tsx).
+
+@use "../../../01-tools/mixins" as *;
+
+.zoomable-image {
+  // `min-`, no `width`/`height` a secas: con zoom aplicado la imagen (tamaño
+  // real en píxeles, ver ZoomableImage.tsx) debe poder crecer por encima del
+  // 100% del contenedor padre para que este registre el `scrollWidth`/
+  // `scrollHeight` extra y el arrastre tenga algo que desplazar — con
+  // `width: 100%` a secas, este wrapper se quedaría fijo a ese tamaño y la
+  // imagen simplemente se saldría de él sin que nadie lo "notara".
+  min-width: 100%;
+  min-height: 100%;
+  // El padre (`.file-viewer__file-container`) es `display: flex`, y por
+  // defecto un flex-item se encoge (`flex-shrink: 1`) para caber en su
+  // contenedor incluso por debajo de su tamaño intrínseco — eso anularía el
+  // `min-width`/`min-height` de arriba en cuanto la imagen zoomeada excediera
+  // el hueco disponible.
+  flex-shrink: 0;
+  @include flex($justify: flex-start, $align: flex-start, $gap: 0);
+}
+
+.zoomable-image__img {
+  // Tamaño intrínseco por defecto (mientras `naturalWidth`/`naturalHeight`
+  // aún no se conocen, antes de `onLoad`); una vez conocidos, el `style`
+  // inline de ZoomableImage.tsx fija `width`/`height` en píxeles reales y
+  // estas reglas dejan de aplicar.
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  @include rounded();
+  background-color: var(--surface-color);
+}

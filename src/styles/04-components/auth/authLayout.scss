@@ -3,8 +3,24 @@
 
 .auth-layout {
   min-height: 100vh;
-  background: var(--light-color);
-  @include flex(column, flex-start, center, 2.5rem);
+  /*
+   * El fondo de la aplicación, no `--light-color`.
+   *
+   * `--light-color` es blanco en los dos temas —es el color de un texto sobre fondo oscuro, no un fondo—,
+   * así que en modo oscuro la pantalla de acceso salía blanca con la tarjeta negra flotando encima. Con el
+   * token de fondo, cada tema pone el suyo.
+   */
+  background: var(--background-color);
+  color: var(--color);
+  /*
+   * Centrado en vertical, no pegado arriba.
+   *
+   * Es una pantalla de una sola cosa: la tarjeta era un bloque pequeño arrimado al borde superior con media
+   * pantalla vacía debajo. `center` con `min-height` la deja en el eje de la mirada, y si el contenido
+   * crece —los avisos de sesión, los errores de validación— empuja hacia los dos lados en vez de
+   * desbordar por abajo.
+   */
+  @include flex(column, center, center, 2.5rem);
   @include py(3rem);
   @include px(1.5rem);
 }

@@ -1,0 +1,58 @@
+// Escala de apilado. Todo `z-index` de la aplicación sale de aquí.
+//
+// Existe porque los números sueltos no se pueden comparar leyendo un fichero: la cabecera del área de
+// cliente estaba a 100 y el modal a 95, así que la barra se pintaba **encima del overlay** y del propio
+// modal. Nadie lo escribió a propósito — los dos números se eligieron en sitios distintos, cada uno
+// razonable por su cuenta, y solo se contradicen cuando coinciden en pantalla.
+//
+// El orden es el que se ve, de abajo arriba:
+//
+//   contenido  →  cabeceras y menús  →  modal  →  desplegable dentro del modal  →  aviso
+//
+// Dos reglas al añadir una capa nueva:
+//
+// 1. Se añade **aquí**, con nombre, no en el componente. Un `z-index: 999999` en una hoja cualquiera gana
+//    hoy y esconde un modal mañana; el que había en el desplegable de las pestañas hacía justo eso.
+// 2. Los saltos son de diez para que quepa algo entre medias sin renumerar lo de arriba.
+
+/// Contenido que se despega de su sitio sin salir de su sección: una celda fija de una tabla, la cabecera
+/// pegajosa de una matriz. No tapa nada de la interfaz.
+$layer-raised: 10;
+
+/// Cortinilla del menú lateral en móvil: oscurece el contenido, por debajo del propio menú.
+$layer-sidebar-overlay: 20;
+
+/// Barras fijas: el `navbar` público y la cabecera del área de cliente.
+$layer-header: 30;
+
+/// Menú lateral, por encima de las barras porque en móvil se despliega sobre ellas.
+$layer-sidebar: 40;
+
+/// Lo que abre una barra: el menú de usuario, la campana de avisos, el desplegable de las pestañas.
+/// Por encima de su barra y por debajo del modal — un modal abierto manda sobre cualquier menú.
+$layer-dropdown: 50;
+
+/// Botones que flotan sobre el contenido sin pertenecer a ninguna barra, como el «volver arriba».
+$layer-floating: 60;
+
+/// Cortinilla del modal. A partir de aquí ya no se ve nada de lo de arriba, que es el punto.
+$layer-modal-overlay: 90;
+
+/// El modal.
+$layer-modal: 100;
+
+/// Lo que abre un campo **dentro** de un modal: el calendario de una fecha, la lista de un desplegable.
+/// Tiene que superar al modal para no quedarse recortado dentro de él.
+$layer-modal-dropdown: 110;
+
+/// El aviso de cookies. Por encima del modal porque es un consentimiento: mientras no se responda, no
+/// puede quedar debajo de nada.
+$layer-cookie-consent: 150;
+
+/// Avisos. Encima de todo a propósito: un aviso que confirma o explica un fallo aparece a menudo con un
+/// modal abierto, y taparlo lo convierte en un aviso que nadie lee.
+$layer-toast: 200;
+
+/// El enlace para saltar al contenido. Vive escondido y solo aparece al recibir el foco por teclado; en
+/// ese momento tiene que verse sobre cualquier cosa, o el atajo no sirve de nada.
+$layer-skip-link: 250;

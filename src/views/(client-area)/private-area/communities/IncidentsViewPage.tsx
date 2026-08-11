@@ -2,17 +2,9 @@ import { getTranslations } from 'next-intl/server';
 import { InfoIcon } from 'lucide-react';
 
 import { getCommunityIncidents } from '@/actions/client-portal/community-incidents-actions';
-import { formatBillingDate } from '@/utils/billingFormatUtils';
-import {
-  INCIDENT_PRIORITY_VARIANTS,
-  INCIDENT_STATUS_VARIANTS,
-} from '@/utils/communityFormatUtils';
 
-import Badge from '@/components/ui/buttons/Badge';
 import ClientListEmptyState from '@/components/ui/client-area/ClientListEmptyState';
-import ClientListPagination from '@/components/ui/client-area/ClientListPagination';
-import StatusFilter from '@/components/ui/client-area/StatusFilter';
-import { Link, resolveDetailHref } from '@/i18n/navigation';
+import IncidentsTable from '@/components/ui/client-area/community/IncidentsTable';
 
 import type { IncidentStatus } from '@/types/client-portal/community';
 
@@ -38,10 +30,16 @@ interface IncidentsViewPageProps {
 
 /**
  * Vista de incidencias de la comunidad: el único listado paginado del módulo.
- * Es de solo lectura a propósito — las incidencias se crean y se gestionan
- * desde la app del vecino y desde el backoffice, no desde el portal. El
- * backend ya excluye las sensibles, así que aquí no hay (ni debe haber) ningún
- * control para pedirlas.
+ *
+ * Usa **la misma tabla que la lista general** (`IncidentsTable`), con sus filtros, su paginación y su orden
+ * por columna. Antes era una tabla escrita a mano con su propio filtro de estado y su propia paginación: dos
+ * listados de lo mismo, con distinto aspecto y distintas capacidades según por dónde entraras —desde la
+ * comunidad no se podía ordenar ni cambiar el tamaño de página—. Aquí se le pide además las columnas de
+ * vivienda y de quién la abrió, que es lo que distingue a esta pantalla.
+ *
+ * Es de solo lectura a propósito — las incidencias se crean y se gestionan desde la app del vecino y desde el
+ * backoffice, no desde el portal. El backend ya excluye las sensibles, así que aquí no hay (ni debe haber)
+ * ningún control para pedirlas.
  * @param {IncidentsViewPageProps} props - Comunidad activa, locale y query params
  * @returns {Promise<JSX.Element>} La pantalla de incidencias renderizada
  */
@@ -51,22 +49,31 @@ export default async function IncidentsViewPage({
   searchParams,
 }: IncidentsViewPageProps) {
   const t = await getTranslations('Views.ClientArea.Communities');
-  const tCommon = await getTranslations('Views.ClientArea.Common');
 
+  /*
+   * Los parámetros se leen de la URL, que es donde los deja la tabla.
+   *
+   * `IncidentsTable` sincroniza página, tamaño, orden y filtro con la query string, así que esta vista solo
+   * tiene que traducirlos a la petición. Se validan aquí y no se reenvían tal cual: un `status` inventado en
+   * la URL respondería un 400 y dejaría la pantalla en blanco en vez de enseñar la lista sin filtrar.
+   */
   const page = Number(searchParams.page) > 0 ? Number(searchParams.page) : 1;
+  const limit = Number(searchParams.limit) > 0 ? Number(searchParams.limit) : INCIDENTS_PER_PAGE;
   const status = STATUS_OPTIONS.includes(searchParams.status as IncidentStatus)
     ? (searchParams.status as IncidentStatus)
     : undefined;
+  const sortBy = searchParams.sortBy || undefined;
+  const sortOrder =
+    searchParams.sortOrder === 'ASC' ? 'ASC' : searchParams.sortOrder === 'DESC' ? 'DESC' : undefined;
 
   const response = await getCommunityIncidents({
     page,
-    limit: INCIDENTS_PER_PAGE,
+    limit,
     status,
+    sortBy,
+    sortOrder,
     clientServiceId: serviceId,
   });
-
-  const incidents = response.data?.items ?? [];
-  const pagination = response.data?.pagination;
 
   return (
     <>
@@ -80,95 +87,18 @@ export default async function IncidentsViewPage({
         {t('Incidents.readOnlyNotice')}
       </p>
 
-      <StatusFilter
-        label={tCommon('filterLabel')}
-        allLabel={tCommon('filterAll')}
-        activeStatus={status}
-        options={STATUS_OPTIONS.map((value) => ({
-          value,
-          label: t(`IncidentStatus.${value}`),
-        }))}
-      />
-
-      {incidents.length > 0 ? (
-        <>
-          <div className="community-table__scroll">
-            <table className="community-table">
-              <thead>
-                <tr>
-                  <th>{t('Incidents.codeColumn')}</th>
-                  <th>{t('Incidents.typeColumn')}</th>
-                  <th>{t('Incidents.unitColumn')}</th>
-                  <th>{t('Incidents.reportedByColumn')}</th>
-                  <th>{t('Incidents.priorityColumn')}</th>
-                  <th>{t('Incidents.statusColumn')}</th>
-                  <th>{t('Incidents.createdAtColumn')}</th>
-                  <th>{tCommon('viewDetail')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {incidents.map((incident) => (
-                  <tr key={incident.id}>
-                    <td>
-                      <strong>{incident.code}</strong>
-                      <br />
-                      <span className="community-table__muted">{incident.title}</span>
-                    </td>
-                    <td>{incident.typeName}</td>
-                    <td>
-                      {incident.communityUnitCode ?? (
-                        <span className="community-table__muted">{t('Incidents.noUnit')}</span>
-                      )}
-                    </td>
-                    <td>
-                      {incident.reportedByResidentName ?? (
-                        <span className="community-table__muted">
-                          {t('Incidents.unknownResident')}
-                        </span>
-                      )}
-                    </td>
-                    <td>
-                      <Badge
-                        variant={INCIDENT_PRIORITY_VARIANTS[incident.priority]}
-                        text={t(`IncidentPriority.${incident.priority}`)}
-                      />
-                    </td>
-                    <td>
-                      <Badge
-                        variant={INCIDENT_STATUS_VARIANTS[incident.status]}
-                        text={t(`IncidentStatus.${incident.status}`)}
-                      />
-                      {incident.isOverdue && (
-                        <>
-                          <br />
-                          <Badge variant="danger" text={t('Incidents.overdue')} />
-                        </>
-                      )}
-                    </td>
-                    <td>
-                      {formatBillingDate(incident.createdAt, locale, tCommon('notAvailable'))}
-                    </td>
-                    <td>
-                      <Link
-                        href={resolveDetailHref('/private-area/incidents/[id]', incident.id)}
-                        className="client-list__link"
-                      >
-                        {tCommon('viewDetail')}
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <ClientListPagination
-            basePath={`/private-area/communities/${serviceId}/incidents`}
-            currentPage={pagination?.page ?? page}
-            totalPages={pagination?.totalPages ?? 1}
-            searchParams={{ status }}
-          />
-        </>
+      {/*
+        Con un filtro puesto se pinta la tabla aunque no haya resultados: el vacío tiene que enseñar el filtro
+        para poder quitarlo. Con el estado vacío se leería «esta comunidad no tiene incidencias», que es
+        mentira cuando lo que pasa es que ninguna cumple el filtro.
+      */}
+      {response.data && (response.data.pagination.totalItems > 0 || status) ? (
+        <IncidentsTable
+          data={response.data}
+          locale={locale}
+          statusOptions={STATUS_OPTIONS}
+          showCommunityColumns
+        />
       ) : (
         <ClientListEmptyState
           resource="incidents"

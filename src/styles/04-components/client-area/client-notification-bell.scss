@@ -1,3 +1,4 @@
+@use "../../00-settings/variables" as *;
 // Estilos de ClientNotificationBell (components/ui/client-area/ClientNotificationBell.tsx).
 
 @use "../../01-tools/mixins" as *;
@@ -46,7 +47,7 @@
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
-  z-index: 200;
+  z-index: $layer-dropdown;
   width: min(22rem, calc(100vw - 2rem));
   max-height: 28rem;
   overflow-y: auto;

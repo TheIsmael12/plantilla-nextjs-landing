@@ -1,13 +1,21 @@
 // Estilos de ModalComponent (components/ui/modals/ModalComponent.tsx).
 
-@use "../../../00-settings/typography" as *;
+@use "../../../00-settings/variables" as *;
 @use "../../../01-tools/mixins" as *;
 
 .modal__overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 90;
+  /*
+   * Más oscuro que antes y con un desenfoque suave.
+   *
+   * Con un 50% limpio, en modo oscuro no se notaba que hubiera cortinilla: el fondo ya era casi negro, así
+   * que el modal —también oscuro y sin borde— parecía parte de la página. El desenfoque es lo que de verdad
+   * dice «esto de detrás está apagado», y no depende de que los dos colores contrasten.
+   */
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: $layer-modal-overlay;
 }
 
 .modal {
@@ -15,40 +23,74 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 95;
-  width: min(28rem, calc(100vw - 2rem));
-  max-height: calc(100vh - 2rem);
-  overflow-y: auto;
-  border: none;
+  z-index: $layer-modal;
+  width: min(30rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 3rem);
+  border: 1px solid var(--border-color);
   background-color: var(--surface-color);
   color: var(--color);
-  @include rounded();
-  @include p(1.5rem);
+  /*
+   * Borde y sombra, no solo fondo.
+   *
+   * `--surface-color` es negro puro en oscuro y blanco en claro, y en los dos casos el modal quedaba
+   * flotando sin canto contra la cortinilla. El borde le da la arista y la sombra la separación; sin ellos
+   * es un rectángulo del mismo color que su fondo.
+   */
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.12),
+    0 24px 48px -16px rgba(0, 0, 0, 0.45);
+  @include rounded(0.75rem);
+
+  /*
+   * Columna con la cabecera y el pie quietos y el cuerpo desplazable.
+   *
+   * Antes se desplazaba el modal entero: en el detalle del registro de accesos, con veinte filas, el título
+   * y el botón de cerrar se iban hacia arriba y había que subir del todo para poder cerrarlo. Con `min-height`
+   * a cero en el cuerpo, el desplazamiento se queda dentro de él.
+   */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 
   &--large {
-    width: min(52rem, calc(100vw - 2rem));
+    width: min(56rem, calc(100vw - 2rem));
   }
 
   &__header {
-    margin-bottom: 1rem;
+    flex: 0 0 auto;
+    border-bottom: 1px solid var(--border-color);
     @include flex($justify: space-between, $gap: 1rem);
+    @include px(1.5rem);
+    @include py(1rem);
 
     &__title {
+      font-family: $font-title;
       font-size: $text-lg;
       font-weight: $font-semibold;
+      // El título puede ser largo —lleva el nombre de la puerta— y no debe empujar al botón de cerrar.
+      min-width: 0;
     }
 
     &__close {
+      flex: 0 0 auto;
       margin-left: auto;
       background-color: transparent;
       color: var(--neutral-color);
+
       &:hover {
         background-color: var(--neutral-color-light);
+        color: var(--color);
       }
     }
   }
 
   &__content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    @include p(1.5rem);
+
+    // Un modal sin `children` es una confirmación corta: su único texto va centrado y hace de título.
     &__title {
       text-align: center;
       font-size: $text-lg;
@@ -57,20 +99,41 @@
   }
 
   &__form {
+    flex: 1 1 auto;
+    min-height: 0;
+    @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0);
+
     &__content {
-      @include flex($direction: column, $justify: flex-start, $gap: 1rem);
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+      @include p(1.5rem);
     }
 
     &__footer {
-      @include flex($justify: center, $gap: 0.75rem);
-      margin-top: 1.5rem;
+      flex: 0 0 auto;
+      border-top: 1px solid var(--border-color);
+      @include flex($justify: flex-end, $gap: 0.75rem);
+      @include px(1.5rem);
+      @include py(1rem);
     }
   }
 
   &__footer {
+    flex: 0 0 auto;
     flex-wrap: wrap;
-    margin-top: 1.5rem;
-    @include flex($justify: center, $gap: 0.75rem);
+    border-top: 1px solid var(--border-color);
+    /*
+     * Los botones a la derecha, con el de confirmar al final.
+     *
+     * Centrados, «Consultar» y «Cancelar» pesaban lo mismo y había que leerlos para saber cuál era cuál. A la
+     * derecha y en ese orden, la acción que continúa cae donde termina la lectura y donde está el pulgar en
+     * un móvil. El orden lo pone el JSX, no un `row-reverse`: así el foco por teclado los recorre como se ven.
+     */
+    @include flex($justify: flex-end, $gap: 0.75rem);
+    @include px(1.5rem);
+    @include py(1rem);
 
     & .btn {
       min-width: 8rem;
@@ -82,4 +145,18 @@
       font-size: $text-sm;
     }
   }
+}
+
+/*
+ * En un modal normal, las filas de formulario van a una columna.
+ *
+ * `.form-row--cols-2` decide por el ancho de **la ventana**, y una ventana de portátil es «ancha» aunque el
+ * modal mida 30rem: dos campos con su etiqueta y su texto de ayuda se quedaban en unos 14rem cada uno, con
+ * las ayudas de distinto largo descolocando las bases de los dos campos. Es lo que hacía que «Nueva
+ * excepción» pareciera mal montada.
+ *
+ * En `--large` (56rem) sí hay sitio de sobra, así que ahí se respetan las columnas que pida la fila.
+ */
+.modal:not(.modal--large) .form-row {
+  grid-template-columns: minmax(0, 1fr);
 }

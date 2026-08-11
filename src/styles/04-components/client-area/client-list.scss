@@ -36,6 +36,28 @@
   @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.5rem);
 }
 
+/*
+ * La cabecera de un listado: el título y su explicación a la izquierda, y la acción principal a la derecha.
+ *
+ * No tenía **ninguna regla**, así que el botón caía debajo del subtítulo, pegado a él y encima de la barra de
+ * filtros: parecía un botón del propio filtro y no «lo que se viene a hacer aquí». Arriba a la derecha es
+ * donde se busca la acción principal de una pantalla, y es donde está en el resto de la aplicación.
+ *
+ * `align-items: flex-start` en vez de `center` porque la explicación puede ocupar dos líneas: centrado, el
+ * botón bailaría hacia abajo según lo largo que fuera el texto.
+ */
+.client-list__header {
+  @include flex($justify: space-between, $align: flex-start, $gap: 1rem);
+  flex-wrap: wrap;
+
+  // En estrecho el botón pasa debajo y a lo ancho: un botón pequeño en la esquina de un móvil se falla.
+  @include screen(sm, max) {
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
 .client-list__toolbar {
   @include flex($justify: space-between, $align: center, $gap: 1rem);
   flex-wrap: wrap;
@@ -179,4 +201,15 @@
 .client-list__pagination-arrow--disabled {
   opacity: 0.4;
   pointer-events: none;
+}
+
+/*
+ * Las chapas de estado de una incidencia, juntas en su celda.
+ *
+ * «En curso» y «Fuera de plazo» son dos datos distintos de la misma fila y se leen a la vez; en línea ocupan
+ * una sola altura de renglón y la tabla mantiene el paso. Envuelven solo si la columna se queda sin ancho.
+ */
+.incidents__status-badges {
+  @include flex($justify: flex-start, $align: center, $gap: 0.35rem);
+  flex-wrap: wrap;
 }

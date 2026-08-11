@@ -1,6 +1,6 @@
 // Estilos propios de DatePicker (components/ui/inputs/DatePicker.tsx).
 
-@use "../../../00-settings/typography" as *;
+@use "../../../00-settings/variables" as *;
 @use "../../../01-tools/mixins" as *;
 
 // Por defecto (sin modificador) el ancho es automático (acotado por el
@@ -30,10 +30,21 @@
 
   &.date-picker__full {
     width: 100%;
+    min-width: 0;
 
     .date-picker__wrapper,
     .date-picker {
       width: 100%;
+      /*
+       * Sin `min-width: 0` no hay ancho completo que valga.
+       *
+       * `.date-picker` pide 18rem de mínimo, y un mínimo gana a `width: 100%`: dentro de una rejilla o de un
+       * flex, la columna no puede bajar de ahí y el campo se sale del contenedor. Es lo que recortaba el
+       * campo «Hasta» en el modal del registro de accesos —dos de estos en 28rem no caben— y lo que hacía
+       * que el segundo pareciera roto en vez de estrecho. `__full` dice «ocupa lo que te den», así que aquí
+       * el mínimo estorba; en el modo automático se mantiene, que es donde tiene sentido.
+       */
+      min-width: 0;
     }
   }
 
@@ -127,11 +138,9 @@
   }
 
   &__panel {
-    // Por encima del modal (z-index 95): este panel se porta a
-    // `document.body` igual que `ModalComponent`, así que si se abre un
-    // `DatePicker` dentro de un modal necesita superar su z-index para no
-    // quedar oculto detrás.
-    z-index: 96;
+    // Se porta a `document.body`, igual que `ModalComponent`: si se abre dentro de un modal
+    // tiene que superarlo o queda recortado detrás. Ver `00-settings/_layers.scss`.
+    z-index: $layer-modal-dropdown;
     border: 1px solid var(--border-color);
     background-color: var(--surface-color);
     box-shadow:

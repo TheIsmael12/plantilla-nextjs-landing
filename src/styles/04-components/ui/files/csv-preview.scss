@@ -1,0 +1,217 @@
+// Estilos de CsvPreview (components/ui/files/CsvPreview.tsx): un CSV con
+// aspecto de hoja de cálculo — barra de fórmulas, cabeceras de columna y fila,
+// rejilla y pestaña de hoja.
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+// Rejilla fina y continua, como la de una hoja de cálculo: cada celda pinta
+// solo su borde derecho e inferior, y las cabeceras cierran los otros dos.
+$csv-grid-line: 1px solid var(--border-color);
+
+.csv-preview {
+  @include flex($direction: column, $align: stretch, $gap: 0);
+  @include rounded();
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--surface-color);
+  color: var(--color);
+  // Excel se lee en Calibri; se mantiene la pila del sistema como respaldo.
+  font-family: Calibri, "Segoe UI", $font-family-base;
+
+  // Estados de carga, error y hoja vacía: no hay rejilla que pintar. Vive
+  // dentro de `.file-viewer__file-container`, cuyo `align-items` es
+  // `flex-start` (para no recortar contenido con zoom en las otras vistas
+  // previas) — `margin: auto` mantiene este bloque centrado igualmente.
+  &--message {
+    @include flex($justify: center, $gap: 0.75rem);
+    width: auto;
+    max-width: 24rem;
+    height: auto;
+    margin: auto;
+    @include p(2rem);
+    text-align: center;
+    font-size: $text-sm;
+  }
+
+  &__error {
+    color: var(--error-color);
+  }
+
+  // ---- Barra superior (cuadro de nombre + contenido de la celda) ----
+  &__bar {
+    @include flex($align: stretch, $gap: 0);
+    flex-shrink: 0;
+    border-bottom: $csv-grid-line;
+    background-color: var(--surface-color-light);
+  }
+
+  &__name-box {
+    @include flex($justify: center, $gap: 0);
+    width: 5.5rem;
+    flex-shrink: 0;
+    @include py(0.375rem);
+    border-right: $csv-grid-line;
+    background-color: var(--surface-color);
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    font-variant-numeric: tabular-nums;
+    color: var(--color);
+  }
+
+  &__formula {
+    @include flex($gap: 0);
+    flex: 1;
+    min-width: 0;
+    @include px(0.75rem);
+    overflow: hidden;
+    font-size: $text-xs;
+    color: var(--neutral-color);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  // ---- Rejilla ----
+  &__grid {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    background-color: var(--surface-color);
+
+    // La rejilla es enfocable solo para poder desplazarla con el teclado: al
+    // pulsar una celda no debe aparecer el anillo de foco (se recortaría contra
+    // el borde superior y competiría con el recuadro de la celda activa).
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--primary-color);
+      outline-offset: -2px;
+    }
+  }
+
+  &__table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: $text-xs;
+
+    th,
+    td {
+      @include px(0.625rem);
+      @include py(0.25rem);
+      border-right: $csv-grid-line;
+      border-bottom: $csv-grid-line;
+      // Ancho mínimo de columna vacía, como el de una hoja recién abierta;
+      // las que tienen datos crecen hasta el máximo antes de recortar.
+      min-width: 4.5rem;
+      max-width: 22rem;
+      overflow: hidden;
+      text-align: left;
+      font-weight: $font-normal;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      cursor: cell;
+    }
+  }
+
+  // Fila de letras de columna (A, B, C...) y esquina superior izquierda
+  &__letters td,
+  &__corner,
+  &__row-number {
+    position: sticky;
+    z-index: 2;
+    background-color: var(--surface-color-light);
+    color: var(--neutral-color);
+    font-size: $text-xxs;
+    font-weight: $font-semibold;
+    text-align: center;
+    cursor: default;
+    user-select: none;
+  }
+
+  &__letters td {
+    top: 0;
+  }
+
+  &__row-number {
+    left: 0;
+    z-index: 1;
+    width: 2.75rem;
+    min-width: 2.75rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__corner {
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 2.75rem;
+    min-width: 2.75rem;
+  }
+
+  // Cabecera de columna/fila resaltada cuando la celda activa está en ella
+  &__column-header--active,
+  &__row-number--active {
+    background-color: var(--primary-color-light);
+    color: var(--primary-color);
+  }
+
+  // Primera fila del fichero: los nombres de columna, fijos al desplazarse
+  thead tr:last-child th {
+    position: sticky;
+    top: 1.25rem;
+    z-index: 1;
+    background-color: var(--background-color);
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+
+  &__cell--numeric {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  // Celda activa: recuadro grueso por dentro, como el cursor de Excel
+  &__cell--selected {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+  }
+
+  tbody tr:hover td:not(.csv-preview__row-number) {
+    background-color: var(--surface-color-light);
+  }
+
+  // ---- Pie: pestaña de hoja + recuento ----
+  &__footer {
+    @include flex($justify: space-between, $align: center, $gap: 1rem);
+    flex-shrink: 0;
+    @include px(0.5rem);
+    @include py(0.25rem);
+    border-top: $csv-grid-line;
+    background-color: var(--surface-color-light);
+  }
+
+  &__sheet-tab {
+    max-width: 60%;
+    overflow: hidden;
+    @include px(0.75rem);
+    @include py(0.25rem);
+    border-top: 2px solid var(--success-color);
+    background-color: var(--surface-color);
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    color: var(--success-color);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__count {
+    @include flex($align: center, $gap: 0.75rem);
+    flex-shrink: 0;
+    @include px(0.5rem);
+    font-size: $text-xxs;
+    color: var(--neutral-color);
+  }
+}

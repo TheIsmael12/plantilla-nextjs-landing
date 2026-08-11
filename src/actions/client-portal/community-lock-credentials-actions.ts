@@ -2,10 +2,12 @@
 
 import { fetchDataToken } from "@/actions/fetch";
 import type {
-  CommunityListQuery,
+  BatchCreateLockCredentialsDto,
+  CommunityCredentialsQuery,
   CreateLockCredentialDto,
   EnrollCardDto,
   LockCredential,
+  LockCredentialBatchResult,
   LockCredentialCreated,
   RevokeLockCredentialDto,
   UpdateLockCredentialDto,
@@ -35,13 +37,17 @@ function buildQueryString(
  * Página de credenciales de acceso de una comunidad
  * (`GET client/me/communities/:serviceId/lock-credentials`). `search` filtra
  * por etiqueta y titular. El PIN nunca viaja aquí, ni siquiera hasheado.
+ *
+ * Con `lockGroupId`/`lockId` y `onlyLive` responde a «quién tiene ya llave de esto», que es lo que hay que
+ * saber antes de repartir llaves a varios vecinos: filtrar en el navegador una lista paginada daba recuentos
+ * falsos —los vecinos de las páginas que no se habían traído salían como si no tuvieran llave—.
  * @param {string} serviceId - Servicio contratado que soporta la comunidad
- * @param {CommunityListQuery} [query] - Paginación y búsqueda
+ * @param {CommunityCredentialsQuery} [query] - Paginación, búsqueda y filtros por destino, vecino y vigencia
  * @returns {Promise<FetchResponse<PaginatedResult<LockCredential>>>} Página de credenciales con su estado de sincronización
  */
 export async function getCommunityLockCredentials(
   serviceId: string,
-  query: CommunityListQuery = {},
+  query: CommunityCredentialsQuery = {},
 ): Promise<FetchResponse<PaginatedResult<LockCredential>>> {
   return fetchDataToken<PaginatedResult<LockCredential>, never>(
     `client/me/communities/${encodeURIComponent(serviceId)}/lock-credentials${buildQueryString({ ...query })}`,
@@ -65,6 +71,28 @@ export async function createCommunityLockCredential(
 ): Promise<FetchResponse<LockCredentialCreated>> {
   return fetchDataToken<LockCredentialCreated, CreateLockCredentialDto>(
     `client/me/communities/${encodeURIComponent(serviceId)}/lock-credentials`,
+    "POST",
+    dto,
+  );
+}
+
+/**
+ * Reparte la misma llave a varios vecinos de una vez
+ * (`POST client/me/communities/:serviceId/lock-credentials/batch`).
+ *
+ * **Un vecino que falla no cancela el reparto**: la respuesta trae lo emitido y quién se quedó sin llave, con
+ * el código del error, así que la pantalla puede decir exactamente qué ha pasado sin repetir el reparto para
+ * averiguarlo. Y como en el alta individual, los PIN en claro viajan aquí y **solo** aquí.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {BatchCreateLockCredentialsDto} dto - Destino y validez comunes, y los vecinos con su etiqueta
+ * @returns {Promise<FetchResponse<LockCredentialBatchResult>>} El parte del reparto: emitidas y fallidas
+ */
+export async function createCommunityLockCredentialsBatch(
+  serviceId: string,
+  dto: BatchCreateLockCredentialsDto,
+): Promise<FetchResponse<LockCredentialBatchResult>> {
+  return fetchDataToken<LockCredentialBatchResult, BatchCreateLockCredentialsDto>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/lock-credentials/batch`,
     "POST",
     dto,
   );

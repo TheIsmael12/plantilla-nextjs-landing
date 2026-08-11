@@ -1,11 +1,11 @@
 // Estilos de Toaster/Toast (components/ui/toasts/Toaster.tsx).
 
-@use "../../../00-settings/typography" as *;
+@use "../../../00-settings/variables" as *;
 @use "../../../01-tools/mixins" as *;
 
 .toaster {
   position: fixed;
-  z-index: 100;
+  z-index: $layer-toast;
   width: 100%;
   max-width: 22rem;
   pointer-events: none;

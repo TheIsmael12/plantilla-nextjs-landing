@@ -1,0 +1,210 @@
+// Estilos de Chart (components/ui/charts/Chart.tsx).
+//
+// Casi nada: el gráfico lo pinta ECharts sobre un lienzo, y lo que queda aquí es el envoltorio y
+// la tabla de respaldo. Esa tabla no es un extra: es la salida para quien no ve el lienzo y para
+// quien no distingue dos series por su color.
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+/*
+ * `min-width: 0` no es decorativo: es lo que deja al gráfico **encoger**.
+ *
+ * ECharts pinta sobre un `<div>` al que le escribe un ancho en píxeles. Dentro de un `flex` o un
+ * `grid`, el ancho mínimo automático de un elemento es el de su contenido, así que ese píxel fijo
+ * se convertía en un suelo: el gráfico crecía al ensanchar la ventana y luego ya no volvía a bajar,
+ * y arrastraba consigo el ancho de la tarjeta que lo contiene. Es la mitad de «el responsive de los
+ * gráficos no se actualiza bien» —la otra mitad estaba en `Chart.tsx`—, y explica por qué solo se
+ * notaba al estrechar.
+ *
+ * `min-height: 0` es el mismo caso en columna, para las tarjetas de alto fijo del panel.
+ */
+.chart {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  @include flex($direction: column, $align: stretch, $gap: 0.5rem);
+}
+
+.chart__canvas {
+  width: 100%;
+  min-width: 0;
+  // El lienzo va justo al ancho medido; si por un fotograma se pasa, se recorta en vez de empujar.
+  overflow: hidden;
+
+  // Cuando las porciones llevan a algún sitio: la mano es lo único que lo anuncia antes de pulsar.
+  &--clickable {
+    cursor: pointer;
+  }
+}
+
+.chart__empty {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  text-align: center;
+  @include p(2rem);
+}
+
+// La tabla de respaldo, dentro de su panel lateral.
+.chart__table__panel {
+  @include flex($direction: column, $align: stretch, $gap: 1rem);
+}
+
+.chart__table__head {
+  @include flex($direction: column, $align: stretch, $gap: 0.25rem);
+}
+
+/** De qué gráfico son estos datos: el título del panel dice «los datos», este dice de qué. */
+.chart__table__subject {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.chart__table__intro {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  line-height: 1.5;
+}
+
+/**
+ * El marco de la tabla.
+ *
+ * El desplazamiento horizontal va aquí y no en la tabla: con `display: block` sobre la propia
+ * tabla —que es como estaba— el navegador deja de tratarla como tabla, y con ella se pierden la
+ * cabecera fija y el reparto automático de columnas.
+ */
+.chart__table__scroll {
+  overflow-x: auto;
+  max-height: 60vh;
+  overflow-y: auto;
+  @include rounded();
+  border: 1px solid var(--border-color);
+}
+
+.chart__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $text-sm;
+
+  th,
+  td {
+    padding: 0.5rem 0.875rem;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-top: 1px solid var(--border-color);
+  }
+
+  // Filas alternas: con doce meses y tres columnas, seguir una fila con la vista sin una guía es
+  // justo lo que hace que se lea mal un número.
+  tbody tr:nth-child(even) {
+    background-color: var(--background-color);
+  }
+
+  tbody th {
+    font-weight: $font-medium;
+    color: var(--color);
+  }
+
+  /*
+   * La cabecera se queda arriba al desplazar.
+   *
+   * Una tabla de doce meses cabe, pero la de un año por días no: sin esto, a mitad de la lista ya
+   * no se sabe qué columna es cuál, que es el mismo problema que la tabla venía a resolver.
+   */
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    color: var(--neutral-color);
+  }
+
+  tfoot th,
+  tfoot td {
+    position: sticky;
+    bottom: 0;
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+}
+
+/**
+ * El nombre de una fila cuando lleva a algún sitio.
+ *
+ * Se pinta como enlace y no como botón —sin marco, en color de marca— porque es lo que es: un salto a
+ * la pantalla de ese dato. Que por debajo sea un `<button>` es un detalle de implementación (navega
+ * con JavaScript, no con un `href`), y no tiene por qué notarse.
+ */
+.chart__table__link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--primary-color);
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/**
+ * Las columnas de cifras, a la derecha y con cifras de ancho fijo.
+ *
+ * `tabular-nums` hace que el 1 ocupe lo mismo que el 8: sin él, una columna de importes queda con
+ * los dígitos bailando y no se pueden comparar dos filas de un vistazo.
+ */
+.chart__table__value {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+}
+
+/** El nombre de una serie en la cabecera, con la muestra del color que tiene en el gráfico. */
+.chart__table__serie {
+  @include flex($justify: flex-end, $align: center, $gap: 0.375rem);
+}
+
+.chart__table__swatch {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.chart__table__count {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+/**
+ * El disparador de la tabla de datos: texto con su icono, sin marco.
+ *
+ * Es un apoyo del gráfico y no una acción de la tarjeta: con marco de botón competía con el propio
+ * gráfico por la atención, que es justo al revés de lo que hace falta.
+ */
+.chart__table__trigger {
+  @include flex($align: center, $gap: 0.375rem);
+  align-self: flex-end;
+  font-size: $text-xs;
+  color: var(--neutral-color);
+  cursor: pointer;
+
+  svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  &:hover {
+    color: var(--primary-color);
+  }
+}

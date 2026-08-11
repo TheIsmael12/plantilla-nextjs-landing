@@ -41,7 +41,8 @@ export type ButtonSize = "sm" | "md" | "full";
  * @property {ButtonSize} [size] - Tamaño del botón; por defecto "md"
  * @property {ButtonVariant} [variant] - Variante visual; sin valor se usa el estilo base sin color semántico (p. ej. el botón de cerrar de un modal)
  * @property {boolean} [disabled] - Deshabilita el botón e impide cualquier interacción
- * @property {ReactNode} [children] - Contenido adicional (icono, texto) renderizado antes del texto de `title`
+ * @property {ReactNode} [children] - Contenido adicional (icono, texto) renderizado junto al texto de `title`, a un lado u otro según `iconPosition`
+ * @property {("left"|"right")} [iconPosition] - En qué lado del texto de `title` se renderiza `children`; por defecto "left" (p. ej. "siguiente" queda más natural con la flecha a la derecha)
  * @property {MouseEventHandler<HTMLButtonElement>} [onClick] - Handler de click
  * @property {string} [ariaLabel] - Clave de traducción (namespace `Buttons`) usada como `aria-label`, para botones sin texto visible
  * @property {string} [className] - Clases CSS adicionales
@@ -53,6 +54,7 @@ export interface ButtonProps {
   variant?: ButtonVariant;
   disabled?: boolean;
   children?: ReactNode;
+  iconPosition?: "left" | "right";
   onClick?: MouseEventHandler<HTMLButtonElement>;
   ariaLabel?: string;
   className?: string;

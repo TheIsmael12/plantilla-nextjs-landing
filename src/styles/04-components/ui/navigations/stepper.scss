@@ -1,0 +1,106 @@
+// Estilos de Stepper (components/ui/navigations/Stepper.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.stepper {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.stepper__item {
+  display: flex;
+  align-items: center;
+  flex: 1 1 0;
+
+  &:last-child {
+    flex: 0 0 auto;
+  }
+}
+
+.stepper__step {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  @include flex($direction: column, $justify: flex-start, $align: center, $gap: 0.4375rem);
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.stepper__index {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  background-color: var(--neutral-color-light);
+  color: var(--neutral-color-active);
+  border: 2px solid transparent;
+  @include rounded(999px);
+  @include flex($justify: center, $align: center, $gap: 0);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.stepper__label {
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  color: var(--neutral-color);
+  white-space: nowrap;
+  transition: color 0.15s ease;
+}
+
+.stepper__step--current {
+  .stepper__index {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border-color: var(--primary-color-light);
+  }
+
+  .stepper__label {
+    color: var(--color);
+    font-weight: $font-semibold;
+  }
+}
+
+.stepper__step--completed {
+  .stepper__index {
+    background-color: var(--primary-color-light);
+    color: var(--primary-color);
+  }
+
+  .stepper__label {
+    color: var(--neutral-color-active);
+  }
+
+  &:hover:not(:disabled) .stepper__index {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+  }
+}
+
+.stepper__connector {
+  flex: 1;
+  height: 2px;
+  min-width: 1.5rem;
+  background-color: var(--border-color);
+  margin: 0 0.5rem;
+  align-self: flex-start;
+  margin-top: 0.9375rem;
+  transition: background-color 0.15s ease;
+
+  &--completed {
+    background-color: var(--primary-color);
+  }
+}

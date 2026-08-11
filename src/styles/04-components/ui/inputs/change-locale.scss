@@ -1,6 +1,6 @@
 // Estilos de ChangeLocale (components/ui/inputs/ChangeLocale.tsx).
 
-@use "../../../00-settings/typography" as *;
+@use "../../../00-settings/variables" as *;
 @use "../../../01-tools/mixins" as *;
 
 // Por defecto (sin modificador) el ancho es automático; &__full y &__md son opt-in.
@@ -76,11 +76,9 @@
   }
 
   &__listbox {
-    // Por encima del modal (z-index 95): este listbox se porta a
-    // `document.body` igual que `ModalComponent`, así que si se abre un
-    // `ChangeLocale` dentro de un modal necesita superar su z-index para no
-    // quedar oculto detrás.
-    z-index: 96;
+    // Se porta a `document.body`, igual que `ModalComponent`: si se abre dentro de un modal
+    // tiene que superarlo o queda recortado detrás. Ver `00-settings/_layers.scss`.
+    z-index: $layer-modal-dropdown;
     max-height: 16rem;
     overflow-y: auto;
     border: 1px solid var(--border-color);

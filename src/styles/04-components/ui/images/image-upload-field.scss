@@ -1,0 +1,55 @@
+// Estilos de ImageUploadField (components/ui/images/ImageUploadField.tsx).
+//
+// Mismas medidas que el logo de la empresa en la intranet, para que una imagen subida se vea igual en las dos
+// aplicaciones: un cuadrado de 6rem con la imagen contenida, nunca recortada.
+
+@use "../../../00-settings/variables" as *;
+@use "../../../01-tools/mixins" as *;
+
+.image-upload {
+  @include flex($justify: flex-start, $align: center, $gap: 1.5rem);
+  flex-wrap: wrap;
+}
+
+.image-upload__preview {
+  width: 6rem;
+  height: 6rem;
+  /*
+   * `contain` y no `cover`: un logo recortado deja de ser el logo.
+   *
+   * Con `cover` la imagen llena el cuadrado a costa de comerse los bordes, y el nombre de una empresa suele
+   * estar justo ahí. Contenida sobra fondo por los lados, y sobrar es mejor que faltar.
+   */
+  object-fit: contain;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color-light);
+  @include rounded();
+
+  // Cuando no hay imagen, `BackendImage` pinta su respaldo: se centra el icono en el mismo cuadrado.
+  &.backend-image__fallback {
+    @include flex($justify: center, $align: center, $gap: 0);
+    color: var(--neutral-color);
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+
+.image-upload__actions {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.6rem);
+  // Que la columna de acciones pueda encogerse y envolver en un móvil en vez de empujar la vista previa.
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+.image-upload__hint {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+.image-upload__buttons {
+  @include flex($justify: flex-start, $align: center, $gap: 0.6rem);
+  flex-wrap: wrap;
+}

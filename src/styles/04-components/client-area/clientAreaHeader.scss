@@ -9,7 +9,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: $layer-header;
   height: 5rem;
   background-color: var(--surface-color);
   border-bottom: 1px solid transparent;

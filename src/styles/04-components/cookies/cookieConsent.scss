@@ -7,7 +7,7 @@
   position: fixed;
   bottom: 1.25rem;
   right: 1.25rem;
-  z-index: 9999;
+  z-index: $layer-cookie-consent;
   max-width: 30rem;
   width: calc(100vw - 2rem);
   background: var(--background-color);

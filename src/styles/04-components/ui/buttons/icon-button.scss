@@ -1,0 +1,75 @@
+// Estilos de IconButton (components/ui/buttons/IconButton.tsx).
+
+@use "../../../01-tools/mixins" as *;
+
+.icon-btn {
+  flex-shrink: 0;
+  border: none;
+  background-color: transparent;
+  color: var(--neutral-color);
+  cursor: pointer;
+  @include rounded(999px);
+  @include flex($justify: center, $align: center, $gap: 0);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &--sm {
+    width: 1.75rem;
+    height: 1.75rem;
+
+    svg {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+  }
+
+  &--md {
+    width: 2.25rem;
+    height: 2.25rem;
+
+    svg {
+      width: 1.05rem;
+      height: 1.05rem;
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &--neutral:hover:not(:disabled) {
+    color: var(--color);
+    background-color: var(--neutral-color-light);
+  }
+
+  &--primary:hover:not(:disabled) {
+    color: var(--primary-color);
+    background-color: var(--primary-color-light);
+  }
+
+  &--error:hover:not(:disabled) {
+    color: var(--error-color);
+    background-color: var(--error-color-light);
+  }
+
+  &--info:hover:not(:disabled) {
+    color: var(--info-color);
+    background-color: var(--info-color-light);
+  }
+
+  &--success:hover:not(:disabled) {
+    color: var(--success-color);
+    background-color: var(--success-color-light);
+  }
+
+  &--warning:hover:not(:disabled) {
+    color: var(--warning-color);
+    background-color: var(--warning-color-light);
+  }
+}

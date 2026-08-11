@@ -1145,3 +1145,111 @@ export interface IncidentCommentResponse {
   createdAt: string;
   attachments?: IncidentAttachment[];
 }
+
+/**
+ * Un aviso del tablón de la comunidad, tal y como lo devuelve
+ * `GET client/me/communities/:serviceId/announcements`.
+ *
+ * El portal los recibe **todos**, incluidos los programados y los caducados, y los distingue por
+ * `isVisible`: quien es dueño de la comunidad necesita ver lo que va a salir y lo que ya salió, no solo lo
+ * que está puesto hoy. La regla de qué está vivo la aplica el servidor; aquí solo se lee.
+ * @interface PortalCommunityAnnouncement
+ * @property {string} id - Identificador del aviso
+ * @property {string} clientServiceId - Comunidad a la que pertenece
+ * @property {string} title - Titular del aviso
+ * @property {string} body - Cuerpo del aviso, en texto plano
+ * @property {string} publishedAt - Cuándo empieza a verse (ISO 8601); una fecha futura es un aviso programado
+ * @property {string | null} [expiresAt] - Cuándo deja de verse (ISO 8601), o `null` si no caduca
+ * @property {boolean} pinned - Si va fijado arriba del tablón
+ * @property {string | null} [color] - Color del aviso en hexadecimal, o `null` para el de por defecto
+ * @property {string | null} [createdByName] - Quién lo publicó, ya resuelto
+ * @property {boolean} isVisible - Si un vecino lo está viendo ahora mismo
+ * @property {string} createdAt - Fecha de creación (ISO 8601)
+ */
+export interface PortalCommunityAnnouncement {
+  id: string;
+  clientServiceId: string;
+  title: string;
+  body: string;
+  publishedAt: string;
+  expiresAt?: string | null;
+  pinned: boolean;
+  color?: string | null;
+  createdByName?: string | null;
+  isVisible: boolean;
+  createdAt: string;
+}
+
+/**
+ * Filtros del listado de credenciales, más allá de la paginación
+ * (`GET client/me/communities/:serviceId/lock-credentials`).
+ * @interface CommunityCredentialsQuery
+ * @extends CommunityListQuery
+ * @property {string} [residentMembershipId] - Acotar a un vecino concreto
+ * @property {string} [lockGroupId] - Acotar a las de un llavero; excluyente con `lockId`
+ * @property {string} [lockId] - Acotar a las de una puerta concreta
+ * @property {boolean} [onlyLive] - Solo las que abren o van a abrir: excluye revocadas y caducadas
+ */
+export interface CommunityCredentialsQuery extends CommunityListQuery {
+  residentMembershipId?: string;
+  lockGroupId?: string;
+  lockId?: string;
+  onlyLive?: boolean;
+}
+
+/**
+ * Un vecino del reparto en lote: a quién se le da la llave y con qué etiqueta queda en la lista.
+ *
+ * La etiqueta la compone la pantalla a partir del nombre y la vivienda, no la API: así lo que se ve en la
+ * vista previa antes de repartir es exactamente lo que va a quedar escrito.
+ * @interface BatchCredentialTarget
+ * @property {string} residentMembershipId - Pertenencia del vecino que recibe la llave
+ * @property {string} label - Etiqueta de esta credencial (máx. 100)
+ * @property {string} [pin] - PIN propio de este vecino, si el tipo es PIN; sin él lo genera la API
+ */
+export interface BatchCredentialTarget {
+  residentMembershipId: string;
+  label: string;
+  pin?: string;
+}
+
+/**
+ * Reparto de la misma llave a varios vecinos
+ * (`POST client/me/communities/:serviceId/lock-credentials/batch`).
+ *
+ * Un destino, un tipo y una validez para todos, y la lista de vecinos. **No admite tarjetas NFC**: cada
+ * tarjeta física tiene su UID y la API lo exige al emitir, así que se dan de una en una.
+ * @interface BatchCreateLockCredentialsDto
+ * @property {string} [lockId] - La puerta a la que dan acceso; excluyente con `lockGroupId`
+ * @property {string} [lockGroupId] - El llavero al que dan acceso; excluyente con `lockId`
+ * @property {LockCredentialType} type - Tipo de credencial, el mismo para todas
+ * @property {string} [validFrom] - Desde cuándo valen (ISO 8601)
+ * @property {string} [validUntil] - Hasta cuándo valen (ISO 8601)
+ * @property {boolean} [canBypassSchedule] - Si pueden abrir fuera del horario de la puerta
+ * @property {string} [bypassReason] - Por qué, obligatorio si se concede el salto
+ * @property {BatchCredentialTarget[]} residents - Los vecinos que reciben la llave
+ */
+export interface BatchCreateLockCredentialsDto {
+  lockId?: string;
+  lockGroupId?: string;
+  type: LockCredentialType;
+  validFrom?: string;
+  validUntil?: string;
+  canBypassSchedule?: boolean;
+  bypassReason?: string;
+  residents: BatchCredentialTarget[];
+}
+
+/**
+ * Parte de un reparto en lote.
+ *
+ * Un vecino que falla no cancela el resto, así que la respuesta trae las dos listas. Las emitidas llegan
+ * completas, con su `plainPin` cuando el tipo es PIN: **es la única vez que ese PIN se puede leer**.
+ * @interface LockCredentialBatchResult
+ * @property {LockCredentialCreated[]} created - Las credenciales emitidas
+ * @property {{residentMembershipId: string, error: string}[]} failed - Los vecinos que se quedaron sin llave, con el código del error
+ */
+export interface LockCredentialBatchResult {
+  created: LockCredentialCreated[];
+  failed: { residentMembershipId: string; error: string }[];
+}

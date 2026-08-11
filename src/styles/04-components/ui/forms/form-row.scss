@@ -11,33 +11,41 @@
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr;
+  /*
+   * Las columnas van con `minmax(0, 1fr)` y no con `1fr` a secas.
+   *
+   * Un `1fr` es en realidad `minmax(auto, 1fr)`: la columna no puede bajar del ancho mínimo de su contenido,
+   * así que un campo con `min-width` propio —el selector de fecha pide 18rem— desborda la fila en vez de
+   * encogerse. Dentro de un modal estrecho eso se ve como un campo cortado por la mitad, que es lo que le
+   * pasaba a «Hasta» en el registro de accesos.
+   */
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem 1.25rem;
   align-items: start;
 
   &--cols-2 {
     @include screen(sm) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   &--cols-3 {
     @include screen(sm) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     @include screen(lg) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
   &--cols-4 {
     @include screen(sm) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     @include screen(lg) {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 

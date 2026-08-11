@@ -28,6 +28,7 @@ import { LOCK_STATUS_VARIANTS, formatCommunityDateTime } from '@/utils/community
 import Alert from '@/components/ui/alerts/Alert';
 import Badge from '@/components/ui/buttons/Badge';
 import Button from '@/components/ui/buttons/Button';
+import IconButton from '@/components/ui/buttons/IconButton';
 import Input from '@/components/ui/inputs/Input';
 import ModalComponent from '@/components/ui/modals/ModalComponent';
 import Select from '@/components/ui/inputs/Select';
@@ -195,112 +196,128 @@ export default function LockCard({ lock, locale, schedule }: LockCardProps) {
         </p>
       )}
 
-      {lock.isMainAccess && (
-        <p className="community-notice">
-          <TriangleAlertIcon aria-hidden="true" />
-          {t('Locks.mainAccessScheduleWarning')}
-        </p>
-      )}
+      {/*
+        Un acceso principal **no tiene editor de horario**, solo la explicación.
 
-      <div className="schedule-editor">
-        <strong>{t('Locks.ScheduleSection.title')}</strong>
-        <span className="community-form__help">{t('Locks.ScheduleSection.description')}</span>
-
-        {slots.length === 0 && (
+        Antes se avisaba de que no admite modo horario y aun así se pintaba el editor entero: se podían
+        añadir tramos, guardarlos y ver un horario configurado en una puerta que seguía abriendo a cualquier
+        hora. Ofrecer un control que no hace nada es peor que no ofrecerlo, porque parece que sí lo hace.
+      */}
+      {lock.isMainAccess ? (
+        <div className="schedule-editor">
+          <strong>{t('Locks.ScheduleSection.title')}</strong>
           <p className="community-notice">
             <DoorOpenIcon aria-hidden="true" />
-            {t('Locks.alwaysOpenNotice')}
+            {t('Locks.mainAccessScheduleWarning')}
           </p>
-        )}
-
-        <div className="schedule-editor__slots">
-          {slots.map((slot, index) => (
-            <div key={index} className="schedule-editor__slot">
-              <Select
-                id={`${lock.id}-day-${index}`}
-                name={`day-${index}`}
-                label={t('Locks.ScheduleSection.dayLabel')}
-                noTranslate
-                placeholder={t('Locks.ScheduleSection.dayPlaceholder')}
-                className="select__full"
-                value={slot.dayOfWeek}
-                onChange={(value) => updateSlot(index, { dayOfWeek: value as DayOfWeek })}
-                options={DAYS.map((day) => ({
-                  value: day,
-                  label: t(`DayOfWeek.${day}`),
-                }))}
-              />
-
-              <Input
-                id={`${lock.id}-start-${index}`}
-                name={`slot-start-${index}`}
-                type="time"
-                label={t('Locks.ScheduleSection.startLabel')}
-                noTranslate
-                className="input__full"
-                value={slot.startTime}
-                onChange={(event) => updateSlot(index, { startTime: event.target.value })}
-              />
-
-              <Input
-                id={`${lock.id}-end-${index}`}
-                name={`slot-end-${index}`}
-                type="time"
-                label={t('Locks.ScheduleSection.endLabel')}
-                noTranslate
-                className="input__full"
-                value={slot.endTime}
-                onChange={(event) => updateSlot(index, { endTime: event.target.value })}
-              />
-
-              <Input
-                id={`${lock.id}-label-${index}`}
-                name={`slot-label-${index}`}
-                label={t('Locks.ScheduleSection.slotLabel')}
-                noTranslate
-                placeholder={t('Locks.ScheduleSection.slotPlaceholder')}
-                className="input__full"
-                value={slot.label ?? ''}
-                maxLength={100}
-                onChange={(event) => updateSlot(index, { label: event.target.value })}
-              />
-
-              <button
-                type="button"
-                className="schedule-editor__slot-remove"
-                aria-label={t('Locks.ScheduleSection.removeSlot')}
-                onClick={() => removeSlot(index)}
-              >
-                <TrashIcon />
-              </button>
-            </div>
-          ))}
         </div>
+      ) : (
+        <div className="schedule-editor">
+          <strong>{t('Locks.ScheduleSection.title')}</strong>
+          <span className="community-form__help">{t('Locks.ScheduleSection.description')}</span>
 
-        {hasInvalidSlot && (
-          <p className="community-form__error">{t('Locks.ScheduleSection.invalidRange')}</p>
-        )}
-
-        <div className="schedule-editor__actions">
-          <Button size="sm" variant="outline" title="add" onClick={addSlot}>
-            <PlusIcon />
-          </Button>
-          <Button
-            size="sm"
-            variant="primary"
-            title="save"
-            onClick={() => run(() => putLockSchedule(lock.id, slots))}
-            disabled={isPending || hasInvalidSlot}
-          >
-            <SaveIcon />
-          </Button>
-          {slots.length > 0 && (
-            <Button size="sm" variant="outline" onClick={() => setSlots([])}>
-              {t('Locks.ScheduleSection.clearAll')}
-            </Button>
+          {slots.length === 0 && (
+            <p className="community-notice">
+              <DoorOpenIcon aria-hidden="true" />
+              {t('Locks.alwaysOpenNotice')}
+            </p>
           )}
+
+          <div className="schedule-editor__slots">
+            {slots.map((slot, index) => (
+              <div key={index} className="schedule-editor__slot">
+                <Select
+                  id={`${lock.id}-day-${index}`}
+                  name={`day-${index}`}
+                  label={t('Locks.ScheduleSection.dayLabel')}
+                  noTranslate
+                  placeholder={t('Locks.ScheduleSection.dayPlaceholder')}
+                  className="select__full"
+                  value={slot.dayOfWeek}
+                  onChange={(value) => updateSlot(index, { dayOfWeek: value as DayOfWeek })}
+                  options={DAYS.map((day) => ({
+                    value: day,
+                    label: t(`DayOfWeek.${day}`),
+                  }))}
+                />
+
+                <Input
+                  id={`${lock.id}-start-${index}`}
+                  name={`slot-start-${index}`}
+                  type="time"
+                  label={t('Locks.ScheduleSection.startLabel')}
+                  noTranslate
+                  className="input__full"
+                  value={slot.startTime}
+                  onChange={(event) => updateSlot(index, { startTime: event.target.value })}
+                />
+
+                <Input
+                  id={`${lock.id}-end-${index}`}
+                  name={`slot-end-${index}`}
+                  type="time"
+                  label={t('Locks.ScheduleSection.endLabel')}
+                  noTranslate
+                  className="input__full"
+                  value={slot.endTime}
+                  onChange={(event) => updateSlot(index, { endTime: event.target.value })}
+                />
+
+                <Input
+                  id={`${lock.id}-label-${index}`}
+                  name={`slot-label-${index}`}
+                  label={t('Locks.ScheduleSection.slotLabel')}
+                  noTranslate
+                  placeholder={t('Locks.ScheduleSection.slotPlaceholder')}
+                  className="input__full"
+                  value={slot.label ?? ''}
+                  maxLength={100}
+                  onChange={(event) => updateSlot(index, { label: event.target.value })}
+                />
+
+                {/*
+                  El `IconButton` del sistema, no un `<button>` con clase propia: así el aspa de quitar un
+                  tramo tiene el mismo tamaño, el mismo color de peligro y el mismo comportamiento al pasar
+                  el ratón que cualquier otra acción de icono de la aplicación.
+                */}
+                <IconButton
+                  size="sm"
+                  variant="error"
+                  ariaLabel="removeSlot"
+                  className="schedule-editor__slot-remove"
+                  onClick={() => removeSlot(index)}
+                >
+                  <TrashIcon />
+                </IconButton>
+              </div>
+            ))}
+          </div>
+
+          {hasInvalidSlot && (
+            <p className="community-form__error">{t('Locks.ScheduleSection.invalidRange')}</p>
+          )}
+
+          <div className="schedule-editor__actions">
+            <Button size="sm" variant="outline" title="add" onClick={addSlot}>
+              <PlusIcon />
+            </Button>
+            <Button
+              size="sm"
+              variant="primary"
+              title="save"
+              onClick={() => run(() => putLockSchedule(lock.id, slots))}
+              disabled={isPending || hasInvalidSlot}
+            >
+              <SaveIcon />
+            </Button>
+            {slots.length > 0 && (
+              <Button size="sm" variant="outline" onClick={() => setSlots([])}>
+                {t('Locks.ScheduleSection.clearAll')}
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="schedule-editor">
         <strong>{t('Locks.ExceptionsSection.title')}</strong>

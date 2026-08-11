@@ -1,0 +1,61 @@
+// Estilos de FileUpload (components/ui/files/FileUpload.tsx).
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.file-upload {
+  @include flex($direction: column, $align: stretch, $gap: 0.75rem);
+  width: 100%;
+
+  &__dropzone {
+    @include flex($direction: column, $justify: center, $gap: 0.5rem);
+    @include rounded();
+    @include px(1.5rem);
+    @include py(2rem);
+    border: 2px dashed var(--border-color);
+    background-color: var(--surface-color-light);
+    cursor: pointer;
+    text-align: center;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+      color: var(--primary-color);
+    }
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--primary-color);
+      background-color: var(--primary-color-light);
+    }
+
+    &--dragging {
+      border-color: var(--primary-color);
+      background-color: var(--primary-color-light);
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+
+      &:hover {
+        border-color: var(--border-color);
+        background-color: var(--surface-color-light);
+      }
+    }
+  }
+
+  &__text {
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+
+  &__hint {
+    font-size: $text-xs;
+    color: var(--neutral-color);
+  }
+}

@@ -12,6 +12,8 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
+import { useIsMounted } from "@/hooks/useIsMounted";
+
 import { ChangeLocaleProps } from "@/types/ui/inputs/change-locale";
 
 import { CheckIcon, ChevronDownIcon } from "lucide-react";
@@ -55,15 +57,16 @@ export default function ChangeLocale({
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const [position, setPosition] = useState<DropdownPosition | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  // El portal solo puede montarse tras la hidratación: `document` ya existe
-  // en el primer render del cliente (a diferencia del servidor), así que
-  // condicionar el portal a `typeof document !== "undefined"` provocaría un
-  // mismatch de hidratación (servidor sin portal, cliente con portal).
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  /*
+   * El portal solo puede montarse tras la hidratación: `document` ya existe en el primer render del cliente
+   * (a diferencia del servidor), así que condicionar el portal a `typeof document !== "undefined"` provocaría
+   * un desajuste de hidratación —servidor sin portal, cliente con portal—.
+   *
+   * Se usa el hook compartido en vez de repetir el patrón aquí: es el mismo «ya estoy en cliente» que
+   * necesitan el selector de tema y los gráficos, y así este componente deja de necesitar un `setState`
+   * dentro de un efecto.
+   */
+  const mounted = useIsMounted();
 
   const selectedIndex = options.findIndex((opt) => opt.value === value);
   const selectedOption = selectedIndex >= 0 ? options[selectedIndex] : null;

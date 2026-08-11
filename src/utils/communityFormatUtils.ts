@@ -55,6 +55,23 @@ export const INCIDENT_PRIORITY_VARIANTS: Record<IncidentPriority, BadgeVariant> 
 };
 
 /** Variante de `Badge` por estado de una incidencia. */
+/**
+ * Los estados de una incidencia en el orden de su ciclo de vida, de abierta a cerrada.
+ *
+ * Existe como lista y no se deduce de las claves de {@link INCIDENT_STATUS_VARIANTS} porque el orden de las
+ * claves de un objeto es una casualidad del sitio donde se escribieron: hoy coincide, y el día que alguien
+ * ordene ese objeto alfabéticamente —algo que nadie consideraría un cambio de comportamiento— el reparto por
+ * estado del panel empezaría a contar la historia al revés, sin que fallara nada.
+ */
+export const INCIDENT_STATUS_ORDER: IncidentStatus[] = [
+  "NUEVA",
+  "EN_CURSO",
+  "ESPERANDO_TERCERO",
+  "RESUELTA",
+  "CERRADA",
+  "RECHAZADA",
+];
+
 export const INCIDENT_STATUS_VARIANTS: Record<IncidentStatus, BadgeVariant> = {
   NUEVA: "info",
   EN_CURSO: "pending",

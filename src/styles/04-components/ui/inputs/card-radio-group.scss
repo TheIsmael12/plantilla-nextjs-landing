@@ -40,6 +40,23 @@
     min-width: 18rem;
     align-items: flex-start;
   }
+
+  /*
+   * Rejilla que llena la fila: tantas tarjetas por línea como quepan, de 14rem mínimo.
+   *
+   * Las otras variantes fijan **dos** columnas, y con siete opciones en un modal ancho eso deja dos tercios
+   * de la ventana vacíos y unas tarjetas tan estrechas que su descripción parte en dos líneas: apelotonado a
+   * la izquierda y desierto a la derecha. Con `auto-fit` salen tres o cuatro por fila según el ancho que haya,
+   * y a 14rem la frase de ayuda cabe de una vez.
+   */
+  &.card-radio-group__grid {
+    width: 100%;
+    align-items: stretch;
+
+    .card-radio-group {
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    }
+  }
 }
 
 .card-radio-group__info {

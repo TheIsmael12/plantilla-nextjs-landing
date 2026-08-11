@@ -18,13 +18,22 @@
     color 0.15s ease;
 
   & svg {
-    flex: 1;
+    /*
+     * `flex: 0 0 auto`, no `flex: 1`.
+     *
+     * Con `flex: 1` el icono era un elemento que **crece**: en un botón con icono y texto se llevaba todo el
+     * espacio sobrante y empujaba el texto contra el borde, y en un botón estrecho —o en móvil, donde el
+     * ancho aprieta— el icono se estiraba y quedaba descentrado respecto a la letra. Un icono mide lo que
+     * mide; lo que reparte el espacio es el `gap`.
+     */
+    flex: 0 0 auto;
     height: 1.15rem;
     width: 1.15rem;
   }
 
   &--sm {
-    @include p(0.25rem);
+    // 0.5rem: con 0.25rem el botón pequeño no tenía aire y el icono tocaba el borde del marco.
+    @include p(0.5rem);
   }
 
   &--md {
@@ -71,7 +80,9 @@
   }
 
   &--outline {
-    background-color: transparent;
+    // La superficie, no transparente: sobre un fondo gris —una barra, una fila de tabla— un botón
+    // transparente se confunde con lo que tiene detrás y deja de leerse como un botón.
+    background-color: var(--surface-color);
     border-color: var(--border-color);
     color: var(--color);
 

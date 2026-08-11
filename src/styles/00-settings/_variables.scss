@@ -1,3 +1,4 @@
 // Aggregator: re-exports every design-token partial under a single
 // namespace so components can do `@use "../../00-settings/variables" as *;`
 @forward "typography";
+@forward "layers";

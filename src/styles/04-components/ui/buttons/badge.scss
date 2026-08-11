@@ -45,4 +45,19 @@
     color: var(--neutral-color-active);
     background-color: var(--neutral-color-light);
   }
+
+  /*
+   * «Pendiente»: la variante que `BadgeVariant` declaraba y **nadie había pintado**.
+   *
+   * La usan cuatro estados del módulo de comunidad —una invitación sin aceptar, una llave sin programar, una
+   * incidencia en curso, un pago pendiente—, y sin reglas salían como texto suelto: en el detalle de una
+   * incidencia, «En curso» parecía una palabra perdida al lado de dos pastillas de color.
+   *
+   * Va en ámbar y no en gris: pendiente no es lo mismo que neutro. Dice «esto está a medias y alguien tiene
+   * que volver», que es justo lo que se busca al mirar una lista de estados.
+   */
+  &--pending {
+    color: var(--warning-color-active);
+    background-color: var(--warning-color-light);
+  }
 }

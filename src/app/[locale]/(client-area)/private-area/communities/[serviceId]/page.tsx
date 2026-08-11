@@ -1,24 +1,20 @@
-import { redirect } from '@/i18n/navigation';
-
-import type { AnyHref } from '@/i18n/navigation';
+import CommunityHomeViewPage from '@/views/(client-area)/private-area/communities/CommunityHomeViewPage';
 
 interface CommunityHomePageProps {
   params: Promise<{ locale: string; serviceId: string }>;
 }
 
 /**
- * Página de `/private-area/communities/[serviceId]`: redirige a vecinos, que
- * es la sección con la que se empieza a trabajar en una comunidad. Se prefiere
- * redirigir a inventar un resumen que duplicaría lo que ya muestran las
- * tarjetas del selector.
+ * Página de `/private-area/communities/[serviceId]`: la portada de la comunidad.
+ *
+ * Antes redirigía a la lista de vecinos. Ahora es una pantalla propia con el tablón, las cifras del
+ * edificio, los gráficos de sus incidencias y el resumen del registro de accesos — lo que se quiere saber al
+ * abrir una comunidad, sin tener que recorrer sus cuatro pestañas.
  * @param {CommunityHomePageProps} props - Comunidad activa y locale
- * @returns {Promise<never>} Nunca retorna: siempre redirige
+ * @returns {Promise<JSX.Element>} La portada de la comunidad renderizada
  */
 export default async function CommunityHomePage({ params }: CommunityHomePageProps) {
   const { locale, serviceId } = await params;
 
-  redirect({
-    href: `/private-area/communities/${serviceId}/residents` as AnyHref,
-    locale,
-  });
+  return <CommunityHomeViewPage serviceId={serviceId} locale={locale} />;
 }

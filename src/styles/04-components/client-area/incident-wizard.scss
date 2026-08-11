@@ -1,0 +1,87 @@
+// Asistente para abrir una incidencia (CreateIncidentModal).
+//
+// Vive dentro del modal grande, así que el alto lo gobierna él: aquí solo se ordenan las piezas de cada paso
+// y se fija el pie de navegación, que es lo único que debe estar siempre a la vista.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.incident-wizard {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.25rem);
+}
+
+/*
+ * La pregunta del paso, en grande y en primera persona.
+ *
+ * Es lo que convierte un formulario en una conversación: quien abre una incidencia no está «rellenando el
+ * campo tipo», está contestando a «¿qué ha pasado?». Va sobre los controles y no como etiqueta de uno de
+ * ellos, porque manda sobre todo el paso.
+ */
+.incident-wizard__question {
+  font-family: $font-title;
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.incident-wizard__fields {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+}
+
+.incident-wizard__hint {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+.incident-wizard__review {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+}
+
+.incident-wizard__summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.85rem 1.25rem;
+  margin: 0;
+  border: 1px solid var(--border-color);
+  @include rounded(0.6rem);
+  @include p(1rem);
+
+  dt {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+  }
+
+  dd {
+    margin: 0.15rem 0 0;
+    color: var(--color);
+    // La descripción puede traer saltos de línea de quien la escribió: se respetan.
+    white-space: pre-line;
+  }
+}
+
+// La descripción ocupa la fila entera: es un texto largo y en una columna de 12rem no se lee.
+.incident-wizard__summary-wide {
+  grid-column: 1 / -1;
+}
+
+/*
+ * El pie del asistente, no el del modal.
+ *
+ * Los botones cambian de texto según el paso —«Cancelar» pasa a «Atrás», «Siguiente» pasa a «Abrir la
+ * incidencia»—, y eso un pie fijo de confirmar/cancelar no lo puede decir. Va separado por una línea para que
+ * se lea como «lo que hago cuando acabe con esto de arriba».
+ */
+.incident-wizard__actions {
+  @include flex($justify: space-between, $align: center, $gap: 0.75rem);
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+
+  // En móvil, uno debajo del otro y a lo ancho: dos botones pequeños en una fila estrecha se pulsan mal.
+  @include screen(sm, max) {
+    @include flex($direction: column-reverse, $justify: stretch, $align: stretch, $gap: 0.5rem);
+
+    .btn {
+      width: 100%;
+    }
+  }
+}

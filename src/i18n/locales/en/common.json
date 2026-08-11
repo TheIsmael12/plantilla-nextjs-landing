@@ -59,6 +59,46 @@
       "openExternal": "View on Google Maps",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
+    },
+    "Chart": {
+      "empty": "No data for this period",
+      "description": "Chart of {series}",
+      "showTable": "See the data as a table",
+      "category": "Period",
+      "tableTitle": "The chart data",
+      "tableIntro": "The same information as the chart, figure by figure. It is here so you can read an exact value — the drawing gives the shape, not the number — and so it can be read without relying on sight or on telling colours apart.",
+      "tableTotal": "Total",
+      "tableRows": "{count, plural, =1 {# row} other {# rows}}",
+      "item": "Item"
+    },
+    "FileViewer": {
+      "title": "File viewer",
+      "counter": "{current} of {total}",
+      "unsupported": "{fileName} cannot be previewed.",
+      "csvError": "{fileName} could not be read.",
+      "csvEmpty": "{fileName} has no rows.",
+      "csvRows": "{count, plural, one {# row} other {# rows}}",
+      "csvColumns": "{count, plural, one {# column} other {# columns}}",
+      "pdfError": "{fileName} could not be displayed.",
+      "pdfPage": "Page {current} of {total}"
+    },
+    "FileUpload": {
+      "dropzone": "Drag your files here or click to select them",
+      "hint": "Up to {maxFiles} files, {maxSize} MB each",
+      "view": "View {fileName}",
+      "maxFilesExceeded": "You can only attach {maxFiles} files.",
+      "fileTooLarge": "{fileName} exceeds the {maxSize} MB size limit.",
+      "invalidType": "The format of {fileName} is not supported.",
+      "totalSizeExceeded": "The files add up to {totalSize} MB and the limit is {maxTotalSize} MB.",
+      "inputLabel": "Select files",
+      "fileTooLargeForZone": "The file exceeds the {maxSize} MB limit allowed here.",
+      "invalidTypeForZone": "That file format is not supported here."
+    },
+    "ImageUpload": {
+      "hint": "Formats {formats}, up to {maxSizeMB} MB. It looks best with a transparent background and a landscape ratio.",
+      "chooseImage": "Choose an image",
+      "confirmRemoveTitle": "Remove the image",
+      "confirmRemoveDescription": "The current image will be deleted. Getting it back means uploading the file again."
     }
   }
 }

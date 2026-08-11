@@ -15,6 +15,8 @@ import { isErrorStatus } from '@/utils/httpStatusUtils';
 import { notifyResponse } from '@/utils/toastUtils';
 
 import Avatar from '@/components/ui/avatars/Avatar';
+import Button from '@/components/ui/buttons/Button';
+import IconButton from '@/components/ui/buttons/IconButton';
 import IncidentAttachmentList from '@/components/ui/client-area/IncidentAttachmentList';
 import Textarea from '@/components/ui/inputs/Textarea';
 
@@ -179,9 +181,19 @@ export default function IncidentConversation({
               {files.map((file, index) => (
                 <span key={`${file.name}-${index}`} className="incident-detail__composer-file">
                   {file.name}
-                  <button type="button" onClick={() => removeFile(index)} aria-label="remove">
+                  {/*
+                    Los tres botones de icono de este compositor eran `<button>` con `aria-label="remove"`,
+                    `"attach"` y `"send"`: literales en inglés que un lector de pantalla lee tal cual, en una
+                    aplicación en español. Con `IconButton` la etiqueta sale del namespace `Buttons` y además
+                    heredan el tamaño y el color del resto de las acciones de icono.
+                  */}
+                  <IconButton
+                    size="sm"
+                    ariaLabel="removeFile"
+                    onClick={() => removeFile(index)}
+                  >
                     <XIcon size={14} aria-hidden="true" />
-                  </button>
+                  </IconButton>
                 </span>
               ))}
             </div>
@@ -207,25 +219,28 @@ export default function IncidentConversation({
             hidden
             onChange={handlePick}
           />
-          <button
-            type="button"
+          <IconButton
+            ariaLabel="attachFile"
             className="incident-detail__composer-attach"
             onClick={() => inputRef.current?.click()}
             disabled={files.length >= MAX_FILES_PER_MESSAGE}
-            aria-label="attach"
           >
             <PaperclipIcon aria-hidden="true" />
-          </button>
+          </IconButton>
 
-          <button
-            type="button"
-            className="incident-detail__composer-send"
+          {/*
+            Enviar va con su texto y no solo con el avión de papel: es la acción de la que depende todo el
+            bloque, y un icono suelto obliga a adivinar —o a pasar el ratón por encima y esperar el título—.
+          */}
+          <Button
+            variant="primary"
+            title="send"
+            iconPosition="right"
             onClick={handleSubmit}
             disabled={isSubmitting || !body.trim()}
-            aria-label="send"
           >
             <SendIcon aria-hidden="true" />
-          </button>
+          </Button>
         </div>
       </div>
     </section>

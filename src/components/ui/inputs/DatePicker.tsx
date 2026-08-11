@@ -248,8 +248,17 @@ export default function DatePicker({
       closeCalendar();
       return;
     }
+    /*
+     * Tab cierra el calendario y **devuelve el foco al campo**, en vez de dejarlo en el aire.
+     *
+     * Antes se cerraba sin recolocarlo (`closeCalendar(false)`), con la idea de que el tabulador siguiera su
+     * camino solo. No lo seguía: el día que tenía el foco desaparecía del documento al cerrarse el panel, así
+     * que el navegador se quedaba sin punto de partida y el foco saltaba al principio de la página — desde un
+     * modal, eso es salirse del modal. Devolviéndolo al campo, el Tab que se acaba de pulsar continúa desde
+     * él y va al control siguiente, que es lo que uno espera.
+     */
     if (event.key === "Tab") {
-      closeCalendar(false);
+      closeCalendar();
       return;
     }
 

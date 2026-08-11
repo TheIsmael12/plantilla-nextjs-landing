@@ -1,5 +1,5 @@
 // Estilos de Tabs (components/ui/navigations/Tabs.tsx).
-@use "../../../00-settings/typography" as *;
+@use "../../../00-settings/variables" as *;
 @use "../../../01-tools/mixins" as *;
 
 .tabs {
@@ -80,7 +80,7 @@
       width: 100%;
       max-height: 20rem;
       overflow-y: auto;
-      z-index: 999999 !important;
+      z-index: $layer-dropdown;
       border-radius: 0 0 0.5rem 0.5rem;
       border: 1px solid var(--border-color);
       border-top: none;

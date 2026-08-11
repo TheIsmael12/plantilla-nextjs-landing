@@ -1,25 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+/** El valor nunca cambia después de hidratar, así que no hay nada a lo que suscribirse. */
+const subscribe = () => () => {};
 
 /**
  * Indica si el componente ya se ha montado en cliente. Se usa para evitar
  * parpadeos de hidratación en componentes cuyo render depende de estado solo
- * disponible en cliente (p. ej. el tema resuelto por `next-themes`), donde el
- * markup del servidor no puede coincidir con el del cliente.
- * @returns {boolean} `false` durante el render del servidor y el primer render de cliente, `true` a partir del primer efecto
+ * disponible en cliente (p. ej. el tema resuelto por `next-themes`, o un portal
+ * a `document.body`), donde el markup del servidor no puede coincidir con el del
+ * cliente.
+ *
+ * Se resuelve con `useSyncExternalStore` y no con `useState` + `useEffect`, que es como estaba: aquello
+ * necesitaba silenciar la regla `set-state-in-effect` con un `eslint-disable`, porque llamar a `setState` en
+ * un efecto es justo lo que la regla persigue. Esta forma dice lo mismo sin excepciones — el «estado externo»
+ * es literalmente «estoy hidratado», con una instantánea distinta en servidor y en cliente— y evita el render
+ * de más que provocaba el `setState`.
+ * @returns {boolean} `false` durante el render del servidor y la hidratación, `true` en cliente
  */
 export function useIsMounted(): boolean {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    // justificación: no hay ningún sistema externo con el que sincronizar aquí
-    // — el propio hecho de que el efecto se haya ejecutado ya ES la señal de
-    // que el componente está montado en cliente, es una de las pocas
-    // excepciones legítimas a "no llames a setState dentro de un efecto".
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsMounted(true);
-  }, []);
-
-  return isMounted;
+  return useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
 }

@@ -4,6 +4,16 @@
 .auth-form {
   background: var(--surface-color);
   border: 1px solid var(--border-color);
+  /*
+   * Sombra, y no solo borde.
+   *
+   * En modo oscuro la superficie de la tarjeta es más oscura que el fondo de la página, así que no se lee
+   * como algo que está encima: sin sombra parecía un agujero. La sombra la despega en los dos temas y es lo
+   * que hace que la pantalla se vea como una tarjeta sobre un fondo y no como dos rectángulos pegados.
+   */
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 12px 28px -12px rgba(0, 0, 0, 0.28);
   @include rounded(0.75rem);
   @include p(2rem);
   display: grid;
@@ -53,6 +63,24 @@
       text-decoration: underline;
     }
   }
+}
+
+/*
+ * Por qué se ha cerrado la sesión.
+ *
+ * En tono informativo y no de error: que una sesión caduque no es un fallo de quien la tenía, y pintarlo en
+ * rojo junto al formulario le hace pensar que ha escrito algo mal antes de escribir nada.
+ */
+.auth-form__notice {
+  background-color: var(--info-color-light);
+  border: 1px solid var(--info-color);
+  color: var(--color);
+  font-size: $text-sm;
+  line-height: 1.5;
+  margin: 0;
+  @include px(1rem);
+  @include py(0.75rem);
+  @include rounded(0.5rem);
 }
 
 .auth-form__error {

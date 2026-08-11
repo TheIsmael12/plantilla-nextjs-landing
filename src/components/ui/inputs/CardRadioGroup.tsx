@@ -19,6 +19,7 @@ export default function CardRadioGroup({
   onChange,
   disabled,
   label,
+  ariaLabel,
   description,
   className,
 }: CardRadioGroupProps) {
@@ -26,7 +27,8 @@ export default function CardRadioGroup({
     <div
       className={`card-radio-group__field${className ? ` ${className}` : ""}`}
       role="radiogroup"
-      aria-label={label}
+      // `ariaLabel` para cuando el nombre ya lo pone un encabezado de fuera y repetirlo en pantalla sobraría.
+      aria-label={ariaLabel ?? label}
     >
       {(label || description) && (
         <div className="card-radio-group__info">

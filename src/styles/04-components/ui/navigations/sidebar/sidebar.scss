@@ -1,12 +1,12 @@
 // Estilos de Sidebar (components/ui/navigations/sidebar/Sidebar.tsx).
 
-@use "../../../../00-settings/typography" as *;
+@use "../../../../00-settings/variables" as *;
 @use "../../../../01-tools/mixins" as *;
 
 .sidebar__overlay {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: $layer-sidebar-overlay;
   background-color: rgba(0, 0, 0, 0.5);
 
   @include screen(lg, min) {
@@ -20,7 +20,7 @@
   top: 5rem;
   left: -18rem;
   bottom: 0;
-  z-index: 45;
+  z-index: $layer-sidebar;
   width: 18rem;
   background-color: var(--surface-color);
   border-right: 1px solid var(--border-color);

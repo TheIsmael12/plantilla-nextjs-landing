@@ -1,0 +1,280 @@
+// Portada de una comunidad: cifras, tablón, gráficos y resumen de accesos.
+//
+// Solo lo que no cubre `community-common.scss`. Las cifras del selector de comunidades siguen viviendo allí
+// (`.community-card__stat`): aquí las tarjetas son de otra cosa —son las de una sola comunidad, no las de
+// elegir entre varias— y comparten el aire, no las reglas.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.community-home__stats {
+  display: grid;
+  /*
+   * `auto-fit` con un mínimo, y no cuatro columnas fijas.
+   *
+   * Son cuatro cifras cortas: en un móvil caben dos por fila y en un escritorio las cuatro, sin que haya que
+   * escribir un punto de ruptura para cada caso. Y si algún día se añade una quinta, se coloca sola.
+   */
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.community-home__stat {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+  @include p(1rem);
+
+  dt {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+  }
+
+  dd {
+    margin: 0.25rem 0 0;
+    font-family: $font-title;
+    font-size: $text-2xl;
+    font-weight: $font-semibold;
+    color: var(--color);
+    @include flex($justify: flex-start, $align: baseline, $gap: 0.35rem);
+  }
+}
+
+// El tope del contrato, junto a la cifra pero sin competir con ella.
+.community-home__stat-of {
+  font-family: inherit;
+  font-size: $text-sm;
+  font-weight: 400;
+  color: var(--neutral-color);
+}
+
+.community-home__section {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+  margin-top: 2rem;
+}
+
+.community-home__section-head {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.25rem);
+}
+
+.community-home__section-title {
+  font-family: $font-title;
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: var(--color);
+  @include flex($justify: flex-start, $align: center, $gap: 0.5rem);
+
+  svg {
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    color: var(--primary-color);
+  }
+}
+
+.community-home__section-hint {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+.community-home__empty {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  text-align: center;
+  border: 1px dashed var(--border-color);
+  @include rounded(0.6rem);
+  @include py(1.5rem);
+  @include px(1rem);
+}
+
+// Enlace al detalle de la sección, al pie de un bloque de resumen.
+.community-home__more {
+  align-self: flex-start;
+  font-size: $text-sm;
+  color: var(--primary-color-active);
+  text-decoration: none;
+  @include flex($justify: flex-start, $align: center, $gap: 0.35rem);
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Tablón de anuncios
+// ---------------------------------------------------------------------------
+
+.community-board {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+  list-style: none;
+}
+
+.community-board__item {
+  // El color lo elige quien publica el aviso y llega en hexadecimal; sin él, el del tema.
+  --announcement-color: var(--primary-color);
+
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  /*
+   * El color va en una franja lateral y no en el fondo.
+   *
+   * Es un valor libre: en cuanto alguien elige un tono fuerte, un fondo de ese color deja el texto
+   * ilegible, y ese texto no lo escribimos nosotros. Como franja, el color distingue sin poder estropear
+   * nada.
+   */
+  border-left: 4px solid var(--announcement-color);
+  @include rounded(0.6rem);
+  @include p(1rem);
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.5rem);
+
+  // Lo que ya no se ve queda atenuado: sigue estando, pero no compite con lo que está puesto hoy.
+  &--expired {
+    opacity: 0.65;
+  }
+}
+
+.community-board__head {
+  @include flex($justify: space-between, $align: flex-start, $gap: 0.75rem);
+}
+
+.community-board__title {
+  font-size: $text-base;
+  font-weight: $font-semibold;
+  color: var(--color);
+  @include flex($justify: flex-start, $align: center, $gap: 0.4rem);
+}
+
+.community-board__pin {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  color: var(--announcement-color);
+}
+
+.community-board__body {
+  font-size: $text-sm;
+  color: var(--color);
+  line-height: 1.55;
+  // Los saltos de línea del aviso son del texto que escribió quien lo publicó: se respetan.
+  white-space: pre-line;
+}
+
+.community-board__meta {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  @include flex($justify: flex-start, $align: center, $gap: 0.35rem);
+  flex-wrap: wrap;
+
+  svg {
+    flex-shrink: 0;
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Gráficos
+// ---------------------------------------------------------------------------
+
+.community-home__charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1rem;
+}
+
+.community-home__chart {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+  @include p(1rem);
+  /*
+   * `min-width: 0` en la tarjeta del gráfico.
+   *
+   * El lienzo se mide a sí mismo con un `ResizeObserver` y se redibuja con lo que mida su contenedor. Sin
+   * esto, la tarjeta no puede encogerse por debajo del ancho del lienzo, así que al estrechar la ventana el
+   * gráfico desborda la rejilla en vez de adaptarse — y parece que «el responsive no funciona».
+   */
+  min-width: 0;
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.35rem);
+
+  // Una serie temporal necesita más ancho que un reparto: ocupa la fila entera cuando hay sitio.
+  &--wide {
+    @include screen(lg) {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.community-home__chart-title {
+  font-size: $text-base;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.community-home__chart-hint {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  margin-bottom: 0.5rem;
+}
+
+// ---------------------------------------------------------------------------
+// Resumen del registro de accesos
+// ---------------------------------------------------------------------------
+
+.community-home__doors {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  list-style: none;
+}
+
+.community-home__door {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+  @include p(1rem);
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+}
+
+.community-home__door-name {
+  font-weight: $font-semibold;
+  color: var(--color);
+  @include flex($justify: flex-start, $align: center, $gap: 0.45rem);
+
+  svg {
+    flex-shrink: 0;
+    width: 1.05rem;
+    height: 1.05rem;
+    color: var(--primary-color);
+  }
+}
+
+.community-home__door-figures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+
+  dt {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+  }
+
+  dd {
+    margin: 0;
+    font-size: $text-lg;
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+}
+
+.community-home__door-last {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}

@@ -55,6 +55,21 @@
     "viewDetail": "View detail",
     "back": "Back",
     "send": "Send",
-    "sending": "Sending"
+    "sending": "Sending",
+    "grantKeys": "Hand out keys",
+    "removeSlot": "Remove the slot",
+    "previousFile": "Previous file",
+    "nextFile": "Next file",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "resetZoom": "Reset zoom",
+    "close": "Close",
+    "removeFile": "Remove file",
+    "chooseFile": "Choose file",
+    "next": "Next",
+    "createIncident": "Open the incident",
+    "attachFile": "Attach a file"
   }
 }

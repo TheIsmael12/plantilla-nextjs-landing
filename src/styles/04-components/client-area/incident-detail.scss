@@ -24,6 +24,20 @@
 
 .incident-detail__aside {
   @include flex(column, flex-start, stretch, 1.5rem);
+
+  /*
+   * El lateral se queda pegado al desplazar, en pantallas donde hay dos columnas.
+   *
+   * Un hilo largo mide varias pantallas, y las propiedades —de qué tipo es, a quién está asignada, cuándo
+   * vence— son justo lo que se quiere tener delante mientras se lee lo que ha contestado el técnico. Sin esto
+   * había que subir del todo para recordar la fecha de compromiso.
+   *
+   * El `top` deja libre la altura de la cabecera fija del área de cliente, que si no la taparía.
+   */
+  @include screen(lg) {
+    position: sticky;
+    top: 6.5rem;
+  }
 }
 
 // Cada bloque del sidebar ("Propiedades", "Plazos") es su propia tarjeta,
@@ -65,12 +79,28 @@
   font-weight: 600;
 }
 
+/*
+ * Cada bloque de la columna principal es una tarjeta, igual que los del lateral.
+ *
+ * Antes solo tenían margen inferior: la descripción y la conversación flotaban sobre el fondo de la página
+ * mientras «Propiedades» y «Plazos» sí eran tarjetas, y la pantalla quedaba partida en dos mitades que no se
+ * parecían. Con la misma superficie a los dos lados, el detalle se lee como una ficha y no como un borrador.
+ */
 .incident-detail__block {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded();
+  @include p(1.25rem);
   @include mb(1.5rem);
+
+  // El último no arrastra margen: la rejilla ya pone el espacio hasta lo que venga debajo.
+  &:last-child {
+    @include mb(0);
+  }
 }
 
 .incident-detail__block-title {
-  @include mb(0.5rem);
+  @include mb(0.75rem);
   font-size: 1rem;
   font-weight: 600;
 }
@@ -78,6 +108,14 @@
 .incident-detail__text {
   white-space: pre-wrap;
   line-height: 1.6;
+  /*
+   * Se corta la medida del párrafo aunque haya sitio.
+   *
+   * La descripción de una incidencia es prosa, y a todo el ancho de la columna salían líneas de más de cien
+   * caracteres: al llegar al final de una, el ojo pierde el principio de la siguiente. Sesenta y pico
+   * caracteres es la medida en la que se lee sin esfuerzo, y el hueco que sobra no molesta.
+   */
+  max-width: 68ch;
 }
 
 .incident-detail__comment-form {
@@ -112,7 +150,25 @@
     margin-left: auto;
 
     .incident-detail__thread-bubble {
-      background-color: var(--primary-color-light, #e8ecfb);
+      /*
+       * El token, sin respaldo escrito a mano.
+       *
+       * Antes era `var(--primary-color-light, #e8ecfb)` y el token **no existía** en este proyecto, así que
+       * la burbuja usaba siempre ese azul de reserva: un color de fuera del sistema que en modo oscuro
+       * quedaba como una mancha clara sobre fondo negro. Ahora el token está definido en los dos temas.
+       */
+      background-color: var(--primary-color-light);
+      border-color: transparent;
+    }
+
+    // El texto también a la derecha, como en la intranet: si el globo está a la derecha y la letra
+    // empieza a la izquierda, la conversación se lee en zigzag.
+    .incident-detail__thread-meta {
+      justify-content: flex-end;
+    }
+
+    .incident-detail__text {
+      text-align: right;
     }
   }
 }
@@ -149,7 +205,7 @@
 // de su propia tarjeta (igual que la barra inferior del hilo en intranet).
 .incident-detail__composer {
   @include flex(row, flex-start, flex-end, 0.75rem);
-  background-color: var(--surface-color);
+  background-color: var(--surface-color-light);
   border: 1px solid var(--border-color);
   @include rounded();
   @include p(0.75rem);
@@ -177,43 +233,15 @@
   }
 }
 
-.incident-detail__composer-attach,
-.incident-detail__composer-send {
-  @include flex($justify: center, $align: center, $gap: 0);
-  width: 2.25rem;
-  height: 2.25rem;
-  border: none;
-  @include rounded(50%);
-  cursor: pointer;
-  flex-shrink: 0;
-
-  svg {
-    width: 1.1rem;
-    height: 1.1rem;
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-}
-
+/*
+ * El clip de adjuntar ya es un `IconButton`, que trae su propio círculo, su tamaño y su color al pasar el
+ * ratón. Aquí solo queda lo que el sistema no puede saber: que no se encoja cuando el texto crece.
+ *
+ * Las reglas de `__composer-send` se han ido con el botón: enviar es ahora un `Button` con su texto, porque
+ * un avión de papel suelto obliga a adivinar cuál de los dos iconos manda el mensaje.
+ */
 .incident-detail__composer-attach {
-  background-color: var(--neutral-color-light);
-  color: var(--color);
-
-  &:hover:not(:disabled) {
-    background-color: var(--border-color);
-  }
-}
-
-.incident-detail__composer-send {
-  background-color: var(--primary-color);
-  color: var(--primary-contrast-color, #fff);
-
-  &:hover:not(:disabled) {
-    opacity: 0.9;
-  }
+  flex-shrink: 0;
 }
 
 .incident-detail__composer-files {

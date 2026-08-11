@@ -14,7 +14,7 @@ import { Form, Formik, FormikValues } from "formik";
 
 import type { FormikRenderProps, ModalProps } from "@/types/ui/modals/modal";
 
-import { PlusIcon, XIcon } from "lucide-react";
+import { XIcon } from "lucide-react";
 
 export type { FormikRenderProps, ModalProps };
 
@@ -110,7 +110,25 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
                   : children}
               </div>
 
+              {/*
+                Mismo pie que el del modal de confirmación: cancelar y enviar, a la derecha.
+
+                Antes solo había el botón de enviar, así que un formulario únicamente se podía abandonar por
+                el aspa de la esquina —que se lee como «cerrar la ventana», no como «no lo hagas»— o con
+                Escape, que hay que saber. El icono va solo si quien monta el modal pasa `confirmIcon`: el
+                «+» que llevaba fijo decía «añadir» también cuando el botón era «Guardar» o «Consultar».
+              */}
               <div className="modal__form__footer">
+                <Button
+                  type="button"
+                  variant="outline"
+                  title={cancelText ? cancelText : "cancel"}
+                  onClick={onClose}
+                  disabled={isSubmitting || isLoading}
+                >
+                  {CancelIcon && <CancelIcon />}
+                </Button>
+
                 <Button
                   type="submit"
                   variant="primary"
@@ -121,7 +139,7 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
                   }
                   disabled={isSubmitting || isLoading}
                 >
-                  {!(isSubmitting || isLoading) && <PlusIcon />}
+                  {!(isSubmitting || isLoading) && ConfirmIcon && <ConfirmIcon />}
                 </Button>
               </div>
             </Form>
@@ -174,6 +192,23 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
               <p className="modal__footer__error">{footerError}</p>
             )}
 
+            {/*
+              Cancelar antes de confirmar, y no al revés.
+
+              El pie alinea a la derecha, así que este orden deja la acción que continúa al final de la
+              lectura y donde cae el pulgar en un móvil. El orden lo pone el JSX y no un `row-reverse` de
+              CSS: así el foco por teclado los recorre en el mismo orden en que se ven.
+            */}
+            {onCancel && (
+              <Button
+                variant="outline"
+                title={cancelText ? cancelText : "cancel"}
+                onClick={onCancel}
+              >
+                {CancelIcon && <CancelIcon />}
+              </Button>
+            )}
+
             {onConfirm && (
               <Button
                 variant={confirmVariant}
@@ -186,16 +221,6 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
                 disabled={isLoading || confirmDisabled}
               >
                 {!isLoading && ConfirmIcon && <ConfirmIcon />}
-              </Button>
-            )}
-
-            {onCancel && (
-              <Button
-                variant="outline"
-                title={cancelText ? cancelText : "cancel"}
-                onClick={onCancel}
-              >
-                {CancelIcon && <CancelIcon />}
               </Button>
             )}
           </section>

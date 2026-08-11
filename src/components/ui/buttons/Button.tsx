@@ -18,6 +18,7 @@ export default function Button({
   variant,
   disabled = false,
   children,
+  iconPosition = "left",
   onClick,
   ariaLabel,
   className,
@@ -33,7 +34,7 @@ export default function Button({
       disabled={disabled}
       aria-label={ariaLabel ? buttons(ariaLabel) : undefined}
     >
-      {children} {title && buttons(title)}
+      {iconPosition === "left" && children} {title && buttons(title)} {iconPosition === "right" && children}
     </button>
   );
 }
