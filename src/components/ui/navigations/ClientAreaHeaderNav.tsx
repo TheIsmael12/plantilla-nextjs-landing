@@ -62,7 +62,7 @@ export default function ClientAreaHeaderNav({
     <section className={`client-area-header${isScrolled ? ' client-area-header--scrolled' : ''}`}>
       <div className="client-area-header__container">
         <Link href="/private-area" className="client-area-header__logo">
-          <ImageLogo width={80} height={80} alt={tNavbar('logoAlt')} />
+          <ImageLogo alt={tNavbar('logoAlt')} />
         </Link>
 
         <nav className="client-area-header__links" aria-label={tNavbar('ariaLabel')}>

@@ -236,7 +236,7 @@ export default function Navbar() {
             <div className="nav__container" ref={navRef}>
 
                 <Link href="/" className="nav__logo" onClick={closeAll}>
-                    <ImageLogo width={80} height={80} alt={t("logoAlt")} />
+                    <ImageLogo alt={t("logoAlt")} />
                 </Link>
 
                 <button
@@ -290,7 +290,7 @@ export default function Navbar() {
 
                     <div className="nav__actions">
                         {session ? (
-                            <User />
+                            <User menuPath="/private-area" />
                         ) : (
                             <Link href="/login" className="nav__login">
                                 {t("login")}

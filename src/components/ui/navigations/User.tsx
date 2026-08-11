@@ -13,6 +13,8 @@ import Button from "@/components/ui/buttons/Button";
 import ModalComponent from "@/components/ui/modals/ModalComponent";
 import MenuItems from "@/components/ui/navigations/sidebar/MenuItems";
 
+import type { StaticPathname } from "@/types/route";
+
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
 interface UserProps {
@@ -22,20 +24,27 @@ interface UserProps {
    * llama a `signOut()`.
    */
   onLogout?: () => Promise<void> | void;
+  /**
+   * Raíz del árbol que despliega `MenuItems`. Por defecto
+   * `/private-area/profile` (uso dentro del área de cliente, donde
+   * servicios/presupuestos/facturas/comunidades ya están en el navbar
+   * horizontal). Pásale `/private-area` cuando `User` se use fuera de ese
+   * layout (p. ej. el navbar público) para que el menú incluya también el
+   * enlace directo al área de cliente.
+   */
+  menuPath?: StaticPathname;
 }
 
 /**
  * Menú de usuario del portal de cliente: nombre de la sesión activa (sin
  * avatar, el portal no tiene foto ni iniciales que mostrar), despliega el
- * árbol de `/private-area/profile` (seguridad, sesiones, preferencias —esta
- * última como grupo anidado, mismo patrón que `plantilla-nextjs`) y gestiona
- * el cierre de sesión mediante un modal de confirmación. Servicios,
- * presupuestos, facturas y comunidades no van aquí: ya están en el navbar
- * horizontal del área de cliente.
+ * árbol de `menuPath` (seguridad, sesiones, preferencias —esta última como
+ * grupo anidado, mismo patrón que `plantilla-nextjs`) y gestiona el cierre
+ * de sesión mediante un modal de confirmación.
  * @param {UserProps} props - Propiedades del componente
  * @returns {JSX.Element} El menú de usuario renderizado
  */
-export default function User({ onLogout }: UserProps) {
+export default function User({ onLogout, menuPath = "/private-area/profile" }: UserProps) {
   const modal = useTranslations("Modals");
 
   const { data: session } = useSession();
@@ -78,7 +87,7 @@ export default function User({ onLogout }: UserProps) {
 
         {isOpenMenu && (
           <div className="navbar__user__menu">
-            <MenuItems path="/private-area/profile" onNavigate={() => setIsOpenMenu(false)} />
+            <MenuItems path={menuPath} onNavigate={() => setIsOpenMenu(false)} />
 
             <hr className="navbar__user__menu__divider" />
 

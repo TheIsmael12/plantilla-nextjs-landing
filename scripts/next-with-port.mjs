@@ -18,6 +18,7 @@
  */
 
 import { spawnSync } from "node:child_process";
+import { rmSync } from "node:fs";
 import nextEnv from "@next/env";
 
 const { loadEnvConfig } = nextEnv;
@@ -31,6 +32,15 @@ if (command !== "dev" && command !== "start") {
 
 const isDev = command === "dev";
 loadEnvConfig(process.cwd(), isDev);
+
+// `.next` acumula manifests de rutas obsoletos (App Router) que a veces
+// quedan desincronizados entre reinicios del dev server (rutas que dejan de
+// resolver, 404 fantasma...). Se borra siempre antes de arrancar `dev` para
+// partir de una caché limpia; en `start` no aplica porque ahí `.next` es el
+// build de producción que se quiere servir tal cual.
+if (isDev) {
+  rmSync(".next", { recursive: true, force: true });
+}
 
 const port = process.env.PORT ?? "3000";
 

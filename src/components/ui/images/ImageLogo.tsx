@@ -14,12 +14,15 @@ import type { ImageLogoProps } from "@/types/ui/images/image-logo";
  * oscura según el tema activo (`next-themes`), salvo que `style` fuerce una
  * variante concreta. Antes de montar evita el parpadeo mostrando un placeholder
  * vacío, ya que el tema resuelto solo se conoce en cliente.
+ *
+ * No recibe `width`/`height`: ocupa el 100% del contenedor (`fill`) y se
+ * ajusta con `object-fit: contain`, así que el tamaño real lo decide siempre
+ * el CSS del sitio de uso (p.ej. `.nav__logo { width: 3rem; height: 3rem }`)
+ * sin deformar ni recortar el logo, sea cual sea el tamaño solicitado.
  * @param {ImageLogoProps} props - Propiedades del logo
  * @returns {JSX.Element} La imagen del logo, o un placeholder mientras se resuelve el tema
  */
 export default function ImageLogo({
-  width = 120,
-  height = 30,
   size = "default",
   style = "default",
   alt = "App Logo",
@@ -45,27 +48,28 @@ export default function ImageLogo({
 
   if (!isMounted || !resolvedTheme) {
     return (
-      <Image
-        src="/images/logo.png"
-        alt=""
-        width={width}
-        height={height}
-        priority={false}
-        aria-hidden
-        className="image-logo__placeholder"
-      />
+      <span className="image-logo image-logo__placeholder" aria-hidden>
+        <Image
+          src="/images/logo.png"
+          alt=""
+          fill
+          priority={false}
+          className="image-logo__img"
+        />
+      </span>
     );
   }
 
   return (
-    <Image
-      src={getLogoSrc()}
-      alt={alt}
-      width={width}
-      height={height}
-      priority={priority}
-      fetchPriority="high"
-      className={className}
-    />
+    <span className={`image-logo ${className ?? ""}`.trim()}>
+      <Image
+        src={getLogoSrc()}
+        alt={alt}
+        fill
+        priority={priority}
+        fetchPriority="high"
+        className="image-logo__img"
+      />
+    </span>
   );
 }

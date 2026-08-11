@@ -35,6 +35,9 @@
 .client-area-header__logo {
   display: block;
   line-height: 0;
+  flex-shrink: 0;
+  width: clamp(5rem, 5vw + 1rem, 5rem);
+  height: clamp(5rem, 5vw + 1rem, 5rem);
 }
 
 .client-area-header__links {

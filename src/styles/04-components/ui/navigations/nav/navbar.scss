@@ -28,6 +28,14 @@
   &__header {
     @include flex($justify: flex-start, $gap: 1rem);
 
+    // `ImageLogo` va directo aquí, sin `className` propio: el tamaño se le
+    // da vía el hijo directo `.image-logo`, fluido para no desbordar la
+    // altura de 5rem de `.navbar` en ningún tamaño de pantalla.
+    > .image-logo {
+      width: clamp(5rem, 5vw + 1rem, 3rem);
+      height: clamp(5rem, 5vw + 1rem, 3rem);
+    }
+
     &__button {
       // `flex()` fija su propio display:flex; hay que declarar el "none" de
       // base DESPUÉS del include para que no quede anulado y el botón sea

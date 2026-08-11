@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Logo de la aplicación, resuelto automáticamente entre las variantes clara y oscura según el tema activo (`next-themes`), salvo que `style` fuerce una variante concreta (`light`/`dark`). Antes de montar en cliente muestra un placeholder vacío (`aria-hidden`) para evitar parpadeos de hidratación, ya que el tema resuelto solo se conoce en el navegador; ese estado transitorio no se puede fijar de forma estable en una story estática, por lo que no tiene un export propio.",
+          "Logo de la aplicación, resuelto automáticamente entre las variantes clara y oscura según el tema activo (`next-themes`), salvo que `style` fuerce una variante concreta (`light`/`dark`). No recibe `width`/`height`: ocupa el 100% de su contenedor (`fill` + `object-fit: contain`), así que el tamaño real lo decide siempre el CSS del sitio de uso. Antes de montar en cliente muestra un placeholder vacío (`aria-hidden`) para evitar parpadeos de hidratación, ya que el tema resuelto solo se conoce en el navegador; ese estado transitorio no se puede fijar de forma estable en una story estática, por lo que no tiene un export propio.",
       },
     },
   },
@@ -28,14 +28,6 @@ const meta = {
       description:
         'Variante visual. "default" sigue el tema activo, "light" fuerza la versión clara, "dark" fuerza la versión oscura.',
     },
-    width: {
-      control: { type: "number", min: 20, max: 400, step: 10 },
-      description: "Ancho de la imagen en píxeles.",
-    },
-    height: {
-      control: { type: "number", min: 10, max: 300, step: 10 },
-      description: "Alto de la imagen en píxeles.",
-    },
     alt: {
       control: "text",
       description: "Texto alternativo para accesibilidad.",
@@ -46,17 +38,22 @@ const meta = {
     },
     className: {
       control: "text",
-      description: "Clases CSS adicionales aplicadas al elemento imagen.",
+      description: "Clases CSS adicionales aplicadas al contenedor del logo.",
     },
   },
   args: {
-    width: 120,
-    height: 30,
     alt: "App Logo",
     priority: true,
     size: "default",
     style: "default",
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 120, height: 60 }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof ImageLogo>;
 
 export default meta;
@@ -82,9 +79,14 @@ export const Small: Story = {
   name: "Pequeño",
   args: {
     size: "small",
-    width: 50,
-    height: 50,
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 50, height: 50 }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export const SmallForceLight: Story = {
@@ -92,9 +94,14 @@ export const SmallForceLight: Story = {
   args: {
     size: "small",
     style: "light",
-    width: 50,
-    height: 50,
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 50, height: 50 }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export const SmallForceDark: Story = {
@@ -102,9 +109,14 @@ export const SmallForceDark: Story = {
   args: {
     size: "small",
     style: "dark",
-    width: 50,
-    height: 50,
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 50, height: 50 }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export const AllVariants: Story = {
@@ -124,31 +136,41 @@ export const AllVariants: Story = {
         <p style={{ fontSize: 12, color: "var(--neutral-color)", marginBottom: 8 }}>
           Default (sigue tema)
         </p>
-        <ImageLogo size="default" style="default" width={120} height={30} />
+        <div style={{ width: 120, height: 60 }}>
+          <ImageLogo size="default" style="default" />
+        </div>
       </div>
       <div>
         <p style={{ fontSize: 12, color: "var(--neutral-color)", marginBottom: 8 }}>
           Forzar claro
         </p>
-        <ImageLogo size="default" style="light" width={120} height={30} />
+        <div style={{ width: 120, height: 60 }}>
+          <ImageLogo size="default" style="light" />
+        </div>
       </div>
       <div>
         <p style={{ fontSize: 12, color: "var(--neutral-color)", marginBottom: 8 }}>
           Forzar oscuro
         </p>
-        <ImageLogo size="default" style="dark" width={120} height={30} />
+        <div style={{ width: 120, height: 60 }}>
+          <ImageLogo size="default" style="dark" />
+        </div>
       </div>
       <div>
         <p style={{ fontSize: 12, color: "var(--neutral-color)", marginBottom: 8 }}>
           Pequeño (sigue tema)
         </p>
-        <ImageLogo size="small" style="default" width={50} height={50} />
+        <div style={{ width: 50, height: 50 }}>
+          <ImageLogo size="small" style="default" />
+        </div>
       </div>
       <div>
         <p style={{ fontSize: 12, color: "var(--neutral-color)", marginBottom: 8 }}>
           Pequeño oscuro
         </p>
-        <ImageLogo size="small" style="dark" width={50} height={50} />
+        <div style={{ width: 50, height: 50 }}>
+          <ImageLogo size="small" style="dark" />
+        </div>
       </div>
     </div>
   ),

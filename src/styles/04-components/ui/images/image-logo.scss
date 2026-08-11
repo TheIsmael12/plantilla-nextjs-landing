@@ -1,4 +1,23 @@
 // Estilos de ImageLogo (components/ui/images/ImageLogo.tsx).
+//
+// `.image-logo` es el contenedor `position: relative` de la `<Image fill>`
+// interna, ajustada con `object-fit: contain` para no deformarse ni
+// recortarse. No fija un tamaño por defecto a propósito: cada sitio de uso
+// decide el tamaño real vía `className` (p.ej. `.nav__logo { width: 3rem;
+// height: 3rem; }`), así el logo se adapta a cualquier tamaño sin depender
+// de props `width`/`height`.
+
+.image-logo {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.image-logo__img {
+  object-fit: contain;
+}
 
 .image-logo__placeholder {
   visibility: hidden;

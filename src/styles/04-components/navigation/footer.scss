@@ -126,8 +126,12 @@
   @include flex(column, flex-start, flex-start, 1rem);
 
   &__logo {
-    display: inline-block;
     letter-spacing: -0.03em;
+    flex-shrink: 0;
+    // Tamaño fluido para no verse desproporcionado en mobile, donde el
+    // footer se apila en una columna estrecha.
+    width: clamp(12rem, 12vw + 2rem, 7.5rem);
+    height: clamp(8rem, 12vw + 2rem, 7.5rem);
   }
 
   &__tagline {

@@ -112,8 +112,6 @@ export default function Footer() {
                         <ImageLogo
                             style="dark"
                             className="footer__brand__logo"
-                            width={120}
-                            height={120}
                         />
                         <p className="footer__brand__tagline">{t("tagline")}</p>
                         {BRAND.socials.length > 0 && (
