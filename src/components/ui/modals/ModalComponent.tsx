@@ -174,9 +174,14 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
             </h3>
           )}
 
+          {/*
+            «Cerrar» y no «Cancelar»: con `ariaLabel="cancel"` esta X y el botón de cancelar del pie se
+            llamaban igual, y quien navega con lector de pantalla oía dos botones «Cancelar» sin poder
+            distinguirlos. Además la X cierra (`onClose`), que no siempre es lo mismo que cancelar.
+          */}
           <Button
             size="sm"
-            ariaLabel="cancel"
+            ariaLabel="close"
             className="modal__header__close"
             onClick={onClose}
           >

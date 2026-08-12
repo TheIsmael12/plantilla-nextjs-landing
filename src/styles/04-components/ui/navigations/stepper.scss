@@ -104,3 +104,22 @@
     background-color: var(--primary-color);
   }
 }
+
+/*
+ * En un móvil solo se lee la etiqueta del paso actual.
+ *
+ * Con cinco pasos, cinco etiquetas que no parten palabra («Cuéntanoslo») más los conectores piden bastante más
+ * de lo que hay en un teléfono, y lo que se desbordaba era el último paso: la barra decía «vas por el 2 de 4»
+ * cuando eran 5. Quedándose solo la del paso actual entra de sobra, y los círculos siguen contando cuántos
+ * pasos hay y cuáles están hechos, que es la información que se pierde al desbordar.
+ */
+@include screen(sm, max) {
+  .stepper__step:not(.stepper__step--current) .stepper__label {
+    display: none;
+  }
+
+  .stepper__connector {
+    min-width: 0.75rem;
+    margin: 0 0.25rem;
+  }
+}

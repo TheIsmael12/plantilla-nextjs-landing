@@ -26,10 +26,21 @@ export default function BackendImage({ src, alt, fill = false, className, fallba
   const fillClassName = fill ? 'backend-image--fill' : '';
 
   if (!src || hasError) {
+    /*
+     * `alt=""` es la forma estándar de decir «esta imagen es decorativa, no la anuncies»: la usan las
+     * portadas del blog, donde el titular ya está al lado en texto.
+     *
+     * En el respaldo eso se traducía a `role="img" aria-label=""`, que es lo peor de las dos opciones: un
+     * lector de pantalla anuncia que hay una imagen y a continuación no sabe decir de qué. Sin texto que dar,
+     * lo correcto es esconder el respaldo del árbol de accesibilidad en vez de anunciar un hueco.
+     */
+    const isDecorative = alt.trim() === '';
+
     return (
       <span
-        role="img"
-        aria-label={alt}
+        role={isDecorative ? undefined : 'img'}
+        aria-label={isDecorative ? undefined : alt}
+        aria-hidden={isDecorative || undefined}
         className={`backend-image__fallback ${fillClassName} ${className ?? ''}`.trim()}
       >
         {fallback}

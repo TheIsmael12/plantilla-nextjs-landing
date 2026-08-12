@@ -156,7 +156,7 @@ export const Cierre: Story = {
   play: async ({ args }) => {
     const canvas = within(document.body);
 
-    const closeButton = canvas.getByRole("button", { name: /Cancelar/i });
+    const closeButton = canvas.getByRole("button", { name: /cerrar/i });
     await userEvent.click(closeButton);
     await expect(args.onClose).toHaveBeenCalledTimes(1);
 
