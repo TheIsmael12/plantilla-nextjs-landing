@@ -1,4 +1,4 @@
-import KeyringsViewPage from '@/views/(client-area)/private-area/communities/KeyringsViewPage';
+import CommunitiesKeyringsViewPage from '@/views/(client-area)/private-area/communities/details/keyrings/CommunitiesKeyringsViewPage';
 
 interface KeyringsPageProps {
   params: Promise<{ locale: string; serviceId: string }>;
@@ -15,7 +15,7 @@ export default async function KeyringsPage({ params, searchParams }: KeyringsPag
   const resolvedSearchParams = await searchParams;
 
   return (
-    <KeyringsViewPage
+    <CommunitiesKeyringsViewPage
       serviceId={serviceId}
       locale={locale}
       searchParams={resolvedSearchParams}

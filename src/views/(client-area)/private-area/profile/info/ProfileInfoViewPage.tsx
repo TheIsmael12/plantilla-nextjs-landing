@@ -1,6 +1,6 @@
 import { getClientProfile } from '@/actions/client-portal/profile-actions';
 
-import PersonalDataSection from '@/components/ui/client-area/PersonalDataSection';
+import PersonalDataSection from '@/views/(client-area)/private-area/profile/info/components/PersonalDataSection';
 
 /**
  * Vista de `/private-area/profile`: datos personales de solo lectura (`GET client/me`).

@@ -1,4 +1,4 @@
-import CommunityHomeViewPage from '@/views/(client-area)/private-area/communities/CommunityHomeViewPage';
+import CommunitiesDetailsViewPage from '@/views/(client-area)/private-area/communities/details/CommunitiesDetailsViewPage';
 
 interface CommunityHomePageProps {
   params: Promise<{ locale: string; serviceId: string }>;
@@ -16,5 +16,5 @@ interface CommunityHomePageProps {
 export default async function CommunityHomePage({ params }: CommunityHomePageProps) {
   const { locale, serviceId } = await params;
 
-  return <CommunityHomeViewPage serviceId={serviceId} locale={locale} />;
+  return <CommunitiesDetailsViewPage serviceId={serviceId} locale={locale} />;
 }

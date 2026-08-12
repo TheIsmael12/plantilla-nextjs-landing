@@ -70,14 +70,107 @@
   @include flex(row, flex-end, center, 1rem);
 }
 
-// Hueco para la cabecera fija (misma altura que `.client-area-header`).
-.client-area {
-  padding-top: 5rem;
+/*
+ * La hamburguesa: solo cuando los enlaces de la barra están escondidos.
+ *
+ * Se ata al mismo punto de corte que `.client-area-header__links` (`md`). Si los dos usaran breakpoints
+ * distintos habría un tramo de anchos sin enlaces y sin botón, es decir, sin forma de navegar — que es
+ * exactamente lo que pasaba antes en todo el móvil.
+ */
+.client-area-header__burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color);
+  line-height: 0;
+  @include p(0.35rem);
+  @include rounded(0.5rem);
+
+  &:hover {
+    color: var(--primary-color);
+  }
+
+  svg {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  @include screen(md, max) {
+    display: block;
+  }
 }
 
-.client-area__content {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  @include px(1.5rem);
-  @include py(2.5rem);
+// Oscurece la página, no la barra: se coloca por debajo de la cabecera y del propio menú.
+.client-area-header__overlay {
+  position: fixed;
+  inset: 5rem 0 0;
+  z-index: $layer-sidebar-overlay;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  @include screen(md) {
+    display: none;
+  }
 }
+
+/*
+ * El desplegable, pegado bajo la cabecera y a todo el ancho.
+ *
+ * A todo el ancho y no como un panel lateral porque aquí no hay un árbol de secciones que justifique un
+ * drawer: son cinco enlaces, y desplegarlos hacia abajo desde el botón que los abre es el gesto que ya
+ * conoce cualquiera de una web en el móvil.
+ */
+.client-area-header__menu {
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  z-index: $layer-sidebar;
+  background-color: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.25);
+  @include px(1.5rem);
+  @include py(1rem);
+  // Con muchos enlaces y un móvil apaisado, el menú no puede pasar de la pantalla: se desplaza dentro.
+  max-height: calc(100dvh - 5rem);
+  overflow-y: auto;
+
+  @include screen(md) {
+    display: none;
+  }
+}
+
+.client-area-header__menu-links {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0);
+}
+
+/*
+ * Cada enlace ocupa toda la fila y tiene 2,75rem de alto.
+ *
+ * No es estética: es el mínimo con el que un dedo acierta sin ampliar. Un enlace del tamaño de su texto
+ * obliga a apuntar, y en un menú de navegación fallar el objetivo significa acabar en otra pantalla.
+ */
+.client-area-header__menu-link {
+  @include flex($justify: flex-start, $align: center, $gap: 0.5rem);
+  min-height: 2.75rem;
+  font-size: $text-lg;
+  color: var(--color);
+  text-decoration: none;
+
+  & + & {
+    border-top: 1px solid var(--border-color);
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+
+  &--active {
+    color: var(--primary-color-active);
+    font-weight: $font-semibold;
+  }
+}
+
+// El contenedor de la página (`.client-area` / `.client-area__content`) vive en
+// `client-area-layout.scss`: es el marco de las pantallas, no parte de la cabecera.

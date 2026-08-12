@@ -1,4 +1,4 @@
-import CommunitiesListViewPage from '@/views/(client-area)/private-area/communities/CommunitiesListViewPage';
+import CommunitiesViewPage from '@/views/(client-area)/private-area/communities/CommunitiesViewPage';
 
 /**
  * Página de `/private-area/communities`: selector de comunidades. Con una sola
@@ -7,5 +7,5 @@ import CommunitiesListViewPage from '@/views/(client-area)/private-area/communit
  * @returns {Promise<JSX.Element>} El selector de comunidades renderizado
  */
 export default async function CommunitiesPage() {
-  return <CommunitiesListViewPage />;
+  return <CommunitiesViewPage />;
 }

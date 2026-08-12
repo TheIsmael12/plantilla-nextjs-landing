@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 import { getClientCommunities } from "@/actions/client-portal/communities-actions";
 import CommunitySidebar from "@/components/ui/navigations/sidebar/CommunitySidebar";
-import ClientListEmptyState from "@/components/ui/client-area/ClientListEmptyState";
+import ClientListEmptyState from "@/views/(client-area)/private-area/components/ClientListEmptyState";
 
 import "@/styles/04-components/client-area/community-layout.scss";
 
@@ -29,13 +29,13 @@ export default async function CommunityLayout({ serviceId, children }: Community
 
   if (!community) {
     return (
-      <main className="client-area-page">
+      <>
         <ClientListEmptyState
           resource="communities"
           title={t("notFoundTitle")}
           description={t("notFoundDescription")}
         />
-      </main>
+      </>
     );
   }
 

@@ -1,0 +1,186 @@
+// Avisos emergentes de las notificaciones en vivo (ClientNotificationBanners), al estilo de los del móvil.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+/*
+ * La pila, centrada arriba y por debajo de la cabecera.
+ *
+ * Arriba y no abajo como los toasts de acción: es de donde se espera que caiga un aviso que llega solo, y
+ * abajo se confundiría con el «guardado correctamente» que sale del mismo sitio. El ancho se limita a 26rem
+ * para que en un monitor no cruce media pantalla, y en móvil ocupa lo que hay menos los márgenes.
+ */
+.notification-banners {
+  position: fixed;
+  top: 5.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: $layer-toast;
+  width: min(100% - 1.5rem, 26rem);
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.6rem);
+  // La pila no intercepta clics fuera de los carteles: debajo hay página que se puede seguir usando.
+  pointer-events: none;
+}
+
+.notification-banner {
+  @include flex($justify: flex-start, $align: flex-start, $gap: 0);
+  pointer-events: auto;
+  /*
+   * Fondo casi opaco con desenfoque, esquinas muy redondeadas y sombra difusa: es lo que hace que se lea
+   * como un aviso del sistema flotando sobre la página y no como una tarjeta más del contenido.
+   *
+   * Casi y no del todo: el 4% de transparencia con desenfoque deja intuir que hay algo debajo —de ahí la
+   * sensación de cristal— sin que el contenido compita con el texto. Con un 88% se veía bonito sobre una
+   * zona vacía y se volvía ilegible justo encima de una tarjeta con números, que es donde suele caer.
+   */
+  background-color: color-mix(in srgb, var(--surface-color) 96%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  @include rounded(1.1rem);
+  box-shadow:
+    0 18px 32px -16px rgba(0, 0, 0, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+
+  /*
+   * Entra bajando y con un poco de escala, como el aviso de un móvil.
+   *
+   * Con `prefers-reduced-motion` solo aparece: para quien marca esa preferencia, un cartel que se desliza
+   * sobre el contenido es exactamente el movimiento que ha pedido no ver.
+   */
+  animation: notification-banner-in 0.28s ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes notification-banner-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.75rem) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Franja de color por severidad, en el borde de arranque: dice de qué va antes de leer el título.
+.notification-banner__open {
+  @include flex($justify: flex-start, $align: flex-start, $gap: 0.75rem);
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  border-left: 3px solid var(--neutral-color);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  @include py(0.85rem);
+  @include px(0.9rem);
+}
+
+.notification-banner__icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--neutral-color-light);
+  color: var(--neutral-color-active);
+  @include rounded(0.6rem);
+
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+}
+
+.notification-banner__text {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.15rem);
+  min-width: 0;
+}
+
+.notification-banner__title {
+  font-weight: $font-semibold;
+  font-size: $text-sm;
+  color: var(--color);
+}
+
+/*
+ * El cuerpo, a dos líneas como máximo.
+ *
+ * Un aviso no es el detalle: si el texto es largo se corta y se toca para leerlo entero en su pantalla. Sin
+ * tope, una notificación con un cuerpo de párrafo hacía un cartel de media pantalla.
+ */
+.notification-banner__body {
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.notification-banner__close {
+  flex-shrink: 0;
+  align-self: stretch;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--neutral-color);
+  @include px(0.7rem);
+
+  &:hover {
+    color: var(--color);
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Severidades: solo cambian la franja y el color del icono
+// ---------------------------------------------------------------------------
+
+.notification-banner--info .notification-banner__open {
+  border-left-color: var(--info-color);
+}
+
+.notification-banner--info .notification-banner__icon {
+  background-color: var(--info-color-light);
+  color: var(--info-color-active);
+}
+
+.notification-banner--success .notification-banner__open {
+  border-left-color: var(--success-color);
+}
+
+.notification-banner--success .notification-banner__icon {
+  background-color: var(--success-color-light);
+  color: var(--success-color-active);
+}
+
+.notification-banner--warning .notification-banner__open {
+  border-left-color: var(--warning-color);
+}
+
+.notification-banner--warning .notification-banner__icon {
+  background-color: var(--warning-color-light);
+  color: var(--warning-color-active);
+}
+
+.notification-banner--critical .notification-banner__open {
+  border-left-color: var(--danger-color);
+}
+
+.notification-banner--critical .notification-banner__icon {
+  background-color: var(--danger-color-light);
+  color: var(--danger-color-active);
+}

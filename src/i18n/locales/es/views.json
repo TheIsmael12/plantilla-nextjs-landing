@@ -1938,7 +1938,8 @@
           "SUCCESS": "Correcto",
           "WARNING": "Aviso",
           "CRITICAL": "Crítico"
-        }
+        },
+        "dismiss": "Descartar el aviso"
       }
     }
   }

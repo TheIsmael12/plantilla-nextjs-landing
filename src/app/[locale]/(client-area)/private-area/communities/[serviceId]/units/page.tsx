@@ -1,4 +1,4 @@
-import UnitsViewPage from '@/views/(client-area)/private-area/communities/UnitsViewPage';
+import CommunitiesUnitsViewPage from '@/views/(client-area)/private-area/communities/details/units/CommunitiesUnitsViewPage';
 
 interface UnitsPageProps {
   params: Promise<{ serviceId: string }>;
@@ -14,5 +14,5 @@ export default async function UnitsPage({ params, searchParams }: UnitsPageProps
   const { serviceId } = await params;
   const resolvedSearchParams = await searchParams;
 
-  return <UnitsViewPage serviceId={serviceId} searchParams={resolvedSearchParams} />;
+  return <CommunitiesUnitsViewPage serviceId={serviceId} searchParams={resolvedSearchParams} />;
 }

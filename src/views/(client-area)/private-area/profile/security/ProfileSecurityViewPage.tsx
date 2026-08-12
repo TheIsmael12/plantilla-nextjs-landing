@@ -6,8 +6,8 @@ import type { getClientTwoFactorStatus } from "@/actions/client-portal/profile-a
 
 import ProfileSectionsSkeleton from "@/components/skeletons/profile/ProfileSectionsSkeleton";
 
-import ChangePasswordSection from "@/components/ui/client-area/ChangePasswordSection";
-import TwoFactorSection from "@/components/ui/client-area/TwoFactorSection";
+import ChangePasswordSection from "@/views/(client-area)/private-area/profile/security/components/ChangePasswordSection";
+import TwoFactorSection from "@/views/(client-area)/private-area/profile/security/components/TwoFactorSection";
 
 interface ProfileSecurityViewPageProps {
     twoFactorStatusPromise: ReturnType<typeof getClientTwoFactorStatus>;

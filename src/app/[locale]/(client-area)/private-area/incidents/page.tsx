@@ -1,4 +1,4 @@
-import IncidentsListViewPage from '@/views/(client-area)/private-area/incidents/IncidentsListViewPage';
+import IncidentsViewPage from '@/views/(client-area)/private-area/incidents/IncidentsViewPage';
 
 interface IncidentsPageProps {
   params: Promise<{ locale: string }>;
@@ -15,5 +15,5 @@ export default async function IncidentsPage({ params, searchParams }: IncidentsP
   const { locale } = await params;
   const resolvedSearchParams = await searchParams;
 
-  return <IncidentsListViewPage locale={locale} searchParams={resolvedSearchParams} />;
+  return <IncidentsViewPage locale={locale} searchParams={resolvedSearchParams} />;
 }

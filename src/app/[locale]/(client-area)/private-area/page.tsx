@@ -1,4 +1,4 @@
-import PrivateAreaHomeViewPage from '@/views/(client-area)/private-area/PrivateAreaHomeViewPage';
+import PrivateAreaHomeViewPage from '@/views/(client-area)/private-area/home/PrivateAreaHomeViewPage';
 
 interface PrivateAreaHomePageProps {
     params: Promise<{ locale: string }>;

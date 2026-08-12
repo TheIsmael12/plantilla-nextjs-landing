@@ -1,4 +1,4 @@
-import ResidentsViewPage from '@/views/(client-area)/private-area/communities/ResidentsViewPage';
+import CommunitiesResidentsViewPage from '@/views/(client-area)/private-area/communities/details/residents/CommunitiesResidentsViewPage';
 
 interface ResidentsPageProps {
   params: Promise<{ locale: string; serviceId: string }>;
@@ -15,7 +15,7 @@ export default async function ResidentsPage({ params, searchParams }: ResidentsP
   const resolvedSearchParams = await searchParams;
 
   return (
-    <ResidentsViewPage
+    <CommunitiesResidentsViewPage
       serviceId={serviceId}
       locale={locale}
       searchParams={resolvedSearchParams}

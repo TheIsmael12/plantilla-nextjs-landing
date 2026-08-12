@@ -6,7 +6,7 @@ import type { getMyPreferences } from "@/actions/client-portal/preferences-actio
 
 import ProfileSectionsSkeleton from "@/components/skeletons/profile/ProfileSectionsSkeleton";
 
-import PortalThemeSection from "@/components/ui/client-area/PortalThemeSection";
+import PortalThemeSection from "@/views/(client-area)/private-area/profile/preferences/theme/components/PortalThemeSection";
 
 interface ProfileThemeViewPageProps {
     preferencesPromise: ReturnType<typeof getMyPreferences>;

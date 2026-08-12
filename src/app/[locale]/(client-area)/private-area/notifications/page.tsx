@@ -1,4 +1,4 @@
-import NotificationsListViewPage from '@/views/(client-area)/private-area/notifications/NotificationsListViewPage';
+import NotificationsViewPage from '@/views/(client-area)/private-area/notifications/NotificationsViewPage';
 
 interface NotificationsPageProps {
   params: Promise<{ locale: string }>;
@@ -18,5 +18,5 @@ export default async function NotificationsPage({
   const { locale } = await params;
   const resolvedSearchParams = await searchParams;
 
-  return <NotificationsListViewPage locale={locale} searchParams={resolvedSearchParams} />;
+  return <NotificationsViewPage locale={locale} searchParams={resolvedSearchParams} />;
 }

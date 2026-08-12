@@ -1,4 +1,4 @@
-import IncidentsViewPage from '@/views/(client-area)/private-area/communities/IncidentsViewPage';
+import CommunitiesIncidentsViewPage from '@/views/(client-area)/private-area/communities/details/incidents/CommunitiesIncidentsViewPage';
 
 interface IncidentsPageProps {
   params: Promise<{ locale: string; serviceId: string }>;
@@ -15,7 +15,7 @@ export default async function IncidentsPage({ params, searchParams }: IncidentsP
   const resolvedSearchParams = await searchParams;
 
   return (
-    <IncidentsViewPage
+    <CommunitiesIncidentsViewPage
       serviceId={serviceId}
       locale={locale}
       searchParams={resolvedSearchParams}

@@ -6,7 +6,7 @@ import type { getMyPreferences } from "@/actions/client-portal/preferences-actio
 
 import ProfileSectionsSkeleton from "@/components/skeletons/profile/ProfileSectionsSkeleton";
 
-import PortalNotificationsSection from "@/components/ui/client-area/PortalNotificationsSection";
+import PortalNotificationsSection from "@/views/(client-area)/private-area/profile/preferences/notifications/components/PortalNotificationsSection";
 
 interface ProfileNotificationsViewPageProps {
     preferencesPromise: ReturnType<typeof getMyPreferences>;

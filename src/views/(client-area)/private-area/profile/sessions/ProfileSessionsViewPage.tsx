@@ -6,7 +6,7 @@ import type { getMySessions } from "@/actions/client-portal/sessions-actions";
 
 import ProfileSectionsSkeleton from "@/components/skeletons/profile/ProfileSectionsSkeleton";
 
-import PortalSessionsSection from "@/components/ui/client-area/PortalSessionsSection";
+import PortalSessionsSection from "@/views/(client-area)/private-area/profile/sessions/components/PortalSessionsSection";
 
 interface ProfileSessionsViewPageProps {
     sessionsPromise: ReturnType<typeof getMySessions>;

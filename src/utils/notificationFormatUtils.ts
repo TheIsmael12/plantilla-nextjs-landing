@@ -29,6 +29,20 @@ const TRANSLATED_TYPES = new Set([
 ]);
 
 /**
+ * Si sabemos escribir esta notificación con palabras propias.
+ *
+ * Lo usa el aviso emergente para decidir si sale: en la campana, una notificación de un tipo que nadie ha
+ * traducido todavía se aguanta con su código en crudo —es una lista, y un `INCIDENT_COMMENT_ADDED` suelto es
+ * feo pero informa de que algo ha pasado—. Un cartel que aparece encima de la pantalla, no: si no se puede
+ * redactar, mejor que solo suba el contador de la campana.
+ * @param {NotificationResponseDto} notification - La notificación recibida
+ * @returns {boolean} `true` si trae texto propio o su tipo tiene traducción
+ */
+export function isPhrasableNotification(notification: NotificationResponseDto): boolean {
+  return Boolean(notification.titleOverride) || TRANSLATED_TYPES.has(notification.type);
+}
+
+/**
  * Valores de `data` que next-intl puede interpolar. El backend manda
  * `Record<string, unknown>`, y pasar un objeto anidado como parámetro haría
  * fallar el formateo, así que solo sobreviven los primitivos.

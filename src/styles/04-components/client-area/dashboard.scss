@@ -1,35 +1,7 @@
-// Panel de inicio del área de cliente (views/(client-area)/private-area/PrivateAreaHomeViewPage.tsx).
+// Panel de inicio del área de cliente (views/(client-area)/private-area/home/PrivateAreaHomeViewPage.tsx).
 
 @use "../../00-settings/variables" as *;
 @use "../../01-tools/mixins" as *;
-
-/*
- * Envoltorio propio con 1,25rem entre bloques.
- *
- * El resto del área de cliente reparte 1,5rem, que es lo que pide una ficha de tres secciones y demasiado
- * para un panel de once piezas: quedaban calles de aire entre tarjetas medio vacías.
- */
-.dashboard {
-  width: min(100% - 2rem, 72rem);
-  margin-inline: auto;
-  @include py(2.5rem);
-  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.25rem);
-}
-
-.dashboard__header {
-  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.2rem);
-}
-
-.dashboard__title {
-  font-family: $font-title;
-  font-size: $text-2xl;
-  font-weight: $font-semibold;
-  color: var(--color);
-}
-
-.dashboard__description {
-  color: var(--neutral-color-active);
-}
 
 // Las cuatro cifras: cuatro en fila en escritorio, dos y dos en tableta, una debajo de otra en móvil.
 .dashboard__stats {
@@ -73,13 +45,6 @@
   @include p(1.25rem);
   // Sin esto, un gráfico ancho estira su celda del grid y descuadra la fila entera.
   min-width: 0;
-}
-
-.dashboard__panel-title {
-  font-family: $font-title;
-  font-size: $text-lg;
-  font-weight: $font-semibold;
-  color: var(--color);
 }
 
 .dashboard__panel-hint {

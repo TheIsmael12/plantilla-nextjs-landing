@@ -1,4 +1,4 @@
-import IncidentDetailViewPage from '@/views/(client-area)/private-area/incidents/[id]/IncidentDetailViewPage';
+import IncidentsDetailsViewPage from '@/views/(client-area)/private-area/incidents/details/IncidentsDetailsViewPage';
 
 interface IncidentDetailPageProps {
   params: Promise<{ locale: string; id: string }>;
@@ -13,5 +13,5 @@ interface IncidentDetailPageProps {
 export default async function IncidentDetailPage({ params }: IncidentDetailPageProps) {
   const { locale, id } = await params;
 
-  return <IncidentDetailViewPage id={id} locale={locale} />;
+  return <IncidentsDetailsViewPage id={id} locale={locale} />;
 }

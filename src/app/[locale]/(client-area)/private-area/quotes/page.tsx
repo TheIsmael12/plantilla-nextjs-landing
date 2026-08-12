@@ -1,4 +1,4 @@
-import QuotesListViewPage from '@/views/(client-area)/private-area/quotes/QuotesListViewPage';
+import QuotesViewPage from '@/views/(client-area)/private-area/quotes/QuotesViewPage';
 
 interface QuotesPageProps {
     params: Promise<{ locale: string }>;
@@ -16,5 +16,5 @@ export default async function QuotesPage({ params, searchParams }: QuotesPagePro
     const { locale } = await params;
     const resolvedSearchParams = await searchParams;
 
-    return <QuotesListViewPage locale={locale} searchParams={resolvedSearchParams} />;
+    return <QuotesViewPage locale={locale} searchParams={resolvedSearchParams} />;
 }

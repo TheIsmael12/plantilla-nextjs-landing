@@ -1,4 +1,4 @@
-import IncidentsCreateViewPage from '@/views/(client-area)/private-area/incidents/IncidentsCreateViewPage';
+import IncidentsCreateViewPage from '@/views/(client-area)/private-area/incidents/create/IncidentsCreateViewPage';
 
 /**
  * Página de `/private-area/incidents/new`: el asistente para abrir una incidencia.

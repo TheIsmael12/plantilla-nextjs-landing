@@ -1,4 +1,4 @@
-import CommunitySettingsViewPage from '@/views/(client-area)/private-area/communities/CommunitySettingsViewPage';
+import CommunitiesSettingsViewPage from '@/views/(client-area)/private-area/communities/details/settings/CommunitiesSettingsViewPage';
 
 interface CommunitySettingsPageProps {
   params: Promise<{ serviceId: string }>;
@@ -12,5 +12,5 @@ interface CommunitySettingsPageProps {
 export default async function CommunitySettingsPage({ params }: CommunitySettingsPageProps) {
   const { serviceId } = await params;
 
-  return <CommunitySettingsViewPage serviceId={serviceId} />;
+  return <CommunitiesSettingsViewPage serviceId={serviceId} />;
 }

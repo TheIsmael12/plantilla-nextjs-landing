@@ -1,4 +1,4 @@
-import ServicesListViewPage from '@/views/(client-area)/private-area/services/ServicesListViewPage';
+import ServicesViewPage from '@/views/(client-area)/private-area/services/ServicesViewPage';
 
 interface ServicesPageProps {
     params: Promise<{ locale: string }>;
@@ -16,5 +16,5 @@ export default async function ServicesPage({ params, searchParams }: ServicesPag
     const { locale } = await params;
     const resolvedSearchParams = await searchParams;
 
-    return <ServicesListViewPage locale={locale} searchParams={resolvedSearchParams} />;
+    return <ServicesViewPage locale={locale} searchParams={resolvedSearchParams} />;
 }

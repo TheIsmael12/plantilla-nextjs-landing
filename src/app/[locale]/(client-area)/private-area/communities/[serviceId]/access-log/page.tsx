@@ -1,4 +1,4 @@
-import AccessLogViewPage from '@/views/(client-area)/private-area/communities/AccessLogViewPage';
+import CommunitiesAccessLogViewPage from '@/views/(client-area)/private-area/communities/details/access-log/CommunitiesAccessLogViewPage';
 
 interface AccessLogPageProps {
   params: Promise<{ locale: string; serviceId: string }>;
@@ -12,5 +12,5 @@ interface AccessLogPageProps {
 export default async function AccessLogPage({ params }: AccessLogPageProps) {
   const { locale, serviceId } = await params;
 
-  return <AccessLogViewPage serviceId={serviceId} locale={locale} />;
+  return <CommunitiesAccessLogViewPage serviceId={serviceId} locale={locale} />;
 }

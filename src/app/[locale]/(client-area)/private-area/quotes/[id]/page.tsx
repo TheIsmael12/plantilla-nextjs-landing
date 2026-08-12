@@ -1,4 +1,4 @@
-import QuoteDetailViewPage from '@/views/(client-area)/private-area/quotes/[id]/QuoteDetailViewPage';
+import QuotesDetailsViewPage from '@/views/(client-area)/private-area/quotes/details/QuotesDetailsViewPage';
 
 interface QuoteDetailPageProps {
     params: Promise<{ locale: string; id: string }>;
@@ -13,5 +13,5 @@ interface QuoteDetailPageProps {
 export default async function QuoteDetailPage({ params }: QuoteDetailPageProps) {
     const { locale, id } = await params;
 
-    return <QuoteDetailViewPage id={id} locale={locale} />;
+    return <QuotesDetailsViewPage id={id} locale={locale} />;
 }

@@ -1,4 +1,4 @@
-import LocksViewPage from '@/views/(client-area)/private-area/communities/LocksViewPage';
+import CommunitiesLocksViewPage from '@/views/(client-area)/private-area/communities/details/locks/CommunitiesLocksViewPage';
 
 interface LocksPageProps {
   params: Promise<{ locale: string; serviceId: string }>;
@@ -15,6 +15,6 @@ export default async function LocksPage({ params, searchParams }: LocksPageProps
   const resolvedSearchParams = await searchParams;
 
   return (
-    <LocksViewPage serviceId={serviceId} locale={locale} searchParams={resolvedSearchParams} />
+    <CommunitiesLocksViewPage serviceId={serviceId} locale={locale} searchParams={resolvedSearchParams} />
   );
 }

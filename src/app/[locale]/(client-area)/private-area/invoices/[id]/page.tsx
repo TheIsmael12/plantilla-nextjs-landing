@@ -1,4 +1,4 @@
-import InvoiceDetailViewPage from '@/views/(client-area)/private-area/invoices/[id]/InvoiceDetailViewPage';
+import InvoicesDetailsViewPage from '@/views/(client-area)/private-area/invoices/details/InvoicesDetailsViewPage';
 
 interface InvoiceDetailPageProps {
     params: Promise<{ locale: string; id: string }>;
@@ -13,5 +13,5 @@ interface InvoiceDetailPageProps {
 export default async function InvoiceDetailPage({ params }: InvoiceDetailPageProps) {
     const { locale, id } = await params;
 
-    return <InvoiceDetailViewPage id={id} locale={locale} />;
+    return <InvoicesDetailsViewPage id={id} locale={locale} />;
 }

@@ -1,13 +1,12 @@
 'use client';
 
-import 'leaflet/dist/leaflet.css';
 import '@/styles/04-components/ui/maps/location-map.scss';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import dynamic from 'next/dynamic';
 
 import { useTranslations } from 'next-intl';
-
-import L from 'leaflet';
 
 import { geocodeAddress } from '@/actions/client-portal/geocoding-actions';
 
@@ -16,37 +15,42 @@ import type { GeocodedAddress } from '@/types/geocoding';
 
 import { ExternalLinkIcon, MapPinIcon } from 'lucide-react';
 
-/** Zoom al centrar sobre el punto: cercano, para reconocer la calle sin perder el contexto del barrio. */
-const POINT_ZOOM = 16;
-
-/** Teselas de OpenStreetMap, sin clave de API. */
-const TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+/*
+ * El lienzo se carga solo en el navegador.
+ *
+ * Leaflet toca `window` **al importarse**, y `'use client'` no evita el render en servidor: marca dónde
+ * empieza el cliente, pero Next pinta esos componentes igual para mandar el primer HTML. Con el import
+ * estático, el detalle de un servicio contratado respondía 500 antes de enseñar nada. Es el mismo arreglo
+ * que la intranet aplica a su `ServiceMap`.
+ *
+ * No lleva `loading`: el hueco lo cubre este componente, que hasta tener coordenadas dice «buscando la
+ * dirección», y el lienzo solo se monta cuando hay algo que enseñar.
+ */
+const LocationMapCanvas = dynamic(() => import('@/components/ui/maps/LocationMapCanvas'), {
+  ssr: false,
+});
 
 /**
  * Sitúa una dirección en un mapa con un único punto.
  *
- * Versión reducida de `ServiceMap` (el mapa del panel, con clustering y zonas por código postal):
- * aquí solo hace falta un marcador, así que se dibuja con Leaflet directo, sin las dependencias
- * de agrupación que ese caso no necesita.
- *
- * Las coordenadas las resuelve la API (`/geocoding`, con caché): el backend guarda direcciones
- * escritas, no coordenadas. Si el servicio no sabe situarla se enseña igualmente la dirección y un
- * enlace para abrirla en Google Maps, que es más útil que un hueco vacío.
+ * Las coordenadas las resuelve la API (`/geocoding`, con caché): el backend guarda direcciones escritas, no
+ * coordenadas. Si el servicio no sabe situarla se enseña igualmente la dirección y un enlace para abrirla en
+ * Google Maps, que es más útil que un hueco vacío.
  * @param {LocationMapProps} props - Propiedades del componente
  * @returns {JSX.Element | null} El mapa renderizado, o nada si no hay dirección
  */
 export default function LocationMap({ address, title, label, className }: LocationMapProps) {
   const t = useTranslations('Common.Map');
 
-  const container = useRef<HTMLDivElement>(null);
-  const instance = useRef<L.Map | null>(null);
-
   /*
-   * Se guarda junto a la dirección que resolvió, no suelto: al cambiar de dirección el resultado
-   * anterior deja de valer, y así no hace falta limpiarlo desde el efecto — basta con ignorarlo
-   * cuando no corresponde a la dirección actual.
+   * Se guarda junto a la dirección que resolvió, no suelto: al cambiar de dirección el resultado anterior
+   * deja de valer, y así no hace falta limpiarlo desde el efecto — basta con ignorarlo cuando no
+   * corresponde a la dirección actual.
    */
-  const [resolved, setResolved] = useState<{ address: string; coords: GeocodedAddress } | null>(null);
+  const [resolved, setResolved] = useState<{
+    address: string;
+    coords: GeocodedAddress;
+  } | null>(null);
 
   useEffect(() => {
     if (!address) return;
@@ -66,40 +70,6 @@ export default function LocationMap({ address, title, label, className }: Locati
   const isLoading = address !== undefined && coordinates === undefined;
   const { latitude, longitude } = coordinates ?? {};
   const isLocated = coordinates?.found && latitude !== undefined && longitude !== undefined;
-
-  useEffect(() => {
-    if (!container.current || !isLocated) return;
-
-    const map = L.map(container.current, {
-      center: [latitude, longitude],
-      zoom: POINT_ZOOM,
-      attributionControl: false,
-      zoomControl: false,
-    });
-    instance.current = map;
-
-    L.control.zoom({ position: 'topleft', zoomInTitle: t('zoomIn'), zoomOutTitle: t('zoomOut') }).addTo(map);
-    L.tileLayer(TILE_URL, { maxZoom: 18 }).addTo(map);
-
-    L.marker([latitude, longitude], {
-      icon: L.divIcon({
-        html: '<span class="location-map__pin"></span>',
-        className: 'location-map__marker',
-        iconSize: L.point(32, 32),
-        iconAnchor: L.point(16, 32),
-      }),
-      title: label ?? address,
-    }).addTo(map);
-
-    const observer = new ResizeObserver(() => map.invalidateSize());
-    observer.observe(container.current);
-
-    return () => {
-      observer.disconnect();
-      map.remove();
-      instance.current = null;
-    };
-  }, [isLocated, latitude, longitude, label, address, t]);
 
   if (!address) return null;
 
@@ -121,7 +91,9 @@ export default function LocationMap({ address, title, label, className }: Locati
 
       {isLoading && <p className="location-map__hint">{t('locating')}</p>}
 
-      {!isLoading && isLocated && <div ref={container} className="location-map__canvas" />}
+      {!isLoading && isLocated && (
+        <LocationMapCanvas latitude={latitude} longitude={longitude} title={label ?? address} />
+      )}
 
       {!isLoading && !isLocated && <p className="location-map__hint">{t('notFound')}</p>}
 

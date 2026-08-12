@@ -1,0 +1,107 @@
+// Layout del área de cliente: el marco común de todas las pantallas de `/private-area/*`.
+//
+// Es el equivalente de `.main` en la intranet (`05-views/intranet/intranet-layout.scss`) y cumple el mismo
+// contrato: **el layout pone el espaciado entre bloques, la vista no**. Por eso toda vista del área privada
+// devuelve una lista de bloques (`<>…</>`) en vez de un `div` con su propia maquetación: si cada pantalla
+// eligiera su hueco vertical, dos listados seguidos tendrían aire distinto y el portal se leería como cinco
+// aplicaciones cosidas — que es exactamente de donde venimos.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.client-area {
+  // Hueco de la cabecera fija (misma altura que `.client-area-header`).
+  padding-top: 5rem;
+}
+
+.client-area__content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  @include px(1.5rem);
+  @include py(2.5rem);
+  /*
+   * 1,5rem entre bloques, como la intranet.
+   *
+   * Se hace con `space-y` y no con `gap` a propósito: `gap` obligaría a que el contenedor fuera flex o grid,
+   * y entonces cada bloque de una vista pasaría a ser un ítem flexible cuyo alto depende de sus hermanos.
+   * Con margen entre hermanos, un bloque sigue midiendo lo que mide.
+   */
+  @include space-y(1.5rem);
+
+  @include screen(sm, max) {
+    @include px(1rem);
+    @include py(1.5rem);
+  }
+}
+
+/*
+ * Cabecera de una pantalla: título y explicación a la izquierda, acción principal a la derecha.
+ *
+ * Una sola clase para las once pantallas del área privada. Antes cada una traía la suya —`client-list__header`,
+ * `community-layout__header`, `client-area-page__title`, `private-area-home__title`…— con la misma regla
+ * escrita de cinco maneras, y por eso el mismo título salía en tamaños distintos según la pantalla.
+ */
+.view-header {
+  @include flex($justify: space-between, $align: flex-start, $gap: 1rem);
+  flex-wrap: wrap;
+}
+
+.view-header__text {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.2rem);
+  // Que el texto largo se ajuste en vez de empujar la acción fuera de la fila.
+  min-width: 0;
+  flex: 1 1 18rem;
+}
+
+.view-header__title {
+  font-family: $font-title;
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.view-header__description {
+  color: var(--neutral-color-active);
+}
+
+/*
+ * La vuelta al listado, debajo del título.
+ *
+ * Debajo y no encima: encima se metía entre las migas de pan y el título, y las tres cosas decían lo mismo en
+ * tres líneas seguidas. Mismo sitio y mismo gesto que el `returnPath` del título de la intranet.
+ */
+.view-header__return {
+  @include flex($justify: flex-start, $align: center, $gap: 0.35rem);
+  margin-top: 0.35rem;
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+    color: var(--primary-color-active);
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+/*
+ * Barra de acciones de una vista: los botones de alta que van junto al título.
+ *
+ * Siempre a la derecha, en todas las vistas — es donde el ojo los busca después de leer el título—, y a lo
+ * ancho en un móvil, donde un botón pequeño en la esquina se falla. Misma clase y mismo criterio que
+ * `.view-actions` de la intranet.
+ */
+.view-actions {
+  @include flex($justify: flex-end, $align: center, $gap: 0.75rem);
+  flex-wrap: wrap;
+
+  @include screen(sm, max) {
+    .btn {
+      width: 100%;
+    }
+  }
+}

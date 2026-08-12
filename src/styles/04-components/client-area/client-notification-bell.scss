@@ -59,11 +59,132 @@
   @include rounded(0.5rem);
 }
 
+/*
+ * En móvil, hoja que sube desde abajo (igual que la campana de la intranet).
+ *
+ * Es el mismo panel con otra caja: se sale del flujo de la cabecera, se pega a los tres bordes de abajo y
+ * solo redondea las esquinas de arriba, que es lo que hace que se lea como una hoja que ha subido y no como
+ * una tarjeta suelta. El alto es 85 vh y no 100: dejar ver una franja de la página detrás es lo que dice que
+ * sigue ahí y que esto se cierra.
+ *
+ * En un desplegable de esquina de 22rem, en un móvil de 360px, las notificaciones se leían en una columna de
+ * texto de dos palabras por línea pegada al borde derecho. Es el mismo problema que resolvió la intranet.
+ *
+ * El modificador lo pone el componente y no una media query porque la hoja también **se comporta** distinto:
+ * bloquea el scroll de la página, se anuncia como diálogo modal y añade su botón de cerrar.
+ */
+.client-notification-bell__dropdown--sheet {
+  position: fixed;
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $layer-modal;
+  width: 100%;
+  max-height: 85vh;
+  border: none;
+  border-top: 1px solid var(--border-color);
+  @include rounded(1rem 1rem 0 0);
+  box-shadow: 0 -0.5rem 1.5rem rgb(0 0 0 / 18%);
+  // Sin esto, en pantallas con gesto de inicio la última notificación queda debajo de la barra del
+  // sistema y no se puede tocar.
+  padding-bottom: env(safe-area-inset-bottom);
+  animation: client-notification-sheet-in 0.22s ease-out;
+
+  // Quien pide menos movimiento no necesita ver la hoja subir: aparece ya puesta.
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+
+  // Filas más altas: aquí se tocan con el dedo, y 0,75rem de alto útil se falla.
+  .client-notification-bell__item {
+    @include py(0.875rem);
+  }
+}
+
+@keyframes client-notification-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+/*
+ * El velo de la hoja.
+ *
+ * Empieza justo debajo de la cabecera y no en el borde de la pantalla: la barra sigue siendo el sitio donde
+ * está la campana que acaba de abrir esto, y taparla haría parecer que la app ha cambiado de pantalla en vez
+ * de abrir un panel.
+ */
+.client-notification-bell__backdrop {
+  position: fixed;
+  top: 5rem;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $layer-modal-overlay;
+  background-color: rgb(0 0 0 / 45%);
+  animation: client-notification-backdrop-in 0.22s ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes client-notification-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+// La agarradera de la hoja: puramente indicativa, dice por dónde se cierra.
+.client-notification-bell__grabber {
+  display: block;
+  width: 2.5rem;
+  height: 0.25rem;
+  margin: 0.5rem auto 0;
+  background-color: var(--border-color);
+  @include rounded(999px);
+}
+
 .client-notification-bell__header {
   @include flex(row, space-between, center, 0.5rem);
   @include px(1rem);
   @include py(0.75rem);
   border-bottom: 1px solid var(--border-color);
+}
+
+.client-notification-bell__header-actions {
+  @include flex(row, flex-end, center, 0.75rem);
+}
+
+// 2,25rem para que el dedo acierte: es el botón de cerrar de una hoja, no un icono decorativo.
+.client-notification-bell__close {
+  @include flex(row, center, center, 0);
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: transparent;
+  border: none;
+  color: var(--neutral-color-active);
+  cursor: pointer;
+  @include rounded(999px);
+
+  &:hover {
+    color: var(--color);
+    background-color: var(--neutral-color-light);
+  }
+
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
 }
 
 .client-notification-bell__title {

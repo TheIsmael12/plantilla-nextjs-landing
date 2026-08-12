@@ -7,7 +7,7 @@ import type { PortalPreferences } from "@/types/client-portal/preferences";
 
 import ProfileSectionsSkeleton from "@/components/skeletons/profile/ProfileSectionsSkeleton";
 
-import PortalDateTimeSection from "@/components/ui/client-area/PortalDateTimeSection";
+import PortalDateTimeSection from "@/views/(client-area)/private-area/profile/preferences/datetime/components/PortalDateTimeSection";
 
 /** Valores por defecto si la API no respondió: los mismos que aplica el backend al crear la fila. */
 const FALLBACK_DATETIME_PREFERENCES: Pick<

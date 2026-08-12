@@ -2,9 +2,11 @@ import { PropsWithChildren } from "react";
 
 import BreadcrumbProvider from "@/context/BreadcrumbProvider";
 
+import ClientNotificationBanners from "@/views/(client-area)/private-area/components/ClientNotificationBanners";
 import BreadCrumbs from "@/components/ui/navigations/BreadCrumbs";
 import ClientAreaHeader from "@/components/ui/navigations/ClientAreaHeader";
 
+import "@/styles/04-components/client-area/client-area-layout.scss";
 import "@/styles/04-components/client-area/clientAreaHeader.scss";
 import "@/styles/04-components/ui/navigations/bread-crumbs.scss";
 
@@ -26,6 +28,9 @@ import "@/styles/04-components/ui/navigations/bread-crumbs.scss";
 export default function PrivateAreaLayout({ children }: PropsWithChildren) {
     return (
         <BreadcrumbProvider>
+            {/* Fuera del `main`: es un aviso flotante sobre toda el área privada, no contenido de la página. */}
+            <ClientNotificationBanners />
+
             <div className="client-area">
                 <ClientAreaHeader />
                 <main className="client-area__content">

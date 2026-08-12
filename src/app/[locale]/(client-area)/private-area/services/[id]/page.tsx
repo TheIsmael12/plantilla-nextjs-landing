@@ -1,4 +1,4 @@
-import ServiceDetailViewPage from '@/views/(client-area)/private-area/services/[id]/ServiceDetailViewPage';
+import ServicesDetailsViewPage from '@/views/(client-area)/private-area/services/details/ServicesDetailsViewPage';
 
 interface ServiceDetailPageProps {
     params: Promise<{ locale: string; id: string }>;
@@ -12,5 +12,5 @@ interface ServiceDetailPageProps {
 export default async function ServiceDetailPage({ params }: ServiceDetailPageProps) {
     const { locale, id } = await params;
 
-    return <ServiceDetailViewPage id={id} locale={locale} />;
+    return <ServicesDetailsViewPage id={id} locale={locale} />;
 }

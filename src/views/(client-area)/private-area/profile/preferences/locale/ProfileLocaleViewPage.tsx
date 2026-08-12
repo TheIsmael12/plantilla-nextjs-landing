@@ -1,6 +1,6 @@
 import type { AppLocale } from "@/config/locales";
 
-import PortalLocaleSection from "@/components/ui/client-area/PortalLocaleSection";
+import PortalLocaleSection from "@/views/(client-area)/private-area/profile/preferences/locale/components/PortalLocaleSection";
 
 interface ProfileLocaleViewPageProps {
     locale: AppLocale;

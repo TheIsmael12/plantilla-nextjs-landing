@@ -4,58 +4,8 @@
 @use "../../00-settings/variables" as *;
 @use "../../01-tools/mixins" as *;
 
-// Contenedor de página de `/private-area/*` (servicios, presupuestos,
-// facturas): no cuelgan de `ProfileLayout`, así que aportan su propio ancho
-// máximo dentro de `.client-area__content`.
-.client-area-page {
-  width: min(100% - 2rem, 72rem);
-  margin-inline: auto;
-  @include py(2.5rem);
-  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.5rem);
-}
-
-.client-area-page__title {
-  font-size: $text-2xl;
-  font-weight: $font-semibold;
-  color: var(--color);
-}
-
-.client-area-page__back {
-  @include flex($justify: flex-start, $align: center, $gap: 0.4rem);
-  align-self: flex-start;
-  font-size: $text-sm;
-  color: var(--neutral-color-active);
-  text-decoration: none;
-
-  &:hover {
-    color: var(--primary-color-active);
-  }
-}
-
 .client-list {
   @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.5rem);
-}
-
-/*
- * La cabecera de un listado: el título y su explicación a la izquierda, y la acción principal a la derecha.
- *
- * No tenía **ninguna regla**, así que el botón caía debajo del subtítulo, pegado a él y encima de la barra de
- * filtros: parecía un botón del propio filtro y no «lo que se viene a hacer aquí». Arriba a la derecha es
- * donde se busca la acción principal de una pantalla, y es donde está en el resto de la aplicación.
- *
- * `align-items: flex-start` en vez de `center` porque la explicación puede ocupar dos líneas: centrado, el
- * botón bailaría hacia abajo según lo largo que fuera el texto.
- */
-.client-list__header {
-  @include flex($justify: space-between, $align: flex-start, $gap: 1rem);
-  flex-wrap: wrap;
-
-  // En estrecho el botón pasa debajo y a lo ancho: un botón pequeño en la esquina de un móvil se falla.
-  @include screen(sm, max) {
-    .btn {
-      width: 100%;
-    }
-  }
 }
 
 .client-list__toolbar {

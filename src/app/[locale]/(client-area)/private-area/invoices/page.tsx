@@ -1,4 +1,4 @@
-import InvoicesListViewPage from '@/views/(client-area)/private-area/invoices/InvoicesListViewPage';
+import InvoicesViewPage from '@/views/(client-area)/private-area/invoices/InvoicesViewPage';
 
 interface InvoicesPageProps {
     params: Promise<{ locale: string }>;
@@ -16,5 +16,5 @@ export default async function InvoicesPage({ params, searchParams }: InvoicesPag
     const { locale } = await params;
     const resolvedSearchParams = await searchParams;
 
-    return <InvoicesListViewPage locale={locale} searchParams={resolvedSearchParams} />;
+    return <InvoicesViewPage locale={locale} searchParams={resolvedSearchParams} />;
 }
