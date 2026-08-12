@@ -226,6 +226,12 @@ export const PRIVATE_ROUTES: Route[] = [
         isShownInSidebar: true,
         subRoutes: [
           {
+            pathname: "/private-area/profile/notifications",
+            category: "account",
+            icon: Bell,
+            isShownInSidebar: true,
+          },
+          {
             pathname: "/private-area/profile/security",
             category: "account",
             icon: Lock,
@@ -237,26 +243,7 @@ export const PRIVATE_ROUTES: Route[] = [
             icon: Monitor,
             isShownInSidebar: true,
           },
-          /*
-           * El histórico de notificaciones, en «Cuenta» junto a sesiones y seguridad.
-           *
-           * Cuelga del perfil y no de `/private-area` porque el menú lateral se construye con
-           * `MenuItems path="/private-area/profile"`: una ruta hermana no podría aparecer ahí, y hasta ahora
-           * la única forma de llegar al histórico era el «ver todas» de la campana.
-           *
-           * Comparte nombre con `preferences/notifications` a propósito: son dos cosas distintas —lo que te
-           * han avisado y cómo quieres que te avisemos— y el grupo del menú («Cuenta» frente a
-           * «Preferencias») es lo que las distingue, igual que en cualquier aplicación con bandeja y ajustes.
-           */
           {
-            pathname: "/private-area/profile/notifications",
-            category: "account",
-            icon: Bell,
-            isShownInSidebar: true,
-          },
-          {
-            // Solo agrupa: la pantalla real es cada una de sus subrutas
-            // (mismo patrón que `plantilla-nextjs`).
             pathname: "/private-area/profile/preferences",
             category: "preferences",
             icon: SlidersHorizontal,

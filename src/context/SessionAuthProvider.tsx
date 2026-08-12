@@ -7,7 +7,6 @@ import { SessionProvider } from "next-auth/react";
 import { SESSION_REFETCH_INTERVAL_SECONDS } from "@/config/settings";
 import { usePortalSessionMonitor } from "@/lib/portalSessionMonitor";
 import RealtimeProvider from "@/context/RealtimeProvider";
-import ThemePreferenceSync from "@/context/ThemePreferenceSync";
 
 /** Monta `usePortalSessionMonitor` dentro del árbol de `SessionProvider`, que es donde `useSession()` puede llamarse. */
 function SessionMonitor() {
@@ -38,7 +37,6 @@ export default function SessionAuthProvider({ children }: PropsWithChildren) {
     return (
         <SessionProvider refetchInterval={SESSION_REFETCH_INTERVAL_SECONDS} refetchOnWindowFocus>
             <SessionMonitor />
-            <ThemePreferenceSync />
             <RealtimeProvider>{children}</RealtimeProvider>
         </SessionProvider>
     );

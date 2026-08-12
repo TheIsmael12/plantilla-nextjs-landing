@@ -2,8 +2,9 @@
 
 import { useState, useTransition } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { useSession } from 'next-auth/react';
-import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
 import { MoonIcon, SunIcon, SunMoonIcon } from 'lucide-react';
 
@@ -23,14 +24,21 @@ interface PortalThemeSectionProps {
 /**
  * Selector de tema de `/private-area/profile/preferences/theme`, propia
  * subpágina igual que en intranet: tarjetas con miniatura de cada tema, cambia
- * al instante vía `next-themes` y persiste en segundo plano.
+ * al instante y persiste en segundo plano.
+ *
+ * El cambio en vivo no lo da `next-themes` (`setTheme`): el `ThemeProvider` raíz usa `forcedTheme` para
+ * que el tema de la persona gane siempre a `localStorage` desde el primer frame (evita el flash al tema
+ * equivocado al iniciar sesión en otro dispositivo/navegador), y mientras `forcedTheme` tiene valor
+ * `next-themes` ignora cualquier `setTheme` posterior. Por eso aquí se pinta la clase directamente sobre
+ * `<html>` para el efecto instantáneo, y `router.refresh()` tras guardar recalcula `forcedTheme` en el
+ * layout de servidor con el valor nuevo — sin eso, la próxima navegación revertiría al tema anterior.
  * @param {PortalThemeSectionProps} props - Tema guardado al cargar la página
  * @returns {JSX.Element} La sección de preferencia de tema renderizada
  */
 export default function PortalThemeSection({ initialTheme }: PortalThemeSectionProps) {
   const t = useTranslations('Views.ClientArea.Profile.Preferences.Theme');
   const tErrors = useTranslations('Common.Errors');
-  const { setTheme } = useTheme();
+  const router = useRouter();
   const { update } = useSession();
 
   const [theme, setThemeValue] = useState(initialTheme);
@@ -38,12 +46,16 @@ export default function PortalThemeSection({ initialTheme }: PortalThemeSectionP
 
   const handleChange = (value: string) => {
     setThemeValue(value as PortalPreferences['theme']);
-    setTheme(value);
+    document.documentElement.classList.toggle('dark', value === 'dark');
+    document.documentElement.style.colorScheme = value;
 
     startTransition(async () => {
       const response = await updatePreferences({ theme: value as PortalPreferences['theme'] });
       notifyResponse(response, tErrors('unexpectedError'));
-      if (response.data) await update({ preferences: response.data });
+      if (response.data) {
+        await update({ preferences: response.data });
+        router.refresh();
+      }
     });
   };
 

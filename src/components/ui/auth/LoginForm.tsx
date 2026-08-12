@@ -88,6 +88,14 @@ export default function LoginForm() {
 
     const target = isInternal && !isAuthScreen ? callbackUrl : '/private-area';
     router.push(target as AnyHref);
+
+    /*
+     * `router.push` es una navegación blanda: reutiliza el layout raíz ya montado, así que
+     * `[locale]/layout.tsx` no se vuelve a ejecutar en el servidor y el tema forzado por sesión
+     * (`forcedTheme` en `ThemeProvider`) se queda con el valor de antes de identificarse (sin sesión, o
+     * la de otra cuenta). `router.refresh()` fuerza esa re-ejecución con la cookie de sesión ya escrita.
+     */
+    router.refresh();
   };
 
   const handleSubmit = async (values: LoginValues) => {

@@ -9,6 +9,11 @@ import Image from "next/image";
 
 import type { ImageLogoProps } from "@/types/ui/images/image-logo";
 
+// El logo siempre se usa como marca de cabecera/navegación (nav, footer, header del área de cliente,
+// layout de auth), nunca a tamaño de página completa: un ancho de renderizado generoso para ese caso
+// cubre a todos los sitios de uso sin necesitar que cada uno declare su propio `sizes`.
+const LOGO_SIZES = "160px";
+
 /**
  * Logo de la aplicación, resuelto automáticamente entre las variantes clara y
  * oscura según el tema activo (`next-themes`), salvo que `style` fuerce una
@@ -53,6 +58,7 @@ export default function ImageLogo({
           src="/images/logo.png"
           alt=""
           fill
+          sizes={LOGO_SIZES}
           priority={false}
           className="image-logo__img"
         />
@@ -66,6 +72,7 @@ export default function ImageLogo({
         src={getLogoSrc()}
         alt={alt}
         fill
+        sizes={LOGO_SIZES}
         priority={priority}
         fetchPriority="high"
         className="image-logo__img"

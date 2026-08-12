@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { getServerSession } from "next-auth/next";
 import { ThemeProvider } from "next-themes";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale, getMessages } from "next-intl/server";
@@ -11,6 +12,7 @@ import CookieConsentController from "@/components/ui/cookies/CookieConsentContro
 import Toaster from "@/components/ui/toasts/Toaster";
 import SessionAuthProvider from "@/context/SessionAuthProvider";
 
+import { authOptions } from "@/lib/authOptions";
 import { generateTranslatedMetadata } from "@/lib/generateMetadata";
 
 const fraunces = Fraunces({
@@ -67,6 +69,23 @@ export default async function LocaleLayout({
 
     const messages = await getMessages();
 
+    /*
+     * El tema, igual que el idioma, se resuelve en el servidor, y con `forcedTheme` y no solo
+     * `defaultTheme`: el script anti-flash de `next-themes` da prioridad a `localStorage` sobre
+     * `defaultTheme`, así que si el navegador ya tenía otro tema guardado (de antes de iniciar sesión, o
+     * de otra cuenta en el mismo dispositivo) `defaultTheme` no bastaba — se seguía viendo el tema viejo
+     * del `localStorage` del dispositivo en vez del guardado en las preferencias de la persona.
+     * `forcedTheme` sí gana siempre a `localStorage`, así que con sesión el tema de la persona manda desde
+     * el primer frame. Sin sesión (visitante, páginas públicas) no se fuerza nada.
+     *
+     * Mientras `forcedTheme` tiene valor, `next-themes` ignora cualquier `setTheme` en cliente: por eso
+     * `PortalThemeSection` llama `router.refresh()` al guardar, para que este layout se re-renderice con
+     * el nuevo valor y `forcedTheme` cambie de verdad — sin eso el toggle de preferencias dejaría de
+     * pintarse en el momento (fix anterior, más simple, que causaba esa regresión).
+     */
+    const session = await getServerSession(authOptions);
+    const savedTheme = session?.user?.preferences?.theme;
+
     return (
 
         <html lang={locale} suppressHydrationWarning className={`${fraunces.variable} ${publicSans.variable}`}>
@@ -76,7 +95,12 @@ export default async function LocaleLayout({
             <body>
                 <NextIntlClientProvider locale={locale} messages={messages}>
                     <SessionAuthProvider>
-                        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                        <ThemeProvider
+                            attribute="class"
+                            defaultTheme={savedTheme ?? "system"}
+                            forcedTheme={savedTheme}
+                            enableSystem
+                        >
                             {children}
                             <CookieConsentController />
                             <Toaster />
