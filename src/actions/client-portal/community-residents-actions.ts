@@ -7,6 +7,7 @@ import type {
   CreateResidentInvitationsDto,
   PortalResident,
   ResidentInvitation,
+  UpdateResidentAccountDto,
   UpdateResidentMembershipDto,
 } from "@/types/client-portal/community";
 import type { FetchResponse, PaginatedResult } from "@/types/responses";
@@ -135,8 +136,7 @@ export async function revokeCommunityInvitation(
 
 /**
  * Cambia la unidad o el rol de un vecino
- * (`PATCH client/me/communities/memberships/:membershipId`). El correo no se
- * puede cambiar desde el portal.
+ * (`PATCH client/me/communities/memberships/:membershipId`).
  * @param {string} membershipId - Pertenencia del vecino
  * @param {UpdateResidentMembershipDto} dto - Nueva unidad y/o nuevo rol
  * @returns {Promise<FetchResponse<PortalResident>>} El vecino ya actualizado
@@ -147,6 +147,27 @@ export async function updateCommunityMembership(
 ): Promise<FetchResponse<PortalResident>> {
   return fetchDataToken<PortalResident, UpdateResidentMembershipDto>(
     `client/me/communities/memberships/${encodeURIComponent(membershipId)}`,
+    "PATCH",
+    dto,
+  );
+}
+
+/**
+ * Cambia el nombre y/o el correo de la identidad de un vecino
+ * (`PATCH client/me/communities/memberships/:membershipId/account`): afecta a todas las
+ * comunidades donde viva, porque el nombre y el correo son de la persona, no de esta pertenencia.
+ * Cambiar el correo le retira el acceso con el anterior; la API responde 400 si el nuevo ya está
+ * en uso por otra cuenta.
+ * @param {string} membershipId - Una pertenencia cualquiera del vecino, para ubicar su cuenta
+ * @param {UpdateResidentAccountDto} dto - Nombre y/o correo nuevos
+ * @returns {Promise<FetchResponse<PortalResident>>} El vecino con los datos ya actualizados
+ */
+export async function updateCommunityResidentAccount(
+  membershipId: string,
+  dto: UpdateResidentAccountDto,
+): Promise<FetchResponse<PortalResident>> {
+  return fetchDataToken<PortalResident, UpdateResidentAccountDto>(
+    `client/me/communities/memberships/${encodeURIComponent(membershipId)}/account`,
     "PATCH",
     dto,
   );

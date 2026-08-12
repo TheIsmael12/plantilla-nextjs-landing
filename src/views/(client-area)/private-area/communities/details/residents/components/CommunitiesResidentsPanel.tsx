@@ -11,6 +11,7 @@ import {
   revokeCommunityInvitation,
   revokeCommunityMembership,
   updateCommunityMembership,
+  updateCommunityResidentAccount,
 } from '@/actions/client-portal/community-residents-actions';
 import { HTTPStatus } from '@/constants/httpStatus';
 import { notifyResponse } from '@/utils/toastUtils';
@@ -95,6 +96,8 @@ export default function CommunitiesResidentsPanel({
 
   const [editUnitId, setEditUnitId] = useState('');
   const [editRole, setEditRole] = useState<ResidentRole>('PROPIETARIO');
+  const [editName, setEditName] = useState('');
+  const [editEmail, setEditEmail] = useState('');
 
   const validateEmail = (candidate: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate) ? undefined : 'tagsInputInvalidEmail';
@@ -147,19 +150,52 @@ export default function CommunitiesResidentsPanel({
     setEditing(resident);
     setEditUnitId(resident.communityUnitId ?? '');
     setEditRole(resident.role);
+    setEditName(resident.name);
+    setEditEmail(resident.email);
   };
 
+  /*
+   * Dos llamadas y no una: unidad/rol vive en la pertenencia y nombre/correo en la cuenta, que es
+   * otro recurso con su propia validación (email único). Si la primera falla, no se intenta la
+   * segunda — mejor un cambio a medias visible en el toast de error que aplicar el correo con la
+   * unidad todavía sin guardar.
+   */
   const handleEdit = () => {
     if (!editing) return;
+    const target = editing;
 
-    run(
-      () =>
-        updateCommunityMembership(editing.membershipId, {
-          communityUnitId: editUnitId || null,
-          role: editRole,
-        }),
-      () => setEditing(null),
-    );
+    startTransition(async () => {
+      const membershipResponse = await updateCommunityMembership(target.membershipId, {
+        communityUnitId: editUnitId || null,
+        role: editRole,
+      });
+
+      if (membershipResponse.status !== HTTPStatus.OK) {
+        notifyResponse(membershipResponse, tErrors('unexpectedError'));
+        return;
+      }
+
+      const nameChanged = editName.trim() !== target.name;
+      const emailChanged = editEmail.trim().toLowerCase() !== target.email;
+
+      if (nameChanged || emailChanged) {
+        const accountResponse = await updateCommunityResidentAccount(target.membershipId, {
+          ...(nameChanged && { name: editName }),
+          ...(emailChanged && { email: editEmail }),
+        });
+
+        notifyResponse(accountResponse, tErrors('unexpectedError'));
+        if (accountResponse.status === HTTPStatus.OK) {
+          setEditing(null);
+          router.refresh();
+        }
+        return;
+      }
+
+      notifyResponse(membershipResponse, tErrors('unexpectedError'));
+      setEditing(null);
+      router.refresh();
+    });
   };
 
   const toggleKeyring = (keyringId: string) => {
@@ -378,6 +414,36 @@ export default function CommunitiesResidentsPanel({
         >
           <div className="community-form">
             <p>{t('Residents.editDescription')}</p>
+
+            <div className="form-row form-row--cols-2">
+              <Input
+                id="edit-name"
+                name="name"
+                label={t('Residents.nameLabel')}
+                noTranslate
+                className="input__full"
+                value={editName}
+                onChange={(event) => setEditName(event.target.value)}
+              />
+
+              <Input
+                id="edit-email"
+                name="email"
+                type="email"
+                label={t('Residents.emailLabel')}
+                noTranslate
+                className="input__full"
+                value={editEmail}
+                onChange={(event) => setEditEmail(event.target.value)}
+              />
+            </div>
+
+            {editEmail.trim().toLowerCase() !== editing.email && (
+              <Alert
+                type="warning"
+                message={t('Residents.emailChangeWarning', { email: editing.email })}
+              />
+            )}
 
             <div className="form-row form-row--cols-2">
               <SelectSearch

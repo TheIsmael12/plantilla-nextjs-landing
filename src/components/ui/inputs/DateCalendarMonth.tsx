@@ -18,6 +18,7 @@ export default function DateCalendarMonth({
   firstDayOfWeek,
   focusedDate,
   gridLabelId,
+  showMonthLabel = true,
   isDisabled,
   isSelected,
   isRangeStart,
@@ -37,7 +38,10 @@ export default function DateCalendarMonth({
 
   return (
     <div className="date-calendar">
-      <p id={gridLabelId} className="date-calendar__month-label">
+      <p
+        id={gridLabelId}
+        className={`date-calendar__month-label${showMonthLabel ? "" : " sr-only"}`}
+      >
         {getMonthLabel(new Date(year, month, 1), locale)}
       </p>
 

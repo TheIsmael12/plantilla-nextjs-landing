@@ -17,12 +17,16 @@ import { DatePickerProps } from "@/types/ui/inputs/date-picker";
 import {
   dateKey,
   formatShortDate,
+  getDecadeStart,
   getIndicatorColorsForDay,
+  getMonthLabel,
   getNextFocusedDate,
   isDateDisabled,
+  isMonthOutOfRange,
   isNextMonthDisabled,
   isPrevMonthDisabled,
   isSameDay,
+  isYearOutOfRange,
   startOfDay,
   startOfMonth,
   toDateOrNull,
@@ -37,6 +41,10 @@ import {
 
 import DateCalendarLegend from "./DateCalendarLegend";
 import DateCalendarMonth from "./DateCalendarMonth";
+import DateMonthYearGrid from "./DateMonthYearGrid";
+
+/** Qué rejilla muestra el panel: los días del mes, o el salto rápido de mes/año. */
+type DatePickerViewMode = "days" | "months" | "years";
 
 const OPEN_KEYS = ["ArrowDown", "ArrowUp", "Enter", " "];
 
@@ -123,6 +131,7 @@ export default function DatePicker({
   const [focusedDate, setFocusedDate] = useState<Date | null>(() =>
     startOfDay(normalizedValue ?? new Date()),
   );
+  const [viewMode, setViewMode] = useState<DatePickerViewMode>("days");
 
   const registerDayRef = (key: string, el: HTMLButtonElement | null) => {
     if (el) dayRefs.current.set(key, el);
@@ -166,6 +175,7 @@ export default function DatePicker({
     const base = normalizedValue ?? new Date();
     setViewDate(startOfMonth(base));
     setFocusedDate(startOfDay(base));
+    setViewMode("days");
     setIsOpen(true);
   };
 
@@ -190,6 +200,50 @@ export default function DatePicker({
       });
       return next;
     });
+  };
+
+  /*
+   * Un año o un tramo de doce, según el modo activo — es lo que mueven las mismas dos flechas del
+   * `nav` mientras el panel está en "months"/"years", en vez de mes a mes. Solo cambia el año de
+   * `viewDate`: el día se conserva igual que en `goToMonth`, para que volver a "days" no pierda por
+   * dónde se iba.
+   */
+  const goToYearStep = (offset: number) => {
+    const years = viewMode === "years" ? offset * 12 : offset;
+    setViewDate((prev) => {
+      const next = new Date(prev.getFullYear() + years, prev.getMonth(), 1);
+      setFocusedDate((prevFocused) => {
+        /* v8 ignore next -- defensivo: ver goToMonth */
+        const day = prevFocused?.getDate() ?? 1;
+        return clampDayToMonth(day, next);
+      });
+      return next;
+    });
+  };
+
+  /** Elige un mes en la vista de salto rápido y vuelve directamente a la rejilla de días. */
+  const selectMonth = (month: number) => {
+    setViewDate((prev) => {
+      const next = new Date(prev.getFullYear(), month, 1);
+      setFocusedDate((prevFocused) => {
+        /* v8 ignore next -- defensivo: ver goToMonth */
+        const day = prevFocused?.getDate() ?? 1;
+        return clampDayToMonth(day, next);
+      });
+      return next;
+    });
+    setViewMode("days");
+  };
+
+  /*
+   * Elegir un año no vuelve a "days": entre las dos preguntas («¿qué año?» y «¿qué mes?») lo natural
+   * es encadenarlas, igual que hace un desplegable año→mes→día. Si el mes ya elegido no cabe en el
+   * año nuevo por las restricciones activas, se pasa a "days" directamente — no tiene sentido
+   * ofrecer una vista de meses donde ya se sabe cuál tocaría.
+   */
+  const selectYear = (year: number) => {
+    setViewDate((prev) => new Date(year, prev.getMonth(), 1));
+    setViewMode(isMonthOutOfRange(year, viewDate.getMonth(), constraints) ? "days" : "months");
   };
 
   // Reposiciona en scroll/resize y cierra al hacer click fuera del trigger o del panel
@@ -219,6 +273,21 @@ export default function DatePicker({
       document.removeEventListener("mousedown", handlePointerDown);
     };
   }, [isOpen]);
+
+  // Evita que el panel (más ancho que el trigger) se salga del viewport por la derecha
+  useEffect(() => {
+    if (!isOpen || !panelRef.current || !position) return;
+    const panelRect = panelRef.current.getBoundingClientRect();
+    const overflowRight = panelRect.right - (window.innerWidth - 8);
+    if (overflowRight > 0) {
+      setPosition((prev) => {
+        /* v8 ignore next -- defensivo: en este punto `position` ya es no nulo (el efecto corta antes si no lo es), así que `prev` recibido aquí también lo es; la alternativa solo protege el tipo `DropdownPosition | null` */
+        if (!prev) return prev;
+        return { ...prev, left: Math.max(8, prev.left - overflowRight) };
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, position?.top]);
 
   // Mueve el foco de teclado al día activo tras navegar
   useEffect(() => {
@@ -280,8 +349,29 @@ export default function DatePicker({
     }
   };
 
-  const prevDisabled = isPrevMonthDisabled(viewDate, constraints);
-  const nextDisabled = isNextMonthDisabled(viewDate, constraints);
+  /*
+   * Qué deshabilita cada flecha del `nav` depende del modo activo: un mes en "days", un año en
+   * "months" (no tiene sentido ofrecer 2027 si nada de 2027 es seleccionable) y un tramo de doce en
+   * "years". Todas comparten el mismo criterio de `DateConstraints` que ya usa la rejilla de días.
+   */
+  const prevDisabled =
+    viewMode === "days"
+      ? isPrevMonthDisabled(viewDate, constraints)
+      : viewMode === "months"
+        ? isYearOutOfRange(viewDate.getFullYear() - 1, constraints)
+        : isYearOutOfRange(getDecadeStart(viewDate.getFullYear()) - 1, constraints);
+  const nextDisabled =
+    viewMode === "days"
+      ? isNextMonthDisabled(viewDate, constraints)
+      : viewMode === "months"
+        ? isYearOutOfRange(viewDate.getFullYear() + 1, constraints)
+        : isYearOutOfRange(getDecadeStart(viewDate.getFullYear()) + 12, constraints);
+  const navLabel =
+    viewMode === "days"
+      ? { prev: t("previousMonth"), next: t("nextMonth") }
+      : viewMode === "months"
+        ? { prev: t("previousYear"), next: t("nextYear") }
+        : { prev: t("previousYears"), next: t("nextYears") };
   const displayValue = normalizedValue
     ? formatShortDate(normalizedValue, locale)
     : "";
@@ -318,44 +408,91 @@ export default function DatePicker({
           <button
             type="button"
             className="date-calendar-panel__nav-btn"
-            aria-label={t("previousMonth")}
+            aria-label={navLabel.prev}
             disabled={prevDisabled}
-            onClick={() => goToMonth(-1)}
+            onClick={() => (viewMode === "days" ? goToMonth(-1) : goToYearStep(-1))}
           >
             <ChevronLeftIcon />
           </button>
+
+          {viewMode === "days" && (
+            <button
+              type="button"
+              className="date-calendar-panel__nav-label"
+              aria-label={t("selectMonth")}
+              onClick={() => setViewMode("months")}
+            >
+              {getMonthLabel(viewDate, locale)}
+            </button>
+          )}
+          {viewMode === "months" && (
+            <button
+              type="button"
+              className="date-calendar-panel__nav-label"
+              aria-label={t("selectYear")}
+              onClick={() => setViewMode("years")}
+            >
+              {viewDate.getFullYear()}
+            </button>
+          )}
+          {viewMode === "years" && (
+            <span className="date-calendar-panel__nav-label date-calendar-panel__nav-label--static">
+              {getDecadeStart(viewDate.getFullYear())} –{" "}
+              {getDecadeStart(viewDate.getFullYear()) + 11}
+            </span>
+          )}
+
           <button
             type="button"
             className="date-calendar-panel__nav-btn"
-            aria-label={t("nextMonth")}
+            aria-label={navLabel.next}
             disabled={nextDisabled}
-            onClick={() => goToMonth(1)}
+            onClick={() => (viewMode === "days" ? goToMonth(1) : goToYearStep(1))}
           >
             <ChevronRightIcon />
           </button>
         </div>
 
-        <DateCalendarMonth
-          year={viewDate.getFullYear()}
-          month={viewDate.getMonth()}
-          locale={locale}
-          firstDayOfWeek={firstDayOfWeek}
-          focusedDate={focusedDate}
-          gridLabelId={gridLabelId}
-          isDisabled={(date) => isDateDisabled(date, constraints)}
-          isSelected={(date) =>
-            normalizedValue ? isSameDay(date, normalizedValue) : false
-          }
-          getDayIndicatorColors={(date) =>
-            getIndicatorColorsForDay(date, indicators)
-          }
-          onSelectDay={selectDate}
-          onFocusDay={setFocusedDate}
-          onKeyDownDay={handleDayKeyDown}
-          registerDayRef={registerDayRef}
-        />
+        {viewMode === "days" && (
+          <DateCalendarMonth
+            year={viewDate.getFullYear()}
+            month={viewDate.getMonth()}
+            locale={locale}
+            firstDayOfWeek={firstDayOfWeek}
+            focusedDate={focusedDate}
+            gridLabelId={gridLabelId}
+            showMonthLabel={false}
+            isDisabled={(date) => isDateDisabled(date, constraints)}
+            isSelected={(date) =>
+              normalizedValue ? isSameDay(date, normalizedValue) : false
+            }
+            getDayIndicatorColors={(date) =>
+              getIndicatorColorsForDay(date, indicators)
+            }
+            onSelectDay={selectDate}
+            onFocusDay={setFocusedDate}
+            onKeyDownDay={handleDayKeyDown}
+            registerDayRef={registerDayRef}
+          />
+        )}
 
-        <DateCalendarLegend indicators={indicators} />
+        {viewMode !== "days" && (
+          <DateMonthYearGrid
+            mode={viewMode}
+            year={viewDate.getFullYear()}
+            month={viewMode === "months" ? viewDate.getMonth() : undefined}
+            locale={locale}
+            ariaLabel={viewMode === "months" ? t("selectMonth") : t("selectYear")}
+            isMonthDisabled={(month) =>
+              isMonthOutOfRange(viewDate.getFullYear(), month, constraints)
+            }
+            isYearDisabled={(year) => isYearOutOfRange(year, constraints)}
+            onSelectMonth={selectMonth}
+            onSelectYear={selectYear}
+          />
+        )}
+
+        {viewMode === "days" && <DateCalendarLegend indicators={indicators} />}
       </div>
     </div>
   );

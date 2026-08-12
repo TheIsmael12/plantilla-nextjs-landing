@@ -12,6 +12,12 @@
       "selectDateRange": "Selecciona un rango de fechas",
       "previousMonth": "Mes anterior",
       "nextMonth": "Mes siguiente",
+      "previousYear": "Año anterior",
+      "nextYear": "Año siguiente",
+      "previousYears": "Años anteriores",
+      "nextYears": "Años siguientes",
+      "selectMonth": "Elegir mes",
+      "selectYear": "Elegir año",
       "clearDate": "Borrar fecha",
       "clearDates": "Borrar fechas",
       "today": "Hoy",
@@ -22,6 +28,15 @@
     },
     "OtpInput": {
       "digitLabel": "Dígito {current} de {total}"
+    },
+    "Colors": {
+      "none": "Sin color",
+      "red": "Rojo",
+      "amber": "Ámbar",
+      "green": "Verde",
+      "blue": "Azul",
+      "purple": "Morado",
+      "slate": "Gris"
     },
     "Pagination": {
       "previous": "Anterior",

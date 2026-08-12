@@ -51,6 +51,11 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  // El `<dialog>` puede recibir el foco directamente al abrirse (el atrapado de foco de
+  // `useFocusTrap` lo hace programáticamente), y el anillo de `:focus-visible` global
+  // (outline-offset: 3px) queda cortado por este `overflow: hidden` — se ve como un borde mordido
+  // en las esquinas redondeadas. El modal ya tiene su propio borde/sombra; no le hace falta outline.
+  outline: none;
 
   &--large {
     width: min(56rem, calc(100vw - 2rem));
@@ -80,6 +85,10 @@
       &:hover {
         background-color: var(--neutral-color-light);
         color: var(--color);
+      }
+
+      &:focus-visible {
+        outline-offset: 2px;
       }
     }
   }

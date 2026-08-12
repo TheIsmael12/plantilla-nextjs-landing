@@ -51,19 +51,26 @@ export interface InvoiceListItem {
 }
 
 /**
+ * Medio de pago de un cobro. Mismo catálogo que `BillingPaymentMethod` en el backend
+ * (requisitos-facturacion.md, sección 10).
+ * @typedef {("CASH"|"BANK_TRANSFER"|"SEPA_DIRECT_DEBIT"|"CARD"|"OTHER")} InvoicePaymentMethod
+ */
+export type InvoicePaymentMethod = "CASH" | "BANK_TRANSFER" | "SEPA_DIRECT_DEBIT" | "CARD" | "OTHER";
+
+/**
  * Cobro registrado contra una factura.
  * @interface InvoicePayment
  * @property {string} id - Identificador del cobro
  * @property {string} paymentDate - Fecha del cobro (ISO `YYYY-MM-DD`)
  * @property {number} amount - Importe cobrado
- * @property {string} method - Medio de pago empleado
+ * @property {InvoicePaymentMethod} method - Medio de pago empleado
  * @property {string} [reference] - Referencia bancaria o del cobro
  */
 export interface InvoicePayment {
   id: string;
   paymentDate: string;
   amount: number;
-  method: string;
+  method: InvoicePaymentMethod;
   reference?: string;
 }
 
@@ -107,12 +114,16 @@ export interface InvoiceDetail extends InvoiceListItem {
  * @property {number} [limit] - Tamaño de página
  * @property {InvoiceStatus} [status] - Filtro por estado
  * @property {string} [search] - Búsqueda libre por número de factura (`fullNumber`)
+ * @property {string} [dateFrom] - Filtra por `issueDate >= dateFrom` (ISO `YYYY-MM-DD`)
+ * @property {string} [dateTo] - Filtra por `issueDate <= dateTo` (ISO `YYYY-MM-DD`)
  */
 export interface ClientInvoicesQuery {
   page?: number;
   limit?: number;
   status?: InvoiceStatus;
   search?: string;
+  dateFrom?: string;
+  dateTo?: string;
 }
 
 /**

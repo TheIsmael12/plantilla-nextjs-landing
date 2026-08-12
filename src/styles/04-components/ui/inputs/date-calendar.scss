@@ -26,11 +26,12 @@ $calendar-width: $day-size * 7 + $day-gap * 6;
   }
 
   &__nav {
-    @include flex($justify: flex-end, $gap: 0.5rem);
+    @include flex($justify: space-between, $align: center, $gap: 0.5rem);
   }
 
   &__nav-btn {
     @include flex($justify: center, $gap: 0);
+    flex-shrink: 0;
     width: 2rem;
     height: 2rem;
     background-color: transparent;
@@ -44,6 +45,30 @@ $calendar-width: $day-size * 7 + $day-gap * 6;
     &:disabled {
       cursor: not-allowed;
       opacity: 0.4;
+    }
+  }
+
+  // El botón de "Agosto 2026" / "2026" que abre el salto rápido de mes o año: mismo trato visual
+  // que los botones de flecha, pero con texto en vez de icono y algo más de aire a los lados.
+  &__nav-label {
+    @include flex($justify: center, $align: center, $gap: 0);
+    height: 2rem;
+    background-color: transparent;
+    color: var(--color);
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    text-transform: capitalize;
+    @include px(0.5rem);
+    @include rounded();
+
+    &:hover:not(&--static) {
+      background-color: var(--neutral-color-light);
+    }
+
+    // El tramo de años ("2020 – 2031") no tiene una vista más ancha a la que saltar, así que no es
+    // un botón: mismo sitio y mismo tamaño que el resto de la barra, sin invitar al clic.
+    &--static {
+      cursor: default;
     }
   }
 
@@ -147,6 +172,57 @@ $calendar-width: $day-size * 7 + $day-gap * 6;
     width: 0.25rem;
     height: 0.25rem;
     @include rounded(50%);
+  }
+}
+
+/*
+ * Vista de salto rápido (mes o año), en lugar de la rejilla de días.
+ *
+ * Mismo ancho que `.date-calendar` ($calendar-width): al abrir o cerrar esta vista el panel no
+ * cambia de tamaño, así que no hay ningún salto visual al ir y volver.
+ */
+.date-month-year-grid {
+  @include grid($columns: repeat(3, 1fr), $gap: 0.5rem);
+  width: $calendar-width;
+  // Mismo alto aproximado que la rejilla de días (cabecera + 6 semanas), para que tampoco cambie
+  // la altura del panel al entrar en esta vista.
+  padding: 0.375rem 0;
+
+  // Dentro de un `DateRangePicker` el panel es el doble de ancho (dos meses uno junto al otro): la
+  // rejilla ocupa ese ancho entero, con más columnas para que las doce celdas no queden estiradas
+  // ni con el hueco muerto que dejaría mantener 3 columnas de 17rem cada una.
+  .date-calendar-panel--range & {
+    @include grid($columns: repeat(4, 1fr), $gap: 0.75rem);
+    width: 100%;
+  }
+
+  &__cell {
+    @include flex($justify: center, $align: center, $gap: 0);
+    height: 2.75rem;
+    background-color: transparent;
+    color: var(--color);
+    font-size: $text-sm;
+    text-transform: capitalize;
+    @include rounded();
+
+    &:hover:not(:disabled) {
+      background-color: var(--neutral-color-light);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: var(--neutral-color);
+      opacity: 0.5;
+    }
+
+    &--selected {
+      background-color: var(--primary-color);
+      color: var(--light-color);
+
+      &:hover:not(:disabled) {
+        background-color: var(--primary-color-hover);
+      }
+    }
   }
 }
 

@@ -8,6 +8,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { useClientTableUrlState } from '@/hooks/useClientTableUrlState';
 import { formatBillingDate } from '@/utils/billingFormatUtils';
 import { INCIDENT_PRIORITY_VARIANTS, INCIDENT_STATUS_VARIANTS } from '@/utils/communityFormatUtils';
+import { toLocalIsoDate } from '@/utils/dateUtils';
 import { Link, resolveDetailHref } from '@/i18n/navigation';
 
 import Badge from '@/components/ui/buttons/Badge';
@@ -15,7 +16,7 @@ import Table from '@/components/ui/tables/Table';
 
 import type { CommunityIncident, IncidentStatus } from '@/types/client-portal/community';
 import type { PaginatedResult } from '@/types/responses';
-import type { Filter } from '@/types/ui/tables/table';
+import type { Filter, FilterValue } from '@/types/ui/tables/table';
 
 const INCIDENTS_PER_PAGE = 10;
 
@@ -49,11 +50,20 @@ export default function IncidentsTable({
   const tCommunities = useTranslations('Views.ClientArea.Communities');
   const tCommon = useTranslations('Views.ClientArea.Common');
 
-  const { pagination, sorting, filterValues, setPagination, setSorting, setFilter, isPending } =
-    useClientTableUrlState({
-      initialPageSize: INCIDENTS_PER_PAGE,
-      filterParams: ['status'],
-    });
+  const {
+    pagination,
+    sorting,
+    search,
+    filterValues,
+    setPagination,
+    setSorting,
+    setSearch,
+    setFilter,
+    isPending,
+  } = useClientTableUrlState({
+    initialPageSize: INCIDENTS_PER_PAGE,
+    filterParams: ['status', 'dateFrom', 'dateTo'],
+  });
 
   const filters: Filter[] = [
     {
@@ -68,7 +78,34 @@ export default function IncidentsTable({
         })),
       ],
     },
+    {
+      key: 'dateFrom',
+      type: 'date',
+      label: t('createdAtFrom'),
+      maxDate: filterValues.dateTo || undefined,
+      disableFuture: true,
+    },
+    {
+      key: 'dateTo',
+      type: 'date',
+      label: t('createdAtTo'),
+      minDate: filterValues.dateFrom || undefined,
+      disableFuture: true,
+    },
   ];
+
+  /*
+   * `useClientTableUrlState` solo maneja `string` (así viaja en la URL); los filtros de fecha del
+   * panel entregan un `Date`. Se convierte aquí, en el único punto donde se cruzan las dos formas —
+   * un `Date` se guarda como ISO `YYYY-MM-DD` (lo que ya espera el backend).
+   */
+  const handleFilterChange = (key: string, value: FilterValue) => {
+    if (value instanceof Date) {
+      setFilter(key, toLocalIsoDate(value));
+      return;
+    }
+    setFilter(key, typeof value === 'string' ? value : '');
+  };
 
   const columns = useMemo<ColumnDef<CommunityIncident>[]>(
     () => [
@@ -194,12 +231,19 @@ export default function IncidentsTable({
       manualSorting
       sorting={sorting}
       onSortingChange={setSorting}
-      searchable={false}
+      searchable
+      searchPlaceholder={t('searchPlaceholder')}
       manualFiltering
+      globalFilter={search}
+      onSearchChange={setSearch}
       filters={filters}
       filterValues={filterValues}
-      onFilterChange={(key, value) => setFilter(key, typeof value === 'string' ? value : '')}
-      onClearAll={() => setFilter('status', '')}
+      onFilterChange={handleFilterChange}
+      onClearAll={() => {
+        setFilter('status', '');
+        setFilter('dateFrom', '');
+        setFilter('dateTo', '');
+      }}
       isLoading={isPending}
       emptyMessage={t('allEmptyTitle')}
     />

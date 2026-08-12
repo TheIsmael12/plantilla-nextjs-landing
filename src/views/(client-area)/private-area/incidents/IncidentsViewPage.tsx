@@ -57,8 +57,20 @@ export default async function IncidentsViewPage({
     : undefined;
   const sortBy = searchParams.sortBy || undefined;
   const sortOrder = searchParams.sortOrder === 'ASC' ? 'ASC' : searchParams.sortOrder === 'DESC' ? 'DESC' : undefined;
+  const dateFrom = searchParams.dateFrom?.trim() || undefined;
+  const dateTo = searchParams.dateTo?.trim() || undefined;
+  const search = searchParams.q?.trim() || undefined;
 
-  const response = await getCommunityIncidents({ page, limit, status, sortBy, sortOrder });
+  const response = await getCommunityIncidents({
+    page,
+    limit,
+    status,
+    sortBy,
+    sortOrder,
+    dateFrom,
+    dateTo,
+    search,
+  });
 
   return (
     <>
@@ -83,7 +95,7 @@ export default async function IncidentsViewPage({
       */}
       {response.data && response.data.pagination.totalItems > 0 && <IncidentCounters />}
 
-      {response.data && (response.data.pagination.totalItems > 0 || status) ? (
+      {response.data && (response.data.pagination.totalItems > 0 || status || search) ? (
         <IncidentsTable data={response.data} locale={locale} statusOptions={STATUS_OPTIONS} />
       ) : (
         <ClientListEmptyState

@@ -20,10 +20,18 @@ export default async function IncidentsCreateViewPage() {
 
   const servicesResponse = await getClientServices({ limit: 100 });
 
-  const services = (servicesResponse.data?.items ?? []).map((service) => ({
-    id: service.id,
-    label: `${service.code} · ${service.serviceName}`,
-  }));
+  const services = (servicesResponse.data?.items ?? []).map((service) => {
+    const addressLabel = service.address
+      ? `${service.address.line1}, ${service.address.city}`
+      : null;
+
+    return {
+      id: service.id,
+      label: addressLabel
+        ? `${service.code} · ${service.serviceName} · ${addressLabel}`
+        : `${service.code} · ${service.serviceName}`,
+    };
+  });
 
   return (
     <>

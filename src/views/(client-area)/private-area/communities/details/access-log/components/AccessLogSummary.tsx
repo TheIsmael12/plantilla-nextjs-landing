@@ -8,6 +8,7 @@ import { getLockAccessLog } from '@/actions/client-portal/community-locks-action
 import { HTTPStatus } from '@/constants/httpStatus';
 import { notifyResponse } from '@/utils/toastUtils';
 import { ACCESS_RESULT_VARIANTS, formatCommunityDateTime } from '@/utils/communityFormatUtils';
+import { toLocalIsoDate } from '@/utils/dateUtils';
 
 import Badge from '@/components/ui/buttons/Badge';
 import Button from '@/components/ui/buttons/Button';
@@ -60,8 +61,8 @@ export default function AccessLogSummary({ summaries, locale }: AccessLogSummary
         reason: reason.trim(),
         // El filtro elige días, no momentos exactos: se busca desde el
         // primer instante del día de inicio hasta el último del día final.
-        from: from ? `${from.toISOString().slice(0, 10)}T00:00:00.000Z` : undefined,
-        to: to ? `${to.toISOString().slice(0, 10)}T23:59:59.999Z` : undefined,
+        from: from ? `${toLocalIsoDate(from)}T00:00:00.000Z` : undefined,
+        to: to ? `${toLocalIsoDate(to)}T23:59:59.999Z` : undefined,
       });
 
       if (response.status === HTTPStatus.OK) {

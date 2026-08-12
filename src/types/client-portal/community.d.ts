@@ -94,6 +94,7 @@ export type KeyMatrixCellState = "GRANTED" | "PENDING" | "EXPIRED" | "OUT_OF_SCH
  * @property {string} serviceId - Identificador del servicio contratado que soporta la comunidad
  * @property {string} serviceCode - Código de contrato del servicio
  * @property {string} serviceName - Nombre del servicio contratado
+ * @property {ClientServiceAddress} [address] - Dónde está el edificio, si el servicio tiene una dirección asignada
  * @property {number} units - Número de unidades dadas de alta
  * @property {number} residents - Número de vecinos activos
  * @property {boolean} incidentsEnabled - Si el módulo de incidencias está activo
@@ -105,6 +106,7 @@ export interface PortalCommunity {
   serviceId: string;
   serviceCode: string;
   serviceName: string;
+  address?: ClientServiceAddress;
   units: number;
   residents: number;
   incidentsEnabled: boolean;
@@ -368,6 +370,18 @@ export interface CreateResidentInvitationsDto {
 export interface UpdateResidentMembershipDto {
   communityUnitId?: string | null;
   role?: ResidentRole;
+}
+
+/**
+ * Cambio de nombre y/o correo de la identidad de un vecino. Afecta a todas las comunidades donde
+ * viva, y cambiar el correo le retira el acceso con el anterior.
+ * @interface UpdateResidentAccountDto
+ * @property {string} [name] - Nuevo nombre
+ * @property {string} [email] - Nuevo correo
+ */
+export interface UpdateResidentAccountDto {
+  name?: string;
+  email?: string;
 }
 
 /**
@@ -991,6 +1005,9 @@ export interface CommunityIncident {
  * @property {string} [clientServiceId] - Filtro por servicio contratado (la comunidad activa)
  * @property {string} [sortBy] - Campo de orden (whitelist del backend: `createdAt`, `updatedAt`, `dueAt`, `priority`, `status`, `code`)
  * @property {"ASC" | "DESC"} [sortOrder] - Dirección de orden
+ * @property {string} [dateFrom] - Filtra por `createdAt >= dateFrom` (ISO `YYYY-MM-DD`)
+ * @property {string} [dateTo] - Filtra por `createdAt <= dateTo` (ISO `YYYY-MM-DD`)
+ * @property {string} [search] - Búsqueda libre por código o título de la incidencia
  */
 export interface CommunityIncidentsQuery {
   page?: number;
@@ -999,6 +1016,9 @@ export interface CommunityIncidentsQuery {
   clientServiceId?: string;
   sortBy?: string;
   sortOrder?: 'ASC' | 'DESC';
+  dateFrom?: string;
+  dateTo?: string;
+  search?: string;
 }
 
 /**
@@ -1180,6 +1200,38 @@ export interface PortalCommunityAnnouncement {
   createdByName?: string | null;
   isVisible: boolean;
   createdAt: string;
+}
+
+/**
+ * Datos para publicar un aviso en el tablón de la comunidad.
+ * @interface CreateCommunityAnnouncementDto
+ * @property {string} title - Titular del aviso
+ * @property {string} body - Cuerpo del aviso
+ * @property {string} [publishedAt] - Desde cuándo se ve (ISO 8601); por defecto, ahora
+ * @property {string} [expiresAt] - Hasta cuándo se ve (ISO 8601); vacío = no caduca
+ * @property {boolean} [pinned] - Lo fija arriba del todo
+ * @property {string} [color] - Color del aviso en hexadecimal
+ */
+export interface CreateCommunityAnnouncementDto {
+  title: string;
+  body: string;
+  publishedAt?: string;
+  expiresAt?: string;
+  pinned?: boolean;
+  color?: string;
+}
+
+/**
+ * Campos a corregir de un aviso ya publicado.
+ * @interface UpdateCommunityAnnouncementDto
+ */
+export interface UpdateCommunityAnnouncementDto {
+  title?: string;
+  body?: string;
+  publishedAt?: string;
+  expiresAt?: string;
+  pinned?: boolean;
+  color?: string;
 }
 
 /**

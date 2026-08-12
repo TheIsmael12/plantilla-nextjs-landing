@@ -2,9 +2,11 @@
 
 import { fetchDataToken } from "@/actions/fetch";
 import type {
+  CreateCommunityAnnouncementDto,
   PortalCommunity,
   PortalCommunityAnnouncement,
   PortalCommunityConfig,
+  UpdateCommunityAnnouncementDto,
   UpdatePortalCommunityConfigDto,
 } from "@/types/client-portal/community";
 import type { FetchResponse } from "@/types/responses";
@@ -40,8 +42,7 @@ export async function getCommunityConfig(
  * (`GET client/me/communities/:serviceId/announcements`).
  *
  * Vienen **todos**, no solo los que un vecino ve hoy: cada uno trae `isVisible`, así que la portada puede
- * separar lo publicado de lo programado y lo caducado. Es de solo lectura — el tablón lo escribe personal
- * interno, porque un aviso ahí habla en nombre de la administración.
+ * separar lo publicado de lo programado y lo caducado.
  * @param {string} serviceId - Servicio contratado que soporta la comunidad
  * @returns {Promise<FetchResponse<PortalCommunityAnnouncement[]>>} Los avisos, fijados primero y luego por fecha de publicación descendente
  */
@@ -51,6 +52,61 @@ export async function getCommunityAnnouncements(
   return fetchDataToken<PortalCommunityAnnouncement[], never>(
     `client/me/communities/${encodeURIComponent(serviceId)}/announcements`,
     "GET",
+  );
+}
+
+/**
+ * Publica un aviso en el tablón de una comunidad
+ * (`POST client/me/communities/:serviceId/announcements`).
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {CreateCommunityAnnouncementDto} dto - Título, texto y cuándo se ve
+ * @returns {Promise<FetchResponse<PortalCommunityAnnouncement>>} El aviso creado
+ */
+export async function createCommunityAnnouncement(
+  serviceId: string,
+  dto: CreateCommunityAnnouncementDto,
+): Promise<FetchResponse<PortalCommunityAnnouncement>> {
+  return fetchDataToken<PortalCommunityAnnouncement, CreateCommunityAnnouncementDto>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/announcements`,
+    "POST",
+    dto,
+  );
+}
+
+/**
+ * Corrige un aviso ya publicado
+ * (`PATCH client/me/communities/:serviceId/announcements/:announcementId`).
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {string} announcementId - Aviso a corregir
+ * @param {UpdateCommunityAnnouncementDto} dto - Campos a cambiar
+ * @returns {Promise<FetchResponse<PortalCommunityAnnouncement>>} El aviso actualizado
+ */
+export async function updateCommunityAnnouncement(
+  serviceId: string,
+  announcementId: string,
+  dto: UpdateCommunityAnnouncementDto,
+): Promise<FetchResponse<PortalCommunityAnnouncement>> {
+  return fetchDataToken<PortalCommunityAnnouncement, UpdateCommunityAnnouncementDto>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/announcements/${encodeURIComponent(announcementId)}`,
+    "PATCH",
+    dto,
+  );
+}
+
+/**
+ * Retira un aviso del tablón
+ * (`DELETE client/me/communities/:serviceId/announcements/:announcementId`).
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {string} announcementId - Aviso a retirar
+ * @returns {Promise<FetchResponse<void>>} Respuesta vacía si se retiró correctamente
+ */
+export async function removeCommunityAnnouncement(
+  serviceId: string,
+  announcementId: string,
+): Promise<FetchResponse<void>> {
+  return fetchDataToken<void, never>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/announcements/${encodeURIComponent(announcementId)}`,
+    "DELETE",
   );
 }
 

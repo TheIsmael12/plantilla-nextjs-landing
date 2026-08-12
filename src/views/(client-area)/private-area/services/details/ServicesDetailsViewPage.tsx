@@ -9,6 +9,7 @@ import {
 import { formatBillingAmount, formatBillingDate } from '@/utils/billingFormatUtils';
 
 import Badge from '@/components/ui/buttons/Badge';
+import BreadcrumbLabel from '@/components/ui/navigations/BreadcrumbLabel';
 import LocationMap from '@/components/ui/maps/LocationMap';
 import SettingsSection from '@/components/ui/sections/SettingsSection';
 import { Link, resolveDetailHref, resolveHref } from '@/i18n/navigation';
@@ -99,6 +100,7 @@ export default async function ServicesDetailsViewPage({ id, locale }: ServiceDet
 
   return (
     <>
+      <BreadcrumbLabel label={service.serviceName} />
 
       <div className="service-detail__hero">
         <div className="service-detail__hero-icon">

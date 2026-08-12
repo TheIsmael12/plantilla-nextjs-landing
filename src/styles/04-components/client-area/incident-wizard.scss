@@ -18,7 +18,6 @@
  * una tabla en vez de opciones que se comparan de un vistazo.
  */
 .incident-wizard-page {
-  max-width: 60rem;
   border: 1px solid var(--border-color);
   background-color: var(--surface-color);
   @include rounded(0.75rem);

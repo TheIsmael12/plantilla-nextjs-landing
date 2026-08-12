@@ -717,6 +717,7 @@ export default function CredentialsSection({
                   value={form.validUntil}
                   onChange={(date) => setForm({ ...form, validUntil: date })}
                   minDate={form.validFrom ?? undefined}
+                  disablePast
                   clearable
                   className="date-picker__full"
                 />

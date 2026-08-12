@@ -8,6 +8,7 @@ import {
 import { formatBillingAmount, formatBillingDate } from '@/utils/billingFormatUtils';
 
 import Badge from '@/components/ui/buttons/Badge';
+import BreadcrumbLabel from '@/components/ui/navigations/BreadcrumbLabel';
 import DocumentDownloadButton from '@/views/(client-area)/private-area/components/DocumentDownloadButton';
 import QuoteActions from '@/views/(client-area)/private-area/quotes/details/components/QuoteActions';
 import SettingsSection from '@/components/ui/sections/SettingsSection';
@@ -78,6 +79,7 @@ export default async function QuotesDetailsViewPage({ id, locale }: QuoteDetailV
 
   return (
     <>
+      <BreadcrumbLabel label={quote.quoteCode} />
       <ViewHeader title={tDetail('title')} returnPath="/private-area/quotes" />
 
       <div className="client-detail">

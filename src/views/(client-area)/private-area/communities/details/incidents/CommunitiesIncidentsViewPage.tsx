@@ -66,6 +66,9 @@ export default async function CommunitiesIncidentsViewPage({
   const sortBy = searchParams.sortBy || undefined;
   const sortOrder =
     searchParams.sortOrder === 'ASC' ? 'ASC' : searchParams.sortOrder === 'DESC' ? 'DESC' : undefined;
+  const dateFrom = searchParams.dateFrom?.trim() || undefined;
+  const dateTo = searchParams.dateTo?.trim() || undefined;
+  const search = searchParams.q?.trim() || undefined;
 
   const response = await getCommunityIncidents({
     page,
@@ -74,6 +77,9 @@ export default async function CommunitiesIncidentsViewPage({
     sortBy,
     sortOrder,
     clientServiceId: serviceId,
+    dateFrom,
+    dateTo,
+    search,
   });
 
   return (
@@ -90,7 +96,7 @@ export default async function CommunitiesIncidentsViewPage({
         para poder quitarlo. Con el estado vacío se leería «esta comunidad no tiene incidencias», que es
         mentira cuando lo que pasa es que ninguna cumple el filtro.
       */}
-      {response.data && (response.data.pagination.totalItems > 0 || status) ? (
+      {response.data && (response.data.pagination.totalItems > 0 || status || search) ? (
         <IncidentsTable
           data={response.data}
           locale={locale}

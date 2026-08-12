@@ -49,8 +49,10 @@ export default async function InvoicesViewPage({
     ? (searchParams.status as InvoiceStatus)
     : undefined;
   const search = searchParams.q?.trim() || undefined;
+  const dateFrom = searchParams.dateFrom?.trim() || undefined;
+  const dateTo = searchParams.dateTo?.trim() || undefined;
 
-  const response = await getClientInvoices({ page, limit, status, search });
+  const response = await getClientInvoices({ page, limit, status, search, dateFrom, dateTo });
 
   return (
     <>

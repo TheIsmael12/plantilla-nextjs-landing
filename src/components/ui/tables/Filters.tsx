@@ -33,7 +33,7 @@ function isFilterActive(filter: Filter, value?: FilterValue): boolean {
     case "multi-select":
       return Array.isArray(value) && value.length > 0;
     case "date":
-      return value instanceof Date || typeof value === "string";
+      return value instanceof Date || (typeof value === "string" && value !== "");
     case "date-range":
       return (
         typeof value === "object" &&
@@ -177,9 +177,11 @@ export default function Filters({
                   clearable
                   minDate={filter.minDate}
                   maxDate={filter.maxDate}
+                  disableFuture={filter.disableFuture}
+                  disablePast={filter.disablePast}
                   value={value instanceof Date || typeof value === "string" ? value : null}
                   onChange={(date) => onChange(filter.key, date)}
-                  className="table__filters__field"
+                  className="table__filters__field date-picker__full"
                 />
               );
             }
@@ -199,7 +201,7 @@ export default function Filters({
                 maxDate={filter.maxDate}
                 value={rangeValue}
                 onChange={(range) => onChange(filter.key, range)}
-                className="table__filters__field"
+                className="table__filters__field date-range-picker__full"
               />
             );
           })}

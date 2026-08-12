@@ -1,3 +1,15 @@
+import type { InvoicePaymentMethod } from "@/types/client-portal/invoices";
+import type { BadgeVariant } from "@/types/ui/buttons/badge";
+
+/** Variante de `Badge` por medio de pago de un cobro. */
+export const INVOICE_PAYMENT_METHOD_VARIANTS: Record<InvoicePaymentMethod, BadgeVariant> = {
+  BANK_TRANSFER: "info",
+  SEPA_DIRECT_DEBIT: "success",
+  CASH: "neutral",
+  CARD: "warning",
+  OTHER: "neutral",
+};
+
 /**
  * Formatea una fecha ISO del backend (`YYYY-MM-DD` o ISO 8601 completo) al
  * formato corto del locale activo. Funciones sueltas y no un hook porque las

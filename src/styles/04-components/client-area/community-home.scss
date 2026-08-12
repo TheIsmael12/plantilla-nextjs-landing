@@ -7,6 +7,61 @@
 @use "../../00-settings/variables" as *;
 @use "../../01-tools/mixins" as *;
 
+/*
+ * Cabecera de la portada: la dirección manda, porque es lo que identifica el edificio de un
+ * vistazo — el nombre del servicio contratado («Conserjería», «Control de accesos») es el producto,
+ * no el sitio, y dos comunidades con el mismo servicio se leerían igual en el menú y aquí arriba. El
+ * código de contrato sigue disponible, pero como referencia secundaria (badge), no como titular.
+ */
+.community-home__header {
+  @include flex($justify: flex-start, $align: flex-start, $gap: 1rem);
+  flex-wrap: wrap;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded();
+  @include p(1.25rem);
+
+  // El badge del código va al final de la fila, empujado por el texto flexible del medio.
+  .badge {
+    margin-left: auto;
+  }
+}
+
+.community-home__header-icon {
+  @include flex($justify: center, $align: center, $gap: 0);
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  background-color: var(--primary-color-light);
+  color: var(--primary-color);
+  @include rounded(999px);
+
+  svg {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+}
+
+.community-home__header-text {
+  min-width: 0;
+  flex: 1 1 16rem;
+}
+
+.community-home__header-title {
+  margin: 0;
+  font-family: $font-title;
+  font-size: $text-xl;
+  font-weight: $font-semibold;
+  color: var(--color);
+  overflow-wrap: anywhere;
+}
+
+.community-home__header-description {
+  margin: 0.2rem 0 0;
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+}
+
 .community-home__stats {
   display: grid;
   /*
@@ -81,6 +136,11 @@
 // Tablón de anuncios
 // ---------------------------------------------------------------------------
 
+.community-board-manager__actions {
+  @include flex($justify: flex-end, $align: center, $gap: 0.75rem);
+  @include mb(1rem);
+}
+
 .community-board {
   @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
   list-style: none;
@@ -112,6 +172,12 @@
 
 .community-board__head {
   @include flex($justify: space-between, $align: flex-start, $gap: 0.75rem);
+}
+
+.community-board__head-actions {
+  @include flex($justify: flex-end, $align: center, $gap: 0.4rem);
+  flex-shrink: 0;
+  flex-wrap: wrap;
 }
 
 .community-board__title {

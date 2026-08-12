@@ -70,11 +70,15 @@ export interface MultiSelectFilter extends FilterBase {
  * @property {"date"} type
  * @property {DateInputValue} [minDate] - Fecha mínima seleccionable
  * @property {DateInputValue} [maxDate] - Fecha máxima seleccionable
+ * @property {boolean} [disableFuture] - Deshabilita fechas posteriores a hoy (p. ej. filtrar por fecha de emisión, que nunca es futura)
+ * @property {boolean} [disablePast] - Deshabilita fechas anteriores a hoy
  */
 export interface DateFilter extends FilterBase {
   type: "date";
   minDate?: DateInputValue;
   maxDate?: DateInputValue;
+  disableFuture?: boolean;
+  disablePast?: boolean;
 }
 
 /**

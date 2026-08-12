@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { Building2Icon } from 'lucide-react';
 
 import { getClientCommunities } from '@/actions/client-portal/communities-actions';
+import { formatServiceAddress } from '@/utils/addressFormatUtils';
 
 import Badge from '@/components/ui/buttons/Badge';
 import ClientListEmptyState from '@/views/(client-area)/private-area/components/ClientListEmptyState';
@@ -47,7 +48,9 @@ export default async function CommunitiesViewPage() {
 
                 <div>
                   <span className="community-card__code">{community.serviceCode}</span>
-                  <h2 className="community-card__title">{community.serviceName}</h2>
+                  <h2 className="community-card__title">
+                    {formatServiceAddress(community.address) ?? community.serviceName}
+                  </h2>
                 </div>
 
                 <div className="community-card__modules">

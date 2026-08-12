@@ -19,14 +19,18 @@ import {
   dateKey,
   daysBetween,
   formatShortDate,
+  getDecadeStart,
   getIndicatorColorsForDay,
+  getMonthLabel,
   getNextFocusedDate,
   isBeforeDay,
   isDateDisabled,
+  isMonthOutOfRange,
   isNextMonthDisabled,
   isPrevMonthDisabled,
   isSameDay,
   isWithinRange,
+  isYearOutOfRange,
   startOfDay,
   startOfMonth,
   toDateOrNull,
@@ -41,8 +45,12 @@ import {
 
 import DateCalendarLegend from "./DateCalendarLegend";
 import DateCalendarMonth from "./DateCalendarMonth";
+import DateMonthYearGrid from "./DateMonthYearGrid";
 
 const OPEN_KEYS = ["ArrowDown", "ArrowUp", "Enter", " "];
+
+/** Qué rejilla muestra el panel: los dos meses, o el salto rápido de mes/año del mes izquierdo. */
+type DateRangePickerViewMode = "days" | "months" | "years";
 
 /** Posición calculada del calendario respecto al viewport (portal a document.body). */
 interface DropdownPosition {
@@ -139,6 +147,7 @@ export default function DateRangePicker({
     normalizedValue.endDate,
   );
   const [hoverDate, setHoverDate] = useState<Date | null>(null);
+  const [viewMode, setViewMode] = useState<DateRangePickerViewMode>("days");
 
   const registerDayRef = (key: string, el: HTMLButtonElement | null) => {
     if (el) dayRefs.current.set(key, el);
@@ -185,6 +194,7 @@ export default function DateRangePicker({
     const base = normalizedValue.startDate ?? new Date();
     setViewDate(startOfMonth(base));
     setFocusedDate(startOfDay(base));
+    setViewMode("days");
     setIsOpen(true);
   };
 
@@ -243,6 +253,44 @@ export default function DateRangePicker({
       });
       return next;
     });
+  };
+
+  /*
+   * Un año o un tramo de doce, según el modo activo — mismo criterio que en `DatePicker`. Solo
+   * mueve el mes izquierdo: el derecho sigue calculándose como `viewDate + 1`, igual que en modo
+   * "days".
+   */
+  const goToYearStep = (offset: number) => {
+    const years = viewMode === "years" ? offset * 12 : offset;
+    setViewDate((prev) => {
+      const next = new Date(prev.getFullYear() + years, prev.getMonth(), 1);
+      setFocusedDate((prevFocused) => {
+        /* v8 ignore next -- defensivo: ver goToMonth */
+        const day = prevFocused?.getDate() ?? 1;
+        return clampDayToMonth(day, next);
+      });
+      return next;
+    });
+  };
+
+  /** Elige un mes en la vista de salto rápido y vuelve directamente a los dos meses. */
+  const selectMonth = (month: number) => {
+    setViewDate((prev) => {
+      const next = new Date(prev.getFullYear(), month, 1);
+      setFocusedDate((prevFocused) => {
+        /* v8 ignore next -- defensivo: ver goToMonth */
+        const day = prevFocused?.getDate() ?? 1;
+        return clampDayToMonth(day, next);
+      });
+      return next;
+    });
+    setViewMode("days");
+  };
+
+  /** Elige un año y encadena a la vista de meses, salvo que el mes ya elegido no quepa en ese año. */
+  const selectYear = (year: number) => {
+    setViewDate((prev) => new Date(year, prev.getMonth(), 1));
+    setViewMode(isMonthOutOfRange(year, viewDate.getMonth(), constraints) ? "days" : "months");
   };
 
   // Reposiciona en scroll/resize y cierra al hacer click fuera del trigger o del panel
@@ -351,9 +399,30 @@ export default function DateRangePicker({
     return isWithinRange(date, pendingStart, previewEnd);
   };
 
-  const prevDisabled = isPrevMonthDisabled(viewDate, constraints);
   const rightMonth = addMonths(viewDate, 1);
-  const nextDisabled = isNextMonthDisabled(rightMonth, constraints);
+  /*
+   * Qué deshabilita cada flecha depende del modo activo, igual que en `DatePicker`. En "days" se
+   * mira el mes derecho para "siguiente" (es el más adelantado de los dos visibles) y el izquierdo
+   * (`viewDate`) para "anterior".
+   */
+  const prevDisabled =
+    viewMode === "days"
+      ? isPrevMonthDisabled(viewDate, constraints)
+      : viewMode === "months"
+        ? isYearOutOfRange(viewDate.getFullYear() - 1, constraints)
+        : isYearOutOfRange(getDecadeStart(viewDate.getFullYear()) - 1, constraints);
+  const nextDisabled =
+    viewMode === "days"
+      ? isNextMonthDisabled(rightMonth, constraints)
+      : viewMode === "months"
+        ? isYearOutOfRange(viewDate.getFullYear() + 1, constraints)
+        : isYearOutOfRange(getDecadeStart(viewDate.getFullYear()) + 12, constraints);
+  const navLabel =
+    viewMode === "days"
+      ? { prev: t("previousMonth"), next: t("nextMonth") }
+      : viewMode === "months"
+        ? { prev: t("previousYear"), next: t("nextYear") }
+        : { prev: t("previousYears"), next: t("nextYears") };
 
   const displayValue = normalizedValue.startDate
     ? normalizedValue.endDate
@@ -394,69 +463,121 @@ export default function DateRangePicker({
           <button
             type="button"
             className="date-calendar-panel__nav-btn"
-            aria-label={t("previousMonth")}
+            aria-label={navLabel.prev}
             disabled={prevDisabled}
-            onClick={() => goToMonth(-1)}
+            onClick={() => (viewMode === "days" ? goToMonth(-1) : goToYearStep(-1))}
           >
             <ChevronLeftIcon />
           </button>
+
+          {/*
+            Un único botón de salto rápido, no uno por mes: las dos flechas ya mueven el par entero
+            (izquierdo `viewDate`, derecho `viewDate + 1`), así que elegir aquí un mes o un año
+            reposiciona el par igual que lo haría `goToMonth`/`goToYearStep`.
+          */}
+          {viewMode === "days" && (
+            <button
+              type="button"
+              className="date-calendar-panel__nav-label"
+              aria-label={t("selectMonth")}
+              onClick={() => setViewMode("months")}
+            >
+              {getMonthLabel(viewDate, locale)}
+            </button>
+          )}
+          {viewMode === "months" && (
+            <button
+              type="button"
+              className="date-calendar-panel__nav-label"
+              aria-label={t("selectYear")}
+              onClick={() => setViewMode("years")}
+            >
+              {viewDate.getFullYear()}
+            </button>
+          )}
+          {viewMode === "years" && (
+            <span className="date-calendar-panel__nav-label date-calendar-panel__nav-label--static">
+              {getDecadeStart(viewDate.getFullYear())} –{" "}
+              {getDecadeStart(viewDate.getFullYear()) + 11}
+            </span>
+          )}
+
           <button
             type="button"
             className="date-calendar-panel__nav-btn"
-            aria-label={t("nextMonth")}
+            aria-label={navLabel.next}
             disabled={nextDisabled}
-            onClick={() => goToMonth(1)}
+            onClick={() => (viewMode === "days" ? goToMonth(1) : goToYearStep(1))}
           >
             <ChevronRightIcon />
           </button>
         </div>
 
-        <div className="date-calendar-panel__months">
-          <DateCalendarMonth
-            year={viewDate.getFullYear()}
-            month={viewDate.getMonth()}
-            locale={locale}
-            firstDayOfWeek={firstDayOfWeek}
-            focusedDate={focusedDate}
-            gridLabelId={startGridLabelId}
-            isDisabled={isDayDisabled}
-            isSelected={() => false}
-            isRangeStart={isRangeStart}
-            isRangeEnd={isRangeEnd}
-            isInRange={isInRange}
-            getDayIndicatorColors={(date) =>
-              getIndicatorColorsForDay(date, indicators)
-            }
-            onSelectDay={selectDate}
-            onHoverDay={setHoverDate}
-            onFocusDay={setFocusedDate}
-            onKeyDownDay={handleDayKeyDown}
-            registerDayRef={registerDayRef}
-          />
-          <DateCalendarMonth
-            year={rightMonth.getFullYear()}
-            month={rightMonth.getMonth()}
-            locale={locale}
-            firstDayOfWeek={firstDayOfWeek}
-            focusedDate={focusedDate}
-            gridLabelId={endGridLabelId}
-            isDisabled={isDayDisabled}
-            isSelected={() => false}
-            isRangeStart={isRangeStart}
-            isRangeEnd={isRangeEnd}
-            isInRange={isInRange}
-            getDayIndicatorColors={(date) =>
-              getIndicatorColorsForDay(date, indicators)
-            }
-            onSelectDay={selectDate}
-            onHoverDay={setHoverDate}
-            onFocusDay={setFocusedDate}
-            onKeyDownDay={handleDayKeyDown}
-            registerDayRef={registerDayRef}
-          />
-        </div>
+        {viewMode === "days" && (
+          <div className="date-calendar-panel__months">
+            <DateCalendarMonth
+              year={viewDate.getFullYear()}
+              month={viewDate.getMonth()}
+              locale={locale}
+              firstDayOfWeek={firstDayOfWeek}
+              focusedDate={focusedDate}
+              gridLabelId={startGridLabelId}
+              showMonthLabel={false}
+              isDisabled={isDayDisabled}
+              isSelected={() => false}
+              isRangeStart={isRangeStart}
+              isRangeEnd={isRangeEnd}
+              isInRange={isInRange}
+              getDayIndicatorColors={(date) =>
+                getIndicatorColorsForDay(date, indicators)
+              }
+              onSelectDay={selectDate}
+              onHoverDay={setHoverDate}
+              onFocusDay={setFocusedDate}
+              onKeyDownDay={handleDayKeyDown}
+              registerDayRef={registerDayRef}
+            />
+            <DateCalendarMonth
+              year={rightMonth.getFullYear()}
+              month={rightMonth.getMonth()}
+              locale={locale}
+              firstDayOfWeek={firstDayOfWeek}
+              focusedDate={focusedDate}
+              gridLabelId={endGridLabelId}
+              isDisabled={isDayDisabled}
+              isSelected={() => false}
+              isRangeStart={isRangeStart}
+              isRangeEnd={isRangeEnd}
+              isInRange={isInRange}
+              getDayIndicatorColors={(date) =>
+                getIndicatorColorsForDay(date, indicators)
+              }
+              onSelectDay={selectDate}
+              onHoverDay={setHoverDate}
+              onFocusDay={setFocusedDate}
+              onKeyDownDay={handleDayKeyDown}
+              registerDayRef={registerDayRef}
+            />
+          </div>
+        )}
 
-        <DateCalendarLegend indicators={indicators} isRange />
+        {viewMode !== "days" && (
+          <DateMonthYearGrid
+            mode={viewMode}
+            year={viewDate.getFullYear()}
+            month={viewMode === "months" ? viewDate.getMonth() : undefined}
+            locale={locale}
+            ariaLabel={viewMode === "months" ? t("selectMonth") : t("selectYear")}
+            isMonthDisabled={(month) =>
+              isMonthOutOfRange(viewDate.getFullYear(), month, constraints)
+            }
+            isYearDisabled={(year) => isYearOutOfRange(year, constraints)}
+            onSelectMonth={selectMonth}
+            onSelectYear={selectYear}
+          />
+        )}
+
+        {viewMode === "days" && <DateCalendarLegend indicators={indicators} isRange />}
       </div>
     </div>
   );

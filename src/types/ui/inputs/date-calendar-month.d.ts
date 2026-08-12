@@ -9,6 +9,7 @@ import type { KeyboardEvent } from "react";
  * @property {(0|1)} firstDayOfWeek - Primer día de la semana (0 = domingo, 1 = lunes)
  * @property {(Date|null)} focusedDate - Fecha con foco de teclado actual, si la hay
  * @property {string} gridLabelId - Id del elemento que describe la rejilla (`aria-labelledby`)
+ * @property {boolean} [showMonthLabel] - Si se pinta el nombre del mes como cabecera propia; por defecto `true`. `DatePicker`/`DateRangePicker` lo desactivan cuando ese mismo texto ya vive en el botón de salto rápido de la barra de navegación, para no duplicarlo
  * @property {(date: Date) => boolean} isDisabled - Predicado que indica si un día está deshabilitado
  * @property {(date: Date) => boolean} isSelected - Predicado que indica si un día es la fecha seleccionada (DatePicker)
  * @property {(date: Date) => boolean} [isRangeStart] - Predicado que indica si un día es el inicio de un rango (DateRangePicker)
@@ -28,6 +29,7 @@ export interface DateCalendarMonthProps {
   firstDayOfWeek: 0 | 1;
   focusedDate: Date | null;
   gridLabelId: string;
+  showMonthLabel?: boolean;
   isDisabled: (date: Date) => boolean;
   isSelected: (date: Date) => boolean;
   isRangeStart?: (date: Date) => boolean;

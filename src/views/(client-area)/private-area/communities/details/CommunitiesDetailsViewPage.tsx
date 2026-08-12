@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { ArrowRightIcon, MegaphoneIcon } from 'lucide-react';
+import { ArrowRightIcon, Building2Icon, MegaphoneIcon } from 'lucide-react';
 
 import {
   getClientCommunities,
@@ -11,13 +11,14 @@ import { getCommunityAccessSummary } from '@/actions/client-portal/community-loc
 
 import { Link } from '@/i18n/navigation';
 
+import Badge from '@/components/ui/buttons/Badge';
 import SettingsSection from '@/components/ui/sections/SettingsSection';
 import CommunityAccessOverview from '@/views/(client-area)/private-area/communities/details/components/CommunityAccessOverview';
 import CommunityAnnouncementsBoard from '@/views/(client-area)/private-area/communities/details/components/CommunityAnnouncementsBoard';
 import CommunityDashboard from '@/views/(client-area)/private-area/communities/details/components/CommunityDashboard';
-import ViewHeader from '@/views/(client-area)/private-area/components/ViewHeader';
 
 import { INCIDENT_STATUS_ORDER } from '@/utils/communityFormatUtils';
+import { formatServiceAddress } from '@/utils/addressFormatUtils';
 
 import type { AnyHref } from '@/i18n/navigation';
 
@@ -98,12 +99,20 @@ export default async function CommunitiesDetailsViewPage({
 
   return (
     <>
-      <ViewHeader
-        title={community?.serviceName ?? t('title')}
-        description={
-          community ? t('description', { code: community.serviceCode }) : t('descriptionPlain')
-        }
-      />
+      <header className="community-home__header">
+        <span className="community-home__header-icon">
+          <Building2Icon aria-hidden="true" />
+        </span>
+
+        <div className="community-home__header-text">
+          <h1 className="community-home__header-title">
+            {formatServiceAddress(community?.address) ?? t('title')}
+          </h1>
+          <p className="community-home__header-description">{t('descriptionPlain')}</p>
+        </div>
+
+        {community && <Badge variant="neutral" text={community.serviceCode} />}
+      </header>
 
       {/* Las cuatro cifras que se miran al entrar, en el orden en que se preguntan. */}
       <dl className="community-home__stats">
@@ -142,7 +151,7 @@ export default async function CommunitiesDetailsViewPage({
         ya hace — y con un tamaño de título distinto al de las demás pantallas del portal.
       */}
       <SettingsSection title={t('boardTitle')} description={t('boardHint')} icon={MegaphoneIcon}>
-        <CommunityAnnouncementsBoard announcements={board} locale={locale} />
+        <CommunityAnnouncementsBoard serviceId={serviceId} announcements={board} locale={locale} />
       </SettingsSection>
 
       <SettingsSection

@@ -2,6 +2,8 @@ import type { PropsWithChildren } from "react";
 import { getTranslations } from "next-intl/server";
 
 import { getClientCommunities } from "@/actions/client-portal/communities-actions";
+import { formatCommunityLabel } from "@/utils/communityFormatUtils";
+import BreadcrumbLabel from "@/components/ui/navigations/BreadcrumbLabel";
 import CommunitySidebar from "@/components/ui/navigations/sidebar/CommunitySidebar";
 import ClientListEmptyState from "@/views/(client-area)/private-area/components/ClientListEmptyState";
 
@@ -41,9 +43,11 @@ export default async function CommunityLayout({ serviceId, children }: Community
 
   return (
     <div className="community-layout">
+      <BreadcrumbLabel label={formatCommunityLabel(community)} />
+
       <CommunitySidebar
         serviceId={serviceId}
-        communityName={community.serviceName}
+        communityName={formatCommunityLabel(community)}
         showCommunitiesLink={communities.length > 1}
         keyringEnabled={community.keyringEnabled}
       />

@@ -12,6 +12,12 @@
       "selectDateRange": "Select a date range",
       "previousMonth": "Previous month",
       "nextMonth": "Next month",
+      "previousYear": "Previous year",
+      "nextYear": "Next year",
+      "previousYears": "Previous years",
+      "nextYears": "Next years",
+      "selectMonth": "Choose month",
+      "selectYear": "Choose year",
       "clearDate": "Clear date",
       "clearDates": "Clear dates",
       "today": "Today",
@@ -22,6 +28,15 @@
     },
     "OtpInput": {
       "digitLabel": "Digit {current} of {total}"
+    },
+    "Colors": {
+      "none": "No colour",
+      "red": "Red",
+      "amber": "Amber",
+      "green": "Green",
+      "blue": "Blue",
+      "purple": "Purple",
+      "slate": "Slate"
     },
     "Pagination": {
       "previous": "Previous",

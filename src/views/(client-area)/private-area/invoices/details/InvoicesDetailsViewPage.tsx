@@ -5,9 +5,14 @@ import {
   downloadClientInvoicePdf,
   getClientInvoiceDetail,
 } from '@/actions/client-portal/invoices-actions';
-import { formatBillingAmount, formatBillingDate } from '@/utils/billingFormatUtils';
+import {
+  formatBillingAmount,
+  formatBillingDate,
+  INVOICE_PAYMENT_METHOD_VARIANTS,
+} from '@/utils/billingFormatUtils';
 
 import Badge from '@/components/ui/buttons/Badge';
+import BreadcrumbLabel from '@/components/ui/navigations/BreadcrumbLabel';
 import DocumentDownloadButton from '@/views/(client-area)/private-area/components/DocumentDownloadButton';
 import SettingsSection from '@/components/ui/sections/SettingsSection';
 import { Link, resolveHref } from '@/i18n/navigation';
@@ -75,6 +80,7 @@ export default async function InvoicesDetailsViewPage({ id, locale }: InvoiceDet
 
   return (
     <>
+      <BreadcrumbLabel label={invoice.fullNumber ?? undefined} />
       <ViewHeader title={tDetail('title')} returnPath="/private-area/invoices" />
 
       <div className="client-detail">
@@ -218,7 +224,12 @@ export default async function InvoicesDetailsViewPage({ id, locale }: InvoiceDet
                       <td>
                         {formatBillingDate(payment.paymentDate, locale, tCommon('notAvailable'))}
                       </td>
-                      <td>{payment.method}</td>
+                      <td>
+                        <Badge
+                          variant={INVOICE_PAYMENT_METHOD_VARIANTS[payment.method]}
+                          text={t(`PaymentMethod.${payment.method}`)}
+                        />
+                      </td>
                       <td>{payment.reference ?? tCommon('notAvailable')}</td>
                       <td>{money(payment.amount)}</td>
                     </tr>

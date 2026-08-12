@@ -5,10 +5,31 @@ import type {
   KeyMatrixCellState,
   LockAccessResult,
   LockCredentialStatus,
+  PortalCommunity,
   ResidentInvitationStatus,
   ResidentMembershipStatus,
 } from "@/types/client-portal/community";
 import type { BadgeVariant } from "@/types/ui/buttons/badge";
+
+import { formatServiceAddress } from "./addressFormatUtils";
+
+/**
+ * Identifica una comunidad como `CTR-XXXXXX - Dirección`, no por el nombre del servicio contratado.
+ *
+ * `serviceName` es el nombre del producto del catálogo comercial («Conserjería», «Control de
+ * accesos»), no el del edificio: dos comunidades bien podrían tener contratado el mismo servicio y
+ * mostrarían el mismo nombre en el selector, en el menú lateral y en la portada, sin forma de
+ * distinguirlas de un vistazo. El código de contrato es único por comunidad, y la dirección es lo
+ * que de verdad la identifica para quien la administra.
+ * @param {Pick<PortalCommunity, "serviceCode" | "address">} community - Comunidad con su código y dirección
+ * @returns {string} `"CTR-XXXXXX - Dirección"`, o solo el código si la comunidad no tiene dirección asignada
+ */
+export function formatCommunityLabel(
+  community: Pick<PortalCommunity, "serviceCode" | "address">,
+): string {
+  const address = formatServiceAddress(community.address);
+  return address ? `${community.serviceCode} - ${address}` : community.serviceCode;
+}
 
 /** Variante de `Badge` por estado de pertenencia de un vecino. */
 export const MEMBERSHIP_STATUS_VARIANTS: Record<ResidentMembershipStatus, BadgeVariant> = {

@@ -218,6 +218,25 @@ export function dateKey(date: Date): string {
 }
 
 /**
+ * Serializa una fecha a `"YYYY-MM-DD"` en **hora local**, para mandarla a un backend que espera
+ * ese formato (filtros de fecha, por ejemplo).
+ *
+ * `date.toISOString().slice(0, 10)` es la trampa habitual aquí: `toISOString()` convierte a UTC
+ * antes de formatear, así que un `Date` a medianoche hora local en cualquier huso por delante de
+ * UTC (España en verano, por ejemplo) se desplaza al día anterior. Esta función lee
+ * `getFullYear`/`getMonth`/`getDate`, que son locales, así que el día elegido en el calendario es
+ * siempre el mismo que el que se manda.
+ * @param {Date} date - Fecha a serializar
+ * @returns {string} La fecha en formato ISO `"YYYY-MM-DD"`, sin desplazamiento de huso horario
+ */
+export function toLocalIsoDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+/**
  * Formatea una fecha en formato corto localizado (día/mes/año), usado como
  * texto visible del trigger de `DatePicker`/`DateRangePicker`.
  * @param {Date} date - Fecha a formatear
@@ -366,6 +385,77 @@ export function isNextMonthDisabled(
     1,
   );
   return firstDayOfNextMonth.getTime() > max.getTime();
+}
+
+/**
+ * Los 12 nombres cortos de mes del locale activo (enero-diciembre, en ese orden fijo — a
+ * diferencia de {@link getWeekdayLabels}, el orden de los meses no depende de ninguna preferencia).
+ * @param {string} locale - Locale usado para el formato (`useLocale()` de next-intl)
+ * @returns {string[]} Los 12 nombres de mes abreviados
+ */
+export function getMonthGridLabels(locale: string): string[] {
+  return Array.from({ length: 12 }, (_, month) =>
+    new Date(2023, month, 1).toLocaleDateString(locale, { month: "short" }),
+  );
+}
+
+/**
+ * Si el mes entero cae fuera de `minDate`/`maxDate`: ningún día de ese mes es seleccionable, así que
+ * el selector rápido de mes lo pinta como deshabilitado en vez de dejar entrar a un mes vacío.
+ * @param {number} year - Año del mes a comprobar
+ * @param {number} month - Mes a comprobar (0 = enero)
+ * @param {DateConstraints} constraints - Restricciones activas del calendario
+ * @returns {boolean} `true` si ningún día del mes es seleccionable
+ */
+export function isMonthOutOfRange(
+  year: number,
+  month: number,
+  constraints: DateConstraints,
+): boolean {
+  const min = toDateOrNull(constraints.minDate ?? null);
+  const max = toDateOrNull(constraints.maxDate ?? null);
+  if (!min && !max) return false;
+
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+
+  if (max && firstDay.getTime() > max.getTime()) return true;
+  if (min && lastDay.getTime() < min.getTime()) return true;
+  return false;
+}
+
+/**
+ * Igual que {@link isMonthOutOfRange}, pero para un año completo: usado por el selector rápido de
+ * año para deshabilitar los años sin ningún día seleccionable.
+ * @param {number} year - Año a comprobar
+ * @param {DateConstraints} constraints - Restricciones activas del calendario
+ * @returns {boolean} `true` si ningún día del año es seleccionable
+ */
+export function isYearOutOfRange(
+  year: number,
+  constraints: DateConstraints,
+): boolean {
+  const min = toDateOrNull(constraints.minDate ?? null);
+  const max = toDateOrNull(constraints.maxDate ?? null);
+  if (!min && !max) return false;
+
+  const firstDay = new Date(year, 0, 1);
+  const lastDay = new Date(year, 11, 31);
+
+  if (max && firstDay.getTime() > max.getTime()) return true;
+  if (min && lastDay.getTime() < min.getTime()) return true;
+  return false;
+}
+
+/**
+ * La década (12 años, para que encaje en la misma rejilla de 3x4 que los meses) que contiene
+ * `year`, empezando en un múltiplo de 12 desde el año 0 — no importa que no coincida con "los 20"
+ * del calendario civil: lo único que se necesita es un tramo estable y navegable de doce en doce.
+ * @param {number} year - Año de referencia
+ * @returns {number} El primer año del tramo de doce que contiene a `year`
+ */
+export function getDecadeStart(year: number): number {
+  return Math.floor(year / 12) * 12;
 }
 
 /**

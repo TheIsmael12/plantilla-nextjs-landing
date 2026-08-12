@@ -13,6 +13,7 @@ import {
 import { Link, resolveHref } from '@/i18n/navigation';
 
 import Badge from '@/components/ui/buttons/Badge';
+import BreadcrumbLabel from '@/components/ui/navigations/BreadcrumbLabel';
 import IncidentConversation from '@/views/(client-area)/private-area/incidents/details/components/IncidentConversation';
 
 import '@/styles/04-components/client-area/client-detail.scss';
@@ -100,6 +101,7 @@ export default async function IncidentsDetailsViewPage({
 
   return (
     <>
+      <BreadcrumbLabel label={incident.code} />
 
       <header className="client-detail__header">
         <div>
