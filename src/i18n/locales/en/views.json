@@ -1939,7 +1939,14 @@
           "WARNING": "Warning",
           "CRITICAL": "Critical"
         },
-        "dismiss": "Dismiss notification"
+        "dismiss": "Dismiss notification",
+        "filterLabel": "Filter by read state",
+        "filterUnread": "Unread",
+        "filterRead": "Read",
+        "unread": "Unread",
+        "emptyFilteredTitle": "Nothing to show with that filter",
+        "emptyFilteredDescription": "Try «All» to see the full history.",
+        "filterAll": "All"
       }
     }
   }

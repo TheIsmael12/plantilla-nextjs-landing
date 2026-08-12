@@ -63,16 +63,50 @@ export function resolveCanonicalPathname(
 ): StaticPathname | null {
   const normalized = localizedPathname === "" ? "/" : localizedPathname;
 
-  const match = Object.entries(pathnames).find(([, localized]) => {
-    if (typeof localized === "string") {
-      return localized === normalized;
-    }
+  /** El patrón localizado de una entrada del catálogo, en el idioma pedido. */
+  const patternFor = (localized: (typeof pathnames)[keyof typeof pathnames]): string =>
+    typeof localized === "string"
+      ? localized
+      : localized[locale as keyof typeof localized];
 
-    const localizedValue = localized[locale as keyof typeof localized];
-    return localizedValue === normalized;
+  const entries = Object.entries(pathnames);
+
+  /*
+   * Primero, coincidencia exacta.
+   *
+   * El orden importa: `/incidencias/nueva` casa exactamente con su entrada y además encajaría en la
+   * plantilla `/incidencias/[id]`. Si se probaran las plantillas antes, el alta de incidencia se
+   * clasificaría como el detalle de una incidencia llamada «nueva».
+   */
+  const exact = entries.find(([, localized]) => patternFor(localized) === normalized);
+  if (exact) return exact[0] as StaticPathname;
+
+  /*
+   * Después, las plantillas con segmentos dinámicos.
+   *
+   * Sin esto, **ninguna** URL con un identificador real resolvía su ruta canónica: la comparación era de
+   * cadenas y `/area-privada/facturas/eca00b3b-…` nunca es igual a `/area-privada/facturas/[id]`. Las
+   * consecuencias no eran teóricas: el detalle de una factura se quedaba con el título genérico de la
+   * portada y, peor, `generateTranslatedMetadata` lo marcaba `index, follow` —porque decidía el `noindex`
+   * por una ruta canónica que había resuelto a `null`—, es decir, invitaba a indexar la factura de un
+   * cliente.
+   *
+   * El valor del segmento se limita a `[^/]+`: un `[id]` es un segmento, no un camino, y con `.+` la
+   * plantilla `/facturas/[id]` habría absorbido cualquier cosa colgada debajo.
+   */
+  const dynamic = entries.find(([, localized]) => {
+    const pattern = patternFor(localized);
+    if (!pattern.includes("[")) return false;
+
+    const source = pattern
+      // Se escapa lo que en una expresión regular significa otra cosa, antes de meter los comodines.
+      .replace(/[.*+?^${}()|\\]/g, "\\$&")
+      .replace(/\[[^\]]+\]/g, "[^/]+");
+
+    return new RegExp(`^${source}$`).test(normalized);
   });
 
-  return match ? (match[0] as StaticPathname) : null;
+  return dynamic ? (dynamic[0] as StaticPathname) : null;
 }
 
 /**

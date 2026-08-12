@@ -282,7 +282,7 @@ export default function ClientNotificationBell({
           )}
 
           <Link
-            href="/private-area/notifications"
+            href="/private-area/profile/notifications"
             className="client-notification-bell__view-all"
             onClick={() => setIsOpen(false)}
           >

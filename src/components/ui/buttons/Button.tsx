@@ -13,6 +13,7 @@ import type { ButtonProps } from "@/types/ui/buttons/button";
  */
 export default function Button({
   title,
+  titleValues,
   type = "button",
   size = "md",
   variant,
@@ -25,16 +26,19 @@ export default function Button({
 }: ButtonProps) {
   const buttons = useTranslations("Buttons");
 
+  // Se resuelve una vez: el mismo texto va al tooltip y al contenido visible, y no pueden decir cosas distintas.
+  const label = title ? buttons(title, titleValues) : undefined;
+
   return (
     <button
-      title={title ? buttons(title) : undefined}
+      title={label}
       type={type}
       onClick={onClick}
       className={`btn ${variant ? `btn--${variant}` : ""} btn--${size} ${disabled ? "btn--disabled" : ""} ${className || ""}`.trim()}
       disabled={disabled}
       aria-label={ariaLabel ? buttons(ariaLabel) : undefined}
     >
-      {iconPosition === "left" && children} {title && buttons(title)} {iconPosition === "right" && children}
+      {iconPosition === "left" && children} {label} {iconPosition === "right" && children}
     </button>
   );
 }

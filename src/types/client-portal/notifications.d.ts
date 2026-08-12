@@ -62,6 +62,7 @@ export interface NotificationResponseDto {
  * @property {number} [page] - Página a obtener (1-indexada)
  * @property {number} [limit] - Tamaño de página
  * @property {boolean} [unreadOnly] - Solo las que siguen sin leer
+ * @property {boolean} [readOnly] - Solo las que ya se han leído; complementario de `unreadOnly`
  * @property {boolean} [includeArchived] - Incluir también las archivadas
  * @property {string} [type] - Filtro por código de tipo
  * @property {string} [since] - Solo las creadas después de esta fecha (ISO 8601)
@@ -70,6 +71,7 @@ export interface QueryNotificationsQuery {
   page?: number;
   limit?: number;
   unreadOnly?: boolean;
+  readOnly?: boolean;
   includeArchived?: boolean;
   type?: string;
   since?: string;

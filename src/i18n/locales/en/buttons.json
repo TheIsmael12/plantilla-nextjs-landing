@@ -74,6 +74,7 @@
     "downloadPdf": "Download PDF",
     "downloading": "Downloading…",
     "viewResidents": "View residents",
-    "viewHolders": "View key holders"
+    "viewHolders": "View key holders",
+    "markAllAsRead": "Mark {count} as read"
   }
 }

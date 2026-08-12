@@ -176,9 +176,9 @@ export const pathnames = {
     en: "/private-area/quotes/[id]",
     es: "/area-privada/presupuestos/[id]",
   },
-  "/private-area/notifications": {
-    en: "/private-area/notifications",
-    es: "/area-privada/notificaciones",
+  "/private-area/profile/notifications": {
+    en: "/private-area/profile/notifications",
+    es: "/area-privada/perfil/notificaciones",
   },
   /* Las incidencias del portal no cuelgan de una comunidad: `clientServiceId`
      puede ser `null`, así que viven en su propia ruta de primer nivel en vez

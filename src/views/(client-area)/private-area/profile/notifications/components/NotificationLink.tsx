@@ -43,7 +43,7 @@ export default function NotificationLink({
   return (
     <button
       type="button"
-      className={`client-list__notification${isUnread ? ' client-list__notification--unread' : ''}`}
+      className={`notifications-list__link${isUnread ? ' notifications-list__link--unread' : ''}`}
       onClick={handleClick}
     >
       {children}

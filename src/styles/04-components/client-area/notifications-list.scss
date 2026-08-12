@@ -1,0 +1,130 @@
+// Histórico de notificaciones del perfil (profile/notifications).
+//
+// Estas reglas no existían: la pantalla usaba clases (`client-list__items`, `client-list__item`) que nunca se
+// habían escrito, así que la lista salía sin ningún estilo — texto y badges apilados contra el borde.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+// Filtro a la izquierda y «marcar todas» a la derecha; en móvil, uno debajo del otro.
+.notifications-list__toolbar {
+  @include flex($justify: space-between, $align: center, $gap: 0.75rem);
+  flex-wrap: wrap;
+}
+
+.notifications-list {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+  // Para que la primera y la última fila no se salgan por las esquinas redondeadas al teñirse.
+  overflow: hidden;
+}
+
+.notifications-list__item + .notifications-list__item {
+  border-top: 1px solid var(--border-color);
+}
+
+/*
+ * La fila entera es el botón.
+ *
+ * Es una bandeja: si hay que leer en un sitio y marcar como leída en otro, nadie marca nada y el contador de
+ * la campana no baja nunca. Al pulsar se marca y se navega al recurso, si lo tiene.
+ */
+.notifications-list__link {
+  width: 100%;
+  @include flex($justify: flex-start, $align: flex-start, $gap: 0.75rem);
+  @include py(0.9rem);
+  @include px(1rem);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--neutral-color-light);
+  }
+}
+
+/*
+ * Las no leídas: fondo teñido **y** punto **y** la palabra «sin leer».
+ *
+ * Tres señales para lo mismo no es redundancia gratuita: con solo el color, quien no distingue tonos no sabe
+ * cuáles son nuevas; con solo el punto, en una lista larga se pierde. El texto es el que lo dice de verdad a
+ * un lector de pantalla.
+ */
+.notifications-list__link--unread {
+  background-color: color-mix(in srgb, var(--info-color-light) 55%, transparent);
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--info-color-light) 75%, transparent);
+  }
+
+  .notifications-list__title {
+    font-weight: $font-semibold;
+  }
+}
+
+.notifications-list__dot {
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  // A la altura de la primera línea del título, no centrado en la fila: una fila de tres líneas lo dejaba
+  // flotando en el medio, lejos de lo que marca.
+  margin-top: 0.45rem;
+  background-color: transparent;
+  @include rounded(999px);
+
+  &--unread {
+    background-color: var(--info-color);
+  }
+}
+
+.notifications-list__body {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.2rem);
+  min-width: 0;
+  flex: 1;
+}
+
+.notifications-list__head {
+  @include flex($justify: space-between, $align: flex-start, $gap: 0.75rem);
+}
+
+.notifications-list__title {
+  color: var(--color);
+  min-width: 0;
+}
+
+.notifications-list__text {
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+}
+
+.notifications-list__meta {
+  @include flex($justify: flex-start, $align: center, $gap: 0.5rem);
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+// La etiqueta de «sin leer», separada de la fecha por un punto medio en vez de por más aire.
+.notifications-list__unread-label {
+  color: var(--info-color-active);
+  font-weight: $font-medium;
+
+  &::before {
+    content: "·";
+    margin-right: 0.5rem;
+    color: var(--neutral-color);
+  }
+}
+
+// La frase de la pantalla, bajo el título que pone el layout de perfil.
+.notifications-view__hint {
+  color: var(--neutral-color-active);
+}

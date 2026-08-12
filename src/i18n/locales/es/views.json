@@ -1939,7 +1939,14 @@
           "WARNING": "Aviso",
           "CRITICAL": "Crítico"
         },
-        "dismiss": "Descartar el aviso"
+        "dismiss": "Descartar el aviso",
+        "filterLabel": "Filtrar por estado de lectura",
+        "filterUnread": "Sin leer",
+        "filterRead": "Leídas",
+        "unread": "Sin leer",
+        "emptyFilteredTitle": "Nada que enseñar con ese filtro",
+        "emptyFilteredDescription": "Prueba con «Todas» para ver el histórico completo.",
+        "filterAll": "Todas"
       }
     }
   }

@@ -1,4 +1,4 @@
-import NotificationsViewPage from '@/views/(client-area)/private-area/notifications/NotificationsViewPage';
+import NotificationsViewPage from '@/views/(client-area)/private-area/profile/notifications/NotificationsViewPage';
 
 interface NotificationsPageProps {
   params: Promise<{ locale: string }>;

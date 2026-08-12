@@ -85,6 +85,141 @@
         "title": "Canal de reclamaciones",
         "description": "Canal directo y confidencial para comunicar incumplimientos o irregularidades relacionadas con la actividad de Imora, conforme a la Ley 2/2023.",
         "keywords": "canal de reclamaciones, canal de denuncias, Ley 2/2023, whistleblowing Imora"
+      },
+      "/private-area": {
+        "title": "Área privada",
+        "description": "Tu resumen: lo que tienes pendiente de pago, por responder y en curso.",
+        "keywords": ""
+      },
+      "/private-area/profile": {
+        "title": "Mi perfil",
+        "description": "Tus datos de contacto y la configuración de tu cuenta.",
+        "keywords": ""
+      },
+      "/private-area/profile/security": {
+        "title": "Seguridad",
+        "description": "Cambia tu contraseña y gestiona la verificación en dos pasos.",
+        "keywords": ""
+      },
+      "/private-area/profile/sessions": {
+        "title": "Sesiones",
+        "description": "Los dispositivos con la sesión abierta, y cómo cerrarlos.",
+        "keywords": ""
+      },
+      "/private-area/profile/notifications": {
+        "title": "Notificaciones",
+        "description": "Todos los avisos que te hemos enviado, con su estado de lectura.",
+        "keywords": ""
+      },
+      "/private-area/profile/preferences/locale": {
+        "title": "Idioma",
+        "description": "El idioma en el que quieres ver el portal y recibir los avisos.",
+        "keywords": ""
+      },
+      "/private-area/profile/preferences/theme": {
+        "title": "Tema",
+        "description": "Aspecto claro u oscuro del portal.",
+        "keywords": ""
+      },
+      "/private-area/profile/preferences/datetime": {
+        "title": "Fecha y hora",
+        "description": "Cómo se muestran las fechas y con qué zona horaria.",
+        "keywords": ""
+      },
+      "/private-area/profile/preferences/notifications": {
+        "title": "Preferencias de notificaciones",
+        "description": "Elige por qué vías quieres que te avisemos.",
+        "keywords": ""
+      },
+      "/private-area/services": {
+        "title": "Mis servicios",
+        "description": "Los servicios que tienes contratados y su estado.",
+        "keywords": ""
+      },
+      "/private-area/services/[id]": {
+        "title": "Detalle del servicio",
+        "description": "Condiciones, calendario y ubicación de un servicio contratado.",
+        "keywords": ""
+      },
+      "/private-area/quotes": {
+        "title": "Presupuestos",
+        "description": "Los presupuestos que te hemos enviado, para aceptarlos o rechazarlos.",
+        "keywords": ""
+      },
+      "/private-area/quotes/[id]": {
+        "title": "Detalle del presupuesto",
+        "description": "Líneas, totales y condiciones de un presupuesto.",
+        "keywords": ""
+      },
+      "/private-area/invoices": {
+        "title": "Facturas",
+        "description": "Tus facturas, lo que queda por pagar y su descarga en PDF.",
+        "keywords": ""
+      },
+      "/private-area/invoices/[id]": {
+        "title": "Detalle de la factura",
+        "description": "Líneas, totales, cobros y descarga de una factura.",
+        "keywords": ""
+      },
+      "/private-area/incidents": {
+        "title": "Incidencias",
+        "description": "Las incidencias abiertas y su estado.",
+        "keywords": ""
+      },
+      "/private-area/incidents/new": {
+        "title": "Nueva incidencia",
+        "description": "Cuéntanos qué ocurre y le damos seguimiento.",
+        "keywords": ""
+      },
+      "/private-area/incidents/[id]": {
+        "title": "Incidencia",
+        "description": "El seguimiento de una incidencia y su conversación.",
+        "keywords": ""
+      },
+      "/private-area/communities": {
+        "title": "Comunidades",
+        "description": "Las comunidades que gestionas con la app.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]": {
+        "title": "Comunidad",
+        "description": "Tablón, incidencias y accesos del edificio, de un vistazo.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/residents": {
+        "title": "Vecinos",
+        "description": "Los vecinos de la comunidad y sus invitaciones.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/units": {
+        "title": "Unidades",
+        "description": "Portales, viviendas, locales y zonas comunes del edificio.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/keyrings": {
+        "title": "Llaveros",
+        "description": "Los llaveros del portal y las llaves repartidas.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/locks": {
+        "title": "Puertas",
+        "description": "Las cerraduras del edificio y sus horarios.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/incidents": {
+        "title": "Incidencias de la comunidad",
+        "description": "Lo que los vecinos han comunicado del edificio.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/access-log": {
+        "title": "Registro de accesos",
+        "description": "Quién ha abierto cada puerta y cuándo.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/settings": {
+        "title": "Configuración de la comunidad",
+        "description": "Lo que puedes ajustar de la app de tu comunidad.",
+        "keywords": ""
       }
     }
   }

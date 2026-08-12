@@ -74,6 +74,7 @@
     "downloadPdf": "Descargar PDF",
     "downloading": "Descargando…",
     "viewResidents": "Ver los vecinos",
-    "viewHolders": "Ver quién tiene llave"
+    "viewHolders": "Ver quién tiene llave",
+    "markAllAsRead": "Marcar {count} como leídas"
   }
 }

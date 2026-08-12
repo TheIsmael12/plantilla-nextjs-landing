@@ -85,6 +85,141 @@
         "title": "Complaints channel",
         "description": "A direct, confidential channel for reporting breaches or irregularities related to Imora's activity, under Spanish Law 2/2023.",
         "keywords": "complaints channel, whistleblowing channel, Spanish Law 2/2023, Imora whistleblowing"
+      },
+      "/private-area": {
+        "title": "Private area",
+        "description": "Your summary: what is outstanding, waiting for you and in progress.",
+        "keywords": ""
+      },
+      "/private-area/profile": {
+        "title": "My profile",
+        "description": "Your contact details and account settings.",
+        "keywords": ""
+      },
+      "/private-area/profile/security": {
+        "title": "Security",
+        "description": "Change your password and manage two-step verification.",
+        "keywords": ""
+      },
+      "/private-area/profile/sessions": {
+        "title": "Sessions",
+        "description": "The devices with an open session, and how to close them.",
+        "keywords": ""
+      },
+      "/private-area/profile/notifications": {
+        "title": "Notifications",
+        "description": "Every notice we have sent you, with its read state.",
+        "keywords": ""
+      },
+      "/private-area/profile/preferences/locale": {
+        "title": "Language",
+        "description": "The language you want the portal and your notices in.",
+        "keywords": ""
+      },
+      "/private-area/profile/preferences/theme": {
+        "title": "Theme",
+        "description": "Light or dark appearance of the portal.",
+        "keywords": ""
+      },
+      "/private-area/profile/preferences/datetime": {
+        "title": "Date and time",
+        "description": "How dates are shown and which time zone is used.",
+        "keywords": ""
+      },
+      "/private-area/profile/preferences/notifications": {
+        "title": "Notification preferences",
+        "description": "Choose how you want us to reach you.",
+        "keywords": ""
+      },
+      "/private-area/services": {
+        "title": "My services",
+        "description": "The services you have contracted and their status.",
+        "keywords": ""
+      },
+      "/private-area/services/[id]": {
+        "title": "Service detail",
+        "description": "Terms, schedule and location of a contracted service.",
+        "keywords": ""
+      },
+      "/private-area/quotes": {
+        "title": "Quotes",
+        "description": "The quotes we have sent you, to accept or reject.",
+        "keywords": ""
+      },
+      "/private-area/quotes/[id]": {
+        "title": "Quote detail",
+        "description": "Lines, totals and terms of a quote.",
+        "keywords": ""
+      },
+      "/private-area/invoices": {
+        "title": "Invoices",
+        "description": "Your invoices, what is left to pay and the PDF download.",
+        "keywords": ""
+      },
+      "/private-area/invoices/[id]": {
+        "title": "Invoice detail",
+        "description": "Lines, totals, payments and download of an invoice.",
+        "keywords": ""
+      },
+      "/private-area/incidents": {
+        "title": "Incidents",
+        "description": "Your open incidents and their status.",
+        "keywords": ""
+      },
+      "/private-area/incidents/new": {
+        "title": "New incident",
+        "description": "Tell us what is happening and we will follow it up.",
+        "keywords": ""
+      },
+      "/private-area/incidents/[id]": {
+        "title": "Incident",
+        "description": "The follow-up of an incident and its conversation.",
+        "keywords": ""
+      },
+      "/private-area/communities": {
+        "title": "Communities",
+        "description": "The communities you manage with the app.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]": {
+        "title": "Community",
+        "description": "Noticeboard, incidents and access of the building at a glance.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/residents": {
+        "title": "Residents",
+        "description": "The residents of the community and their invitations.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/units": {
+        "title": "Units",
+        "description": "Entrances, homes, premises and common areas of the building.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/keyrings": {
+        "title": "Keyrings",
+        "description": "The keyrings of the building and the keys handed out.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/locks": {
+        "title": "Doors",
+        "description": "The locks of the building and their schedules.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/incidents": {
+        "title": "Community incidents",
+        "description": "What the residents have reported about the building.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/access-log": {
+        "title": "Access log",
+        "description": "Who opened each door, and when.",
+        "keywords": ""
+      },
+      "/private-area/communities/[serviceId]/settings": {
+        "title": "Community settings",
+        "description": "What you can adjust in your community app.",
+        "keywords": ""
       }
     }
   }

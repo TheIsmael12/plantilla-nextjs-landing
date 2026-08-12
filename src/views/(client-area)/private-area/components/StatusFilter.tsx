@@ -16,6 +16,14 @@ interface StatusFilterProps {
   allLabel: string;
   options: StatusFilterOption[];
   activeStatus?: string;
+  /**
+   * Parámetro de la URL que escribe el filtro; por defecto `status`.
+   *
+   * Existe porque no todos los listados filtran por «estado»: el histórico de notificaciones filtra por si
+   * están leídas (`?read=`). Sin esto habría que duplicar el componente entero —con su resolución de
+   * segmentos dinámicos y su vuelta a la página 1— para cambiar una cadena.
+   */
+  paramName?: string;
 }
 
 /**
@@ -27,7 +35,13 @@ interface StatusFilterProps {
  * @param {StatusFilterProps} props - Propiedades del componente
  * @returns {JSX.Element} Las pastillas de filtro renderizadas
  */
-export default function StatusFilter({ label, allLabel, options, activeStatus }: StatusFilterProps) {
+export default function StatusFilter({
+  label,
+  allLabel,
+  options,
+  activeStatus,
+  paramName = 'status',
+}: StatusFilterProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const routeParams = useParams<Record<string, string | string[] | undefined>>();
@@ -38,9 +52,9 @@ export default function StatusFilter({ label, allLabel, options, activeStatus }:
     params.delete('page');
 
     if (value) {
-      params.set('status', value);
+      params.set(paramName, value);
     } else {
-      params.delete('status');
+      params.delete(paramName);
     }
 
     // `usePathname()` de next-intl devuelve la plantilla canónica sin
@@ -49,8 +63,9 @@ export default function StatusFilter({ label, allLabel, options, activeStatus }:
     // real del segmento antes de navegar, igual que hace `BreadCrumbs.tsx`.
     const resolvedPathname = pathname.replace(
       /\[(.+?)\]/g,
-      (match, paramName: string) => {
-        const value = routeParams[paramName];
+      // `segment` y no `paramName`: ese nombre ya es la prop del filtro, y reutilizarlo aquí la tapaba.
+      (match, segment: string) => {
+        const value = routeParams[segment];
         return typeof value === 'string' ? value : match;
       },
     );

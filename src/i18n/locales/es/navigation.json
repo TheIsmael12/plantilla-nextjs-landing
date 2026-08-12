@@ -19,7 +19,7 @@
     "/private-area/invoices": "Facturas",
     "/private-area/communities": "Comunidades",
     "/private-area/incidents": "Incidencias",
-    "/private-area/notifications": "Notificaciones"
+    "/private-area/profile/notifications": "Notificaciones"
   },
   "Navbar": {
     "login": "Acceso clientes",
@@ -78,7 +78,7 @@
       "/private-area/incidents": "Incidencias",
       "/private-area/incidents/new": "Nueva incidencia",
       "/private-area/incidents/[id]": "Incidencia",
-      "/private-area/notifications": "Notificaciones"
+      "/private-area/profile/notifications": "Notificaciones"
     },
     "Navbar": {
       "mainNavigation": "Navegación principal",

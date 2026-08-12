@@ -49,6 +49,14 @@ export type ButtonSize = "sm" | "md" | "full";
  */
 export interface ButtonProps {
   title?: string;
+  /**
+   * Valores a interpolar en `title`, para las etiquetas que llevan un número o un nombre.
+   *
+   * Sin esto, un botón que quiere decir «Marcar 3 como leídas» tenía dos salidas malas: escribir el texto ya
+   * traducido —rompiendo la regla de que `title` es una clave— o dejar la etiqueta genérica y perder el dato.
+   * Mismo mecanismo que `ariaLabelValues` en `IconButton`.
+   */
+  titleValues?: Record<string, string | number>;
   type?: "button" | "submit" | "reset";
   size?: ButtonSize;
   variant?: ButtonVariant;
