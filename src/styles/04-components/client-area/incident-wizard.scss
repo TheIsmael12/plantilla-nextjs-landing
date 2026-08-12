@@ -1,13 +1,32 @@
-// Asistente para abrir una incidencia (CreateIncidentModal).
+// Asistente para abrir una incidencia (CreateIncidentWizard).
 //
-// Vive dentro del modal grande, así que el alto lo gobierna él: aquí solo se ordenan las piezas de cada paso
-// y se fija el pie de navegación, que es lo único que debe estar siempre a la vista.
+// Vive en su propia página, así que aquí se ordenan las piezas de cada paso y se le pone la caja que antes le
+// daba el modal.
 
 @use "../../00-settings/variables" as *;
 @use "../../01-tools/mixins" as *;
 
 .incident-wizard {
   @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1.25rem);
+}
+
+/*
+ * La tarjeta que contiene el asistente en su página.
+ *
+ * El ancho está limitado a propósito: en un monitor grande, un formulario que cruza los 1600px obliga a
+ * mover la cabeza entre la pregunta y el botón, y las tarjetas de tipo se estirarían hasta parecer filas de
+ * una tabla en vez de opciones que se comparan de un vistazo.
+ */
+.incident-wizard-page {
+  max-width: 60rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  @include rounded(0.75rem);
+  @include p(1.5rem);
+
+  @include screen(sm, max) {
+    @include p(1rem);
+  }
 }
 
 /*

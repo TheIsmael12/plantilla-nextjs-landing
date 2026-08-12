@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { PencilIcon, TrashIcon } from 'lucide-react';
+import { EyeIcon, PencilIcon, TrashIcon } from 'lucide-react';
 
 import type { ColumnDef } from '@tanstack/react-table';
 
@@ -22,6 +22,8 @@ interface UnitsTableProps {
   isActionPending: boolean;
   onEdit: (unit: CommunityUnit) => void;
   onDelete: (unit: CommunityUnit) => void;
+  /** Abre la lista de vecinos de la unidad. */
+  onViewResidents: (unit: CommunityUnit) => void;
 }
 
 /**
@@ -31,7 +33,13 @@ interface UnitsTableProps {
  * @param {UnitsTableProps} props - Página actual de unidades y handlers de edición/eliminación (delegados a `UnitsManager`, dueño de los modales)
  * @returns {JSX.Element} La tabla de unidades renderizada
  */
-export default function UnitsTable({ data, isActionPending, onEdit, onDelete }: UnitsTableProps) {
+export default function UnitsTable({
+  data,
+  isActionPending,
+  onEdit,
+  onDelete,
+  onViewResidents,
+}: UnitsTableProps) {
   const t = useTranslations('Views.ClientArea.Communities');
 
   const { pagination, sorting, search, setPagination, setSorting, setSearch, isPending } =
@@ -98,6 +106,17 @@ export default function UnitsTable({ data, isActionPending, onEdit, onDelete }: 
         enableSorting: false,
         cell: ({ row }) => (
           <div className="community-table__actions">
+            {/* El ojo primero: mirar quién vive aquí se hace a menudo, y editar o borrar es lo
+                excepcional. No lo deshabilita `isActionPending`, porque consultar no choca con una
+                escritura en marcha. */}
+            <Button
+              size="sm"
+              variant="outline"
+              ariaLabel="viewResidents"
+              onClick={() => onViewResidents(row.original)}
+            >
+              <EyeIcon />
+            </Button>
             <Button
               size="sm"
               variant="outline"
@@ -120,7 +139,7 @@ export default function UnitsTable({ data, isActionPending, onEdit, onDelete }: 
         ),
       },
     ],
-    [t, isActionPending, onEdit, onDelete],
+    [t, isActionPending, onEdit, onDelete, onViewResidents],
   );
 
   return (

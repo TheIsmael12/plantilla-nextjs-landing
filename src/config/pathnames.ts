@@ -187,6 +187,12 @@ export const pathnames = {
     en: "/private-area/incidents",
     es: "/area-privada/incidencias",
   },
+  /* Antes de `[id]` porque es estática: Next.js resuelve primero el segmento literal, así que
+     `/incidencias/nueva` no cae en el detalle de una incidencia con id «nueva». */
+  "/private-area/incidents/new": {
+    en: "/private-area/incidents/new",
+    es: "/area-privada/incidencias/nueva",
+  },
   "/private-area/incidents/[id]": {
     en: "/private-area/incidents/[id]",
     es: "/area-privada/incidencias/[id]",

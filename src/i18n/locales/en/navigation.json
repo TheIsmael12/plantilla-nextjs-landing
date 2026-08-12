@@ -74,7 +74,11 @@
         "menu": "Menu",
         "account": "Account",
         "preferences": "Preferences"
-      }
+      },
+      "/private-area/incidents": "Incidents",
+      "/private-area/incidents/new": "New incident",
+      "/private-area/incidents/[id]": "Incident",
+      "/private-area/notifications": "Notifications"
     },
     "Navbar": {
       "mainNavigation": "Main navigation",
@@ -91,7 +95,30 @@
       "security": "Security",
       "services": "Services",
       "quotes": "Quotes",
-      "invoices": "Invoices"
+      "invoices": "Invoices",
+      "communities": "Communities",
+      "residents": "Residents",
+      "units": "Units",
+      "keyrings": "Keyrings",
+      "locks": "Doors",
+      "access-log": "Access log",
+      "settings": "Settings",
+      "incidents": "Incidents",
+      "new": "New",
+      "notifications": "Notifications",
+      "sessions": "Sessions",
+      "preferences": "Preferences",
+      "locale": "Language",
+      "theme": "Theme",
+      "datetime": "Date and time",
+      "record": "Record",
+      "Singular": {
+        "services": "Service",
+        "quotes": "Quote",
+        "invoices": "Invoice",
+        "incidents": "Incident",
+        "communities": "Community"
+      }
     },
     "TitleComponent": {
       "back": "Back to"

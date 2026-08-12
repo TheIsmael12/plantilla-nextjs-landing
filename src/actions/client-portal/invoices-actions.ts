@@ -1,10 +1,12 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { downloadPortalDocument, type PortalDocumentFile } from "@/lib/portalDocuments";
 import type {
   ClientInvoicesQuery,
   InvoiceDetail,
   InvoiceListItem,
+  PortalInvoiceSummary,
 } from "@/types/client-portal/invoices";
 import type { FetchResponse, PaginatedResult } from "@/types/responses";
 
@@ -54,4 +56,32 @@ export async function getClientInvoiceDetail(
     `client/me/invoices/${encodeURIComponent(id)}`,
     "GET",
   );
+}
+
+/**
+ * Descarga el PDF de una factura propia (`GET client/me/invoices/:id/pdf`).
+ *
+ * Vuelve en base64 y no como URL por lo mismo que los adjuntos de una incidencia: el documento es
+ * privado, así que cada descarga tiene que pasar por el endpoint autenticado, que comprueba otra vez
+ * que la factura es de este cliente. Una URL pública sería un enlace que sigue funcionando para
+ * cualquiera que lo tenga.
+ * @param {string} id - Identificador de la factura
+ * @returns {Promise<FetchResponse<PortalDocumentFile>>} El PDF en base64, o el error de la API
+ */
+export async function downloadClientInvoicePdf(
+  id: string,
+): Promise<FetchResponse<PortalDocumentFile>> {
+  return downloadPortalDocument(`client/me/invoices/${encodeURIComponent(id)}/pdf`);
+}
+
+/**
+ * Resumen de facturación del cliente (`GET client/me/invoices/summary`).
+ *
+ * Se pide aparte del listado y no se calcula sobre él por lo mismo que en incidencias: los importes se suman
+ * en la base de datos sobre todas las facturas, porque «te quedan 1.200 € por pagar» sacado de las diez filas
+ * de la primera página es un número inventado, y ese es justo el número con el que alguien decide si paga.
+ * @returns {Promise<FetchResponse<PortalInvoiceSummary>>} Contadores e importes de su facturación
+ */
+export async function getClientInvoiceSummary(): Promise<FetchResponse<PortalInvoiceSummary>> {
+  return fetchDataToken<PortalInvoiceSummary, never>("client/me/invoices/summary", "GET");
 }

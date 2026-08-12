@@ -35,6 +35,39 @@ export function resolveDetailHref(pathname: string, id: string) {
 }
 
 /**
+ * Construye el `href` de una ruta canónica cualquiera tomando de `params` los segmentos dinámicos que esa
+ * ruta necesite, sean los que sean (`[id]`, `[serviceId]`, o varios).
+ *
+ * Es lo que hace falta cuando el destino no se conoce al escribir el código —las migas de pan, que reconstruyen
+ * la ruta activa segmento a segmento—: {@link resolveDetailHref} solo sabe de `[id]`, y {@link resolveHref}
+ * con un segundo argumento monta una **query string**, así que pasarle los params de ruta devolvía la
+ * plantilla sin sustituir (`/private-area/communities/[serviceId]`) y `Link` reventaba con «Insufficient
+ * params provided for localized pathname».
+ *
+ * Los params se recortan a los que la plantilla nombra: pasarle a `Link` un `params` con sobras es un error
+ * de tipos, y en el caso de las migas los `useParams()` de la página traen siempre más de los que cada miga usa.
+ * @param {string} pathname - Pathname canónico, con sus segmentos dinámicos entre corchetes
+ * @param {Record<string, string | string[] | undefined>} params - Params de ruta activos (valor de `useParams()`)
+ * @returns {Parameters<typeof Link>[0]["href"]} Una cadena si la ruta es estática, o `{pathname, params}` si tiene segmentos dinámicos
+ */
+export function resolveTemplateHref(
+  pathname: string,
+  params: Record<string, string | string[] | undefined>,
+) {
+  const names = [...pathname.matchAll(/\[(.+?)\]/g)].map(([, name]) => name);
+
+  if (names.length === 0) return pathname as Parameters<typeof Link>[0]["href"];
+
+  const used = Object.fromEntries(
+    names
+      .map((name) => [name, params[name]] as const)
+      .filter(([, value]) => value !== undefined),
+  );
+
+  return { pathname, params: used } as Parameters<typeof Link>[0]["href"];
+}
+
+/**
  * Resuelve un `href` (ruta simple o con `pathname`) a la cadena final,
  * añadiendo la query string si se proporciona.
  * @param {string | {pathname: string}} href Ruta destino, como cadena o con `pathname`

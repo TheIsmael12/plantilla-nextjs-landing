@@ -1,0 +1,80 @@
+// Lista de personas de un vistazo (PeoplePeekModal): los vecinos de una unidad, los titulares de un llavero.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.people-peek {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.85rem);
+}
+
+.people-peek__subtitle {
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+}
+
+.people-peek__list {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+  /*
+   * Tope de alto con scroll propio: una unidad puede tener seis vecinos, pero un llavero del portal puede
+   * tener sesenta, y sin esto el modal crecía hasta dejar el botón de cerrar fuera de la pantalla.
+   */
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+.people-peek__item {
+  @include flex($justify: flex-start, $align: center, $gap: 0.75rem);
+  @include py(0.6rem);
+  @include px(0.85rem);
+
+  & + & {
+    border-top: 1px solid var(--border-color);
+  }
+}
+
+.people-peek__avatar {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  background-color: var(--neutral-color-light);
+  color: var(--neutral-color-active);
+  @include rounded(999px);
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.people-peek__text {
+  @include flex($direction: column, $justify: center, $align: flex-start, $gap: 0.1rem);
+  // Que el texto largo se recorte en vez de empujar al badge fuera de la fila.
+  min-width: 0;
+  margin-right: auto;
+}
+
+.people-peek__name {
+  font-weight: $font-medium;
+  color: var(--color);
+}
+
+.people-peek__detail {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+.people-peek__empty {
+  @include p(1.25rem);
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+  text-align: center;
+  border: 1px dashed var(--border-color);
+  @include rounded(0.5rem);
+}

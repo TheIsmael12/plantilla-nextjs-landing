@@ -1,10 +1,14 @@
 import { getTranslations } from 'next-intl/server';
 import { ArrowLeftIcon, FileTextIcon } from 'lucide-react';
 
-import { getClientQuoteDetail } from '@/actions/client-portal/quotes-actions';
+import {
+  downloadClientQuotePdf,
+  getClientQuoteDetail,
+} from '@/actions/client-portal/quotes-actions';
 import { formatBillingAmount, formatBillingDate } from '@/utils/billingFormatUtils';
 
 import Badge from '@/components/ui/buttons/Badge';
+import DocumentDownloadButton from '@/components/ui/client-area/DocumentDownloadButton';
 import QuoteDecisionActions from '@/components/ui/client-area/QuoteDecisionActions';
 import SettingsSection from '@/components/ui/sections/SettingsSection';
 import { Link, resolveHref } from '@/i18n/navigation';
@@ -62,6 +66,9 @@ export default async function QuoteDetailViewPage({ id, locale }: QuoteDetailVie
       </main>
     );
   }
+
+  // Atada a este presupuesto: el botón es de cliente y solo puede recibir del servidor una server action.
+  const downloadPdf = downloadClientQuotePdf.bind(null, quote.id);
 
   const money = (value: number | undefined) =>
     formatBillingAmount(value, quote.currency, locale, tCommon('notAvailable'));
@@ -122,18 +129,14 @@ export default async function QuoteDetailViewPage({ id, locale }: QuoteDetailVie
             )}
           </dl>
 
-          {quote.pdfUrl && (
-            <div className="client-detail__actions">
-              <a
-                className="client-detail__download"
-                href={`/api/client-portal/quotes/${quote.id}/pdf`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t('downloadPdf')}
-              </a>
-            </div>
-          )}
+          {/*
+            Botón en vez de enlace de texto, y sin depender de que el PDF esté ya guardado: la API lo genera
+            en la primera descarga. Va en `outline` porque en esta pantalla la acción principal es aceptar o
+            rechazar el presupuesto, no llevárselo.
+          */}
+          <div className="client-detail__actions">
+            <DocumentDownloadButton download={downloadPdf} filename={quote.quoteCode} />
+          </div>
 
           {quote.status === 'SENT' && <QuoteDecisionActions quoteId={quote.id} />}
         </SettingsSection>

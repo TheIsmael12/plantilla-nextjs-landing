@@ -10,6 +10,7 @@ import type {
   IncidentCommentResponse,
   PortalCreateIncidentCommentInput,
   PortalCreateIncidentInput,
+  PortalIncidentCounters,
 } from "@/types/client-portal/community";
 import type { FetchResponse, FetchResponseWithBlob, PaginatedResult } from "@/types/responses";
 import { HTTPStatus } from "@/constants/httpStatus";
@@ -233,4 +234,17 @@ export async function downloadIncidentAttachment(
   }
 
   return response;
+}
+
+/**
+ * Resumen de las incidencias del cliente (`GET client/me/incidents/counters`).
+ *
+ * Los números los cuenta la API sobre **todas** sus incidencias, no sobre la página que se está viendo: un
+ * «tienes 3 abiertas» contado sobre diez filas de una bandeja de cuarenta sería falso. Y nunca cuentan las
+ * sensibles, igual que el listado no las lista: si el contador las sumara, el número de arriba delataría la
+ * existencia de la reclamación que la pantalla esconde.
+ * @returns {Promise<FetchResponse<PortalIncidentCounters>>} Abiertas, fuera de plazo, resueltas y cerradas
+ */
+export async function getIncidentCounters(): Promise<FetchResponse<PortalIncidentCounters>> {
+  return fetchDataToken<PortalIncidentCounters, never>("client/me/incidents/counters", "GET");
 }

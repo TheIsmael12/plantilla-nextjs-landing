@@ -70,6 +70,10 @@
     "chooseFile": "Choose file",
     "next": "Next",
     "createIncident": "Open the incident",
-    "attachFile": "Attach a file"
+    "attachFile": "Attach a file",
+    "downloadPdf": "Download PDF",
+    "downloading": "Downloading…",
+    "viewResidents": "View residents",
+    "viewHolders": "View key holders"
   }
 }

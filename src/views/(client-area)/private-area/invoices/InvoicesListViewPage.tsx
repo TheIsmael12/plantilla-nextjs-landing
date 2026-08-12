@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { getClientInvoices } from '@/actions/client-portal/invoices-actions';
 
 import ClientListEmptyState from '@/components/ui/client-area/ClientListEmptyState';
+import InvoiceSummary from '@/components/ui/client-area/InvoiceSummary';
 import InvoicesList from '@/components/ui/client-area/InvoicesList';
 
 import type { InvoiceStatus } from '@/types/client-portal/invoices';
@@ -52,7 +53,17 @@ export default async function InvoicesListViewPage({
 
   return (
     <main className="client-area-page">
-      <h1 className="client-area-page__title">{t('title')}</h1>
+      <header className="client-list__header">
+        <div>
+          <h1 className="client-list__title">{t('title')}</h1>
+          <p className="client-list__description">{t('description')}</p>
+        </div>
+      </header>
+
+      {/* Sin facturas no hay nada que resumir: cuatro ceros no dicen nada y tapan el mensaje de vacío. */}
+      {response.data && response.data.pagination.totalItems > 0 && (
+        <InvoiceSummary locale={locale} />
+      )}
 
       {response.data && (response.data.pagination.totalItems > 0 || status || search) ? (
         <InvoicesList data={response.data} locale={locale} statusOptions={STATUS_OPTIONS} />

@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { PencilIcon, TrashIcon } from 'lucide-react';
+import { EyeIcon, PencilIcon, TrashIcon } from 'lucide-react';
 
 import type { ColumnDef } from '@tanstack/react-table';
 
@@ -22,6 +22,8 @@ interface KeyringsTableProps {
   isActionPending: boolean;
   onEdit: (keyring: LockGroup) => void;
   onDelete: (keyring: LockGroup) => void;
+  /** Abre la lista de quién tiene una llave viva de este llavero. */
+  onViewHolders: (keyring: LockGroup) => void;
 }
 
 /**
@@ -37,6 +39,7 @@ export default function KeyringsTable({
   isActionPending,
   onEdit,
   onDelete,
+  onViewHolders,
 }: KeyringsTableProps) {
   const t = useTranslations('Views.ClientArea.Communities');
 
@@ -93,6 +96,16 @@ export default function KeyringsTable({
         enableSorting: false,
         cell: ({ row }) => (
           <div className="community-table__actions">
+            {/* Consultar quién tiene llave va primero y sin deshabilitar: es la pregunta que se hace todos
+                los días («¿quién puede entrar al garaje?»), y leer no choca con una escritura en marcha. */}
+            <Button
+              size="sm"
+              variant="outline"
+              ariaLabel="viewHolders"
+              onClick={() => onViewHolders(row.original)}
+            >
+              <EyeIcon />
+            </Button>
             <Button
               size="sm"
               variant="outline"
@@ -115,7 +128,7 @@ export default function KeyringsTable({
         ),
       },
     ],
-    [t, isActionPending, onEdit, onDelete],
+    [t, isActionPending, onEdit, onDelete, onViewHolders],
   );
 
   return (

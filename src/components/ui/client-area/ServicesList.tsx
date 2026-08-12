@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { BriefcaseIcon, CalendarIcon, MapPinIcon, RepeatIcon } from 'lucide-react';
+import { ArrowRightIcon, BriefcaseIcon, CalendarIcon, MapPinIcon, RepeatIcon } from 'lucide-react';
 
 import { useClientTableUrlState } from '@/hooks/useClientTableUrlState';
 import { formatBillingAmount, formatBillingDate } from '@/utils/billingFormatUtils';
@@ -123,11 +123,26 @@ export default function ServicesList({ data, locale, statusOptions }: ServicesLi
             )}
           </dl>
 
-          {service.canReadPrices && service.basePrice !== undefined && (
-            <div className="service-card__price">
-              {formatBillingAmount(service.basePrice, 'EUR', locale, tCommon('notAvailable'))}
-            </div>
-          )}
+          {/*
+            El pie de la tarjeta: el precio si se puede ver, y siempre el «ver detalle» con su flecha.
+            La tarjeta entera es un enlace, pero eso solo se descubre pasando el ratón por encima —y en un
+            móvil no hay ratón—, así que se dice con palabras. Va abajo del todo para que todas las
+            tarjetas de la fila lo tengan a la misma altura, tengan o no precio.
+          */}
+          <div className="service-card__footer">
+            {service.canReadPrices && service.basePrice !== undefined ? (
+              <span className="service-card__price">
+                {formatBillingAmount(service.basePrice, 'EUR', locale, tCommon('notAvailable'))}
+              </span>
+            ) : (
+              <span />
+            )}
+
+            <span className="service-card__detail">
+              {tCommon('viewDetail')}
+              <ArrowRightIcon aria-hidden="true" />
+            </span>
+          </div>
         </Link>
       )}
     />

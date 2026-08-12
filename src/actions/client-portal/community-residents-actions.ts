@@ -166,3 +166,30 @@ export async function revokeCommunityMembership(
     "DELETE",
   );
 }
+
+/**
+ * Los vecinos de **una unidad** concreta, para el vistazo de «quién vive aquí».
+ *
+ * Filtra la API por `communityUnitId`, no esta función sobre una página ya traída: el listado viene paginado y
+ * recortar la página de turno dejaría fuera a los vecinos de la unidad que estén en otra, con lo que una
+ * vivienda con gente aparecería como vacía.
+ *
+ * Un mismo vecino puede tener varias pertenencias —el propietario de cinco pisos—, pero aquí se pregunta por
+ * una sola unidad, así que cada persona sale una vez.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {string} communityUnitId - Unidad por la que se pregunta
+ * @returns {Promise<FetchResponse<PortalResident[]>>} Los vecinos con acceso vivo de esa unidad
+ */
+export async function getUnitResidents(
+  serviceId: string,
+  communityUnitId: string,
+): Promise<FetchResponse<PortalResident[]>> {
+  const response = await getCommunityResidentsPaginated(serviceId, {
+    communityUnitId,
+    limit: CATALOG_LIMIT,
+  });
+
+  return response.data
+    ? { status: response.status, data: response.data.items }
+    : { status: response.status, message: response.message };
+}

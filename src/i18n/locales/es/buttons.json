@@ -70,6 +70,10 @@
     "chooseFile": "Elegir fichero",
     "next": "Siguiente",
     "createIncident": "Abrir la incidencia",
-    "attachFile": "Adjuntar un archivo"
+    "attachFile": "Adjuntar un archivo",
+    "downloadPdf": "Descargar PDF",
+    "downloading": "Descargando…",
+    "viewResidents": "Ver los vecinos",
+    "viewHolders": "Ver quién tiene llave"
   }
 }

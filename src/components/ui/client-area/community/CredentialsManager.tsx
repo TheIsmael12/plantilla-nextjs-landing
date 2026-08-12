@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { KeyRoundIcon, PlusIcon } from 'lucide-react';
+import { DoorClosedIcon, KeyRoundIcon, PlusIcon } from 'lucide-react';
 
 import {
   createCommunityLockCredential,
@@ -16,6 +16,7 @@ import { HTTPStatus } from '@/constants/httpStatus';
 import { notifyResponse } from '@/utils/toastUtils';
 
 import Alert from '@/components/ui/alerts/Alert';
+import Badge from '@/components/ui/buttons/Badge';
 import Button from '@/components/ui/buttons/Button';
 import CredentialsTable from '@/components/ui/client-area/community/CredentialsTable';
 import DatePicker from '@/components/ui/inputs/DatePicker';
@@ -31,15 +32,31 @@ import type {
   CommunityLock,
   LockCredential,
   LockCredentialBatchResult,
+  LockCredentialSyncStatus,
   LockCredentialType,
   LockGroup,
   PortalResident,
 } from '@/types/client-portal/community';
 import type { FetchResponse, PaginatedResult } from '@/types/responses';
+import type { BadgeVariant } from '@/types/ui/buttons/badge';
 
 import '@/styles/04-components/ui/forms/form-row.scss';
 import '@/styles/04-components/client-area/community-common.scss';
 import '@/styles/04-components/client-area/community-key-picker.scss';
+
+/*
+ * Color de cada estado de sincronización.
+ *
+ * `PENDING` y `PENDING_REVOKE` son avisos y no errores: la orden está dada y la cerradura la aplicará cuando
+ * conecte. `FAILED` sí es rojo, porque significa que esa puerta sigue abriéndose con la credencial.
+ */
+const SYNC_VARIANTS: Record<LockCredentialSyncStatus, BadgeVariant> = {
+  PENDING: 'warning',
+  PENDING_REVOKE: 'warning',
+  SYNCED: 'success',
+  REVOKED: 'neutral',
+  FAILED: 'danger',
+};
 
 /**
  * Los tipos que se pueden repartir a varios vecinos de una vez.
@@ -873,10 +890,24 @@ export default function CredentialsManager({
                 <span className="community-form__label">
                   {t('Keyrings.CredentialsSection.syncTitle')}
                 </span>
-                <ul>
+
+                {/*
+                  Una fila por puerta con su estado en badge, no una lista de puntos con guiones.
+                  Antes era «Puerta de garaje — Aplicada», y en una lista de cinco puertas había que leerse
+                  los cinco estados en texto corrido para ver si alguno había fallado; el color lo dice de
+                  un vistazo, que es justo lo que se viene a mirar antes de revocar.
+                */}
+                <ul className="lock-sync-list">
                   {revoking.syncs.map((sync) => (
-                    <li key={sync.lockId}>
-                      {sync.lockName} — {t(`SyncStatus.${sync.status}`)}
+                    <li key={sync.lockId} className="lock-sync-list__item">
+                      <span className="lock-sync-list__lock">
+                        <DoorClosedIcon aria-hidden="true" />
+                        {sync.lockName}
+                      </span>
+                      <Badge
+                        variant={SYNC_VARIANTS[sync.status]}
+                        text={t(`SyncStatus.${sync.status}`)}
+                      />
                     </li>
                   ))}
                 </ul>

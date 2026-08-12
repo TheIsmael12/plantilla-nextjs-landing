@@ -213,3 +213,16 @@
   @include flex($justify: flex-start, $align: center, $gap: 0.35rem);
   flex-wrap: wrap;
 }
+
+/*
+ * Fila de tarjetas de resumen sobre un listado (incidencias, facturas).
+ *
+ * `auto-fit` con mínimo de 12rem: en escritorio las cuatro caben en una fila, en tableta se parten en dos y
+ * en móvil quedan una debajo de otra sin que el importe se recorte. Con cuatro columnas fijas, «1.234,56 €»
+ * se salía de su tarjeta en cuanto la pantalla bajaba de 900px.
+ */
+.client-list__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+  gap: 1rem;
+}

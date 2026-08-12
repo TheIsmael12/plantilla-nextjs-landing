@@ -15,6 +15,7 @@ import {
 import { HTTPStatus } from '@/constants/httpStatus';
 import { notifyResponse } from '@/utils/toastUtils';
 
+import Alert from '@/components/ui/alerts/Alert';
 import Button from '@/components/ui/buttons/Button';
 import Input from '@/components/ui/inputs/Input';
 import InvitationsTable from '@/components/ui/client-area/community/InvitationsTable';
@@ -51,6 +52,8 @@ interface ResidentsManagerProps {
   units: CommunityUnit[];
   keyrings: LockGroup[];
   includeClosed: boolean;
+  /** Si las altas de vecinos las gestiona el cliente; con `false` la API rechaza invitar y aquí no se ofrece. */
+  residentsManagedByClient: boolean;
 }
 
 /**
@@ -70,6 +73,7 @@ export default function ResidentsManager({
   units,
   keyrings,
   includeClosed,
+  residentsManagedByClient,
 }: ResidentsManagerProps) {
   const t = useTranslations('Views.ClientArea.Communities');
   const tCommon = useTranslations('Views.ClientArea.Common');
@@ -172,14 +176,27 @@ export default function ResidentsManager({
 
   return (
     <>
-      <div className="community-toolbar">
-        <div />
-        <div className="community-toolbar__actions">
-          <Button title="invite" variant="primary" onClick={() => setIsInviteOpen(true)}>
-            <UserPlusIcon />
-          </Button>
+      {/*
+        Cuando las altas no las gestiona el cliente, no hay botón de invitar: se explica de quién es la
+        gestión y ya está.
+
+        Antes el botón estaba siempre, y en estas comunidades el único camino era rellenar el formulario
+        entero —correos, unidad, rol, llaveros— para que la API contestara 403 al final. Ofrecer una acción
+        que va a ser rechazada no es informar, es hacer perder el tiempo; y el aviso dice además a quién hay
+        que pedírselo, que es lo que de verdad se necesita saber.
+      */}
+      {residentsManagedByClient ? (
+        <div className="community-toolbar">
+          <div />
+          <div className="community-toolbar__actions">
+            <Button title="invite" variant="primary" onClick={() => setIsInviteOpen(true)}>
+              <UserPlusIcon />
+            </Button>
+          </div>
         </div>
-      </div>
+      ) : (
+        <Alert type="info" message={t('Residents.managedByStaffNotice')} />
+      )}
 
       <ResidentsTable
         data={residents}

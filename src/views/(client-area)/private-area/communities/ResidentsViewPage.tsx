@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
+import { getCommunityConfig } from '@/actions/client-portal/communities-actions';
 import { getCommunityKeyrings } from '@/actions/client-portal/community-keyrings-actions';
 import {
   getCommunityInvitations,
@@ -69,7 +70,7 @@ export default async function ResidentsViewPage({
         ? 'DESC'
         : undefined;
 
-  const [residentsResponse, invitationsResponse, unitsResponse, keyringsResponse] =
+  const [residentsResponse, invitationsResponse, unitsResponse, keyringsResponse, configResponse] =
     await Promise.all([
       getCommunityResidentsPaginated(serviceId, {
         page: residentsPage,
@@ -88,7 +89,16 @@ export default async function ResidentsViewPage({
       }),
       getCommunityUnits(serviceId),
       getCommunityKeyrings(serviceId),
+      getCommunityConfig(serviceId),
     ]);
+
+  /*
+   * Quién da de alta a los vecinos.
+   *
+   * Si la configuración no llegara, se asume que **no** las gestiona el cliente: el aviso de más es
+   * inofensivo, y un botón de invitar que la API va a rechazar con un 403 no lo es.
+   */
+  const residentsManagedByClient = configResponse.data?.residentsManagedByClient ?? false;
 
   return (
     <>
@@ -112,6 +122,7 @@ export default async function ResidentsViewPage({
         units={unitsResponse.data ?? []}
         keyrings={keyringsResponse.data ?? []}
         includeClosed={includeClosed}
+        residentsManagedByClient={residentsManagedByClient}
       />
     </>
   );

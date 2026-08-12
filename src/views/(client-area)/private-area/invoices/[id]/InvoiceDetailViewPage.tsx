@@ -1,10 +1,14 @@
 import { getTranslations } from 'next-intl/server';
 import { ArrowLeftIcon, ReceiptIcon } from 'lucide-react';
 
-import { getClientInvoiceDetail } from '@/actions/client-portal/invoices-actions';
+import {
+  downloadClientInvoicePdf,
+  getClientInvoiceDetail,
+} from '@/actions/client-portal/invoices-actions';
 import { formatBillingAmount, formatBillingDate } from '@/utils/billingFormatUtils';
 
 import Badge from '@/components/ui/buttons/Badge';
+import DocumentDownloadButton from '@/components/ui/client-area/DocumentDownloadButton';
 import SettingsSection from '@/components/ui/sections/SettingsSection';
 import { Link, resolveHref } from '@/i18n/navigation';
 
@@ -62,6 +66,15 @@ export default async function InvoiceDetailViewPage({ id, locale }: InvoiceDetai
     );
   }
 
+  /*
+   * La descarga se le pasa al botón ya atada a esta factura.
+   *
+   * `bind` y no una función nueva: el botón es un componente de cliente, y lo único que puede recibir del
+   * servidor como función es una server action —una acción atada sigue siéndolo, una lambda cualquiera no—.
+   * Además así el id no viaja al navegador como prop.
+   */
+  const downloadPdf = downloadClientInvoicePdf.bind(null, invoice.id);
+
   const money = (value: number | undefined) =>
     formatBillingAmount(value, invoice.currency, locale, tCommon('notAvailable'));
 
@@ -105,18 +118,21 @@ export default async function InvoiceDetailViewPage({ id, locale }: InvoiceDetai
             </div>
           </dl>
 
-          {invoice.pdfUrl && (
-            <div className="client-detail__actions">
-              <a
-                className="client-detail__download"
-                href={`/api/client-portal/invoices/${invoice.id}/pdf`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t('downloadPdf')}
-              </a>
-            </div>
-          )}
+          {/*
+            Un botón, y siempre que la factura esté emitida.
+
+            Antes era un enlace de texto —fácil de no ver— y solo aparecía si la factura ya tenía el PDF
+            guardado, que en la práctica dejaba sin descarga a cualquier factura emitida antes de que
+            existiera esa generación. Ahora la API lo genera en la primera descarga, así que el único caso
+            sin documento es el borrador, y un borrador no se le enseña al cliente.
+          */}
+          <div className="client-detail__actions">
+            <DocumentDownloadButton
+              download={downloadPdf}
+              filename={invoice.fullNumber ?? invoice.id}
+              variant="primary"
+            />
+          </div>
         </SettingsSection>
 
         <SettingsSection title={tDetail('linesTitle')}>

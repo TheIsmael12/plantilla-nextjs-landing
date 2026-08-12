@@ -7,7 +7,12 @@
 @use "../../../01-tools/mixins" as *;
 
 .table__container {
-  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: stretch,
+    $gap: 1rem
+  );
   width: 100%;
 }
 
@@ -76,7 +81,12 @@
     box-shadow:
       0 4px 6px rgba(0, 0, 0, 0.1),
       0 1px 3px rgba(0, 0, 0, 0.06);
-    @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+    @include flex(
+      $direction: column,
+      $justify: flex-start,
+      $align: stretch,
+      $gap: 0.75rem
+    );
     @include rounded();
     @include p(0.75rem);
   }
@@ -250,14 +260,15 @@
   }
 
   th {
-    background-color:  var(--surface-color)
+    background-color: var(--surface-color);
   }
 
   tbody tr {
+    background-color: var(--surface-color);
     border-top: 1px solid var(--border-color);
 
-    &:hover {
-      background-color: var(--neutral-color-light);
+    &:nth-last-child(even) {
+      background-color: var(--primary-color-light);
     }
   }
 }
@@ -289,7 +300,12 @@
 }
 
 .table__state {
-  @include flex($direction: column, $justify: center, $align: center, $gap: 0.5rem);
+  @include flex(
+    $direction: column,
+    $justify: center,
+    $align: center,
+    $gap: 0.5rem
+  );
   color: var(--neutral-color);
   font-size: $text-sm;
   @include py(2rem);
@@ -363,10 +379,31 @@
       color: var(--color);
     }
   }
+
+  /*
+   * En pantalla estrecha, el pie se apila y se centra.
+   *
+   * Con `space-between` y `flex-wrap`, al no caber los dos bloques en una línea el texto («Página 2 de
+   * 7, 134 registros») se quedaba pegado a la izquierda y los botones caían debajo pegados a la
+   * derecha: dos bloques desalineados en esquinas opuestas, que es lo que se veía mal. Apilados y
+   * centrados, el pie se lee como una unidad y los botones quedan donde llega el pulgar.
+   */
+  @include screen(md, max) {
+    @include flex(
+      $direction: column,
+      $justify: center,
+      $align: center,
+      $gap: 0.75rem
+    );
+    text-align: center;
+  }
 }
 
 .table__pagination {
   @include flex($justify: center, $gap: 0.25rem);
+  // Con muchas páginas la fila de botones es más ancha que un móvil: mejor que baje que
+  // que empuje el ancho de la tabla y aparezca un scroll horizontal en toda la vista.
+  flex-wrap: wrap;
 
   button {
     @include flex($justify: center, $gap: 0);
@@ -407,6 +444,11 @@
 
 .table__page-size {
   @include flex($justify: flex-end, $gap: 0.5rem);
+
+  // Tercer bloque del pie apilado: centrado como los otros dos.
+  @include screen(md, max) {
+    justify-content: center;
+  }
 
   &__select {
     width: auto;

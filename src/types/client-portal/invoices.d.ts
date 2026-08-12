@@ -114,3 +114,36 @@ export interface ClientInvoicesQuery {
   status?: InvoiceStatus;
   search?: string;
 }
+
+/**
+ * Resumen de facturación del cliente (`GET client/me/invoices/summary`).
+ * @interface PortalInvoiceSummary
+ * @property {number} total - Facturas emitidas (los borradores no cuentan)
+ * @property {number} unpaid - Facturas con algo pendiente de pago
+ * @property {number} overdue - De las pendientes, las que ya han pasado su vencimiento
+ * @property {number} pendingAmount - Suma de lo que queda por pagar
+ * @property {number} billedLastYear - Suma de lo facturado en los últimos doce meses
+ * @property {string} currency - Moneda de los importes
+ */
+export interface PortalInvoiceSummary {
+  total: number;
+  unpaid: number;
+  overdue: number;
+  pendingAmount: number;
+  billedLastYear: number;
+  currency: string;
+  monthly: PortalInvoiceMonth[];
+}
+
+/**
+ * Un mes de la serie de facturación del cliente.
+ * @interface PortalInvoiceMonth
+ * @property {string} month - Mes en formato `YYYY-MM`
+ * @property {number} billed - Facturado ese mes
+ * @property {number} paid - Cobrado de esas facturas
+ */
+export interface PortalInvoiceMonth {
+  month: string;
+  billed: number;
+  paid: number;
+}

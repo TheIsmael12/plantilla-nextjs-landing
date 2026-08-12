@@ -11,6 +11,7 @@ import {
   importCommunityUnits,
   updateCommunityUnit,
 } from '@/actions/client-portal/community-units-actions';
+import { getUnitResidents } from '@/actions/client-portal/community-residents-actions';
 import { HTTPStatus } from '@/constants/httpStatus';
 import { notifyResponse } from '@/utils/toastUtils';
 
@@ -19,6 +20,7 @@ import Input from '@/components/ui/inputs/Input';
 import ModalComponent from '@/components/ui/modals/ModalComponent';
 import Select from '@/components/ui/inputs/Select';
 import Toggle from '@/components/ui/inputs/Toggle';
+import PeoplePeekModal from '@/components/ui/client-area/community/PeoplePeekModal';
 import UnitsTable from '@/components/ui/client-area/community/UnitsTable';
 
 import type {
@@ -134,6 +136,9 @@ export default function UnitsManager({ serviceId, units }: UnitsManagerProps) {
   const [deleting, setDeleting] = useState<CommunityUnit | null>(null);
   const [form, setForm] = useState<UnitFormState>(EMPTY_FORM);
 
+  /** Unidad cuya lista de vecinos se está mirando (el ojo de la tabla). */
+  const [peekedUnit, setPeekedUnit] = useState<CommunityUnit | null>(null);
+
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [importRows, setImportRows] = useState<PortalUnitImportRow[]>([]);
   const [discardedRows, setDiscardedRows] = useState(0);
@@ -232,7 +237,38 @@ export default function UnitsManager({ serviceId, units }: UnitsManagerProps) {
         isActionPending={isPending}
         onEdit={openEdit}
         onDelete={setDeleting}
+        onViewResidents={setPeekedUnit}
       />
+
+      {/*
+        `key` con el id de la unidad: el modal carga una sola vez al montarse, así que mirar otra unidad
+        tiene que darle una identidad nueva para que vuelva a pedir la lista.
+      */}
+      {peekedUnit && (
+        <PeoplePeekModal
+          key={peekedUnit.id}
+          title={t('Units.residentsTitle')}
+          subtitle={peekedUnit.code}
+          emptyMessage={t('Units.residentsEmpty')}
+          onClose={() => setPeekedUnit(null)}
+          load={async () => {
+            const response = await getUnitResidents(serviceId, peekedUnit.id);
+
+            return {
+              status: response.status,
+              message: response.message,
+              data: response.data?.map((resident) => ({
+                id: resident.membershipId,
+                // Quien no ha aceptado la invitación todavía no tiene nombre: el correo lo identifica igual.
+                name: resident.name ?? resident.email,
+                detail: resident.name ? resident.email : undefined,
+                badgeText: t(`ResidentRole.${resident.role}`),
+                badgeVariant: 'info' as const,
+              })),
+            };
+          }}
+        />
+      )}
 
       {isFormOpen && (
         <ModalComponent

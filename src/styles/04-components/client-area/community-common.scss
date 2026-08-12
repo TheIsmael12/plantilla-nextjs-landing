@@ -288,3 +288,51 @@
   border: 1px dashed var(--border-color);
   @include rounded(0.75rem);
 }
+
+/*
+ * Estado de una credencial puerta por puerta (el «Estado por cerradura» del modal de revocar).
+ *
+ * Era una lista de puntos con «Puerta — Estado» en texto corrido: con cuatro o cinco puertas había que
+ * leerse los estados uno a uno para ver si alguno había fallado. Aquí cada puerta es una fila con su
+ * nombre a la izquierda y el estado en badge a la derecha, así que el color contesta la pregunta —«¿se
+ * ha aplicado en todas?»— antes de leer nada.
+ */
+.lock-sync-list {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+  overflow: hidden;
+}
+
+.lock-sync-list__item {
+  @include flex($justify: space-between, $align: center, $gap: 0.75rem);
+  @include py(0.6rem);
+  @include px(0.85rem);
+  font-size: $text-sm;
+
+  // Separador entre filas, no alrededor: el borde exterior ya lo pone la lista.
+  & + & {
+    border-top: 1px solid var(--border-color);
+  }
+
+  // Filas alternas, igual que la tabla del sistema de diseño.
+  &:nth-child(even) {
+    background-color: var(--primary-color-light);
+  }
+}
+
+.lock-sync-list__lock {
+  @include flex($justify: flex-start, $align: center, $gap: 0.45rem);
+  min-width: 0;
+  color: var(--color);
+
+  svg {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    color: var(--neutral-color);
+  }
+}

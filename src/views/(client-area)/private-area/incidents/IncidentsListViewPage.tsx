@@ -1,10 +1,13 @@
 import { getTranslations } from 'next-intl/server';
 
+import { PlusIcon } from 'lucide-react';
+
 import { getCommunityIncidents } from '@/actions/client-portal/community-incidents-actions';
-import { getClientServices } from '@/actions/client-portal/services-actions';
+
+import { Link } from '@/i18n/navigation';
 
 import ClientListEmptyState from '@/components/ui/client-area/ClientListEmptyState';
-import CreateIncidentModal from '@/components/ui/client-area/CreateIncidentModal';
+import IncidentCounters from '@/components/ui/client-area/IncidentCounters';
 import IncidentsTable from '@/components/ui/client-area/community/IncidentsTable';
 
 import type { IncidentStatus } from '@/types/client-portal/community';
@@ -44,6 +47,7 @@ export default async function IncidentsListViewPage({
   searchParams,
 }: IncidentsListViewPageProps) {
   const t = await getTranslations('Views.ClientArea.Communities.Incidents');
+  const tButtons = await getTranslations('Buttons');
 
   const page = Number(searchParams.page) > 0 ? Number(searchParams.page) : 1;
   const limit = Number(searchParams.limit) > 0 ? Number(searchParams.limit) : INCIDENTS_PER_PAGE;
@@ -53,15 +57,7 @@ export default async function IncidentsListViewPage({
   const sortBy = searchParams.sortBy || undefined;
   const sortOrder = searchParams.sortOrder === 'ASC' ? 'ASC' : searchParams.sortOrder === 'DESC' ? 'DESC' : undefined;
 
-  const [response, servicesResponse] = await Promise.all([
-    getCommunityIncidents({ page, limit, status, sortBy, sortOrder }),
-    getClientServices({ limit: 100 }),
-  ]);
-
-  const services = (servicesResponse.data?.items ?? []).map((service) => ({
-    id: service.id,
-    label: `${service.code} · ${service.serviceName}`,
-  }));
+  const response = await getCommunityIncidents({ page, limit, status, sortBy, sortOrder });
 
   return (
     <section className="client-list">
@@ -70,8 +66,21 @@ export default async function IncidentsListViewPage({
           <h1 className="client-list__title">{t('allTitle')}</h1>
           <p className="client-list__description">{t('allDescription')}</p>
         </div>
-        <CreateIncidentModal services={services} />
+        {/*
+          Un enlace, no un botón que abre un modal: el alta vive en su propia página, así que esto es
+          navegar. Además se puede abrir en otra pestaña, que con un `onClick` no se podía.
+        */}
+        <Link href="/private-area/incidents/new" className="btn btn--primary btn--md">
+          <PlusIcon aria-hidden="true" />
+          {tButtons('createIncident')}
+        </Link>
       </header>
+
+      {/*
+        El resumen solo cuando hay algo que resumir: cuatro ceros sobre una bandeja vacía no informan de
+        nada y le roban la pantalla al mensaje que sí ayuda («abre tu primera incidencia»).
+      */}
+      {response.data && response.data.pagination.totalItems > 0 && <IncidentCounters />}
 
       {response.data && (response.data.pagination.totalItems > 0 || status) ? (
         <IncidentsTable data={response.data} locale={locale} statusOptions={STATUS_OPTIONS} />

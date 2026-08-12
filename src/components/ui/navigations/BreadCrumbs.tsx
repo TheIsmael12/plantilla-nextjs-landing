@@ -6,7 +6,7 @@ import { useMemo } from "react";
 
 import { useParams } from "next/navigation";
 
-import { Link, resolveHref, usePathname } from "@/i18n/navigation";
+import { Link, resolveTemplateHref, usePathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
 import { useBreadcrumbContext } from "@/context/BreadcrumbProvider";
@@ -15,12 +15,21 @@ import { findRouteByPathname } from "@/utils/routingUtils";
 
 import type { BreadcrumbItem } from "@/types/ui/navigations/bread-crumbs";
 
+/** Un segmento dinámico con esta forma es un identificador, no algo que enseñar. */
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** Raíz del área privada: es la miga de «Inicio», así que su segmento no se repite como miga aparte. */
+const PRIVATE_AREA_ROOT = "/private-area";
+
 /**
  * Migas de pan que reconstruyen la ruta actual a partir de los segmentos de la
  * URL: traduce los segmentos estáticos, muestra el valor real (o la etiqueta
  * inyectada vía `useBreadcrumbContext`) en los dinámicos, y cae a "Error 404"
  * si la ruta no está registrada.
- * @returns {JSX.Element} Las migas de pan renderizadas
+ *
+ * Solo se montan en el área privada (`(client-area)/private-area/layout.tsx`): en las páginas públicas la
+ * navegación es la del sitio, no un camino de vuelta por una jerarquía.
+ * @returns {JSX.Element | null} Las migas de pan, o `null` en la portada del área privada
  */
 export default function Breadcrumbs() {
   const t = useTranslations("Navigation.Breadcrumbs");
@@ -30,11 +39,20 @@ export default function Breadcrumbs() {
   const { label: dynamicLabelOverride } = useBreadcrumbContext();
 
   const items = useMemo(() => {
+    /*
+     * La primera miga es la portada del área privada, no la del sitio público.
+     *
+     * Desde una factura, «Inicio» tiene que llevar al panel del cliente: volver a la web comercial en
+     * mitad de una gestión no es subir un nivel, es salirse. Y como esa portada es ya el primer segmento
+     * de la ruta, se descuenta de la lista para no verla dos veces seguidas.
+     */
     const breadcrumbItems: BreadcrumbItem[] = [
-      { label: t("home"), href: "/", isNavigable: true },
+      { label: t("home"), href: PRIVATE_AREA_ROOT, isNavigable: true },
     ];
 
-    const segmentInfos = analyzeSegments(pathname, params);
+    const segmentInfos = analyzeSegments(pathname, params).slice(
+      pathname.startsWith(PRIVATE_AREA_ROOT) ? 1 : 0,
+    );
 
     if (segmentInfos.length === 0) return breadcrumbItems;
 
@@ -68,15 +86,39 @@ export default function Breadcrumbs() {
       -1,
     );
 
+    /**
+     * Etiqueta de un segmento dinámico cuando la página no ha inyectado ninguna: el valor tal cual si es
+     * legible (un código, un slug), o el nombre del recurso en singular si es un UUID.
+     * @param {string} value - Valor real del segmento
+     * @param {number} index - Posición del segmento, para poder mirar el estático anterior
+     * @returns {string} La etiqueta a mostrar
+     */
+    function resolveDynamicFallback(value: string, index: number): string {
+      if (!UUID_PATTERN.test(value)) return value;
+
+      // El segmento estático anterior es el listado del recurso ("/invoices" → "Facturas"), así que su
+      // clave en singular es la que describe a un elemento.
+      const parentKey = segmentInfos[index - 1]?.canonicalKey.split("/").pop() ?? "";
+
+      return t(`Singular.${parentKey.replace(/[^a-zA-Z0-9_-]/g, "")}`, {
+        default: t("record", { default: "Registro" }),
+      });
+    }
+
     segmentInfos.forEach(({ value, isDynamic, canonicalKey }, index) => {
       const isLast = index === segmentInfos.length - 1;
       const isLastDynamicSegment = isDynamic && index === lastDynamicIndex;
 
-      // Segmento dinámico → valor real sin traducir (o la etiqueta inyectada
-      // por la página vía `useBreadcrumbLabel` para el último segmento
-      // dinámico, p. ej. el nombre de un usuario en vez de su id); estático → clave i18n
+      /*
+       * Segmento dinámico → la etiqueta inyectada por la página vía `useBreadcrumbLabel` (p. ej. el
+       * código de la factura), y si no hay, el valor real del segmento... salvo que sea un UUID: 36
+       * caracteres de identificador no dicen nada a quien lee la ruta y ocupan la línea entera. En ese
+       * caso se usa el nombre del recurso en singular («Factura», «Incidencia»), impreciso pero legible.
+       *
+       * Aquí importa más que en la intranet: todos los detalles del portal se direccionan por UUID.
+       */
       const label = isDynamic
-        ? (isLastDynamicSegment && dynamicLabelOverride) || value
+        ? (isLastDynamicSegment && dynamicLabelOverride) || resolveDynamicFallback(value, index)
         : t(
             canonicalKey
               .split("/")
@@ -101,6 +143,13 @@ export default function Breadcrumbs() {
     return breadcrumbItems;
   }, [pathname, params, t, dynamicLabelOverride]);
 
+  /*
+   * En la portada del área privada no hay migas: una sola miga que dice «Inicio» dentro de la propia
+   * página de inicio no orienta a nadie, solo ocupa la primera línea de la pantalla que más contenido
+   * tiene. En cualquier otra ruta la primera miga es el camino de vuelta aquí. Igual que en la intranet.
+   */
+  if (pathname === PRIVATE_AREA_ROOT) return null;
+
   return (
     <nav className="breadcrumb">
       <ol>
@@ -119,7 +168,7 @@ export default function Breadcrumbs() {
             >
               {item.isNavigable && item.href ? (
                 <Link
-                  href={resolveHref(item.href, params)}
+                  href={resolveTemplateHref(item.href, params)}
                   className="breadcrumb__item__link"
                 >
                   {item.label}

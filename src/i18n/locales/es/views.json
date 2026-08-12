@@ -949,7 +949,36 @@
         "profileDescription": "Tus datos personales y la seguridad de tu cuenta.",
         "servicesDescription": "Consulta los servicios que tienes contratados y su estado.",
         "quotesDescription": "Revisa, acepta o rechaza los presupuestos que te hemos enviado.",
-        "invoicesDescription": "Consulta y descarga tus facturas."
+        "invoicesDescription": "Consulta y descarga tus facturas.",
+        "Dashboard": {
+          "description": "Un resumen de lo que tienes en marcha con nosotros.",
+          "pendingAmount": "Pendiente de pago",
+          "unpaidCount": "{count, plural, one {# factura sin pagar} other {# facturas sin pagar}}",
+          "allPaid": "No tienes nada pendiente",
+          "overdueInvoices": "Facturas vencidas",
+          "quotesToAnswer": "Presupuestos por responder",
+          "quotesToAnswerHint": "Esperan que los aceptes o los rechaces",
+          "incidentsOverdueHint": "{count, plural, one {# fuera de plazo} other {# fuera de plazo}}",
+          "billingTitle": "Tu facturación",
+          "billingHint": "Lo facturado y lo pagado en los últimos doce meses.",
+          "billingEmpty": "Todavía no hay facturas que enseñar aquí.",
+          "billed": "Facturado",
+          "paid": "Pagado",
+          "incidentsTitle": "Tus incidencias",
+          "incidentsHint": "En qué punto está lo que nos has contado.",
+          "incidentsEmpty": "No has abierto ninguna incidencia.",
+          "incidentsSeries": "Incidencias",
+          "quotesTitle": "Esperan tu respuesta",
+          "quotesEmpty": "No hay presupuestos pendientes de respuesta.",
+          "invoicesTitle": "Facturas vencidas",
+          "invoicesEmpty": "No tienes facturas vencidas.",
+          "incidentsListTitle": "Incidencias en curso",
+          "incidentsListEmpty": "No hay ninguna incidencia en curso.",
+          "viewAll": "Ver todo",
+          "servicesShortcut": "Mis servicios",
+          "servicesCount": "{count, plural, one {# servicio activo} other {# servicios activos}}",
+          "communityCount": "{count, plural, one {# vecino} other {# vecinos}}"
+        }
       },
       "Profile": {
         "title": "Mi perfil",
@@ -1035,7 +1064,8 @@
         "notAvailable": "No disponible",
         "backToList": "Volver al listado",
         "search": "Buscar",
-        "searchPlaceholder": "Buscar..."
+        "searchPlaceholder": "Buscar...",
+        "loading": "Cargando…"
       },
       "Services": {
         "title": "Mis servicios",
@@ -1196,6 +1226,15 @@
           "PAID": "Pagada",
           "OVERDUE": "Vencida",
           "CANCELLED": "Anulada"
+        },
+        "summary": {
+          "pendingAmount": "Pendiente de pago",
+          "unpaidCount": "{count, plural, one {# factura sin pagar} other {# facturas sin pagar}}",
+          "allPaid": "No tienes nada pendiente",
+          "overdue": "Vencidas",
+          "overdueHint": "Han pasado su fecha de pago",
+          "billedLastYear": "Facturado el último año",
+          "total": "Facturas emitidas"
         }
       },
       "Communities": {
@@ -1275,7 +1314,8 @@
           "revokeInvitationTitle": "Revocar esta invitación",
           "revokeInvitationDescription": "El enlace que se envió dejará de funcionar.",
           "invitedKeyrings": "Llaveros",
-          "alsoInUnits": "También en {units}"
+          "alsoInUnits": "También en {units}",
+          "managedByStaffNotice": "En esta comunidad las invitaciones las envía la administración del servicio. Si necesitas dar de alta a un vecino, pídenoslo y lo hacemos nosotros."
         },
         "Units": {
           "title": "Unidades",
@@ -1312,7 +1352,10 @@
           "importPreview": "Se van a dar de alta {count} unidades",
           "importEmpty": "No se ha encontrado ninguna fila válida en el fichero.",
           "importConfirm": "Importar",
-          "importInvalidRows": "{count} filas se han descartado por no tener código."
+          "importInvalidRows": "{count} filas se han descartado por no tener código.",
+          "residentsTitle": "Quién vive aquí",
+          "residentsEmpty": "Todavía no hay ningún vecino asignado a esta unidad.",
+          "viewResidents": "Ver los vecinos"
         },
         "Keyrings": {
           "title": "Llaveros y credenciales",
@@ -1439,7 +1482,11 @@
             "description": "Credenciales que abren aunque la puerta esté fuera de su horario. Revísalas de vez en cuando.",
             "empty": "Ninguna credencial puede saltarse el horario.",
             "reasonColumn": "Motivo"
-          }
+          },
+          "holdersTitle": "Quién tiene llave",
+          "holdersEmpty": "Nadie tiene una llave viva de este llavero.",
+          "viewHolders": "Ver quién tiene llave",
+          "thirdParty": "Persona externa"
         },
         "Locks": {
           "title": "Puertas",
@@ -1617,6 +1664,13 @@
             "urgencyHintCRITICAL": "Hay riesgo o alguien se ha quedado sin servicio.",
             "reviewQuestion": "Repasa antes de enviarlo",
             "reviewNotice": "Al abrirla avisamos al equipo y podrás seguir la conversación desde aquí. Si algo no está bien, vuelve atrás y cámbialo."
+          },
+          "counters": {
+            "open": "Abiertas",
+            "overdue": "Fuera de plazo",
+            "overdueHint": "Ya han pasado la fecha que te dimos",
+            "resolved": "Resueltas",
+            "closed": "Cerradas"
           }
         },
         "AccessLog": {

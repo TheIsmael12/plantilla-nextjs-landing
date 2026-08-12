@@ -52,7 +52,14 @@ export default async function ServicesListViewPage({
 
   return (
     <main className="client-area-page">
-      <h1 className="client-area-page__title">{t('title')}</h1>
+      {/* Título y explicación, como en el resto de listados del portal: en una pantalla que solo enseña
+          tarjetas, la frase de debajo es lo que dice qué son y para qué sirve entrar en ellas. */}
+      <header className="client-list__header">
+        <div>
+          <h1 className="client-list__title">{t('title')}</h1>
+          <p className="client-list__description">{t('description')}</p>
+        </div>
+      </header>
 
       {response.data && (response.data.pagination.totalItems > 0 || status || search) ? (
         <ServicesList data={response.data} locale={locale} statusOptions={STATUS_OPTIONS} />

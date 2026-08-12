@@ -1,0 +1,60 @@
+// Estilos de StatCard (components/ui/cards/StatCard.tsx).
+
+@use "../../../00-settings/variables" as *;
+@use "../../../01-tools/mixins" as *;
+
+.stat-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--neutral-color);
+  @include rounded();
+  @include p(1.25rem);
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.375rem);
+
+  &--info {
+    border-left-color: var(--info-color);
+  }
+
+  &--success {
+    border-left-color: var(--success-color);
+  }
+
+  &--warning {
+    border-left-color: var(--warning-color);
+  }
+
+  &--danger {
+    border-left-color: var(--danger-color);
+  }
+}
+
+.stat-card__header {
+  @include flex($justify: space-between, $align: center, $gap: 0.75rem);
+}
+
+.stat-card__label {
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: var(--neutral-color);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.stat-card__icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--neutral-color);
+  flex-shrink: 0;
+}
+
+.stat-card__value {
+  font-size: $text-2xl;
+  font-weight: $font-bold;
+  color: var(--color);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-card__description {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}

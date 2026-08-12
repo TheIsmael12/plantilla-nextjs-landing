@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { downloadPortalDocument, type PortalDocumentFile } from "@/lib/portalDocuments";
 import type {
   AcceptQuoteDto,
   ClientQuotesQuery,
@@ -80,4 +81,18 @@ export async function rejectClientQuote(id: string): Promise<FetchResponse<Quote
     `client/me/quotes/${encodeURIComponent(id)}/reject`,
     "POST",
   );
+}
+
+/**
+ * Descarga el PDF de un presupuesto propio (`GET client/me/quotes/:id/pdf`).
+ *
+ * Mismo criterio que la factura: base64 desde el endpoint autenticado, no una URL que siga sirviendo el
+ * documento a quien tenga el enlace.
+ * @param {string} id - Identificador del presupuesto
+ * @returns {Promise<FetchResponse<PortalDocumentFile>>} El PDF en base64, o el error de la API
+ */
+export async function downloadClientQuotePdf(
+  id: string,
+): Promise<FetchResponse<PortalDocumentFile>> {
+  return downloadPortalDocument(`client/me/quotes/${encodeURIComponent(id)}/pdf`);
 }

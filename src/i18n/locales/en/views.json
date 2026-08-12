@@ -949,7 +949,36 @@
         "profileDescription": "Your personal details and account security.",
         "servicesDescription": "Check the services you have contracted and their status.",
         "quotesDescription": "Review, accept or reject the quotes we've sent you.",
-        "invoicesDescription": "Check and download your invoices."
+        "invoicesDescription": "Check and download your invoices.",
+        "Dashboard": {
+          "description": "A summary of what you have going on with us.",
+          "pendingAmount": "Outstanding",
+          "unpaidCount": "{count, plural, one {# unpaid invoice} other {# unpaid invoices}}",
+          "allPaid": "Nothing outstanding",
+          "overdueInvoices": "Overdue invoices",
+          "quotesToAnswer": "Quotes to answer",
+          "quotesToAnswerHint": "They are waiting for you to accept or reject them",
+          "incidentsOverdueHint": "{count, plural, one {# past due} other {# past due}}",
+          "billingTitle": "Your billing",
+          "billingHint": "Billed and paid over the last twelve months.",
+          "billingEmpty": "There are no invoices to show here yet.",
+          "billed": "Billed",
+          "paid": "Paid",
+          "incidentsTitle": "Your incidents",
+          "incidentsHint": "Where the things you told us about stand.",
+          "incidentsEmpty": "You have not opened any incident.",
+          "incidentsSeries": "Incidents",
+          "quotesTitle": "Waiting for you",
+          "quotesEmpty": "No quotes are waiting for an answer.",
+          "invoicesTitle": "Overdue invoices",
+          "invoicesEmpty": "You have no overdue invoices.",
+          "incidentsListTitle": "Incidents in progress",
+          "incidentsListEmpty": "No incident is in progress.",
+          "viewAll": "View all",
+          "servicesShortcut": "My services",
+          "servicesCount": "{count, plural, one {# active service} other {# active services}}",
+          "communityCount": "{count, plural, one {# resident} other {# residents}}"
+        }
       },
       "Profile": {
         "title": "My profile",
@@ -1035,7 +1064,8 @@
         "notAvailable": "Not available",
         "backToList": "Back to list",
         "search": "Search",
-        "searchPlaceholder": "Search..."
+        "searchPlaceholder": "Search...",
+        "loading": "Loading…"
       },
       "Services": {
         "title": "My services",
@@ -1196,6 +1226,15 @@
           "PAID": "Paid",
           "OVERDUE": "Overdue",
           "CANCELLED": "Cancelled"
+        },
+        "summary": {
+          "pendingAmount": "Outstanding",
+          "unpaidCount": "{count, plural, one {# unpaid invoice} other {# unpaid invoices}}",
+          "allPaid": "Nothing outstanding",
+          "overdue": "Overdue",
+          "overdueHint": "Their due date has passed",
+          "billedLastYear": "Billed last year",
+          "total": "Invoices issued"
         }
       },
       "Communities": {
@@ -1275,7 +1314,8 @@
           "revokeInvitationTitle": "Revoke this invitation",
           "revokeInvitationDescription": "The link that was sent will stop working.",
           "invitedKeyrings": "Keyrings",
-          "alsoInUnits": "Also in {units}"
+          "alsoInUnits": "Also in {units}",
+          "managedByStaffNotice": "In this community invitations are sent by the service administration. If you need to add a resident, ask us and we will do it."
         },
         "Units": {
           "title": "Units",
@@ -1312,7 +1352,10 @@
           "importPreview": "{count} units will be created",
           "importEmpty": "No valid rows were found in the file.",
           "importConfirm": "Import",
-          "importInvalidRows": "{count} rows were discarded because they had no code."
+          "importInvalidRows": "{count} rows were discarded because they had no code.",
+          "residentsTitle": "Who lives here",
+          "residentsEmpty": "No resident is assigned to this unit yet.",
+          "viewResidents": "View residents"
         },
         "Keyrings": {
           "title": "Keyrings and credentials",
@@ -1439,7 +1482,11 @@
             "description": "Credentials that open even when the door is outside its schedule. Review them from time to time.",
             "empty": "No credential can bypass the schedule.",
             "reasonColumn": "Reason"
-          }
+          },
+          "holdersTitle": "Who holds a key",
+          "holdersEmpty": "Nobody holds a live key for this keyring.",
+          "viewHolders": "View key holders",
+          "thirdParty": "External person"
         },
         "Locks": {
           "title": "Doors",
@@ -1617,6 +1664,13 @@
             "urgencyHintCRITICAL": "There is a risk, or someone has been left without service.",
             "reviewQuestion": "Review before sending",
             "reviewNotice": "Opening it notifies the team, and you will be able to follow the conversation from here. If something is wrong, go back and change it."
+          },
+          "counters": {
+            "open": "Open",
+            "overdue": "Past due",
+            "overdueHint": "The date we gave you has passed",
+            "resolved": "Resolved",
+            "closed": "Closed"
           }
         },
         "AccessLog": {

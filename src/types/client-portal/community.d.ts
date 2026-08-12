@@ -1026,6 +1026,8 @@ export interface CommunityListQuery {
  */
 export interface CommunityResidentsQuery extends CommunityListQuery {
   includeRevoked?: boolean;
+  /** Solo los vecinos de esta unidad; lo filtra la API, no la página ya traída. */
+  communityUnitId?: string;
 }
 
 /**
@@ -1252,4 +1254,22 @@ export interface BatchCreateLockCredentialsDto {
 export interface LockCredentialBatchResult {
   created: LockCredentialCreated[];
   failed: { residentMembershipId: string; error: string }[];
+}
+
+/**
+ * Resumen de las incidencias del cliente (`GET client/me/incidents/counters`).
+ *
+ * No trae «sin asignar» como el de la intranet: a quién le toca el trabajo es un dato interno, y enseñárselo
+ * al cliente solo invita a preguntar por qué su avería no tiene dueño todavía.
+ * @interface PortalIncidentCounters
+ * @property {number} open - Abiertas (nueva, en curso, esperando a un tercero)
+ * @property {number} overdue - Abiertas cuyo compromiso de resolución ya ha pasado
+ * @property {number} resolved - Resueltas pendientes de cierre
+ * @property {number} closed - Cerradas
+ */
+export interface PortalIncidentCounters {
+  open: number;
+  overdue: number;
+  resolved: number;
+  closed: number;
 }

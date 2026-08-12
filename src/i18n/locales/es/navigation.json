@@ -74,7 +74,11 @@
         "menu": "Menú",
         "account": "Cuenta",
         "preferences": "Preferencias"
-      }
+      },
+      "/private-area/incidents": "Incidencias",
+      "/private-area/incidents/new": "Nueva incidencia",
+      "/private-area/incidents/[id]": "Incidencia",
+      "/private-area/notifications": "Notificaciones"
     },
     "Navbar": {
       "mainNavigation": "Navegación principal",
@@ -91,7 +95,30 @@
       "security": "Seguridad",
       "services": "Servicios",
       "quotes": "Presupuestos",
-      "invoices": "Facturas"
+      "invoices": "Facturas",
+      "communities": "Comunidades",
+      "residents": "Vecinos",
+      "units": "Unidades",
+      "keyrings": "Llaveros",
+      "locks": "Puertas",
+      "access-log": "Registro de accesos",
+      "settings": "Configuración",
+      "incidents": "Incidencias",
+      "new": "Nueva",
+      "notifications": "Notificaciones",
+      "sessions": "Sesiones",
+      "preferences": "Preferencias",
+      "locale": "Idioma",
+      "theme": "Tema",
+      "datetime": "Fecha y hora",
+      "record": "Registro",
+      "Singular": {
+        "services": "Servicio",
+        "quotes": "Presupuesto",
+        "invoices": "Factura",
+        "incidents": "Incidencia",
+        "communities": "Comunidad"
+      }
     },
     "TitleComponent": {
       "back": "Volver a"

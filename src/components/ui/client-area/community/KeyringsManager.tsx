@@ -10,12 +10,14 @@ import {
   deleteCommunityKeyring,
   updateCommunityKeyring,
 } from '@/actions/client-portal/community-keyrings-actions';
+import { getCommunityLockCredentials } from '@/actions/client-portal/community-lock-credentials-actions';
 import { HTTPStatus } from '@/constants/httpStatus';
 import { notifyResponse } from '@/utils/toastUtils';
 
 import Button from '@/components/ui/buttons/Button';
 import Input from '@/components/ui/inputs/Input';
 import KeyringsTable from '@/components/ui/client-area/community/KeyringsTable';
+import PeoplePeekModal from '@/components/ui/client-area/community/PeoplePeekModal';
 import ModalComponent from '@/components/ui/modals/ModalComponent';
 import Textarea from '@/components/ui/inputs/Textarea';
 import Toggle from '@/components/ui/inputs/Toggle';
@@ -62,6 +64,9 @@ export default function KeyringsManager({ serviceId, keyrings, locks }: Keyrings
   const [editing, setEditing] = useState<LockGroup | null>(null);
   const [deleting, setDeleting] = useState<LockGroup | null>(null);
   const [form, setForm] = useState<KeyringFormState>(EMPTY_FORM);
+
+  /** Llavero cuya lista de titulares se está mirando (el ojo de la tabla). */
+  const [peekedKeyring, setPeekedKeyring] = useState<LockGroup | null>(null);
 
   const run = (action: () => Promise<FetchResponse<unknown>>, onDone?: () => void) => {
     startTransition(async () => {
@@ -144,7 +149,48 @@ export default function KeyringsManager({ serviceId, keyrings, locks }: Keyrings
         isActionPending={isPending}
         onEdit={openEdit}
         onDelete={setDeleting}
+        onViewHolders={setPeekedKeyring}
       />
+
+      {/* `key` con el id: el modal carga al montarse, así que mirar otro llavero necesita otra identidad. */}
+      {peekedKeyring && (
+        <PeoplePeekModal
+          key={peekedKeyring.id}
+          title={t('Keyrings.holdersTitle')}
+          subtitle={peekedKeyring.name}
+          emptyMessage={t('Keyrings.holdersEmpty')}
+          onClose={() => setPeekedKeyring(null)}
+          load={async () => {
+            /*
+             * Solo las llaves vivas (`onlyLive`).
+             *
+             * La pregunta es «quién puede entrar hoy», no «quién ha tenido llave alguna vez»: incluir las
+             * revocadas y caducadas convertiría la respuesta en un historial, y para decidir si alguien
+             * sobra en el garaje eso es ruido.
+             */
+            const response = await getCommunityLockCredentials(serviceId, {
+              lockGroupId: peekedKeyring.id,
+              onlyLive: true,
+              limit: 100,
+            });
+
+            return {
+              status: response.status,
+              message: response.message,
+              data: response.data?.items.map((credential) => ({
+                id: credential.id,
+                // Una credencial puede ser de un vecino o de un tercero (la empresa de limpieza).
+                name: credential.residentName ?? credential.issuedForName ?? t('Keyrings.thirdParty'),
+                detail: [credential.residentUnitCode, t(`CredentialType.${credential.type}`)]
+                  .filter(Boolean)
+                  .join(' · '),
+                badgeText: t(`CredentialStatus.${credential.status}`),
+                badgeVariant: credential.status === 'ACTIVE' ? ('success' as const) : ('warning' as const),
+              })),
+            };
+          }}
+        />
+      )}
 
       {isFormOpen && (
         <ModalComponent

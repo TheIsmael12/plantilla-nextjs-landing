@@ -362,6 +362,13 @@ export const PRIVATE_ROUTES: Route[] = [
         shownInNavbar: true,
         icon: TriangleAlert,
       },
+      // Antes que `[id]`: es una ruta estática, y así se lee en el catálogo en el mismo orden en
+      // que Next.js las resuelve (lo estático gana a lo dinámico).
+      {
+        pathname: "/private-area/incidents/new",
+        shownInNavbar: false,
+        icon: TriangleAlert,
+      },
       {
         pathname: "/private-area/incidents/[id]",
         shownInNavbar: false,
