@@ -23,7 +23,7 @@
     height: 100%;
     margin: 0 auto;
     max-width: var(--max-width);
-    @include flex(row, space-between, center, 1rem);
+    @include flex(row, space-between, center, 2rem);
     @include py(1rem);
     @include px(1.5rem);
   }
@@ -32,10 +32,8 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--primary-color);
-    line-height: 0;
-    flex-shrink: 0;
-    width: clamp(5rem, 5vw + 1rem, 3rem);
-    height: clamp(5rem, 5vw + 1rem, 3rem);
+    width: 8rem;
+    height: 4rem;
   }
 
   &__toggle {
