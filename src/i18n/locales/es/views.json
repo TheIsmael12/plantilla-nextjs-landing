@@ -940,6 +940,28 @@
         "title": "Actualiza tu contraseña",
         "subtitle": "Por seguridad, debes fijar una nueva contraseña antes de continuar.",
         "invalidToken": "Este enlace no es válido o ha caducado. Vuelve a iniciar sesión."
+      },
+      "Resident": {
+        "ResetPassword": {
+          "title": "Restablecer contraseña",
+          "subtitle": "Elige una nueva contraseña para tu cuenta de vecino.",
+          "successTitle": "Contraseña actualizada",
+          "successMessage": "Tu contraseña se ha actualizado. Ya puedes entrar con ella desde la app.",
+          "invalidToken": "Este enlace no es válido o ha caducado. Pide uno nuevo desde la app."
+        },
+        "Invitation": {
+          "title": "Invitación a tu comunidad",
+          "subtitle": "Revisa los datos antes de aceptarla.",
+          "invalidToken": "Este enlace de invitación no es válido o ha caducado.",
+          "community": "Comunidad",
+          "unit": "Vivienda",
+          "role": "Rol",
+          "keyrings": "Llaves que vas a recibir",
+          "expiresAt": "Caduca el {date}",
+          "existingAccountNotice": "Ya tienes una cuenta de vecino con este correo. Confirma para unirte a esta comunidad.",
+          "successTitle": "Invitación aceptada",
+          "successMessage": "Ya formas parte de la comunidad. Entra desde la app con tu correo y contraseña."
+        }
       }
     },
     "ClientArea": {

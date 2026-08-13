@@ -171,6 +171,18 @@ export const PUBLIC_ROUTES: Route[] = [
     shownInNavbar: false,
     shownInFooter: false,
   },
+  // Enlaces de un vecino (app móvil de comunidad): recuperar contraseña y aceptar invitación. Ver el
+  // comentario de estas dos claves en `config/pathnames.ts`.
+  {
+    pathname: "/resident/reset-password/[token]",
+    shownInNavbar: false,
+    shownInFooter: false,
+  },
+  {
+    pathname: "/resident/invitation/[token]",
+    shownInNavbar: false,
+    shownInFooter: false,
+  },
 ];
 
 export const AUTH_ROUTES: Route[] = [
@@ -196,6 +208,19 @@ export const AUTH_ROUTES: Route[] = [
   },
   {
     pathname: "/verify-email",
+    shownInNavbar: false,
+    shownInFooter: false,
+  },
+  // Mismo motivo que en `PUBLIC_ROUTES`: entran aquí y no solo ahí porque `isAuthPathname` (que decide
+  // el `noindex` de `generateMetadata.ts`) solo mira `AUTH_ROUTES`. Sin esta entrada, una URL con un
+  // token de un solo uso en la ruta quedaría indexable por buscadores.
+  {
+    pathname: "/resident/reset-password/[token]",
+    shownInNavbar: false,
+    shownInFooter: false,
+  },
+  {
+    pathname: "/resident/invitation/[token]",
     shownInNavbar: false,
     shownInFooter: false,
   },

@@ -112,6 +112,35 @@
   }
 }
 
+.auth-form__summary {
+  display: grid;
+  gap: 0.5rem;
+  background-color: var(--surface-color-light);
+  border: 1px solid var(--border-color);
+  margin: 0;
+  @include px(1rem);
+  @include py(0.75rem);
+  @include rounded(0.5rem);
+}
+
+.auth-form__summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: $text-sm;
+
+  dt {
+    color: var(--neutral-color);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color);
+    font-weight: $font-medium;
+    text-align: right;
+  }
+}
+
 .auth-form__back-to-login {
   text-align: center;
   font-size: $text-sm;

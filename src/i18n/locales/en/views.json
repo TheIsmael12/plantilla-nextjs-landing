@@ -940,6 +940,28 @@
         "title": "Update your password",
         "subtitle": "For security reasons, you must set a new password before continuing.",
         "invalidToken": "This link is invalid or has expired. Please sign in again."
+      },
+      "Resident": {
+        "ResetPassword": {
+          "title": "Reset password",
+          "subtitle": "Choose a new password for your resident account.",
+          "successTitle": "Password updated",
+          "successMessage": "Your password has been updated. You can now sign in with it from the app.",
+          "invalidToken": "This link is invalid or has expired. Request a new one from the app."
+        },
+        "Invitation": {
+          "title": "Invitation to your community",
+          "subtitle": "Review the details before accepting.",
+          "invalidToken": "This invitation link is invalid or has expired.",
+          "community": "Community",
+          "unit": "Unit",
+          "role": "Role",
+          "keyrings": "Keys you'll receive",
+          "expiresAt": "Expires on {date}",
+          "existingAccountNotice": "You already have a resident account with this email. Confirm to join this community.",
+          "successTitle": "Invitation accepted",
+          "successMessage": "You're now part of the community. Sign in from the app with your email and password."
+        }
       }
     },
     "ClientArea": {

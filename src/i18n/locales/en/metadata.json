@@ -220,6 +220,16 @@
         "title": "Community settings",
         "description": "What you can adjust in your community app.",
         "keywords": ""
+      },
+      "/resident/reset-password/[token]": {
+        "title": "Reset password",
+        "description": "Choose a new password for your resident account.",
+        "keywords": ""
+      },
+      "/resident/invitation/[token]": {
+        "title": "Invitation to your community",
+        "description": "Review your invitation details before accepting.",
+        "keywords": ""
       }
     }
   }

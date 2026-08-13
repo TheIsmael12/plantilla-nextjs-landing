@@ -39,3 +39,35 @@ export const changePasswordSchema = Yup.object({
     .oneOf([Yup.ref("newPassword")], "auth.passwordsMustMatch")
     .required("auth.passwordRequired"),
 });
+
+/**
+ * Regla de fuerza de contraseña del vecino (`IsStrongPassword` del backend de comunidad): mínimo 8 caracteres,
+ * mayúscula, minúscula y número. **Sin carácter especial**, a diferencia de `strongPassword` (portal de
+ * cliente): son dos backends de auth distintos con sus propias reglas, y relajarla aquí sin que el backend la
+ * exija habría dejado pasar contraseñas válidas para el formulario y rechazadas por la API.
+ */
+const residentPassword = Yup.string()
+  .min(8, "auth.passwordMinLength")
+  .matches(/[a-z]/, "auth.passwordLowercase")
+  .matches(/[A-Z]/, "auth.passwordUppercase")
+  .matches(/\d/, "auth.passwordNumber")
+  .required("auth.passwordRequired");
+
+/** Esquema de la contraseña nueva del vecino (`POST /residents/auth/reset-password`). */
+export const residentResetPasswordSchema = Yup.object({
+  newPassword: residentPassword,
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("newPassword")], "auth.passwordsMustMatch")
+    .required("auth.passwordRequired"),
+});
+
+/**
+ * Esquema para aceptar una invitación de vecino (`POST /residents/auth/accept-invitation`) cuando la cuenta
+ * todavía no existe. Si ya existe, la pantalla no pide contraseña: solo confirma.
+ */
+export const residentAcceptInvitationSchema = Yup.object({
+  newPassword: residentPassword,
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("newPassword")], "auth.passwordsMustMatch")
+    .required("auth.passwordRequired"),
+});

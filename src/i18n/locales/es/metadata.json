@@ -220,6 +220,16 @@
         "title": "Configuración de la comunidad",
         "description": "Lo que puedes ajustar de la app de tu comunidad.",
         "keywords": ""
+      },
+      "/resident/reset-password/[token]": {
+        "title": "Restablecer contraseña",
+        "description": "Elige una nueva contraseña para tu cuenta de vecino.",
+        "keywords": ""
+      },
+      "/resident/invitation/[token]": {
+        "title": "Invitación a tu comunidad",
+        "description": "Revisa los datos de tu invitación antes de aceptarla.",
+        "keywords": ""
       }
     }
   }

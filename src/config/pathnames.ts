@@ -119,6 +119,14 @@ export const pathnames = {
     es: "/verificar-email",
   },
 
+  /* Enlaces de un vecino (app móvil), no del portal de cliente: el mismo pathname en los dos idiomas,
+     a propósito, igual que `/blog/[slug]`. El backend (`ResidentAuthService`/`ResidentsService`)
+     construye estas URLs una sola vez, en texto fijo, para el correo — no sabe en qué idioma las va a
+     abrir quien lo lea. Un slug traducido aquí serviría solo para el idioma con el que coincidiera por
+     casualidad; en el otro, el enlace del correo apuntaría a una ruta que Next.js no reconoce. */
+  "/resident/reset-password/[token]": "/resident/reset-password/[token]",
+  "/resident/invitation/[token]": "/resident/invitation/[token]",
+
   /* Área privada del cliente: perfil (datos personales + seguridad),
      servicios contratados, presupuestos y facturas, todo bajo el mismo
      prefijo `/private-area` (`/area-privada` en español). Clave canónica en
