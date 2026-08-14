@@ -88,19 +88,26 @@ export const PathWithoutSubRoutes: Story = {
   parameters: {
     nextjs: {
       appDirectory: true,
-      navigation: { pathname: "/users" },
+      /*
+       * Una ruta **de este proyecto**: `/private-area/services` está registrada y no tiene `subRoutes`.
+       *
+       * La historia venía con `/users`, que es de la intranet (`plantilla-nextjs`) y aquí no existe, así que el
+       * enlace nunca se pintaba con ese nombre. Se copió del repo hermano sin adaptar, y como la landing no tenía
+       * forma de ejecutar las pruebas, el fallo llevaba oculto desde entonces.
+       */
+      navigation: { pathname: "/private-area/services" },
     },
     docs: {
       description: {
         story:
-          "Con `path=\"/users\"` (una ruta registrada sin `subRoutes`), solo se muestra el enlace a la propia ruta: el fallback `rootRoute?.subRoutes ?? []` evita que el resto del componente reciba `undefined`.",
+          'Con `path="/private-area/services"` (una ruta registrada sin `subRoutes`), solo se muestra el enlace a la propia ruta: el fallback `rootRoute?.subRoutes ?? []` evita que el resto del componente reciba `undefined`.',
       },
     },
   },
-  args: { path: "/users" },
+  args: { path: "/private-area/services" },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    expect(canvas.getByRole("link", { name: "Usuarios" })).toBeInTheDocument();
+    expect(canvas.getByRole("link", { name: "Mis servicios" })).toBeInTheDocument();
     // Sin subRoutes no hay grupos desplegables que renderizar.
     expect(canvas.queryAllByRole("button")).toHaveLength(0);
   },
@@ -111,16 +118,17 @@ export const ProfileSubmenuTogglePreferences: Story = {
   parameters: {
     nextjs: {
       appDirectory: true,
-      navigation: { pathname: "/profile" },
+      // `/profile` es la ruta de la intranet; en la landing el perfil cuelga del área privada.
+      navigation: { pathname: "/private-area/profile" },
     },
     docs: {
       description: {
         story:
-          "Cuando la ruta activa no cuelga de un grupo con `subRoutes` (aquí, `/profile`), ese grupo empieza plegado y se abre/pliega manualmente al pulsarlo (`toggleGroup`), sin depender del resaltado automático por ruta activa.",
+          "Cuando la ruta activa no cuelga de un grupo con `subRoutes` (aquí, `/private-area/profile`), ese grupo empieza plegado y se abre/pliega manualmente al pulsarlo (`toggleGroup`), sin depender del resaltado automático por ruta activa.",
       },
     },
   },
-  args: { path: "/profile" },
+  args: { path: "/private-area/profile" },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const toggle = canvas.getByRole("button", { name: /Preferencias/i });
