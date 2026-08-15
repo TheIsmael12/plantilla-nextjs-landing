@@ -158,29 +158,36 @@ export const ReturnPathOnly: Story = {
 export const ReturnLinkKeyboardAccess: Story = {
   name: "Link de volver accesible por teclado",
   args: {
-    returnPath: "/users",
+    /*
+     * Una ruta **de este proyecto**, y ahí estaba el fallo.
+     *
+     * La historia venía con `/users`, que es una ruta de la intranet (`plantilla-nextjs`) y no existe en el
+     * catálogo de la landing. `Navigation.Routes` no tenía esa clave, así que el enlace se llamaba «Volver a
+     * navigation.routes./users» en vez de «Volver a Usuarios» y la búsqueda por nombre accesible no encontraba
+     * nada. Se copió del repo hermano y nunca se adaptó; como el proyecto no tenía forma de ejecutar las pruebas,
+     * llevaba roto sin que nadie lo viera.
+     */
+    returnPath: "/private-area/services",
   },
   parameters: {
     nextjs: {
       appDirectory: true,
-      navigation: { pathname: "/users/1" },
+      navigation: { pathname: "/private-area/services/1" },
     },
     docs: {
       description: {
         story:
-          "Prueba de interacción: el link de 'volver' expone un nombre accesible (`Volver a usuarios`), es alcanzable con Tab y su `href` apunta a la versión localizada de `returnPath`.",
+          "Prueba de interacción: el link de 'volver' expone un nombre accesible (`Volver a Mis servicios`), es alcanzable con Tab y su `href` apunta a la versión localizada de `returnPath`.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const link = canvas.getByRole("link", { name: /volver a usuarios/i });
+    const link = canvas.getByRole("link", { name: /volver a mis servicios/i });
 
     await userEvent.tab();
     await expect(link).toHaveFocus();
-    await expect(link).toHaveAttribute(
-      "href",
-      expect.stringContaining("usuarios"),
-    );
+    // El `href` va localizado: en español, `/private-area/services` se sirve como `/area-privada/servicios`.
+    await expect(link).toHaveAttribute("href", expect.stringContaining("servicios"));
   },
 };

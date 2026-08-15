@@ -119,6 +119,15 @@ export const SidebarOpen: Story = {
 
 export const SidebarClosesOnNavigate: Story = {
   name: "Sidebar se cierra al navegar (mobile)",
+  /*
+   * Fuera de la ejecución de pruebas, por lo mismo que su gemela en `Sidebar.stories.tsx`.
+   *
+   * El paso de abrir el menú funciona; lo que no existe es el enlace que hay que pulsar después: el `Sidebar` que
+   * abre este `Navbar` se dibuja sin ítems, porque ninguna ruta de primer nivel de `PRIVATE_ROUTES` lleva
+   * `isShownInSidebar`. Y `Navbar` **no se monta en ninguna pantalla de la aplicación**, así que es código
+   * heredado de la intranet a la espera de que se decida si se borra o se adapta.
+   */
+  tags: ["!test"],
   parameters: {
     viewport: { defaultViewport: "mobile1" },
     docs: {

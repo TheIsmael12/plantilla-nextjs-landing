@@ -68,7 +68,19 @@ export default function User() {
 
         {isOpenMenu && (
           <div className="navbar__user__menu">
-            <MenuItems path="/profile" onNavigate={() => setIsOpenMenu(false)} />
+            {/*
+              `/private-area/profile`, no `/profile`.
+
+              Estaba apuntando a `/profile`, que es la ruta de la intranet (`plantilla-nextjs`) y **no existe en el
+              catálogo de este proyecto**: `findRouteByPathname` no encontraba nada, `rootRoute?.subRoutes ?? []`
+              caía a la lista vacía y el menú del usuario se abría **sin una sola opción dentro**, solo con el
+              botón de cerrar sesión debajo del separador. Es código traído del repo hermano y no adaptado, y no
+              se veía porque el proyecto no tenía forma de ejecutar sus propias pruebas.
+            */}
+            <MenuItems
+              path="/private-area/profile"
+              onNavigate={() => setIsOpenMenu(false)}
+            />
 
             <hr className="navbar__user__menu__divider" />
 

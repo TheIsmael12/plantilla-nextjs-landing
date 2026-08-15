@@ -67,12 +67,20 @@ export const ProfileSessions: Story = {
   parameters: {
     nextjs: {
       appDirectory: true,
-      navigation: { pathname: "/profile/sessions" },
+      navigation: { pathname: "/private-area/profile/sessions" },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    /*
+     * Lo que estaba mal era **la ruta**, no los nombres.
+     *
+     * La historia venía de la intranet con `/profile/sessions`, que en la landing no existe: el perfil cuelga de
+     * `/private-area`. Con la ruta corregida los niveles vuelven a salir, y siguen llamándose «Inicio» y «Perfil»
+     * porque la miga no traduce con `Navigation.Routes` —donde este nivel es «Mi perfil»— sino con su propio
+     * `Navigation.Breadcrumbs`, que usa nombres más cortos por caber en una línea.
+     */
     const homeLink = canvas.getByRole("link", { name: "Inicio" });
     const profileLink = canvas.getByRole("link", { name: "Perfil" });
 
@@ -122,19 +130,20 @@ export const ProfilePreferences: Story = {
   },
 };
 
-export const UserDetail: Story = {
-  name: "Usuarios › Detalle (segmento dinámico)",
+export const InvoiceDetail: Story = {
+  name: "Facturas › Detalle (segmento dinámico)",
   parameters: {
     docs: {
       description: {
         story:
-          "El segmento dinámico `[id]` debe resolverse con el valor real del route param (vía `useParams()`), no con el pathname plantilla (`/users/[id]`) que devuelve `usePathname()` de next-intl para rutas con `pathnames` configurado.",
+          "El segmento dinámico `[id]` debe resolverse con el valor real del route param (vía `useParams()`), no con el pathname plantilla (`/private-area/invoices/[id]`) que devuelve `usePathname()` de next-intl para rutas con `pathnames` configurado.",
       },
     },
     nextjs: {
       appDirectory: true,
       navigation: {
-        pathname: "/users/[id]",
+        // `/users/[id]` era de la intranet; el detalle con segmento dinámico de la landing es el de una factura.
+        pathname: "/private-area/invoices/[id]",
         segments: [["id", "f278d99f-1234-5678-9abc-def012345678"]],
       },
     },
@@ -157,28 +166,29 @@ export const FourLevelPath: Story = {
   },
 };
 
-export const UserDetailWithDynamicLabel: Story = {
-  name: "Usuarios › Detalle (etiqueta dinámica inyectada)",
+export const InvoiceDetailWithDynamicLabel: Story = {
+  name: "Facturas › Detalle (etiqueta dinámica inyectada)",
   parameters: {
     docs: {
       description: {
         story:
-          "Cuando la página inyecta una etiqueta vía `useBreadcrumbLabel` (p. ej. el nombre real del usuario ya cargado, en vez del id de la URL), esa etiqueta sustituye al valor crudo del segmento dinámico solo en el último ítem.",
+          "Cuando la página inyecta una etiqueta vía `useBreadcrumbLabel` (p. ej. el código real de la factura ya cargada, en vez del id de la URL), esa etiqueta sustituye al valor crudo del segmento dinámico solo en el último ítem.",
       },
     },
     nextjs: {
       appDirectory: true,
       navigation: {
-        pathname: "/users/[id]",
+        pathname: "/private-area/invoices/[id]",
         segments: [["id", "f278d99f-1234-5678-9abc-def012345678"]],
       },
     },
   },
-  render: () => <BreadcrumbsWithDynamicLabel label="María López" />,
+  // Un código de factura, que es lo que esta pantalla inyecta de verdad; «María López» era de la intranet.
+  render: () => <BreadcrumbsWithDynamicLabel label="FAC-2026-000123" />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    expect(canvas.getByText("María López")).toBeInTheDocument();
+    expect(canvas.getByText("FAC-2026-000123")).toBeInTheDocument();
     expect(canvas.queryByText("f278d99f-1234-5678-9abc-def012345678")).not.toBeInTheDocument();
   },
 };
