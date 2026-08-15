@@ -100,16 +100,28 @@ keyword → categoría de intención → servicio(s) a enlazar → estado.
 | ¿Cuánto cuesta la limpieza de una comunidad de vecinos? | precio limpieza comunidad de vecinos | Precio | /servicios/limpieza | Candidato |
 | Control de accesos en comunidades: tipos y cómo elegir | control de accesos comunidades tipos | Guía | /servicios/seguridad | Candidato |
 | ¿Es obligatorio el socorrista en la piscina de mi comunidad? | socorrista obligatorio piscina comunidad | Informativo/legal | /servicios/piscinas | Candidato |
-| Checklist para evaluar una empresa de mantenimiento de comunidades | checklist empresa mantenimiento comunidades | Guía (adminstradores de fincas) | /servicios/mantenimiento | Candidato — §6 |
+| Checklist para evaluar una empresa de mantenimiento de comunidades | checklist empresa mantenimiento comunidades | Guía (administradores de fincas) | /servicios/mantenimiento | Candidato — §6 |
 | Cómo elegir una empresa de conserjería para tu comunidad | cómo elegir empresa conserjería | Decisión (administradores de fincas) | /servicios/conserjeria | Candidato — §6 |
 | Qué debe incluir el contrato de mantenimiento de una comunidad | contrato mantenimiento comunidad qué incluir | Guía (administradores de fincas) | /servicios/mantenimiento | Candidato — §6 |
 | Cuánto tiempo se conservan las grabaciones de CCTV en una comunidad | grabaciones CCTV comunidad plazo legal | Informativo/legal | /servicios/seguridad | Candidato |
 | Videovigilancia en comunidades de vecinos: qué dice la ley | videovigilancia comunidad de vecinos ley | Informativo/legal | /servicios/seguridad | Candidato |
 | Poda de árboles en comunidades: cuándo y cómo hacerla | poda árboles comunidad cuándo | Guía | /servicios/jardineria | Candidato |
+| ¿Cuánto cuesta instalar CCTV en una comunidad de vecinos? | precio instalación CCTV comunidad | Precio | /servicios/seguridad | Candidato |
+| Cómo elegir el sistema de control de accesos para tu edificio | elegir control de accesos edificio | Guía (administradores de fincas) | /servicios/seguridad | Candidato — §6 |
+| ¿Cuánto cuesta la jardinería de una comunidad al mes? | precio jardinería comunidad mensual | Precio | /servicios/jardineria | Candidato |
+| Riego automático en comunidades: ventajas y ahorro de agua | riego automático comunidad ahorro agua | Guía | /servicios/jardineria | Candidato |
+| ¿Cada cuánto hay que revisar la instalación eléctrica de una comunidad? | revisión eléctrica comunidad cada cuánto | Informativo/legal | /servicios/mantenimiento | Candidato |
+| Fontanería de urgencia en comunidades: qué hacer ante una fuga | fontanería urgencia comunidad fuga | Guía/urgencia | /servicios/mantenimiento | Candidato |
+| Servicios externalizados para comunidades: qué ganan los administradores de fincas | servicios externalizados comunidades administradores fincas | Guía (administradores de fincas) | /servicios (general) | Candidato — §6 |
+| Cómo reducir las incidencias de mantenimiento en una comunidad | reducir incidencias mantenimiento comunidad | Guía (administradores de fincas) | /servicios/mantenimiento | Candidato — §6 |
+| Qué hacer cuando una empresa de limpieza incumple el contrato | empresa de limpieza incumple contrato | Decisión (administradores de fincas) | /servicios/limpieza | Candidato — §6 |
+| Conserjería vs. portero automático: qué necesita realmente tu comunidad | conserjería vs portero automático | Decisión | /servicios/conserjeria | Candidato |
+| Un solo proveedor para conserjería, limpieza y mantenimiento: ventajas | proveedor único servicios comunidad | Guía/multiservicio | /servicios (general) | Candidato |
+| ISO 9001, 14001 y 45001 en empresas de servicios: qué garantizan | certificaciones ISO empresa servicios comunidades | Informativo | — (bloqueado, ver `requisitos-seo.md` §1/§8: no publicar hasta confirmar certificaciones reales) | Bloqueado |
 
-**Pendiente**: completar hasta 20-30 filas totales con más variantes de precio/guía/decisión
-por cada uno de los 6 servicios, antes de empezar a redactar el primero (regla de
-`requisitos-seo.md` §7: no publicar sin mapear).
+**Estado**: 27 filas — cubre el mínimo del rango 20-30 (§7). Ampliar más solo si Search
+Console (una vez configurado, §12) revela intenciones de búsqueda reales no contempladas
+aquí; no añadir artículos especulativos por encima de este lote sin esa señal.
 
 ## 3. Zonas — combinaciones servicio × municipio
 

@@ -248,10 +248,10 @@ ven por bajo tráfico.
 1. **Fase 0 — Bloqueantes** (§1): datos reales de empresa, decisión sobre ISO.
 2. **Fase 1 — Auditoría técnica pendiente** (§12): confirmar qué falta de verdad antes de
    construir nada nuevo encima.
-3. **Fase 2 — Keyword map** (§2, [keyword-map.md](keyword-map.md)): borrador inicial listo
-   para los 6 servicios y 15 artículos de blog; falta completar hasta 20-30 artículos y las
-   combinaciones de zona una vez confirmados los municipios reales. Sin esto no se crea
-   ninguna URL nueva.
+3. **Fase 2 — Keyword map** (§2, [keyword-map.md](keyword-map.md)): completo para los 6
+   servicios y 27 artículos de blog (dentro del rango 20-30 de §7) — listo para empezar a
+   redactar. Las combinaciones de zona quedan sin generar hasta confirmar los municipios
+   reales (§4). Sin una fila en este documento, no se crea ninguna URL nueva.
 4. **Fase 3 — On-page de lo existente** (§3, §5): mejorar antes de expandir.
 5. **Fase 4 — SEO local** (§4): páginas de zona, con contenido real por municipio.
 6. **Fase 5 — Segmento administradores de fincas** (§6).
