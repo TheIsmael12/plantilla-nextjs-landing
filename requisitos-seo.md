@@ -57,22 +57,22 @@ inconsistencias NAP — Name/Address/Phone — entre la web y Google Business Pr
 
 La auditoría lo señala como el primer paso, y tiene razón: sin esto, cada página nueva
 compite por las mismas búsquedas que otra ya existente (canibalización) y no hay forma de
-saber qué URL debería ganar. Formato de tabla por fila = 1 keyword:
+saber qué URL debería ganar.
 
-| Servicio | Keyword principal | Keywords secundarias | Intención | URL destino | H1 | Title | Zona |
-|---|---|---|---|---|---|---|---|
-| Limpieza | *(ejemplo, a completar)* | | | | | | |
+**[keyword-map.md](keyword-map.md)** — construido a partir del contenido real ya publicado
+en cada página de servicio (`Services.items` en `src/i18n/locales/es/views.json`), no de
+keywords genéricas inventadas. Cubre:
 
-**Antes de escribir un solo artículo o página nueva**, completar esta tabla (hoja de cálculo
-o ampliación de este documento) para:
+- Los 6 servicios ya existentes: keyword principal/secundarias por página, con nota de qué
+  intenciones ya están cubiertas por el copy/FAQ actual y cuáles son candidatas a un FAQ nuevo.
+- 15 artículos de blog candidatos, mapeados a su servicio de enlazado interno (base del lote
+  inicial de 20-30 del §7 — **pendiente completar hasta ese número** antes de redactar nada).
+- El patrón de keyword para zonas (servicio × municipio), sin generar la tabla completa hasta
+  que el TODO de municipios reales del §4 esté resuelto.
 
-- Los 6 servicios ya existentes × sus variantes comerciales (ver lista de la auditoría, §2/§3
-  del análisis original: "empresa de limpieza de comunidades Madrid", "cuánto cuesta un
-  conserje", etc.)
-- Cada zona objetivo del §4 de este documento
-- Los términos de administrador de fincas del §6
-
-Sin esta tabla rellena, no se crea ninguna URL nueva — es la regla de esta fase.
+**Antes de escribir un solo artículo o página nueva**, esa keyword debe tener su fila en
+`keyword-map.md` con intención, URL destino y enlazado interno decididos — es la regla de
+esta fase, sin excepción.
 
 ## 3. SEO on-page de lo que ya existe
 
@@ -248,7 +248,10 @@ ven por bajo tráfico.
 1. **Fase 0 — Bloqueantes** (§1): datos reales de empresa, decisión sobre ISO.
 2. **Fase 1 — Auditoría técnica pendiente** (§12): confirmar qué falta de verdad antes de
    construir nada nuevo encima.
-3. **Fase 2 — Keyword map** (§2): sin esto no se crea ninguna URL nueva.
+3. **Fase 2 — Keyword map** (§2, [keyword-map.md](keyword-map.md)): borrador inicial listo
+   para los 6 servicios y 15 artículos de blog; falta completar hasta 20-30 artículos y las
+   combinaciones de zona una vez confirmados los municipios reales. Sin esto no se crea
+   ninguna URL nueva.
 4. **Fase 3 — On-page de lo existente** (§3, §5): mejorar antes de expandir.
 5. **Fase 4 — SEO local** (§4): páginas de zona, con contenido real por municipio.
 6. **Fase 5 — Segmento administradores de fincas** (§6).
