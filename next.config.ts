@@ -39,24 +39,32 @@ const TURNSTILE_ORIGIN = 'https://challenges.cloudflare.com';
  * sumidero DOM peligroso (`innerHTML`, `document.write`...) pase por un
  * `TrustedTypePolicy`, en vez de aceptar cualquier string.
  *
- * `trusted-types default` — y no `'none'` — porque el propio runtime de
- * producción de React/Next necesita asignar HTML en algún punto (hidratación,
- * algún `innerHTML` interno de una librería), y con `'none'` esas asignaciones
- * quedaban bloqueadas de verdad en producción («This document requires
- * 'TrustedHTML' assignment», no solo un aviso). La política `default` la
- * registra `[locale]/layout.tsx` en un script inline, antes de que cargue
- * nada más: cuando existe una política con ese nombre exacto, el navegador la
+ * `trusted-types default html 'allow-duplicates'` — y no `'none'` — porque hay
+ * dos políticas legítimas en juego, y una de ellas se registra más de una vez:
+ *
+ * - `default`: la registra `[locale]/layout.tsx` en un script inline, antes de
+ *   que cargue nada más, para el propio runtime de producción de React/Next
+ *   (hidratación, algún `innerHTML` interno de una librería). Sin ella, esas
+ *   asignaciones quedaban bloqueadas de verdad en producción («This document
+ *   requires 'TrustedHTML' assignment», no solo un aviso).
+ * - `html`: la registra **Swiper** (`ReviewsSection.tsx`/`ServicesCarouselSection.tsx`,
+ *   `swiper/shared/utils.mjs` → `setInnerHTML`) cada vez que necesita asignar
+ *   `innerHTML` — y lo hace con `trustedTypes.createPolicy('html', …)` sin
+ *   comprobar si ya existe. Como cada carrusel se carga con su propio
+ *   `next/dynamic(() => import(...))` (`ReviewsSectionLazy.tsx`/
+ *   `ServicesCarouselSectionLazy.tsx`), Turbopack empaqueta el runtime de
+ *   Swiper por duplicado en dos chunks distintos; cuando ambos carruseles
+ *   están montados en el home a la vez, el segundo `createPolicy('html', …)`
+ *   choca con el primero («Policy with name "html" already exists»). No hay
+ *   forma de inyectarle a Swiper 14.0.2 una política ya creada — es
+ *   `setInnerHTML` quien decide, no algo configurable desde fuera—, así que
+ *   `'allow-duplicates'` es la salida real: es la keyword que la propia CSP
+ *   ofrece para esto, permite registrar una política con un nombre ya usado
+ *   en vez de bloquearla.
+ *
+ * Cuando existe una política llamada exactamente `default`, el navegador la
  * usa automáticamente para cualquier asignación que no pase ya por una
  * política explícita.
- *
- * **No se añade `html`**: se probó porque Turnstile (`Captcha.tsx`) parecía
- * registrar una política con ese nombre, pero en producción el error real
- * pasó a ser «Policy with name "html" already exists» — algo del propio
- * bundle de Next/Turbopack ya la registra por su cuenta en cuanto detecta
- * `require-trusted-types-for`, y permitir el nombre en la CSP solo abría la
- * puerta a un choque, no arreglaba nada. Si Turnstile vuelve a fallar con
- * «Policy "html" disallowed», hay que investigarlo con el sourcemap real del
- * chunk en vez de reañadir el nombre a ciegas.
  */
 const contentSecurityPolicy = [
 	"default-src 'self'",
@@ -71,7 +79,7 @@ const contentSecurityPolicy = [
 	"form-action 'self'",
 	"frame-ancestors 'none'",
 	"require-trusted-types-for 'script'",
-	"trusted-types default",
+	"trusted-types default html 'allow-duplicates'",
 ].join('; ');
 
 const nextConfig: NextConfig = {
