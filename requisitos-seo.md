@@ -83,14 +83,20 @@ Antes de crear páginas nuevas, revisar y corregir lo ya publicado:
       - Title: `Empresa de servicios para comunidades en Madrid | Imora`
       - H1: `Servicios integrales para comunidades, empresas y edificios en Madrid`
       Decidir el texto final junto con la empresa, no inventarlo aquí.
-- [ ] Revisar los `alt` de imágenes: evitar que se repita la misma frase genérica
-      (`"Conserjería y control de accesos"`) en varias imágenes distintas — cada `alt` debe
-      describir la imagen concreta.
-- [ ] Ampliar el FAQ de cada página de servicio a 8-15 preguntas reales (hoy tienen algunas,
-      según la auditoría van en buen camino) y confirmar que llevan `FAQPage` schema cuando
-      son elegibles (revisar si ya existe este schema en el código — pendiente de auditar).
-- [ ] Revisar `BreadcrumbList` schema: confirmar si ya existe en las páginas de servicio/blog
-      o falta añadirlo.
+- [x] **`alt` de imágenes: verificado, no hay el problema que señalaba la auditoría.**
+      `ServiceDetailHero.tsx`/`ServicesGrid.tsx` usan `alt={itemT('title')}` (el título real
+      de cada servicio: "Conserjería y control de accesos", "Seguridad y CCTV"...), no una
+      frase genérica repetida entre servicios distintos — la única repetición real es la
+      misma foto en dos sitios del sitio (hero + grid), que es correcta. Los `alt` de
+      subservicios (`ServiceDetailSubservices.tsx`) ya son específicos:
+      `"{subservicio} — {servicio}"`. No se necesitó ningún cambio.
+- [x] **FAQ ampliado a 8 preguntas por servicio** (de 4). Las 4 nuevas de cada servicio
+      derivan del contenido ya publicado (subservicios, descripciones) y de las keywords que
+      `keyword-map.md` §1 marcaba como «candidata a añadir FAQ» (precio, cambio de empresa).
+      `FAQPage` schema ya existía ([ServiceDetailFaq.tsx](src/components/ui/services/ServiceDetailFaq.tsx))
+      y recoge automáticamente las preguntas nuevas — verificado con build de producción real
+      (8 preguntas visibles, 8 en el schema).
+- [x] **`BreadcrumbList` schema: implementado** (ver §12).
 
 ## 4. SEO local — arquitectura de zonas
 
@@ -234,8 +240,15 @@ ven por bajo tráfico.
       (`navigation.json`) o, si no está ahí, `Metadata.routes.*.title`. Se omite en la home
       (un solo tramo no aporta nada) y en rutas dinámicas. Verificado con build de producción
       real en `/`, `/servicios/limpieza`, `/sobre-nosotros`, `/contacto`.
-- [ ] **`Article` schema: no existe.** Ningún archivo del proyecto genera este tipo. Añadir al
-      abordar §7 (blog) — cada post debe llevarlo, con `datePublished`/`dateModified`/`author`.
+- [x] **`Article` schema: implementado.** [ArticleJsonLd.tsx](src/components/seo/ArticleJsonLd.tsx),
+      montado en `BlogPostViewPage.tsx`. Reutiliza la misma resolución de URL/imagen que
+      `generateBlogPostMetadata.ts` (canonical, `ogImageUrl`/`coverUrl`,
+      `firstPublishedAt`/`publishedAt`) para no divergir del metadata ya publicado en la
+      misma página. Incluye `headline`, `datePublished`, `dateModified`, `author` (`Person`),
+      `publisher` (`Organization` con logo), y `wordCount`/`keywords` cuando el post los trae.
+      Verificado por tipos (`tsc`); no se pudo probar con datos reales porque el blog depende
+      del backend (§7: la redacción va por la intranet), pero el componente compila y su forma
+      coincide con la del metadata ya en producción.
 - [ ] **`WebSite` schema: no existe** (verificado, ningún archivo lo genera). Evaluar si
       añadir con `SearchAction` solo si el blog/sitio tiene buscador interno real; si no,
       omitirlo no penaliza.

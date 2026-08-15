@@ -565,6 +565,22 @@
           {
             "question": "¿Puedo contratar cobertura solo por las mañanas?",
             "answer": "Sí, los turnos se ajustan a lo que necesite cada comunidad: media jornada, turno partido o cobertura completa de 6 a 24 horas."
+          },
+          {
+            "question": "¿Cómo se registran las visitas y los repartidores?",
+            "answer": "El conserje verifica la identidad de cualquier persona que no reconoce y anota la hora de entrada. Los repartidores y mensajeros siguen un protocolo específico para no molestar a los vecinos fuera de horario."
+          },
+          {
+            "question": "¿Qué pasa con los paquetes que llegan cuando no hay nadie en casa?",
+            "answer": "Se guardan en un espacio identificado del portal y se avisa al vecino por el canal que decida la comunidad: nota física, WhatsApp o una app. El correo certificado siempre lleva acuse de recibo."
+          },
+          {
+            "question": "¿Se puede contratar conserjería para un edificio de oficinas, no solo para una comunidad de vecinos?",
+            "answer": "Sí, el servicio se adapta igual a comunidades de propietarios, sedes de empresa y accesos de centros comerciales, con el mismo criterio de selección y formación del personal."
+          },
+          {
+            "question": "¿Cómo se hace el cambio si ya tenemos un conserje que queremos mantener?",
+            "answer": "Gestionamos la transición con la administración de fincas actual, y si el conserje quiere continuar en el edificio, valoramos su incorporación al equipo de Imora en vez de sustituirlo."
           }
         ]
       },
@@ -616,6 +632,22 @@
           {
             "question": "¿Qué pasa si una cámara deja de funcionar?",
             "answer": "El aviso se trata como incidencia de seguridad, no como mantenimiento ordinario: un técnico revisa el fallo en menos de 24 horas laborables."
+          },
+          {
+            "question": "¿Cuánto cuesta instalar CCTV en una comunidad?",
+            "answer": "Depende del número de puntos de acceso, cámaras y del tipo de control de acceso que se instale. Diseñamos el proyecto según los accesos reales de cada edificio y preparamos un presupuesto cerrado."
+          },
+          {
+            "question": "¿Cómo se asignan las tarjetas o códigos de acceso?",
+            "answer": "Cada tarjeta o código queda asociado a una vivienda y, si la comunidad lo pide, a una franja horaria concreta, por ejemplo para limitar el acceso del personal externo a las horas contratadas."
+          },
+          {
+            "question": "¿Con qué frecuencia se revisan las cámaras y grabadores?",
+            "answer": "Cada trimestre, sustituyendo los discos de grabación antes de que fallen por desgaste, para detectar el problema antes de que la comunidad note que llevaba semanas sin grabar."
+          },
+          {
+            "question": "¿Las cámaras cumplen con la protección de datos?",
+            "answer": "Sí, la ubicación y el tiempo de conservación de las grabaciones siguen el criterio orientativo de la Agencia Española de Protección de Datos para uso de videovigilancia en zonas comunes."
           }
         ]
       },
@@ -667,6 +699,22 @@
           {
             "question": "¿Puedo contratar solo el mantenimiento químico, sin socorrista?",
             "answer": "Sí, el mantenimiento del agua y el socorrismo se pueden contratar por separado, según lo que ya tenga cubierto la comunidad."
+          },
+          {
+            "question": "¿Cómo se controla el pH y el cloro del agua?",
+            "answer": "Medimos el pH (objetivo 7,2-7,6) y el cloro libre (0,5-2 mg/l) a diario, según los parámetros del Real Decreto 742/2013 sobre piscinas de uso colectivo, ajustando la dosis al uso real de cada día."
+          },
+          {
+            "question": "¿Qué incluye la apertura y el cierre de temporada?",
+            "answer": "Antes de abrir revisamos bombas, filtros y el sistema de dosificación, y limpiamos a fondo tras el invierno. Al cerrar, cubrimos el vaso y protegemos la maquinaria de la humedad y el frío."
+          },
+          {
+            "question": "¿Los socorristas tienen el título en vigor?",
+            "answer": "Sí, todos tienen el título oficial de socorrismo acuático en vigor y cubren todo el horario de baño que fije la comunidad, sin huecos a mediodía ni el último fin de semana de temporada."
+          },
+          {
+            "question": "¿Se puede contratar el servicio para un complejo con varias piscinas?",
+            "answer": "Sí, adaptamos el equipo de mantenimiento y socorrismo al número de vasos y al aforo real del complejo, no a un único plan estándar."
           }
         ]
       },
@@ -718,6 +766,22 @@
           {
             "question": "¿La limpieza de garajes está incluida?",
             "answer": "Se puede incluir en el plan general o contratarse como servicio adicional, según el estado y el uso del garaje o aparcamiento."
+          },
+          {
+            "question": "¿Cuánto cuesta la limpieza de una comunidad de vecinos?",
+            "answer": "Depende de la frecuencia, el tamaño del edificio y las zonas a cubrir (portal, escaleras, garaje, cristales). Preparamos un presupuesto cerrado tras visitar la finca."
+          },
+          {
+            "question": "¿Puedo cambiar de empresa de limpieza sin que se note el cambio en el día a día?",
+            "answer": "Sí, coordinamos la transición con la administración de fincas actual para que el equipo empiece a operar desde el primer día sin huecos en el servicio."
+          },
+          {
+            "question": "¿Qué productos de limpieza se utilizan?",
+            "answer": "Productos que cumplen la normativa vigente; ofrecemos alternativas ecológicas sin coste adicional si la comunidad las prefiere. La comunidad no gestiona compras ni almacenaje."
+          },
+          {
+            "question": "¿Se incluye la limpieza de la fachada o de cristales en altura?",
+            "answer": "Los cristales de portal y zonas comunes entran en el plan habitual. La fachada con pértiga se programa como servicio adicional según la altura y el tipo de acceso del edificio."
           }
         ]
       },
@@ -769,6 +833,22 @@
           {
             "question": "¿Incluye la reposición de plantas que no sobreviven?",
             "answer": "La reposición de planta muerta o dañada se presupuesta como servicio adicional, ya que depende de la especie y de la causa del daño."
+          },
+          {
+            "question": "¿Cuánto cuesta la jardinería de una comunidad al mes?",
+            "answer": "Depende del tamaño de la zona verde y de la frecuencia elegida. Preparamos un presupuesto tras visitar la zona ajardinada, sin cuotas ocultas."
+          },
+          {
+            "question": "¿Cómo se decide cuándo podar cada planta?",
+            "answer": "La poda se planifica según la especie de cada planta y su época de floración, no en una fecha fija para todo el jardín, para no comprometer la floración o el crecimiento del año siguiente."
+          },
+          {
+            "question": "¿Revisáis el sistema de riego automático?",
+            "answer": "Sí, revisamos y programamos el riego automático para ajustar el consumo de agua a la temporada, evitando tanto el estrés hídrico de las plantas como el gasto innecesario."
+          },
+          {
+            "question": "¿Qué pasa con los restos de poda y siega?",
+            "answer": "Se retiran tras cada visita, sin dejar la zona ajardinada ni los accesos de vehículos o peatones ocupados con residuos vegetales."
           }
         ]
       },
@@ -820,6 +900,22 @@
           {
             "question": "¿Puedo contratar solo un tipo de mantenimiento, por ejemplo electricidad?",
             "answer": "Sí, cada área (fontanería, electricidad, cerrajería, obras) se puede contratar de forma independiente."
+          },
+          {
+            "question": "¿Qué incluye el mantenimiento eléctrico de zonas comunes?",
+            "answer": "Revisamos el cuadro eléctrico general y la iluminación de zonas comunes, y sustituimos progresivamente el alumbrado antiguo por LED cuando se pide, con ahorro directo en el recibo de la comunidad."
+          },
+          {
+            "question": "¿Una avería de cerrajería en un acceso común es urgente?",
+            "answer": "Sí, se trata como urgente porque compromete la seguridad del edificio, no como una incidencia de mantenimiento ordinaria que puede esperar al lunes."
+          },
+          {
+            "question": "¿Hacéis pequeñas obras además de reparaciones?",
+            "answer": "Sí, reparaciones puntuales de albañilería, pintura o carpintería en zonas comunes que muchas administraciones de fincas dejan pendientes por no tener a quién encargárselas."
+          },
+          {
+            "question": "¿El equipo técnico es propio o subcontratado?",
+            "answer": "Propio, no subcontratado, lo que nos permite responder rápido ante averías de fontanería, electricidad, cerrajería o pequeñas obras sin depender de terceros."
           }
         ]
       }

@@ -3,6 +3,7 @@ import { notFound, permanentRedirect } from 'next/navigation';
 import { getBlogPostBySlug, getRelatedBlogPosts, resolveBlogSlug } from '@/actions/blog/blog-actions';
 import { HTTPStatus } from '@/constants/httpStatus';
 
+import ArticleJsonLd from '@/components/seo/ArticleJsonLd';
 import BlogPostHeader from '@/components/ui/blog/BlogPostHeader';
 import BlogPostToc from '@/components/ui/blog/BlogPostToc';
 import BlogPostBody from '@/components/ui/blog/BlogPostBody';
@@ -52,6 +53,7 @@ export default async function BlogPostViewPage({ locale, slug }: BlogPostViewPag
 
   return (
     <main className="blog">
+      <ArticleJsonLd post={post} locale={locale} />
       <BlogPostHeader post={post} />
 
       <div className={`blog__container blog__post-layout${hasToc ? '' : ' blog__post-layout--no-toc'}`}>
