@@ -71,6 +71,8 @@
     "chooseFile": "Choose file",
     "next": "Next",
     "createIncident": "Open the incident",
+    "submitComplaint": "File the complaint",
+    "submittingComplaint": "Sending...",
     "attachFile": "Attach a file",
     "downloadPdf": "Download PDF",
     "downloading": "Downloading…",

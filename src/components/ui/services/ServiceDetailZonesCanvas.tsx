@@ -45,6 +45,7 @@ export interface ServiceDetailZonesCanvasProps {
   zones: ZoneData[];
   zoneNames: Record<string, string>;
   onZoneSelect: (slug: string) => void;
+  ariaLabel: string;
 }
 
 /**
@@ -61,6 +62,7 @@ export default function ServiceDetailZonesCanvas({
   zones,
   zoneNames,
   onZoneSelect,
+  ariaLabel,
 }: ServiceDetailZonesCanvasProps) {
   const container = useRef<HTMLDivElement>(null);
 
@@ -127,5 +129,10 @@ export default function ServiceDetailZonesCanvas({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- `zones`/`zoneNames` son estáticos por servicio (no cambian tras el montaje inicial), y reconstruir el mapa en cada re-render perdería el zoom/paneo del usuario.
   }, []);
 
-  return <div ref={container} className="services__zones-canvas" />;
+  // Leaflet pone `tabindex="0"` en este contenedor para que el mapa reciba foco de teclado
+  // (zoom/paneo con flechas), pero sin `role`/`aria-label` propios queda en el orden de
+  // tabulación como un elemento sin nombre ni función reconocibles para un lector de pantalla
+  // (WCAG 4.1.2). `role="application"` es la convención para un widget interactivo complejo
+  // como un mapa, que no encaja en ningún rol semántico más simple.
+  return <div ref={container} className="services__zones-canvas" role="application" aria-label={ariaLabel} />;
 }

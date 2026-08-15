@@ -1,9 +1,16 @@
 import CleaningViewPage from '@/views/(public)/services/CleaningViewPage';
 
+interface CleaningServicePageProps {
+    params: Promise<{ locale: string }>;
+}
+
 /**
  * Página de la ficha del servicio de limpieza y jardinería.
- * @returns {JSX.Element} La ficha de servicio renderizada
+ * @param {CleaningServicePageProps} props - Parámetros de ruta de Next.js
+ * @returns {Promise<JSX.Element>} La ficha de servicio renderizada
  */
-export default function CleaningServicePage() {
-    return <CleaningViewPage />;
+export default async function CleaningServicePage({ params }: CleaningServicePageProps) {
+    const { locale } = await params;
+
+    return <CleaningViewPage locale={locale} />;
 }

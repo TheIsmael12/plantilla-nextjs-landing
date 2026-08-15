@@ -52,6 +52,13 @@
   border: 1px solid var(--border-color);
   overflow: hidden;
   @include rounded(1rem);
+  // Leaflet asigna sus propios z-index internos a los panes/controles (200–1000), ajenos a la
+  // escala de capas del proyecto (`_layers.scss`) — sin esto, ese rango competía con el
+  // mega-menú de servicios ($layer-dropdown: 50) y se veía por encima al abrirlo. `position:
+  // relative` + `z-index` bajo crea un stacking context propio: todo lo interno de Leaflet
+  // queda contenido dentro de él, sin escapar a comparar contra el resto de la página.
+  position: relative;
+  z-index: $layer-raised;
 
   @include screen(sm, max) {
     height: 20rem;

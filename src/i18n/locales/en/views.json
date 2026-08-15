@@ -79,6 +79,11 @@
       "cta": "Talk to Imora",
       "imageAlt": "Property manager reviewing a community's issues with the Imora team"
     },
+    "services": {
+      "eyebrow": "Services",
+      "title": "Manage every service across your communities with a single provider",
+      "viewService": "View service"
+    },
     "benefits": {
       "eyebrow": "What your firm gains",
       "title": "Fewer providers, fewer issues for you to manage directly",
@@ -150,7 +155,15 @@
             "question": "Can you cover an office building as well as a residential community?",
             "answer": "Yes, the same services (concierge, cleaning, maintenance, security) apply equally to company premises, residential communities and shopping centres."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In an office building or a community in the centre, concierge cover tends to span long shifts: access control, parcel reception and attending residents or visitors from early morning to late evening.",
+          "security": "Districts with more office buildings and commercial premises tend to need video surveillance and electronic access control alongside the concierge, especially overnight and at weekends.",
+          "pools": "Block communities with a pool in Madrid city usually have less water surface than a peripheral development, but still need a qualified lifeguard and chemical maintenance throughout the swimming season.",
+          "cleaning": "In the dense residential blocks of the centre, the entrance, stairs and lift see far more daily traffic than in a community further out, so cleaning frequency tends to be higher.",
+          "gardening": "Green areas are less common in the centre than in the city's peripheral developments, but the interior courtyards and communal gardens of the districts with more space still need regular upkeep.",
+          "maintenance": "Coordinating plumbing, electrics and locksmithing with a single provider means a community or office in the centre doesn't have to call a different technician for every fault, especially valued in buildings several decades old."
+        }
       },
       "pozuelo-de-alarcon": {
         "name": "Pozuelo de Alarcón",
@@ -166,7 +179,15 @@
             "question": "Does gardening cover large green areas, like those in a housing development?",
             "answer": "Yes, we adapt the team and frequency to the actual size of the green area, from a small entrance garden to the shared grounds of an entire development."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Pozuelo's multi-storey block communities, the concierge role is usually combined with access control for the development itself, especially in the larger residential complexes.",
+          "security": "The town's detached-house developments tend to prioritise access control and perimeter surveillance over a system designed for a single entrance only.",
+          "pools": "With so many communities in Pozuelo having their own pool and green areas, pool maintenance is one of the most requested services in the area, alongside gardening.",
+          "cleaning": "In the town's multi-storey blocks, common area and garage cleaning is requested at a similar frequency to any urban community, but is usually combined with maintaining the building's own green areas.",
+          "gardening": "A garden and green areas of their own are common in Pozuelo, so gardening maintenance is usually contracted together with pool care, not as separate services.",
+          "maintenance": "Between the town's detached-house developments and multi-storey blocks, technical maintenance in Pozuelo covers everything from individual installations to common areas of larger communities."
+        }
       },
       "alcorcon": {
         "name": "Alcorcón",
@@ -182,7 +203,15 @@
             "question": "Does cleaning include garages and outdoor areas?",
             "answer": "Yes, the cleaning plan covers the entrance, stairs, garage and shared outdoor areas, at whatever frequency the community decides."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Alcorcón's medium and large community blocks, mostly built between the 1970s and 1990s, the concierge role tends to focus on access control and attending residents in the morning and evening.",
+          "security": "Electronic access control is gaining ground in Alcorcón's older buildings that are renovating their entrance, as a complement to traditional concierge cover.",
+          "pools": "In the medium-sized blocks built during Alcorcón's expansion decades, the pool often shares a maintenance budget with the common areas, so it's worth coordinating both with the same provider.",
+          "cleaning": "Common area cleaning is one of the services with the most steady demand in Alcorcón, given the town's medium and large block profile, many with decades of daily use.",
+          "gardening": "In the blocks built during the town's expansion decades, green areas tend to be smaller than in a development, but still need periodic upkeep.",
+          "maintenance": "Technical maintenance (plumbing, electrics, locksmithing) is, alongside cleaning, the service with the most steady demand in Alcorcón, given the average age of much of the housing stock."
+        }
       },
       "majadahonda": {
         "name": "Majadahonda",
@@ -198,7 +227,15 @@
             "question": "Can you manage several different developments in the same area?",
             "answer": "Yes, if your firm manages several communities in Majadahonda or nearby, our property manager services may also be relevant."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Majadahonda's gated developments, the concierge role is usually combined with access control for the development as a whole, rather than for a single entrance.",
+          "security": "With so much detached housing and gated developments in Majadahonda, security and perimeter surveillance weigh more heavily in the town's demand than in one with dense housing blocks.",
+          "pools": "Majadahonda's developments usually include a communal pool, so pool maintenance is among the most requested services in the area, with a qualified lifeguard throughout the season.",
+          "cleaning": "Beyond the common areas of community blocks, cleaning in gated developments usually extends to internal roads and shared access points.",
+          "gardening": "Maintaining green areas and green access roads is one of the most requested services in Majadahonda's gated developments, alongside communal pool care.",
+          "maintenance": "Because the pool and garden already belong to the development rather than a single home, technical maintenance in Majadahonda is contracted at community level from the outset, alongside individual call-outs."
+        }
       },
       "las-rozas": {
         "name": "Las Rozas de Madrid",
@@ -214,7 +251,15 @@
             "question": "What does CCTV cover for a large development?",
             "answer": "We design the system around the development's real access points (entrances, garages, common areas) and handle the quarterly maintenance of cameras and recorders."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In the block housing near Las Rozas' town centre, the concierge role follows a more traditional entrance-based format, while in the larger developments it's combined with general access control.",
+          "security": "Security and video surveillance are especially relevant in Las Rozas' larger developments, where a single concierge can't cover every access point of the whole complex.",
+          "pools": "Communities in Las Rozas with a pool, whether in blocks or developments, need a qualified lifeguard and chemical maintenance throughout the swimming season under current regulations.",
+          "cleaning": "In the block housing near the town centre and commercial area, common area cleaning is requested at a similar frequency to any established urban community.",
+          "gardening": "Green area maintenance is especially relevant in Las Rozas' larger developments, with more shared green space than a conventional urban block.",
+          "maintenance": "Between the larger developments and the block housing near the centre, technical maintenance in Las Rozas covers very different community profiles within the same town."
+        }
       },
       "boadilla-del-monte": {
         "name": "Boadilla del Monte",
@@ -230,7 +275,15 @@
             "question": "Can I contract only gardening and pool care, without the rest of the services?",
             "answer": "Yes, each service is contracted independently based on what the community already has covered."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Boadilla's terraced-house communities, the concierge role is usually combined with access control for the whole development, not a single home.",
+          "security": "Security is, alongside pool maintenance and gardening, one of the most requested services in this type of low-density development, where access control covers a wide perimeter.",
+          "pools": "With so many communities in Boadilla grouping terraced houses around common areas with a pool, pool maintenance is one of the town's most requested services.",
+          "cleaning": "In Boadilla's low-density developments, common area cleaning focuses less on entrances and more on shared access points, the pool and communal-use areas.",
+          "gardening": "Gardening is, alongside pool maintenance, among the most requested services in Boadilla: communal green areas are common in the town's terraced-house communities.",
+          "maintenance": "A terraced-house community in Boadilla typically shares one set of common installations across many homes, so a fault in the pool pump or a shared access gate affects the whole group at once, not a single household."
+        }
       },
       "alcobendas": {
         "name": "Alcobendas",
@@ -246,7 +299,15 @@
             "question": "Can you cover several buildings of the same company in Alcobendas?",
             "answer": "Yes, a single point of contact can coordinate the service across several sites or buildings of the same company within the municipality."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "With a significant business and office park in Alcobendas, concierge services for company premises see demand as steady as that from the town's residential communities.",
+          "security": "Security for company premises is one of the services with the most demand in Alcobendas, given the weight of the town's business and office park alongside its residential communities.",
+          "pools": "In Alcobendas' medium-to-high-sized block communities, pool maintenance follows the usual season calendar, with a qualified lifeguard.",
+          "cleaning": "Both company premises and medium-to-high-sized communities in Alcobendas request cleaning on an ongoing basis, though with different needs depending on whether it's an office or a residential common area.",
+          "gardening": "Green area maintenance in Alcobendas is split between block communities and the outdoor spaces of the town's business premises.",
+          "maintenance": "Technical maintenance in Alcobendas covers both office installations (given the weight of the town's business park) and call-outs from medium-to-high-sized residential communities."
+        }
       },
       "san-sebastian-de-los-reyes": {
         "name": "San Sebastián de los Reyes",
@@ -262,7 +323,15 @@
             "question": "Do you handle maintenance for recently built communities?",
             "answer": "Yes, the technical team handles both older and recently built buildings, with the same standard of fast response to breakdowns."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In San Sebastián de los Reyes' mixed housing stock, the concierge role is split between traditional community blocks and the town's more recently developed areas.",
+          "security": "Access control is gaining ground in the newer developments of the town's recently grown centre, as a complement to the concierge.",
+          "pools": "Communities with a pool in the town, whether in blocks or detached-housing areas, need chemical maintenance and a qualified lifeguard throughout the swimming season.",
+          "cleaning": "Cleaning is, alongside common area maintenance, one of the services with the highest volume of requests in San Sebastián de los Reyes, given the size and variety of the town's housing stock.",
+          "gardening": "In the town's detached-housing areas, gardening carries more weight than in traditional community blocks, where shared green areas tend to be smaller.",
+          "maintenance": "Common area maintenance is among the services with the highest volume of requests in San Sebastián de los Reyes, given the town's mixed housing stock of blocks and detached areas."
+        }
       },
       "tres-cantos": {
         "name": "Tres Cantos",
@@ -278,7 +347,15 @@
             "question": "Can you handle a community with several separate landscaped areas?",
             "answer": "Yes, we adapt the team and frequency to the real size of the green areas, whether there's one or several within the same community."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Tres Cantos' communities that combine housing blocks with extensive shared green areas, the concierge role is usually coordinated with maintaining those shared green spaces.",
+          "security": "Access control in Tres Cantos' communities adapts to a planned town with more open space between blocks than in a dense urban layout.",
+          "pools": "Communities with a pool in Tres Cantos tend to combine pool maintenance with the extensive green areas that characterise the town.",
+          "cleaning": "Common area cleaning in Tres Cantos coexists with maintaining the town's abundant green areas, which many communities manage as a single coordinated service.",
+          "gardening": "With so much shared green space, garden maintenance carries more weight in a Tres Cantos community's budget than in a conventional urban block elsewhere.",
+          "maintenance": "Technical maintenance in Tres Cantos coexists with the upkeep of communal green areas, which in this planned town take up more space than the average for the northern belt."
+        }
       },
       "getafe": {
         "name": "Getafe",
@@ -294,7 +371,15 @@
             "question": "Do you handle maintenance emergencies outside business hours?",
             "answer": "Yes, through the emergency phone line for incidents that can't wait until the next day."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Getafe's large community blocks, coordinating concierge and maintenance with a single provider means every technical fault doesn't have to go through a different contact than the concierge.",
+          "security": "Electronic access control complements traditional concierge cover in Getafe's larger blocks, where a single control point doesn't always cover every access to the building.",
+          "pools": "Communities with a pool in Getafe, within an extensive housing stock dominated by large blocks, follow the usual season maintenance calendar.",
+          "cleaning": "Common area cleaning is requested on an ongoing basis across Getafe's extensive stock of community blocks, many of them large.",
+          "gardening": "Green area maintenance in Getafe varies with the size of the community block, being more relevant in the town's more recent residential complexes.",
+          "maintenance": "In large blocks like those that dominate Getafe, coordinating concierge and technical maintenance with a single provider means every fault doesn't go through a different contact."
+        }
       },
       "leganes": {
         "name": "Leganés",
@@ -310,7 +395,15 @@
             "question": "Does cleaning include common-area windows?",
             "answer": "Yes, entrance and common-area windows are part of the standard cleaning plan."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "With one of the region's highest densities of homeowner communities, in Leganés the concierge role coexists with buildings from very different decades of construction within the same town.",
+          "security": "Access control is gaining ground in Leganés' more recent buildings, while in older ones it usually complements an already-established concierge.",
+          "pools": "Not every community in a town as dense as Leganés has a pool: it tends to be a feature of the larger or more recently built blocks, which need chemical maintenance and a qualified lifeguard in season.",
+          "cleaning": "Common area cleaning is one of the services with the highest volume of requests in Leganés, given the town's high density of homeowner communities and the variety of building ages.",
+          "gardening": "Gardening maintenance in Leganés varies greatly by the building's construction decade: more recent complexes tend to have more green space than those in the traditional town centre.",
+          "maintenance": "Maintenance of installations (plumbing, electrics) is, alongside cleaning, among the services with the highest volume of requests in Leganés, given the variety of construction decades of its buildings."
+        }
       },
       "fuenlabrada": {
         "name": "Fuenlabrada",
@@ -326,7 +419,15 @@
             "question": "How is a breakdown reported in a Fuenlabrada community?",
             "answer": "By phone, email or through the building's concierge if that service is also contracted; the technician reviews the report within the agreed timeframe."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Fuenlabrada's extensive stock of medium and large housing blocks, the concierge role is usually combined with ongoing technical maintenance from the same team.",
+          "security": "Electronic access control is being introduced in Fuenlabrada's larger blocks as a complement to traditional concierge cover.",
+          "pools": "Communities with a pool in Fuenlabrada, within a residential stock with a large number of block communities, follow the usual season maintenance calendar.",
+          "cleaning": "Adjustable-frequency cleaning is one of the most requested services by Fuenlabrada's communities, alongside ongoing technical maintenance.",
+          "gardening": "Green area maintenance in Fuenlabrada is unevenly distributed across the town's different blocks, depending on each community's green space.",
+          "maintenance": "Ongoing technical maintenance is, alongside cleaning, the most requested service by Fuenlabrada's communities, given the medium-to-large size of much of its housing stock."
+        }
       },
       "mostoles": {
         "name": "Móstoles",
@@ -342,7 +443,15 @@
             "question": "Can I request a one-off clean, not a recurring one, for my community?",
             "answer": "Yes, for example after building works or before a community event, as an add-on to the regular plan."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "With one of the largest stocks of homeowner communities in the Madrid region, concierge and common area cleaning are the services with the most steady demand in Móstoles.",
+          "security": "Access control is gaining ground in Móstoles' larger blocks, complementing concierge cover in buildings where a single control point doesn't cover every access.",
+          "pools": "Given how large Móstoles' stock of communities is, the number of communal pools needing a qualified lifeguard and chemical maintenance in season is proportionally high compared with smaller towns.",
+          "cleaning": "Common area cleaning is, alongside concierge, the service with the most steady demand in Móstoles, given the size of the town's stock of homeowner communities.",
+          "gardening": "Gardening maintenance in Móstoles varies by community type, being more relevant in residential complexes with more shared green space.",
+          "maintenance": "Technical maintenance in Móstoles coexists with the high demand for concierge and cleaning typical of one of the most populated towns in the Madrid region."
+        }
       },
       "torrejon-de-ardoz": {
         "name": "Torrejón de Ardoz",
@@ -358,7 +467,15 @@
             "question": "How often is a community cleaned in Torrejón?",
             "answer": "Whatever frequency the community decides: from a weekly clean to a daily team, depending on the building's size and use."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Torrejón de Ardoz's block housing communities, the concierge role is usually coordinated with technical maintenance given the weight of the town's industrial and logistics activity.",
+          "security": "Security and access control see relevant demand in Torrejón de Ardoz, both in residential communities and in installations linked to the town's industrial activity.",
+          "pools": "Communities with a pool in Torrejón de Ardoz need chemical maintenance and a qualified lifeguard throughout the swimming season, regardless of the town's industrial profile.",
+          "cleaning": "Cleaning and technical maintenance of common areas are the services with the most volume of requests in Torrejón de Ardoz, in a town that combines block housing with relevant industrial and logistics activity.",
+          "gardening": "Green area maintenance in Torrejón de Ardoz is mostly limited to residential communities, carrying less weight in the town's industrial and logistics setting.",
+          "maintenance": "Technical maintenance of common areas is, alongside cleaning, among the services with the most volume of requests in Torrejón de Ardoz, reinforced by the town's relevant industrial and logistics activity."
+        }
       },
       "coslada": {
         "name": "Coslada",
@@ -374,7 +491,15 @@
             "question": "Are parts and materials included in a repair?",
             "answer": "Labour is covered by the contracted plan; parts and replacement materials are quoted separately before work starts."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Coslada's medium-sized blocks, well-adjusted concierge hours make more of a difference than in a small building, where physical presence carries less weight day to day.",
+          "security": "Electronic access control complements the concierge in Coslada's medium-sized blocks, especially during hours without physical presence.",
+          "pools": "Coslada's good connection to Madrid city makes it easy for the same team handling the block's concierge to also take care of the pool's seasonal maintenance, without relying on a separate provider.",
+          "cleaning": "Common area cleaning in Coslada is requested on an ongoing basis in the town's medium-sized blocks, well connected to Madrid city.",
+          "gardening": "Green area maintenance in Coslada is more common in the larger communities, with their own shared green spaces typical of the block.",
+          "maintenance": "Technical maintenance in Coslada is coordinated with the concierge in the town's medium-sized blocks, where both services are usually contracted together."
+        }
       },
       "rivas-vaciamadrid": {
         "name": "Rivas-Vaciamadrid",
@@ -390,7 +515,15 @@
             "question": "Is a lifeguard mandatory if the community pool is small?",
             "answer": "It depends on regional regulations and the pool's capacity; we advise you based on your community's specific case."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Rivas-Vaciamadrid's newer developments, concierge services are usually coordinated from the community's first year, alongside the rest of the already-built installations.",
+          "security": "Electronic access control is standard from the outset in Rivas-Vaciamadrid's more recently developed communities, integrated with the rest of the building's installations.",
+          "pools": "Being newer developments, Rivas-Vaciamadrid's communities tend to arrive with pool installations already built from the first year, so pool maintenance is needed from the moment the community is set up.",
+          "cleaning": "Common area cleaning in Rivas-Vaciamadrid is requested from the community's constitution, given the town's recent urban growth and new developments.",
+          "gardening": "Green area maintenance is among the most requested services in Rivas-Vaciamadrid: many communities include a garden from the development's own construction.",
+          "maintenance": "Technical maintenance in Rivas-Vaciamadrid starts being needed from the community's constitution, since the newer developments' installations debut alongside the rest of the services."
+        }
       },
       "colmenar-viejo": {
         "name": "Colmenar Viejo",
@@ -406,7 +539,15 @@
             "question": "What happens if my community's concierge falls ill?",
             "answer": "We cover the absence with another professional of the same profile, at no extra cost and with no interruption to the service."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Colmenar Viejo, the same day can involve attending a stairwell building in the historic centre and a new block community on the outskirts, each with its own concierge needs.",
+          "security": "Access control varies greatly between Colmenar Viejo's traditional town centre and the more recently developed areas on its outskirts.",
+          "pools": "Communities with a pool in Colmenar Viejo tend to be in the town's more recently developed areas, with maintenance following the usual season calendar.",
+          "cleaning": "Cleaning in Colmenar Viejo adapts to two very different building profiles within the same town: the traditional town centre and the newer peripheral developments.",
+          "gardening": "Gardening maintenance carries more weight in Colmenar Viejo's more recently developed peripheral areas than in the town's traditional centre.",
+          "maintenance": "Technical maintenance in Colmenar Viejo covers both stairwell buildings in the historic centre and new block communities on the outskirts, each with different needs."
+        }
       },
       "torrelodones": {
         "name": "Torrelodones",
@@ -422,7 +563,15 @@
             "question": "Can I expand the security system later on?",
             "answer": "Yes, the project is designed so cameras or access-control points can be added later without replacing the whole system."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Torrelodones' detached-housing developments, the concierge role is usually combined with access control for the residential complex, not an individual home.",
+          "security": "Security and access control are among the most relevant services in Torrelodones, given the town's predominance of detached-housing developments.",
+          "pools": "Maintaining communal private pools is one of the most relevant services in Torrelodones, typical of the high-income development profile that predominates in the town.",
+          "cleaning": "In Torrelodones' developments, cleaning focuses more on shared access points and common areas than on individual block entrances.",
+          "gardening": "Garden maintenance is, alongside the pool and security, one of the most relevant services in Torrelodones' detached-housing developments.",
+          "maintenance": "Technical maintenance in Torrelodones covers the common installations of the detached-housing developments that predominate in the town."
+        }
       },
       "collado-villalba": {
         "name": "Collado Villalba",
@@ -438,7 +587,15 @@
             "question": "Is the technical team in-house or outsourced?",
             "answer": "In-house, not outsourced, which allows us to respond quickly to breakdowns without depending on third parties."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Collado Villalba's mixed housing stock, between community blocks and developments, the concierge role adapts to each residential complex's profile.",
+          "security": "Access control in Collado Villalba varies between the town's community blocks and its developments, each with different security needs.",
+          "pools": "Communities with a pool in Collado Villalba, at the foot of the Sierra de Guadarrama, follow the usual maintenance calendar despite being in the most distant area of Imora's coverage from Madrid city.",
+          "cleaning": "Cleaning in Collado Villalba is split between community blocks and developments, with in-house technical maintenance especially valued in a town further from Madrid city.",
+          "gardening": "Green area maintenance in Collado Villalba is more relevant in the town's developments than in traditional community blocks.",
+          "maintenance": "The distance to Madrid city and the mountain setting mean that technical maintenance with an in-house team, without relying on third parties, is especially valued in Collado Villalba."
+        }
       },
       "arganda-del-rey": {
         "name": "Arganda del Rey",
@@ -454,14 +611,43 @@
             "question": "What does electrical maintenance of common areas include?",
             "answer": "We check the main electrical panel and common-area lighting, progressively replacing old lighting with LED on request."
           }
-        ]
+        ],
+        "serviceNotes": {
+          "concierge": "In Arganda del Rey's historic centre buildings, with older installations, the concierge role usually requires a different approach than in the town's newer peripheral developments.",
+          "security": "Electronic access control is gaining weight in Arganda del Rey's more recent residential expansion areas, compared to the town's traditional centre.",
+          "pools": "Communities with a pool in Arganda del Rey tend to be in the more recent residential expansion areas, with maintenance following the usual season calendar.",
+          "cleaning": "Cleaning in Arganda del Rey's historic centre buildings, with older installations, usually requires a different frequency than in the newer developments on the outskirts.",
+          "gardening": "Gardening maintenance carries more weight in Arganda del Rey's more recent residential expansion areas than in the town's traditional centre.",
+          "maintenance": "Technical maintenance in Arganda del Rey's historic centre buildings, with older installations, usually requires a different frequency than in the newer developments on the outskirts."
+        }
       }
     }
   },
   "Complaints": {
-    "form": {
-      "title": "File your complaint",
-      "subtitle": "Fill in the form and, if you leave an email, we'll confirm we received it with a tracking code.",
+    "wizard": {
+      "eyebrow": "Complaints channel",
+      "pageTitle": "File your complaint",
+      "pageSubtitle": "A guided assistant, step by step. If you leave an email we'll confirm we received it, with a tracking code.",
+      "stepType": "Type",
+      "stepDetails": "Details",
+      "stepAnonymous": "Identification",
+      "stepContact": "Contact",
+      "stepReview": "Review",
+      "typeQuestion": "What type of complaint do you want to file?",
+      "typeHelp": "Choose whichever best describes your case.",
+      "typeHintServiceQuality": "Something went wrong with a service you received.",
+      "typeHintEthicsCompliance": "An irregularity, staff conduct, or a regulatory breach.",
+      "detailsQuestion": "Tell us what happened",
+      "detailsMore": "Write at least {min} characters so we can understand it.",
+      "detailsEnough": "That's enough for us. The more specific, the sooner we'll review it.",
+      "anonymousQuestion": "Do you want to identify yourself?",
+      "anonymousHelp": "It's your decision. Without identifying yourself we won't be able to confirm we received it or follow up by email.",
+      "anonymousHintIdentified": "We'll confirm by email that we received it, with a tracking code.",
+      "anonymousHintAnonymous": "We won't ask for your name or email, and you won't be able to get a confirmation or follow-up.",
+      "contactQuestion": "How can we contact you?",
+      "reviewQuestion": "Review before sending",
+      "reviewNotice": "Once sent, it's recorded with its own tracking code. If something isn't right, go back and change it.",
+      "sentMessage": "We have received your report. If you left an email, the confirmation will arrive shortly.",
       "fields": {
         "type": "Complaint type",
         "affectedCommunityName": "Affected community or building",
@@ -472,7 +658,6 @@
         "contactEmail": "Email address"
       },
       "placeholders": {
-        "type": "Choose a type",
         "affectedCommunityName": "Community name or building address",
         "serviceDescription": "What service was provided and when",
         "description": "Tell us in detail what happened…",
@@ -483,19 +668,13 @@
         "serviceQuality": "Complaint about a service",
         "ethicsCompliance": "Ethics / compliance channel"
       },
-      "anonymous": {
-        "label": "I prefer not to be identified",
-        "description": "We won't ask for your name or email, and won't be able to send you a confirmation or follow-up by email."
+      "anonymousOptions": {
+        "identified": "Yes, I want to identify myself",
+        "anonymous": "I prefer not to be identified"
       },
       "consents": {
-        "privacyLabel": "I have read and accept the",
-        "privacyLink": "privacy policy"
-      },
-      "privacyHint": "You must accept the privacy policy to continue.",
-      "success": "We have received your report. If you left an email, the confirmation will arrive shortly.",
-      "error": "We could not send your complaint. Please try again in a few minutes.",
-      "privacy": "By submitting you accept our",
-      "privacyLink": "privacy policy"
+        "privacyLabel": "I have read and accept the privacy policy"
+      }
     }
   },
   "Contact": {
@@ -803,9 +982,9 @@
   },
   "Home": {
     "hero": {
-      "eyebrow": "Services for businesses, communities and buildings",
-      "title": "We take care of your community, your building, your business",
-      "subtitle": "Concierge, security, cleaning, pool maintenance and full building upkeep for businesses, homeowner communities, shopping centres and buildings in Madrid.",
+      "eyebrow": "We take care of your community, your building, your business",
+      "title": "Comprehensive services for communities, businesses and buildings in Madrid",
+      "subtitle": "Concierge, security, cleaning, pool maintenance, gardening and building upkeep with a single provider.",
       "primaryCta": "Request a quote",
       "secondaryCta": "View services",
       "trust": "24/7 support, 365 days a year",
@@ -939,8 +1118,8 @@
   "Services": {
     "index": {
       "eyebrow": "Services",
-      "title": "Everything your business, community or building needs, from a single provider",
-      "subtitle": "Six specialised services for businesses, homeowner communities, buildings and shopping centres, coordinated by a single team."
+      "title": "Comprehensive services for communities and businesses in Madrid",
+      "subtitle": "Everything your community, business or building needs, from a single provider: six specialised services for homeowner communities, businesses, buildings and shopping centres, coordinated by a single team."
     },
     "items": {
       "concierge": {
@@ -1098,8 +1277,8 @@
       },
       "cleaning": {
         "tag": "Service 04",
-        "title": "Complete cleaning",
-        "summary": "Cleaning of common areas, windows and garages so your community, building, business or shopping centre looks its best all year round.",
+        "title": "Cleaning for communities and buildings in Madrid",
+        "summary": "Complete cleaning of common areas, windows and garages so your community, building, business or shopping centre looks its best all year round.",
         "description": "A fixed team takes care of cleaning the entrance, stairs, common areas and garage, at whatever frequency each community, building, business or shopping centre needs.",
         "cta": "Ask about a cleaning plan",
         "subservices": [
@@ -1200,7 +1379,7 @@
       },
       "maintenance": {
         "tag": "Service 06",
-        "title": "Building maintenance",
+        "title": "Maintenance for communities and buildings in Madrid",
         "summary": "Plumbing, electrics, locksmithing and small works for communities, buildings, businesses and shopping centres, with an in-house technical team and fast response times.",
         "description": "We resolve day-to-day maintenance issues across communities, buildings, businesses and shopping centres with our own technical team (not subcontracted), which lets us respond quickly to plumbing, electrical, locksmith or small building work issues.",
         "cta": "Request technical maintenance for my community or business",

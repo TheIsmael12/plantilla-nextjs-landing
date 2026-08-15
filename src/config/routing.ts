@@ -152,6 +152,11 @@ export const PUBLIC_ROUTES: Route[] = [
         shownInNavbar: false,
         shownInFooter: true,
       },
+      {
+        pathname: "/help/complaints",
+        shownInNavbar: false,
+        shownInFooter: true,
+      },
     ],
   },
   {

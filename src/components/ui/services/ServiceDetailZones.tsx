@@ -69,6 +69,7 @@ export default function ServiceDetailZones({ slug }: ServiceDetailZonesProps) {
             zones={FEATURED_ZONES}
             zoneNames={zoneNames}
             onZoneSelect={(zoneSlug) => router.push(`/zones/${zoneSlug}` as AnyHref)}
+            ariaLabel={t('zonesTitle', { service: itemsT(`${slug}.title`) })}
           />
 
           <ul className="services__zones-list">

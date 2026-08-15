@@ -1,11 +1,13 @@
 import PropertyManagersHero from '@/components/ui/property-managers/PropertyManagersHero';
+import PropertyManagersServices from '@/components/ui/property-managers/PropertyManagersServices';
 import PropertyManagersBenefits from '@/components/ui/property-managers/PropertyManagersBenefits';
 import PropertyManagersCta from '@/components/ui/property-managers/PropertyManagersCta';
 
 /**
  * Landing dirigida a administradores de fincas (requisitos-seo.md §6): hero con la propuesta
- * de "un solo proveedor para toda tu cartera", los beneficios de concentrar servicios en
- * Imora frente a coordinar varios proveedores por comunidad, y cierre con llamada a la acción.
+ * de "un solo proveedor para toda tu cartera", los 6 servicios que puede concentrar en Imora
+ * (`PropertyManagersServices`), los beneficios de hacerlo frente a coordinar varios
+ * proveedores por comunidad, y cierre con llamada a la acción propia del segmento.
  *
  * Segmento separado de "Sobre nosotros" a propósito: un administrador de fincas busca algo
  * distinto de un presidente de comunidad (gestionar varias fincas a la vez, reducir el número
@@ -17,6 +19,7 @@ export default function PropertyManagersViewPage() {
   return (
     <main className="about">
       <PropertyManagersHero />
+      <PropertyManagersServices />
       <PropertyManagersBenefits />
       <PropertyManagersCta />
     </main>

@@ -7,9 +7,9 @@
     },
     "routes": {
       "/": {
-        "title": "Concierge, security, cleaning and maintenance",
-        "description": "Imora manages concierge, security, cleaning, pools and maintenance for businesses, communities and buildings in Madrid.",
-        "keywords": "concierge Madrid, services for businesses, facility management company, building maintenance, security and CCTV, community and shopping centre cleaning"
+        "title": "Comprehensive services for communities in Madrid",
+        "description": "Concierge, security, cleaning, pools and maintenance for homeowner communities, businesses and buildings in Madrid, with our own team.",
+        "keywords": "concierge Madrid, services for homeowner communities, facility management company, building maintenance, security and CCTV, community and shopping centre cleaning"
       },
       "/services": {
         "title": "Our services for businesses and communities",
@@ -17,27 +17,32 @@
         "keywords": "services for businesses and homeowner communities, concierge, security CCTV, pool maintenance, cleaning and gardening, building maintenance"
       },
       "/services/concierge": {
-        "title": "Concierge and access control for your building",
+        "title": "Concierge Company for Communities in Madrid",
         "description": "Reception, access control and mail handling with 6 to 24-hour shifts, with guaranteed cover for sick leave and holidays.",
         "keywords": "concierge for communities and businesses, access control, Madrid concierge, building doorman"
       },
       "/services/security": {
-        "title": "Security and CCTV for buildings, businesses and communities",
+        "title": "Security and CCTV Company in Madrid",
         "description": "Design, installation and maintenance of video surveillance and electronic access control to protect your building, business or shopping centre.",
         "keywords": "security and CCTV for businesses, community video surveillance, electronic access control, camera installation Madrid"
       },
       "/services/pools": {
-        "title": "Community pool maintenance",
+        "title": "Community Pool Maintenance in Madrid",
         "description": "Water chemical maintenance, pool cleaning and qualified lifeguards throughout the swimming season, following Spanish pool regulations.",
         "keywords": "pool maintenance, community pool lifeguards, pool cleaning Madrid, pool season opening and closing"
       },
       "/services/cleaning": {
-        "title": "Cleaning and gardening for communities and businesses",
+        "title": "Community Cleaning Company in Madrid",
         "description": "Cleaning of the entrance, stairs and garage, and upkeep of gardens and green areas, at whatever frequency each community, building or business needs.",
         "keywords": "cleaning for communities and businesses, common area cleaning, gardening for communities, building entrance cleaning Madrid"
       },
+      "/services/gardening": {
+        "title": "Community Gardening Company in Madrid",
+        "description": "Garden and green area upkeep, watering and pruning for communities, buildings and businesses, with an in-house team and scheduled visits.",
+        "keywords": "gardening for communities, garden maintenance Madrid, pruning and watering green areas, homeowner community gardener"
+      },
       "/services/maintenance": {
-        "title": "Building maintenance: plumbing and electrics",
+        "title": "Building Maintenance Company in Madrid",
         "description": "In-house technical team for plumbing, electrics, locksmithing and small works, with a fast response to faults.",
         "keywords": "building and business maintenance, community plumbing, common area electrics, emergency locksmith, technical maintenance Madrid"
       },
@@ -75,6 +80,11 @@
         "title": "Client support",
         "description": "Already an Imora client? Resolve incidents and questions about your service with direct attention, no middlemen.",
         "keywords": "Imora client support, community incidents, concierge customer service"
+      },
+      "/help/complaints": {
+        "title": "Complaints channel",
+        "description": "File a service complaint or an ethics/compliance report through our guided assistant, with the option to do so anonymously.",
+        "keywords": "Imora complaints channel, service complaints, ethics compliance channel"
       },
       "/privacy-policy": {
         "title": "Privacy policy",

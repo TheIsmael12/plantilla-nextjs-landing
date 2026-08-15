@@ -16,6 +16,14 @@ interface ZoneServicesProps {
  * Los 6 servicios enlazados desde la página de zona, con el nombre del municipio en el
  * anchor text (`"Limpieza de comunidades en Alcobendas"`, no solo `"Limpieza"`) — el
  * enlazado interno bidireccional zona↔servicio que pide `requisitos-seo.md` §4.
+ *
+ * El párrafo de cada tarjeta viene de `Zones.items.<slug>.serviceNotes.<servicio>` (texto
+ * propio de "este servicio en esta zona concreta", derivado del perfil real de la zona —
+ * bloques densos, urbanizaciones con piscina, parque empresarial...), no del `summary`
+ * genérico del servicio (idéntico en las 20 zonas): con 6 servicios × 20 zonas, usar siempre
+ * el mismo resumen habría hecho que la única variación real entre zonas fuera el nombre del
+ * municipio en el título, justo lo que este documento evita en el resto de la página (ver
+ * `ZoneContext.tsx`). Auditoría SEO externa, punto 7.
  * @param {ZoneServicesProps} props - El slug de la zona a mostrar
  * @returns {JSX.Element} La cuadrícula de servicios enlazados renderizada
  */
@@ -46,7 +54,7 @@ export default function ZoneServices({ slug }: ZoneServicesProps) {
                     {itemsT(`${serviceSlug}.title`)} {tZones('inZone', { zone: zoneName })}
                   </Link>
                 </h3>
-                <p>{itemsT(`${serviceSlug}.summary`)}</p>
+                <p>{t(`serviceNotes.${serviceSlug}`)}</p>
                 <Link href={`/services/${serviceSlug}`} className="about__value-link">
                   {tZones('viewService')} <ArrowRight size={14} aria-hidden="true" />
                 </Link>

@@ -11,7 +11,7 @@ type TopicKey = 'faq' | 'support' | 'complaints';
 interface Topic {
   key: TopicKey;
   icon: LucideIcon;
-  href: '/help/faq' | '/help/support' | '/complaints-channel';
+  href: '/help/faq' | '/help/support' | '/help/complaints';
 }
 
 const TOPICS: Topic[] = [
@@ -19,8 +19,10 @@ const TOPICS: Topic[] = [
   { key: 'support', icon: LifeBuoy, href: '/help/support' },
   // Tercera puerta de entrada: el canal de reclamaciones (requisitos-reclamaciones.md) es
   // distinto de soporte (quejas de servicio o ético/cumplimiento, no dudas de un cliente
-  // actual), así que se enlaza aparte en vez de mezclarlo dentro de /help/support.
-  { key: 'complaints', icon: MegaphoneIcon, href: '/complaints-channel' },
+  // actual). Enlaza directo al asistente (`/help/complaints`), no a la página informativa
+  // (`/complaints-channel`): desde aquí se viene a hacer algo, no a leer sobre el canal —
+  // quien quiera la info legal la encuentra enlazada desde dentro del propio asistente si hace falta.
+  { key: 'complaints', icon: MegaphoneIcon, href: '/help/complaints' },
 ];
 
 /**

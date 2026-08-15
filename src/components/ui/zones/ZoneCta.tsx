@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import type { ZoneSlug } from '@/config/zones';
 
 import '@/styles/04-components/about/aboutBase.scss';
+import '@/styles/04-components/about/aboutCta.scss';
 
 interface ZoneCtaProps {
   slug: ZoneSlug;
@@ -24,7 +25,7 @@ export default function ZoneCta({ slug }: ZoneCtaProps) {
 
   return (
     <section className="about__cta">
-      <div className="about__container">
+      <div className="about__container about__cta-simple">
         <p className="about__eyebrow">{tZones('hero.eyebrow')}</p>
         <h2 className="about__title-lg">{tZones('ctaTitle', { zone: zoneName })}</h2>
         <p className="about__text-muted">{tZones('ctaSubtitle')}</p>

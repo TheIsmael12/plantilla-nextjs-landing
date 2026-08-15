@@ -51,12 +51,25 @@ const GOOGLE_MAPS_EMBED_ORIGIN = "https://www.google.com";
  * permitiría cargarlo sin listarlo (lo carga un script con nonce), pero `connect-src` no se
  * beneficia de `'strict-dynamic'` — las peticiones de medición de gtag.js a
  * `google-analytics.com`/`analytics.google.com` se bloquearían igual sin esta entrada.
+ *
+ * `*.google-analytics.com` (con comodín) y no solo `www.google-analytics.com`: gtag.js elige en
+ * runtime un endpoint de medición "regional" (`region1.google-analytics.com`, `regionN...`)
+ * según la localización del visitante para reducir latencia — sin el comodín, esas peticiones
+ * se bloqueaban con el mismo error para visitantes fuera de la región por defecto.
  */
 const GOOGLE_ANALYTICS_ORIGINS = [
   "https://www.googletagmanager.com",
   "https://www.google-analytics.com",
+  "https://*.google-analytics.com",
   "https://analytics.google.com",
 ];
+
+/**
+ * Tiles del mapa (CARTO Voyager, `ServiceDetailZonesCanvas.tsx`/`ContactMapCanvas.tsx`):
+ * servidos desde subdominios rotativos `a`–`d` (`{s}.basemaps.cartocdn.com`) para repartir la
+ * carga entre varios hosts, de ahí el comodín en vez de listar los cuatro sueltos.
+ */
+const MAP_TILES_ORIGIN = "https://*.basemaps.cartocdn.com";
 
 /**
  * Origen del backend, necesario en `img-src`/`connect-src`: las portadas del
@@ -101,7 +114,7 @@ export function buildContentSecurityPolicy(nonce: string): string {
     // nonce en `script-src` (ejecución de código arbitrario) no es el mismo
     // que el de CSS inyectado.
     "style-src 'self' 'unsafe-inline'",
-    `img-src 'self' data: blob:${backendOrigin ? ` ${backendOrigin}` : ""}`,
+    `img-src 'self' data: blob: ${MAP_TILES_ORIGIN}${backendOrigin ? ` ${backendOrigin}` : ""}`,
     "font-src 'self' data:",
     `connect-src 'self'${backendOrigin ? ` ${backendOrigin}` : ""}${analyticsEnabled ? ` ${GOOGLE_ANALYTICS_ORIGINS.join(" ")}` : ""}`,
     `frame-src 'self' ${TURNSTILE_ORIGIN} ${GOOGLE_MAPS_EMBED_ORIGIN}`,

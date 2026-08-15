@@ -1,9 +1,16 @@
 import SecurityViewPage from '@/views/(public)/services/SecurityViewPage';
 
+interface SecurityServicePageProps {
+    params: Promise<{ locale: string }>;
+}
+
 /**
  * Página de la ficha del servicio de seguridad y CCTV.
- * @returns {JSX.Element} La ficha de servicio renderizada
+ * @param {SecurityServicePageProps} props - Parámetros de ruta de Next.js
+ * @returns {Promise<JSX.Element>} La ficha de servicio renderizada
  */
-export default function SecurityServicePage() {
-    return <SecurityViewPage />;
+export default async function SecurityServicePage({ params }: SecurityServicePageProps) {
+    const { locale } = await params;
+
+    return <SecurityViewPage locale={locale} />;
 }

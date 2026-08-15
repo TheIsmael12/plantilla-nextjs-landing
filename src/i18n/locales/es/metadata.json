@@ -7,9 +7,9 @@
     },
     "routes": {
       "/": {
-        "title": "Conserjería, seguridad, limpieza y mantenimiento",
-        "description": "Imora gestiona conserjería, seguridad, limpieza, piscinas y mantenimiento para empresas, comunidades y edificios en Madrid, con equipo propio.",
-        "keywords": "conserjería Madrid, servicios para empresas, empresa de servicios para comunidades, mantenimiento de edificios, seguridad y CCTV, limpieza de comunidades y centros comerciales"
+        "title": "Servicios integrales para comunidades en Madrid",
+        "description": "Conserjería, seguridad, limpieza, piscinas y mantenimiento para comunidades de propietarios, empresas y edificios en Madrid, con equipo propio.",
+        "keywords": "conserjería Madrid, servicios para comunidades de propietarios, empresa de servicios para empresas, mantenimiento de edificios, seguridad y CCTV, limpieza de comunidades y centros comerciales"
       },
       "/services": {
         "title": "Nuestros servicios para empresas y comunidades",
@@ -17,27 +17,32 @@
         "keywords": "servicios para empresas y comunidades de vecinos, conserjería, seguridad CCTV, mantenimiento de piscinas, limpieza y jardinería, mantenimiento de edificios"
       },
       "/services/concierge": {
-        "title": "Conserjería y control de accesos para tu edificio",
+        "title": "Empresa de Conserjería para Comunidades en Madrid",
         "description": "Recepción, control de accesos y correspondencia con horarios de 6 a 24 horas, con sustituciones garantizadas en bajas y vacaciones.",
         "keywords": "conserjería para comunidades y empresas, control de accesos, conserje Madrid, portero de finca"
       },
       "/services/security": {
-        "title": "Seguridad y CCTV para edificios, empresas y comunidades",
+        "title": "Empresa de Seguridad y CCTV en Madrid",
         "description": "Proyecto, instalación y mantenimiento de videovigilancia y control de accesos electrónico para proteger tu edificio, empresa o centro comercial.",
         "keywords": "seguridad y CCTV para empresas, videovigilancia comunidades, control de accesos electrónico, instalación de cámaras Madrid"
       },
       "/services/pools": {
-        "title": "Mantenimiento de piscinas comunitarias",
+        "title": "Mantenimiento de Piscinas Comunitarias en Madrid",
         "description": "Mantenimiento químico del agua, limpieza de vaso y socorristas titulados durante toda la temporada de baño, según el Real Decreto 742/2013.",
         "keywords": "mantenimiento de piscinas, socorristas piscina comunitaria, limpieza de piscinas Madrid, apertura y cierre de piscina"
       },
       "/services/cleaning": {
-        "title": "Limpieza y jardinería para comunidades y empresas",
+        "title": "Empresa de Limpieza de Comunidades en Madrid",
         "description": "Limpieza de portal, escaleras y garaje, y mantenimiento de jardines y zonas verdes, con la frecuencia que necesite cada comunidad, edificio o empresa.",
         "keywords": "limpieza de comunidades y empresas, limpieza de zonas comunes, jardinería para comunidades, limpieza de portales Madrid"
       },
+      "/services/gardening": {
+        "title": "Empresa de Jardinería de Comunidades en Madrid",
+        "description": "Mantenimiento de jardines, zonas verdes y riego para comunidades, edificios y empresas, con equipo propio y visitas periódicas programadas.",
+        "keywords": "jardinería para comunidades, mantenimiento de jardines Madrid, poda y riego zonas verdes, jardinero comunidad de vecinos"
+      },
       "/services/maintenance": {
-        "title": "Mantenimiento de edificios: fontanería y electricidad",
+        "title": "Empresa de Mantenimiento de Edificios en Madrid",
         "description": "Equipo técnico propio para fontanería, electricidad, cerrajería y pequeñas obras, con respuesta rápida ante averías.",
         "keywords": "mantenimiento de edificios y empresas, fontanería comunidades, electricidad zonas comunes, cerrajería urgente, mantenimiento técnico Madrid"
       },
@@ -75,6 +80,11 @@
         "title": "Soporte para clientes",
         "description": "¿Ya eres cliente de Imora? Resuelve incidencias y dudas sobre tu servicio con trato directo, sin intermediarios.",
         "keywords": "soporte clientes Imora, incidencias comunidad, atención al cliente conserjería"
+      },
+      "/help/complaints": {
+        "title": "Canal de reclamaciones",
+        "description": "Presenta una queja de servicio o una comunicación ética/de cumplimiento con nuestro asistente guiado, con opción de hacerlo de forma anónima.",
+        "keywords": "canal de reclamaciones Imora, quejas servicio, canal ético cumplimiento"
       },
       "/privacy-policy": {
         "title": "Política de privacidad",

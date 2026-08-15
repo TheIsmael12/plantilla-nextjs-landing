@@ -567,3 +567,77 @@ distintas (zonas vs. servicios). Visualmente parecía la misma sección repetida
 Verificado con build de producción real en `/servicios/limpieza`: 6 puntos en el mapa (7
 círculos contando el pulso de Madrid) con coordenadas distintas dentro del viewBox, 6 enlaces
 en la lista lateral, "Servicios relacionados" sin cambios visuales.
+
+## 21. Auditoría SEO externa (16 puntos) — puntos 7, 10, 11 y 15 (2026-08-16)
+
+Auditoría externa pegada íntegra por el usuario con 16 puntos numerados. Los puntos 1-6, 8-9,
+12-14 y 16 ya estaban cubiertos por auditorías anteriores de este documento o son bloqueantes ya
+documentados (§1, código real de Search Console). Este apartado cubre los puntos pendientes.
+
+**Punto 7 — contenido propio de "servicio × zona"**: `ZoneServices.tsx` mostraba el mismo
+`summary` genérico del servicio (`Services.items.<slug>.summary`) en las 20 páginas de zona sin
+variación — la única diferencia entre zonas era el nombre del municipio en el título del enlace.
+
+- [x] **`ZoneServices.tsx` cambiado para leer `Zones.items.<slug>.serviceNotes.<servicio>`**
+      en lugar del `summary` genérico, key nueva por zona.
+- [x] **120 párrafos redactados** (20 zonas × 6 servicios: `concierge`, `security`, `pools`,
+      `cleaning`, `gardening`, `maintenance`), en `views.json` ES y EN, usando como fuente el
+      `context` ya redactado de cada zona (perfil real de vivienda/urbanismo: bloque denso,
+      urbanización con piscina, parque empresarial, distancia a Madrid capital...) para que cada
+      párrafo combine el servicio con un ángulo genuinamente distinto según la zona, sin
+      inventar datos de actividad de la empresa (mismo criterio de "no inventar" que el resto
+      de bloqueantes documentados en §1).
+- [x] **Verificado con análisis de similitud léxica (Jaccard)** agrupando por servicio y
+      comparando las 20 zonas entre sí (no solo el `context` general): tras dos rondas de
+      reescritura de los pares con mayor solapamiento (frases de plantilla como "suele/suelen
+      estar en las zonas de expansión más reciente, con mantenimiento según el calendario
+      habitual" o "cubre tanto instalaciones comunes... como avisos de las viviendas"), el
+      máximo de similitud entre cualquier par de zonas para un mismo servicio bajó a 59,1% (ES/EN
+      combinados), con la mayoría de pares entre 35-53% — en línea con la similitud ya aceptada
+      en auditorías anteriores de este documento para contenido con vocabulario de dominio
+      compartido inevitable (ej. "socorrista titulado", "calendario habitual de temporada").
+
+**Punto 10 — CTAs variados por servicio**: revisado, ya estaba resuelto de una auditoría
+anterior — los 6 servicios en `Services.items.*.cta` ya tienen texto personalizado por servicio
+(ej. "Preparar mi piscina para la temporada", "Consultar plan de limpieza"), no un CTA genérico
+repetido.
+
+Verificado con `tsc --noEmit` limpio, JSON válido en ambos locales, build de producción real
+(`rm -rf .next && next build` sin errores) y HTML servido: confirmado en `/zonas/alcorcon` (nuevo
+párrafo de `pools`) y en `/en/zones/boadilla-del-monte` (nuevo párrafo de `maintenance`) que el
+contenido de `serviceNotes` se renderiza correctamente en producción.
+
+**Punto 11 — campos "servicio que necesitas" y "localidad" en el formulario de contacto**:
+descartado a petición explícita del usuario tras plantear las dos formas de guardarlo en el
+backend (texto libre vs. enum sincronizado) — no se implementa.
+
+**Punto 15 — cobertura de Schema.org (JSON-LD)**: auditado el estado de los 6 tipos que pide el
+punto (Organization, WebSite, Service, BreadcrumbList, LocalBusiness, FAQPage) contra las 6
+páginas de servicio, las 20 de zona, `/help/faq` y el resto de páginas públicas. Ya cubierto de
+auditorías anteriores: `LocalBusiness` + `areaServed` general (`OrganizationJsonLd.tsx`,
+site-wide), `WebSite` (`WebSiteJsonLd.tsx`, site-wide), `BreadcrumbList` (`BreadcrumbJsonLd.tsx`,
+site-wide), `Service`/`areaServed` por zona (`ZoneJsonLd.tsx`) y `FAQPage` en zonas y en cada
+ficha de servicio (`ZoneFaq.tsx`/`ServiceDetailFaq.tsx`). Dos huecos reales encontrados:
+
+- [x] **Ninguna ficha de servicio individual tenía `Service` schema propio.** El único `Service`
+      relacionado con `/services/<slug>` vivía dentro del array `makesOffer` de
+      `OrganizationJsonLd.tsx` (site-wide) — útil como catálogo conjunto, pero sin `@id`/URL
+      propios que un buscador pueda asociar directamente a esa página. Creado
+      [ServiceJsonLd.tsx](src/components/seo/ServiceJsonLd.tsx), calcado de `ZoneJsonLd.tsx`:
+      `Service` con `name` (reutiliza el title de `Metadata.routes`), `provider` (`@id` a la
+      organización), `areaServed` (las 20 zonas) y `url` propia de la página. Añadido a las 6
+      `*ViewPage.tsx` de servicio (`Cleaning`/`Concierge`/`Gardening`/`Maintenance`/`Pools`/
+      `SecurityViewPage.tsx`), que pasaron de no recibir `locale` a aceptarlo como prop — mismo
+      patrón que `ZoneViewPage.tsx` — y sus 6 `page.tsx` correspondientes, que ahora resuelven
+      `params.locale` y se lo pasan.
+- [x] **`/help/faq` (`FaqAccordion.tsx`) no emitía `FAQPage`**, la única página con preguntas
+      frecuentes visibles sin datos estructurados (zonas y fichas de servicio ya lo tenían).
+      Añadido el mismo bloque `<script type="application/ld+json">` que `ZoneFaq.tsx`, agregando
+      con `flatMap` las preguntas de las 4 categorías (servicios, cobertura y horarios,
+      presupuestos, empresa y garantías) en un único `mainEntity`.
+
+Verificado con `tsc --noEmit` limpio, build de producción real sin errores, y HTML servido: en
+`/servicios/limpieza` aparece un bloque `Service` de primer nivel con
+`name: "Empresa de Limpieza de Comunidades en Madrid"`, `areaServed` con las 20 ciudades y `url`
+propia (distinto del `Service` genérico dentro de `makesOffer`, que también sigue presente); en
+`/ayuda/preguntas-frecuentes` aparece `"@type":"FAQPage"` con todas las preguntas.

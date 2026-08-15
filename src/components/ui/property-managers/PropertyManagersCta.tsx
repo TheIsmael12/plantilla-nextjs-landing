@@ -1,6 +1,7 @@
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import '@/styles/04-components/about/aboutBase.scss';
+import '@/styles/04-components/about/aboutCta.scss';
 
 /**
  * Banda de cierre de la landing para administradores de fincas: llamada a la acción hacia
@@ -14,7 +15,7 @@ export default function PropertyManagersCta() {
 
   return (
     <section className="about__cta">
-      <div className="about__container">
+      <div className="about__container about__cta-simple">
         <p className="about__eyebrow">{t('eyebrow')}</p>
         <h2 className="about__title-lg">{t('title')}</h2>
         <p className="about__text-muted">{t('subtitle')}</p>
