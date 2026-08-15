@@ -6,7 +6,7 @@ import "server-only";
 import { headers as nextHeaders } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
 
-import { ENV } from "@/config/env";
+import { ENV_SERVER as ENV } from "@/config/env.server";
 import { DEFAULT_LOCALE } from "@/config/locales";
 import type {
   FetchResponse,

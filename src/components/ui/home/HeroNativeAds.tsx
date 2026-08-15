@@ -45,7 +45,13 @@ export default function HeroNativeAds() {
               src="/images/home/hero.jpg"
               alt={t('imageAlt')}
               fill
-              sizes="(max-width: 1024px) 100vw, 45vw"
+              // El contenedor real no llega a 100vw: `.home__container` tiene
+              // 1.5rem de padding a cada lado (`homeBase.scss`), así que en
+              // móvil el ancho disponible es `100vw - 3rem`, no el viewport
+              // entero. Con `100vw` a secas, Next.js generaba una imagen más
+              // grande de lo que realmente se pinta (750px servidos para un
+              // hueco de 364px medido por Lighthouse).
+              sizes="(max-width: 1024px) calc(100vw - 3rem), 45vw"
               className="home__hero-image"
               priority
               fetchPriority="high"

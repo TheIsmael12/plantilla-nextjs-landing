@@ -14,6 +14,11 @@ import type { ImageLogoProps } from "@/types/ui/images/image-logo";
 // cubre a todos los sitios de uso sin necesitar que cada uno declare su propio `sizes`.
 const LOGO_SIZES = "160px";
 
+// Los `.png` del logo son de colores planos (dos tonos, sin degradado ni detalle fino): la calidad por
+// defecto de `next/image` (75, pensada para fotos) no aporta nada visible aquí y sí unos KiB de más en
+// cada variante que Next genera.
+const LOGO_QUALITY = 60;
+
 /**
  * Logo de la aplicación, resuelto automáticamente entre las variantes clara y
  * oscura según el tema activo (`next-themes`), salvo que `style` fuerce una
@@ -59,6 +64,7 @@ export default function ImageLogo({
           alt=""
           fill
           sizes={LOGO_SIZES}
+          quality={LOGO_QUALITY}
           priority={false}
           className="image-logo__img"
         />
@@ -73,6 +79,7 @@ export default function ImageLogo({
         alt={alt}
         fill
         sizes={LOGO_SIZES}
+        quality={LOGO_QUALITY}
         priority={priority}
         fetchPriority="high"
         className="image-logo__img"

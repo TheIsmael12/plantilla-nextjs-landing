@@ -9,7 +9,7 @@ import {
   verifyClientPortalTwoFactorChallenge,
 } from "@/actions/auth/client-portal-auth";
 
-import { ENV } from "@/config/env";
+import { ENV_SERVER as ENV } from "@/config/env.server";
 import { AUTH_TOKEN_REFRESH_MARGIN_MS } from "@/config/settings";
 
 import type { PortalLoginActionResult } from "@/types/auth/login";

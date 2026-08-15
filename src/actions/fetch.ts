@@ -13,7 +13,7 @@ import "server-only";
 import { getServerSession } from "next-auth/next";
 
 import { authOptions } from "@/lib/authOptions";
-import { ENV } from "@/config/env";
+import { ENV_SERVER as ENV } from "@/config/env.server";
 import { HTTPStatus } from "@/constants/httpStatus";
 import type { FetchResponse, FetchResponseWithBlob } from "@/types/responses";
 import { buildHeaders, networkError, parseError, parseSuccess } from "@/utils/fetchUtils";
