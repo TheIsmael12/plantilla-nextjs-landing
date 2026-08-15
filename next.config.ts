@@ -82,6 +82,7 @@ const nextConfig: NextConfig = {
 			// `/media/blog/**` (URLs absolutas, sin firma).
 			{ protocol: 'http', hostname: 'localhost', port: '5000' },
 			// TODO: añadir aquí el hostname real del backend en producción.
+			{ protocol: 'https', hostname: 'api.imora.es' },
 		],
 	},
 
