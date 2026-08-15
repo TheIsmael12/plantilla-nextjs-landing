@@ -709,3 +709,44 @@ Verificado con `tsc --noEmit` limpio, JSON válido en ambos locales, build de pr
 aparecen el título "Servicios pensados para cada tipo de cliente", las tres tarjetas (incluida
 "Administradores de fincas") y el nuevo label "Coste adicional por sustituciones garantizadas"
 en la cinta de confianza, sin rastro del texto anterior en esa sección.
+
+## 23. Tercera pasada de la misma auditoría externa — bug real de anchor duplicado (2026-08-16)
+
+El usuario pegó una tercera valoración (8,8/10) tras el redespliegue de los cambios anteriores.
+La mayoría de puntos confirman correcciones ya hechas en sesiones previas (H1 de home, `/servicios`,
+limpieza, mantenimiento, FAQ general). Dos hallazgos nuevos, ambos con la misma causa raíz:
+
+- [x] **Bug real: `/zonas/madrid` mostraba "Limpieza de comunidades y edificios en Madrid en
+      Madrid"** (y lo mismo con mantenimiento). Causa: `ZoneServices.tsx` construye el anchor
+      como `{itemsT('${slug}.title')} {tZones('inZone', {zone})}` — pero
+      `Services.items.cleaning.title`/`maintenance.title` ya llevaban el sufijo fijo "en Madrid"
+      desde la ronda de metadata SEO de §14, mientras los otros 4 servicios no. El resultado era
+      "en Madrid" duplicado solo en esos dos, y solo en la zona de Madrid capital (en el resto de
+      zonas se leía como "...en Madrid en Alcobendas", igual de incorrecto pero menos obvio).
+      Corregido quitando el sufijo "en Madrid" de `Services.items.cleaning.title`/
+      `maintenance.title` (ES/EN): pasan a "Limpieza de comunidades y edificios"/"Mantenimiento
+      de comunidades y edificios", sin ciudad fija — igual que los otros 4 servicios. El
+      `<title>` SEO de esas páginas (`Metadata.routes["/services/cleaning|maintenance"].title`,
+      "Empresa de Limpieza/Mantenimiento... en Madrid") vive en un namespace completamente
+      distinto y no se tocó, así que la keyword geolocalizada en la pestaña del navegador se
+      mantiene intacta.
+- [x] **"Otros servicios que también gestionamos" (`ServiceDetailOthers.tsx`) con anchors
+      antiguos "Limpieza integral"/"Mantenimiento de edificios"**: verificado que ese componente
+      ya lee `Services.items.<slug>.title` (el mismo texto corregido en el punto anterior), así
+      que no había ningún título hardcodeado desactualizado en el código — el único "Limpieza
+      integral" real que queda en `views.json` está dentro de `summary` (texto descriptivo, no
+      un anchor). El arreglo del punto anterior corrige automáticamente este anchor en las 6
+      páginas de servicio sin tocar `ServiceDetailOthers.tsx`.
+
+Como en auditorías anteriores, es probable que la versión que el usuario/ChatGPT rastreó en vivo
+esté por detrás del código de este repo (rama `dev` no desplegada a producción, ver §22) — pero
+el bug de la duplicación "en Madrid en Madrid" sí era un bug real y reproducible en el código
+antes de esta corrección, no solo un desfase de despliegue.
+
+Verificado con `tsc --noEmit` limpio, JSON válido en ambos locales, build de producción real
+(exitoso al primer intento) y HTML servido: en `/zonas/madrid` ya no aparece "en Madrid en
+Madrid" en ningún sitio; el H1 de `/services/cleaning` es "Limpieza de comunidades y edificios";
+en `/services/security`, la sección "otros servicios" muestra "Limpieza de comunidades y
+edificios" y "Mantenimiento de comunidades y edificios" como anchor (las 3 apariciones
+restantes de "Limpieza integral" en esa página son dentro de `summary`/JSON-LD `description`,
+no un título ni un enlace).
