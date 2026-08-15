@@ -39,13 +39,20 @@ const TURNSTILE_ORIGIN = 'https://challenges.cloudflare.com';
  * sumidero DOM peligroso (`innerHTML`, `document.write`...) pase por un
  * `TrustedTypePolicy`, en vez de aceptar cualquier string.
  *
- * `trusted-types default` — y no `'none'` — porque el propio runtime de
- * producción de React/Next necesita asignar HTML en algún punto (hidratación,
- * algún `innerHTML` interno de una librería), y con `'none'` esas asignaciones
- * quedaban bloqueadas de verdad en producción («This document requires
- * 'TrustedHTML' assignment», no solo un aviso). La política `default` la
- * registra `[locale]/layout.tsx` en un script inline, antes de que cargue
- * nada más: cuando existe una política con ese nombre exacto, el navegador la
+ * `trusted-types default html` — y no `'none'` — porque hay dos políticas
+ * legítimas que registrarse en esta página:
+ *
+ * - `default`: la registra `[locale]/layout.tsx` en un script inline, antes de
+ *   que cargue nada más, para el propio runtime de producción de React/Next
+ *   (hidratación, algún `innerHTML` interno de una librería). Sin ella, esas
+ *   asignaciones quedaban bloqueadas de verdad en producción («This document
+ *   requires 'TrustedHTML' assignment», no solo un aviso).
+ * - `html`: la registra el propio script de **Turnstile** (`Captcha.tsx`) al
+ *   cargar — es Cloudflare quien la nombra así, no esta app—. Con solo
+ *   `default` en la lista, Turnstile se rompía con «Policy "html" disallowed»
+ *   en cuanto el widget del formulario de contacto intentaba iniciarse.
+ *
+ * Cuando existe una política llamada exactamente `default`, el navegador la
  * usa automáticamente para cualquier asignación que no pase ya por una
  * política explícita.
  */
@@ -62,7 +69,7 @@ const contentSecurityPolicy = [
 	"form-action 'self'",
 	"frame-ancestors 'none'",
 	"require-trusted-types-for 'script'",
-	"trusted-types default",
+	"trusted-types default html",
 ].join('; ');
 
 const nextConfig: NextConfig = {
