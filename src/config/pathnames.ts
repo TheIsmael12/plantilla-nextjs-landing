@@ -177,6 +177,10 @@ export const pathnames = {
     en: "/help/support",
     es: "/ayuda/soporte",
   },
+  "/help/complaints": {
+    en: "/help/complaints",
+    es: "/ayuda/reclamaciones",
+  },
 
   // Términos y políticas
   "/privacy-policy": {
