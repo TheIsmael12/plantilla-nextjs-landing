@@ -112,33 +112,28 @@ inglés, slug traducido en español) — por ejemplo:
 "/zones/[city]": { en: "/zones/[city]", es: "/zonas/[ciudad]" }
 ```
 
-Zonas candidatas (a confirmar con la empresa cuáles son operativas de verdad — no publicar
-una zona donde Imora no preste servicio):
+Zonas candidatas, priorizadas por nivel — **ninguna está confirmada como operativa**, es una
+propuesta a validar con la empresa antes de crear una sola página. No publicar ninguna zona
+donde Imora no preste servicio de verdad (riesgo de inconsistencia NAP y de prometer
+cobertura falsa a un cliente potencial).
 
-- Madrid capital (ya mencionada)
-- Pozuelo de Alarcón (ya mencionada)
-- Alcorcón (ya mencionada)
-- Alcobendas
-- San Sebastián de los Reyes
-- Majadahonda
-- Las Rozas
-- Boadilla del Monte
-- Torrelodones
-- Tres Cantos
-- Colmenar Viejo
-- Mostoles
-- Torrejon de ardoz
-- Leganes
-- Getafe
-- Fuenlabrada
-- Coslada
-- Rivas Vaciamadrid
-- Arganda del Rey
-- Collado Villalba
+**Criterio de priorización**: cercanía a Madrid capital y perfil de vivienda en comunidad
+(más comunidades de propietarios = más mercado potencial para conserjería/limpieza/
+mantenimiento), no volumen de búsqueda medido (eso solo lo dará Search Console una vez
+configurado, §12). Reordenar cuando haya datos reales de tráfico/clientes.
 
-**TODO**: confirmar con la empresa la lista real de municipios donde opera antes de crear
-ninguna página — la lista de arriba es la propuesta de la auditoría externa, no un hecho
-verificado.
+| Nivel | Municipios | Por qué este nivel |
+|---|---|---|
+| **Ya confirmadas** (en la web hoy) | Madrid capital, Pozuelo de Alarcón, Alcorcón | Ya mencionadas en `views.json` — punto de partida real, no propuesta. |
+| **Nivel 1** — corona noroeste, alto perfil de comunidades | Majadahonda, Las Rozas de Madrid, Boadilla del Monte, Alcobendas | Zona de renta alta con predominancia de urbanizaciones y comunidades cerradas — el perfil de cliente que más externaliza conserjería/seguridad/piscinas. Contigua a Pozuelo, ya confirmada. |
+| **Nivel 2** — corona norte y sur con volumen de comunidades | San Sebastián de los Reyes, Tres Cantos, Getafe, Leganés, Fuenlabrada, Móstoles | Municipios grandes con mucho parque de vivienda en bloque — volumen alto de comunidades de propietarios, aunque el perfil de gasto medio en servicios externalizados sea más variable que el Nivel 1. |
+| **Nivel 3** — resto de la corona metropolitana | Torrejón de Ardoz, Coslada, Rivas-Vaciamadrid, Colmenar Viejo, Torrelodones, Collado Villalba, Arganda del Rey | Completa la cobertura de la Comunidad de Madrid; menor prioridad de lanzamiento salvo que la empresa confirme que ya opera ahí activamente. |
+
+**TODO — bloqueante**: validar con la empresa, municipio por municipio, cuáles son
+operativos de verdad hoy. Sugerencia de proceso: empezar solo por el Nivel 1 (4 municipios)
++ las 3 ya confirmadas, publicar esas páginas, y ampliar a Nivel 2/3 según vaya habiendo
+clientes o solicitudes reales en esas zonas — evita publicar 20 páginas de golpe sobre
+cobertura no verificada.
 
 Cada página de zona debe enlazar a los 6 servicios, y cada página de servicio debería, a su
 vez, enlazar a las zonas relevantes (enlazado interno bidireccional, §11 de la auditoría
