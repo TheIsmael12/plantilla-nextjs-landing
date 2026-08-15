@@ -90,6 +90,30 @@ export default async function LocaleLayout({
 
         <html lang={locale} suppressHydrationWarning className={`${fraunces.variable} ${publicSans.variable}`}>
             <head>
+                {/*
+                  Registra la política Trusted Types "default" antes de que cargue nada más.
+                  La CSP de producción (`next.config.ts`) lleva `require-trusted-types-for 'script'`:
+                  sin una política llamada justo "default", el propio runtime de React/Next
+                  (hidratación, algún `innerHTML` interno) queda bloqueado con
+                  «This document requires 'TrustedHTML' assignment» — no es solo software de
+                  terceros, rompe el bundle propio. Con "default" registrada, el navegador la usa
+                  automáticamente para cualquier asignación que no pase ya por una política explícita.
+                  Se define aquí y no en un componente cliente: un componente se ejecuta después de la
+                  hidratación, que es justo lo que hay que cubrir.
+                */}
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `if (window.trustedTypes && window.trustedTypes.createPolicy) {
+  try {
+    window.trustedTypes.createPolicy("default", {
+      createHTML: (s) => s,
+      createScript: (s) => s,
+      createScriptURL: (s) => s,
+    });
+  } catch (e) {}
+}`,
+                    }}
+                />
                 <OrganizationJsonLd locale={locale} />
             </head>
             <body>

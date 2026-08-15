@@ -37,11 +37,17 @@ const TURNSTILE_ORIGIN = 'https://challenges.cloudflare.com';
  *
  * `require-trusted-types-for 'script'` obliga a que cualquier asignación a un
  * sumidero DOM peligroso (`innerHTML`, `document.write`...) pase por un
- * `TrustedTypePolicy`, en vez de aceptar cualquier string; `trusted-types
- * 'none'` no declara ninguna política propia porque la app no la necesita
- * (no hay HTML dinámico construido a mano) — si en el futuro se necesita
- * registrar una (p. ej. para el propio `script.src` de Turnstile), hay que
- * añadirla aquí y crearla con `trustedTypes.createPolicy` en el cliente.
+ * `TrustedTypePolicy`, en vez de aceptar cualquier string.
+ *
+ * `trusted-types default` — y no `'none'` — porque el propio runtime de
+ * producción de React/Next necesita asignar HTML en algún punto (hidratación,
+ * algún `innerHTML` interno de una librería), y con `'none'` esas asignaciones
+ * quedaban bloqueadas de verdad en producción («This document requires
+ * 'TrustedHTML' assignment», no solo un aviso). La política `default` la
+ * registra `[locale]/layout.tsx` en un script inline, antes de que cargue
+ * nada más: cuando existe una política con ese nombre exacto, el navegador la
+ * usa automáticamente para cualquier asignación que no pase ya por una
+ * política explícita.
  */
 const contentSecurityPolicy = [
 	"default-src 'self'",
@@ -56,7 +62,7 @@ const contentSecurityPolicy = [
 	"form-action 'self'",
 	"frame-ancestors 'none'",
 	"require-trusted-types-for 'script'",
-	"trusted-types 'none'",
+	"trusted-types default",
 ].join('; ');
 
 const nextConfig: NextConfig = {
