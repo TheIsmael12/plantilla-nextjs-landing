@@ -166,10 +166,20 @@ fincas es un cliente B2B de mucho más valor (gestionan varias comunidades a la 
 
 Estado actual: prácticamente vacío. Esto es lo que más frena el posicionamiento hoy.
 
+**La redacción y publicación de los artículos no se hace en este repositorio.** El blog vive
+en el backend (`plantilla-nestjs`) y se gestiona desde la intranet — este repo (el landing)
+solo lo consume y renderiza (`getBlogSitemapEntries`, `src/actions/blog/blog-actions.ts`).
+El trabajo de código relevante aquí se limita a: la plantilla de renderizado del post
+(`/blog/[slug]`), su SEO técnico (metadata, `Article` schema si falta — ver §12), y el
+enlazado interno desde las páginas de servicio hacia el blog. El keyword map de artículos
+([keyword-map.md](keyword-map.md) §2) sigue siendo la referencia de qué redactar, pero la
+redacción y publicación se hacen desde la intranet, no como archivos de este repo.
+
 - **No publicar artículos genéricos de relleno.** Cada uno debe mapear a una fila del keyword
   map (§2) con intención de búsqueda real.
 - **Volumen inicial**: 20-30 artículos antes de considerar la fase de contenido "lanzada", no
-  2-3 sueltos.
+  2-3 sueltos. (27 ya mapeados en `keyword-map.md` §2, listos para redactarse desde la
+  intranet.)
 - **Cadencia sostenida**: 4-8 artículos/mes después del lanzamiento inicial.
 - **Categorías de intención** (no mezclar en el mismo artículo):
   - Guías (`¿Qué incluye una empresa de mantenimiento de comunidades?`)
@@ -255,7 +265,8 @@ ven por bajo tráfico.
 4. **Fase 3 — On-page de lo existente** (§3, §5): mejorar antes de expandir.
 5. **Fase 4 — SEO local** (§4): páginas de zona, con contenido real por municipio.
 6. **Fase 5 — Segmento administradores de fincas** (§6).
-7. **Fase 6 — Blog** (§7): 20-30 artículos iniciales, luego cadencia mensual.
+7. **Fase 6 — Blog** (§7): 27 artículos ya mapeados en `keyword-map.md` §2, listos para
+   redactarse desde la intranet (no en este repo) — luego cadencia mensual.
 8. **Fase 7 — Prueba social + Google Business Profile** (§9).
 
 Cada fase se aborda como su propio bloque de trabajo (probablemente varias sesiones) — este

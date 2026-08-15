@@ -89,6 +89,10 @@ comunidades», que es el término comercial real, sin tocar la URL.
 Cada fila = 1 artículo candidato para el lote inicial de 20-30 (§7). Formato:
 keyword → categoría de intención → servicio(s) a enlazar → estado.
 
+**Esta tabla es la referencia de qué redactar, no una lista de archivos a crear en este
+repo.** El blog se gestiona desde la intranet (conectada al backend) — la redacción y
+publicación de estos 27 artículos ocurre ahí, no como código en `plantilla-nextjs-landing`.
+
 | Título candidato | Keyword objetivo | Categoría | Enlaza a | Estado |
 |---|---|---|---|---|
 | ¿Cuánto cuesta un conserje para una comunidad en Madrid? | cuánto cuesta un conserje | Precio | /servicios/conserjeria | Candidato |
