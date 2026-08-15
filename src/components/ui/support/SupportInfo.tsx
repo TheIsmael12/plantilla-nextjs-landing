@@ -1,24 +1,50 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
 import { Clock, MapPin, ExternalLink, PhoneCall } from 'lucide-react';
 
 import { ENV } from '@/config/env';
+import { buildMapsHref, buildFallbackMapsHref } from '@/utils/mapLinkUtils';
 
 import '@/styles/04-components/help/helpBase.scss';
 import '@/styles/04-components/support/supportInfo.scss';
 
+/*
+ * El lienzo se carga solo en el navegador: Leaflet toca `window` al importarse. Mismo
+ * componente que usa `ContactMapSection.tsx` — ambos muestran la misma sede.
+ */
+const ContactMapCanvas = dynamic(() => import('@/components/ui/contact/ContactMapCanvas'), {
+  ssr: false,
+});
+
 /**
  * Datos de la sede de Imora: tarjeta con horario completo (oficina +
- * urgencias 24h) y dirección, junto a un mapa real embebido (geocodificado
- * a partir de la dirección), igual que en {@link ContactMapSection} pero
- * en un formato más compacto para la página de soporte.
+ * urgencias 24h) y dirección, junto a un mapa real (Leaflet + CARTO Voyager,
+ * mismo tileset que {@link ContactMapSection} y el mapa de zonas de
+ * cobertura de la ficha de servicio), en un formato más compacto para la
+ * página de soporte.
  * @returns {JSX.Element} La sección de la sede renderizada
  */
 export default function SupportInfo() {
   const t = useTranslations('Support.info');
 
   const fullAddress = `${ENV.COMPANY_ADDRESS}, ${ENV.COMPANY_POSTAL_CODE}, ${ENV.COMPANY_CITY}, ${ENV.COMPANY_COUNTRY}`;
-  const mapsHref = `https://www.openstreetmap.org/search?query=${encodeURIComponent(fullAddress)}`;
-  const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
+
+  /*
+   * Calculado tras montar: en servidor no hay `navigator`, así que el primer render usa un
+   * enlace neutro (Google Maps web) y se sustituye por el nativo del sistema operativo real
+   * del visitante en cuanto el efecto corre — mismo criterio que `ContactMapSection.tsx`.
+   */
+  const [mapsHref, setMapsHref] = useState(
+    () => buildFallbackMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE),
+  );
+
+  useEffect(() => {
+    setMapsHref(buildMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE, fullAddress));
+  }, [fullAddress]);
 
   return (
     <section className="support__info">
@@ -67,12 +93,10 @@ export default function SupportInfo() {
           </div>
 
           <div className="support__info-frame">
-            <iframe
-              className="support__info-iframe"
-              src={mapEmbedSrc}
-              title={t('mapLabel')}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+            <ContactMapCanvas
+              latitude={ENV.COMPANY_LATITUDE}
+              longitude={ENV.COMPANY_LONGITUDE}
+              title={fullAddress}
             />
 
             <a href={mapsHref} target="_blank" rel="noopener noreferrer" className="support__info-badge">

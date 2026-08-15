@@ -9,7 +9,10 @@ import { setRequestLocale, getMessages } from "next-intl/server";
 
 import { Fraunces, Public_Sans } from "next/font/google";
 
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import GoogleAnalytics from "@/components/seo/GoogleAnalytics";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
+import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import CookieConsentController from "@/components/ui/cookies/CookieConsentController";
 import Toaster from "@/components/ui/toasts/Toaster";
 import SessionAuthProvider from "@/context/SessionAuthProvider";
@@ -123,7 +126,9 @@ export default async function LocaleLayout({
 }`,
                     }}
                 />
+                <WebSiteJsonLd />
                 <OrganizationJsonLd locale={locale} />
+                <BreadcrumbJsonLd locale={locale} />
             </head>
             <body>
                 <NextIntlClientProvider locale={locale} messages={messages}>
@@ -141,6 +146,7 @@ export default async function LocaleLayout({
                         </ThemeProvider>
                     </SessionAuthProvider>
                 </NextIntlClientProvider>
+                <GoogleAnalytics nonce={nonce} />
             </body>
         </html>
 

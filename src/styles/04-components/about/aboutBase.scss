@@ -24,7 +24,6 @@
   font-weight: $font-bold;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--primary-color-active);
   margin: 0 0 0.6rem;
 }
 
@@ -32,7 +31,7 @@
   font-family: $font-title;
   font-size: clamp(1.9rem, 3.4vw, 2.75rem);
   font-weight: $font-semibold;
-  color: var(--primary-color);
+  color: var(--primary-color-active);
   line-height: 1.14;
   text-wrap: balance;
   margin: 0 0 0.85rem;

@@ -93,6 +93,11 @@ export async function generateTranslatedMetadata({
       shortcut: "/favicon.ico",
       apple: "/icon.png",
     },
+    // Solo se emite si hay un código real en el .env: sin esto, Search
+    // Console no puede verificar la propiedad por meta tag.
+    ...(ENV.GOOGLE_SITE_VERIFICATION && {
+      verification: { google: ENV.GOOGLE_SITE_VERIFICATION },
+    }),
     alternates: {
       canonical: canonicalUrl,
       languages: {

@@ -62,3 +62,20 @@
   color: var(--primary-color);
   @include rounded(999px);
 }
+
+// Enlace de cierre bajo `services__others-list`, para el caso en que la lista mostrada es un
+// subconjunto (p. ej. `ServiceDetailZones.tsx`: 6 de 20 zonas) y hace falta un enlace al
+// listado completo — `ServiceDetailOthers.tsx` no lo necesita, siempre muestra las 5 restantes.
+.services__others-all-link {
+  @include flex(row, center, center, 0.4rem);
+  margin: 1.5rem auto 0;
+  width: fit-content;
+  color: var(--primary-color);
+  font-weight: $font-semibold;
+  font-size: $text-sm;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

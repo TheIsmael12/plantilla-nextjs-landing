@@ -3,14 +3,6 @@
 
 .home__cta {
   @include py(4.5rem);
-
-  .home__eyebrow {
-    opacity: 0.75;
-  }
-
-  .home__text-muted {
-    opacity: 0.86;
-  }
 }
 
 .home__cta-grid {
@@ -131,9 +123,3 @@
   text-align: center;
 }
 
-// En modo oscuro `--primary-color-active` ya es un azul claro; atenuado al
-// 75% sobre el fondo casi negro (`--background-color`) de esta sección se
-// queda por debajo de 4.5:1. Se sube la opacidad solo aquí.
-.dark .home__cta .home__eyebrow {
-  opacity: 0.92;
-}

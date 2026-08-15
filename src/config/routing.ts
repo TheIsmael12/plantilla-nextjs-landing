@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 
 import { Route } from "@/types/route";
+import { ZONES } from "@/config/zones";
 
 // Slugs reales de `Services.items` (i18n): única fuente de verdad para las
 // rutas de servicios, su icono y su orden en navbar/footer. Cada uno tiene
@@ -89,6 +90,37 @@ export const PUBLIC_ROUTES: Route[] = [
     pathname: "/about",
     shownInNavbar: true,
     shownInFooter: false,
+  },
+  {
+    // Sin `shownInNavbar`: es una landing de captación de un segmento
+    // concreto, no una sección más del menú principal (mismo criterio que
+    // `/careers`). Sin columna propia en el footer (`shownInFooter: false`):
+    // al no tener subrutas quedaba como un título huérfano sin nada debajo,
+    // descompensando el grid frente a columnas con varias líneas como
+    // "Servicios" — se enlaza en su lugar dentro de esa misma columna
+    // (`Footer.tsx`), que ya es el sitio natural para un segmento de
+    // cliente relacionado con los servicios.
+    pathname: "/for/property-managers",
+    shownInNavbar: false,
+    shownInFooter: false,
+  },
+  {
+    // Índice de las 20 páginas de zona (`config/zones.ts`) — sin esta entrada, `/zonas`
+    // (quitar el último segmento de cualquier URL de zona) daba 404, y ninguna zona
+    // individual tenía forma de llegar a las demás salvo desde su corona metropolitana
+    // (`ZoneNearby.tsx`). Sí en el footer, mismo criterio que administradores de fincas.
+    pathname: "/zones",
+    shownInNavbar: false,
+    shownInFooter: true,
+    // Las 5 zonas de mayor prioridad (mismo criterio que `ServiceDetailZones.tsx`: las 3
+    // confirmadas desde el origen + Nivel 1), para que la columna del footer tenga contenido
+    // real en vez de quedar solo con el título enlazado — antes dejaba un hueco vacío al lado
+    // de columnas con varias líneas como "Servicios".
+    subRoutes: ZONES.slice(0, 5).map((zone) => ({
+      pathname: `/zones/${zone.slug}` as Route["pathname"],
+      shownInNavbar: false,
+      shownInFooter: true,
+    })),
   },
   {
     pathname: "/blog",

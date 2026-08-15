@@ -52,7 +52,7 @@
     svg {
       width: 1.5rem;
       height: 1.5rem;
-      color: var(--primary-color);
+      color: var(--primary-color-active);
       flex-shrink: 0;
     }
 
@@ -60,7 +60,7 @@
       font-family: $font-title;
       font-size: $text-xl;
       font-weight: $font-bold;
-      color: var(--primary-color);
+      color: var(--primary-color-active);
       text-align: left;
     }
 

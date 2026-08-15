@@ -17,11 +17,43 @@
 // ── Link ─────────────────────────────────────────────────────────────────────
 
 .legal__link {
-  color: var(--primary-color);
+  color: var(--primary-color-active);
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color 0.2s ease;
   font-weight: $font-medium;
+}
+
+// Enlace con pinta de botón, mismo patrón que `help__btn` (helpBase.scss): la sección "Cómo
+// comunicarlo" enlaza al asistente real de `/help/complaints`, y un enlace de texto ahí se
+// perdía entre el resto del párrafo — necesita destacar como la acción principal de la sección.
+.legal__btn {
+  @include flex(row, center, center, 0.55rem);
+  @include px(1.6rem);
+  height: 3rem;
+  width: fit-content;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  margin: 1rem 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  @include rounded(0.5rem);
+
+  &:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  &--primary {
+    background: var(--primary-color);
+    color: var(--light-color);
+
+    &:hover {
+      background: var(--primary-color-hover);
+    }
+  }
 }
 
 // ── Hero ─────────────────────────────────────────────────────────────────────
@@ -170,6 +202,7 @@
 
 .legal__toc {
   border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
   @include rounded();
   @include px(1.5rem);
   @include py(1.5rem);
@@ -182,7 +215,7 @@
 
   &__title {
     font-size: $text-lg;
-    color: var(--primary-color);
+    color: var(--primary-color-active);
     font-weight: $font-semibold;
   }
 
@@ -195,6 +228,16 @@
 
   li {
     counter-increment: toc-counter;
+    a {
+      text-decoration: none;
+      font-size: $text-sm;
+      color: var(--color);
+      font-weight: $font-medium;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   &__link {
@@ -219,7 +262,7 @@
   &__title {
     font-size: $text-xl;
     font-weight: $font-semibold;
-    color: var(--primary-color);
+    color: var(--primary-color-active);
     border-bottom: 2px solid var(--border-color);
     @include pb(0.5rem);
     width: 100%;
@@ -287,7 +330,7 @@
 
 .legal__contact-card {
   border: 1px solid var(--border-color);
-  background-color: var(--neutral-color-light);
+  background-color: var(--surface-color);
   @include px(1.25rem);
   @include py(1.25rem);
   @include rounded();
@@ -298,7 +341,7 @@
   }
 
   strong {
-    color: var(--primary-color);
+    color: var(--primary-color-active);
     font-weight: $font-semibold;
   }
 }
@@ -425,8 +468,8 @@
     code {
       font-family: monospace;
       font-size: $text-xs;
-      color: var(--primary-color);
-      background-color: var(--neutral-color-light);
+      color: var(--primary-color-active);
+      background-color: var(--surface-color);
       @include px(0.25rem);
       @include py(0.25rem);
       @include rounded();
@@ -450,7 +493,7 @@
   &__link {
     text-decoration: none;
     font-size: $text-sm;
-    color: var(--primary-color);
+    color: var(--primary-color-active);
     font-weight: $font-semibold;
   }
 }

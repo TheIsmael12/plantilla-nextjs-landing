@@ -3,6 +3,7 @@ import ServiceDetailTrust from '@/components/ui/services/ServiceDetailTrust';
 import ServiceDetailSubservices from '@/components/ui/services/ServiceDetailSubservices';
 import ServiceDetailFaq from '@/components/ui/services/ServiceDetailFaq';
 import ServiceDetailProcess from '@/components/ui/services/ServiceDetailProcess';
+import ServiceDetailZones from '@/components/ui/services/ServiceDetailZones';
 import ServiceDetailOthers from '@/components/ui/services/ServiceDetailOthers';
 import ServiceDetailCta from '@/components/ui/services/ServiceDetailCta';
 
@@ -23,6 +24,7 @@ export default function SecurityViewPage() {
       <ServiceDetailFaq slug="security" />
       <ServiceDetailProcess />
       <ServiceDetailCta />
+      <ServiceDetailZones slug="security" />
       <ServiceDetailOthers slug="security" />
     </main>
   );

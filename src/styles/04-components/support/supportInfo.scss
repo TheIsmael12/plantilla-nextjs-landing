@@ -80,7 +80,7 @@
 }
 
 .support__info-emergency-link {
-  color: var(--fill-color);
+  color: var(--light-color);
   font-weight: $font-semibold;
   text-decoration: none;
 
@@ -114,7 +114,8 @@
   }
 }
 
-// ── Mapa real (iframe, embed sin API key) ───────────────────────────────
+// ── Mapa real (Leaflet + CARTO Voyager, mismo tileset que ContactMapSection
+//    y el mapa de zonas de cobertura) ─────────────────────────────────────
 
 .support__info-frame {
   position: relative;
@@ -131,19 +132,23 @@
   }
 }
 
-.support__info-iframe {
+// `.contact__map-canvas` trae sus propios estilos de controles/pin de Leaflet, importados
+// desde el propio `ContactMapCanvas.tsx` (`contactMapCanvas.scss`) — aquí solo hace falta
+// posicionarlo dentro de este contenedor concreto.
+.support__info-frame .contact__map-canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  border: 0;
 }
 
 .support__info-badge {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  z-index: 2;
+  // Por encima de todos los panes de Leaflet (`.leaflet-control-container`
+  // ya usa z-index 800) — mismo bug ya corregido en `contactMapSection.scss`.
+  z-index: 900;
   background: var(--primary-color);
   color: var(--light-color);
   font-size: $text-xs;

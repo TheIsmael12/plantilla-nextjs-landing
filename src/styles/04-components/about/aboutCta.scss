@@ -5,10 +5,6 @@
   &__cta {
     background: var(--surface-color);
     @include py(4.5rem);
-
-    .about__eyebrow {
-      opacity: 0.75;
-    }
   }
 
   &__cta-grid {

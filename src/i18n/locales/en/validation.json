@@ -41,6 +41,18 @@
       "typeRequired": "Choose an incident type.",
       "commentRequired": "Write a comment before sending it.",
       "commentMaxLength": "The comment cannot exceed 5000 characters."
+    },
+    "complaint": {
+      "typeRequired": "Choose the complaint type.",
+      "affectedCommunityRequired": "Enter the affected community or building.",
+      "serviceDateRequired": "Enter the service date.",
+      "serviceDescriptionRequired": "Describe the service you received.",
+      "descriptionRequired": "The description is required.",
+      "contactNameRequired": "Name is required, or check that you prefer not to be identified.",
+      "contactEmailRequired": "Email is required, or check that you prefer not to be identified.",
+      "emailInvalid": "Please enter a valid email address.",
+      "privacyRequired": "You must accept the privacy policy to continue.",
+      "maxLength": "This field is too long."
     }
   }
 }
