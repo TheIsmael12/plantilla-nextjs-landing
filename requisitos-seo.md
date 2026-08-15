@@ -120,6 +120,15 @@ una zona donde Imora no preste servicio):
 - Torrelodones
 - Tres Cantos
 - Colmenar Viejo
+- Mostoles
+- Torrejon de ardoz
+- Leganes
+- Getafe
+- Fuenlabrada
+- Coslada
+- Rivas Vaciamadrid
+- Arganda del Rey
+- Collado Villalba
 
 **TODO**: confirmar con la empresa la lista real de municipios donde opera antes de crear
 ninguna página — la lista de arriba es la propuesta de la auditoría externa, no un hecho
@@ -208,10 +217,13 @@ ven por bajo tráfico.
 
 - [x] **`FAQPage` schema: ya existe.** [ServiceDetailFaq.tsx](src/components/ui/services/ServiceDetailFaq.tsx)
       lo genera correctamente en las páginas de servicio.
-- [ ] **`BreadcrumbList` schema: no existe en páginas públicas.** Solo hay componentes
-      visuales de breadcrumb en el área privada de cliente (`private-area/*`, para navegación
-      de UI, no SEO). Ninguna página pública (servicios, blog, about) lleva `BreadcrumbList`
-      JSON-LD. Añadir cuando se aborde §3.
+- [x] **`BreadcrumbList` schema: implementado.**
+      [BreadcrumbJsonLd.tsx](src/components/seo/BreadcrumbJsonLd.tsx), montado en
+      `[locale]/layout.tsx` junto a `OrganizationJsonLd`. Lee `x-canonical-pathname` (mismo
+      header que usa `generateMetadata.ts`) y resuelve cada tramo con `Routes.*`
+      (`navigation.json`) o, si no está ahí, `Metadata.routes.*.title`. Se omite en la home
+      (un solo tramo no aporta nada) y en rutas dinámicas. Verificado con build de producción
+      real en `/`, `/servicios/limpieza`, `/sobre-nosotros`, `/contacto`.
 - [ ] **`Article` schema: no existe.** Ningún archivo del proyecto genera este tipo. Añadir al
       abordar §7 (blog) — cada post debe llevarlo, con `datePublished`/`dateModified`/`author`.
 - [ ] **`WebSite` schema: no existe** (verificado, ningún archivo lo genera). Evaluar si
@@ -219,12 +231,17 @@ ven por bajo tráfico.
       omitirlo no penaliza.
 - [ ] Google Search Console — ¿está la propiedad verificada? ¿Qué dice de indexación/errores
       hoy? (requiere acceso a la cuenta, fuera de este repositorio)
-- [x] **GA4: la variable existe pero no está instalado de verdad.**
-      `GOOGLE_ANALYTICS_ID` está definida en [env.ts](src/config/env.ts) pero **no la
-      consume ningún componente** — no hay ningún script de gtag.js/Google Tag Manager en el
-      código. Si se quiere medir tráfico real (imprescindible para saber qué keywords están
-      funcionando, §"Search Console es obligatorio" del análisis original), hay que
-      implementarlo: falta el componente que cargue el script con el id ya configurado.
+- [x] **GA4: implementado.** [GoogleAnalytics.tsx](src/components/seo/GoogleAnalytics.tsx)
+      carga `gtag.js` con `next/script` (`strategy="afterInteractive"`, con el nonce de la
+      CSP) solo si `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID` está configurado — sin ID, no renderiza
+      nada. `config/csp.ts` añade automáticamente los orígenes de Google Analytics a
+      `script-src`/`connect-src` cuando la variable está presente. Verificado con build de
+      producción real, con y sin la variable puesta.
+      **Nota**: al implementarlo se descubrió que el `.env` local tenía el placeholder
+      `G-XXXXXXXXXX` de `.env.example` sin resolver — ya corregido con el Measurement ID real
+      de la propiedad GA4 de Imora. **Revisar que el `.env` de producción en Vercel tenga
+      también el ID real** y no ese mismo placeholder heredado (mismo tipo de problema que la
+      dirección/teléfono ficticios del §1).
 
 ## Roadmap de ejecución
 

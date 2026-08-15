@@ -46,6 +46,19 @@ const TURNSTILE_ORIGIN = "https://challenges.cloudflare.com";
 const GOOGLE_MAPS_EMBED_ORIGIN = "https://www.google.com";
 
 /**
+ * Google Analytics (GA4, `GoogleAnalytics.tsx`), solo si `ENV.GOOGLE_ANALYTICS_ID` está
+ * configurado. `googletagmanager.com` sirve el script `gtag.js`; `'strict-dynamic'` ya
+ * permitiría cargarlo sin listarlo (lo carga un script con nonce), pero `connect-src` no se
+ * beneficia de `'strict-dynamic'` — las peticiones de medición de gtag.js a
+ * `google-analytics.com`/`analytics.google.com` se bloquearían igual sin esta entrada.
+ */
+const GOOGLE_ANALYTICS_ORIGINS = [
+  "https://www.googletagmanager.com",
+  "https://www.google-analytics.com",
+  "https://analytics.google.com",
+];
+
+/**
  * Origen del backend, necesario en `img-src`/`connect-src`: las portadas del
  * blog y otros recursos se sirven desde ahí, no desde el propio dominio. Se
  * deduce de `API_BASE_URL` (la misma variable que usa `config/env.ts`); si no
@@ -68,6 +81,10 @@ function resolveBackendOrigin(): string {
  */
 export function buildContentSecurityPolicy(nonce: string): string {
   const backendOrigin = resolveBackendOrigin();
+  // Se lee `process.env` directamente (no `ENV.GOOGLE_ANALYTICS_ID` de
+  // `config/env.ts`) para no acoplar este módulo, que también evalúa
+  // `next.config.ts` en build time, al módulo de configuración pública.
+  const analyticsEnabled = Boolean(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
 
   return [
     "default-src 'self'",
@@ -75,8 +92,9 @@ export function buildContentSecurityPolicy(nonce: string): string {
     // (con nonce) carguen a su vez otros sin que cada uno necesite su propio
     // nonce — es lo que necesita el runtime de Next para sus chunks
     // dinámicos. Los navegadores que lo entienden ignoran la lista de hosts
-    // de después; los que no, caen a esa lista (Turnstile) como respaldo.
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${TURNSTILE_ORIGIN}`,
+    // de después; los que no, caen a esa lista (Turnstile, Google Analytics)
+    // como respaldo.
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${TURNSTILE_ORIGIN}${analyticsEnabled ? ` ${GOOGLE_ANALYTICS_ORIGINS.join(" ")}` : ""}`,
     // `'unsafe-inline'` se queda solo en `style-src`: Next.js no permite
     // todavía nonce en los `<style>` que inyecta por RSC/CSS-in-JS del propio
     // framework, y bloquearlos rompería el pintado. El riesgo que cubre un
@@ -85,7 +103,7 @@ export function buildContentSecurityPolicy(nonce: string): string {
     "style-src 'self' 'unsafe-inline'",
     `img-src 'self' data: blob:${backendOrigin ? ` ${backendOrigin}` : ""}`,
     "font-src 'self' data:",
-    `connect-src 'self'${backendOrigin ? ` ${backendOrigin}` : ""}`,
+    `connect-src 'self'${backendOrigin ? ` ${backendOrigin}` : ""}${analyticsEnabled ? ` ${GOOGLE_ANALYTICS_ORIGINS.join(" ")}` : ""}`,
     `frame-src 'self' ${TURNSTILE_ORIGIN} ${GOOGLE_MAPS_EMBED_ORIGIN}`,
     "object-src 'none'",
     "base-uri 'self'",
