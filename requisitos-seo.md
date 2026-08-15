@@ -641,3 +641,71 @@ Verificado con `tsc --noEmit` limpio, build de producción real sin errores, y H
 `name: "Empresa de Limpieza de Comunidades en Madrid"`, `areaServed` con las 20 ciudades y `url`
 propia (distinto del `Service` genérico dentro de `makesOffer`, que también sigue presente); en
 `/ayuda/preguntas-frecuentes` aparece `"@type":"FAQPage"` con todas las preguntas.
+
+## 22. Segunda pasada de una auditoría SEO externa (2026-08-16)
+
+El usuario pegó una segunda valoración externa (8,7/10) sobre la web ya en producción, con 4
+acciones concretas. Al contrastarlas con el repo, **2 de las 4 ya estaban resueltas en el código**
+(commit `3d3cb25`, rama `dev`): el H1 de la home (`Home.hero.title` = "Servicios integrales para
+comunidades, empresas y edificios en Madrid") y los anchors del footer para limpieza/mantenimiento
+(`Services.items.cleaning/maintenance.title`, que el footer lee directamente vía
+`servicesT(\`${slug}.title\`)}`). La auditoría externa evaluó una versión de producción anterior a
+estos cambios — **no existe rama `main` en el remoto** (solo `dev`, sin mergear/desplegar a
+donde sea que apunte producción), así que el desfase es de despliegue, no de código. No se tocó
+git ni el proceso de deploy: queda a decisión del usuario.
+
+Punto #3 de la auditoría ("dar más protagonismo a Administradores de Fincas, convertirla en una
+landing comercial potentísima"): la página (`/for/property-managers`) ya tenía hero, servicios,
+beneficios y CTA con copy específico del segmento (auditoría §6/§21). Prueba social real
+(testimonios, número de fincas gestionadas) sigue bloqueada por falta de datos reales, mismo
+criterio que el resto de bloqueantes de §1. Añadido lo que sí se puede construir sin inventar
+datos:
+
+- [x] **`PropertyManagersFaq.tsx`** (nuevo, junto a `PropertyManagersCta.tsx`): 8 preguntas
+      frecuentes propias de un administrador de fincas — facturación por finca (no una única
+      factura de cartera), un contrato por comunidad, a quién avisar si una incidencia afecta a
+      varias fincas, alta de una finca nueva sin renegociar las demás, qué pasa si una comunidad
+      ya tiene un proveedor para un servicio concreto, informe conjunto de toda la cartera,
+      alcance del departamento de inspección, y cómo se presenta la propuesta comercial. Ninguna
+      coincide con las de `Faq.categories` (dirigidas a un presidente de comunidad individual,
+      no a quien gestiona varias fincas a la vez). `FAQPage` schema con el mismo patrón que
+      `ZoneFaq.tsx`/`ServiceDetailFaq.tsx`, reutilizando sus clases `services__faq-*`. Insertado
+      en `PropertyManagersViewPage.tsx` entre `PropertyManagersBenefits` y `PropertyManagersCta`.
+      Contenido nuevo en `ForPropertyManagers.faqTitle`/`ForPropertyManagers.faq` (ES/EN).
+
+Punto #4 de la auditoría (revisar Search Console) sigue bloqueado por la falta del código real de
+verificación, ya documentado en §1/§18.
+
+Verificado con `tsc --noEmit` limpio, JSON válido en ambos locales, build de producción real
+(con un reintento por un fallo interno transitorio de Turbopack — `TurbopackInternalError:
+failed to receive message`, sin relación con el código, resuelto al reintentar) y HTML servido:
+en `/for/property-managers` aparece `"@type":"FAQPage"` y el texto de la primera pregunta.
+
+Puntos #8 y #10 de la misma auditoría, ambos sobre la home:
+
+- [x] **Punto #8 — el "0€" de la cinta de confianza es ambiguo.** `Home.trustBar.items.coverage`
+      mostraba `value: "0€"` con `label: "Sustituciones garantizadas sin coste añadido"` — un
+      número grande junto a "sin coste" puede leerse a primera vista como "servicio gratuito".
+      Reetiquetado a "Coste adicional por sustituciones garantizadas" (ES) / "Extra cost for
+      guaranteed substitutions" (EN), que deja claro que el "0€" es el coste añadido, no el
+      precio del servicio — la sugerencia más inequívoca de las dos que planteó la auditoría.
+      Sin cambios en `TrustBarSection.tsx` (el componente ya renderiza `value`/`label` desde
+      `views.json`, solo cambió el texto).
+- [x] **Punto #10 — sección "¿A quién ayudamos?" en la home.** No existía ningún bloque que
+      segmentara explícitamente por tipo de cliente en la home (solo aparecía indirectamente
+      dentro de servicios/zonas). Creado
+      [WhoWeHelpSection.tsx](src/components/ui/home/WhoWeHelpSection.tsx): tres tarjetas
+      (comunidades de propietarios, administradores de fincas, empresas y edificios), mismo
+      patrón `about__values-grid` que `ZoneServices.tsx`/`PropertyManagersServices.tsx` —
+      icono, título enlazado y descripción corta, sin sección nueva de CSS. La tarjeta de
+      administradores de fincas enlaza a `/for/property-managers` (refuerza también el punto
+      #3 de la auditoría anterior, dándole más visibilidad desde la home); las otras dos
+      enlazan a `/services`. Insertada en `HomeViewPage.tsx` entre `ServicesCarouselSectionLazy`
+      y `FeatureMosaicSection` (después de "qué ofrecemos", antes de "por qué confiar en
+      nosotros"). Contenido nuevo en `Home.whoWeHelp` (ES/EN).
+
+Verificado con `tsc --noEmit` limpio, JSON válido en ambos locales, build de producción real
+(con un segundo reintento por el mismo fallo transitorio de Turbopack) y HTML servido: en `/es`
+aparecen el título "Servicios pensados para cada tipo de cliente", las tres tarjetas (incluida
+"Administradores de fincas") y el nuevo label "Coste adicional por sustituciones garantizadas"
+en la cinta de confianza, sin rastro del texto anterior en esa sección.

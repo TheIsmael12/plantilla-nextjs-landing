@@ -111,7 +111,42 @@
       "title": "Tell us how many communities you manage",
       "subtitle": "We prepare a proposal per property, detailing what services each one already has and which ones could be outsourced to Imora.",
       "button": "Request a proposal for my portfolio"
-    }
+    },
+    "faqTitle": "Frequently asked questions for property management firms",
+    "faq": [
+      {
+        "question": "Do you invoice per building, or one single invoice for my whole portfolio?",
+        "answer": "Each community gets its own invoice, itemising the services it has contracted, even though you manage several buildings with us. That way every residents' association sees exactly what its own community pays, without it being mixed with the rest of your portfolio."
+      },
+      {
+        "question": "Do I need a separate contract for each community?",
+        "answer": "Yes, each community signs its own service contract (they're separate legal entities), but you keep the same point of contact and the same service standard across every building you manage with us, so adding a new one doesn't mean renegotiating from scratch."
+      },
+      {
+        "question": "If an issue affects several communities in my portfolio, who do I contact?",
+        "answer": "Your usual contact at Imora: there's no need to report separately to a different concierge, cleaning company and technician at each building. A single team coordinates the response even though the communities are legally independent."
+      },
+      {
+        "question": "Can I add a new building without renegotiating the terms of the others?",
+        "answer": "Yes, each new building is quoted based on the services that specific community needs, but we apply the same reporting process and the same service standard you already know from the rest of your portfolio, without having to re-explain how you work."
+      },
+      {
+        "question": "What if a community in my portfolio already has a service contracted with another provider?",
+        "answer": "We can step in only for the services the community decides to outsource to us, and coordinate the handover with the outgoing provider so there's no coverage gap during the switch."
+      },
+      {
+        "question": "Do I get a single report covering all my communities, or do I need to check building by building?",
+        "answer": "Your contact at Imora knows the status of every community in your portfolio, so you can ask for a combined view instead of having to ask service by service and building by building."
+      },
+      {
+        "question": "Does the inspection team visit all my buildings, or only the ones with problems?",
+        "answer": "We visit every community with contracted services, not only the ones that have had an incident, precisely to catch a problem before it reaches the residents' meeting."
+      },
+      {
+        "question": "How do you put together a proposal if I manage many communities at once?",
+        "answer": "We prepare a proposal per building, detailing which services each one already has contracted and which could be outsourced to Imora, so you can bring it to each residents' meeting separately if you need to."
+      }
+    ]
   },
   "Zones": {
     "hero": {
@@ -1011,7 +1046,7 @@
         },
         "coverage": {
           "value": "0€",
-          "label": "Guaranteed cover, no extra cost"
+          "label": "Extra cost for guaranteed substitutions"
         },
         "certifications": {
           "label": "Certified for quality, environment, workplace safety and information security"
@@ -1113,6 +1148,24 @@
       "aside": "No obligation. We'll call you to understand your needs.",
       "cardLabel": "We reply within 48 hours",
       "orLabel": "or"
+    },
+    "whoWeHelp": {
+      "eyebrow": "Who we help",
+      "title": "Services built around each type of client",
+      "items": {
+        "communities": {
+          "title": "Homeowner communities",
+          "description": "Concierge, cleaning, maintenance and gardening for your community's daily needs, with a single team and a single point of contact."
+        },
+        "propertyManagers": {
+          "title": "Property management firms",
+          "description": "One provider to manage the services of every community in your portfolio, with the same standard across each building."
+        },
+        "businesses": {
+          "title": "Businesses and buildings",
+          "description": "Concierge, cleaning, maintenance and security tailored to each business, office or shopping centre."
+        }
+      }
     }
   },
   "Services": {

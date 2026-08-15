@@ -111,7 +111,42 @@
       "title": "Cuéntanos cuántas comunidades gestionas",
       "subtitle": "Preparamos una propuesta por finca, con el detalle de servicios que ya tiene contratados cada una y los que podrían externalizarse con Imora.",
       "button": "Solicitar propuesta para mi cartera"
-    }
+    },
+    "faqTitle": "Preguntas frecuentes de administradores de fincas",
+    "faq": [
+      {
+        "question": "¿Facturáis por finca o hay una única factura para toda mi cartera?",
+        "answer": "Cada comunidad recibe su propia factura, con el detalle de los servicios que tiene contratados, aunque tú gestiones varias fincas con nosotros. Así cada junta de vecinos ve exactamente lo que paga su comunidad, sin mezclarlo con el resto de tu cartera."
+      },
+      {
+        "question": "¿Necesito un contrato distinto por cada comunidad?",
+        "answer": "Sí, cada comunidad firma su propio contrato de servicios (son personas jurídicas distintas), pero mantenemos el mismo interlocutor y el mismo estándar de servicio en todas las fincas que gestionas, para que incorporar una nueva no suponga renegociar desde cero."
+      },
+      {
+        "question": "Si una incidencia afecta a varias comunidades de mi cartera, ¿a quién aviso?",
+        "answer": "A tu mismo contacto habitual en Imora: no hace falta que reportes por separado a un conserje, una empresa de limpieza y un técnico distintos en cada finca. Un único equipo coordina la respuesta aunque las comunidades sean jurídicamente independientes."
+      },
+      {
+        "question": "¿Puedo incorporar una finca nueva sin renegociar las condiciones de las demás?",
+        "answer": "Sí, cada alta se presupuesta según los servicios que necesite esa comunidad en concreto, pero aplicamos el mismo proceso de reporte y el mismo estándar de servicio que ya conoces del resto de tu cartera, sin tener que volver a explicar cómo trabajáis."
+      },
+      {
+        "question": "¿Qué pasa si una comunidad de mi cartera ya tiene contratado un servicio con otro proveedor?",
+        "answer": "Podemos entrar solo en los servicios que la comunidad decida externalizar con nosotros, y coordinar la transición con el proveedor saliente para que no haya un hueco de cobertura mientras cambia."
+      },
+      {
+        "question": "¿Tengo un informe único de todas mis comunidades o tengo que consultar finca por finca?",
+        "answer": "Tu interlocutor en Imora conoce el estado de todas las comunidades de tu cartera, así que puedes pedir una visión conjunta en vez de tener que preguntar servicio por servicio y finca por finca."
+      },
+      {
+        "question": "¿El departamento de inspección visita todas mis fincas o solo las que dan problemas?",
+        "answer": "Visitamos todas las comunidades con servicios contratados, no solo las que han tenido una incidencia, precisamente para detectar un problema antes de que llegue a la junta de vecinos."
+      },
+      {
+        "question": "¿Cómo presentáis la propuesta si gestiono muchas comunidades a la vez?",
+        "answer": "Preparamos una propuesta por finca, con el detalle de qué servicios tiene ya contratados cada una y cuáles podrían externalizarse con Imora, para que puedas llevarla a cada junta de vecinos por separado si lo necesitas."
+      }
+    ]
   },
   "Zones": {
     "hero": {
@@ -1011,7 +1046,7 @@
         },
         "coverage": {
           "value": "0€",
-          "label": "Sustituciones garantizadas sin coste añadido"
+          "label": "Coste adicional por sustituciones garantizadas"
         },
         "certifications": {
           "label": "Certificados en calidad, ambiente, PRL y seguridad de la información"
@@ -1113,6 +1148,24 @@
       "aside": "Sin compromiso. Te llamamos para entender tu caso.",
       "cardLabel": "Te respondemos en menos de 48 horas",
       "orLabel": "o"
+    },
+    "whoWeHelp": {
+      "eyebrow": "A quién ayudamos",
+      "title": "Servicios pensados para cada tipo de cliente",
+      "items": {
+        "communities": {
+          "title": "Comunidades de propietarios",
+          "description": "Conserjería, limpieza, mantenimiento y jardinería para el día a día de tu comunidad, con un único equipo y un único interlocutor."
+        },
+        "propertyManagers": {
+          "title": "Administradores de fincas",
+          "description": "Un solo proveedor para gestionar los servicios de todas las comunidades de tu cartera, con el mismo estándar en cada finca."
+        },
+        "businesses": {
+          "title": "Empresas y edificios",
+          "description": "Conserjería, limpieza, mantenimiento y seguridad adaptados a cada negocio, oficina o centro comercial."
+        }
+      }
     }
   },
   "Services": {
