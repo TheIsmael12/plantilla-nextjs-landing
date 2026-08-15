@@ -7,15 +7,6 @@ const nextConfig: NextConfig = {
 	// `babel-plugin-react-compiler` ya está instalado como devDependency:
 	// esta flag lo activa de verdad (si no, el paquete no hace nada).
 	reactCompiler: true,
-	experimental: {
-		// Por defecto Next genera un archivo CSS por cada punto de entrada que
-		// importa estilos (cada componente con su propio `import '*.scss'`), lo
-		// que en el home se traducía en más de una decena de `<link>` que
-		// bloquean el render, cada uno de un par de KiB. `'strict'` agrupa el
-		// CSS que comparten las páginas en menos archivos más grandes, tantas
-		// peticiones bloqueantes menos en la ruta crítica.
-		cssChunking: 'strict',
-	},
 	images: {
 		remotePatterns: [
 			// Backend en desarrollo, sirve las portadas/avatares del blog en
@@ -24,6 +15,12 @@ const nextConfig: NextConfig = {
 			// TODO: añadir aquí el hostname real del backend en producción.
 			{ protocol: 'https', hostname: 'api.imora.es' },
 		],
+		// Next.js solo sirve las calidades declaradas aquí; cualquier `quality`
+		// que pida un componente y no esté en esta lista se ignora en
+		// silencio y cae a 75 (el `quality={60}` de `ImageLogo.tsx` no
+		// hacía nada sin esto — la URL de producción seguía saliendo con
+		// `q=75` aunque el código ya pedía 60).
+		qualities: [60, 75],
 	},
 
 	/**
