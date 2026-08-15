@@ -96,13 +96,12 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
 
-    sitemap: [
-      `${BASE_URL}/sitemap.xml`, // páginas estáticas
-      `${BASE_URL}/blog-sitemap.xml`, // posts del blog (generado por el backend)
-    ],
-    // RSS feeds (descubrimiento automático por crawlers)
-    // GET /rss.xml        → español
-    // GET /rss.xml?lang=en → inglés
+    // Un único sitemap: `sitemap.ts` ya combina las rutas estáticas con los posts del
+    // blog (leídos del backend vía `getBlogSitemapEntries`), no hay un `/blog-sitemap.xml`
+    // aparte — esa segunda entrada apuntaba a una URL que nunca existió en el proyecto y
+    // que Googlebot/Bingbot habrían encontrado como 404 al intentar leerla.
+    sitemap: [`${BASE_URL}/sitemap.xml`],
+    // Feed RSS (descubrimiento automático por crawlers): `GET /feed.xml`.
     host: BASE_URL,
   };
 }

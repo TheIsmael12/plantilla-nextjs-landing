@@ -1,0 +1,204 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.services__zones {
+  background: var(--background-color);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  @include py(4rem);
+}
+
+.services__zones-title {
+  text-align: center;
+  max-width: 60rem;
+  margin-inline: auto;
+  margin-bottom: 2rem;
+}
+
+.services__zones-layout {
+  max-width: 64rem;
+  margin-inline: auto;
+  // `1` (entero), no `1fr`: en Sass, `1fr` es de tipo "number" igual que un
+  // entero, así que el mixin `grid()` lo trataba como número de columnas y
+  // generaba el CSS inválido `repeat(1fr, 1fr)` — el mapa no se veía porque
+  // el navegador descartaba toda la regla `grid-template-columns`.
+  @include grid(1, 1.5rem);
+
+  @include screen(md) {
+    grid-template-columns: 1fr 14rem;
+    align-items: center;
+  }
+}
+
+// ─── Mapa (Leaflet) ─────────────────────────────────────────────────────────
+//
+// Mapa real en vez de una proyección SVG a mano: dos intentos anteriores (chips en fila, luego
+// un SVG esquemático) no convencieron — ni diferenciaban bien de "Servicios relacionados" ni
+// evitaban que las zonas de la corona noroeste (muy juntas entre sí) se solaparan. Con Leaflet
+// cada zona queda en su ubicación real, con calles reconocibles de fondo.
+//
+// Tileset CARTO Voyager (gris claro): el oscuro (Dark Matter) se probó primero, pero incluso
+// aclarado con un filtro CSS seguía pareciendo "demasiado negro" — Voyager es un tileset claro
+// dedicado, sin necesidad de forzar su aspecto con filtros.
+
+.services__zones-canvas {
+  width: 100%;
+  // Más alto que un mapa "de acompañamiento" habitual: con el zoom fijo que
+  // encuadra las 6 zonas destacadas, la corona noroeste (Majadahonda, Las
+  // Rozas, Boadilla, Pozuelo) queda muy junta — más alto da más separación
+  // vertical entre sus tooltips permanentes, para que no se pisen entre sí.
+  height: 26rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  @include rounded(1rem);
+
+  @include screen(sm, max) {
+    height: 20rem;
+  }
+
+  .leaflet-control-zoom {
+    border: 1px solid var(--border-color) !important;
+    box-shadow: none !important;
+
+    a {
+      background: var(--surface-color) !important;
+      color: var(--color) !important;
+      border-color: var(--border-color) !important;
+    }
+
+    a:hover {
+      background: var(--background-color) !important;
+    }
+  }
+
+  .leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.75) !important;
+    color: #333 !important;
+    font-size: 0.6rem !important;
+
+    a {
+      color: #333 !important;
+    }
+  }
+}
+
+// Pin de cada zona: un punto simple dibujado en CSS (sin catálogo de iconos
+// de Leaflet), más grande y con halo para Madrid capital.
+.services__zones-marker {
+  background: transparent;
+  border: none;
+}
+
+.services__zones-pin {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-color);
+  // Borde blanco fijo, no `var(--light-color)`: el pin vive siempre sobre el
+  // mapa claro (Voyager, en ambos temas de la web), así que necesita el
+  // mismo contraste fijo que el tooltip en vez de heredar el tema claro/oscuro.
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  @include rounded(999px);
+
+  &--capital {
+    background: var(--fill-color);
+    border-width: 3px;
+  }
+}
+
+// Tooltip permanente con el nombre de la zona (en vez de un `<text>` de SVG
+// posicionado a mano): Leaflet ya resuelve que no se salga del lienzo.
+//
+// Colores fijos, no las variables de tema (`--color`/`--surface-color`): el
+// mapa es claro siempre (Voyager), en ambos temas de la web, así que la
+// etiqueta necesita su propio contraste fijo en vez de heredar el tema
+// oscuro de la web (que daría una etiqueta oscura sobre fondo claro con el
+// mismo problema al revés).
+.services__zones-tooltip {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  color: #1f2937 !important;
+  font-size: 0.75rem !important;
+  font-weight: $font-semibold;
+  padding: 0.3rem 0.65rem !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
+  @include rounded(999px);
+
+  // `!important`: la flecha del tooltip la dibuja Leaflet con selectores por
+  // dirección (`.leaflet-tooltip-left:before`, `-right`, `-top`...) — con 4
+  // direcciones distintas en uso (arriba/abajo/izquierda/derecha, para
+  // separar los tooltips de la corona noroeste), hay que anularla en todas
+  // por igual en vez de una sola regla `-top` como si solo se usara esa.
+  &::before {
+    display: none !important;
+  }
+}
+
+// ─── Lista lateral ──────────────────────────────────────────────────────────
+
+.services__zones-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  @include flex(row, center, stretch, 0.6rem);
+  flex-wrap: wrap;
+
+  @include screen(md) {
+    @include flex(column, center, stretch, 0.5rem);
+    flex-wrap: nowrap;
+  }
+}
+
+.services__zones-link {
+  @include flex(row, space-between, center, 0.75rem);
+  @include px(1rem);
+  height: 2.75rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  color: var(--color);
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  @include rounded(999px);
+
+  @include screen(md) {
+    @include rounded(0.7rem);
+  }
+
+  svg {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+    border-color: var(--primary-color-active);
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.16);
+  }
+
+  &:hover svg {
+    transform: translateX(3px);
+  }
+}
+
+.services__zones-link-name {
+  white-space: nowrap;
+}
+
+.services__zones-all-link {
+  @include flex(row, center, center, 0.4rem);
+  margin: 1.5rem auto 0;
+  width: fit-content;
+  color: var(--primary-color-active);
+  font-weight: $font-semibold;
+  font-size: $text-sm;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

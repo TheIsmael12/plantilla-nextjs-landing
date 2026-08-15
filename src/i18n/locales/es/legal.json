@@ -571,7 +571,8 @@
         },
         "comoComunicar": {
           "title": "Cómo comunicarlo",
-          "intro": "Puedes presentar tu comunicación por correo electrónico al responsable del canal, detallando los hechos con el mayor detalle posible: qué ha ocurrido, cuándo, quién está implicado y si dispones de alguna evidencia. También puedes utilizar el formulario general de contacto indicando expresamente que se trata de una comunicación para el canal de reclamaciones.",
+          "intro": "Puedes presentar tu comunicación a través de nuestro asistente guiado, detallando los hechos con el mayor detalle posible: qué ha ocurrido, cuándo, quién está implicado y si dispones de alguna evidencia. Puedes hacerlo con tu nombre y email, para que te confirmemos que la hemos recibido, o marcar que prefieres no identificarte.",
+          "formButton": "Presentar una reclamación",
           "highlightLabel": "Confidencialidad:",
           "highlight": "La identidad de quien presenta la comunicación y la de cualquier tercero mencionado se tratan de forma confidencial durante todo el proceso, con acceso restringido únicamente al personal encargado de su gestión."
         },

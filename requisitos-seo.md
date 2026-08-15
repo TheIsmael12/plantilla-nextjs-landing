@@ -52,6 +52,11 @@ inconsistencias NAP — Name/Address/Phone — entre la web y Google Business Pr
       verdad (o están en trámite): quitar la mención, o cambiarla a «en proceso de
       certificación» solo si es cierto. No crear la página `/certificaciones/` del §9 hasta
       resolver esto.
+- [ ] **TODO — Código real de verificación de Google Search Console.** El código (§18,
+      auditoría #6) ya está conectado y funcional — falta poner el valor real en
+      `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` del `.env` de producción (Vercel). Sin esto no se
+      puede verificar la propiedad en Search Console ni confirmar cómo indexa Google el resto
+      del trabajo de este documento.
 
 ## 2. Keyword map (obligatorio antes de crear páginas o artículos)
 
@@ -100,44 +105,45 @@ Antes de crear páginas nuevas, revisar y corregir lo ya publicado:
 
 ## 4. SEO local — arquitectura de zonas
 
-**No copiar la misma página cambiando solo el nombre del municipio** (contenido duplicado,
-penalizable). Cada página de zona necesita contenido específico: referencias a esa zona en
-concreto, no relleno genérico.
+**[x] Confirmado por la empresa (2026-08-15): los 20 municipios de la tabla de niveles son
+cobertura real, no propuesta** — implementadas las 20 páginas de zona.
 
-Convención de rutas: seguir el patrón ya usado en `config/pathnames.ts` (clave canónica en
-inglés, slug traducido en español) — por ejemplo:
+**Implementación**: 20 rutas estáticas `/zonas/[municipio]` (clave canónica
+`/zones/[municipio]`, `config/pathnames.ts`) — no una ruta dinámica `[city]`, mismo criterio
+que los servicios: `generateMetadata.ts`/`BreadcrumbJsonLd.tsx` excluyen explícitamente
+cualquier pathname con `[`, y el nombre del municipio no se traduce entre idiomas (es un
+topónimo). Catálogo de datos en [config/zones.ts](src/config/zones.ts) (corona metropolitana,
+distancia a Madrid, coordenadas — todo dato público de geografía, no de la actividad de Imora).
 
-```
-"/zones": { en: "/zones", es: "/zonas" }
-"/zones/[city]": { en: "/zones/[city]", es: "/zonas/[ciudad]" }
-```
+Cada página de zona lleva, para evitar ser "la misma plantilla con el nombre cambiado":
 
-Zonas candidatas, priorizadas por nivel — **ninguna está confirmada como operativa**, es una
-propuesta a validar con la empresa antes de crear una sola página. No publicar ninguna zona
-donde Imora no preste servicio de verdad (riesgo de inconsistencia NAP y de prometer
-cobertura falsa a un cliente potencial).
+- **Contexto geográfico real** por municipio (corona, distancia, perfil de vivienda
+  predominante), redactado a mano — no relleno genérico. [ZoneContext.tsx](src/components/ui/zones/ZoneContext.tsx)
+- **Los 6 servicios enlazados** con anchor text local ("Conserjería en Alcobendas").
+  [ZoneServices.tsx](src/components/ui/zones/ZoneServices.tsx)
+- **2 FAQ específicas por zona**, derivadas del perfil de vivienda de su corona (piscinas/
+  jardinería en el noroeste de renta alta, mantenimiento técnico en el sur de más densidad),
+  con `FAQPage` schema. [ZoneFaq.tsx](src/components/ui/zones/ZoneFaq.tsx)
+- **Zonas cercanas** (misma corona metropolitana), para el enlazado interno
+  zona↔zona. [ZoneNearby.tsx](src/components/ui/zones/ZoneNearby.tsx),
+  [getNearbyZones](src/config/zones.ts)
+- **`Service`/`areaServed` schema** con coordenadas reales del municipio, complementando el
+  `LocalBusiness` general. [ZoneJsonLd.tsx](src/components/seo/ZoneJsonLd.tsx)
 
-**Criterio de priorización**: cercanía a Madrid capital y perfil de vivienda en comunidad
-(más comunidades de propietarios = más mercado potencial para conserjería/limpieza/
-mantenimiento), no volumen de búsqueda medido (eso solo lo dará Search Console una vez
-configurado, §12). Reordenar cuando haya datos reales de tráfico/clientes.
+Priorización (para futuras campañas/enlazado destacado, ya no para decidir qué publicar —
+las 20 están publicadas): `sitemap.ts` usa prioridad 0.7 para las 3 originales, 0.6 para
+antiguo Nivel 1 (Majadahonda, Las Rozas, Boadilla del Monte, Alcobendas), 0.5 para Nivel 2,
+0.4 para Nivel 3.
 
-| Nivel | Municipios | Por qué este nivel |
-|---|---|---|
-| **Ya confirmadas** (en la web hoy) | Madrid capital, Pozuelo de Alarcón, Alcorcón | Ya mencionadas en `views.json` — punto de partida real, no propuesta. |
-| **Nivel 1** — corona noroeste, alto perfil de comunidades | Majadahonda, Las Rozas de Madrid, Boadilla del Monte, Alcobendas | Zona de renta alta con predominancia de urbanizaciones y comunidades cerradas — el perfil de cliente que más externaliza conserjería/seguridad/piscinas. Contigua a Pozuelo, ya confirmada. |
-| **Nivel 2** — corona norte y sur con volumen de comunidades | San Sebastián de los Reyes, Tres Cantos, Getafe, Leganés, Fuenlabrada, Móstoles | Municipios grandes con mucho parque de vivienda en bloque — volumen alto de comunidades de propietarios, aunque el perfil de gasto medio en servicios externalizados sea más variable que el Nivel 1. |
-| **Nivel 3** — resto de la corona metropolitana | Torrejón de Ardoz, Coslada, Rivas-Vaciamadrid, Colmenar Viejo, Torrelodones, Collado Villalba, Arganda del Rey | Completa la cobertura de la Comunidad de Madrid; menor prioridad de lanzamiento salvo que la empresa confirme que ya opera ahí activamente. |
+Verificado con build de producción real: 200 en ES/EN, title/H1/breadcrumb/FAQ/schema
+correctos, enlazado a los 6 servicios y a zonas de la misma corona confirmado en varias zonas
+de muestra (Alcobendas, Torrelodones).
 
-**TODO — bloqueante**: validar con la empresa, municipio por municipio, cuáles son
-operativos de verdad hoy. Sugerencia de proceso: empezar solo por el Nivel 1 (4 municipios)
-+ las 3 ya confirmadas, publicar esas páginas, y ampliar a Nivel 2/3 según vaya habiendo
-clientes o solicitudes reales en esas zonas — evita publicar 20 páginas de golpe sobre
-cobertura no verificada.
-
-Cada página de zona debe enlazar a los 6 servicios, y cada página de servicio debería, a su
-vez, enlazar a las zonas relevantes (enlazado interno bidireccional, §11 de la auditoría
-original).
+El contenido de cada zona se generó una vez con un script de una sola vez (ya borrado tras su
+uso — ver §18); el copy real vive ahora en `views.json`, que es la fuente única. Al añadir una
+zona nueva más adelante, redactar el `context`/`heroSubtitle`/FAQ directamente ahí, siguiendo
+el mismo criterio (datos geográficos objetivos, sin reutilizar frases de cierre entre zonas —
+ver la lección de la auditoría #4, §16).
 
 ## 5. Páginas de servicio — ampliación de contenido
 
@@ -158,10 +164,19 @@ mismas rutas) con:
 Hoy la web solo habla de "comunidades" y "empresas" de forma genérica. Administradores de
 fincas es un cliente B2B de mucho más valor (gestionan varias comunidades a la vez).
 
-- [ ] Página `/servicios-para/administradores-de-fincas/` (o integrarlo como sección dentro
-      de `/about` o una landing propia — decidir con la empresa el nivel de inversión).
-- [ ] Contenido de blog dirigido a este segmento (ver lista de títulos propuestos en el
-      análisis original, sección "9. Hay que crear contenido para administradores de fincas").
+- [x] **Página implementada**: `/para/administradores-de-fincas` (clave canónica
+      `/for/property-managers`, `config/pathnames.ts`). Hero, 4 beneficios (un único
+      interlocutor, sustituciones garantizadas, departamento de inspección, mismo estándar en
+      toda la cartera — todos derivados de contenido ya publicado en `About.values`, ninguno
+      inventado) y CTA hacia `/contact`. No aparece en navbar/footer (landing de captación, no
+      sección de menú, mismo criterio que `/careers`). Incluida en `sitemap.ts`. Verificado
+      con build de producción real: 200 en ambos locales, title/H1/breadcrumb correctos.
+      **Componentes**: `src/components/ui/property-managers/*`,
+      `src/views/(public)/for/PropertyManagersViewPage.tsx`.
+- [ ] Contenido de blog dirigido a este segmento: ya mapeado en `keyword-map.md` §2 (filas
+      marcadas "administradores de fincas" — checklist, cómo elegir empresa, contrato de
+      mantenimiento, servicios externalizados, reducir incidencias). Redacción pendiente,
+      va por la intranet (§7).
 
 ## 7. Blog — plan de contenido
 
@@ -244,9 +259,12 @@ ven por bajo tráfico.
       Verificado por tipos (`tsc`); no se pudo probar con datos reales porque el blog depende
       del backend (§7: la redacción va por la intranet), pero el componente compila y su forma
       coincide con la del metadata ya en producción.
-- [ ] **`WebSite` schema: no existe** (verificado, ningún archivo lo genera). Evaluar si
-      añadir con `SearchAction` solo si el blog/sitio tiene buscador interno real; si no,
-      omitirlo no penaliza.
+- [x] **`WebSite` schema: implementado**, sin `SearchAction`.
+      [WebSiteJsonLd.tsx](src/components/seo/WebSiteJsonLd.tsx) — se confirmó que
+      `BlogFilters.tsx` solo filtra por categoría/tag, no tiene buscador de texto libre, así
+      que declarar `SearchAction` sería una promesa falsa a los rich results. `publisher`
+      referencia el mismo `@id` que `LocalBusiness` en `OrganizationJsonLd.tsx`. Verificado
+      con build de producción real.
 - [ ] Google Search Console — ¿está la propiedad verificada? ¿Qué dice de indexación/errores
       hoy? (requiere acceso a la cuenta, fuera de este repositorio)
 - [x] **GA4: implementado.** [GoogleAnalytics.tsx](src/components/seo/GoogleAnalytics.tsx)
@@ -271,7 +289,7 @@ ven por bajo tráfico.
    redactar. Las combinaciones de zona quedan sin generar hasta confirmar los municipios
    reales (§4). Sin una fila en este documento, no se crea ninguna URL nueva.
 4. **Fase 3 — On-page de lo existente** (§3, §5): mejorar antes de expandir.
-5. **Fase 4 — SEO local** (§4): páginas de zona, con contenido real por municipio.
+5. **Fase 4 — SEO local** (§4): completa — 20 páginas de zona con contenido real por municipio.
 6. **Fase 5 — Segmento administradores de fincas** (§6).
 7. **Fase 6 — Blog** (§7): 27 artículos ya mapeados en `keyword-map.md` §2, listos para
    redactarse desde la intranet (no en este repo) — luego cadencia mensual.
@@ -279,3 +297,273 @@ ven por bajo tráfico.
 
 Cada fase se aborda como su propio bloque de trabajo (probablemente varias sesiones) — este
 documento es la referencia viva a actualizar según avance, no un plan cerrado de una sola vez.
+
+## 13. Auditoría post-implementación (2026-08-15)
+
+Tras completar las Fases 1, 2, 4 y parte de la 6/12, revisión de lo ya construido en busca de
+huecos — encontrados y corregidos:
+
+- [x] **Bug real: `robots.ts` apuntaba a un sitemap que no existe.** Referenciaba
+      `${BASE_URL}/blog-sitemap.xml`, una URL que nunca existió en el proyecto (el sitemap
+      único de `sitemap.ts` ya combina páginas estáticas y posts del blog). Corregido a un
+      único `sitemap.xml`.
+- [x] **Crítico: las 21 páginas nuevas (20 zonas + administradores de fincas) no tenían
+      ningún enlace interno real** — solo alcanzables vía sitemap, sin nada que las
+      enlazara desde páginas de alto tráfico. Corregido:
+      - `ExpansionMapSection.tsx` (home): antes listaba 3 zonas como texto plano sin enlazar,
+        leídas de una copia desincronizada (`Home.expansion.zones`). Ahora enlaza a las 20
+        páginas de zona reales, leídas de `ZONES` (`config/zones.ts`) — única fuente, no
+        puede volver a desincronizarse.
+      - `/for/property-managers`: `shownInFooter` pasó de `false` a `true` en `routing.ts`
+        (el comentario original decía "enlazada desde el blog", pero el blog aún no tiene
+        artículos publicados — era una promesa sin cumplir).
+- [x] **`llms.txt` no incluía zonas ni administradores de fincas.** Quedó desactualizado en
+      cuanto se crearon esas páginas; ahora lista las 20 zonas (de `ZONES`, mismo criterio de
+      fuente única) y la landing de administradores de fincas.
+
+Verificado con build de producción real: `robots.txt` sin la URL rota, home con 20 `<a
+href="/zonas/...">`, footer con el enlace a administradores de fincas, `llms.txt` con ambas
+secciones nuevas.
+
+## 14. Auditoría #2 post-implementación (2026-08-15)
+
+Segunda pasada, sin dar por buena la primera — encontrados 2 problemas reales más, corregidos:
+
+- [x] **Grave: `title`/`description` de las 20 zonas era una plantilla idéntica** (solo
+      cambiaba el nombre del municipio: *"Servicios para comunidades en {zona}"* / misma
+      descripción con find-replace) — justo lo que este documento prohíbe en §4, aunque el
+      contenido visible (`context`/`heroSubtitle`/FAQ) sí fuera único desde el principio. Es
+      lo que Google muestra en resultados de búsqueda, así que importaba más que el body.
+      Corregido con un script de una sola vez (ya borrado tras su uso — ver §18):
+      title/description/keywords redactados a mano por zona, derivados del mismo ángulo ya
+      usado en su `context` (perfil de vivienda, servicios más relevantes de esa corona) —
+      verificado: 20 descripciones, 20 únicas.
+- [x] **`/zonas` (índice) daba 404.** No existía ninguna página que listara las 20 zonas
+      juntas — quien quitara el último segmento de cualquier URL de zona, o buscara "zonas de
+      cobertura Imora", se encontraba con un error. Creada
+      [ZonesIndexViewPage.tsx](src/views/(public)/zones/ZonesIndexViewPage.tsx): agrupa las
+      20 por corona metropolitana (más fácil de escanear que una lista plana), con hero
+      ligero sin foto (para no reutilizar otra vez `about/hero.jpg`, ya usada en 20+1
+      páginas). Enlazada desde el footer.
+
+Verificado con build de producción real: `/zonas` (ES) y `/zones` (EN) devuelven 200,
+agrupación por corona correcta, 20 enlaces, metadata de zona individual ya con
+title/description distintos entre sí.
+
+**Descartado en esta pasada** (falsa alarma propia): pensé que faltaba `hreflang` en las
+páginas de zona — sí está presente y correcto, solo lo busqué mal (React sirve el atributo
+como `hrefLang`, no `hreflang`, en el HTML).
+
+**Sigue pendiente**: la misma imagen (`about/hero.jpg`) se repite en `/about` y en las 20
+zonas — decisión consciente documentada en el código, no un bug, pero limita la
+diferenciación visual de cada página si se audita con una herramienta de imágenes.
+
+### Enlazado servicio→zona — cerrado
+
+[x] Enlazado bidireccional completo. [ServiceDetailZones.tsx](src/components/ui/services/ServiceDetailZones.tsx)
+muestra, en las 6 fichas de servicio, las 6 zonas de mayor prioridad (las 3 confirmadas +
+Nivel 1 completo — mismo orden que usa `sitemap.ts`) más un enlace al índice `/zonas`
+completo. No las 20 en cada ficha a propósito: sería ruido visual y diluiría el valor de cada
+enlace individual. Verificado con build de producción real en `/servicios/limpieza` y
+`/servicios/seguridad`: 6 enlaces a zona + 1 al índice, en ambas.
+
+## 15. Auditoría #3 post-implementación (2026-08-15)
+
+Tercera pasada, sin dar por buenos los fixes previos — **no encontró bugs nuevos**: todo lo de
+las auditorías #1 y #2 seguía funcionando, incluido un efecto colateral bueno no planeado —
+el breadcrumb de cada zona individual ganó automáticamente un tercer nivel (Inicio → Zonas de
+cobertura → Municipio) en cuanto `/zones` quedó traducido en `Routes` para el índice.
+
+Encontrados 3 hallazgos menores (ninguno bloqueante, todos de calidad/consistencia), corregidos:
+
+- [x] **Título de sección repetido en las 6 fichas de servicio.** "Disponible en estas zonas
+      de Madrid" era literal e idéntico en `ServiceDetailZones.tsx` — texto de UI, no
+      metadata indexable (el `<title>`/`description` real de cada servicio ya era único
+      desde antes), pero repetido sin necesidad. Corregido: recibe el `slug` del servicio y
+      compone `"{servicio} disponible en estas zonas de Madrid"` — verificado con build real
+      en `/servicios/limpieza` y `/servicios/conserjeria`, ya distintos.
+- [x] **`Service` de `ZoneJsonLd.tsx` sin `name`.** Válido en schema.org pero más débil —
+      una entidad de servicio sin nombrar. Corregido reutilizando el `title` de
+      `Metadata.routes["/zones/<slug>"]` (ya único por zona desde el fix del metadata
+      plantilla, §14) en vez de redactar un tercer texto — verificado en Alcobendas: `"name":
+      "Conserjería y seguridad para empresas y comunidades en Alcobendas"`.
+- [x] **Índice `/zonas` sin schema propio.** Solo llevaba el `LocalBusiness`/`WebSite`
+      genérico de toda la web, nada que dijera explícitamente "esto es un listado".
+      Añadido [ZonesIndexJsonLd.tsx](src/components/seo/ZonesIndexJsonLd.tsx):
+      `CollectionPage` con `ItemList` de las 20 zonas (`Place` con coordenadas reales) —
+      verificado: 20 `Place` en el JSON-LD del índice.
+
+Verificado con build de producción real los 3 fixes juntos.
+
+## 16. Auditoría #4 post-implementación, estricta (2026-08-15)
+
+Cuarta pasada, con verificación programática en vez de solo lectura manual — comprobó
+integridad de datos y buscó similitud textual entre las 20 zonas, no solo huecos evidentes.
+
+**Verificación de integridad**: los 20 slugs de [config/zones.ts](src/config/zones.ts)
+coinciden exactamente (ni de más ni de menos) en las 8 fuentes que deberían reflejarlos:
+`pathnames.ts`, `Metadata.routes` (ES/EN), `Routes` (ES/EN), `Zones.items` (ES/EN), las
+carpetas de página, y `sitemap.ts`. Sin bugs de sincronización.
+
+**Verificación de Open Graph / robots**: `og:title`/`og:description` heredan el metadata ya
+único por zona; las 21 páginas nuevas (20 zonas + administradores de fincas) llevan
+`robots: index, follow`, correcto para páginas SEO públicas.
+
+- [x] **Grave: 3 pares de zonas con frases de cierre casi idénticas en `context`.** Análisis
+      de similitud léxica (Jaccard) entre los 20 `context` encontró Getafe/Coslada (57%),
+      Tres Cantos/Rivas-Vaciamadrid (51%) y Colmenar Viejo/Arganda del Rey (55%) — frases
+      como *"son los servicios que más estabilidad aportan a..."* o *"tienen un peso
+      especialmente alto en el perfil de servicio de la zona"* reutilizadas casi literales al
+      redactar por corona metropolitana, sin darme cuenta en el momento. Es el mismo problema
+      que el metadata plantilla de §14, esta vez en el **contenido visible** (más grave: es
+      lo que un usuario real lee, no solo lo que ve Google en resultados). Corregidas las 6
+      zonas (ES y EN) con redacciones propias que mantienen los mismos hechos geográficos
+      reales — verificado: 0 pares por encima del 50% de similitud tras el fix.
+
+**Descartado** (no era problema): la similitud en `heroSubtitle` (hasta 75% entre algunos
+pares) es esperada y aceptable — son frases cortas de patrón fijo a propósito
+("[Servicios] para comunidades de [Municipio], a X km al [dirección] de Madrid"), cada una
+con datos objetivos distintos (distancia, dirección cardinal), no contenido de análisis
+reutilizado. Las FAQ no mostraron ningún par por encima del 60%.
+
+**Lección para futuras zonas**: si se añade un municipio nuevo al catálogo, redactar su
+`context` de forma aislada y volver a correr el análisis de similitud antes de darlo por
+bueno — es fácil reutilizar sin querer una frase de cierre al redactar varias zonas seguidas
+de la misma corona.
+
+## 17. Auditoría #5 post-implementación, app completa (2026-08-15)
+
+Quinta pasada, con el alcance ampliado de "las zonas" a **toda la aplicación** — buscó
+problemas fuera del trabajo de esta rama, no solo revalidó lo ya tocado.
+
+- [x] **Grave: 18 páginas con `title`/`description` que excedían los límites de Google**
+      (~60 caracteres título, ~160 descripción) — se truncarían con "..." en los resultados de
+      búsqueda. 12 eran de las zonas (redactadas en la auditoría #2 sin verificar longitud) y
+      **6 eran metadata preexistente del proyecto**, de antes de esta rama SEO (`/`, `/about`,
+      `/services`, `/services/concierge`, `/services/maintenance`, más la propia
+      `/for/property-managers`). Recortadas las 18 manteniendo el mensaje real, con
+      dos scripts de una sola vez (ya borrados tras su uso — ver §18) — verificado
+      programáticamente: 0 excesos en ninguna página pública (excluida `/private-area`, que
+      es UI de app con `noindex`, no le aplican los mismos límites).
+- [x] **Grave, preexistente: enlace roto real en el footer de todas las páginas.**
+      `Footer.tsx` enlazaba `/empleo` ("/careers") en la columna de contacto — la página nunca
+      se construyó (404 confirmado en producción real). El propio `sitemap.ts` ya lo sabía y
+      excluía esa ruta a propósito ("no existe todavía"), pero el footer no se había
+      actualizado a la vez, así que el 404 estaba presente en cada página del sitio. Quitado
+      el enlace hasta que la página exista de verdad.
+- [x] **Verificación de integridad de datos, ampliada.** Confirmado con build de producción
+      real: `og:title`/`og:description` heredan el metadata ya corregido; `/login` y el resto
+      de páginas de autenticación llevan `robots: noindex, nofollow` correctamente; el peso
+      del bundle (`4.4 MB`/192 chunks) no muestra crecimiento anómalo tras añadir 21 páginas
+      nuevas; el bloqueante de datos ficticios (`Calle Ejemplo`) sigue correctamente marcado
+      como pendiente en §1, no se ha "perdido" entre las auditorías.
+
+**Descartado** (falsos positivos del primer barrido): varias rutas de `/private-area/*`
+salieron marcadas por "title corto" en el análisis automático (p. ej. `"Mi perfil"`,
+`"Facturas"`) — son correctas, es UI de área privada con `noindex`, no páginas SEO; los
+límites de longitud no les aplican.
+
+## 18. Auditoría #6 post-implementación, app completa (2026-08-15)
+
+Sexta pasada, enfocada en "encontrabilidad real": no solo que el código esté bien formado,
+sino que un cliente potencial pueda realmente llegar a la web y confirmar que Google puede
+verificar el trabajo hecho en las 5 auditorías anteriores.
+
+- [x] **Grave: la verificación de Google Search Console estaba muerta en código.**
+      `ENV.GOOGLE_SITE_VERIFICATION` (`src/config/env.ts`) se leía del `.env` pero nunca se
+      conectaba a ningún `<meta>` — igual que le pasó a GA4 antes de conectarlo al principio
+      de esta rama. Aunque el usuario pusiera un código real de Search Console en producción,
+      no habría pasado nada: sin el meta tag, no hay forma de verificar la propiedad ni de
+      confirmar cómo está indexando Google todo el trabajo de SEO de las auditorías #1-#5.
+      Corregido en [generateMetadata.ts](src/lib/generateMetadata.ts): añade
+      `verification: { google: ... } }` al objeto `Metadata`, mostrado condicionalmente (solo
+      si la variable tiene valor, para que nunca se emita un `<meta>` vacío).
+- [x] **El `.env` local tenía el placeholder literal `your-google-site-verification-code`
+      (heredado de `.env.example`), no vacío.** Con el fix de arriba, eso se habría emitido
+      como si fuera un código real — peor que no tener nada, porque es un dato falso visible
+      en el HTML de producción. Vaciado en `.env` (no en `.env.example`, que debe conservar el
+      placeholder como documentación del formato esperado).
+
+Verificado con build de producción real, en ambos sentidos: con `.env` vacío, no aparece
+ningún `<meta name="google-site-verification">` en el HTML servido; forzando la variable a un
+valor de prueba (`test-verification-code-123`), el meta tag aparece con el valor correcto.
+Confirma que basta con que el usuario ponga su código real de Search Console en el `.env` de
+producción (Vercel) para que quede verificado — no requiere ningún cambio de código adicional.
+
+**Pendiente de que el usuario aporte el dato** (mismo patrón que los bloqueantes de §1, no se
+inventa): código real de verificación de Google Search Console, en `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`
+del `.env` de producción.
+
+**Revisado y descartado** (sin bugs encontrados):
+- Favicon/`icon.png`/OG image: los tres responden `200` en HTTP real. `metadata.icons` apunta
+  a `/icon.png`/`/favicon.ico`, servidos por convención de App Router desde `src/app/`
+  (`favicon.ico`, `icon.png`) — coincide con la URL declarada, sin conflicto.
+- `sitemap.xml`: usa `ENV.APP_URL` dinámicamente (en local resuelve a `localhost:3002`, en
+  producción resolverá a `https://imora.es` con el `.env` de Vercel) — comportamiento
+  esperado, no un bug. hreflang ES↔EN de zonas correcto (`/zonas/madrid` ↔ `/zones/madrid`,
+  `x-default` apuntando a la versión española), 21 URLs de zona sin duplicados.
+- `OrganizationJsonLd.tsx`: `sameAs` con redes sociales ya es condicional (`socials.length > 0`),
+  no emite el campo si no hay ninguna red configurada.
+- CTAs de página de zona (`ZoneCta.tsx`): enlazan a `/contact`, sin datos de contacto
+  inventados renderizados — ya evitado a propósito desde antes de esta auditoría.
+- Contenido traducido (`views.json`, `metadata.json`): sin restos de `lorem ipsum`, `TODO`,
+  "próximamente" u otro texto de relleno visible al usuario.
+
+**Limpieza**: borrados los 4 scripts de una sola vez de `scripts/seo/` (generación y recorte
+de contenido/metadata de zonas) — ya cumplieron su función, su resultado está persistido en
+`views.json`/`metadata.json`, y volver a ejecutarlos hoy sobrescribiría ajustes manuales
+posteriores (recortes por longitud, reescritura de las 6 zonas por similitud). Los enlaces a
+ellos en §5/§14/§17 de este documento se actualizaron para no apuntar a ficheros borrados.
+
+## 19. Fix de maquetación del footer (2026-08-15)
+
+Encontrado por el usuario, no por auditoría automática: "Zonas de cobertura" y
+"Administradores de fincas" quedaban como columnas del footer con solo el título enlazado y
+nada debajo (sin `subRoutes`), mientras "Servicios" tenía 6 líneas y "Ayuda" 2 — con
+`grid-template-columns: repeat(4, 1fr)` fijo, esas columnas cortas dejaban huecos vacíos y
+descompensaban visualmente el footer en pantallas grandes.
+
+- [x] **`/zones` gana `subRoutes` con las 5 zonas de mayor prioridad**
+      (`config/routing.ts`, mismo criterio que `ServiceDetailZones.tsx`: las 3 confirmadas +
+      Nivel 1, `ZONES.slice(0, 5)`), enlazando a `/zones/[slug]`. La columna del footer pasa
+      de un título huérfano a una lista real, igual que "Servicios" o "Ayuda".
+- [x] **`/for/property-managers` deja de tener columna propia** (`shownInFooter: false`,
+      no tiene subrutas naturales) y se enlaza en su lugar como línea extra dentro de la
+      columna "Servicios" (`Footer.tsx`), su sitio natural por ser un segmento de cliente
+      relacionado. Sigue enlazada internamente (ya no depende solo del sitemap), solo cambia
+      de columna.
+- [x] **Grid de columnas de ancho fijo en vez de un número de columnas fijo**
+      (`footer.scss`): `repeat(4, 1fr)`/`repeat(3, 1fr)` dejaba huecos en cuanto el número de
+      grupos visibles cambiaba (ahora son 3: Servicios/Zonas/Ayuda, antes eran 4). Cambiado a
+      `repeat(auto-fit, minmax(9rem, 1fr))` a partir de `sm` (en móvil se mantiene 1 columna),
+      que reparte el espacio entre los grupos que haya sin depender de un número fijo.
+
+Verificado con build de producción real: HTML del footer con 3 columnas
+(Servicios: 7 líneas incluida "Administradores de fincas" · Zonas de cobertura: 5 municipios ·
+Ayuda: 2 líneas), ninguna columna con solo el título sin lista debajo.
+
+## 20. Rediseño de "zonas donde se presta" en la ficha de servicio (2026-08-15)
+
+Encontrado por el usuario: en cada ficha de servicio, "Zonas donde se presta"
+(`ServiceDetailZones.tsx`) y "Servicios relacionados" (`ServiceDetailOthers.tsx`) —
+renderizados uno justo después del otro — compartían exactamente el mismo CSS
+(`services__others-*`) y por tanto la misma pinta de chips en fila, pese a enlazar a cosas
+distintas (zonas vs. servicios). Visualmente parecía la misma sección repetida dos veces.
+
+- [x] **`ServiceDetailZones.tsx` reescrito con mini-mapa de puntos**, a petición explícita del
+      usuario (elegido frente a "tarjetas con corona y distancia" y "lista con franja de
+      color"). Un SVG propio (sin librería de mapas externa) con las 6 zonas destacadas
+      posicionadas por sus coordenadas reales de `config/zones.ts` — la proyección lat/lng→SVG
+      se calcula en runtime a partir del rango real de las 20 zonas del catálogo, no de un
+      bounding box fijo, así que se auto-ajusta si se añade una zona nueva más lejana en vez de
+      dejarla fuera del lienzo. Madrid capital se destaca con un punto mayor y un pulso
+      decorativo. Junto al mapa, una lista compacta con las mismas 6 zonas como enlaces
+      (accesibilidad: el mapa por sí solo no es suficiente para navegación por teclado/lector
+      de pantalla). CSS nuevo en
+      [serviceDetailZones.scss](src/styles/04-components/services/serviceDetailZones.scss),
+      independiente de `serviceDetailOthers.scss` — ya no comparten clases.
+      `ServiceDetailOthers.tsx` no se tocó, sigue con su estilo de chips original.
+
+Verificado con build de producción real en `/servicios/limpieza`: 6 puntos en el mapa (7
+círculos contando el pulso de Madrid) con coordenadas distintas dentro del viewBox, 6 enlaces
+en la lista lateral, "Servicios relacionados" sin cambios visuales.

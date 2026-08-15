@@ -18,7 +18,6 @@ export default function HelpHero() {
       <Image
         src="/images/assets/decor/cloud.svg"
         alt=""
-        aria-hidden="true"
         width={220}
         height={220}
         className="help__hero-decor"

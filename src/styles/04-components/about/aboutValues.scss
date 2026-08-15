@@ -61,4 +61,20 @@
     color: var(--primary-color);
     @include rounded(0.5rem);
   }
+
+  // Enlace de cierre de una tarjeta de `about__values-grid`, para los casos en que la tarjeta
+  // enlaza a otra página (p. ej. `ZoneServices.tsx`: cada servicio enlaza a su ficha). Las
+  // tarjetas de `AboutValues`/`PropertyManagersBenefits` no lo usan, son solo informativas.
+  &__value-link {
+    @include flex(row, flex-start, center, 0.4rem);
+    color: var(--primary-color-active);
+    font-weight: $font-semibold;
+    font-size: $text-sm;
+    text-decoration: none;
+    margin-top: 0.25rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { MegaphoneIcon } from 'lucide-react';
 
 import { ENV } from '@/config/env';
+import { Link } from '@/i18n/navigation';
 
 import LegalHero from '@/components/ui/legal/LegalHero';
 import LegalToc from '@/components/ui/legal/LegalToc';
@@ -20,6 +21,12 @@ type BoldItem = { strong: string; rest: string };
  * comunicar, cómo hacerlo y las garantías del canal, con el contenido
  * traducido vía `next-intl`. Reutiliza el mismo sistema de componentes
  * legales que privacidad, términos y cookies.
+ *
+ * Es información, no el formulario en sí: para presentarla de verdad hay un
+ * asistente por pasos en `/help/complaints` (`ComplaintsCreateWizard.tsx`),
+ * enlazado desde la sección "Cómo comunicarlo" — mismo criterio que separa
+ * `Terms`/`Privacy` (texto legal) de las pantallas donde se ejercen esos
+ * derechos de verdad.
  * @returns {Promise<JSX.Element>} La vista del canal de reclamaciones renderizada
  */
 export default async function ComplaintsChannelView() {
@@ -74,6 +81,9 @@ export default async function ComplaintsChannelView() {
 
                 <LegalSection id="como-comunicar" title={ps('comoComunicar.title')}>
                     <p className="legal__section__text">{ps('comoComunicar.intro')}</p>
+                    <Link href="/help/complaints" className="legal__btn legal__btn--primary">
+                        {ps('comoComunicar.formButton')}
+                    </Link>
                     <LegalHighlight variant="warning">
                         <p><strong>{ps('comoComunicar.highlightLabel')}</strong> {ps('comoComunicar.highlight')}</p>
                     </LegalHighlight>

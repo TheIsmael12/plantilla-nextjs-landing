@@ -1,15 +1,32 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
 import { MapPin, Phone, PhoneCall, Mail, Clock, ExternalLink } from 'lucide-react';
 
 import { ENV } from '@/config/env';
+import { buildMapsHref, buildFallbackMapsHref } from '@/utils/mapLinkUtils';
 import '@/styles/04-components/contact/contactBase.scss';
 import '@/styles/04-components/contact/contactMapSection.scss';
+
+/*
+ * El lienzo se carga solo en el navegador: Leaflet toca `window` al importarse, y `'use
+ * client'` no evita el render en servidor. Mismo arreglo que el resto de canvases de Leaflet
+ * del proyecto (`LocationMapCanvas.tsx`, `ServiceDetailZonesCanvas.tsx`).
+ */
+const ContactMapCanvas = dynamic(() => import('@/components/ui/contact/ContactMapCanvas'), {
+  ssr: false,
+});
 
 /**
  * Sección de contacto: una tarjeta compacta con los datos de contacto
  * (dirección, teléfono, email y horario, con enlaces `tel:`/`mailto:`) sobre
- * un mapa embebido real a todo lo ancho (Google Maps, geocodificado a partir
- * de la dirección), con acceso directo para abrirlo en una pestaña nueva.
+ * un mapa real a todo lo ancho (Leaflet + CARTO Voyager, mismo tileset que
+ * el mapa de zonas de cobertura de la ficha de servicio), con acceso directo
+ * para abrir la ubicación en la app de mapas nativa del visitante (Apple
+ * Maps en iOS/macOS, Google Maps en cualquier otro caso).
  * @param {ContactMapSectionProps} props - Propiedades de la sección; por defecto usan `ENV`
  * @returns {JSX.Element} La sección de mapa y contacto renderizada
  */
@@ -25,8 +42,21 @@ export default function ContactMapSection({
     const t = useTranslations('Contact.map');
 
     const fullAddress = `${address}, ${city}, ${ENV.COMPANY_COUNTRY}`;
-    const mapsHref = `https://www.openstreetmap.org/search?query=${encodeURIComponent(fullAddress)}`;
-    const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
+
+    /*
+     * Calculado tras montar, no en el primer render: en servidor no hay `navigator`, así que
+     * el primer render (y la hidratación) usan un enlace neutro (Google Maps web, que abre en
+     * cualquier dispositivo aunque no sea la app nativa) para no desajustar el HTML entre
+     * servidor y cliente — justo después, en cuanto el efecto corre, se sustituye por el
+     * enlace nativo del sistema operativo real del visitante.
+     */
+    const [mapsHref, setMapsHref] = useState(
+        () => buildFallbackMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE),
+    );
+
+    useEffect(() => {
+        setMapsHref(buildMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE, fullAddress));
+    }, [fullAddress]);
 
     return (
 
@@ -93,12 +123,10 @@ export default function ContactMapSection({
             {/* ── Mapa real, a todo lo ancho ── */}
             <div className="contact__map-frame">
 
-                <iframe
-                    className="contact__map-iframe"
-                    src={mapEmbedSrc}
-                    title={t('mapTitle')}
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
+                <ContactMapCanvas
+                    latitude={ENV.COMPANY_LATITUDE}
+                    longitude={ENV.COMPANY_LONGITUDE}
+                    title={fullAddress}
                 />
 
                 <a

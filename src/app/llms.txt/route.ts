@@ -1,6 +1,7 @@
 import { ENV } from "@/config/env";
 import { pathnames } from "@/config/pathnames";
 import { SERVICE_SLUGS } from "@/config/routing";
+import { ZONES } from "@/config/zones";
 import type { StaticPathname } from "@/types/route";
 
 import esViews from "@/i18n/locales/es/views.json";
@@ -37,6 +38,14 @@ export async function GET(): Promise<Response> {
     return `- [${item.title}](${esUrl(`/services/${slug}`)}): ${item.summary}`;
   }).join("\n");
 
+  // Zonas de cobertura (requisitos-seo.md §4): igual que con los servicios, se listan las 20
+  // desde `ZONES` (única fuente de verdad, `config/zones.ts`) en vez de mantener una lista
+  // aparte que pudiera desincronizarse si se añade o quita una zona del catálogo.
+  const zones = ZONES.map((zone) => {
+    const item = (esViews.Zones.items as Record<string, { heroSubtitle: string }>)[zone.slug];
+    return `- [Servicios en ${zone.name}](${esUrl(`/zones/${zone.slug}` as StaticPathname)}): ${item.heroSubtitle}`;
+  }).join("\n");
+
   const body = `# ${ENV.APP_NAME}
 
 > ${esViews.Home.hero.subtitle}
@@ -49,7 +58,12 @@ ${services}
 ## Empresa
 
 - [Sobre nosotros](${esUrl("/about")}): ${esViews.About.hero.subtitle}
+- [Servicios para administradores de fincas](${esUrl("/for/property-managers")}): ${esViews.ForPropertyManagers.hero.subtitle}
 - [Contacto](${esUrl("/contact")}): ${esViews.Contact.hero.subtitle}
+
+## Zonas de cobertura
+
+${zones}
 
 ## Ayuda
 

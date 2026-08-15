@@ -571,9 +571,12 @@
         },
         "comoComunicar": {
           "title": "How to report it",
-          "intro": "You can send your report by email to the channel's contact, describing the facts in as much detail as possible: what happened, when, who is involved and whether you have any evidence. You can also use the general contact form, stating explicitly that it is a report for the complaints channel.",
+          "intro": "Fill in this channel's form, describing the facts in as much detail as possible: what happened, when, who is involved and whether you have any evidence. You can do so with your name and email, so we can confirm we received it, or check that you prefer not to be identified. If you'd rather, you can also write directly to the channel's contact (see below).",
           "highlightLabel": "Confidentiality:",
           "highlight": "The identity of the person reporting and of any third party mentioned is treated confidentially throughout the process, with access restricted solely to the staff responsible for handling it."
+        },
+        "formulario": {
+          "title": "Form"
         },
         "garantias": {
           "title": "Guarantees",

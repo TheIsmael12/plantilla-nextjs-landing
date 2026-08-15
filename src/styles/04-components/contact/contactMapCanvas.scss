@@ -1,0 +1,55 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+// Estilos del lienzo compartido de Leaflet (`ContactMapCanvas.tsx`): importados desde el
+// propio canvas, no desde quien lo usa, para que cualquier consumidor (`ContactMapSection.tsx`,
+// `SupportInfo.tsx`) los reciba automáticamente sin duplicar reglas.
+//
+// Tileset CARTO Voyager (gris claro, mismo criterio que el mapa de zonas de cobertura de la
+// ficha de servicio): los controles necesitan contraste fijo, no las variables de tema de la
+// web, que asumirían un fondo que cambia con el modo oscuro.
+
+.contact__map-canvas {
+  .leaflet-control-zoom {
+    border: 1px solid var(--border-color) !important;
+    box-shadow: none !important;
+
+    a {
+      background: var(--surface-color) !important;
+      color: var(--color) !important;
+      border-color: var(--border-color) !important;
+    }
+
+    a:hover {
+      background: var(--background-color) !important;
+    }
+  }
+
+  .leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.75) !important;
+    color: #333 !important;
+    font-size: 0.6rem !important;
+
+    a {
+      color: #333 !important;
+    }
+  }
+}
+
+// Pin de la sede: un punto simple dibujado en CSS, mismo criterio que
+// `services__zones-pin` (sin catálogo de iconos de Leaflet, aquí solo hace
+// falta uno).
+.contact__map-marker {
+  background: transparent;
+  border: none;
+}
+
+.contact__map-pin {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-color);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  @include rounded(999px);
+}
