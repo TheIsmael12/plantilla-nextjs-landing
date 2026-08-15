@@ -92,11 +92,46 @@ function resolveAuthorizeResult(result: PortalLoginActionResult): User {
  * de sesión `jwt`, y callbacks que propagan la identidad resuelta (JWT del
  * portal + `GET client/me`) al token/sesión de NextAuth.
  */
+const COOKIE_PREFIX = ENV.IS_PRODUCTION ? "__Secure-" : "";
+
 export const authOptions: AuthOptions = {
   session: { strategy: "jwt" },
   secret: ENV.NEXTAUTH_SECRET,
+  useSecureCookies: ENV.IS_PRODUCTION,
   pages: {
     signIn: "/login",
+  },
+  cookies: {
+    sessionToken: {
+      name: `${COOKIE_PREFIX}next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: ENV.IS_PRODUCTION,
+      },
+    },
+    callbackUrl: {
+      name: `${COOKIE_PREFIX}next-auth.callback-url`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: ENV.IS_PRODUCTION,
+      },
+    },
+    csrfToken: {
+      // El token CSRF necesita __Host- (no solo __Secure-) para que el
+      // navegador exija que la cookie se fije SIN dominio explícito y con
+      // path=/, evitando que un subdominio comprometido la sobrescriba.
+      name: ENV.IS_PRODUCTION ? "__Host-next-auth.csrf-token" : "next-auth.csrf-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: ENV.IS_PRODUCTION,
+      },
+    },
   },
   providers: [
     CredentialsProvider({

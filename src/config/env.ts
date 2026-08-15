@@ -25,6 +25,7 @@ const BACKEND_URL = requireEnv("API_BASE_URL", process.env.API_BASE_URL, "http:/
 
 export const ENV = {
   // App settings
+  IS_PRODUCTION,
   APP_NAME: process.env.NEXT_PUBLIC_APP_NAME || "Imora",
   APP_VERSION: process.env.NEXT_PUBLIC_APP_VERSION || "1.0.0",
   PORT: process.env.PORT || 3000,
