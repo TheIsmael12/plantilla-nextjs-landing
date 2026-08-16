@@ -46,12 +46,14 @@ inconsistencias NAP — Name/Address/Phone — entre la web y Google Business Pr
 - [ ] **TODO — Teléfono(s) reales.** Sustituir `COMPANY_PHONE` y, si aplica de verdad,
       `COMPANY_EMERGENCY_PHONE`. Si no hay línea de urgencias 24h real, quitar esa mención de
       la web en vez de dejar un teléfono inventado.
-- [ ] **Certificaciones ISO — no publicar como reales.** La web actual (heredada de la
-      plantilla) menciona ISO 9001/14001/45001/27001 como si la empresa las tuviera.
-      Confirmado que hoy son placeholder. Hasta que la empresa confirme cuáles tiene de
-      verdad (o están en trámite): quitar la mención, o cambiarla a «en proceso de
-      certificación» solo si es cierto. No crear la página `/certificaciones/` del §9 hasta
-      resolver esto.
+- [x] **Certificaciones ISO — confirmado placeholder puro (no en trámite), quitadas
+      (2026-08-16).** Sacado el bloque de `TrustBarSection.tsx` (home) y toda la sección
+      `AboutCertifications` de `/sobre-nosotros` (`AboutViewPage.tsx` ya no la importa). El
+      componente y sus traducciones (`About.certifications`, `Home.trustBar.items.certifications`)
+      se dejan sin borrar para reactivarlo cuando la empresa obtenga certificaciones reales —
+      solo hay que volver a añadir `<AboutCertifications />`/el bloque de certs en
+      `TrustBarSection.tsx` y quitar la clase `--stats-only` del grid. No crear la página
+      `/certificaciones/` del §9 hasta entonces.
 - [ ] **TODO — Código real de verificación de Google Search Console.** El código (§18,
       auditoría #6) ya está conectado y funcional — falta poner el valor real en
       `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` del `.env` de producción (Vercel). Sin esto no se
@@ -83,11 +85,11 @@ esta fase, sin excepción.
 
 Antes de crear páginas nuevas, revisar y corregir lo ya publicado:
 
-- [ ] Contrastar el `<title>`/`<h1>` real de la home (`generateMetadata`/`views/home`) contra
-      la intención comercial. La auditoría propone algo como:
-      - Title: `Empresa de servicios para comunidades en Madrid | Imora`
-      - H1: `Servicios integrales para comunidades, empresas y edificios en Madrid`
-      Decidir el texto final junto con la empresa, no inventarlo aquí.
+- [x] **H1/title de la home decididos y aplicados** (auditoría SEO externa, §14/§21):
+      `Home.hero.title` = "Servicios integrales para comunidades, empresas y edificios en
+      Madrid" (coincide con lo propuesto), `Metadata.routes["/"].title` = "Servicios
+      integrales para comunidades en Madrid" (el sufijo `| Imora` lo añade la plantilla
+      global de metadata, no el texto de cada ruta).
 - [x] **`alt` de imágenes: verificado, no hay el problema que señalaba la auditoría.**
       `ServiceDetailHero.tsx`/`ServicesGrid.tsx` usan `alt={itemT('title')}` (el título real
       de cada servicio: "Conserjería y control de accesos", "Seguridad y CCTV"...), no una
@@ -750,3 +752,279 @@ en `/services/security`, la sección "otros servicios" muestra "Limpieza de comu
 edificios" y "Mantenimiento de comunidades y edificios" como anchor (las 3 apariciones
 restantes de "Limpieza integral" en esa página son dentro de `summary`/JSON-LD `description`,
 no un título ni un enlace).
+
+## 24. PageSpeed/Lighthouse real de producción (2026-08-16)
+
+El usuario pegó un reporte técnico real de PageSpeed sobre `imora.es` (no una valoración de
+ChatGPT), con tres hallazgos concretos: ~19 archivos CSS de 1-3,6 KiB bloqueando el renderizado
+(~650ms de ahorro estimado en LCP), ~14 KiB de polyfills de JavaScript innecesarios para
+navegadores modernos, y ~90 KiB de JS sin usar (68,4 KiB de Google Tag Manager, 21,6 KiB propio).
+
+- [x] **CSS chunking**: `next.config.ts` no tenía ningún ajuste de
+      `experimental.cssChunking` — cada componente hace su propio
+      `import '@/styles/....scss'` (patrón establecido en todo el proyecto), y el chunking por
+      defecto de Turbopack no los fusionaba lo suficiente. Se actualizó Next.js de 16.2.9 a
+      **16.3.1** (única forma de acceder al modo `cssChunking: { type: 'graph', requestCost }`,
+      que no existe como shape de objeto en 16.2.9 — ahí solo hay `true`/`'strict'`, y
+      `'strict'` genera *más* peticiones, no menos). Probado con `requestCost` en 60000 y en
+      200000 (10x el valor por defecto): en ningún caso bajó el número de archivos CSS servidos
+      en la home (22 en todos los casos, incluido sin el flag). **Conclusión: el flag no tiene
+      efecto medible aquí** — el algoritmo de `'graph'` fusiona por árbol de dependencias de
+      import, y con ~20 componentes importando cada uno su propio `.scss` sin compartir un
+      padre común en el árbol de imports, no encuentra grupos que fusionar por mucho que suba
+      el coste de una petición extra. Se deja el flag activo (no empeora nada, y Next.js podría
+      mejorar el algoritmo en el futuro), pero el problema de fondo — reducir el número real de
+      hojas de estilo importadas — es un cambio de arquitectura de CSS bastante más grande, no
+      abordado en esta sesión.
+      - **Efecto secundario del flag**: `cssChunking: 'graph'` solo es válido bajo Turbopack;
+        `@storybook/nextjs-vite` importa `next.config.ts` para su propio pipeline Vite (usado
+        también por `@storybook/addon-vitest` en `vitest.config.ts`), y Next lo rechazaba fuera
+        de un contexto Turbopack real, rompiendo `pnpm test` (`vitest run --project=unit`
+        evalúa toda la config compartida, incluido el proyecto de Storybook, aunque filtre por
+        "unit"). Corregido envolviendo el bloque `cssChunking` en
+        `...(process.env.TURBOPACK ? {...} : {})` — `TURBOPACK` es una variable que el propio
+        `next dev`/`next build` define internamente al arrancar con Turbopack
+        (`node_modules/next/dist/lib/bundler.js`), ausente cuando Storybook/Vitest solo
+        importan el fichero de configuración.
+- [x] **JavaScript "antiguo" (polyfills, 14 KiB)**: `browserslist` en `package.json` era una
+      lista heredada (`"> 0.5%", "last 2 versions", "Firefox ESR", "not dead", "not IE 11"`) que
+      forzaba transpilación/polyfills de funciones Baseline ampliamente disponibles
+      (`Array.prototype.at`/`flat`/`flatMap`, `Object.fromEntries`/`hasOwn`,
+      `String.prototype.trimStart`/`trimEnd`). Sustituida por `["baseline widely available"]`,
+      la query oficial del proyecto Baseline (web.dev + WebDX Community Group) para "navegadores
+      con soporte interoperable desde hace 30+ meses" — más precisa que un listado de
+      porcentajes/versiones sueltas, sin perder ningún navegador real con tráfico relevante.
+      **Verificado tras el cambio que persiste un polyfill de `Object.hasOwn` en el chunk
+      vendor**: no viene de código propio (SWC no genera ese patrón), sino de una dependencia de
+      `node_modules` que ya trae el polyfill embebido en su propio bundle — `browserslist` del
+      proyecto no afecta a cómo una dependencia transpiló su propio código antes de publicarlo
+      en npm (limitación conocida y documentada de Next.js/SWC, no arreglable sin
+      `transpilePackages` apuntando al paquete exacto, no identificado por el bajo impacto — 14
+      KiB — frente al riesgo de tocarlo sin confirmar la causa exacta).
+- [x] **JS de terceros sin usar (Google Tag Manager, 68,4 KiB)**: revisado
+      `GoogleAnalytics.tsx` — ya usa `strategy="afterInteractive"` (no bloquea el hilo
+      principal durante el LCP) y solo se inyecta si `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID` está
+      configurado. El peso en sí es del script `gtag.js` que sirve Google, no reducible desde el
+      código del sitio — la única palanca adicional sería diferir su carga más allá de
+      `afterInteractive` (p. ej. tras la primera interacción real del usuario), no aplicado en
+      esta sesión por ser un cambio de comportamiento de medición, no solo de config.
+
+Verificado con `tsc --noEmit` limpio, `pnpm test` (unit) sin regresiones nuevas (el único test en
+rojo, `generateBlogPostMetadata.test.ts`, ya fallaba antes de estos cambios — confirmado
+reproduciéndolo con `git stash`, no relacionado), build de producción real y HTML servido: sitio
+funcionando con cabeceras de seguridad y CSP intactas tras el upgrade de Next.js.
+
+## 25. Revisión de un informe de estrategia SEO/contenido — honeypot y matiz legal de Seguridad (2026-08-16)
+
+El usuario pegó un informe extenso (15 puntos) valorando arquitectura, prioridad de contenido y
+extensión de cada página. La mayoría son decisiones de negocio/redacción (cuánto ampliar cada
+ficha de servicio, si Administradores de Fincas merece más profundidad, mensajes de "24h" a
+distinguir entre atención vs. respuesta comercial) que no se abordan aquí — quedan como criterio
+a decidir por el usuario, no como bugs. Dos puntos sí se verificaron contra el código real:
+
+- [x] **Punto #14 del informe — campo "Website" del honeypot visible al usuario**: revisado
+      `ContactForm.tsx` y `contactForm.scss` — el campo ya está correctamente oculto
+      (`aria-hidden="true"`, `tabIndex={-1}`, `clip: rect(0 0 0 0)` en vez de `display:none` a
+      propósito, para no ser detectado por bots de spam que sí comprueban esa propiedad).
+      Confirmado en HTML servido real de `/contact`: el campo no es visible para un usuario con
+      CSS activado. **No había ningún bug que corregir** — el informe probablemente lo detectó
+      inspeccionando el DOM/árbol de accesibilidad (donde el `<label>Website</label>` existe
+      textualmente aunque oculto visualmente), no viéndolo renderizado en pantalla.
+- [x] **Matiz legal de "Seguridad y CCTV" (Ley 5/2014 de Seguridad Privada)**: investigado el
+      criterio legal real antes de tocar nada. El art. 6.4 de la Ley 5/2014 excluye
+      explícitamente de su ámbito de aplicación la venta, instalación y mantenimiento de equipos
+      de seguridad **no conectados a una Central Receptora de Alarmas (CRA) o a un centro de
+      control/videovigilancia externo** — solo la monitorización/respuesta ante intrusión
+      conectada a una CRA exige ser empresa de seguridad habilitada (art. 5.1.f, 5.2, 42). El
+      contenido actual de `Services.items.security` no menciona CRA ni monitorización externa en
+      ningún punto, así que el encuadre general ya es correcto. El único párrafo con ambigüedad
+      real era el subservicio "Respuesta ante incidencias" (`icon: Siren`) y su FAQ relacionada:
+      "el aviso se trata como **incidencia de seguridad**... la prioridad pasa a ser inmediata"
+      podía leerse como respuesta de vigilancia ante una intrusión real, en vez de una avería
+      técnica del equipo. Renombrado a "Soporte técnico ante averías" (ES) / "Technical fault
+      support" (EN), y reescrita la descripción y la FAQ para dejar claro que es una reparación
+      prioritaria de un fallo de equipo (cámara caída, lector que no funciona), sin usar
+      "seguridad"/"security incident" para referirse al propio aviso. Ningún otro subservicio
+      (CCTV, control de accesos, mantenimiento de equipos) usaba lenguaje de vigilancia/CRA, no
+      se tocaron.
+      **Esto es una revisión preliminar contra el texto de la ley, no una opinión legal** — el
+      propio informe original lo señala correctamente como algo a confirmar con revisión
+      jurídica real antes de la versión definitiva, especialmente si el alcance real del
+      servicio cambia en el futuro (p. ej. si se empieza a ofrecer monitorización conectada).
+
+Verificado con `tsc --noEmit` limpio, JSON válido en ambos locales, build de producción real y
+HTML servido: `/services/security` muestra "Soporte técnico ante averías" y "avería prioritaria,
+no como mantenimiento ordinario", sin rastro de "incidencia de seguridad" en la página.
+
+## 26. `robots.txt` no bloqueaba en realidad ninguna ruta privada (2026-08-16)
+
+Al revisar el punto #12 del mismo informe (portal de clientes/soporte deberían llevar `noindex`
+si son privados), se comprobó `src/app/robots.ts` directamente en vez de fiarse de la valoración:
+llevaba un comentario `// Rutas privadas y sus variantes traducidas` dentro del array `disallow`
+de la regla `userAgent: "*"`, **pero la línea con el patrón real nunca se escribió** — el
+comentario documentaba una intención que no tenía código detrás. Confirmado con
+`grep -rn "noindex" src/app` (0 resultados en todo el proyecto) que no había ninguna otra capa
+que compensara el hueco.
+
+- [x] **`(auth)` (`/login`, `/forgot-password`, `/reset-password`, `/change-password`,
+      `/verify-email` y sus slugs traducidos), `(client-area)/private-area` (portal de cliente
+      completo) y `(resident)` (enlaces de un solo uso para vecinos de la app móvil) no estaban
+      bloqueados en `robots.txt`** — cualquier buscador podía indexarlos, incluida una pantalla
+      de login, justo el tipo de URL que conviene mantener fuera de resultados de búsqueda.
+      Añadida la constante `PRIVATE_ROUTE_PATTERNS` con los 13 patrones (comodín de locale
+      delante de cada uno, `/*/private-area/`, `/*/login`, etc., para cubrir `/es/` y `/en/` sin
+      enumerar cada idioma), aplicada a la regla `userAgent: "*"` y replicada en `Googlebot`/
+      `Bingbot` (antes solo tenían `disallow: ["/api/"]`) — los dos user-agents que de verdad
+      deciden qué aparece en resultados de búsqueda reales. Los bots de IA con fines GEO
+      (`GPTBot`, `Claude-Web`, etc.) se dejaron sin cambios: su propósito es responder preguntas
+      sobre la empresa a partir de contenido público, no indexar para tráfico de búsqueda, y
+      tampoco tiene sentido que "descubran" una pantalla de login.
+      **`/help/support`, señalado con dudas en el mismo informe, se confirmó genuinamente
+      público** (vive bajo `(public)`, sin comprobación de sesión en el código) — no necesita
+      `noindex`, a diferencia de lo que sugería el informe.
+      Revisado también `sitemap.ts`: no incluía ninguna ruta privada (`grep` sin resultados), así
+      que no había contradicción por ese lado — el problema era solo la ausencia en `robots.txt`.
+
+Verificado con `tsc --noEmit` limpio, build de producción real y `robots.txt` servido real: las
+tres reglas (`*`, `Googlebot`, `Bingbot`) muestran los 13 `Disallow` de rutas privadas; `GPTBot`
+y el resto de bots GEO siguen solo con `/api/`, sin cambios.
+
+## 27. Revisión de la ambigüedad "24h" señalada en el mismo informe (2026-08-16)
+
+El informe apuntaba que "Atención 24 horas, 365 días" (home) podía confundirse con "te
+responderemos en menos de 24h" (contacto) — la misma cifra prometiendo dos cosas distintas
+(disponibilidad de servicio vs. plazo de respuesta comercial). Antes de tocar nada se mapearon
+los ~20 usos de "24h"/"365 días" en `views.json`: la mayoría ya tenían un label específico que
+evitaba la ambigüedad ("Primera respuesta a tu mensaje", "Urgencias 24h" pegado a un teléfono
+clicable, y la propia home ya distinguía "24h" de "48h — Presupuesto cerrado tras la visita" en
+la misma cinta de confianza). No se encontró ningún texto que indujera a error de forma clara,
+pero se reforzaron dos labels como medida preventiva, a petición explícita del usuario:
+
+- [x] **`Home.trustBar.items.availability.label`**: "Atención los 365 días del año" →
+      "Disponibilidad de atención, los 365 días del año" (ES) / "Support every day of the year"
+      → "Support availability, every day of the year" (EN) — dice explícitamente que la cifra es
+      sobre disponibilidad, no sobre plazo de respuesta.
+- [x] **`Contact.hero.subtitle`**: "te responderemos en menos de 24 h" → "te responderemos a tu
+      consulta en menos de 24 h laborables" (ES) / "we'll get back to you within 24 h" → "we'll
+      get back to your enquiry within 24 working hours" (EN) — "a tu consulta"/"your enquiry" +
+      "laborables"/"working hours" deja claro que es el plazo de respuesta al formulario de
+      contacto, no una promesa de atención de urgencias.
+      **Nota técnica**: ambos textos originales usaban ` ` (espacio de no separación) antes
+      de la "h" en vez de un espacio normal — el `Edit` estándar fallaba al no coincidir el
+      string, hubo que localizar el carácter exacto con un script Node y sustituirlo así.
+
+Verificado con `tsc --noEmit` limpio, JSON válido en ambos locales, build de producción real y
+HTML servido: `/` muestra "Disponibilidad de atención, los 365 días del año" y `/contact`
+muestra "te responderemos a tu consulta en menos de 24" en el subtítulo del hero.
+
+## 28. "Tipos de cliente" en las 6 fichas de servicio (2026-08-16)
+
+Punto de mayor volumen del mismo informe (prioridad 🔴 Máxima en Limpieza/Mantenimiento, 🟠 Alta
+en el resto): ampliar el contenido de las 6 páginas de servicio. Antes de escribir nada se
+auditó la estructura real de una ficha de servicio (`ServiceDetailHero`/`Trust`/`Subservices`
+con 4 sub-servicios y foto propia/`Faq` con 8 preguntas/`Process`/`Cta`/`Zones`/`Others`): casi
+todo lo que pedía el informe ("proceso, ventajas, FAQs, zonas, CTA, enlaces internos") ya existía.
+La única pieza ausente en las 6 fichas era una sección explícita de "tipos de cliente" — cómo
+cambia el mismo servicio según quién lo contrata.
+
+- [x] **[ServiceDetailAudience.tsx](src/components/ui/services/ServiceDetailAudience.tsx)**
+      (nuevo): 3 tarjetas por servicio (comunidades de propietarios, administradores de fincas,
+      empresas y centros comerciales), mismo patrón `about__values-grid` que
+      `ZoneServices.tsx`/`WhoWeHelpSection.tsx`/`PropertyManagersServices.tsx`. Insertado entre
+      `ServiceDetailSubservices` y `ServiceDetailFaq` en las 6 `*ViewPage.tsx` de servicio (tras
+      explicar qué incluye el servicio, antes de las preguntas frecuentes).
+- [x] **18 bloques de contenido redactados** (6 servicios × 3 tipos de cliente) en `views.json`
+      ES/EN, bajo `Services.items.<slug>.audience.<communities|propertyManagers|businesses>`, más
+      el eyebrow/título compartido en `Services.detail.audienceEyebrow`/`audienceTitle`. Cada
+      bloque es específico del servicio real (no una plantilla que solo cambia el nombre del
+      cliente): por ejemplo, en Piscinas el ángulo "administrador de fincas" habla de coordinar
+      el calendario de temporada de varias piscinas de la cartera con un mismo equipo, mientras
+      que en Conserjería habla de mismo criterio de horarios y sustituciones en varias fincas —
+      contenido derivado de cómo cambia genuinamente el servicio según el cliente, sin inventar
+      datos de actividad de la empresa (mismo criterio de "no inventar" que el resto de
+      bloqueantes documentados en §1).
+- [x] **Verificado con análisis de similitud léxica (Jaccard)**, agrupando por tipo de cliente y
+      comparando los 6 servicios entre sí (para detectar si, p. ej., el bloque "administradores
+      de fincas" se repetía casi igual en las 6 fichas): máximo de similitud 38,2% (ES/EN
+      combinados, par cleaning/maintenance en "businesses"), el resto entre 11-33% — sin ningún
+      par por encima del umbral que en auditorías anteriores de este documento se consideró
+      señal de plantilla duplicada.
+
+Verificado con `tsc --noEmit` limpio, JSON válido en ambos locales, build de producción real y
+HTML servido: `/services/cleaning` muestra "Cómo se adapta este servicio según quién lo
+contrata" y el bloque de administradores de fincas específico de limpieza; `/en/services/
+maintenance` muestra "How this service adapts to who's hiring it" y el bloque de empresas
+específico de mantenimiento (climatización comercial, no un texto genérico).
+
+## 29. Proceso propio en la landing de Administradores de Fincas (2026-08-16)
+
+Último punto de máxima prioridad del mismo informe: dar más peso a `/for/property-managers`.
+La página ya tenía hero, 6 servicios, 4 beneficios (interlocutor único, sustituciones,
+inspección, mismo criterio por finca), FAQ propio del segmento (§21) y CTA — de la lista que
+pedía el informe ("gestión de múltiples comunidades, interlocutor único, sustituciones, control
+de calidad, documentación, incidencias, facturación...") faltaban explícitamente **incidencias**
+y **documentación/facturación**, ninguno cubierto todavía en ningún bloque de la página.
+
+- [x] **[PropertyManagersProcess.tsx](src/components/ui/property-managers/PropertyManagersProcess.tsx)**
+      (nuevo, junto a `PropertyManagersFaq.tsx`): 4 pasos del ciclo de trabajar con Imora
+      gestionando una cartera — alta de una finca nueva, reporte de incidencias centralizado
+      (mismo interlocutor con independencia del servicio afectado), facturación separada por
+      comunidad (cada finca con su propia factura, lista para la junta de vecinos), y cómo
+      escala al incorporar más fincas (mismo proceso, sin curva de aprendizaje nueva). Distinto
+      del proceso genérico de contratación (`ServiceDetailProcess.tsx`, 3 pasos pensados para
+      una única comunidad): aquí cubre el ciclo completo de gestión de cartera, no un alta
+      puntual. Reutiliza las clases `services__process-*` (mismo criterio cross-namespace que
+      `PropertyManagersFaq.tsx` con `services__faq-*`). Insertado en `PropertyManagersViewPage.tsx`
+      entre `PropertyManagersBenefits` y `PropertyManagersFaq`.
+      Contenido nuevo en `ForPropertyManagers.process` (eyebrow, título, 4 pasos) en ES/EN.
+
+Verificado con `tsc --noEmit` limpio, JSON válido en ambos locales, build de producción real y
+HTML servido: `/for/property-managers` muestra "El día a día de gestionar tu cartera con Imora",
+"Reporte de incidencias centralizado" y "Facturación separada por comunidad" — los dos conceptos
+que faltaban frente al informe ya están cubiertos.
+
+## 30. Certificaciones ISO retiradas (§1) y "nuestra historia" real en `/sobre-nosotros` (2026-08-16)
+
+Último punto del informe con datos reales confirmados por los fundadores. Antes de escribir la
+historia de la empresa se detectó una contradicción con el bloqueante ya documentado en §1
+(ISO 9001/14001/45001/27001 confirmadas como placeholder puro, no en trámite): la web seguía
+mostrándolas como reales en 4 sitios distintos, dando la impresión de una empresa ya operando
+con historial, justo lo opuesto de lo que iba a decir la nueva sección de historia.
+
+- [x] **Certificaciones ISO retiradas de los 4 sitios donde se mostraban como reales**
+      (§1 actualizado de `[ ]` a `[x]`):
+      - `TrustBarSection.tsx` (home): quitado el bloque de logos ISO y su columna del grid;
+        ajustado `trustBarSection.scss` con `--stats-only` para que los 3 datos restantes
+        (24h/48h/0€) ocupen el ancho completo centrados, sin dejar un hueco vacío.
+      - `AboutViewPage.tsx`: ya no importa `AboutCertifications` (sección completa fuera de
+        `/sobre-nosotros`).
+      - `Faq.categories.trust.items.certifications` (ES/EN): quitada la pregunta "¿Estáis
+        certificados? Sí, contamos con certificaciones ISO 9001..." de `/help/faq` — afirmaba
+        tener certificaciones que no existen, la más grave de las 4 apariciones por ser una
+        respuesta directa y afirmativa a la pregunta explícita.
+      - `Metadata.routes["/about"]` (ES/EN): quitada la mención de "certificaciones ISO" de
+        `description` y `keywords`, verificada la longitud tras el cambio (105/46 caracteres,
+        dentro de los límites ya establecidos en el proyecto).
+      El componente `AboutCertifications.tsx` y las traducciones (`About.certifications`,
+      `Home.trustBar.items.certifications`) se dejan sin borrar para reactivarlo todo cuando la
+      empresa obtenga certificaciones reales.
+- [x] **[AboutStory.tsx](src/components/ui/about/AboutStory.tsx)** (nuevo): "nuestra historia",
+      con los datos reales confirmados directamente por los fundadores (no inventados) — Imora
+      nace de aplicar tecnología a un sector tradicionalmente poco digitalizado, fundada por dos
+      socios con roles complementarios (desarrollo de producto y gestión de cartera/personal),
+      lanzamiento previsto entre septiembre de 2026 y enero de 2027. El texto dice
+      explícitamente que es una empresa nueva ("no tenemos décadas de trayectoria"), sin
+      lenguaje que sugiera trayectoria inexistente. Insertado en `AboutViewPage.tsx` justo
+      después del hero, antes de "cómo trabajamos".
+      **De paso corregido**: `About.values.title` decía "por qué comunidades... **siguen
+      confiando** en Imora" (ES) / "**keep trusting**" (EN) — verbo que asume historial de
+      clientes recurrentes que una empresa aún sin lanzar no tiene. Cambiado a "eligen Imora" /
+      "choose Imora", presente sin implicar continuidad.
+
+Verificado con `tsc --noEmit` limpio, JSON válido en los 4 archivos tocados, build de producción
+real y HTML servido: `/about` ya no muestra "ISO" en ningún encabezado o párrafo visible (solo
+queda en el JSON de traducciones embebido para el cliente, invisible a usuarios y a la
+indexación de contenido textual), el `<meta name="description">` de `/about` ya no lo menciona,
+`/help/faq` ya no tiene la pregunta de certificaciones, y aparecen "Un sector tradicional, con
+las herramientas de hoy", "no tenemos décadas de trayectoria" y "Por qué comunidades, edificios
+y empresas eligen Imora".

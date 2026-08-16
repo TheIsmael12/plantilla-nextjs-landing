@@ -5,6 +5,31 @@ import { ENV } from "@/config/env";
 const BASE_URL = ENV.APP_URL;
 
 /**
+ * Rutas privadas (portal de cliente, autenticación, enlaces de un solo uso para vecinos) que
+ * ningún buscador real debe indexar — el comentario que las anunciaba llevaba tiempo sin código
+ * detrás, así que hasta ahora `robots.txt` solo bloqueaba `/api/`. Comodín delante de cada
+ * patrón para cubrir el prefijo de locale (`/es/area-privada/...`, `/en/private-area/...`) sin
+ * enumerar cada ruta hija ni cada idioma por separado.
+ */
+const PRIVATE_ROUTE_PATTERNS = [
+  "/*/private-area/",
+  "/*/area-privada/",
+  "/*/login",
+  "/*/iniciar-sesion",
+  "/*/forgot-password",
+  "/*/recuperar-acceso",
+  "/*/reset-password",
+  "/*/recuperar-contrasena",
+  "/*/change-password",
+  "/*/cambiar-contrasena",
+  "/*/verify-email",
+  "/*/verificar-email",
+  // Enlaces de un solo uso para un vecino de la app móvil (invitación, restablecer
+  // contraseña), nunca pensados para llegar por búsqueda.
+  "/*/resident/",
+];
+
+/**
  * Genera las reglas de `robots.txt`: permite el rastreo estándar y el de
  * bots de IA con fines GEO, bloquea rutas privadas/de API y scrapers sin
  * valor, y publica las URLs de los sitemaps.
@@ -20,7 +45,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           // Rutas de API internas
           "/api/",
-          // Rutas privadas y sus variantes traducidas
+          ...PRIVATE_ROUTE_PATTERNS,
           // Parámetros de búsqueda / paginación que generan URLs duplicadas
           "/*?*page=",
           "/*?*sort=",
@@ -85,14 +110,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "Googlebot",
         allow: ["/"],
-        disallow: ["/api/"],
+        disallow: ["/api/", ...PRIVATE_ROUTE_PATTERNS],
       },
 
       // ── Permitir explícitamente Bingbot ────────────────────────────────
       {
         userAgent: "Bingbot",
         allow: ["/"],
-        disallow: ["/api/"],
+        disallow: ["/api/", ...PRIVATE_ROUTE_PATTERNS],
       },
     ],
 

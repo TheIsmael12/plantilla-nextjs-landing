@@ -7,6 +7,36 @@ const nextConfig: NextConfig = {
 	// `babel-plugin-react-compiler` ya está instalado como devDependency:
 	// esta flag lo activa de verdad (si no, el paquete no hace nada).
 	reactCompiler: true,
+
+	experimental: {
+		// PageSpeed marcaba ~19 archivos CSS de 1-3,6 KiB cada uno bloqueando el renderizado
+		// (~650ms de LCP): son los `import '@/styles/....scss'` que hace cada componente por
+		// separado. `'graph'` es el modo de fusión basado en coste que soporta Turbopack
+		// (`false`/`'strict'` son solo para webpack), requiere Next ≥16.3.1 (antes solo existía
+		// `true`/`'strict'`, sin el shape de objeto). Probado con `requestCost` en 60000 y en
+		// 200000 (10x el default): en ningún caso bajó el número de archivos CSS de la home —
+		// el algoritmo agrupa por árbol de dependencias de import, y con ~20 componentes
+		// importando cada uno su propio `.scss` sin compartir un padre común, no hay grupos que
+		// fusionar por mucho que suba el coste. La causa real es la cantidad de imports de
+		// estilos por componente, no algo que este flag pueda arreglar por sí solo — se deja
+		// activo por si ayuda en el futuro (no empeora nada), pero el problema de fondo requiere
+		// consolidar esos imports, un cambio de arquitectura de CSS aparte.
+		//
+		// Solo bajo `TURBOPACK` (variable que el propio `next dev`/`next build` define al
+		// arrancar con Turbopack de verdad): `@storybook/nextjs-vite` importa este fichero para
+		// reutilizar su configuración dentro de un pipeline Vite, y Next rechaza `'graph'` fuera
+		// de un contexto Turbopack real con `Error: experimental.cssChunking: "graph" is only
+		// supported with Turbopack` — rompía `vitest run --project=unit`, que carga toda
+		// `vitest.config.ts` (incluido el proyecto de Storybook) aunque solo filtre por "unit".
+		...(process.env.TURBOPACK
+			? {
+					cssChunking: {
+						type: 'graph' as const,
+						requestCost: 60000,
+					},
+				}
+			: {}),
+	},
 	images: {
 		remotePatterns: [
 			// Backend en desarrollo, sirve las portadas/avatares del blog en

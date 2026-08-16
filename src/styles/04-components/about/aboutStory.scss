@@ -1,0 +1,26 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.about {
+  &__story {
+    background: var(--surface-color);
+    @include py(4.5rem);
+  }
+
+  // Una sola columna centrada, más ancha que `&__cta-simple` (pensada para un párrafo corto
+  // de CTA): aquí hay dos párrafos narrativos de verdad, necesitan más espacio de lectura.
+  &__story-inner {
+    max-width: 42rem;
+    margin: 0 auto;
+    text-align: center;
+    @include flex($direction: column, $justify: center, $align: center, $gap: 1rem);
+
+    .about__title-lg {
+      margin: 0;
+    }
+
+    .about__text-muted {
+      text-align: left;
+    }
+  }
+}

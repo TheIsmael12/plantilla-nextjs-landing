@@ -40,7 +40,7 @@
     },
     "values": {
       "eyebrow": "Advantages",
-      "title": "Why communities, buildings and businesses keep trusting Imora",
+      "title": "Why communities, buildings and businesses choose Imora",
       "items": {
         "team": {
           "title": "Our own, qualified team",
@@ -69,6 +69,12 @@
       "button": "Request a quote",
       "scheduleLabel": "Opening hours",
       "addressLabel": "Head office"
+    },
+    "story": {
+      "eyebrow": "Our story",
+      "title": "A traditional sector, with today's tools",
+      "descriptionA": "Imora was born from a simple idea: the community and business services sector has worked the same way for years, and we believe it can be managed better with the technology that already exists. Behind it is a two-founder team with complementary roles: one focused on building that technology, the other on portfolio management and the field team.",
+      "descriptionB": "We're a new company, planning to launch between September 2026 and January 2027, and we say so plainly: we don't have decades of track record, but we do have an approach designed from day one to do things differently from how this sector has always worked."
     }
   },
   "ForPropertyManagers": {
@@ -146,7 +152,29 @@
         "question": "How do you put together a proposal if I manage many communities at once?",
         "answer": "We prepare a proposal per building, detailing which services each one already has contracted and which could be outsourced to Imora, so you can bring it to each residents' meeting separately if you need to."
       }
-    ]
+    ],
+    "process": {
+      "eyebrow": "How we work with you",
+      "title": "Day-to-day management of your portfolio with Imora",
+      "steps": {
+        "onboarding": {
+          "title": "Onboarding a new building",
+          "description": "We visit the community, review which services it already has contracted, and prepare a proposal to the same standard we apply across the rest of your portfolio — no need to renegotiate terms for the buildings we already manage together."
+        },
+        "incidents": {
+          "title": "Centralised incident reporting",
+          "description": "An issue in any community in your portfolio is reported to the same point of contact, regardless of whether it affects concierge, cleaning or maintenance — you don't need to track down the provider responsible for each service at each building."
+        },
+        "billing": {
+          "title": "Separate invoicing per building",
+          "description": "Each building gets its own invoice detailing its contracted services, ready to present at the residents' meeting, even though you manage several communities with us through a single contact."
+        },
+        "scaling": {
+          "title": "Adding buildings without friction",
+          "description": "When you add a new community to your portfolio, we apply the same onboarding, reporting and billing process you already know — no new learning curve every time your portfolio grows."
+        }
+      }
+    }
   },
   "Zones": {
     "hero": {
@@ -716,7 +744,7 @@
     "hero": {
       "eyebrow": "Contact",
       "title": "Let’s talk?",
-      "subtitle": "We’re here to help. Write to us, call us or come visit us — we’ll get back to you within 24 h."
+      "subtitle": "We’re here to help. Write to us, call us or come visit us — we’ll get back to your enquiry within 24 working hours."
     },
     "form": {
       "title": "Write to Us",
@@ -939,10 +967,6 @@
             "question": "How do you monitor service quality?",
             "answer": "Our inspection department visits every service on site on a regular basis, to check that what was agreed is being delivered and to spot improvements before they become incidents."
           },
-          "certifications": {
-            "question": "Are you certified?",
-            "answer": "Yes, we hold ISO 9001 (quality management), ISO 14001 (environmental management), ISO 45001 (occupational health and safety) and ISO 27001 (information security) certifications."
-          },
           "existingClient": {
             "question": "I'm already an Imora client, where do I get support?",
             "answer": "Visit our support page to see the right channel for your query (incidents, sales or billing), or write directly to soporte@imora.es."
@@ -1038,7 +1062,7 @@
       "items": {
         "availability": {
           "value": "24h",
-          "label": "Support every day of the year"
+          "label": "Support availability, every day of the year"
         },
         "response": {
           "value": "48h",
@@ -1224,7 +1248,21 @@
             "question": "Can I hire coverage for mornings only?",
             "answer": "Yes, shifts are adapted to what each community needs: half-day, split shift or full 6-to-24-hour coverage."
           }
-        ]
+        ],
+        "audience": {
+          "communities": {
+            "title": "Homeowner communities",
+            "description": "The concierge knows the residents and their recurring issues, so they resolve directly what an outsider would have to ask about first: who holds the key to which storage unit, when the cleaning team comes by, or which resident reported a leak."
+          },
+          "propertyManagers": {
+            "title": "Property management firms",
+            "description": "A single concierge team can cover several buildings in your portfolio with the same criteria for hours, incident reporting and substitutions, so you don't have to negotiate the service building by building."
+          },
+          "businesses": {
+            "title": "Businesses and shopping centres",
+            "description": "Reception and access control adapt to a business's visitor and supplier volume, not a residential building's rhythm: more traffic at peak times, parcel logging, and attending customers or staff."
+          }
+        }
       },
       "security": {
         "tag": "Service 02",
@@ -1253,9 +1291,9 @@
           },
           {
             "icon": "Siren",
-            "title": "Incident response",
+            "title": "Technical fault support",
             "image": "/images/services/subservices/security-4.jpg",
-            "description": "A technician reviews the report within 24 working hours. If the fault compromises the building's security, such as a downed access camera or a door that won't lock, it becomes an immediate priority."
+            "description": "A technician reviews the report within 24 working hours. If the fault takes a critical element out of service, such as a downed access camera or a door that won't lock, the repair becomes a priority."
           }
         ],
         "faq": [
@@ -1273,9 +1311,23 @@
           },
           {
             "question": "What happens if a camera stops working?",
-            "answer": "The report is treated as a security incident, not routine maintenance: a technician reviews the fault within 24 working hours."
+            "answer": "It's treated as a priority fault, not routine maintenance: a technician reviews the equipment issue within 24 working hours."
           }
-        ]
+        ],
+        "audience": {
+          "communities": {
+            "title": "Homeowner communities",
+            "description": "Cameras are placed at the building's real blind spots (access points, garage, common areas) and access control is tied to each home, not a generic system designed for a different type of property."
+          },
+          "propertyManagers": {
+            "title": "Property management firms",
+            "description": "Each community in your portfolio can have its own CCTV and access control system, reviewed under the same quarterly maintenance criteria, without you having to coordinate a different provider per building."
+          },
+          "businesses": {
+            "title": "Businesses and shopping centres",
+            "description": "The security project is designed around a commercial premises or office's real access points (public entrances, loading area, storage), with cards or codes that can be limited to specific time slots."
+          }
+        }
       },
       "pools": {
         "tag": "Service 03",
@@ -1326,7 +1378,21 @@
             "question": "Can I hire just the chemical maintenance, without a lifeguard?",
             "answer": "Yes, water maintenance and lifeguarding can be contracted separately, depending on what the community already has covered."
           }
-        ]
+        ],
+        "audience": {
+          "communities": {
+            "title": "Homeowner communities",
+            "description": "Chemical maintenance and cleaning follow the Madrid region's swimming season calendar, with a qualified lifeguard where the pool requires one, so the community doesn't have to manage regulatory compliance on its own."
+          },
+          "propertyManagers": {
+            "title": "Property management firms",
+            "description": "If several communities in your portfolio have a pool, the opening, maintenance and season-close calendar is coordinated with a single team, instead of depending on a different lifeguard or company at each building."
+          },
+          "businesses": {
+            "title": "Businesses and shopping centres",
+            "description": "A semi-public pool (hotel, development with a commercial area) has different regulations and swimming volume than a residential community's, and the maintenance plan is adjusted to that real use."
+          }
+        }
       },
       "cleaning": {
         "tag": "Service 04",
@@ -1377,7 +1443,21 @@
             "question": "Is garage cleaning included?",
             "answer": "It can be included in the general plan or hired as an add-on, depending on the condition and use of the garage or car park."
           }
-        ]
+        ],
+        "audience": {
+          "communities": {
+            "title": "Homeowner communities",
+            "description": "Cleaning frequency for the entrance, stairs and garage adapts to the community's actual size, from a weekly clean to a daily team, so the community doesn't over-contract for lack of a middle-ground plan."
+          },
+          "propertyManagers": {
+            "title": "Property management firms",
+            "description": "A single cleaning team can serve several communities in your portfolio with consistent quality standards, so you don't have to compare different providers every time a building renews its contract."
+          },
+          "businesses": {
+            "title": "Businesses and shopping centres",
+            "description": "Cleaning for a business or shopping centre is scheduled outside opening hours when requested, and covers areas a residential community doesn't have: shop windows, loading areas or high-traffic common spaces."
+          }
+        }
       },
       "gardening": {
         "tag": "Service 05",
@@ -1428,7 +1508,21 @@
             "question": "Does it include replacing plants that don't survive?",
             "answer": "Replacing dead or damaged plants is quoted as an add-on service, since it depends on the species and the cause of the damage."
           }
-        ]
+        ],
+        "audience": {
+          "communities": {
+            "title": "Homeowner communities",
+            "description": "Garden and green area maintenance adapts to what the community actually has, from a small hedge at the entrance to an extensive green area in a development, with pruning and watering scheduled by season."
+          },
+          "propertyManagers": {
+            "title": "Property management firms",
+            "description": "If you manage communities with very different garden profiles (a development with extensive green areas, a block with a small hedge), the service is sized per building without you having to find a gardener for each one."
+          },
+          "businesses": {
+            "title": "Businesses and shopping centres",
+            "description": "A shopping centre or business premises' green areas tend to be more publicly visible than a residential community's, so maintenance prioritises them looking good year-round, not just being tended to."
+          }
+        }
       },
       "maintenance": {
         "tag": "Service 06",
@@ -1479,7 +1573,21 @@
             "question": "Can I hire just one type of maintenance, like electrics?",
             "answer": "Yes, each area (plumbing, electrics, locksmithing, small works) can be contracted independently."
           }
-        ]
+        ],
+        "audience": {
+          "communities": {
+            "title": "Homeowner communities",
+            "description": "A single in-house technical team covers the community's plumbing, electrics, locksmithing and small works, so a fault doesn't mean finding a different professional for each type of issue."
+          },
+          "propertyManagers": {
+            "title": "Property management firms",
+            "description": "Coordinating technical maintenance for several buildings with a single provider means each community in your portfolio doesn't need its own trusted plumber, electrician and locksmith, each with different criteria and response times."
+          },
+          "businesses": {
+            "title": "Businesses and shopping centres",
+            "description": "Technical maintenance for a business or shopping centre is scheduled to minimise impact on activity (outside opening hours when possible), and covers installations a residential community doesn't have, like commercial climate control."
+          }
+        }
       }
     },
     "detail": {
@@ -1500,7 +1608,9 @@
       "ctaUrgentLabel": "Is it urgent?",
       "subservicesCount": "{count} services included",
       "subservicesEyebrow": "In detail",
-      "faqTitle": "Frequently asked questions about this service"
+      "faqTitle": "Frequently asked questions about this service",
+      "audienceEyebrow": "Who it's for",
+      "audienceTitle": "How this service adapts to who's hiring it"
     },
     "viewService": "View service",
     "process": {
