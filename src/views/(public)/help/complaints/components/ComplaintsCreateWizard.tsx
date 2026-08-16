@@ -5,17 +5,24 @@ import { useMemo, useRef, useState } from 'react';
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
+  BadgeHelpIcon,
+  BriefcaseIcon,
+  ClockIcon,
   EyeOffIcon,
   GavelIcon,
+  InfoIcon,
+  LightbulbIcon,
+  MapPinIcon,
   SendIcon,
+  ShieldCheckIcon,
   UserCheckIcon,
   WrenchIcon,
   XIcon,
 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { submitComplaint } from '@/actions/complaints/complaints-actions';
-import { useRouter } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { HONEYPOT_FIELD_NAME, PRIVACY_NOTICE_VERSION } from '@/config/settings';
 import { HTTPStatus } from '@/constants/httpStatus';
 import { notifyResponse } from '@/utils/toastUtils';
@@ -24,9 +31,12 @@ import Alert from '@/components/ui/alerts/Alert';
 import Button from '@/components/ui/buttons/Button';
 import CardRadioGroup from '@/components/ui/inputs/CardRadioGroup';
 import Captcha from '@/components/ui/inputs/Captcha';
+import DatePicker from '@/components/ui/inputs/DatePicker';
 import Input from '@/components/ui/inputs/Input';
 import Stepper from '@/components/ui/navigations/Stepper';
 import Textarea from '@/components/ui/inputs/Textarea';
+
+import { formatShortDate, toLocalIsoDate } from '@/utils/dateUtils';
 
 import '@/styles/04-components/ui/navigations/stepper.scss';
 import '@/styles/04-components/help/complaintWizard.scss';
@@ -40,20 +50,39 @@ const DESCRIPTION_MIN = 20;
  * `IncidentsCreateWizard.tsx` (portal de cliente): por pasos y no todo de golpe, porque quien
  * llega aquí puede estar reportando algo delicado y un formulario largo con un desplegable, dos
  * bloques condicionales y un checkbox de anonimato de golpe es intimidante. Se pregunta una cosa
- * a la vez, en el orden en que uno lo cuenta: qué tipo de reclamación es, qué ha pasado, si
- * quiere identificarse, cómo contactar (si procede), y un repaso antes de enviar.
+ * a la vez, en el orden en que uno lo cuenta: qué tipo de reclamación es, qué ha pasado
+ * (`details`), en qué contexto (`context`: localidad y si trabaja en Imora, ambos opcionales),
+ * si quiere identificarse, cómo contactar (si procede), y un repaso antes de enviar. `details` y
+ * `context` estaban fusionados en un único paso al añadir los campos de Ilunion
+ * (localidad/relación laboral): se separaron porque mezclaban tres tipos de control distintos
+ * (texto largo, input corto, tarjetas de radio) en la misma pantalla, rompiendo el criterio de
+ * "un tipo de pregunta por paso" que sigue el resto del asistente.
  *
  * El paso "contacto" se salta solo si se marcó anonimato: preguntar un dato que ya se dijo que
  * no se va a dar es hacer perder el tiempo (mismo criterio que el paso "dónde" en incidencias,
  * que se salta con un solo servicio posible).
+ *
+ * Antes del primer paso hay una pantalla de introducción (`hasStarted === false`): la petición
+ * original era que esto "no parezca un wizard bien explicado y demás" sin más contexto —
+ * llegar directo a "Tipo · Detalles · Identificación..." sin explicar antes qué es esto ni
+ * enlazar a la información legal completa (`/complaints-channel`) deja al usuario sin marco
+ * antes de empezar a rellenar. La intro no es un paso más del `Stepper` (no cuenta para su
+ * progreso), es una pantalla previa con un único CTA "Empezar".
+ *
+ * Ni la intro ni el wizard van dentro de una tarjeta con borde/fondo: viven directamente sobre
+ * el fondo de la página (`complaintWizard.scss`), con el mismo peso tipográfico de pregunta y
+ * las mismas acciones ancladas al pie en ambos estados, para que pasar de uno a otro no se
+ * sienta como dos pantallas de sitios distintos — sin necesitar una caja visual para lograrlo.
  * @returns {JSX.Element} El asistente renderizado
  */
 export default function ComplaintsCreateWizard() {
   const t = useTranslations('Complaints.wizard');
   const tErrors = useTranslations('Common.Errors');
+  const locale = useLocale();
   const router = useRouter();
   const captchaTokenRef = useRef<string | undefined>(undefined);
 
+  const [hasStarted, setHasStarted] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [furthestIndex, setFurthestIndex] = useState(0);
   const [isSending, setIsSending] = useState(false);
@@ -61,8 +90,14 @@ export default function ComplaintsCreateWizard() {
 
   const [type, setType] = useState<'SERVICE_QUALITY' | 'ETHICS_COMPLIANCE' | ''>('');
   const [affectedCommunityName, setAffectedCommunityName] = useState('');
-  const [serviceDate, setServiceDate] = useState('');
+  const [serviceDate, setServiceDate] = useState<Date | null>(null);
   const [serviceDescription, setServiceDescription] = useState('');
+  const [incidentLocation, setIncidentLocation] = useState('');
+  // Tres respuestas posibles y explícitas ("no", "sí", "prefiero no decirlo") más un cuarto
+  // estado real de "nada tocado todavía" (`null`): un boolean no puede distinguir "no trabajo
+  // aquí" de "no he contestado", y arrancar con una tarjeta ya marcada sin que el usuario haya
+  // hecho nada se lee como una respuesta dada, no como una pregunta pendiente.
+  const [reporterIsEmployee, setReporterIsEmployee] = useState<'yes' | 'no' | 'unset' | null>(null);
   const [description, setDescription] = useState('');
   const [isAnonymous, setIsAnonymous] = useState<boolean | null>(null);
   const [contactName, setContactName] = useState('');
@@ -81,6 +116,7 @@ export default function ComplaintsCreateWizard() {
     () => [
       { key: 'type', label: t('stepType') },
       { key: 'details', label: t('stepDetails') },
+      { key: 'context', label: t('stepContext') },
       { key: 'anonymous', label: t('stepAnonymous') },
       ...(hasContactStep ? [{ key: 'contact', label: t('stepContact') }] : []),
       { key: 'review', label: t('stepReview') },
@@ -99,6 +135,9 @@ export default function ComplaintsCreateWizard() {
         || (affectedCommunityName.trim().length > 0 && Boolean(serviceDate) && serviceDescription.trim().length > 0);
       return hasServiceFields && description.trim().length >= DESCRIPTION_MIN;
     }
+    // El paso de contexto es enteramente opcional (localidad y relación con la empresa no son
+    // obligatorias): siempre se puede avanzar desde aquí.
+    if (stepKey === 'context') return true;
     if (stepKey === 'anonymous') return isAnonymous !== null;
     if (stepKey === 'contact') {
       return contactName.trim().length > 0 && contactEmail.trim().length > 0;
@@ -131,8 +170,13 @@ export default function ComplaintsCreateWizard() {
       const response = await submitComplaint({
         type: type as 'SERVICE_QUALITY' | 'ETHICS_COMPLIANCE',
         affectedCommunityName: isServiceQuality ? affectedCommunityName.trim() : undefined,
-        serviceDate: isServiceQuality ? serviceDate : undefined,
+        serviceDate: isServiceQuality && serviceDate ? toLocalIsoDate(serviceDate) : undefined,
         serviceDescription: isServiceQuality ? serviceDescription.trim() : undefined,
+        incidentLocation: incidentLocation.trim() || undefined,
+        // "unset" (prefiero no decirlo) y "nada tocado" viajan igual: el backend solo entiende
+        // true/false/ausente, no una tercera opción explícita de "prefiero no decirlo".
+        reporterIsEmployee:
+          reporterIsEmployee === 'yes' ? true : reporterIsEmployee === 'no' ? false : undefined,
         description: description.trim(),
         isAnonymous: isAnonymous ?? false,
         contactName: isAnonymous ? undefined : contactName.trim() || undefined,
@@ -158,6 +202,54 @@ export default function ComplaintsCreateWizard() {
     return (
       <div className="complaint-wizard complaint-wizard--sent">
         <Alert type="success" message={t('sentMessage')} />
+      </div>
+    );
+  }
+
+  if (!hasStarted) {
+    const introPoints = [
+      { key: 'confidential', icon: ShieldCheckIcon, text: t('introPointConfidential') },
+      { key: 'anonymous', icon: EyeOffIcon, text: t('introPointAnonymous') },
+      { key: 'noRetaliation', icon: UserCheckIcon, text: t('introPointNoRetaliation') },
+    ];
+
+    return (
+      <div className="complaint-wizard-intro">
+        <div>
+          <h2 className="complaint-wizard-intro__title">{t('introTitle')}</h2>
+          <p className="complaint-wizard-intro__text">{t('introText')}</p>
+        </div>
+
+        <ul className="complaint-wizard-intro__points">
+          {introPoints.map(({ key, icon: Icon, text }) => (
+            <li key={key}>
+              <Icon size={18} aria-hidden="true" />
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="complaint-wizard__note">
+          <InfoIcon aria-hidden="true" />
+          <div>
+            <p className="complaint-wizard__note-title">{t('introScopeTitle')}</p>
+            <p className="complaint-wizard__note-text">{t('introScopeText')}</p>
+          </div>
+        </div>
+
+        <div className="complaint-wizard__actions complaint-wizard-intro__actions">
+          <Link href="/complaints-channel" className="complaint-wizard-intro__link">
+            {t('introLearnMore')}
+          </Link>
+          <Button
+            variant="primary"
+            title="startComplaint"
+            iconPosition="right"
+            onClick={() => setHasStarted(true)}
+          >
+            <ArrowRightIcon />
+          </Button>
+        </div>
       </div>
     );
   }
@@ -199,29 +291,31 @@ export default function ComplaintsCreateWizard() {
         <div className="complaint-wizard__fields">
           {isServiceQuality && (
             <>
-              <Input
-                id="complaint-community"
-                name="affectedCommunityName"
-                label={t('fields.affectedCommunityName')}
-                placeholder={t('placeholders.affectedCommunityName')}
-                noTranslate
-                required
-                className="input__full"
-                value={affectedCommunityName}
-                onChange={(event) => setAffectedCommunityName(event.target.value)}
-              />
+              <div className="complaint-wizard__fields-row">
+                <Input
+                  id="complaint-community"
+                  name="affectedCommunityName"
+                  label={t('fields.affectedCommunityName')}
+                  placeholder={t('placeholders.affectedCommunityName')}
+                  noTranslate
+                  required
+                  className="input__full"
+                  value={affectedCommunityName}
+                  onChange={(event) => setAffectedCommunityName(event.target.value)}
+                />
 
-              <Input
-                id="complaint-service-date"
-                name="serviceDate"
-                label={t('fields.serviceDate')}
-                type="date"
-                noTranslate
-                required
-                className="input__full"
-                value={serviceDate}
-                onChange={(event) => setServiceDate(event.target.value)}
-              />
+                <DatePicker
+                  id="complaint-service-date"
+                  name="serviceDate"
+                  label={t('fields.serviceDate')}
+                  required
+                  disableFuture
+                  clearable
+                  className="date-picker__full"
+                  value={serviceDate}
+                  onChange={setServiceDate}
+                />
+              </div>
 
               <Textarea
                 id="complaint-service-description"
@@ -255,32 +349,86 @@ export default function ComplaintsCreateWizard() {
               ? t('detailsEnough')
               : t('detailsMore', { min: DESCRIPTION_MIN })}
           </p>
+
+          <div className="complaint-wizard__note">
+            <LightbulbIcon aria-hidden="true" />
+            <div>
+              <p className="complaint-wizard__note-title">{t('detailsNoteTitle')}</p>
+              <ul className="complaint-wizard__note-list">
+                <li>{t('detailsNoteWhen')}</li>
+                <li>{t('detailsNoteWho')}</li>
+                <li>{t('detailsNoteWitnesses')}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {stepKey === 'context' && (
+        <div className="complaint-wizard__fields">
+          <div>
+            <Input
+              id="complaint-location"
+              name="incidentLocation"
+              label={t('fields.incidentLocation')}
+              placeholder={t('placeholders.incidentLocation')}
+              noTranslate
+              icon={MapPinIcon}
+              className="input__full"
+              value={incidentLocation}
+              onChange={(event) => setIncidentLocation(event.target.value)}
+            />
+            <p className="complaint-wizard__hint complaint-wizard__hint--tight">{t('incidentLocationHint')}</p>
+          </div>
+
+          <CardRadioGroup
+            name="complaint-reporter-employee"
+            className="card-radio-group__row"
+            label={t('reporterEmployeeQuestion')}
+            description={t('reporterEmployeeHelp')}
+            value={reporterIsEmployee ?? ''}
+            onChange={(value) => setReporterIsEmployee(value as 'yes' | 'no' | 'unset')}
+            options={[
+              { value: 'no', label: t('reporterEmployeeOptions.no'), icon: UserCheckIcon },
+              { value: 'yes', label: t('reporterEmployeeOptions.yes'), icon: BriefcaseIcon },
+              { value: 'unset', label: t('reporterEmployeeOptions.preferNotToSay'), icon: BadgeHelpIcon },
+            ]}
+          />
         </div>
       )}
 
       {stepKey === 'anonymous' && (
-        <CardRadioGroup
-          name="complaint-anonymous"
-          className="card-radio-group__grid"
-          ariaLabel={t('anonymousQuestion')}
-          description={t('anonymousHelp')}
-          value={isAnonymous === null ? '' : isAnonymous ? 'yes' : 'no'}
-          onChange={(value) => handleAnonymousChange(value === 'yes')}
-          options={[
-            {
-              value: 'no',
-              label: t('anonymousOptions.identified'),
-              description: t('anonymousHintIdentified'),
-              icon: UserCheckIcon,
-            },
-            {
-              value: 'yes',
-              label: t('anonymousOptions.anonymous'),
-              description: t('anonymousHintAnonymous'),
-              icon: EyeOffIcon,
-            },
-          ]}
-        />
+        <div className="complaint-wizard__fields">
+          <CardRadioGroup
+            name="complaint-anonymous"
+            className="card-radio-group__grid"
+            ariaLabel={t('anonymousQuestion')}
+            description={t('anonymousHelp')}
+            value={isAnonymous === null ? '' : isAnonymous ? 'yes' : 'no'}
+            onChange={(value) => handleAnonymousChange(value === 'yes')}
+            options={[
+              {
+                value: 'no',
+                label: t('anonymousOptions.identified'),
+                description: t('anonymousHintIdentified'),
+                icon: UserCheckIcon,
+              },
+              {
+                value: 'yes',
+                label: t('anonymousOptions.anonymous'),
+                description: t('anonymousHintAnonymous'),
+                icon: EyeOffIcon,
+              },
+            ]}
+          />
+
+          {isAnonymous !== null && (
+            <Alert
+              type={isAnonymous ? 'warning' : 'info'}
+              message={isAnonymous ? t('anonymousConsequenceAnonymous') : t('anonymousConsequenceIdentified')}
+            />
+          )}
+        </div>
       )}
 
       {stepKey === 'contact' && (
@@ -318,6 +466,14 @@ export default function ComplaintsCreateWizard() {
         <div className="complaint-wizard__review">
           <Alert type="info" message={t('reviewNotice')} />
 
+          <div className="complaint-wizard__note">
+            <ClockIcon aria-hidden="true" />
+            <div>
+              <p className="complaint-wizard__note-title">{t('reviewNextStepsTitle')}</p>
+              <p className="complaint-wizard__note-text">{t('reviewNextStepsText')}</p>
+            </div>
+          </div>
+
           <dl className="complaint-wizard__summary">
             <div>
               <dt>{t('fields.type')}</dt>
@@ -331,7 +487,7 @@ export default function ComplaintsCreateWizard() {
                 </div>
                 <div>
                   <dt>{t('fields.serviceDate')}</dt>
-                  <dd>{serviceDate}</dd>
+                  <dd>{serviceDate ? formatShortDate(serviceDate, locale) : ''}</dd>
                 </div>
               </>
             )}

@@ -59,13 +59,8 @@
     "cta": {
       "eyebrow": "Zonas de cobertura",
       "title": "Trabajamos en Madrid y su Comunidad",
-      "zonesLabel": "Madrid Capital y alrededores",
-      "zones": [
-        "Madrid capital",
-        "Pozuelo de Alarcón",
-        "Alcorcón"
-      ],
-      "zonesNote": "Y municipios cercanos de su área metropolitana.",
+      "zonesLabel": "{count} municipios de cobertura",
+      "zonesNote": "Ver las 20 zonas de cobertura",
       "button": "Solicitar presupuesto",
       "scheduleLabel": "Horario",
       "addressLabel": "Sede"
@@ -73,8 +68,20 @@
     "story": {
       "eyebrow": "Nuestra historia",
       "title": "Un sector tradicional, con las herramientas de hoy",
-      "descriptionA": "Imora nace de una idea sencilla: el sector de los servicios para comunidades y empresas lleva años funcionando igual, y creemos que se puede gestionar mejor con la tecnología que ya existe. Detrás está un equipo de dos socios con roles complementarios: uno centrado en construir esa tecnología, el otro en la gestión de cartera y del equipo de campo.",
-      "descriptionB": "Somos una empresa nueva, con previsión de arrancar entre septiembre de 2026 y enero de 2027, y lo decimos sin rodeos: no tenemos décadas de trayectoria, pero sí un planteamiento pensado desde el primer día para hacerlo de forma distinta a como se ha hecho siempre en este sector."
+      "descriptionA": "Imora nace de una idea sencilla: el sector de los servicios para comunidades y empresas lleva años funcionando igual, y creemos que se puede gestionar mejor con la tecnología que ya existe.",
+      "founders": {
+        "tech": {
+          "name": "Ismael",
+          "role": "Desarrollo de la tecnología y el producto"
+        },
+        "operations": {
+          "name": "Mustafa",
+          "role": "Gestión de cartera y del equipo de campo"
+        }
+      },
+      "launchLabel": "Arrancamos",
+      "launchDate": "Entre septiembre de 2026 y enero de 2027",
+      "descriptionB": "Somos una empresa nueva y lo decimos sin rodeos: no tenemos décadas de trayectoria, pero sí un planteamiento pensado desde el primer día para hacerlo de forma distinta a como se ha hecho siempre en este sector."
     }
   },
   "ForPropertyManagers": {
@@ -713,19 +720,21 @@
       "sentMessage": "Hemos recibido tu comunicación. Si dejaste un email, te llegará la confirmación en breve.",
       "fields": {
         "type": "Tipo de reclamación",
-        "affectedCommunityName": "Comunidad o edificio afectado",
+        "affectedCommunityName": "¿Dónde recibiste el servicio?",
         "serviceDate": "Fecha del servicio",
         "serviceDescription": "Qué servicio recibiste",
         "description": "Descripción",
         "contactName": "Nombre",
-        "contactEmail": "Correo electrónico"
+        "contactEmail": "Correo electrónico",
+        "incidentLocation": "Población donde ocurrieron los hechos"
       },
       "placeholders": {
-        "affectedCommunityName": "Nombre de la comunidad o dirección del edificio",
+        "affectedCommunityName": "Nombre de tu comunidad, o la dirección si no la conoces",
         "serviceDescription": "Qué servicio se prestó y cuándo",
         "description": "Cuéntanos con detalle qué ha pasado…",
         "contactName": "Tu nombre completo",
-        "contactEmail": "tu@email.com"
+        "contactEmail": "tu@email.com",
+        "incidentLocation": "Ej. Alcobendas, Madrid…"
       },
       "typeOptions": {
         "serviceQuality": "Queja sobre un servicio",
@@ -737,7 +746,33 @@
       },
       "consents": {
         "privacyLabel": "He leído y acepto la política de privacidad"
-      }
+      },
+      "introTitle": "Antes de empezar",
+      "introText": "Este es el canal de reclamaciones de Imora: un espacio para comunicar quejas sobre un servicio o irregularidades éticas y de cumplimiento normativo, tanto si eres cliente como si no. Puedes presentarla identificándote o de forma anónima.",
+      "introPointConfidential": "La información se trata de forma confidencial y solo accede quien la gestiona.",
+      "introPointAnonymous": "Puedes optar por no identificarte en ningún momento del proceso.",
+      "introPointNoRetaliation": "No se toma ninguna represalia contra quien comunica de buena fe.",
+      "introLearnMore": "Más información sobre el canal de reclamaciones",
+      "reporterEmployeeQuestion": "¿Trabajas para Imora?",
+      "reporterEmployeeHelp": "Como empleado o subcontratado, no como cliente o residente. Es opcional.",
+      "reporterEmployeeOptions": {
+        "no": "No",
+        "yes": "Sí",
+        "preferNotToSay": "Prefiero no decirlo"
+      },
+      "stepContext": "Contexto",
+      "contextQuestion": "Un poco más de contexto (opcional)",
+      "detailsNoteTitle": "Para que podamos revisarlo más rápido, si lo sabes, incluye:",
+      "detailsNoteWhen": "Cuándo ocurrió (fecha aproximada u horario, si aplica)",
+      "detailsNoteWho": "Quién estuvo implicado (sin datos personales de terceros si no es necesario)",
+      "detailsNoteWitnesses": "Si hay algún testigo o alguien más que pueda confirmarlo",
+      "incidentLocationHint": "Nos ayuda a identificar qué equipo o zona de servicio está implicada, aunque no sepas el nombre exacto de la comunidad.",
+      "anonymousConsequenceIdentified": "Con tus datos podremos confirmarte por email que la hemos recibido, avisarte si necesitamos algo más y decirte cómo termina.",
+      "anonymousConsequenceAnonymous": "Sin datos de contacto no podemos confirmarte que la hemos recibido ni avisarte del resultado — la reclamación se revisa igual, pero no hay forma de darte seguimiento.",
+      "reviewNextStepsTitle": "Qué pasa después de enviarla",
+      "reviewNextStepsText": "La revisa el equipo responsable del canal, no el departamento al que hace referencia la reclamación. Si dejaste un email, te confirmamos la recepción de inmediato; el análisis y la respuesta pueden tardar unos días según la complejidad del caso.",
+      "introScopeTitle": "Para qué es este canal",
+      "introScopeText": "Úsalo para quejas sobre un servicio o irregularidades éticas y de cumplimiento normativo. Si es una incidencia técnica del día a día (una avería, una duda sobre tu factura), es más rápido contactar directamente por soporte."
     }
   },
   "Contact": {

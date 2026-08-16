@@ -11,6 +11,8 @@ export interface CreatePublicComplaintPayload {
   affectedCommunityName?: string;
   serviceDate?: string;
   serviceDescription?: string;
+  incidentLocation?: string;
+  reporterIsEmployee?: boolean;
   description: string;
   isAnonymous: boolean;
   contactName?: string;

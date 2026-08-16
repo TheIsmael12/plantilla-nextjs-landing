@@ -1012,19 +1012,34 @@ con historial, justo lo opuesto de lo que iba a decir la nueva sección de histo
       con los datos reales confirmados directamente por los fundadores (no inventados) — Imora
       nace de aplicar tecnología a un sector tradicionalmente poco digitalizado, fundada por dos
       socios con roles complementarios (desarrollo de producto y gestión de cartera/personal),
-      lanzamiento previsto entre septiembre de 2026 y enero de 2027. El texto dice
-      explícitamente que es una empresa nueva ("no tenemos décadas de trayectoria"), sin
-      lenguaje que sugiera trayectoria inexistente. Insertado en `AboutViewPage.tsx` justo
-      después del hero, antes de "cómo trabajamos".
+      lanzamiento entre septiembre de 2026 y enero de 2027. El texto dice explícitamente que es
+      una empresa nueva ("no tenemos décadas de trayectoria"), sin lenguaje que sugiera
+      trayectoria inexistente.
       **De paso corregido**: `About.values.title` decía "por qué comunidades... **siguen
       confiando** en Imora" (ES) / "**keep trusting**" (EN) — verbo que asume historial de
       clientes recurrentes que una empresa aún sin lanzar no tiene. Cambiado a "eligen Imora" /
       "choose Imora", presente sin implicar continuidad.
 
+**Ajuste posterior a petición del usuario (mismo día)**: dos correcciones sobre lo anterior.
+
+- [x] **Posición**: `AboutStory` movida al sitio exacto donde iba `AboutCertifications` (entre
+      `AboutApproach` y `AboutValues`), no justo después del hero — mismo hueco que dejó la
+      sección retirada, en vez de una posición nueva.
+- [x] **"con previsión de arrancar" sonaba condicional** — cambiado a una afirmación directa de
+      la fecha ("arrancamos entre septiembre de 2026 y enero de 2027" / "we launch between...").
+- [x] **Rediseño**: de dos párrafos de texto plano a un layout con la misma jerarquía visual que
+      tenía `AboutCertifications` en ese hueco (header centrado + grid de tarjetas debajo) en
+      vez de dejarlo más pobre que lo que sustituía. Ahora: párrafo de contexto arriba, grid de
+      2 tarjetas de fundador (`about__value-card`/`about__value-icon` reutilizados — icono,
+      nombre, rol: "Ismael — Desarrollo de la tecnología y el producto", "Mustafa — Gestión de
+      cartera y del equipo de campo") junto a un badge de lanzamiento en `--primary-color` con
+      icono de cohete, y una nota de cierre centrada. CSS nuevo en `aboutStory.scss` con este
+      grid de 2fr/1fr en desktop.
+
 Verificado con `tsc --noEmit` limpio, JSON válido en los 4 archivos tocados, build de producción
-real y HTML servido: `/about` ya no muestra "ISO" en ningún encabezado o párrafo visible (solo
-queda en el JSON de traducciones embebido para el cliente, invisible a usuarios y a la
-indexación de contenido textual), el `<meta name="description">` de `/about` ya no lo menciona,
-`/help/faq` ya no tiene la pregunta de certificaciones, y aparecen "Un sector tradicional, con
-las herramientas de hoy", "no tenemos décadas de trayectoria" y "Por qué comunidades, edificios
-y empresas eligen Imora".
+real y HTML servido: `/about` muestra "Ismael"/"Mustafa" con sus roles, el badge "Entre
+septiembre de 2026 y enero de 2027", sin rastro de "previsión de arrancar", y en el orden
+correcto (Approach → Story → Values). Sin "ISO" en ningún encabezado o párrafo visible (solo en
+el JSON de traducciones embebido para el cliente, invisible a indexación de contenido textual),
+`<meta name="description">` de `/about` sin mención de ISO, `/help/faq` sin la pregunta de
+certificaciones.

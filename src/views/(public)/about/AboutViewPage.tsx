@@ -5,10 +5,11 @@ import AboutValues from '@/components/ui/about/AboutValues';
 import AboutCta from '@/components/ui/about/AboutCta';
 
 /**
- * Página "Sobre nosotros": hero, nuestra historia (`AboutStory`, por qué
- * nace Imora y quién está detrás — contenido confirmado por los fundadores,
- * no inventado), cómo trabajamos, ventajas de trabajar con Imora y la banda
- * de cierre con zonas de cobertura, datos de contacto y llamada a la
+ * Página "Sobre nosotros": hero, cómo trabajamos, nuestra historia
+ * (`AboutStory`, por qué nace Imora y quién está detrás — contenido
+ * confirmado por los fundadores, no inventado, en el mismo sitio donde
+ * antes iba `AboutCertifications`), ventajas de trabajar con Imora y la
+ * banda de cierre con zonas de cobertura, datos de contacto y llamada a la
  * acción.
  *
  * Sin `AboutCertifications`: las ISO 9001/14001/45001/27001 que mostraba
@@ -21,8 +22,8 @@ export default function AboutViewPage() {
   return (
     <main className="about">
       <AboutHero />
-      <AboutStory />
       <AboutApproach />
+      <AboutStory />
       <AboutValues />
       <AboutCta />
     </main>

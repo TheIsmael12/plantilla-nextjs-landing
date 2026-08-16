@@ -58,12 +58,32 @@
       @include px(0.85rem);
       padding-top: 0.45rem;
       padding-bottom: 0.45rem;
+      @include flex(row, flex-start, center, 0.4rem);
     }
+  }
+
+  // El número de municipios de cada corona, dentro del mismo chip — mismo color de acento que
+  // el chip pero con menos peso, para que se lea como un dato adicional y no compita con el
+  // nombre de la corona.
+  &__cta-zones-count {
+    font-size: $text-xs;
+    font-weight: $font-medium;
+    opacity: 0.75;
   }
 
   &__cta-zones-note {
     margin: 0;
     font-size: $text-sm;
+  }
+
+  &__cta-zones-link {
+    color: var(--primary-color-active);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: var(--fill-color-hover);
+    }
   }
 
   &__cta-info {

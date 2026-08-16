@@ -30,10 +30,8 @@ export default function ComplaintsHelpViewPage() {
         </div>
       </section>
 
-      <div className="help__container">
-        <div className="complaint-wizard-page">
-          <ComplaintsCreateWizard />
-        </div>
+      <div className="help__container complaint-wizard-page">
+        <ComplaintsCreateWizard />
       </div>
     </main>
   );

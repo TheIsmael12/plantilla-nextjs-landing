@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { getPathname, type AnyHref } from '@/i18n/navigation';
 import { ENV } from '@/config/env';
 import { SERVICE_SLUGS } from '@/config/routing';
+import { ZONES } from '@/config/zones';
 
 interface OrganizationJsonLdProps {
   locale: string;
@@ -15,15 +16,19 @@ interface OrganizationJsonLdProps {
  * una sola vez en `[locale]/layout.tsx` para que esté presente en todas
  * las páginas públicas y refuerce las señales de negocio local (GEO/SEO)
  * de cara a buscadores y modelos de lenguaje.
+ *
+ * Las zonas vienen de `config/zones.ts` (las 20 reales), no de una lista de traducción: antes
+ * `About.cta.zones` era un array fijo de 3 municipios que llevaba tiempo desactualizado frente
+ * al resto del sitio (ya con 20 páginas de zona publicadas) — ahora este schema y `AboutCta.tsx`
+ * comparten la misma fuente real, en vez de mantener dos listas por separado.
  * @param {OrganizationJsonLdProps} props El locale actual, para generar URLs de servicio localizadas
  * @returns {Promise<JSX.Element>} El `<script type="application/ld+json">` con el marcado de la empresa
  */
 export default async function OrganizationJsonLd({ locale }: OrganizationJsonLdProps) {
-  const t = await getTranslations({ locale, namespace: 'About.cta' });
   const servicesT = await getTranslations({ locale, namespace: 'Services.items' });
 
   const baseUrl = ENV.APP_URL.replace(/\/$/, "");
-  const zones = t.raw('zones') as string[];
+  const zones = ZONES.map((zone) => zone.name);
 
   const socials = [
     ENV.SOCIAL_LINKEDIN,

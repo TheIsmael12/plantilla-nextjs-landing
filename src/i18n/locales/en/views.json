@@ -59,13 +59,8 @@
     "cta": {
       "eyebrow": "Coverage areas",
       "title": "We work across Madrid and its Community",
-      "zonesLabel": "Madrid Capital and surrounding areas",
-      "zones": [
-        "Madrid capital",
-        "Pozuelo de Alarcón",
-        "Alcorcón"
-      ],
-      "zonesNote": "And nearby municipalities across its metropolitan area.",
+      "zonesLabel": "{count} coverage municipalities",
+      "zonesNote": "View all 20 coverage areas",
       "button": "Request a quote",
       "scheduleLabel": "Opening hours",
       "addressLabel": "Head office"
@@ -73,8 +68,20 @@
     "story": {
       "eyebrow": "Our story",
       "title": "A traditional sector, with today's tools",
-      "descriptionA": "Imora was born from a simple idea: the community and business services sector has worked the same way for years, and we believe it can be managed better with the technology that already exists. Behind it is a two-founder team with complementary roles: one focused on building that technology, the other on portfolio management and the field team.",
-      "descriptionB": "We're a new company, planning to launch between September 2026 and January 2027, and we say so plainly: we don't have decades of track record, but we do have an approach designed from day one to do things differently from how this sector has always worked."
+      "descriptionA": "Imora was born from a simple idea: the community and business services sector has worked the same way for years, and we believe it can be managed better with the technology that already exists.",
+      "founders": {
+        "tech": {
+          "name": "Ismael",
+          "role": "Technology and product development"
+        },
+        "operations": {
+          "name": "Mustafa",
+          "role": "Portfolio and field team management"
+        }
+      },
+      "launchLabel": "We launch",
+      "launchDate": "Between September 2026 and January 2027",
+      "descriptionB": "We're a new company, and we say so plainly: we don't have decades of track record, but we do have an approach designed from day one to do things differently from how this sector has always worked."
     }
   },
   "ForPropertyManagers": {
@@ -713,19 +720,21 @@
       "sentMessage": "We have received your report. If you left an email, the confirmation will arrive shortly.",
       "fields": {
         "type": "Complaint type",
-        "affectedCommunityName": "Affected community or building",
+        "affectedCommunityName": "Where did you receive the service?",
         "serviceDate": "Service date",
         "serviceDescription": "What service you received",
         "description": "Description",
         "contactName": "Name",
-        "contactEmail": "Email address"
+        "contactEmail": "Email address",
+        "incidentLocation": "Town where the incident took place"
       },
       "placeholders": {
-        "affectedCommunityName": "Community name or building address",
+        "affectedCommunityName": "Your community's name, or the address if you don't know it",
         "serviceDescription": "What service was provided and when",
         "description": "Tell us in detail what happened…",
         "contactName": "Your full name",
-        "contactEmail": "you@email.com"
+        "contactEmail": "you@email.com",
+        "incidentLocation": "E.g. Alcobendas, Madrid…"
       },
       "typeOptions": {
         "serviceQuality": "Complaint about a service",
@@ -737,7 +746,33 @@
       },
       "consents": {
         "privacyLabel": "I have read and accept the privacy policy"
-      }
+      },
+      "introTitle": "Before you start",
+      "introText": "This is Imora's complaints channel: a space to report issues with a service or ethics and compliance concerns, whether you're a client or not. You can file it identifying yourself or anonymously.",
+      "introPointConfidential": "Information is handled confidentially and only accessed by the team managing it.",
+      "introPointAnonymous": "You can choose not to identify yourself at any point in the process.",
+      "introPointNoRetaliation": "No retaliation is taken against anyone reporting in good faith.",
+      "introLearnMore": "More information about the complaints channel",
+      "reporterEmployeeQuestion": "Do you work for Imora?",
+      "reporterEmployeeHelp": "As an employee or subcontractor, not as a client or resident. Optional.",
+      "reporterEmployeeOptions": {
+        "no": "No",
+        "yes": "Yes",
+        "preferNotToSay": "Prefer not to say"
+      },
+      "stepContext": "Context",
+      "contextQuestion": "A bit more context (optional)",
+      "detailsNoteTitle": "So we can review it faster, if you know it, include:",
+      "detailsNoteWhen": "When it happened (approximate date or time, if relevant)",
+      "detailsNoteWho": "Who was involved (no personal data about others unless necessary)",
+      "detailsNoteWitnesses": "Whether there's a witness or someone else who could confirm it",
+      "incidentLocationHint": "It helps us identify which team or service area is involved, even if you don't know the exact name of the community.",
+      "anonymousConsequenceIdentified": "With your details we can confirm by email that we've received it, ask you for more information if needed, and let you know how it's resolved.",
+      "anonymousConsequenceAnonymous": "Without contact details we can't confirm we've received it or let you know the outcome — the complaint is still reviewed the same way, but there's no way to follow up with you.",
+      "reviewNextStepsTitle": "What happens after you send it",
+      "reviewNextStepsText": "It's reviewed by the team responsible for the channel, not the department the complaint refers to. If you left an email, we confirm receipt right away; the review and response can take a few days depending on how complex the case is.",
+      "introScopeTitle": "What this channel is for",
+      "introScopeText": "Use it for complaints about a service or ethics and compliance concerns. For a day-to-day technical issue (a fault, a question about your invoice), it's faster to contact support directly."
     }
   },
   "Contact": {

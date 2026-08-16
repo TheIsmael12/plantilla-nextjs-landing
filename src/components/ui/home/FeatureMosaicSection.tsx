@@ -103,8 +103,8 @@ export default function FeatureMosaicSection() {
               <Image
                 src="/images/home/mosaic-feature.jpg"
                 alt={t('cards.feature.imageAlt')}
-                width={340}
-                height={240}
+                width={256}
+                height={181}
                 sizes="(min-width: 1024px) 256px, 90vw"
                 className="home__tile-feature-image"
               />
