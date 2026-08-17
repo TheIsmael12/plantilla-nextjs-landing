@@ -111,7 +111,7 @@ export default function FeatureMosaicSection() {
                 alt={t('cards.feature.imageAlt')}
                 width={256}
                 height={181}
-                sizes="(min-width: 1024px) 256px, 90vw"
+                sizes="(min-width: 1024px) 256px, (min-width: 640px) 45vw, 70vw"
                 className="home__tile-feature-image"
               />
             </div>

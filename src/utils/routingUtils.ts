@@ -24,6 +24,21 @@ const AUTH_PATHNAMES = flattenPathnames(AUTH_ROUTES);
 const PRIVATE_PATHNAMES = flattenPathnames(PRIVATE_ROUTES).concat(flattenPathnames(AREA_PRIVADA_ROUTES));
 
 /**
+ * Rutas públicas que, aunque no requieren sesión, no aportan contenido único
+ * que valga la pena indexar: el hub de ayuda es solo un menú hacia sus
+ * sub-páginas, y los canales de contacto/reclamaciones duplican información
+ * que ya vive en la página de contacto o no tiene intención de posicionar en
+ * buscadores. `/help/faq` queda fuera a propósito: sí tiene contenido propio
+ * (zonas, precios, servicios) con valor de búsqueda de cola larga.
+ */
+const NOINDEX_PATHNAMES: StaticPathname[] = [
+  "/help",
+  "/help/support",
+  "/help/complaints",
+  "/complaints-channel",
+];
+
+/**
  * Detecta el locale con el que debe servirse una petición cuando su URL
  * todavía no lo indica: primero el prefijo de la propia URL, luego la cookie
  * `NEXT_LOCALE` (preferencia ya elegida por el usuario) y, si no hay ninguna,
@@ -125,6 +140,15 @@ export function isAuthPathname(pathname: StaticPathname | null): boolean {
  */
 export function isPrivateRoute(pathname: StaticPathname | null): boolean {
   return !!pathname && PRIVATE_PATHNAMES.includes(pathname);
+}
+
+/**
+ * Indica si una ruta canónica es pública pero no debe indexarse (ver {@link NOINDEX_PATHNAMES}).
+ * @param {StaticPathname | null} pathname - Ruta canónica, o `null` si no se pudo resolver
+ * @returns {boolean} `true` si `pathname` está en {@link NOINDEX_PATHNAMES}
+ */
+export function isNoIndexPathname(pathname: StaticPathname | null): boolean {
+  return !!pathname && NOINDEX_PATHNAMES.includes(pathname);
 }
 
 /**

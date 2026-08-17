@@ -7,7 +7,7 @@ import { getTranslations } from "next-intl/server";
 import { ENV } from "@/config/env";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type AppLocale } from "@/config/locales";
 import type { StaticPathname } from "@/types/route";
-import { isAuthPathname, isPrivateRoute } from "@/utils/routingUtils";
+import { isAuthPathname, isNoIndexPathname, isPrivateRoute } from "@/utils/routingUtils";
 
 /**
  * Genera los metadatos (`generateMetadata` de `[locale]/layout.tsx`) a partir
@@ -68,12 +68,15 @@ export async function generateTranslatedMetadata({
     {},
   );
 
-  // Páginas de autenticación y área de cliente: no aportan contenido único
-  // que valga la pena indexar (y la segunda, además, requiere sesión), así
-  // que se marcan `noindex` aunque el resto del sitio sí sea público
-  // (ver `robots.ts`, que permite el rastreo general).
+  // Páginas de autenticación, área de cliente y utilidades públicas sin
+  // contenido único (hub de ayuda, canales de contacto/reclamaciones): no
+  // aportan nada que valga la pena indexar (el área de cliente, además,
+  // requiere sesión), así que se marcan `noindex` aunque el resto del sitio
+  // sí sea público (ver `robots.ts`, que permite el rastreo general).
   const shouldNoIndex =
-    isAuthPathname(canonicalPathname) || isPrivateRoute(canonicalPathname);
+    isAuthPathname(canonicalPathname) ||
+    isPrivateRoute(canonicalPathname) ||
+    isNoIndexPathname(canonicalPathname);
 
   const ogImage = { url: ENV.OG_IMAGE, width: 1200, height: 630 };
 

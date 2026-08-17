@@ -23,7 +23,9 @@ Lo que la auditoría identifica bien y **sí es un problema real, verificado en 
 
 - **El blog está vacío o casi vacío.** No hay artículos publicados en cantidad.
 - **Solo 3 zonas de cobertura declaradas**: Madrid capital, Pozuelo de Alarcón, Alcorcón
-  (`src/i18n/locales/es/views.json`, clave `zones`). No hay páginas de zona.
+  (`src/i18n/locales/es/views.json`, clave `zones`). No hay páginas de zona. **Resuelto**: existen
+  las 20 páginas de zona (§4/§21), y la FAQ de cobertura que aún citaba solo estas 3 se actualizó
+  en §31.
 - **Datos de contacto con fallback ficticio en el código**: `COMPANY_ADDRESS` cae a
   `"Calle Ejemplo, 123"` y `COMPANY_EMERGENCY_PHONE` a `"+34 900 123 456"` si las variables
   de entorno reales no están puestas (`src/config/env.ts`). Si el `.env` de producción en
@@ -1043,3 +1045,175 @@ correcto (Approach → Story → Values). Sin "ISO" en ningún encabezado o pár
 el JSON de traducciones embebido para el cliente, invisible a indexación de contenido textual),
 `<meta name="description">` de `/about` sin mención de ISO, `/help/faq` sin la pregunta de
 certificaciones.
+
+## 31. Auditoría SEO/UX externa (21 puntos) — todo menos el blog (2026-08-17)
+
+Respuesta a una nueva auditoría externa de 21 puntos, con alcance explícito "todo menos el
+blog". Cubre financiación falsa, consistencia 24h/48h, contenido legal genérico de plantilla
+SaaS, páginas de zona demasiado parecidas entre sí, y SEO técnico (robots/sitemap/hreflang).
+
+- [x] **Financiación eliminada.** "Financiación sin intereses" (aplazamiento del 40% de la
+      factura) no es una condición comercial real todavía — quitada de dos sitios donde
+      aparecía: el mosaico de la home (`FeatureMosaicSection.tsx`, tarjeta `cards.purchase` →
+      sustituida por `cards.quote`, "presupuesto cerrado, sin sorpresas") y una segunda
+      aparición no detectada en el primer pase, `Faq.categories.quotes.items.financing`
+      ("¿Ofrecéis facilidades de pago? Sí, aplazamos el 40%...") — eliminada por completo, no
+      suavizada. Verificado con grep exhaustivo (`financ|aplazamos|sin intereses|interest-free`)
+      tras el fix: solo queda en un comentario JSDoc, no en contenido servido.
+- [x] **Consistencia 24h/48h.** `Services.detail.ctaUrgentLabel` ("¿Es urgente?" → "Urgencias
+      24h") y `Home.ctaPrimary.pillC`/`cardLabel` ("Respuesta en 48h" → "Presupuesto en 48h" /
+      "Presupuesto cerrado en menos de 48 horas tras la visita") unificados bajo una única
+      definición: 24h = primera respuesta de contacto, 48h = presupuesto cerrado tras la visita.
+- [x] **FAQ de cobertura actualizada.** `Faq.categories.coverageSchedule.items.coverage`
+      mencionaba solo "Madrid capital, Pozuelo de Alarcón, Alcorcón" (obsoleto desde que existen
+      las 20 zonas de §4/§21). Actualizado a "Madrid capital y 19 municipios más... (coronas
+      noroeste, norte, sur y este)", con enlace a `/zonas`.
+- [x] **Título de "Seguridad" ajustado.** `Services.items.security.title`: "Seguridad y CCTV" →
+      "Videovigilancia y control de accesos" (ES) / "Security and CCTV" → "CCTV and Access
+      Control" (EN), y su `Metadata.routes["/services/security"].title` a juego. Mismo matiz
+      legal ya resuelto en auditorías anteriores (Ley 5/2014, Imora no es una empresa de
+      seguridad privada) — el título ya no usa la palabra "Seguridad" sola, que sugería esa
+      categoría regulada.
+- [x] **Categoría "marketing" de cookies retirada por completo**, no solo su ejemplo
+      (`Plausible`, nunca implementado): `CookieConsentController.tsx` (interfaz, estado por
+      defecto, `acceptAll`/`rejectAll`, el toggle JSX entero), `cookies.json` (ES/EN) y la tabla
+      de `legal.json` → `Cookies.sections.tipos.items` (ES/EN). La categoría "Analíticas" se
+      queda (Google Analytics es real y condicional a `GOOGLE_ANALYTICS_ID`).
+- [x] **Términos y condiciones — error propio corregido en la misma sesión.** Se llegó a
+      eliminar por completo "Cuenta de usuario" y "Pagos y facturación" de `TermsView.tsx`
+      asumiendo que la landing no tenía cuentas ni facturación reales — **incorrecto**: el
+      portal de cliente (`(client-area)`, `next-auth` real) y la sección de facturas
+      (`private-area/invoices`) sí existen. Restauradas ambas secciones completas, ajustando
+      solo lo que seguía siendo falso incluso con cuentas/facturas reales:
+      - `Terms.sections.cuenta.securityText` (ES/EN): quitada la mención de autenticación de dos
+        factores (no verificado si existe de verdad a nivel de cuenta — el 2FA que sí existe en
+        `ProfileSecurityViewPage.tsx`/`TwoFactorSection.tsx` es otra capa, no lo que este párrafo
+        afirmaba).
+      - `Terms.sections.pagos` (ES/EN), título "Pagos y facturación" → "Facturación"/"Billing":
+        el `list` genérico de pasarela de pago/suscripciones/renovación automática (sin
+        Stripe/checkout real en todo el código, verificado por grep) sustituido por el flujo
+        real: precio por contrato tras presupuesto cerrado, facturas consultables en el área
+        privada, pago por el medio acordado en contrato (no pasarela integrada), reclamaciones
+        por los canales de contacto habituales.
+      - **Bug encontrado en la restauración**: el `toc` de `Terms` seguía diciendo "6. Pagos y
+        facturación"/"6. Payments" aunque el título de la sección ya se había cambiado a
+        "Facturación"/"Billing" — corregido para que coincidan.
+      Lección aplicada: verificar contra el código real (portal de cliente, `next-auth`,
+      facturas) antes de borrar contenido legal como "no aplica", no asumir que una landing no
+      tiene backend conectado.
+    - [x] **Política de Privacidad — mismo criterio.** Dos afirmaciones verificadas como falsas
+      contra el editor de perfil real (`PersonalDataSection.tsx`, sin campo de foto/biografía):
+      quitado el ítem "Información de perfil: foto, biografía..." de
+      `Privacy.sections.recopilacion.list1` (ES/EN). Y "Delegado de Protección de Datos"/"Data
+      Protection Officer" (afirma un rol legal formal RGPD no verificable desde el código)
+      rebajado a "Responsable de Privacidad"/"Privacy Officer" — mantiene el contacto real
+      (`privacy@imora.es`) sin afirmar una figura DPO formalmente designada.
+- [x] **Punto #17 — noindex para páginas de ayuda sin valor SEO.** Nueva función
+      `isNoIndexPathname` en `routingUtils.ts` (mismo patrón que `isAuthPathname`/
+      `isPrivateRoute`), consumida por `generateMetadata.ts`. Marcadas `noindex, nofollow`:
+      `/help` (hub, solo menú), `/help/support` (duplica contacto/footer), `/help/complaints` y
+      `/complaints-channel` (canal legal sin intención de posicionar). **`/help/faq` se deja
+      fuera a propósito** — tiene contenido propio de cola larga (zonas, precios, servicios) con
+      valor de búsqueda real. Las 3 rutas ahora noindexed se quitaron también de `sitemap.ts`
+      (listar una página `noindex` en el sitemap es la inconsistencia clásica que un crawler
+      penaliza). Verificado en HTML servido: `<meta name="robots" content="noindex, nofollow">`
+      en las 4 rutas, `index, follow` sin cambios en el resto; `sitemap.xml` sin esas 3 URLs.
+- [x] **Punto #16 (mayor preocupación del informe) — las 20 páginas de zona reescritas de
+      cero.** El muestreo inicial ya mostraba contenido específico por zona (no relleno con el
+      nombre cambiado), pero varias parejas compartían casi la misma plantilla de frase con
+      sustantivos intercambiados: San Sebastián de los Reyes/Leganés (ambas "Limpieza y
+      mantenimiento en X"), Getafe/Colmenar Viejo (ambas "Conserjería y mantenimiento en X"),
+      Coslada/Collado Villalba (mismo framing de "equipo propio/coordinación" en mantenimiento
+      técnico). Reescritos `heroSubtitle`, `context`, `serviceNotes` (6 por zona), `faq` (2 por
+      zona) y metadata (`title`/`description`/`keywords`) de las 20 zonas en ES+EN, ahora
+      cada una anclada a un hecho/ángulo distinto y verificable del municipio real (parque
+      empresarial de Alcobendas, nudo logístico ferroviario de Coslada, base aérea histórica de
+      Torrejón, dehesa/casco histórico de Colmenar Viejo, campus de la Carlos III en Leganés,
+      21 distritos heterogéneos de Madrid capital...). Cinco zonas comparten "seguridad" como
+      ángulo principal del título (Majadahonda, Getafe, Torrejón, Coslada, Torrelodones) pero
+      por motivos claramente distintos entre sí (urbanización cerrada, campus universitario,
+      base aérea, nudo ferroviario, renta alta), no por plantilla repetida.
+      **Bug encontrado de paso**: `collado-villalba.areaLabel` decía "Corona noroeste" pero
+      `config/zones.ts` la agrupa como `area: "sur"` — corregido en ES/EN.
+- [x] **Punto #21 (SEO técnico) — verificado en vivo, no solo leído.** El informe lo marcaba
+      como "no pude verificarlo desde el crawler", así que se comprobó contra el sitio servido
+      real (`next build` + `next start` + `curl`), no solo el código:
+      - `robots.txt`: correcto — permite rastreo general, bloquea `/api/` y rutas privadas,
+        publica `sitemap.xml`. La exclusión de `/help`, `/help/support`, `/complaints-channel`
+        es **solo** vía `noindex` (no bloqueadas en `robots.txt`), a propósito: bloquearlas en
+        `robots.txt` impediría que el crawler llegara a leer la etiqueta `noindex`, que es la
+        práctica recomendada por Google para este caso.
+      - `hreflang`: presente y correcto, pero se sirve como cabecera HTTP `Link:
+        rel="alternate"` en vez de `<link>` dentro de `<head>` — comportamiento de Next.js 16
+        cuando `generateMetadata` vive en `[locale]/layout.tsx` (arquitectura centralizada de
+        metadatos de este proyecto, ver `generateMetadata.ts`). Válido según la documentación de
+        Google (hreflang por cabecera HTTP está soportado), y `sitemap.xml` ya lleva el mismo
+        cruce de idiomas de forma redundante — no es un bug, pero algunas herramientas de
+        auditoría SEO solo miran el `<head>` y no la cabecera, así que puede seguir apareciendo
+        como "hreflang no encontrado" en análisis futuros aunque sí esté presente.
+      - **Hallazgo nuevo, no estaba en el informe**: todas las páginas públicas (home, zonas,
+        servicios...) se sirven con `Cache-Control: private, no-cache, no-store, max-age=0`,
+        confirmado por `curl -I` en `/`, `/services` y `/zonas/leganes` por igual. Causa: el
+        layout raíz (`[locale]/layout.tsx`) llama `getServerSession()` para resolver el tema
+        (`forcedTheme`) si hay sesión activa, lo que fuerza renderizado dinámico sin caché en
+        **todo** el sitio, incluidas las páginas 100% públicas de marketing sin ningún dato de
+        sesión. Puede penalizar TTFB/Core Web Vitals y evita el cacheo en CDN. **No corregido a
+        propósito** (decisión del usuario, 2026-08-17): desacoplar la lectura de sesión del
+        layout público es un cambio de arquitectura con riesgo real de romper el tema
+        personalizado, no algo para tocar deprisa dentro de esta ronda. Queda documentado como
+        TODO para abordar con más tiempo.
+      - [ ] **TODO — cachear páginas 100% públicas.** Investigar mover `getServerSession` (y el
+            `forcedTheme` que depende de él) fuera del layout compartido por rutas públicas y
+            privadas, para que `/`, `/zonas/*`, `/services/*` etc. puedan servirse con
+            `Cache-Control` cacheable sin perder el tema personalizado en el portal de cliente.
+
+Verificado en cada punto con el patrón ya establecido en este documento: `tsc --noEmit` limpio,
+JSON válido en los 4 locales tocados, `rm -rf .next && next build` real, servidor levantado en un
+puerto nuevo cada vez y comprobado con `curl` contra el HTML/headers servidos (no solo el código
+fuente), y `npx vitest run --project=unit` con el mismo resultado de siempre (361 passed, 1
+failed — `generateBlogPostMetadata.test.ts`, fallo preexistente no relacionado con nada de este
+punto).
+
+## 32. Tres hallazgos reales de Lighthouse/DevTools en producción (2026-08-17)
+
+El usuario pegó tres hallazgos literales de una auditoría de Lighthouse/DevTools contra
+imora.es en producción (no del crawler de contenido de las secciones anteriores).
+
+- [x] **Enlaces idénticos con destinos distintos.** `Routes["/help/complaints"]` y
+      `Routes["/complaints-channel"]` compartían el mismo texto "Canal de reclamaciones" en
+      `navigation.json` (ES/EN) apuntando a dos páginas reales y distintas: `/ayuda/reclamaciones`
+      es el asistente donde se presenta la reclamación de verdad (`ComplaintsCreateWizard.tsx`,
+      `POST /public/complaints`), y `/canal-de-reclamaciones` es la página legal/informativa que
+      explica qué es el canal y enlaza al asistente. Renombrado a petición explícita del usuario:
+      `/help/complaints` → "Denuncias" (ES) / "File a complaint" (EN); `/complaints-channel` se
+      queda como "Canal de reclamaciones" (la página formal/legal). De paso, mismo ajuste en el
+      `title` de `Metadata.routes["/help/complaints"]` (ES/EN), que tenía el mismo problema de
+      fondo aunque Lighthouse no lo señalara explícitamente.
+- [x] **CSP sin fallback retrocompatible en `script-src`.** Añadido `'unsafe-inline'` al final de
+      la directiva en `csp.ts`. No reabre la protección real: cualquier navegador que reconoce
+      `nonce-*` (CSP Level 3) ignora `'unsafe-inline'` por completo cuando hay un nonce válido en
+      la misma directiva — el añadido solo evita que un navegador antiguo sin soporte de nonces se
+      quede sin ninguna política de scripts en vez de una parcial, que es justo lo que pedía
+      Lighthouse.
+- [x] **Imagen del mosaico de home sobredimensionada** (`mosaic-feature.jpg`,
+      `FeatureMosaicSection.tsx`): Lighthouse midió una descarga de 449×427 para un hueco mostrado
+      de 364×243, con 20 KiB de ahorro estimado. Causa raíz: el `sizes="(min-width: 1024px) 256px,
+      90vw"` original declaraba el 90% del viewport como ancho del hueco en mobile/tablet, pero el
+      contenedor real (`.home__tile-feature-media` dentro de `.home__container` con su padding y
+      el padding propio del tile) nunca llega a ocupar el 90vw — con `sizes` conteniendo una
+      unidad relativa, Next.js activa el modo de candidatos "responsive" (`imageSizes +
+      deviceSizes` combinados) y ese 90vw sobreestimado hacía que eligiera un candidato de
+      `deviceSizes` innecesariamente grande. Corregido a
+      `sizes="(min-width: 1024px) 256px, (min-width: 640px) 45vw, 70vw"`, más ajustado al ancho
+      real del contenedor en los tramos intermedios. **Primer intento descartado**: subir
+      `width`/`height` de 256×181 a 364×243 en vez de tocar `sizes` — verificado con `curl` que
+      esto empeoraba el problema (Next pasaba a usar solo `deviceSizes`, cuyo candidato más
+      pequeño es 640px de ancho, peor que los 384px disponibles en `imageSizes` con `width={256}`
+      fijo); revertido antes de dar el fix por bueno.
+
+Mismo patrón de verificación de siempre: `tsc --noEmit` limpio, `next build` real, servidor en
+puerto nuevo y `curl` contra el HTML/headers servidos — confirmado el `<title>`/texto de enlace
+distinto en `/help/complaints` vs `/complaints-channel` (ES y EN), la cabecera
+`Content-Security-Policy` con `'unsafe-inline'` al final de `script-src`, y el `sizes` nuevo en el
+`<img>` servido de `mosaic-feature.jpg`. `npx vitest run --project=unit`: 361 passed, 1 failed
+(mismo fallo preexistente de siempre).

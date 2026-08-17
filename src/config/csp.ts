@@ -107,7 +107,14 @@ export function buildContentSecurityPolicy(nonce: string): string {
     // dinámicos. Los navegadores que lo entienden ignoran la lista de hosts
     // de después; los que no, caen a esa lista (Turnstile, Google Analytics)
     // como respaldo.
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${TURNSTILE_ORIGIN}${analyticsEnabled ? ` ${GOOGLE_ANALYTICS_ORIGINS.join(" ")}` : ""}`,
+    //
+    // `'unsafe-inline'` al final, retrocompatible con navegadores antiguos que no entienden
+    // `nonce-*`/`strict-dynamic` (Lighthouse, "Asegura que la CSP sea efectiva frente a ataques
+    // XSS"): cualquier navegador que sí reconoce nonces la ignora por completo (CSP Level 3, ya
+    // no cae a `'unsafe-inline'` cuando hay un nonce válido en la misma directiva), así que no
+    // reabre la protección real para el caso normal — solo evita que un navegador muy antiguo se
+    // quede sin ninguna política de scripts en vez de una parcial.
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${TURNSTILE_ORIGIN}${analyticsEnabled ? ` ${GOOGLE_ANALYTICS_ORIGINS.join(" ")}` : ""} 'unsafe-inline'`,
     // `'unsafe-inline'` se queda solo en `style-src`: Next.js no permite
     // todavía nonce en los `<style>` que inyecta por RSC/CSS-in-JS del propio
     // framework, y bloquearlos rompería el pintado. El riesgo que cubre un

@@ -35,7 +35,7 @@
         },
         {
           "href": "#pagos",
-          "label": "6. Pagos y facturación"
+          "label": "6. Facturación"
         },
         {
           "href": "#privacidad",
@@ -93,7 +93,7 @@
             "Debes notificarnos inmediatamente de cualquier uso no autorizado de tu cuenta."
           ],
           "sub2": "Seguridad de la cuenta",
-          "securityText": "Implementamos medidas de seguridad razonables para proteger tu cuenta. Te recomendamos usar contraseñas únicas y complejas, y activar la autenticación de dos factores cuando esté disponible."
+          "securityText": "Implementamos medidas de seguridad razonables para proteger tu cuenta. Te recomendamos usar una contraseña única y no compartirla con terceros."
         },
         "uso_aceptable": {
           "title": "4. Uso aceptable",
@@ -118,13 +118,12 @@
           "p3": "No puedes reproducir, distribuir o modificar nuestro contenido sin nuestra autorización expresa por escrito."
         },
         "pagos": {
-          "title": "6. Pagos y facturación",
+          "title": "6. Facturación",
           "list": [
-            "Los precios de los servicios de pago se indican claramente antes de la compra.",
-            "Los pagos se procesan de forma segura a través de pasarelas de pago certificadas.",
-            "Las suscripciones se renuevan automáticamente salvo cancelación previa a la fecha de renovación.",
-            "Los reembolsos se gestionarán de acuerdo con nuestra política de reembolsos vigente.",
-            "Nos reservamos el derecho de modificar los precios con un aviso previo de 30 días."
+            "El precio de cada servicio se acuerda por contrato antes de empezar a prestarlo, según el presupuesto cerrado que hayamos preparado para tu comunidad, edificio o negocio.",
+            "Las facturas correspondientes a los servicios contratados están disponibles para su consulta en el área privada de cliente.",
+            "El pago de las facturas se realiza según la forma acordada en el contrato de servicio (transferencia, domiciliación u otro medio pactado), no a través de una pasarela de pago integrada en esta web.",
+            "Cualquier reclamación sobre una factura puede tramitarse a través de los canales de contacto habituales."
           ]
         },
         "privacidad": {
@@ -214,10 +213,6 @@
             {
               "strong": "Información de cuenta: ",
               "rest": "nombre, email y contraseña al registrarte."
-            },
-            {
-              "strong": "Información de perfil: ",
-              "rest": "foto, biografía y demás datos que añadas voluntariamente."
             },
             {
               "strong": "Comunicaciones: ",
@@ -327,8 +322,8 @@
         },
         "contacto": {
           "title": "9. Contacto con el responsable",
-          "intro": "Para cualquier consulta sobre esta política o para ejercer tus derechos, contacta con nuestro Delegado de Protección de Datos:",
-          "dpo": "Delegado de Protección de Datos",
+          "intro": "Para cualquier consulta sobre esta política o para ejercer tus derechos, contacta con nuestro responsable de privacidad:",
+          "dpo": "Responsable de Privacidad",
           "emailLabel": "Email:",
           "addressLabel": "Dirección:"
         }
@@ -388,14 +383,7 @@
               "color": "green",
               "canDisable": true,
               "purpose": "Nos ayudan a entender cómo interactúas con el sitio para mejorarlo.",
-              "examples": "Google Analytics, Plausible."
-            },
-            {
-              "type": "Cookies de marketing",
-              "color": "amber",
-              "canDisable": true,
-              "purpose": "Utilizadas para mostrarte publicidad relevante.",
-              "examples": "Google Ads, Meta Pixel."
+              "examples": "Google Analytics."
             },
             {
               "type": "Cookies funcionales",
