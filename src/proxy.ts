@@ -52,12 +52,17 @@ export default async function middleware(request: NextRequest) {
   // El nonce se pasa como cabecera de PETICIÓN antes de invocar el enrutado
   // de next-intl, para que la respuesta que genere ya nazca con ella: así
   // `layout.tsx` puede leerla más abajo en la cadena de renderizado.
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-nonce", nonce);
+  //
+  // Se muta `request.headers` in-place (no `new NextRequest(request, {...})`): reconstruir el
+  // request clona también su `body`, y en las Server Actions (peticiones POST con `FormData`,
+  // p. ej. `ContactForm`/`ComplaintForm`) ese body es un stream que ya no se puede volver a leer
+  // una segunda vez — la propia Server Action recibiría un `body` vacío o corrupto y fallaría
+  // antes de intentar siquiera la llamada a la API. `NextRequest.headers` no es de solo lectura,
+  // así que basta con mutarlo (mismo fix aplicado en `plantilla-nextjs`, donde sí llegó a
+  // reproducirse en producción con los formularios del CRM).
+  request.headers.set("x-nonce", nonce);
 
-  const response = handleI18nRouting(
-    new NextRequest(request, { headers: requestHeaders }),
-  );
+  const response = handleI18nRouting(request);
 
   if (process.env.NODE_ENV === "production") {
     response.headers.set("Content-Security-Policy", buildContentSecurityPolicy(nonce));
