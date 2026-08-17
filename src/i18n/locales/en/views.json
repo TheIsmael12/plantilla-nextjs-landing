@@ -981,10 +981,6 @@
             "question": "How do I request a quote?",
             "answer": "Fill in the contact form or call us directly. We carry out an on-site visit and assessment of your community or building, and prepare a fixed quote with a reply within 48 hours, with no obligation."
           },
-          "financing": {
-            "question": "Do you offer payment facilities?",
-            "answer": "Yes, we defer 40% of the first year's billing, spread across the following monthly payments, interest-free."
-          },
           "changeService": {
             "question": "I want to extend or change my contracted service, who do I talk to?",
             "answer": "Our sales team, who will review your new needs with you and prepare an updated proposal. You can write to them directly from the contact page."
@@ -1158,14 +1154,14 @@
           "title": "24-hour support",
           "description": "Available 365 days a year for any incident or emergency that may arise."
         },
-        "purchase": {
-          "title": "Interest-free financing",
-          "description": "We defer 40% of the first year's billing, spread across the following years' instalments."
-        },
         "feature": {
           "title": "Periodic quality inspection",
           "description": "Our inspection department visits every service to ensure its continuous improvement.",
           "imageAlt": "Facilities inspection"
+        },
+        "quote": {
+          "title": "Closed quote, no surprises",
+          "description": "We visit the property, assess what you need, and give you a fixed price before starting. No hidden costs on the invoice."
         }
       }
     },

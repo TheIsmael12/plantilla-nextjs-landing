@@ -1,0 +1,39 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.zone-context {
+  @include py(3rem);
+}
+
+// Icono + texto en fila, con un fondo sutil (`--background-color`, no `--surface-color`: en
+// modo oscuro esa es negro puro y se fundiría con el fondo de página) para que se lea como una
+// tarjeta de contenido propia, no un párrafo perdido entre el hero y la sección siguiente.
+.zone-context__card {
+  max-width: 52rem;
+  margin: 0 auto;
+  background: var(--background-color);
+  @include rounded(0.75rem);
+  @include p(1.75rem);
+  @include flex($justify: flex-start, $align: flex-start, $gap: 1rem);
+}
+
+.zone-context__icon {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  color: var(--primary-color);
+  @include rounded(0.5rem);
+}
+
+// Ancho de lectura limitado dentro de la propia tarjeta: sin esto, un párrafo de 4-5 líneas se
+// estira a los ~52rem completos de la tarjeta y las líneas quedan demasiado largas para leer
+// con comodidad en desktop.
+.zone-context__text {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--color);
+  line-height: 1.65;
+}

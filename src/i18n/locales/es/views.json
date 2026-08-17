@@ -981,10 +981,6 @@
             "question": "¿Cómo solicito un presupuesto?",
             "answer": "Rellena el formulario de contacto o llámanos directamente. Hacemos una visita y estudio previo de tu comunidad o edificio, y te preparamos un presupuesto cerrado con respuesta en 48 horas, sin compromiso."
           },
-          "financing": {
-            "question": "¿Ofrecéis facilidades de pago?",
-            "answer": "Sí, aplazamos el 40% de la facturación del primer año, repartido en las mensualidades siguientes, sin intereses."
-          },
           "changeService": {
             "question": "Quiero ampliar o cambiar el servicio que tengo contratado, ¿con quién hablo?",
             "answer": "Con el departamento comercial, que revisa contigo las nuevas necesidades y prepara la propuesta actualizada. Puedes escribirle directamente desde la página de contacto."
@@ -1158,14 +1154,14 @@
           "title": "Atención 24 horas",
           "description": "Disponibles 365 días al año para cualquier incidencia o urgencia que pueda surgir."
         },
-        "purchase": {
-          "title": "Financiación sin intereses",
-          "description": "Aplazamos el 40% de la facturación del primer año, repartido en las mensualidades siguientes."
-        },
         "feature": {
           "title": "Inspección de calidad periódica",
           "description": "Nuestro departamento de inspección visita cada servicio para garantizar su mejora continua.",
           "imageAlt": "Inspección de instalaciones"
+        },
+        "quote": {
+          "title": "Presupuesto cerrado, sin sorpresas",
+          "description": "Visitamos la finca, valoramos lo que necesitas y te damos un precio cerrado antes de empezar. Nada de costes ocultos en la factura."
         }
       }
     },

@@ -123,6 +123,13 @@ export function buildContentSecurityPolicy(nonce: string): string {
     "form-action 'self'",
     "frame-ancestors 'none'",
     "require-trusted-types-for 'script'",
-    "trusted-types default html 'allow-duplicates'",
+    // `nextjs`: el propio runtime de Next registra su política con este nombre para el
+    // cargador de chunks dinámicos (`packages/next/src/client/trusted-types.ts` en el código
+    // fuente de Next, aunque el proyecto use Turbopack) — no reutiliza la política `default` de
+    // la app para asignar `script.src` al cargar un chunk. Sin este nombre en la lista, el
+    // navegador rechaza esa asignación aunque `default` ya esté registrada y funcionando para
+    // el resto de la app: «This document requires 'TrustedScriptURL' assignment», visto en
+    // producción exactamente en el cargador de chunks (`loadChunkCached`), no en código propio.
+    "trusted-types default html nextjs 'allow-duplicates'",
   ].join("; ");
 }

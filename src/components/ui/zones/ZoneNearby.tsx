@@ -17,6 +17,12 @@ interface ZoneNearbyProps {
  * propia página — el enlazado interno entre zonas que pide `requisitos-seo.md` §4, y evita que
  * cada página de zona sea una isla sin conexión con el resto del catálogo de cobertura.
  *
+ * Antes reutilizaba `about__approach` (la sección de imagen + texto de dos columnas de
+ * `/about`), que le daba `py(4.5rem)` pero ningún tratamiento propio de título+lista: el
+ * `about__title-lg` y los chips quedaban pegados sin el aire que sí tiene el resto de la
+ * página. Ahora tiene su propio namespace (`zone-nearby`) con cabecera propia y más separación
+ * entre el título y la lista de chips.
+ *
  * No se renderiza si la zona no tiene vecinas en el catálogo (no debería pasar con las 20
  * actuales, pero es una guarda razonable si en el futuro se añade una zona aislada en su
  * propia corona).
@@ -32,14 +38,16 @@ export default function ZoneNearby({ slug }: ZoneNearbyProps) {
   if (nearby.length === 0) return null;
 
   return (
-    <section className="about__approach">
+    <section className="zone-nearby">
       <div className="about__container">
-        <h2 className="about__title-lg">{tZones('otherZonesTitle', { zone: t('name') })}</h2>
+        <h2 className="about__title-lg zone-nearby__title">
+          {tZones('otherZonesTitle', { zone: t('name') })}
+        </h2>
 
-        <ul className="about__zone-nearby-list">
+        <ul className="zone-nearby__list">
           {nearby.map((zone) => (
             <li key={zone.slug}>
-              <Link href={`/zones/${zone.slug}` as AnyHref} className="about__zone-nearby-link">
+              <Link href={`/zones/${zone.slug}` as AnyHref} className="zone-nearby__link">
                 <MapPin size={14} aria-hidden="true" />
                 {itemsT(`${zone.slug}.name`)}
               </Link>
