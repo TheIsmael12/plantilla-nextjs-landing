@@ -88,12 +88,32 @@ function resolveBackendOrigin(): string {
 }
 
 /**
+ * Variante `wss://` del origen del backend, para el WebSocket de tiempo real del portal de
+ * cliente (`RealtimeProvider.tsx`). CSP trata `https://` y `wss://` sobre el mismo host como
+ * orígenes **distintos** — listar solo el primero en `connect-src` deja pasar el `fetch`/XHR
+ * normal pero bloquea la conexión del socket en silencio (visto en producción en
+ * `plantilla-nextjs`, mismo `RealtimeProvider.tsx`: «violates the following Content Security
+ * Policy directive: "connect-src ... https://api.imora.es"» al intentar conectar
+ * `wss://api.imora.es`).
+ * @returns {string} El origen `wss://` del backend, o cadena vacía si `API_BASE_URL` no es una URL válida
+ */
+function resolveBackendWebSocketOrigin(): string {
+  try {
+    const { host, protocol } = new URL(process.env.API_BASE_URL ?? "");
+    return `${protocol === "http:" ? "ws:" : "wss:"}//${host}`;
+  } catch {
+    return "";
+  }
+}
+
+/**
  * Construye la cabecera `Content-Security-Policy` para una petición dada.
  * @param {string} nonce - Nonce único de esta petición, ya generado por `proxy.ts`
  * @returns {string} El valor completo de la cabecera `Content-Security-Policy`
  */
 export function buildContentSecurityPolicy(nonce: string): string {
   const backendOrigin = resolveBackendOrigin();
+  const backendWebSocketOrigin = resolveBackendWebSocketOrigin();
   // Se lee `process.env` directamente (no `ENV.GOOGLE_ANALYTICS_ID` de
   // `config/env.ts`) para no acoplar este módulo, que también evalúa
   // `next.config.ts` en build time, al módulo de configuración pública.
@@ -123,7 +143,7 @@ export function buildContentSecurityPolicy(nonce: string): string {
     "style-src 'self' 'unsafe-inline'",
     `img-src 'self' data: blob: ${MAP_TILES_ORIGIN}${backendOrigin ? ` ${backendOrigin}` : ""}`,
     "font-src 'self' data:",
-    `connect-src 'self'${backendOrigin ? ` ${backendOrigin}` : ""}${analyticsEnabled ? ` ${GOOGLE_ANALYTICS_ORIGINS.join(" ")}` : ""}`,
+    `connect-src 'self'${backendOrigin ? ` ${backendOrigin}` : ""}${backendWebSocketOrigin ? ` ${backendWebSocketOrigin}` : ""}${analyticsEnabled ? ` ${GOOGLE_ANALYTICS_ORIGINS.join(" ")}` : ""}`,
     `frame-src 'self' ${TURNSTILE_ORIGIN} ${GOOGLE_MAPS_EMBED_ORIGIN}`,
     "object-src 'none'",
     "base-uri 'self'",
