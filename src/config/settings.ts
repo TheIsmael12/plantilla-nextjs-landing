@@ -53,6 +53,29 @@ export const SEARCH_DEBOUNCE_MS = 400;
 /** Longitud exacta del código exigido por `OtpCodeModal` (verificación 2FA/MFA de 6 dígitos). */
 export const OTP_CODE_LENGTH = 6;
 
+/**
+ * Cuánto espera Google Tag Manager (ms) a recibir un `consent update` antes
+ * de resolver las etiquetas con el consentimiento por defecto (`lib/gtm.ts`).
+ *
+ * El arranque de GTM ya lee la decisión guardada, así que este margen solo
+ * cubre el caso de que alguien acepte el banner justo mientras el contenedor
+ * está cargando. Subirlo retrasa cada medición; bajarlo de ~500 ms hace que
+ * una aceptación in extremis llegue tarde y se pierda esa primera visita.
+ */
+export const GTM_CONSENT_WAIT_FOR_UPDATE_MS = 500;
+
+/**
+ * Cuánto espera `GoogleTagManager` (ms) a que el App Router aplique el
+ * `<title>` de la página nueva antes de medir la visita de todas formas.
+ *
+ * Los metadatos no llegan en el mismo commit que el contenido, así que al
+ * navegar sin recarga el efecto se ejecuta cuando `document.title` todavía
+ * es el de la página anterior (o está vacío). Este margen es la red de
+ * seguridad para el caso en que el título no llegue a cambiar —dos páginas
+ * con el mismo título—: sin él, esa visita no se mediría nunca.
+ */
+export const GTM_PAGE_TITLE_TIMEOUT_MS = 1_000;
+
 /** Nombre visible de cada idioma soportado, en su propio idioma (endónimo), tal y como lo usa `ChangeLocale`. */
 const LANGUAGE_LABELS: Record<AppLocale, string> = {
   es: "Español",

@@ -54,6 +54,11 @@ export const ENV = {
   GOOGLE_ANALYTICS_ID:
     process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || "",
 
+  // Analítica — contenedor de Google Tag Manager (`GTM-XXXXXXX`), que es
+  // quien monta dentro las etiquetas de GA4 y demás. Vacío = sin medición:
+  // `GoogleTagManager` no pinta nada y no se carga ningún script externo.
+  GTM_ID: process.env.NEXT_PUBLIC_GTM_ID || "",
+
   // Company information
   COMPANY_CIF: process.env.NEXT_PUBLIC_COMPANY_CIF || "B12345678",
   COMPANY_NAME: process.env.NEXT_PUBLIC_COMPANY_NAME || "Imora Servicios S.L.",
