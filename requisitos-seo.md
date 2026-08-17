@@ -222,6 +222,14 @@ obtenida.
 - [ ] Redactar 2-3 casos de uso anonimizados (sin nombre de cliente/comunidad) con estructura
       problema → solución → resultado, como propone la auditoría. Requiere información real
       de la empresa sobre clientes/proyectos — no inventar cifras ni testimonios.
+- [ ] **TODO — extender esto a las 20 páginas de zona (§21/§31) cuando haya datos reales.** El
+      usuario confirmó (2026-08-17) que el contenido actual de zona (perfil urbano + 6 notas de
+      servicio + FAQ) está bien para ahora ("no lo cambiaría ahora") pero quiere, en el futuro,
+      añadir por municipio: casos reales, fotografías propias (hoy todas las zonas comparten la
+      misma imagen genérica de `ZoneHero.tsx`, ver su docstring), particularidades reales del
+      trabajo hecho allí, testimonios y proyectos concretos — para pasar de 8,7/10 a 10/10 según
+      su propia valoración. Bloqueado por lo mismo que el resto de este punto: sin datos/fotos
+      reales de la empresa, no hay nada que redactar sin inventar contenido.
 - [ ] Configurar y optimizar Google Business Profile (nombre legal exacto, dirección real
       coincidente con la web, teléfono real, categorías, fotos, horario) — es prioritario:
       la auditoría lo señala como potencialmente más rentable a corto plazo que el SEO
@@ -1217,3 +1225,100 @@ distinto en `/help/complaints` vs `/complaints-channel` (ES y EN), la cabecera
 `Content-Security-Policy` con `'unsafe-inline'` al final de `script-src`, y el `sizes` nuevo en el
 `<img>` servido de `mosaic-feature.jpg`. `npx vitest run --project=unit`: 361 passed, 1 failed
 (mismo fallo preexistente de siempre).
+
+## 33. Bug real de teléfono de urgencias en `/help/support` (2026-08-17)
+
+El usuario señaló, con capturas literales del sitio en producción, que `/help/support` mostraba
+el mismo número (+34 913 559 135) tanto en "Llámanos" como en "Urgencias 24 horas", mientras que
+más abajo en la misma página (la tarjeta de sede, `SupportInfo.tsx`) sí mostraba el número
+correcto de urgencias (+34 900 123 456) — y `/contact` también lo tenía bien. Confirmó
+explícitamente el criterio: **900 = urgencias, 913 = oficina/general, en todas las páginas**.
+
+- [x] **Bug real en [SupportChannels.tsx](src/components/ui/support/SupportChannels.tsx).** La
+      tarjeta `emergency` usaba `ENV.COMPANY_PHONE` (913) en vez de `ENV.COMPANY_EMERGENCY_PHONE`
+      (900) — el docstring del componente incluso lo documentaba como intencional ("mismo número,
+      según `ENV.COMPANY_SCHEDULE`"), una decisión previa que quedó obsoleta. Corregido el `href`
+      (`tel:`) y el `value` mostrado de esa tarjeta a `ENV.COMPANY_EMERGENCY_PHONE`, y actualizado
+      el docstring.
+- [x] **Auditoría del resto del sitio** (`grep` de `COMPANY_PHONE`/`COMPANY_EMERGENCY_PHONE` en
+      los 9 archivos que los usan): sin más bugs — `ContactMapSection.tsx`, `ServiceDetailCta.tsx`
+      (urgencia, ya usaba 900), `HomeCtaPrimary.tsx`/`Footer.tsx`/`OrganizationJsonLd.tsx`
+      (contacto general, ya usaban 913 correctamente) estaban ya bien antes de este fix.
+
+Verificado con `curl` contra `/help/support` servido en producción real: "Llámanos" →
+`tel:+34913559135`, "Urgencias 24 horas" → `tel:+34900123456`, cada uno con una única aparición
+visible en la página. `/contact` sin cambios (ya estaba bien). `tsc --noEmit` limpio, `next build`
+real, `npx vitest run --project=unit`: 361 passed, 1 failed (mismo fallo preexistente de siempre).
+
+## 34. Política de Privacidad reescrita de fondo — todavía sonaba a plantilla SaaS (2026-08-17)
+
+El usuario, tras las correcciones puntuales de §31 (foto/biografía, DPO), insistió en que la
+Política de Privacidad seguía sonando a plantilla heredada de una app con cuentas de usuario
+genéricas, no a una política redactada para Imora: mencionaba pagos, alojamiento, adquisiciones
+empresariales y "procesar transacciones" — nada de eso describe lo que la web hace de verdad
+(formulario de contacto/presupuesto, portal de cliente con facturas, Google Analytics
+condicional). Pidió explícitamente que se centrara en: formulario de contacto, clientes
+potenciales, comunicaciones comerciales, cookies, Analytics/Ads, almacenamiento, proveedores
+reales, plazos de conservación y derechos.
+
+Verificado contra el código antes de reescribir (mismo criterio de §31, para no repetir el error
+de sobre-editar sin comprobar): hay un formulario de contacto real con `marketingConsent` y
+`attributionConsent` (`contact.schema.ts`), Google Analytics real y condicional a
+`GOOGLE_ANALYTICS_ID`, portal de cliente real (cuentas, facturas), pero **no** hay Google Ads
+(único match en el código es un comentario que confirma que no está implementado), **no** hay
+página de empleo construida (`/empleo` da 404, ya documentado en §0), y no se puede verificar
+desde este repo (frontend) qué proveedor de hosting/email usa el backend — así que no se
+mencionan candidatos/trabajadores como categoría de interesados, y los proveedores se describen
+en términos genéricos honestos ("proveedores tecnológicos: alojamiento, envío de email,
+analítica") sin nombrar marcas no verificadas, decisión confirmada por el usuario.
+
+Reescritas las 9 secciones relevantes de `Privacy.sections` en ES/EN
+([legal.json](src/i18n/locales/es/legal.json)):
+
+- **§1 Recopilación**: "Información de cuenta: nombre, email y contraseña al registrarte" (no
+  hay registro público de cuenta en la landing) sustituido por lo que se recoge de verdad:
+  datos del formulario de presupuesto/contacto, consentimiento de comunicaciones comerciales, y
+  datos del área de cliente si contratas un servicio.
+- **§2 Cómo usamos tus datos**: "Procesar transacciones y enviar la información relacionada"
+  (lenguaje de e-commerce) sustituido por los usos reales — responder a la solicitud de
+  presupuesto, prestar el servicio contratado, enviar comunicaciones comerciales solo con
+  consentimiento expreso, analítica agregada con cookies aceptadas.
+- **§3 Compartir información**: "alojamiento, pagos" genérico sustituido por "proveedores
+  tecnológicos" (hosting, email, analítica) sin nombrar marcas no verificadas, y añadido
+  "personal técnico asignado a tu servicio" (relevante de verdad para una empresa de
+  multiservicios). Quitado "Transferencias empresariales" (fusión/adquisición) — evento
+  corporativo hipotético sin relación con lo que Imora es hoy.
+- **§5 Seguridad**: quitado "Auditorías de seguridad periódicas" (no verificable, misma
+  categoría que el DPO ya corregido en §31); el resto ajustado al contexto real (contraseña del
+  área de cliente, no de un registro público).
+- **§8 Transferencias internacionales**: antes abstracta y sin anclar a nada; ahora explícita
+  sobre el único caso real verificado — Google Analytics puede transferir datos agregados a
+  EEUU cuando se aceptan las cookies analíticas.
+- **Fecha de actualización** (`updatedDate`) de `Terms`/`Privacy`/`Cookies` (las tres tocadas
+  hoy) actualizada de "1 de enero de 2025" a "17 de agosto de 2026" en ES/EN. `Complaints` se
+  deja en 2025 a propósito — no se ha tocado su contenido en esta sesión.
+
+## 35. Cookies — fila de la tabla que no correspondía a ninguna cookie real (2026-08-17)
+
+El usuario pidió, además de la fecha, que la tabla de cookies coincidiera exactamente con lo que
+la web instala de verdad. Verificado contra
+[CookieConsentController.tsx](src/components/ui/cookies/CookieConsentController.tsx): la
+preferencia de consentimiento se guarda en `localStorage` bajo la clave `na:cookie-consent`, no
+en una cookie — la tabla afirmaba que existía una cookie `cookie_consent` que nunca existió.
+
+- [x] Quitada la fila `cookie_consent` de `Cookies.sections.tabla.rows` (ES/EN) — bug real, no
+      matiz de redacción.
+- [x] Añadida `Cookies.sections.tabla.intro` (ES/EN), nueva clave, explicando que la preferencia
+      vive en `localStorage`, no en una cookie — y añadido su render en
+      [CookiesView.tsx](src/views/(public)/terms/CookiesView.tsx) (`<p>{ps('tabla.intro')}</p>`
+      antes de la tabla), que antes no leía esa clave.
+      El resto de la tabla (`NEXT_LOCALE`, `next-auth.session-token`, `_ga`, `_ga_XXXXXX`) ya se
+      había verificado como real en una ronda anterior de esta misma sesión — sin cambios.
+
+Verificado con `tsc --noEmit` limpio, JSON válido en los 4 locales, `rm -rf .next && next build`
+real, servidor en puerto nuevo y `curl` contra el HTML servido: fecha "17 de agosto de
+2026"/"August 17, 2026" en `/privacy-policy` y `/cookies-policy` (ES/EN), contenido nuevo de
+`recopilacion`/`compartir` confirmado, cero apariciones de "contraseña al registrarte", "foto,
+biografía" o `cookie_consent` en el HTML servido, y el aviso de `localStorage` presente en las 4
+páginas (ES/EN). `npx vitest run --project=unit`: 361 passed, 1 failed (mismo fallo preexistente
+de siempre).
