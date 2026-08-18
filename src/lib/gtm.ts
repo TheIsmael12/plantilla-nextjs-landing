@@ -133,6 +133,21 @@ export function pushConsentUpdate(consent: CookieConsentCategories): void {
 }
 
 /**
+ * Anuncia un lead conseguido. Es el evento que el contenedor convierte en
+ * conversión de GA4 y, el día que haya campañas, en conversión de Google Ads.
+ *
+ * Solo debe llamarse cuando el backend ha confirmado el envío, y solo si de
+ * verdad hay un lead detrás: quien llame se tiene que asegurar de lo segundo,
+ * porque esta función no puede saberlo.
+ * @param {string} formId - Qué formulario lo originó (`form_id` en el contenedor)
+ * @param {string} leadType - Qué clase de solicitud es (`lead_type` en el contenedor)
+ * @returns {void}
+ */
+export function pushLeadGenerated(formId: string, leadType: string): void {
+  pushToDataLayer({ event: "generate_lead", form_id: formId, lead_type: leadType });
+}
+
+/**
  * Script de arranque del contenedor, para inyectar en línea.
  *
  * Hace tres cosas **en este orden**, que es lo que obliga a que sea un solo

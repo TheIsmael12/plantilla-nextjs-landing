@@ -5,6 +5,7 @@ import {
   buildGtmBootstrap,
   isValidGtmContainerId,
   pushConsentUpdate,
+  pushLeadGenerated,
   pushToDataLayer,
   toGoogleConsentState,
 } from "@/lib/gtm";
@@ -100,6 +101,16 @@ describe("pushConsentUpdate", () => {
       expect.objectContaining({ analytics_storage: "granted", ad_storage: "denied" }),
     ]);
     expect(event).toMatchObject({ event: "cookie_consent_update" });
+  });
+});
+
+describe("pushLeadGenerated", () => {
+  it("empuja el evento que el contenedor convierte en conversión", () => {
+    pushLeadGenerated("contacto", "contacto-general");
+
+    expect(window.dataLayer).toEqual([
+      { event: "generate_lead", form_id: "contacto", lead_type: "contacto-general" },
+    ]);
   });
 });
 

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 
 import { submitContactLead } from '@/actions/leads/leads-actions';
 import { PRIVACY_NOTICE_VERSION } from '@/config/settings';
+import { pushLeadGenerated } from '@/lib/gtm';
 import { isErrorStatus } from '@/utils/httpStatusUtils';
 import { readAttribution } from '@/utils/leadAttributionUtils';
 
@@ -14,6 +15,10 @@ import ContactForm from '@/components/ui/contact/ContactForm';
 import ContactMapSection from '@/components/ui/contact/ContactMapSection';
 import '@/styles/04-components/contact/contactBase.scss';
 import '@/styles/04-components/contact/contactPage.scss';
+
+/** Identificadores con los que este formulario viaja a la analítica (`form_id`/`lead_type` en el contenedor de GTM). */
+const LEAD_FORM_ID = 'contacto';
+const LEAD_TYPE = 'contacto-general';
 
 /**
  * Página de contacto: hero con los datos que respaldan la atención directa
@@ -65,6 +70,24 @@ export default function ContactViewPage() {
         if (isErrorStatus(response.status)) {
             setFormError(response.message || t('form.error'));
             return;
+        }
+
+        /*
+         * La conversión se mide aquí, con el envío ya confirmado por el
+         * backend, y no al pulsar el botón: un envío que falla no es un lead.
+         *
+         * El honeypot se descuenta a mano porque el backend responde `201`
+         * también cuando descarta el envío en silencio (anti-enumeración), así
+         * que su respuesta no distingue el lead real del spam. Lo que sí se
+         * sabe aquí es si la trampa venía rellena, y ese caso no se cuenta:
+         * esta métrica va a decidir el gasto en anuncios, y un contador
+         * inflado por bots haría tomar la decisión al revés.
+         *
+         * Lo que no se puede descontar desde aquí es un envío rechazado por el
+         * captcha, que llega igual con `201` y sin señal de que lo fuera.
+         */
+        if (!values.honeypot) {
+            pushLeadGenerated(LEAD_FORM_ID, LEAD_TYPE);
         }
 
         setSuccess(true);
