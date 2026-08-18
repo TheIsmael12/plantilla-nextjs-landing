@@ -1,0 +1,309 @@
+// Asistente del canal de reclamaciones (ComplaintsCreateWizard).
+//
+// Sin borde grueso ni tarjeta "de caja" (rechazado explícitamente), pero el contenido del
+// formulario sí lleva un fondo `--surface-color-light` (no `--surface-color`: en modo oscuro es
+// negro puro y se fundía con el fondo de página, ver historial de esta sección) para que se
+// distinga del resto de la página sin envolverlo en un recuadro pesado — un fondo, no una caja.
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.complaint-wizard-page {
+  max-width: 40rem;
+  margin: 0 auto;
+  @include rounded(1rem);
+  @include p(1.5rem);
+  @include py(2.5rem);
+
+  @include screen(sm) {
+    @include p(2.5rem);
+  }
+}
+
+.complaint-wizard {
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: stretch,
+    $gap: 2.5rem
+  );
+}
+
+.complaint-wizard__question {
+  font-family: $font-title;
+  font-size: $text-2xl;
+  font-weight: $font-bold;
+  color: var(--color);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.complaint-wizard__fields {
+  background-color: var(--surface-color);
+  @include rounded();
+  @include py(2rem);
+  @include px(1.5rem);
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: stretch,
+    $gap: 1.75rem
+  );
+}
+
+// Dos campos cortos por fila (comunidad + fecha) en pantallas medianas o más — la descripción y
+// los campos de una sola columna quedan fuera de este grid, aplicado solo a la fila que lo pide.
+.complaint-wizard__fields-row {
+  @include grid(1, 1.5rem);
+
+  @include screen(sm) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// Margen negativo a propósito: sigue directamente a un `Textarea`/`Input` dentro del flujo de
+// `complaint-wizard__fields` (gap fijo de 1.75rem) y necesita quedar pegado a su campo, no
+// separado por el mismo hueco que separa dos campos distintos.
+.complaint-wizard__hint {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  margin: -1rem 0 0;
+
+  // Variante para cuando el hint vive dentro del mismo contenedor que su campo (no directamente
+  // en `complaint-wizard__fields`): aquí el espaciado ya lo da el propio contenedor padre.
+  &--tight {
+    margin: 0.4rem 0 0;
+  }
+}
+
+// Explicación más larga que un `__hint` de una línea (qué incluir en la descripción, por qué se
+// pide un dato) — icono + texto en dos columnas, con un fondo sutil para que se lea como
+// contexto de ayuda y no como parte de la pregunta o del campo en sí. Más ligero que `Alert`
+// (sin borde de color de estado): esto no es un aviso de éxito/error, es solo información.
+.complaint-wizard__note {
+  @include flex($justify: flex-start, $align: flex-start, $gap: 0.75rem);
+  background: var(--background-color);
+  @include rounded(0.6rem);
+  @include p(1rem);
+
+  svg {
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    color: var(--primary-color);
+    margin-top: 0.1rem;
+  }
+}
+
+.complaint-wizard__note-title {
+  margin: 0 0 0.3rem;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.complaint-wizard__note-text {
+  margin: 0;
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  line-height: 1.55;
+}
+
+.complaint-wizard__note-list {
+  margin: 0.4rem 0 0;
+  padding-left: 1.1rem;
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  line-height: 1.6;
+}
+
+.complaint-wizard__review {
+  background-color: var(--surface-color);
+  @include rounded();
+  @include py(2rem);
+  @include px(1.5rem);
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: stretch,
+    $gap: 1.5rem
+  );
+}
+
+.complaint-wizard__summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1.25rem 2rem;
+  margin: 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+
+  dt {
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--neutral-color);
+  }
+
+  dd {
+    margin: 0.3rem 0 0;
+    color: var(--color);
+    white-space: pre-line;
+    line-height: 1.5;
+  }
+}
+
+.complaint-wizard__summary-wide {
+  grid-column: 1 / -1;
+}
+
+.complaint-wizard__honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.complaint-wizard__consent {
+  @include flex(row, flex-start, flex-start, 0.75rem);
+}
+
+.complaint-wizard__checkbox {
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.15rem;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.complaint-wizard__consent-text {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.complaint-wizard__actions {
+  @include flex($justify: space-between, $align: center, $gap: 0.75rem);
+
+  @include screen(sm, max) {
+    @include flex(
+      $direction: column-reverse,
+      $justify: stretch,
+      $align: stretch,
+      $gap: 0.6rem
+    );
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+.complaint-wizard--sent {
+  @include flex(column, center, center, 1rem);
+  @include py(4rem);
+  text-align: center;
+}
+
+// Fila de 3 tarjetas de igual ancho — variante de CardRadioGroup para exactamente 3 opciones
+// cortas (sí/no/prefiero no decirlo), que las variantes ya existentes del componente no cubrían
+// bien (`__normal` a 12rem fijo deja la tercera suelta en su propia fila con 2 columnas).
+.card-radio-group__row {
+  width: 100%;
+  align-items: stretch;
+
+  .card-radio-group {
+    grid-template-columns: 1fr;
+
+    @include screen(sm) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+// Pantalla previa al primer paso: explica qué es el canal y enlaza a la información legal
+// completa (`/complaints-channel`). Mismo criterio de "sin caja" que el resto — el título y el
+// texto llevan el mismo peso que `complaint-wizard__question`, y las garantías son una lista con
+// icono en línea, no tarjetas.
+.complaint-wizard-intro {
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: stretch,
+    $gap: 2rem
+  );
+}
+
+.complaint-wizard-intro__title {
+  font-family: $font-title;
+  font-size: $text-2xl;
+  font-weight: $font-bold;
+  color: var(--color);
+  margin: 0 0 0.75rem;
+  line-height: 1.25;
+}
+
+.complaint-wizard-intro__text {
+  color: var(--neutral-color);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.complaint-wizard-intro__points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  @include flex(
+    $direction: column,
+    $justify: flex-start,
+    $align: stretch,
+    $gap: 1rem
+  );
+
+  li {
+    @include flex($justify: flex-start, $align: flex-start, $gap: 0.85rem);
+    font-size: $text-base;
+    color: var(--color);
+    line-height: 1.5;
+
+    svg {
+      color: var(--primary-color);
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+  }
+}
+
+.complaint-wizard-intro__actions {
+  @include flex($justify: space-between, $align: center, $gap: 1rem);
+
+  @include screen(sm, max) {
+    @include flex(
+      $direction: column,
+      $justify: stretch,
+      $align: stretch,
+      $gap: 0.75rem
+    );
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+.complaint-wizard-intro__link {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--primary-color-active);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

@@ -10,11 +10,13 @@ import type { StaticPathname } from "@/types/route";
 const BASE_URL = ENV.APP_URL.replace(/\/$/, "");
 
 // Rutas públicas realmente construidas (tienen `page.tsx`) y pensadas para
-// indexarse. Las páginas de autenticación/área de cliente y las que todavía
-// no existen (`/careers`) se dejan fuera a propósito. El listado de `/blog`
-// sí entra aquí (contenido estático de la página); los posts individuales
-// se añaden aparte, vía `buildBlogPostSitemapEntries` (contenido dinámico
-// del backend, con su propio `lastModified` real por idioma).
+// indexarse. Las páginas de autenticación/área de cliente, las marcadas
+// `noindex` en `NOINDEX_PATHNAMES` (`utils/routingUtils.ts`: hub de ayuda,
+// soporte, canales de reclamaciones) y las que todavía no existen
+// (`/careers`) se dejan fuera a propósito. El listado de `/blog` sí entra
+// aquí (contenido estático de la página); los posts individuales se añaden
+// aparte, vía `buildBlogPostSitemapEntries` (contenido dinámico del
+// backend, con su propio `lastModified` real por idioma).
 const SITEMAP_ROUTES: { pathname: StaticPathname; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
   { pathname: "/", priority: 1, changeFrequency: "weekly" },
   { pathname: "/services", priority: 0.9, changeFrequency: "monthly" },
@@ -25,15 +27,34 @@ const SITEMAP_ROUTES: { pathname: StaticPathname; priority: number; changeFreque
   { pathname: "/services/gardening", priority: 0.8, changeFrequency: "monthly" },
   { pathname: "/services/maintenance", priority: 0.8, changeFrequency: "monthly" },
   { pathname: "/about", priority: 0.7, changeFrequency: "monthly" },
+  { pathname: "/for/property-managers", priority: 0.7, changeFrequency: "monthly" },
+  { pathname: "/zones", priority: 0.7, changeFrequency: "monthly" },
+  { pathname: "/zones/madrid", priority: 0.7, changeFrequency: "monthly" },
+  { pathname: "/zones/pozuelo-de-alarcon", priority: 0.7, changeFrequency: "monthly" },
+  { pathname: "/zones/alcorcon", priority: 0.7, changeFrequency: "monthly" },
+  { pathname: "/zones/majadahonda", priority: 0.6, changeFrequency: "monthly" },
+  { pathname: "/zones/las-rozas", priority: 0.6, changeFrequency: "monthly" },
+  { pathname: "/zones/boadilla-del-monte", priority: 0.6, changeFrequency: "monthly" },
+  { pathname: "/zones/alcobendas", priority: 0.6, changeFrequency: "monthly" },
+  { pathname: "/zones/san-sebastian-de-los-reyes", priority: 0.5, changeFrequency: "monthly" },
+  { pathname: "/zones/tres-cantos", priority: 0.5, changeFrequency: "monthly" },
+  { pathname: "/zones/getafe", priority: 0.5, changeFrequency: "monthly" },
+  { pathname: "/zones/leganes", priority: 0.5, changeFrequency: "monthly" },
+  { pathname: "/zones/fuenlabrada", priority: 0.5, changeFrequency: "monthly" },
+  { pathname: "/zones/mostoles", priority: 0.5, changeFrequency: "monthly" },
+  { pathname: "/zones/torrejon-de-ardoz", priority: 0.4, changeFrequency: "monthly" },
+  { pathname: "/zones/coslada", priority: 0.4, changeFrequency: "monthly" },
+  { pathname: "/zones/rivas-vaciamadrid", priority: 0.4, changeFrequency: "monthly" },
+  { pathname: "/zones/colmenar-viejo", priority: 0.4, changeFrequency: "monthly" },
+  { pathname: "/zones/torrelodones", priority: 0.4, changeFrequency: "monthly" },
+  { pathname: "/zones/collado-villalba", priority: 0.4, changeFrequency: "monthly" },
+  { pathname: "/zones/arganda-del-rey", priority: 0.4, changeFrequency: "monthly" },
   { pathname: "/blog", priority: 0.7, changeFrequency: "daily" },
   { pathname: "/contact", priority: 0.7, changeFrequency: "monthly" },
-  { pathname: "/help", priority: 0.5, changeFrequency: "monthly" },
   { pathname: "/help/faq", priority: 0.5, changeFrequency: "monthly" },
-  { pathname: "/help/support", priority: 0.5, changeFrequency: "monthly" },
   { pathname: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" },
   { pathname: "/conditions", priority: 0.3, changeFrequency: "yearly" },
   { pathname: "/cookies-policy", priority: 0.3, changeFrequency: "yearly" },
-  { pathname: "/complaints-channel", priority: 0.3, changeFrequency: "yearly" },
 ];
 
 /**

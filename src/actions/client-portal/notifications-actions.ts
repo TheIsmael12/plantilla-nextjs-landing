@@ -1,7 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
-import { ENV } from "@/config/env";
+import { ENV_SERVER as ENV } from "@/config/env.server";
 import type {
   MarkAllReadResponse,
   NotificationResponseDto,

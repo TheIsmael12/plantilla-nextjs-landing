@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getServerSession } from "next-auth/next";
 
-import { ENV } from "@/config/env";
+import { ENV_SERVER as ENV } from "@/config/env.server";
 import { HTTPStatus } from "@/constants/httpStatus";
 import { authOptions } from "@/lib/authOptions";
 

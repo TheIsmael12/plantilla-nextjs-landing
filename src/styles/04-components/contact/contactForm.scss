@@ -56,10 +56,15 @@
     grid-column: 1 / -1;
   }
 
+  // Antes llevaba `margin: -0.5rem 0 0`: pensado para acercarlo al campo teléfono, pero el
+  // grid ya tiene un gap vertical pequeño (`0.5rem`), así que el margen negativo lo anulaba
+  // del todo y el hint quedaba pegado sin separación real. Con margen positivo queda con aire
+  // propio, y el padding inferior lo separa del textarea de mensaje que viene justo después.
   &__form-hint {
-    margin: -0.5rem 0 0;
+    margin: 0.35rem 0 0.5rem;
     font-size: $text-xs;
     color: var(--neutral-color);
+    line-height: 1.5;
   }
 
   // El campo trampa (honeypot) debe seguir presente y "visible" para un bot que

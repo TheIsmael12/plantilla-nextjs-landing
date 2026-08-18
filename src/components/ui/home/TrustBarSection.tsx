@@ -1,15 +1,17 @@
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import '@/styles/04-components/home/homeBase.scss';
 import '@/styles/04-components/home/trustBarSection.scss';
 
-const CERTS = ['iso-9001', 'iso-14001', 'iso-45001', 'iso-27001'] as const;
-
 /**
  * Cinta de confianza justo debajo del hero: tres datos concretos ya
  * enunciados en el resto de la home (atención 24/365, respuesta en 48h,
- * sustituciones sin coste) y las certificaciones ISO de la empresa, para
- * dar credibilidad inmediata antes de pedir nada al visitante.
+ * sustituciones sin coste), para dar credibilidad inmediata antes de pedir
+ * nada al visitante.
+ *
+ * Las certificaciones ISO 9001/14001/45001/27001 que se mostraban aquí
+ * (`Home.trustBar.items.certifications`) eran placeholder, no reales
+ * (`requisitos-seo.md` §1) — quitadas hasta que la empresa las obtenga de
+ * verdad, junto con el bloque equivalente de `AboutCertifications.tsx`.
  * @returns {JSX.Element} La cinta de confianza renderizada
  */
 export default function TrustBarSection() {
@@ -19,7 +21,7 @@ export default function TrustBarSection() {
 
   return (
     <section className="home__trust-bar" aria-label={t('ariaLabel')}>
-      <div className="home__container home__trust-bar-grid">
+      <div className="home__container home__trust-bar-grid home__trust-bar-grid--stats-only">
         <dl className="home__trust-bar-stats">
           {stats.map((stat) => (
             <div className="home__trust-bar-stat" key={stat}>
@@ -28,22 +30,6 @@ export default function TrustBarSection() {
             </div>
           ))}
         </dl>
-
-        <div className="home__trust-bar-certs">
-          <p className="home__trust-bar-certs-label">{t('items.certifications.label')}</p>
-          <ul className="home__trust-bar-certs-list">
-            {CERTS.map((cert) => (
-              <li key={cert}>
-                <Image
-                  src={`/images/assets/certs/${cert}.png`}
-                  alt={cert.toUpperCase()}
-                  width={44}
-                  height={56}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </section>
   );

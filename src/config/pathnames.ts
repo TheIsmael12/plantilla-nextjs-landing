@@ -41,6 +41,106 @@ export const pathnames = {
     en: "/about",
     es: "/sobre-nosotros",
   },
+  // Landing dirigida a administradores de fincas (requisitos-seo.md §6): cliente B2B
+  // que gestiona varias comunidades a la vez, con intención de búsqueda distinta a la
+  // de un presidente de comunidad, así que necesita su propia página y no solo un
+  // párrafo dentro de /about.
+  "/for/property-managers": {
+    en: "/for/property-managers",
+    es: "/para/administradores-de-fincas",
+  },
+  // Índice de zonas (requisitos-seo.md §13, auditoría 2026-08-15): sin esta página, `/zonas`
+  // (quitar el último segmento de la URL de cualquier zona) daba 404 — no había ningún sitio
+  // que listara las 20 juntas.
+  "/zones": {
+    en: "/zones",
+    es: "/zonas",
+  },
+  // Páginas de zona (requisitos-seo.md §4): una por cada municipio de `config/zones.ts`, no
+  // una ruta dinámica `[city]` — mismo criterio que los servicios de arriba, y necesario para
+  // que `generateMetadata.ts`/`BreadcrumbJsonLd.tsx` las resuelvan (ambos excluyen
+  // explícitamente cualquier pathname con `[`). El nombre del municipio no se traduce entre
+  // idiomas (es un topónimo, no un término de catálogo), así que el slug es el mismo en `en`/`es`.
+  "/zones/madrid": {
+    en: "/zones/madrid",
+    es: "/zonas/madrid",
+  },
+  "/zones/pozuelo-de-alarcon": {
+    en: "/zones/pozuelo-de-alarcon",
+    es: "/zonas/pozuelo-de-alarcon",
+  },
+  "/zones/alcorcon": {
+    en: "/zones/alcorcon",
+    es: "/zonas/alcorcon",
+  },
+  "/zones/majadahonda": {
+    en: "/zones/majadahonda",
+    es: "/zonas/majadahonda",
+  },
+  "/zones/las-rozas": {
+    en: "/zones/las-rozas",
+    es: "/zonas/las-rozas",
+  },
+  "/zones/boadilla-del-monte": {
+    en: "/zones/boadilla-del-monte",
+    es: "/zonas/boadilla-del-monte",
+  },
+  "/zones/alcobendas": {
+    en: "/zones/alcobendas",
+    es: "/zonas/alcobendas",
+  },
+  "/zones/san-sebastian-de-los-reyes": {
+    en: "/zones/san-sebastian-de-los-reyes",
+    es: "/zonas/san-sebastian-de-los-reyes",
+  },
+  "/zones/tres-cantos": {
+    en: "/zones/tres-cantos",
+    es: "/zonas/tres-cantos",
+  },
+  "/zones/getafe": {
+    en: "/zones/getafe",
+    es: "/zonas/getafe",
+  },
+  "/zones/leganes": {
+    en: "/zones/leganes",
+    es: "/zonas/leganes",
+  },
+  "/zones/fuenlabrada": {
+    en: "/zones/fuenlabrada",
+    es: "/zonas/fuenlabrada",
+  },
+  "/zones/mostoles": {
+    en: "/zones/mostoles",
+    es: "/zonas/mostoles",
+  },
+  "/zones/torrejon-de-ardoz": {
+    en: "/zones/torrejon-de-ardoz",
+    es: "/zonas/torrejon-de-ardoz",
+  },
+  "/zones/coslada": {
+    en: "/zones/coslada",
+    es: "/zonas/coslada",
+  },
+  "/zones/rivas-vaciamadrid": {
+    en: "/zones/rivas-vaciamadrid",
+    es: "/zonas/rivas-vaciamadrid",
+  },
+  "/zones/colmenar-viejo": {
+    en: "/zones/colmenar-viejo",
+    es: "/zonas/colmenar-viejo",
+  },
+  "/zones/torrelodones": {
+    en: "/zones/torrelodones",
+    es: "/zonas/torrelodones",
+  },
+  "/zones/collado-villalba": {
+    en: "/zones/collado-villalba",
+    es: "/zonas/collado-villalba",
+  },
+  "/zones/arganda-del-rey": {
+    en: "/zones/arganda-del-rey",
+    es: "/zonas/arganda-del-rey",
+  },
   "/contact": {
     en: "/contact",
     es: "/contacto",
@@ -76,6 +176,10 @@ export const pathnames = {
   "/help/support": {
     en: "/help/support",
     es: "/ayuda/soporte",
+  },
+  "/help/complaints": {
+    en: "/help/complaints",
+    es: "/ayuda/reclamaciones",
   },
 
   // Términos y políticas
@@ -118,6 +222,14 @@ export const pathnames = {
     en: "/verify-email",
     es: "/verificar-email",
   },
+
+  /* Enlaces de un vecino (app móvil), no del portal de cliente: el mismo pathname en los dos idiomas,
+     a propósito, igual que `/blog/[slug]`. El backend (`ResidentAuthService`/`ResidentsService`)
+     construye estas URLs una sola vez, en texto fijo, para el correo — no sabe en qué idioma las va a
+     abrir quien lo lea. Un slug traducido aquí serviría solo para el idioma con el que coincidiera por
+     casualidad; en el otro, el enlace del correo apuntaría a una ruta que Next.js no reconoce. */
+  "/resident/reset-password/[token]": "/resident/reset-password/[token]",
+  "/resident/invitation/[token]": "/resident/invitation/[token]",
 
   /* Área privada del cliente: perfil (datos personales + seguridad),
      servicios contratados, presupuestos y facturas, todo bajo el mismo

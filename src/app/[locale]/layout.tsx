@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { headers } from "next/headers";
+
 import { getServerSession } from "next-auth/next";
 import { ThemeProvider } from "next-themes";
 import { NextIntlClientProvider } from "next-intl";
@@ -7,7 +9,10 @@ import { setRequestLocale, getMessages } from "next-intl/server";
 
 import { Fraunces, Public_Sans } from "next/font/google";
 
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import GoogleAnalytics from "@/components/seo/GoogleAnalytics";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
+import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import CookieConsentController from "@/components/ui/cookies/CookieConsentController";
 import Toaster from "@/components/ui/toasts/Toaster";
 import SessionAuthProvider from "@/context/SessionAuthProvider";
@@ -86,11 +91,44 @@ export default async function LocaleLayout({
     const session = await getServerSession(authOptions);
     const savedTheme = session?.user?.preferences?.theme;
 
+    // El nonce que `proxy.ts` generó para esta petición (ver `config/csp.ts`):
+    // sin estampárselo a este `<script>`, la CSP con `'nonce-…'` en vez de
+    // `'unsafe-inline'` lo bloquearía en silencio — un script sin el nonce
+    // exacto de la petición no se ejecuta, no lanza ningún error visible.
+    const nonce = (await headers()).get("x-nonce") ?? undefined;
+
     return (
 
         <html lang={locale} suppressHydrationWarning className={`${fraunces.variable} ${publicSans.variable}`}>
             <head>
+                {/*
+                  Registra la política Trusted Types "default" antes de que cargue nada más.
+                  La CSP de producción (`config/csp.ts`) lleva `require-trusted-types-for 'script'`:
+                  sin una política llamada justo "default", el propio runtime de React/Next
+                  (hidratación, algún `innerHTML` interno) queda bloqueado con
+                  «This document requires 'TrustedHTML' assignment» — no es solo software de
+                  terceros, rompe el bundle propio. Con "default" registrada, el navegador la usa
+                  automáticamente para cualquier asignación que no pase ya por una política explícita.
+                  Se define aquí y no en un componente cliente: un componente se ejecuta después de la
+                  hidratación, que es justo lo que hay que cubrir.
+                */}
+                <script
+                    nonce={nonce}
+                    dangerouslySetInnerHTML={{
+                        __html: `if (window.trustedTypes && window.trustedTypes.createPolicy) {
+  try {
+    window.trustedTypes.createPolicy("default", {
+      createHTML: (s) => s,
+      createScript: (s) => s,
+      createScriptURL: (s) => s,
+    });
+  } catch (e) {}
+}`,
+                    }}
+                />
+                <WebSiteJsonLd />
                 <OrganizationJsonLd locale={locale} />
+                <BreadcrumbJsonLd locale={locale} />
             </head>
             <body>
                 <NextIntlClientProvider locale={locale} messages={messages}>
@@ -99,6 +137,7 @@ export default async function LocaleLayout({
                             attribute="class"
                             defaultTheme={savedTheme ?? "system"}
                             forcedTheme={savedTheme}
+                            nonce={nonce}
                             enableSystem
                         >
                             {children}
@@ -107,6 +146,7 @@ export default async function LocaleLayout({
                         </ThemeProvider>
                     </SessionAuthProvider>
                 </NextIntlClientProvider>
+                <GoogleAnalytics nonce={nonce} />
             </body>
         </html>
 

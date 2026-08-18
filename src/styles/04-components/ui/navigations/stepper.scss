@@ -4,9 +4,12 @@
 @use "../../../01-tools/mixins" as *;
 
 .stepper {
-  display: flex;
-  align-items: flex-start;
   width: 100%;
+  margin: auto 0;
+  @include flex($direction: row, $justify: flex-start, $align: flex-start, $gap: 0.5rem);
+  @include screen(sm, max) {
+    @include flex($direction: row, $justify: center, $align: flex-start, $gap: 0.5rem);
+  }
 }
 
 .stepper__item {

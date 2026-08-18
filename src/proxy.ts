@@ -4,6 +4,7 @@ import createMiddleware from "next-intl/middleware";
 import { locales, pathnames } from "@/config/pathnames";
 import { DEFAULT_LOCALE, type AppLocale } from "@/config/locales";
 import { resolveCanonicalPathname } from "@/utils/routingUtils";
+import { buildContentSecurityPolicy } from "@/config/csp";
 
 /**
  * Middleware de Next.js: resuelve el enrutado por idioma con `next-intl` y
@@ -11,11 +12,27 @@ import { resolveCanonicalPathname } from "@/utils/routingUtils";
  * defecto, de la cookie de preferencia) y la ruta canónica (clave de
  * `config/pathnames.ts`, independiente del idioma) para que `request.ts` y
  * `generateTranslatedMetadata` los usen.
+ *
+ * También genera el **nonce de la CSP**, uno distinto por petición: es lo que
+ * permite quitar `'unsafe-inline'` de `script-src` sin romper los scripts que
+ * la propia app necesita (el de arranque de Next, el de `next-intl`, el de
+ * Trusted Types de `[locale]/layout.tsx`). Se propaga de dos formas — una
+ * para cada lado de la petición:
+ *
+ * - `x-nonce` en `request.headers`: así `layout.tsx` puede leerlo con
+ *   `headers()` en el servidor y estampárselo a su `<script>` inline.
+ * - `Content-Security-Policy` en `response.headers`: Next.js **solo**
+ *   auto-firma sus propios scripts (el runtime de arranque, RSC payload) con
+ *   el nonce si detecta esta cabecera en la respuesta con un nonce dentro de
+ *   `script-src` — sin ella, esos scripts se sirven sin nonce y la CSP
+ *   estricta los bloquearía a ellos también.
  * @param {NextRequest} request Petición entrante
- * @returns {Promise<Response>} La respuesta de enrutado i18n, con las cabeceras de contexto añadidas
+ * @returns {Promise<Response>} La respuesta de enrutado i18n, con las cabeceras de contexto y la CSP añadidas
  */
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  const nonce = crypto.randomUUID();
 
   // Lee preferencia del usuario
   const cookieLocale = request.cookies.get("locale")?.value;
@@ -32,7 +49,24 @@ export default async function middleware(request: NextRequest) {
     localeDetection: false,
   });
 
+  // El nonce se pasa como cabecera de PETICIÓN antes de invocar el enrutado
+  // de next-intl, para que la respuesta que genere ya nazca con ella: así
+  // `layout.tsx` puede leerla más abajo en la cadena de renderizado.
+  //
+  // Se muta `request.headers` in-place (no `new NextRequest(request, {...})`): reconstruir el
+  // request clona también su `body`, y en las Server Actions (peticiones POST con `FormData`,
+  // p. ej. `ContactForm`/`ComplaintForm`) ese body es un stream que ya no se puede volver a leer
+  // una segunda vez — la propia Server Action recibiría un `body` vacío o corrupto y fallaría
+  // antes de intentar siquiera la llamada a la API. `NextRequest.headers` no es de solo lectura,
+  // así que basta con mutarlo (mismo fix aplicado en `plantilla-nextjs`, donde sí llegó a
+  // reproducirse en producción con los formularios del CRM).
+  request.headers.set("x-nonce", nonce);
+
   const response = handleI18nRouting(request);
+
+  if (process.env.NODE_ENV === "production") {
+    response.headers.set("Content-Security-Policy", buildContentSecurityPolicy(nonce));
+  }
 
   // Si el usuario tiene cookie de locale Y la URL no tiene ya ese locale,
   // no redirigimos — solo anotamos el locale resuelto para request.ts

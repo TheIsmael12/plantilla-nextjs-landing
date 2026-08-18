@@ -88,6 +88,7 @@ export default async function CookiesView() {
 
                 {/* 3. Tabla */}
                 <LegalSection id="tabla" title={ps('tabla.title')}>
+                    <p className="legal__section__text">{ps('tabla.intro')}</p>
                     <div className="legal__table-wrap">
                         <table className="legal__table">
                             <thead>

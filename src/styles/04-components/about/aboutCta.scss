@@ -5,9 +5,25 @@
   &__cta {
     background: var(--surface-color);
     @include py(4.5rem);
+  }
 
-    .about__eyebrow {
-      opacity: 0.75;
+  // CTA de cierre de una sola columna, centrada: eyebrow + título + subtítulo + botón, sin el
+  // grid de dos columnas de `&__cta-grid` (pensado para la página `/about`, con zonas e info de
+  // contacto en tarjeta). Usada por `ZoneCta.tsx` y `PropertyManagersCta.tsx`, que antes
+  // metían el mismo contenido directo en `.about__container` sin ningún estilo de centrado —
+  // el texto se apilaba a la izquierda sin diseño.
+  &__cta-simple {
+    max-width: 36rem;
+    margin: 0 auto;
+    text-align: center;
+    @include flex($direction: column, $justify: center, $align: center, $gap: 0.85rem);
+
+    .about__title-lg {
+      margin: 0;
+    }
+
+    .about__btn {
+      margin-top: 0.65rem;
     }
   }
 
@@ -42,12 +58,32 @@
       @include px(0.85rem);
       padding-top: 0.45rem;
       padding-bottom: 0.45rem;
+      @include flex(row, flex-start, center, 0.4rem);
     }
+  }
+
+  // El número de municipios de cada corona, dentro del mismo chip — mismo color de acento que
+  // el chip pero con menos peso, para que se lea como un dato adicional y no compita con el
+  // nombre de la corona.
+  &__cta-zones-count {
+    font-size: $text-xs;
+    font-weight: $font-medium;
+    opacity: 0.75;
   }
 
   &__cta-zones-note {
     margin: 0;
     font-size: $text-sm;
+  }
+
+  &__cta-zones-link {
+    color: var(--primary-color-active);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: var(--fill-color-hover);
+    }
   }
 
   &__cta-info {

@@ -1,0 +1,44 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.zone-nearby {
+  @include py(3.5rem);
+}
+
+.zone-nearby__title {
+  margin: 0 0 1.75rem;
+  text-align: center;
+}
+
+.zone-nearby__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  @include flex(row, center, center, 0.85rem);
+  flex-wrap: wrap;
+}
+
+.zone-nearby__link {
+  @include flex(row, flex-start, center, 0.5rem);
+  @include px(1.15rem);
+  height: 2.75rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+  color: var(--color);
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+
+  &:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+  }
+
+  svg {
+    color: var(--primary-color-active);
+    flex-shrink: 0;
+  }
+}

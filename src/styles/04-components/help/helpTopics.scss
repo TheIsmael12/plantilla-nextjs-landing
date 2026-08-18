@@ -8,8 +8,14 @@
 .help__topics-grid {
   @include grid(1, 1.5rem);
 
-  @include screen(md) {
+  // 3 tarjetas (FAQ, soporte, canal de reclamaciones): antes eran 2 columnas fijas, que con una
+  // tercera tarjeta dejaba una suelta y descompensada en la fila de abajo.
+  @include screen(sm) {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include screen(lg) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -35,7 +41,7 @@
   h2 {
     font-family: $font-title;
     font-size: $text-xl;
-    color: var(--primary-color);
+    color: var(--primary-color-active);
     margin: 0;
   }
 
@@ -52,7 +58,7 @@
   display: grid;
   place-items: center;
   background: rgba(var(--primary-color-rgb), 0.08);
-  color: var(--primary-color);
+  color: var(--primary-color-active);
   @include rounded(0.5rem);
 }
 

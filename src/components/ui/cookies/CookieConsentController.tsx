@@ -21,10 +21,24 @@ import '@/styles/04-components/cookies/cookieConsent.scss';
 
 // Types -------------------------------------------------------------
 
-/** Se reexporta desde su nuevo sitio (`lib/cookieConsent.ts`) para no romper a quien lo importara de aquí. */
-export type { CookieConsentData };
+/**
+ * Preferencias de cookies aceptadas por el usuario, con la fecha del consentimiento.
+ *
+ * Sin categoría `marketing`: el sitio no instala hoy ningún script de publicidad (Google Ads,
+ * Meta Pixel...) — tenerla como toggle preparado pero sin ningún uso real detrás llevaba a que
+ * el documento legal la describiera con ejemplos de proveedores que no están instalados. Cuando
+ * haya una integración de publicidad real, se reintroduce junto con esa integración, no antes.
+ */
+export interface CookieConsentData {
+    analytics: boolean;
+    functional: boolean;
+    timestamp: number;
+}
 
-type Draft = CookieConsentCategories;
+type Draft = Omit<CookieConsentData, 'timestamp'>;
+
+const KEY = 'na:cookie-consent';
+const DEFAULT_DRAFT: Draft = { analytics: false, functional: false };
 
 const DEFAULT_DRAFT: Draft = DENIED_CONSENT;
 
@@ -62,7 +76,7 @@ export default function CookieConsentController() {
         const handler = () => {
             const stored = readCookieConsent();
             setDraft(stored
-                ? { analytics: stored.analytics, marketing: stored.marketing, functional: stored.functional }
+                ? { analytics: stored.analytics, functional: stored.functional }
                 : DEFAULT_DRAFT,
             );
             setSaving(false);
@@ -80,11 +94,11 @@ export default function CookieConsentController() {
     }, []);
 
     const acceptAll = useCallback(() => {
-        persist({ analytics: true, marketing: true, functional: true, timestamp: Date.now() });
+        persist({ analytics: true, functional: true, timestamp: Date.now() });
     }, [persist]);
 
     const rejectAll = useCallback(() => {
-        persist({ analytics: false, marketing: false, functional: false, timestamp: Date.now() });
+        persist({ analytics: false, functional: false, timestamp: Date.now() });
     }, [persist]);
 
     const saveSelection = useCallback(() => {
@@ -222,27 +236,6 @@ export default function CookieConsentController() {
                                 ariaLabel={t('analytics')}
                                 checked={draft.analytics}
                                 onChange={handleToggle('analytics')}
-                            />
-                        </div>
-
-                        {/* Marketing */}
-                        <div className="cookie-consent__pref">
-                            <div className="cookie-consent__pref__info">
-                                <div>
-                                    <span className="cookie-consent__pref__name">
-                                        {t('marketing')}
-                                        <Badge status="pending" value={t('optional')} />
-                                    </span>
-                                    <p className="cookie-consent__pref__desc">{t('marketingDesc')}</p>
-                                </div>
-                            </div>
-                            <Toggle
-                                id="cc-marketing"
-                                name="marketing"
-                                label=""
-                                ariaLabel={t('marketing')}
-                                checked={draft.marketing}
-                                onChange={handleToggle('marketing')}
                             />
                         </div>
 

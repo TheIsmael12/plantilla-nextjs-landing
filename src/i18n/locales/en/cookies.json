@@ -12,8 +12,6 @@
     "functionalDesc": "Remember your preferences (theme, language, region) to offer you a personalized experience on future visits.",
     "analytics": "Analytics",
     "analyticsDesc": "Help us understand how you interact with the site anonymously. Used to improve performance and user experience.",
-    "marketing": "Marketing",
-    "marketingDesc": "Allow us to show relevant advertising on this and other sites. They measure the effectiveness of advertising campaigns.",
     "rejectAll": "Reject optional",
     "saveSelection": "Save selection",
     "acceptAll": "Accept all",

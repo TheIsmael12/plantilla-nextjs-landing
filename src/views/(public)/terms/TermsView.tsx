@@ -101,7 +101,7 @@ export default async function TermsView() {
                     <p className="legal__section__text">{ps('propiedad.p3')}</p>
                 </LegalSection>
 
-                {/* 6. Pagos */}
+                {/* 6. Facturación */}
                 <LegalSection id="pagos" title={ps('pagos.title')}>
                     <ul className="legal__section__list">
                         {(t.raw('Terms.sections.pagos.list') as string[]).map((item, i) => (

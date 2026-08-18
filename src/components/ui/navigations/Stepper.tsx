@@ -45,7 +45,6 @@ export default function Stepper({
             {index < steps.length - 1 && (
               <span
                 className={`stepper__connector${index < furthestIndex ? " stepper__connector--completed" : ""}`}
-                aria-hidden="true"
               />
             )}
           </li>

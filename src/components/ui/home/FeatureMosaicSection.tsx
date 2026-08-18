@@ -7,8 +7,14 @@ import '@/styles/04-components/home/featureMosaicSection.scss';
 /**
  * Mosaico de ventajas de la home: seis tarjetas con distinto tamaño y
  * composición que resumen los diferenciales del servicio (equipo propio,
- * flexibilidad horaria, sustituciones, atención 24h, financiación e
+ * flexibilidad horaria, sustituciones, atención 24h, presupuesto cerrado e
  * inspección de calidad).
+ *
+ * La tarjeta ancha ya no habla de "financiación sin intereses": ese aplazamiento del 40% de
+ * la facturación no es una condición comercial real todavía, solo contenido de demo — dejarlo
+ * como claim definitivo en la home habría sido una promesa que la empresa no puede cumplir hoy.
+ * Sustituida por "presupuesto cerrado, sin sorpresas", contenido ya verificado y coherente con
+ * `Contact.trust`/`Services.detail.ctaCardLabel`.
  * @returns {JSX.Element} La sección de mosaico renderizada
  */
 export default function FeatureMosaicSection() {
@@ -103,9 +109,9 @@ export default function FeatureMosaicSection() {
               <Image
                 src="/images/home/mosaic-feature.jpg"
                 alt={t('cards.feature.imageAlt')}
-                width={340}
-                height={240}
-                sizes="(min-width: 1024px) 256px, 90vw"
+                width={256}
+                height={181}
+                sizes="(min-width: 1024px) 256px, (min-width: 640px) 45vw, 70vw"
                 className="home__tile-feature-image"
               />
             </div>
@@ -117,8 +123,8 @@ export default function FeatureMosaicSection() {
                 <ReceiptText size={20} />
               </span>
               <div className="home__tile-text">
-                <h3>{t('cards.purchase.title')}</h3>
-                <p>{t('cards.purchase.description')}</p>
+                <h3>{t('cards.quote.title')}</h3>
+                <p>{t('cards.quote.description')}</p>
               </div>
             </div>
             <Image

@@ -7,44 +7,59 @@
     },
     "routes": {
       "/": {
-        "title": "Concierge, security, cleaning and maintenance for businesses and communities",
-        "description": "Imora manages concierge, security, cleaning, pools and maintenance for businesses, communities and buildings in Madrid, with our own team and 24-hour support.",
-        "keywords": "concierge Madrid, services for businesses, facility management company, building maintenance, security and CCTV, community and shopping centre cleaning"
+        "title": "Comprehensive services for communities in Madrid",
+        "description": "Concierge, security, cleaning, pools and maintenance for homeowner communities, businesses and buildings in Madrid, with our own team.",
+        "keywords": "concierge Madrid, services for homeowner communities, facility management company, building maintenance, security and CCTV, community and shopping centre cleaning"
       },
       "/services": {
-        "title": "Our services for businesses, communities and buildings",
-        "description": "Concierge, security, pool maintenance, cleaning and gardening, and building maintenance: five specialised services for businesses, communities and shopping centres, from a single provider.",
+        "title": "Our services for businesses and communities",
+        "description": "Concierge, security, pool maintenance, cleaning, gardening and building maintenance: six services, one single provider.",
         "keywords": "services for businesses and homeowner communities, concierge, security CCTV, pool maintenance, cleaning and gardening, building maintenance"
       },
       "/services/concierge": {
-        "title": "Concierge and access control for your building",
-        "description": "Reception, access control and mail handling with 6 to 24-hour shifts, for communities, buildings and businesses, with guaranteed cover for sick leave and holidays.",
+        "title": "Concierge Company for Communities in Madrid",
+        "description": "Reception, access control and mail handling with 6 to 24-hour shifts, with guaranteed cover for sick leave and holidays.",
         "keywords": "concierge for communities and businesses, access control, Madrid concierge, building doorman"
       },
       "/services/security": {
-        "title": "Security and CCTV for buildings, businesses and communities",
+        "title": "CCTV Installation and Access Control in Madrid",
         "description": "Design, installation and maintenance of video surveillance and electronic access control to protect your building, business or shopping centre.",
         "keywords": "security and CCTV for businesses, community video surveillance, electronic access control, camera installation Madrid"
       },
       "/services/pools": {
-        "title": "Community pool maintenance",
+        "title": "Community Pool Maintenance in Madrid",
         "description": "Water chemical maintenance, pool cleaning and qualified lifeguards throughout the swimming season, following Spanish pool regulations.",
         "keywords": "pool maintenance, community pool lifeguards, pool cleaning Madrid, pool season opening and closing"
       },
       "/services/cleaning": {
-        "title": "Cleaning and gardening for communities and businesses",
+        "title": "Community Cleaning Company in Madrid",
         "description": "Cleaning of the entrance, stairs and garage, and upkeep of gardens and green areas, at whatever frequency each community, building or business needs.",
         "keywords": "cleaning for communities and businesses, common area cleaning, gardening for communities, building entrance cleaning Madrid"
       },
+      "/services/gardening": {
+        "title": "Community Gardening Company in Madrid",
+        "description": "Garden and green area upkeep, watering and pruning for communities, buildings and businesses, with an in-house team and scheduled visits.",
+        "keywords": "gardening for communities, garden maintenance Madrid, pruning and watering green areas, homeowner community gardener"
+      },
       "/services/maintenance": {
-        "title": "Building and business maintenance: plumbing, electrics and locksmithing",
-        "description": "In-house technical team for plumbing, electrics, locksmithing and small works in buildings, communities and businesses, with a fast response to faults.",
+        "title": "Building Maintenance Company in Madrid",
+        "description": "In-house technical team for plumbing, electrics, locksmithing and small works, with a fast response to faults.",
         "keywords": "building and business maintenance, community plumbing, common area electrics, emergency locksmith, technical maintenance Madrid"
       },
       "/about": {
         "title": "About Imora: our own team and 24-hour support",
-        "description": "How we work: our own team, an inspection department, ISO certifications and coverage for businesses, communities and buildings across Madrid and its metropolitan area.",
-        "keywords": "facility management company Madrid, services for businesses and communities, in-house concierge team, ISO 9001 certification, 24-hour support"
+        "description": "How we work: our own team, an inspection department and coverage across Madrid and its metropolitan area.",
+        "keywords": "facility management company Madrid, services for businesses and communities, in-house concierge team, 24-hour support"
+      },
+      "/for/property-managers": {
+        "title": "Services for property managers in Madrid",
+        "description": "One provider for concierge, cleaning, maintenance, gardening, pools and security across every community you manage.",
+        "keywords": "services for property managers, facility management company Madrid, outsource community maintenance, single provider concierge cleaning maintenance"
+      },
+      "/zones": {
+        "title": "Coverage areas across the Community of Madrid",
+        "description": "Concierge, cleaning, maintenance, gardening, pool care and security in 20 municipalities across Madrid city and its metropolitan area.",
+        "keywords": "coverage areas Madrid, Community of Madrid municipalities, facility management company Community of Madrid"
       },
       "/contact": {
         "title": "Contact Imora",
@@ -65,6 +80,11 @@
         "title": "Client support",
         "description": "Already an Imora client? Resolve incidents and questions about your service with direct attention, no middlemen.",
         "keywords": "Imora client support, community incidents, concierge customer service"
+      },
+      "/help/complaints": {
+        "title": "File a complaint",
+        "description": "File a service complaint or an ethics/compliance report through our guided assistant, with the option to do so anonymously.",
+        "keywords": "Imora complaints channel, service complaints, ethics compliance channel"
       },
       "/privacy-policy": {
         "title": "Privacy policy",
@@ -220,6 +240,116 @@
         "title": "Community settings",
         "description": "What you can adjust in your community app.",
         "keywords": ""
+      },
+      "/resident/reset-password/[token]": {
+        "title": "Reset password",
+        "description": "Choose a new password for your resident account.",
+        "keywords": ""
+      },
+      "/resident/invitation/[token]": {
+        "title": "Invitation to your community",
+        "description": "Review your invitation details before accepting.",
+        "keywords": ""
+      },
+      "/zones/madrid": {
+        "title": "24-hour concierge across Madrid's 21 districts",
+        "description": "24-hour concierge cover, security, cleaning and maintenance for communities, offices and shopping centres in Madrid city's 21 districts.",
+        "keywords": "24-hour concierge Madrid, multiservice company Madrid city, Madrid districts, building maintenance Madrid"
+      },
+      "/zones/pozuelo-de-alarcon": {
+        "title": "Pool maintenance in Pozuelo and Somosaguas",
+        "description": "Pool maintenance with a qualified lifeguard, gardening and concierge services for the Somosaguas developments and residential towers of Pozuelo.",
+        "keywords": "pool maintenance Pozuelo de Alarcón, gardening Somosaguas, concierge Pozuelo de Alarcón"
+      },
+      "/zones/alcorcon": {
+        "title": "Technical maintenance for communities in Alcorcón",
+        "description": "Plumbing, electrics, locksmithing and cleaning of communal areas for Alcorcón's communities, with our own technical team and fast response to faults.",
+        "keywords": "community maintenance Alcorcón, community cleaning Alcorcón, plumbing and electrics Alcorcón"
+      },
+      "/zones/majadahonda": {
+        "title": "Security and access control in Majadahonda",
+        "description": "Access control, video surveillance and pool and garden maintenance for gated developments and communities in Majadahonda.",
+        "keywords": "access control Majadahonda, security developments Majadahonda, pool maintenance Majadahonda"
+      },
+      "/zones/las-rozas": {
+        "title": "Video surveillance in Las Rozas' retail hub area",
+        "description": "Video surveillance, access control and green area maintenance for developments and communities near the retail hub of Las Rozas.",
+        "keywords": "video surveillance Las Rozas de Madrid, security communities Las Rozas, CCTV Las Rozas"
+      },
+      "/zones/boadilla-del-monte": {
+        "title": "Pool and garden care for houses in Boadilla",
+        "description": "Pool maintenance, gardening and security for the small terraced-house communities and developments of Boadilla del Monte.",
+        "keywords": "pool maintenance Boadilla del Monte, community gardening Boadilla, house security Boadilla del Monte"
+      },
+      "/zones/alcobendas": {
+        "title": "Concierge for offices in Alcobendas' business park",
+        "description": "Concierge and security for corporate premises in the Chaparral business park and cleaning for residential communities in Alcobendas.",
+        "keywords": "concierge for businesses Alcobendas, business park Alcobendas, office security Alcobendas"
+      },
+      "/zones/san-sebastian-de-los-reyes": {
+        "title": "Gardening in San Sebastián de los Reyes' new areas",
+        "description": "Gardening and communal area maintenance for the recently built developments and town centre of San Sebastián de los Reyes.",
+        "keywords": "gardening San Sebastián de los Reyes, communal area maintenance San Sebastián de los Reyes, new communities San Sebastián de los Reyes"
+      },
+      "/zones/tres-cantos": {
+        "title": "Gardening in the planned town of Tres Cantos",
+        "description": "Gardening, automatic irrigation and maintenance of the extensive communal green areas of Tres Cantos, a town planned since the 1970s.",
+        "keywords": "gardening Tres Cantos, green area maintenance Tres Cantos, automatic irrigation Tres Cantos"
+      },
+      "/zones/getafe": {
+        "title": "Security and access control in Getafe, Madrid",
+        "description": "Access control, video surveillance and concierge services for communities and facilities in Getafe's industrial and university area.",
+        "keywords": "security Getafe, access control Getafe, concierge communities Getafe"
+      },
+      "/zones/leganes": {
+        "title": "Cleaning for dense communities in Leganés",
+        "description": "Cleaning of communal areas and maintenance of installations for the residential communities of Leganés, a densely built town with a university campus.",
+        "keywords": "community cleaning Leganés, maintenance of installations Leganés, concierge Leganés"
+      },
+      "/zones/fuenlabrada": {
+        "title": "Ongoing technical maintenance in Fuenlabrada",
+        "description": "Ongoing technical maintenance and cleaning with adjustable frequency for Fuenlabrada's communities, mostly built during its 1970s-90s expansion.",
+        "keywords": "community maintenance Fuenlabrada, community cleaning Fuenlabrada, plumbing Fuenlabrada"
+      },
+      "/zones/mostoles": {
+        "title": "Concierge in Móstoles, 2nd most populous town",
+        "description": "Concierge and cleaning of communal areas for the residential communities of Móstoles, the most populous town in the region after Madrid city.",
+        "keywords": "concierge Móstoles, community cleaning Móstoles, multiservice company Móstoles"
+      },
+      "/zones/torrejon-de-ardoz": {
+        "title": "Security near Torrejón de Ardoz's air base",
+        "description": "Access control and security for communities and industrial estates in the logistics and industrial area of Torrejón de Ardoz, near its historic air base.",
+        "keywords": "security Torrejón de Ardoz, access control Torrejón, Torrejón de Ardoz air base, multiservice company Torrejón"
+      },
+      "/zones/coslada": {
+        "title": "Security for Coslada's estates and communities",
+        "description": "Access control and security for the industrial estates and communities of Coslada, one of the largest rail logistics hubs in southern Europe.",
+        "keywords": "security Coslada, access control industrial estate Coslada, logistics hub Coslada, concierge Coslada"
+      },
+      "/zones/rivas-vaciamadrid": {
+        "title": "Pool maintenance and gardening in Rivas-Vaciamadrid",
+        "description": "Communal pool maintenance and gardening for the recently built communities of Rivas-Vaciamadrid, the newest town in our coverage.",
+        "keywords": "pool maintenance Rivas-Vaciamadrid, gardening Rivas-Vaciamadrid, concierge Rivas-Vaciamadrid"
+      },
+      "/zones/colmenar-viejo": {
+        "title": "Gardening for Colmenar Viejo's centre and outskirts",
+        "description": "Gardening and maintenance for the historic cattle-farming centre and outlying developments of Colmenar Viejo, next to open grazing land, in the northern area.",
+        "keywords": "gardening Colmenar Viejo, community maintenance Colmenar Viejo, developments Colmenar Viejo"
+      },
+      "/zones/torrelodones": {
+        "title": "Security for Torrelodones' hillside developments",
+        "description": "Video surveillance, access control, gardening and private pool maintenance for the affluent developments of Torrelodones, next to the mountains.",
+        "keywords": "security developments Torrelodones, video surveillance Torrelodones, gardening Torrelodones"
+      },
+      "/zones/collado-villalba": {
+        "title": "Technical maintenance in Collado Villalba",
+        "description": "Technical maintenance with an in-house team for the communities of Collado Villalba, the furthest town in our coverage, a hub towards the Guadarrama mountains.",
+        "keywords": "community maintenance Collado Villalba, multiservice company Collado Villalba, Guadarrama mountains"
+      },
+      "/zones/arganda-del-rey": {
+        "title": "Cleaning and electrics in Arganda's old town",
+        "description": "Cleaning and electrical maintenance for the wine-growing old town and expansion areas of Arganda del Rey, in the Jarama river valley.",
+        "keywords": "community cleaning Arganda del Rey, electrical maintenance Arganda del Rey, Arganda old town"
       }
     }
   }

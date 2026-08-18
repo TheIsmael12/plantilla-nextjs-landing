@@ -7,44 +7,59 @@
     },
     "routes": {
       "/": {
-        "title": "Conserjería, seguridad, limpieza y mantenimiento para empresas y comunidades",
-        "description": "Imora gestiona conserjería, seguridad, limpieza, piscinas y mantenimiento para empresas, comunidades y edificios en Madrid, con equipo propio y atención 24 horas.",
-        "keywords": "conserjería Madrid, servicios para empresas, empresa de servicios para comunidades, mantenimiento de edificios, seguridad y CCTV, limpieza de comunidades y centros comerciales"
+        "title": "Servicios integrales para comunidades en Madrid",
+        "description": "Conserjería, seguridad, limpieza, piscinas y mantenimiento para comunidades de propietarios, empresas y edificios en Madrid, con equipo propio.",
+        "keywords": "conserjería Madrid, servicios para comunidades de propietarios, empresa de servicios para empresas, mantenimiento de edificios, seguridad y CCTV, limpieza de comunidades y centros comerciales"
       },
       "/services": {
-        "title": "Nuestros servicios para empresas, comunidades y edificios",
-        "description": "Conserjería, seguridad, mantenimiento de piscinas, limpieza y jardinería y mantenimiento de edificios: cinco servicios especializados para empresas, comunidades y centros comerciales, con un solo proveedor.",
+        "title": "Nuestros servicios para empresas y comunidades",
+        "description": "Conserjería, seguridad, mantenimiento de piscinas, limpieza, jardinería y mantenimiento de edificios: seis servicios, un solo proveedor.",
         "keywords": "servicios para empresas y comunidades de vecinos, conserjería, seguridad CCTV, mantenimiento de piscinas, limpieza y jardinería, mantenimiento de edificios"
       },
       "/services/concierge": {
-        "title": "Conserjería y control de accesos para tu edificio",
-        "description": "Recepción, control de accesos y reparto de correspondencia con horarios de 6 a 24 horas, para comunidades, edificios y empresas, con sustituciones garantizadas en bajas y vacaciones.",
+        "title": "Empresa de Conserjería para Comunidades en Madrid",
+        "description": "Recepción, control de accesos y correspondencia con horarios de 6 a 24 horas, con sustituciones garantizadas en bajas y vacaciones.",
         "keywords": "conserjería para comunidades y empresas, control de accesos, conserje Madrid, portero de finca"
       },
       "/services/security": {
-        "title": "Seguridad y CCTV para edificios, empresas y comunidades",
+        "title": "Instalación de CCTV y control de accesos en Madrid",
         "description": "Proyecto, instalación y mantenimiento de videovigilancia y control de accesos electrónico para proteger tu edificio, empresa o centro comercial.",
         "keywords": "seguridad y CCTV para empresas, videovigilancia comunidades, control de accesos electrónico, instalación de cámaras Madrid"
       },
       "/services/pools": {
-        "title": "Mantenimiento de piscinas comunitarias",
+        "title": "Mantenimiento de Piscinas Comunitarias en Madrid",
         "description": "Mantenimiento químico del agua, limpieza de vaso y socorristas titulados durante toda la temporada de baño, según el Real Decreto 742/2013.",
         "keywords": "mantenimiento de piscinas, socorristas piscina comunitaria, limpieza de piscinas Madrid, apertura y cierre de piscina"
       },
       "/services/cleaning": {
-        "title": "Limpieza y jardinería para comunidades y empresas",
+        "title": "Empresa de Limpieza de Comunidades en Madrid",
         "description": "Limpieza de portal, escaleras y garaje, y mantenimiento de jardines y zonas verdes, con la frecuencia que necesite cada comunidad, edificio o empresa.",
         "keywords": "limpieza de comunidades y empresas, limpieza de zonas comunes, jardinería para comunidades, limpieza de portales Madrid"
       },
+      "/services/gardening": {
+        "title": "Empresa de Jardinería de Comunidades en Madrid",
+        "description": "Mantenimiento de jardines, zonas verdes y riego para comunidades, edificios y empresas, con equipo propio y visitas periódicas programadas.",
+        "keywords": "jardinería para comunidades, mantenimiento de jardines Madrid, poda y riego zonas verdes, jardinero comunidad de vecinos"
+      },
       "/services/maintenance": {
-        "title": "Mantenimiento de edificios y empresas: fontanería, electricidad y cerrajería",
-        "description": "Equipo técnico propio para fontanería, electricidad, cerrajería y pequeñas obras en edificios, comunidades y negocios, con respuesta rápida ante averías.",
+        "title": "Empresa de Mantenimiento de Edificios en Madrid",
+        "description": "Equipo técnico propio para fontanería, electricidad, cerrajería y pequeñas obras, con respuesta rápida ante averías.",
         "keywords": "mantenimiento de edificios y empresas, fontanería comunidades, electricidad zonas comunes, cerrajería urgente, mantenimiento técnico Madrid"
       },
       "/about": {
         "title": "Sobre Imora: equipo propio y atención 24 horas",
-        "description": "Conoce cómo trabajamos: equipo propio, departamento de inspección, certificaciones ISO y cobertura para empresas, comunidades y edificios en Madrid y su área metropolitana.",
-        "keywords": "empresa de servicios integrales Madrid, servicios para empresas y comunidades, equipo propio conserjería, certificaciones ISO 9001, atención 24 horas"
+        "description": "Cómo trabajamos: equipo propio, departamento de inspección y cobertura en Madrid y su área metropolitana.",
+        "keywords": "empresa de servicios integrales Madrid, servicios para empresas y comunidades, equipo propio conserjería, atención 24 horas"
+      },
+      "/for/property-managers": {
+        "title": "Servicios para administradores de fincas en Madrid",
+        "description": "Un solo proveedor para conserjería, limpieza, mantenimiento, jardinería, piscinas y seguridad en todas las comunidades que gestionas.",
+        "keywords": "servicios para administradores de fincas, empresa multiservicios comunidades Madrid, externalizar mantenimiento comunidades, proveedor único conserjería limpieza mantenimiento"
+      },
+      "/zones": {
+        "title": "Zonas de cobertura en la Comunidad de Madrid",
+        "description": "Conserjería, limpieza, mantenimiento, jardinería, piscinas y seguridad en 20 municipios de Madrid capital y su área metropolitana.",
+        "keywords": "zonas de cobertura Madrid, municipios Comunidad de Madrid, empresa de servicios Comunidad de Madrid"
       },
       "/contact": {
         "title": "Contacta con Imora",
@@ -65,6 +80,11 @@
         "title": "Soporte para clientes",
         "description": "¿Ya eres cliente de Imora? Resuelve incidencias y dudas sobre tu servicio con trato directo, sin intermediarios.",
         "keywords": "soporte clientes Imora, incidencias comunidad, atención al cliente conserjería"
+      },
+      "/help/complaints": {
+        "title": "Presenta una denuncia",
+        "description": "Presenta una queja de servicio o una comunicación ética/de cumplimiento con nuestro asistente guiado, con opción de hacerlo de forma anónima.",
+        "keywords": "canal de reclamaciones Imora, quejas servicio, canal ético cumplimiento"
       },
       "/privacy-policy": {
         "title": "Política de privacidad",
@@ -220,6 +240,116 @@
         "title": "Configuración de la comunidad",
         "description": "Lo que puedes ajustar de la app de tu comunidad.",
         "keywords": ""
+      },
+      "/resident/reset-password/[token]": {
+        "title": "Restablecer contraseña",
+        "description": "Elige una nueva contraseña para tu cuenta de vecino.",
+        "keywords": ""
+      },
+      "/resident/invitation/[token]": {
+        "title": "Invitación a tu comunidad",
+        "description": "Revisa los datos de tu invitación antes de aceptarla.",
+        "keywords": ""
+      },
+      "/zones/madrid": {
+        "title": "Conserjería 24 horas en los 21 distritos de Madrid",
+        "description": "Conserjería 24 horas, seguridad, limpieza y mantenimiento para comunidades, oficinas y centros comerciales en los 21 distritos de Madrid capital.",
+        "keywords": "conserjería 24 horas Madrid, empresa multiservicios Madrid capital, distritos Madrid, mantenimiento de edificios Madrid"
+      },
+      "/zones/pozuelo-de-alarcon": {
+        "title": "Mantenimiento de piscinas en Pozuelo y Somosaguas",
+        "description": "Mantenimiento de piscinas con socorrista titulado, jardinería y conserjería para las urbanizaciones de Somosaguas y las torres residenciales de Pozuelo.",
+        "keywords": "mantenimiento de piscinas Pozuelo de Alarcón, jardinería Somosaguas, conserjería Pozuelo de Alarcón"
+      },
+      "/zones/alcorcon": {
+        "title": "Mantenimiento técnico de comunidades en Alcorcón",
+        "description": "Fontanería, electricidad, cerrajería y limpieza de zonas comunes para las comunidades de Alcorcón, con equipo técnico propio y respuesta rápida ante averías.",
+        "keywords": "mantenimiento de comunidades Alcorcón, limpieza de comunidades Alcorcón, fontanería y electricidad Alcorcón"
+      },
+      "/zones/majadahonda": {
+        "title": "Seguridad y control de accesos en Majadahonda",
+        "description": "Control de accesos, videovigilancia y mantenimiento de piscinas y jardines para urbanizaciones y comunidades cerradas de Majadahonda.",
+        "keywords": "control de accesos Majadahonda, seguridad urbanizaciones Majadahonda, mantenimiento piscinas Majadahonda"
+      },
+      "/zones/las-rozas": {
+        "title": "Videovigilancia en Las Rozas y su entorno comercial",
+        "description": "Videovigilancia, control de accesos y mantenimiento de zonas verdes para urbanizaciones y comunidades cerca del entorno comercial de Las Rozas.",
+        "keywords": "videovigilancia Las Rozas de Madrid, seguridad comunidades Las Rozas, CCTV Las Rozas"
+      },
+      "/zones/boadilla-del-monte": {
+        "title": "Piscinas y jardinería para chalets en Boadilla",
+        "description": "Mantenimiento de piscinas, jardinería y seguridad para las pequeñas comunidades de chalets adosados y urbanizaciones de Boadilla del Monte.",
+        "keywords": "mantenimiento de piscinas Boadilla del Monte, jardinería comunidades Boadilla, seguridad chalets Boadilla del Monte"
+      },
+      "/zones/alcobendas": {
+        "title": "Conserjería para empresas en el parque de Alcobendas",
+        "description": "Conserjería y seguridad para sedes corporativas del parque empresarial de la Chaparral y limpieza para comunidades de propietarios de Alcobendas.",
+        "keywords": "conserjería empresas Alcobendas, parque empresarial Alcobendas, seguridad oficinas Alcobendas"
+      },
+      "/zones/san-sebastian-de-los-reyes": {
+        "title": "Jardinería en las nuevas zonas de San Sebastián de los Reyes",
+        "description": "Jardinería y mantenimiento de zonas comunes para las promociones de reciente construcción y el núcleo urbano de San Sebastián de los Reyes.",
+        "keywords": "jardinería San Sebastián de los Reyes, mantenimiento zonas comunes San Sebastián de los Reyes, comunidades nuevas San Sebastián de los Reyes"
+      },
+      "/zones/tres-cantos": {
+        "title": "Jardinería en el municipio planificado de Tres Cantos",
+        "description": "Jardinería, riego automático y mantenimiento de las amplias zonas verdes comunitarias de Tres Cantos, municipio planificado desde los años 70.",
+        "keywords": "jardinería Tres Cantos, mantenimiento zonas verdes Tres Cantos, riego automático Tres Cantos"
+      },
+      "/zones/getafe": {
+        "title": "Seguridad y control de accesos en Getafe",
+        "description": "Control de accesos, videovigilancia y conserjería para comunidades y naves del entorno industrial y universitario de Getafe.",
+        "keywords": "seguridad Getafe, control de accesos Getafe, conserjería comunidades Getafe"
+      },
+      "/zones/leganes": {
+        "title": "Limpieza de comunidades densas en Leganés",
+        "description": "Limpieza de zonas comunes y mantenimiento de instalaciones para las comunidades de propietarios de Leganés, municipio de alta densidad y sede universitaria.",
+        "keywords": "limpieza de comunidades Leganés, mantenimiento de instalaciones Leganés, conserjería Leganés"
+      },
+      "/zones/fuenlabrada": {
+        "title": "Mantenimiento técnico continuo en Fuenlabrada",
+        "description": "Mantenimiento técnico continuo y limpieza con frecuencia ajustable para las comunidades de Fuenlabrada, construidas en su mayoría durante su expansión de los 70-90.",
+        "keywords": "mantenimiento de comunidades Fuenlabrada, limpieza de comunidades Fuenlabrada, fontanería Fuenlabrada"
+      },
+      "/zones/mostoles": {
+        "title": "Conserjería en Móstoles, 2º municipio más poblado",
+        "description": "Conserjería y limpieza de zonas comunes para las comunidades de propietarios de Móstoles, el municipio más poblado de la región tras Madrid capital.",
+        "keywords": "conserjería Móstoles, limpieza de comunidades Móstoles, empresa multiservicios Móstoles"
+      },
+      "/zones/torrejon-de-ardoz": {
+        "title": "Seguridad junto a la base aérea de Torrejón",
+        "description": "Control de accesos y seguridad para comunidades y polígonos del entorno logístico e industrial de Torrejón de Ardoz, junto a su histórica base aérea.",
+        "keywords": "seguridad Torrejón de Ardoz, control de accesos Torrejón, base aérea Torrejón de Ardoz, empresa multiservicios Torrejón"
+      },
+      "/zones/coslada": {
+        "title": "Seguridad en los polígonos y comunidades de Coslada",
+        "description": "Control de accesos y seguridad para los polígonos industriales y comunidades de Coslada, uno de los mayores nudos logísticos ferroviarios del sur de Europa.",
+        "keywords": "seguridad Coslada, control de accesos polígono Coslada, nudo logístico Coslada, conserjería Coslada"
+      },
+      "/zones/rivas-vaciamadrid": {
+        "title": "Mantenimiento de piscinas en Rivas-Vaciamadrid",
+        "description": "Mantenimiento de piscinas comunitarias y jardinería para las comunidades de construcción reciente de Rivas-Vaciamadrid, el municipio más nuevo de la cobertura.",
+        "keywords": "mantenimiento de piscinas Rivas-Vaciamadrid, jardinería Rivas-Vaciamadrid, conserjería Rivas-Vaciamadrid"
+      },
+      "/zones/colmenar-viejo": {
+        "title": "Jardinería en el casco y periferia de Colmenar Viejo",
+        "description": "Jardinería y mantenimiento para el casco histórico ganadero y las urbanizaciones periféricas de Colmenar Viejo, junto a la dehesa, en la corona norte.",
+        "keywords": "jardinería Colmenar Viejo, mantenimiento de comunidades Colmenar Viejo, urbanizaciones Colmenar Viejo"
+      },
+      "/zones/torrelodones": {
+        "title": "Seguridad en las urbanizaciones de Torrelodones",
+        "description": "Videovigilancia, control de accesos, jardinería y mantenimiento de piscinas privadas para las urbanizaciones de renta alta de Torrelodones, junto a la sierra.",
+        "keywords": "seguridad urbanizaciones Torrelodones, videovigilancia Torrelodones, jardinería Torrelodones"
+      },
+      "/zones/collado-villalba": {
+        "title": "Mantenimiento técnico en Collado Villalba y la sierra",
+        "description": "Mantenimiento técnico con equipo propio para las comunidades de Collado Villalba, el municipio más distante de nuestra cobertura, nudo hacia la Sierra de Guadarrama.",
+        "keywords": "mantenimiento de comunidades Collado Villalba, empresa multiservicios Collado Villalba, sierra de Guadarrama"
+      },
+      "/zones/arganda-del-rey": {
+        "title": "Limpieza y electricidad en el casco de Arganda",
+        "description": "Limpieza y mantenimiento eléctrico para el casco antiguo vitivinícola y las zonas de expansión de Arganda del Rey, en la vega del Jarama.",
+        "keywords": "limpieza de comunidades Arganda del Rey, mantenimiento eléctrico Arganda del Rey, casco antiguo Arganda"
       }
     }
   }

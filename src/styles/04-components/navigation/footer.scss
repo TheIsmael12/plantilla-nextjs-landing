@@ -269,13 +269,17 @@
 
 .footer__nav {
   @include grid(1fr, 2rem);
+  align-items: start;
 
+  // Columnas de ancho fijo en vez de un número fijo de columnas, y solo a
+  // partir de `sm` (en móvil se mantiene 1 columna, heredada del `@include`
+  // de arriba): con 3 grupos (Servicios/Zonas/Ayuda) en vez de 4,
+  // `repeat(4, 1fr)`/`repeat(3, 1fr)` fijo dejaba huecos vacíos en pantallas
+  // grandes en cuanto el número de grupos cambiaba. `auto-fit` con un ancho
+  // mínimo reparte el espacio entre los grupos que haya, sin depender de
+  // cuántos sean.
   @include screen(sm) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @include screen(lg) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
   }
 
   &__group {

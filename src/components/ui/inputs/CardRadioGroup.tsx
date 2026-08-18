@@ -87,7 +87,6 @@ export default function CardRadioGroup({
                     <span
                       id={descriptionId}
                       className="card-radio-group__option-description"
-                      aria-hidden="true"
                     >
                       {opt.description}
                     </span>

@@ -104,7 +104,8 @@
     }
   }
 
-  // ── Mapa real (iframe, embed sin API key) ───────────────────────────────
+  // ── Mapa real (Leaflet + CARTO Voyager, mismo tileset que el mapa de zonas
+  //    de cobertura) ─────────────────────────────────────────────────────
 
   &-frame {
     position: relative;
@@ -118,19 +119,22 @@
     }
   }
 
-  &-iframe {
+  &-canvas {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    border: 0;
   }
 
   &-badge {
     position: absolute;
     bottom: 1.25rem;
     right: 1.25rem;
-    z-index: 2;
+    // Por encima de todos los panes de Leaflet: `.leaflet-control-container`
+    // (controles de zoom/atribución) ya usa z-index 800 — con el `2` que
+    // tenía antes (pensado para estar solo por encima de un `<iframe>`), el
+    // botón quedaba completamente tapado por el mapa.
+    z-index: 900;
     background: var(--primary-color);
     color: var(--light-color);
     font-size: $text-xs;
@@ -155,3 +159,7 @@
     }
   }
 }
+
+// Los estilos del lienzo (`.contact__map-canvas`, controles de Leaflet, pin) están en
+// `contactMapCanvas.scss`, importados desde el propio `ContactMapCanvas.tsx` — así los recibe
+// también `SupportInfo.tsx`, que usa el mismo canvas compartido, sin duplicar reglas.

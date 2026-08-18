@@ -13,6 +13,16 @@
     @include screen(lg) {
       @include grid(3fr 2fr, 3rem, 1, center);
     }
+
+    // Sin columna de certificaciones (§1 de requisitos-seo.md, ISO placeholder quitadas):
+    // los tres datos ocupan todo el ancho, centrados, en vez de dejar un hueco vacío donde
+    // estaban los certificados.
+    &--stats-only {
+      @include screen(lg) {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+    }
   }
 
   &__trust-bar-stats {

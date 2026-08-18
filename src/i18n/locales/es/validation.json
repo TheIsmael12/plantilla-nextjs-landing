@@ -41,6 +41,18 @@
       "typeRequired": "Elige un tipo de incidencia.",
       "commentRequired": "Escribe un comentario antes de enviarlo.",
       "commentMaxLength": "El comentario no puede superar los 5000 caracteres."
+    },
+    "complaint": {
+      "typeRequired": "Elige el tipo de reclamación.",
+      "affectedCommunityRequired": "Indica la comunidad o el edificio afectado.",
+      "serviceDateRequired": "Indica la fecha del servicio.",
+      "serviceDescriptionRequired": "Describe qué servicio recibiste.",
+      "descriptionRequired": "La descripción es obligatoria.",
+      "contactNameRequired": "El nombre es obligatorio, o marca que prefieres no identificarte.",
+      "contactEmailRequired": "El email es obligatorio, o marca que prefieres no identificarte.",
+      "emailInvalid": "Introduce un correo electrónico válido.",
+      "privacyRequired": "Debes aceptar la política de privacidad para continuar.",
+      "maxLength": "Este campo es demasiado largo."
     }
   }
 }
