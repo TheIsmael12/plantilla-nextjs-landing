@@ -2,6 +2,7 @@ import { PropsWithChildren } from "react";
 
 import { getTranslations } from "next-intl/server";
 
+import GoogleTagManager from "@/components/analytics/GoogleTagManager";
 import Navbar from "@/components/ui/navigation/Navbar";
 import Footer from "@/components/ui/navigation/Footer";
 import GoToTop from "@/components/ui/navigation/GoToTop";
@@ -15,6 +16,10 @@ import GoToTop from "@/components/ui/navigation/GoToTop";
  * principal" (§2.4.1 WCAG) es el primer elemento enfocable de la página,
  * antes incluso de `Navbar`, para no obligar a los usuarios de teclado a
  * recorrer toda la navegación en cada página.
+ *
+ * La medición (`GoogleTagManager`) cuelga de aquí y no del layout por
+ * locale: así queda acotada a las páginas públicas y el área privada del
+ * cliente no se mide.
  * @param {PropsWithChildren} props Contenedor con la página pública a renderizar
  * @returns {Promise<JSX.Element>} El layout público renderizado
  */
@@ -34,6 +39,7 @@ export default async function PublicLayout({
             </div>
             <Footer />
             <GoToTop />
+            <GoogleTagManager />
         </>
     )
 }

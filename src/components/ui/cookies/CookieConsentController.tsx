@@ -9,6 +9,14 @@ import { useFocusTrap } from '@/hooks/useFocusTrap';
 import Button from '@/components/ui/buttons/Button';
 import Badge from '@/components/ui/buttons/Badge';
 import Toggle from '@/components/ui/inputs/Toggle';
+import {
+    DENIED_CONSENT,
+    OPEN_COOKIE_CONSENT_EVENT,
+    readCookieConsent,
+    writeCookieConsent,
+    type CookieConsentCategories,
+    type CookieConsentData,
+} from '@/lib/cookieConsent';
 import '@/styles/04-components/cookies/cookieConsent.scss';
 
 // Types -------------------------------------------------------------
@@ -32,27 +40,17 @@ type Draft = Omit<CookieConsentData, 'timestamp'>;
 const KEY = 'na:cookie-consent';
 const DEFAULT_DRAFT: Draft = { analytics: false, functional: false };
 
-function loadConsent(): CookieConsentData | null {
-    try {
-        const raw = localStorage.getItem(KEY);
-        return raw ? (JSON.parse(raw) as CookieConsentData) : null;
-    } catch {
-        return null;
-    }
-}
-
-function saveConsent(data: CookieConsentData): void {
-    localStorage.setItem(KEY, JSON.stringify(data));
-}
+const DEFAULT_DRAFT: Draft = DENIED_CONSENT;
 
 // Controller --------------------------------------------------------
 
 /**
  * Banner de consentimiento de cookies: se muestra si no hay preferencias
  * guardadas, permite aceptar o rechazar todo, o ajustar cada categoría por
- * separado, y persiste la elección en `localStorage`. También escucha el
- * evento `na:open-cookie-consent` para poder reabrirse desde otras partes
- * de la app (p. ej. un enlace del footer).
+ * separado, y persiste la elección con `lib/cookieConsent.ts`, que además
+ * avisa a quien dependa de ella (la medición de `GoogleTagManager`).
+ * También escucha el evento `na:open-cookie-consent` para poder reabrirse
+ * desde otras partes de la app (p. ej. un enlace del footer).
  * @returns {JSX.Element | null} El banner de cookies renderizado, o `null` mientras está oculto
  */
 export default function CookieConsentController() {
@@ -66,7 +64,7 @@ export default function CookieConsentController() {
 
     // Show banner if no consent stored yet
     useEffect(() => {
-        const stored = loadConsent();
+        const stored = readCookieConsent();
         if (!stored) {
             const timer = setTimeout(() => setVisible(true), 700);
             return () => clearTimeout(timer);
@@ -76,7 +74,7 @@ export default function CookieConsentController() {
     // Allow external code to re-open the panel (e.g. from footer link)
     useEffect(() => {
         const handler = () => {
-            const stored = loadConsent();
+            const stored = readCookieConsent();
             setDraft(stored
                 ? { analytics: stored.analytics, functional: stored.functional }
                 : DEFAULT_DRAFT,
@@ -85,12 +83,12 @@ export default function CookieConsentController() {
             setExpanded(true);
             setVisible(true);
         };
-        window.addEventListener('na:open-cookie-consent', handler);
-        return () => window.removeEventListener('na:open-cookie-consent', handler);
+        window.addEventListener(OPEN_COOKIE_CONSENT_EVENT, handler);
+        return () => window.removeEventListener(OPEN_COOKIE_CONSENT_EVENT, handler);
     }, []);
 
     const persist = useCallback((data: CookieConsentData) => {
-        saveConsent(data);
+        writeCookieConsent(data);
         setSaving(true);
         setTimeout(() => setVisible(false), 950);
     }, []);

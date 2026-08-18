@@ -2,6 +2,8 @@
 
 import { Settings2 } from 'lucide-react';
 
+import { OPEN_COOKIE_CONSENT_EVENT } from '@/lib/cookieConsent';
+
 type Props = {
     label: string;
 };
@@ -14,7 +16,7 @@ type Props = {
  */
 export default function ManageCookiesButton({ label }: Props) {
     const handleClick = () => {
-        window.dispatchEvent(new Event('na:open-cookie-consent'));
+        window.dispatchEvent(new Event(OPEN_COOKIE_CONSENT_EVENT));
     };
 
     return (
