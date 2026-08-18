@@ -12,7 +12,6 @@ import {
 
 const NOTHING_ACCEPTED: CookieConsentCategories = {
   analytics: false,
-  marketing: false,
   functional: false,
 };
 
@@ -59,13 +58,15 @@ describe("toGoogleConsentState", () => {
     expect(state.ad_personalization).toBe("denied");
   });
 
-  it("marketing concede las tres señales de publicidad", () => {
-    const state = toGoogleConsentState({ ...NOTHING_ACCEPTED, marketing: true });
+  it("aceptarlo todo tampoco concede publicidad: no hay categoría que la gobierne", () => {
+    const state = toGoogleConsentState({ analytics: true, functional: true });
 
-    expect(state.ad_storage).toBe("granted");
-    expect(state.ad_user_data).toBe("granted");
-    expect(state.ad_personalization).toBe("granted");
-    expect(state.analytics_storage).toBe("denied");
+    expect(state.analytics_storage).toBe("granted");
+    expect(state.functionality_storage).toBe("granted");
+    expect(state.personalization_storage).toBe("granted");
+    expect(state.ad_storage).toBe("denied");
+    expect(state.ad_user_data).toBe("denied");
+    expect(state.ad_personalization).toBe("denied");
   });
 
   it("`security_storage` va concedida siempre, no es opcional", () => {
@@ -91,7 +92,7 @@ describe("pushToDataLayer", () => {
 
 describe("pushConsentUpdate", () => {
   it("manda el `consent update` a Google y deja el evento en la capa", () => {
-    pushConsentUpdate({ analytics: true, marketing: false, functional: true });
+    pushConsentUpdate({ analytics: true, functional: true });
 
     const [update, event] = window.dataLayer as [IArguments, Record<string, unknown>];
 
@@ -151,7 +152,7 @@ describe("buildGtmBootstrap", () => {
   it("arranca ya concedido para quien aceptó en una visita anterior", () => {
     window.localStorage.setItem(
       COOKIE_CONSENT_STORAGE_KEY,
-      JSON.stringify({ analytics: true, marketing: false, functional: false, timestamp: 1 }),
+      JSON.stringify({ analytics: true, functional: false, timestamp: 1 }),
     );
 
     new Function(bootstrap)();

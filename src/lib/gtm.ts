@@ -36,26 +36,43 @@ export type GoogleConsentState = Record<
 >;
 
 /**
- * Qué categoría del banner gobierna cada señal de Google. `null` significa
- * que la señal va siempre concedida: `security_storage` cubre cosas como la
- * prevención de fraude, que no son opcionales y no requieren consentimiento.
+ * Qué decide cada señal de Google. Cada una sigue una categoría del banner,
+ * o va fijada:
+ *
+ * - `"granted"` — siempre concedida. `security_storage` cubre cosas como la
+ *   prevención de fraude: no es opcional y no requiere consentimiento.
+ * - `"denied"` — siempre denegada, porque **no hay categoría que la
+ *   gobierne**. Es el caso de las tres señales de publicidad: el banner ya no
+ *   pregunta por marketing (ver `lib/cookieConsent.ts`), así que nadie puede
+ *   concederlas y ninguna etiqueta de anuncios puede escribir nada. El día que
+ *   haya una integración de publicidad real, vuelven a apuntar a la categoría
+ *   que se reintroduzca.
  *
  * Es la **única** definición del mapeo: la usan tanto la traducción en
  * cliente ({@link toGoogleConsentState}) como el script de arranque
  * ({@link buildGtmBootstrap}), para que no puedan divergir.
  */
-export const CONSENT_SIGNAL_CATEGORY: Record<
+export const CONSENT_SIGNAL_RULE: Record<
   keyof GoogleConsentState,
-  keyof CookieConsentCategories | null
+  keyof CookieConsentCategories | ConsentSignal
 > = {
-  ad_storage: "marketing",
-  ad_user_data: "marketing",
-  ad_personalization: "marketing",
+  ad_storage: "denied",
+  ad_user_data: "denied",
+  ad_personalization: "denied",
   analytics_storage: "analytics",
   functionality_storage: "functional",
   personalization_storage: "functional",
-  security_storage: null,
+  security_storage: "granted",
 };
+
+/**
+ * Distingue una señal fijada de una que sigue al banner.
+ * @param {keyof CookieConsentCategories | ConsentSignal} rule - Valor de {@link CONSENT_SIGNAL_RULE}
+ * @returns {boolean} `true` si la señal va fijada y no depende de lo que elija el visitante
+ */
+function isFixedSignal(rule: keyof CookieConsentCategories | ConsentSignal): rule is ConsentSignal {
+  return rule === "granted" || rule === "denied";
+}
 
 /** Formato de un identificador de contenedor válido (`GTM-` y su código). */
 const GTM_CONTAINER_ID_PATTERN = /^GTM-[A-Z0-9]+$/;
@@ -79,9 +96,9 @@ export function isValidGtmContainerId(containerId: string): boolean {
  * @returns {GoogleConsentState} Las siete señales, concedidas o denegadas
  */
 export function toGoogleConsentState(consent: CookieConsentCategories): GoogleConsentState {
-  const entries = Object.entries(CONSENT_SIGNAL_CATEGORY).map(([signal, category]) => [
+  const entries = Object.entries(CONSENT_SIGNAL_RULE).map(([signal, rule]) => [
     signal,
-    category === null || consent[category] ? "granted" : "denied",
+    isFixedSignal(rule) ? rule : consent[rule] ? "granted" : "denied",
   ]);
 
   return Object.fromEntries(entries) as GoogleConsentState;
@@ -172,11 +189,12 @@ export function buildGtmBootstrap(containerId: string): string {
   var stored = null;
   try { stored = JSON.parse(w.localStorage.getItem(${JSON.stringify(COOKIE_CONSENT_STORAGE_KEY)}) || 'null'); } catch (e) { stored = null; }
 
-  var categories = ${JSON.stringify(CONSENT_SIGNAL_CATEGORY)};
+  var rules = ${JSON.stringify(CONSENT_SIGNAL_RULE)};
   var consent = { wait_for_update: ${GTM_CONSENT_WAIT_FOR_UPDATE_MS} };
-  for (var signal in categories) {
-    var category = categories[signal];
-    consent[signal] = (category === null || (stored && stored[category])) ? 'granted' : 'denied';
+  for (var signal in rules) {
+    var rule = rules[signal];
+    var fixed = rule === 'granted' || rule === 'denied';
+    consent[signal] = fixed ? rule : ((stored && stored[rule]) ? 'granted' : 'denied');
   }
 
   w.gtag('consent', 'default', consent);

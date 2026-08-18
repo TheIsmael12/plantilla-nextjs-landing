@@ -87,7 +87,7 @@ export const WithConsentStored: Story = {
       if (typeof window !== 'undefined') {
         localStorage.setItem(
           'na:cookie-consent',
-          JSON.stringify({ analytics: true, marketing: false, functional: true, timestamp: Date.now() }),
+          JSON.stringify({ analytics: true, functional: true, timestamp: Date.now() }),
         );
       }
       return <Story />;
@@ -103,7 +103,7 @@ export const ReviewExistingConsent: Story = {
       if (typeof window !== 'undefined') {
         localStorage.setItem(
           'na:cookie-consent',
-          JSON.stringify({ analytics: true, marketing: false, functional: true, timestamp: Date.now() }),
+          JSON.stringify({ analytics: true, functional: true, timestamp: Date.now() }),
         );
         setTimeout(() => window.dispatchEvent(new Event('na:open-cookie-consent')), 150);
       }

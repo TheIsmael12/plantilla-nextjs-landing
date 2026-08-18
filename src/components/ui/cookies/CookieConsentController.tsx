@@ -21,24 +21,10 @@ import '@/styles/04-components/cookies/cookieConsent.scss';
 
 // Types -------------------------------------------------------------
 
-/**
- * Preferencias de cookies aceptadas por el usuario, con la fecha del consentimiento.
- *
- * Sin categoría `marketing`: el sitio no instala hoy ningún script de publicidad (Google Ads,
- * Meta Pixel...) — tenerla como toggle preparado pero sin ningún uso real detrás llevaba a que
- * el documento legal la describiera con ejemplos de proveedores que no están instalados. Cuando
- * haya una integración de publicidad real, se reintroduce junto con esa integración, no antes.
- */
-export interface CookieConsentData {
-    analytics: boolean;
-    functional: boolean;
-    timestamp: number;
-}
+/** Se reexporta desde su nuevo sitio (`lib/cookieConsent.ts`) para no romper a quien lo importara de aquí. */
+export type { CookieConsentData };
 
-type Draft = Omit<CookieConsentData, 'timestamp'>;
-
-const KEY = 'na:cookie-consent';
-const DEFAULT_DRAFT: Draft = { analytics: false, functional: false };
+type Draft = CookieConsentCategories;
 
 const DEFAULT_DRAFT: Draft = DENIED_CONSENT;
 
