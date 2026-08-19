@@ -2764,6 +2764,14 @@
         "unreadFilter": "Unread only",
         "allFilter": "All",
         "Types": {
+          "INCIDENT_COMMENTED_PORTAL": {
+            "title": "New reply on {code}",
+            "body": "We have replied to your incident \"{title}\"."
+          },
+          "INCIDENT_STATUS_CHANGED_PORTAL": {
+            "title": "Your incident {code} changed status",
+            "body": "Open the incident to see where it stands."
+          },
           "QUOTE_SENT": {
             "title": "New quote",
             "body": "Quote {quoteCode} is ready for you to review."

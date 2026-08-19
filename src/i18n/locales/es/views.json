@@ -2860,6 +2860,14 @@
         "unreadFilter": "Solo sin leer",
         "allFilter": "Todas",
         "Types": {
+          "INCIDENT_COMMENTED_PORTAL": {
+            "title": "Nueva respuesta en {code}",
+            "body": "Hemos contestado a tu incidencia «{title}»."
+          },
+          "INCIDENT_STATUS_CHANGED_PORTAL": {
+            "title": "Tu incidencia {code} ha cambiado de estado",
+            "body": "Entra a la ficha para ver en qué punto está."
+          },
           "QUOTE_SENT": {
             "title": "Nuevo presupuesto",
             "body": "Tienes el presupuesto {quoteCode} listo para revisar."
