@@ -5,7 +5,7 @@ import type { Route, StaticPathname } from "@/types/route";
 
 import { pathnames } from "@/config/pathnames";
 import { AREA_PRIVADA_ROUTES, AUTH_ROUTES, PRIVATE_ROUTES } from "@/config/routing";
-import { isSupportedLocale, type AppLocale, DEFAULT_LOCALE } from "@/config/locales";
+import { isSupportedLocale, type AppLocale, DEFAULT_LOCALE, LOCALE_COOKIE_NAME } from "@/config/locales";
 
 /**
  * Aplana un catálogo de rutas (incluidas sus `subRoutes` anidadas) a la lista
@@ -51,7 +51,7 @@ export function detectLocale(request: NextRequest): AppLocale {
   const [, maybeLocale] = request.nextUrl.pathname.split("/");
   if (isSupportedLocale(maybeLocale)) return maybeLocale;
 
-  const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
+  const cookieLocale = request.cookies.get(LOCALE_COOKIE_NAME)?.value;
   if (isSupportedLocale(cookieLocale)) return cookieLocale;
 
   const acceptLanguage = request.headers.get("accept-language");
