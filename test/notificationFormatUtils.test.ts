@@ -40,6 +40,20 @@ describe("isPhrasableNotification", () => {
   });
 
   /*
+   * Los avisos de incidencias, en su propio caso.
+   *
+   * Es la regresión que hubo: los textos estaban escritos pero el tipo no figuraba en la lista de
+   * redactables —que entonces iba a mano—, así que al cliente se le respondía una incidencia y en la
+   * campana le salía `INCIDENT_COMMENTED_PORTAL` en crudo, sin aviso emergente.
+   */
+  it("lo son los avisos de incidencias del portal", () => {
+    expect(isPhrasableNotification(notification({ type: "INCIDENT_COMMENTED_PORTAL" }))).toBe(true);
+    expect(isPhrasableNotification(notification({ type: "INCIDENT_STATUS_CHANGED_PORTAL" }))).toBe(
+      true,
+    );
+  });
+
+  /*
    * Un tipo desconocido **no** es redactable, y de eso depende que no se enseñe.
    *
    * El backend tiene decenas de tipos de notificación y el portal solo traduce los cinco que le incumben al

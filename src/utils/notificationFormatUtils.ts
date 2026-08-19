@@ -1,3 +1,5 @@
+import esMessages from "@/i18n/locales/es/views.json";
+
 import type { BadgeVariant } from "@/types/ui/buttons/badge";
 import type {
   NotificationResponseDto,
@@ -16,17 +18,19 @@ export const NOTIFICATION_SEVERITY_VARIANTS: Record<NotificationSeverity, BadgeV
 };
 
 /**
- * Tipos de notificación para los que hay texto traducido. El backend puede
- * emitir otros: los que no estén aquí caen en el texto de respaldo en vez de
- * reventar la traducción con una clave inexistente.
+ * Tipos de notificación para los que hay texto traducido.
+ *
+ * Sale de las propias traducciones y **no** de una lista escrita a mano. La lista a mano se quedó atrás en
+ * cuanto la API empezó a emitir los avisos de incidencias: los textos estaban escritos, pero como el tipo
+ * no figuraba aquí, la campana pintaba `INCIDENT_COMMENTED_PORTAL` en crudo y el aviso emergente ni salía.
+ * Derivándola, añadir el texto es lo único que hay que hacer para que el tipo funcione.
+ *
+ * Se lee del castellano porque es el idioma en el que se escriben los textos primero; que `en` no se quede
+ * atrás lo cubre el test de paridad de claves, no esta constante.
  */
-const TRANSLATED_TYPES = new Set([
-  "QUOTE_SENT",
-  "QUOTE_EXPIRING_SOON",
-  "INVOICE_ISSUED",
-  "INVOICE_OVERDUE_PORTAL",
-  "INVOICE_PAID_PORTAL",
-]);
+const TRANSLATED_TYPES = new Set(
+  Object.keys(esMessages.Views.ClientArea.Notifications.Types),
+);
 
 /**
  * Si sabemos escribir esta notificación con palabras propias.

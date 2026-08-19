@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 
 import { getRequestConfig } from "next-intl/server";
 
-import { DEFAULT_LOCALE } from "@/config/locales";
+import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME } from "@/config/locales";
 
 async function loadMessages(locale: string) {
   const messages = await import(`@/i18n/locales/${locale}`);
@@ -12,7 +12,7 @@ async function loadMessages(locale: string) {
 export default getRequestConfig(async () => {
 
   const store = await cookies();
-  const locale = store.get("NEXT_LOCALE")?.value || DEFAULT_LOCALE;
+  const locale = store.get(LOCALE_COOKIE_NAME)?.value || DEFAULT_LOCALE;
 
   return {
     locale,

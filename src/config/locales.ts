@@ -30,3 +30,11 @@ export const DEFAULT_LOCALE: AppLocale = isSupportedLocale(
 export function isSupportedLocale(value: string | undefined): value is AppLocale {
   return !!value && SUPPORTED_LOCALES.includes(value as AppLocale);
 }
+
+/**
+ * Nombre de la cookie donde next-intl guarda el idioma elegido.
+ *
+ * El nombre lo fija next-intl (`NEXT_LOCALE`); aquí está para que el proxy, `routingUtils` y
+ * `i18n/request` se refieran todos a la misma y no lo lleven escrito a mano cada uno.
+ */
+export const LOCALE_COOKIE_NAME = "NEXT_LOCALE";

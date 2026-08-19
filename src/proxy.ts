@@ -1,10 +1,36 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 
 import { locales, pathnames } from "@/config/pathnames";
-import { DEFAULT_LOCALE, type AppLocale } from "@/config/locales";
+import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME, type AppLocale } from "@/config/locales";
 import { resolveCanonicalPathname } from "@/utils/routingUtils";
+import { ENV_SERVER } from "@/config/env.server";
 import { buildContentSecurityPolicy } from "@/config/csp";
+
+/**
+ * Vuelve a poner la cookie de idioma que escribe next-intl, añadiéndole `httpOnly`.
+ *
+ * El `localeCookie` del middleware cubre `secure`, pero **no admite `httpOnly`**: next-intl no lo
+ * expone porque su propia navegación la escribe desde el cliente. Un análisis de vulnerabilidades marcó
+ * las dos banderas sobre `NEXT_LOCALE`, y esta es la mitad que falta.
+ *
+ * No rompe el cambio de idioma: el middleware de next-intl reescribe la cookie en cada petición en la
+ * que el idioma resuelto no coincide con el de la cookie, así que la preferencia se guarda igual aunque
+ * el navegador ignore la escritura del cliente. Mismo arreglo que en `plantilla-nextjs`.
+ * @param {NextResponse} response - Respuesta de `handleI18nRouting`, tal cual la devolvió
+ */
+function hardenLocaleCookie(response: NextResponse): void {
+  const localeCookie = response.cookies.get(LOCALE_COOKIE_NAME);
+  if (!localeCookie) return;
+
+  response.cookies.set(LOCALE_COOKIE_NAME, localeCookie.value, {
+    httpOnly: true,
+    secure: ENV_SERVER.IS_PRODUCTION,
+    sameSite: "lax",
+    path: "/",
+    maxAge: localeCookie.maxAge,
+  });
+}
 
 /**
  * Middleware de Next.js: resuelve el enrutado por idioma con `next-intl` y
@@ -47,6 +73,9 @@ export default async function middleware(request: NextRequest) {
     defaultLocale: DEFAULT_LOCALE,
     localePrefix: "as-needed",
     localeDetection: false,
+    // `secure` en producción: un análisis de vulnerabilidades marcó `NEXT_LOCALE` por no llevarlo.
+    // `httpOnly` no se puede poner aquí —next-intl no lo expone— y se añade abajo sobre la respuesta.
+    localeCookie: { secure: ENV_SERVER.IS_PRODUCTION },
   });
 
   // El nonce se pasa como cabecera de PETICIÓN antes de invocar el enrutado
@@ -63,6 +92,8 @@ export default async function middleware(request: NextRequest) {
   request.headers.set("x-nonce", nonce);
 
   const response = handleI18nRouting(request);
+
+  hardenLocaleCookie(response);
 
   if (process.env.NODE_ENV === "production") {
     response.headers.set("Content-Security-Policy", buildContentSecurityPolicy(nonce));
