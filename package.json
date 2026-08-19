@@ -16,6 +16,7 @@
   "dependencies": {
     "@storybook/addon-themes": "^10.5.2",
     "@tanstack/react-table": "^8.21.3",
+    "@vercel/analytics": "^2.0.1",
     "echarts": "6.1.0",
     "formik": "^2.4.9",
     "leaflet": "^1.9.4",

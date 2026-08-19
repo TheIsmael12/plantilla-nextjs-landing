@@ -9,6 +9,8 @@ import { setRequestLocale, getMessages } from "next-intl/server";
 
 import { Fraunces, Public_Sans } from "next/font/google";
 
+import { Analytics } from "@vercel/analytics/next";
+
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import GoogleAnalytics from "@/components/seo/GoogleAnalytics";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
@@ -147,6 +149,16 @@ export default async function LocaleLayout({
                     </SessionAuthProvider>
                 </NextIntlClientProvider>
                 <GoogleAnalytics nonce={nonce} />
+                {/*
+                  Vercel Web Analytics. Va sin `nonce` y no es un olvido: al contrario que
+                  `GoogleAnalytics`, este componente no renderiza ningún `<script>` en el HTML — se
+                  monta en cliente y lo inyecta con `document.createElement`, así que lo cubre
+                  `'strict-dynamic'` de la CSP (un script creado por otro ya confiado hereda la
+                  confianza) y la política `default` de Trusted Types de arriba, que es la que permite
+                  asignarle el `src`. Su prop `nonce` no existe, precisamente por eso.
+                  Mide sin cookies, así que no cuelga del consentimiento.
+                */}
+                <Analytics />
             </body>
         </html>
 
