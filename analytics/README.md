@@ -68,8 +68,16 @@ quedarse activa: el contenedor no la duplica a propósito.
 
 ## Consentimiento
 
-El banner de cookies traduce sus tres categorías a las señales del Consent
-Mode v2 (`lib/gtm.ts`). El contenedor está montado en **modo avanzado**: las
+El banner de cookies traduce sus categorías a las señales del Consent Mode v2
+(`lib/gtm.ts`).
+
+**Las tres señales de publicidad (`ad_storage`, `ad_user_data`,
+`ad_personalization`) van denegadas siempre.** No es un olvido: el banner ya no
+pregunta por marketing, porque hoy no hay instalado ningún script de publicidad
+y un interruptor sin nada detrás obligaba al texto legal a describir
+proveedores que no existen en el sitio. Sin categoría que las gobierne, nadie
+puede concederlas, y ninguna etiqueta de anuncios podría escribir nada aunque
+se le quitara la pausa. El contenedor está montado en **modo avanzado**: las
 etiquetas de GA4 se disparan siempre y es el propio Consent Mode quien decide
 qué se puede enviar. Sin consentimiento manda pings sin cookies ni
 identificadores, que es lo que permite que GA4 modele después lo que no pudo
@@ -140,16 +148,23 @@ El resto del contenedor no depende de eso.
 ## El día que entren los anuncios
 
 El objetivo es saber cuánto genera cada anuncio, y eso no se resuelve
-quitando la pausa a tres etiquetas. Hacen falta cuatro cosas, en este orden:
+quitando la pausa a tres etiquetas. Hacen falta cinco cosas, en este orden:
 
 1. ~~Que exista `generate_lead`~~. Hecho: lo empuja la página de contacto.
-2. **Un valor por lead.** Para que la pregunta sea "cuánto genera" y no
+2. **Devolver la categoría `marketing` al banner.** Es la condición que se
+   dejó escrita al quitarla: vuelve junto con la integración de publicidad, no
+   antes. Toca `CookieConsentCategories` (`lib/cookieConsent.ts`), el
+   interruptor del banner, sus textos en `cookies.json`, la tabla de la
+   política de cookies, y devolver las tres señales `ad_*` de
+   `CONSENT_SIGNAL_RULE` (`lib/gtm.ts`) a esa categoría. Sin este paso las
+   etiquetas de Ads no se disparan aunque se les quite la pausa.
+3. **Un valor por lead.** Para que la pregunta sea "cuánto genera" y no
    "cuántos formularios llegan", el evento debe llevar un valor —aunque sea
    uno estimado y fijo por tipo de lead. Sin valor solo se cuentan envíos.
-3. **Rellenar los dos IDs de Ads** (`CFG - Google Ads ID de conversion` y
+4. **Rellenar los dos IDs de Ads** (`CFG - Google Ads ID de conversion` y
    `CFG - Google Ads etiqueta de conversion (lead)`) y quitar la pausa a las
    tres etiquetas de la carpeta 2.
-4. **Vincular Google Ads con GA4** desde el administrador de GA4. Es lo que
+5. **Vincular Google Ads con GA4** desde el administrador de GA4. Es lo que
    permite ver el rendimiento por campaña dentro de los informes, en vez de
    tener los dos sistemas contando por su cuenta.
 

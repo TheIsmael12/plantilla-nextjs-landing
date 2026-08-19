@@ -11,7 +11,6 @@ import {
 
 const ONLY_ANALYTICS: CookieConsentData = {
   analytics: true,
-  marketing: false,
   functional: false,
   timestamp: 1_700_000_000_000,
 };

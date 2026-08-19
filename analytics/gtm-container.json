@@ -291,7 +291,8 @@
           }
         ],
         "parentFolderId": "3",
-        "fingerprint": "0"
+        "fingerprint": "0",
+        "notes": "Hoy vale siempre \"denied\": el banner ya no pregunta por marketing, asi que ninguna senal de publicidad puede concederse. Se deja montada para el dia que se reintroduzca esa categoria."
       },
       {
         "accountId": "0",
@@ -1124,7 +1125,7 @@
         "tagId": "8",
         "name": "Ads - Remarketing",
         "type": "sp",
-        "notes": "EN PAUSA. Esta si exige consentimiento de publicidad: sin el no tiene sentido, no hay nada que hacer con una audiencia que no se puede usar.",
+        "notes": "EN PAUSA, y ademas exige consentimiento de publicidad. Ojo: mientras el banner no vuelva a preguntar por marketing, ese consentimiento nunca se concede y esta etiqueta no se disparara aunque se le quite la pausa. Ver la seccion \"El dia que entren los anuncios\" del README.",
         "paused": true,
         "parameter": [
           {

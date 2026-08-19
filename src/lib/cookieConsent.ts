@@ -7,10 +7,18 @@
  * y del formato, un cambio en uno dejaría al otro leyendo un hueco.
  */
 
-/** Categorías de cookies que el visitante acepta o rechaza por separado en el banner. */
+/**
+ * Categorías de cookies que el visitante acepta o rechaza por separado en el banner.
+ *
+ * **Sin categoría `marketing`**: hoy no hay instalado ningún script de
+ * publicidad (Google Ads, Meta Pixel...), y un interruptor sin nada detrás
+ * obligaba al texto legal a describir proveedores que no existen en el sitio.
+ * Cuando haya una integración de publicidad real se reintroduce junto con
+ * ella, y con ella vuelven a colgar las señales `ad_*` de `lib/gtm.ts`, que
+ * mientras tanto van denegadas siempre.
+ */
 export interface CookieConsentCategories {
   analytics: boolean;
-  marketing: boolean;
   functional: boolean;
 }
 
@@ -31,7 +39,6 @@ export const COOKIE_CONSENT_CHANGED_EVENT = "na:cookie-consent-changed";
 /** Punto de partida mientras no haya decisión: nada opcional aceptado. */
 export const DENIED_CONSENT: CookieConsentCategories = {
   analytics: false,
-  marketing: false,
   functional: false,
 };
 
