@@ -1,0 +1,485 @@
+// Ficha de la oferta ({@link JobDetailHeader}, {@link JobDetailBody}), página de
+// proceso cerrado y seguimiento de la candidatura ({@link ApplicationTracking}).
+//
+// El cuerpo de la oferta llega en Markdown ya convertido, así que sus estilos se
+// aplican por etiqueta dentro de .careers__prose: no hay clases que poner en un
+// HTML que no escribimos nosotros.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+/**
+ * La cabecera de la ficha, con la misma forma que las demás cabeceras de detalle de la web
+ * (`services__detail-hero`): fondo `surface` y una línea abajo, no un degradado propio.
+ *
+ * El degradado que tenía antes era el del hero del **listado** (`careers__hero`), copiado a una página de
+ * detalle: dos pantallas seguidas con el mismo fondo grande hacen que no se note que se ha entrado en algo.
+ */
+.careers__detail-header {
+  background: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  @include py(3.5rem);
+}
+
+.careers__detail-header-inner {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+}
+
+// Volver al buscador. Mismo tratamiento que el de la ficha de un servicio.
+.careers__detail-back {
+  @include flex(row, flex-start, center, 0.4rem);
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--neutral-color);
+
+  &:hover {
+    text-decoration: none;
+    color: var(--primary-color-active);
+  }
+}
+
+// La familia profesional, en la píldora que las demás fichas usan para su categoría.
+.careers__detail-tag {
+  display: inline-flex;
+  width: fit-content;
+  margin: 0;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary-color-active);
+  background: rgba(var(--primary-color-rgb), 0.08);
+  @include px(0.85rem);
+  @include py(0.4rem);
+  @include rounded(999px);
+}
+
+// La referencia, debajo del resumen: hay que poder leerla, no encabezar con ella.
+.careers__detail-reference {
+  margin: 0.2rem 0 0;
+  font-size: $text-xs;
+  color: var(--neutral-color);
+
+  code {
+    font-family: monospace;
+    font-size: $text-xs;
+    color: var(--color);
+  }
+}
+
+.careers__detail-title {
+  font-family: $font-title;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: $font-semibold;
+  color: var(--primary-color);
+  line-height: 1.16;
+  text-wrap: balance;
+  margin: 0 0 0.75rem;
+}
+
+.careers__detail-summary {
+  font-size: $text-lg;
+  color: var(--neutral-color);
+  line-height: 1.6;
+  max-width: 48rem;
+  margin: 0;
+}
+
+.careers__detail-meta {
+  @include flex(row, flex-start, center, 1.1rem);
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  font-size: $text-sm;
+  color: var(--color);
+
+  li {
+    @include flex(row, flex-start, center, 0.4rem);
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: var(--primary-color-active);
+  }
+}
+
+.careers__detail-salary {
+  margin: 0.9rem 0 0;
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+// Dos columnas en escritorio: el cuerpo de la oferta a la izquierda y sus
+// condiciones a la derecha. En móvil las condiciones quedan **debajo** del
+// cuerpo: en una pantalla estrecha, meter una tarjeta de datos entre el título y
+// la descripción parte la lectura justo al empezar.
+.careers__detail-layout {
+  display: grid;
+  gap: 2rem;
+
+  @include screen(lg) {
+    grid-template-columns: minmax(0, 1fr) 22rem;
+    align-items: start;
+  }
+}
+
+// El cuerpo va sobre `--surface-color` y no sobre el fondo de la página: es un
+// bloque de lectura larga, y el contraste con el fondo lo separa de la columna
+// de datos sin necesidad de una línea divisoria.
+.careers__detail-body {
+  display: grid;
+  gap: 2rem;
+  min-width: 0;
+  @include p(1.75rem);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+
+  @include screen(md, max) {
+    @include p(1.25rem);
+  }
+}
+
+.careers__detail-section {
+  h2 {
+    font-family: $font-title;
+    font-size: $text-xl;
+    font-weight: $font-semibold;
+    color: var(--color);
+    margin: 0 0 0.7rem;
+  }
+}
+
+.careers__prose {
+  font-family: $font-family-base;
+  font-size: $text-base;
+  color: var(--color);
+  line-height: 1.72;
+
+  p,
+  ul,
+  ol {
+    margin: 0 0 1rem;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.35rem;
+  }
+
+  li {
+    margin-bottom: 0.35rem;
+  }
+
+  a {
+    color: var(--primary-color-active);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  strong {
+    font-weight: $font-semibold;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.careers__benefits {
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    @include flex(row, flex-start, center, 0.5rem);
+    font-size: $text-sm;
+    color: var(--color);
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: var(--success-color);
+  }
+}
+
+.careers__detail-links {
+  @include flex(row, flex-start, center, 0.5rem);
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: $text-sm;
+
+  a {
+    color: var(--primary-color-active);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+}
+
+// Proceso cerrado y enlace de seguimiento no válido: la misma caja centrada. En
+// los dos casos no hay nada que hacer en la página salvo volver al buscador, y
+// eso es exactamente lo que se ve.
+.careers__closed {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.7rem;
+  @include py(3rem);
+
+  h1 {
+    font-family: $font-title;
+    font-size: $text-3xl;
+    font-weight: $font-semibold;
+    color: var(--primary-color);
+    margin: 0;
+  }
+
+  p {
+    font-size: $text-base;
+    color: var(--neutral-color);
+    line-height: 1.65;
+    max-width: 34rem;
+    margin: 0 0 0.6rem;
+  }
+}
+
+.careers__tracking {
+  max-width: 38rem;
+  margin: 0 auto;
+  @include p(1.75rem);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+
+  h1 {
+    font-family: $font-title;
+    font-size: $text-2xl;
+    font-weight: $font-semibold;
+    color: var(--primary-color);
+    margin: 0 0 1.25rem;
+  }
+
+  // Ya retirada: la caja se queda, pero apagada. Es la señal de que la acción
+  // se hizo, sin cambiar la página por otra.
+  &--done {
+    text-align: center;
+    color: var(--neutral-color);
+  }
+}
+
+.careers__tracking-data {
+  display: grid;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  padding-top: 1.25rem;
+
+  @include screen(sm) {
+    grid-template-columns: 11rem minmax(0, 1fr);
+  }
+
+  dt {
+    @include flex(row, flex-start, center, 0.35rem);
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--neutral-color);
+  }
+
+  dd {
+    margin: 0;
+    font-size: $text-sm;
+    color: var(--color);
+
+    a {
+      color: var(--primary-color-active);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: var(--primary-color-active);
+  }
+}
+
+.careers__tracking-confirm {
+  margin-top: 1.5rem;
+  @include p(1rem);
+  background: var(--neutral-color-light);
+  @include rounded(0.5rem);
+
+  p {
+    margin: 0 0 0.9rem;
+    font-size: $text-sm;
+    color: var(--color);
+  }
+}
+
+.careers__tracking-actions {
+  @include flex(row, flex-start, center, 0.6rem);
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+// Ofertas parecidas al final de la ficha: fondo distinto para que se lea como
+// «otra cosa» y no como una continuación de la oferta que se acaba de leer.
+.careers__related {
+  background: var(--background-color);
+}
+
+.careers__related-title {
+  font-family: $font-title;
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  color: var(--color);
+  margin: 0 0 1.25rem;
+}
+
+// ── Columna de condiciones del puesto ({@link JobDetailAside}) ──────────────
+//
+// Se queda pegada arriba mientras se lee la descripción: son los datos que se
+// consultan a mitad de lectura («¿esto cuánto pagaba?»), y bajar a buscarlos es
+// lo que hace que alguien pierda el sitio.
+.careers__aside {
+  min-width: 0;
+
+  @include screen(lg) {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+.careers__aside-card {
+  display: grid;
+  gap: 1rem;
+  @include p(1.5rem);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+}
+
+.careers__aside-title {
+  font-family: $font-title;
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: var(--color);
+  margin: 0;
+}
+
+.careers__aside-data {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+
+  dt {
+    @include flex(row, flex-start, center, 0.4rem);
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--neutral-color);
+
+    svg {
+      flex-shrink: 0;
+      color: var(--primary-color-active);
+    }
+  }
+
+  dd {
+    margin: 0.15rem 0 0;
+    font-size: $text-sm;
+    color: var(--color);
+  }
+}
+
+.careers__aside-salary {
+  margin: 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border-color);
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.careers__aside-vacancies {
+  margin: -0.6rem 0 0;
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+// El número de personas presentadas: dato de contexto, no un aviso. Va en el
+// color apagado para que no compita con el salario ni con el botón.
+.careers__aside-applicants {
+  @include flex(row, flex-start, center, 0.4rem);
+  margin: 0;
+  font-size: $text-sm;
+  color: var(--neutral-color);
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+// ── Seguimiento de la candidatura ({@link ApplicationTracking}) ─────────────
+.careers__tracking-header {
+  @include flex(row, space-between, flex-start, 1rem);
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+.careers__tracking-code {
+  @include flex(row, flex-start, center, 0.3rem);
+  margin: 0 0 0.35rem;
+  font-family: $font-family-base;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--primary-color-active);
+}
+
+// El bloque de retirar va separado del resto y con su propio marco: es una
+// acción irreversible, y no debe leerse como una más de la lista de datos.
+.careers__tracking-danger {
+  @include flex(row, space-between, center, 1rem);
+  flex-wrap: wrap;
+  margin-top: 1.75rem;
+  @include p(1rem 1.25rem);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--danger-color);
+  @include rounded(0.5rem);
+
+  h2 {
+    margin: 0 0 0.2rem;
+    font-family: $font-title;
+    font-size: $text-base;
+    font-weight: $font-semibold;
+    color: var(--color);
+  }
+
+  p {
+    margin: 0;
+    max-width: 34rem;
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    line-height: 1.55;
+  }
+}

@@ -162,7 +162,7 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
       <dialog
         open
         ref={modalRef}
-        className={`modal ${isLarge ? "modal--large" : ""}`}
+        className={`modal${isLarge ? " modal--large" : ""}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"

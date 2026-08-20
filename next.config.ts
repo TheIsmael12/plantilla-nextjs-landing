@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
 	reactCompiler: true,
 
 	experimental: {
+		// El formulario de candidatura sube el CV por una acción de servidor, y el tope por defecto de su
+		// cuerpo es 1 MB: un currículum de 5 MB (`CAREERS_MAX_CV_MB` en el backend) fallaba antes de salir
+		// del navegador, con un error genérico y sin pista de cuál era el límite. Se deja un poco por encima
+		// del máximo real para que el rechazo lo dé el backend, que sí explica el motivo.
+		serverActions: {
+			bodySizeLimit: '6mb',
+		},
 		// PageSpeed marcaba ~19 archivos CSS de 1-3,6 KiB cada uno bloqueando el renderizado
 		// (~650ms de LCP): son los `import '@/styles/....scss'` que hace cada componente por
 		// separado. `'graph'` es el modo de fusión basado en coste que soporta Turbopack

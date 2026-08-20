@@ -1,0 +1,169 @@
+// Estilos de JobApplyDialog (components/ui/careers/JobApplyDialog.tsx): el diálogo propio del formulario
+// de candidatura.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.careers__dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background-color: rgb(0 0 0 / 55%);
+}
+
+/**
+ * El panel.
+ *
+ * Rejilla de tres filas —cabecera, contenido, nada— y no una caja con `overflow: auto`: el formulario que
+ * va dentro necesita saber cuál es su alto para poder dejar sus pasos arriba y sus botones abajo. Con
+ * `height: auto` el panel crecía con el contenido y el desplazamiento lo hacía la página entera, que es
+ * precisamente lo que se llevaba los pasos y el botón de «Siguiente» fuera de la pantalla.
+ */
+.careers__dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 91;
+    width: min(60rem, calc(100vw - 2rem));
+    height: min(46rem, calc(100vh - 2rem));
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    @include rounded();
+    overflow: hidden;
+
+    // En el móvil ocupa la pantalla entera: una caja centrada con márgenes deja el teclado tapando el
+    // campo que se está rellenando.
+    @include screen(md, max) {
+        width: 100vw;
+        height: 100vh;
+        border: none;
+        @include rounded(0);
+    }
+}
+
+.careers__dialog-header {
+    @include flex(row, space-between, flex-start, 1rem);
+    @include px(1.5rem);
+    @include py(1rem);
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+}
+
+.careers__dialog-heading {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+}
+
+.careers__dialog-title {
+    margin: 0;
+    font-family: $font-title;
+    font-size: $text-lg;
+    font-weight: $font-semibold;
+    color: var(--color);
+}
+
+.careers__dialog-subtitle {
+    margin: 0;
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    // El título del puesto puede ser largo y no debe empujar al botón de cerrar.
+    overflow-wrap: anywhere;
+
+    code {
+        font-family: monospace;
+        font-size: $text-xs;
+    }
+}
+
+.careers__dialog-close {
+    @include flex(row, center, center);
+    @include p(0.5rem);
+    @include rounded();
+    flex-shrink: 0;
+    border: 1px solid transparent;
+    background: none;
+    color: var(--neutral-color);
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--surface-color-light);
+        color: var(--color);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+}
+
+/**
+ * El formulario dentro del diálogo: pasos arriba, campos en medio, acciones abajo.
+ *
+ * **Flex y no una rejilla de tres filas.** El formulario tiene un hijo condicional —el error a nivel de
+ * formulario— así que con `grid-template-rows: auto 1fr auto` el `1fr` le tocaba al error en
+ * cuanto aparecía uno, y los campos pasaban a `auto`: el desplazamiento se iba al panel y los
+ * botones desaparecían justo cuando había algo que corregir. Con flex, el único que crece es el que lo
+ * pide, sin depender de cuántos hermanos haya.
+ *
+ * El selector desciende del diálogo a propósito: este mismo formulario se usa suelto en la página de
+ * candidatura espontánea, donde no debe llevar nada de esto.
+ */
+.careers__dialog .careers__form {
+    @include flex(column, flex-start, stretch, 0);
+    height: 100%;
+    min-height: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    @include rounded(0);
+    @include p(0);
+
+    // Todo lo que no son los campos mantiene su alto.
+    > * {
+        flex: 0 0 auto;
+    }
+
+    // La fila de pasos, fija arriba: es la respuesta a «¿cuánto me queda?», y era lo primero que se iba
+    // con el desplazamiento.
+    > .stepper {
+        @include px(1.5rem);
+        @include py(1rem);
+        border-bottom: 1px solid var(--border-color);
+        background-color: var(--background-color);
+    }
+
+    // Los campos: el único que crece, y el único con desplazamiento propio.
+    > .form-rows {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        @include p(1.5rem);
+    }
+
+    // Las acciones, fijas abajo. `margin-top: auto` no basta: la fila tiene que estar fuera del área que
+    // se desplaza para que el botón esté siempre a la vista.
+    > .careers__form-actions {
+        @include px(1.5rem);
+        @include py(1rem);
+        border-top: 1px solid var(--border-color);
+        background-color: var(--surface-color);
+    }
+
+    // El error a nivel de formulario no es ni cabecera ni campo: se queda con el mismo margen lateral
+    // que los campos para no pegarse al borde del diálogo.
+    > .careers__form-error {
+        @include px(1.5rem);
+        @include pb(0.75rem);
+    }
+}
+
+// La confirmación sustituye al formulario entero, así que se centra en el espacio del diálogo.
+.careers__dialog .careers__form--success {
+    @include flex(column, center, center, 0.75rem);
+    height: 100%;
+    text-align: center;
+}

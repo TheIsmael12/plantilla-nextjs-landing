@@ -128,6 +128,22 @@ export const Default: Story = {
     label: "Tema",
     description: "Elige entre tema claro y oscuro para la aplicación.",
   },
+  /*
+   * El nombre accesible de cada radio es **solo su etiqueta**, y la descripción va aparte.
+   *
+   * No es un detalle: la descripción vive dentro del `<label>`, así que sin `aria-hidden` se colaba en el
+   * nombre accesible. Y como las descripciones se mencionan entre sí ("Fondo claro y texto oscuro"), el
+   * radio "Claro" acabó respondiendo a una búsqueda por "Oscuro" — que es exactamente lo que rompía tres de
+   * las historias de este fichero, y lo que le pasaría a cualquiera que navegue por voz.
+   */
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const dark = canvas.getByRole("radio", { name: /Oscuro/i });
+
+    await expect(dark).toHaveAccessibleName("Oscuro");
+    await expect(dark).toHaveAccessibleDescription("Fondo oscuro y texto claro.");
+  },
 };
 
 export const WithPreview: Story = {

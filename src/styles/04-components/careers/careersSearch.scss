@@ -1,0 +1,32 @@
+// Barra de búsqueda del buscador de empleo ({@link JobSearchBar}): texto libre
+// + ciudad + botón, en una fila en escritorio y apilada en móvil.
+//
+// Los campos son `Input` y `Select` del sistema de diseño, así que aquí solo va
+// la caja y la rejilla: los estilos del campo en sí (borde, foco, error) vienen
+// de `04-components/ui/inputs/`, y no se repiten ni se pisan.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.careers__search {
+  display: grid;
+  gap: 0.9rem;
+  @include p(1.25rem);
+  margin-bottom: 1.75rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+
+  @include screen(md) {
+    // El botón se dimensiona por su contenido; los dos campos se reparten el resto.
+    grid-template-columns: minmax(0, 1fr) minmax(0, 18rem) auto;
+    align-items: end;
+    gap: 1rem;
+  }
+
+  // El botón acompaña la línea base de los campos, que llevan su etiqueta encima.
+  button[type="submit"] {
+    height: 2.75rem;
+    white-space: nowrap;
+  }
+}

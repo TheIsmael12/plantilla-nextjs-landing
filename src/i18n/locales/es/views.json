@@ -789,14 +789,24 @@
         "companyName": "Empresa o comunidad",
         "email": "Correo electrónico",
         "phone": "Teléfono",
-        "message": "Mensaje"
+        "message": "Mensaje",
+        "contactProfile": "¿Quién nos escribe?",
+        "serviceInterest": "¿Qué servicio te interesa?",
+        "zone": "¿En qué municipio?",
+        "timeframe": "¿Para cuándo lo necesitas?",
+        "managedPropertiesCount": "¿Cuántas fincas gestionas?"
       },
       "placeholders": {
         "contactName": "Tu nombre completo",
         "companyName": "Nombre de tu empresa o comunidad (opcional)",
         "email": "tu@email.com",
         "phone": "+34 600 000 000",
-        "message": "Cuéntanos con detalle tu consulta…"
+        "message": "Cuéntanos con detalle tu consulta…",
+        "contactProfile": "Elige una opción (opcional)",
+        "serviceInterest": "Elige un servicio (opcional)",
+        "zone": "Elige un municipio (opcional)",
+        "timeframe": "Elige un plazo (opcional)",
+        "managedPropertiesCount": "Por ejemplo, 12"
       },
       "contactHint": "Indica al menos un correo electrónico o un teléfono de contacto.",
       "consents": {
@@ -810,7 +820,29 @@
       "success": "¡Mensaje enviado! Te responderemos lo antes posible.",
       "error": "No se ha podido enviar tu mensaje. Inténtalo de nuevo en unos minutos.",
       "privacy": "Al enviar aceptas nuestra",
-      "privacyLink": "política de privacidad"
+      "privacyLink": "política de privacidad",
+      "options": {
+        "profile": {
+          "PROPERTY_OWNERS_ASSOCIATION": "Una comunidad de propietarios",
+          "PROPERTY_MANAGER": "Un administrador de fincas",
+          "COMPANY": "Una empresa o un edificio propio",
+          "INDIVIDUAL": "Un particular"
+        },
+        "service": {
+          "CONCIERGE": "Conserjería",
+          "SECURITY": "Seguridad",
+          "POOLS": "Piscinas",
+          "CLEANING": "Limpieza",
+          "GARDENING": "Jardinería",
+          "MAINTENANCE": "Mantenimiento",
+          "OTHER": "Otra cosa, o varias"
+        },
+        "timeframe": {
+          "ASAP": "Lo antes posible",
+          "THIS_MONTH": "Este mes",
+          "JUST_INFO": "Solo estoy pidiendo información"
+        }
+      }
     },
     "map": {
       "label": "Dónde estamos",
@@ -2904,6 +2936,179 @@
         "emptyFilteredDescription": "Prueba con «Todas» para ver el histórico completo.",
         "filterAll": "Todas"
       }
+    }
+  },
+  "Careers": {
+    "hero": {
+      "title": "Trabaja con nosotros",
+      "subtitle": "Estas son las ofertas abiertas ahora mismo. Si no encaja ninguna, puedes dejarnos tu candidatura igualmente.",
+      "count": "{count, plural, =0 {No hay ofertas abiertas ahora mismo} one {1 oferta abierta} other {# ofertas abiertas}}",
+      "countWithCities": "{jobs, plural, one {1 oferta} other {# ofertas}} en {cities, plural, one {1 ciudad} other {# ciudades}}"
+    },
+    "search": {
+      "label": "Buscar por puesto",
+      "placeholder": "Conserje, limpieza, jardinería…",
+      "submit": "Buscar",
+      "cityLabel": "Ciudad",
+      "cityAll": "Todas las ciudades"
+    },
+    "filters": {
+      "title": "Filtros",
+      "open": "Ver filtros",
+      "close": "Cerrar",
+      "clear": "Quitar todos",
+      "applied": "Filtros activos",
+      "remove": "Quitar este filtro",
+      "city": "Ciudad",
+      "category": "Puesto",
+      "contract": "Contrato",
+      "workMode": "Modalidad",
+      "experience": "Experiencia",
+      "experienceAny": "Cualquiera",
+      "salaryMin": "Salario mínimo",
+      "salaryHint": "Se ocultan las ofertas que no publican salario.",
+      "unknownFilter": "No se ha podido aplicar un filtro de la dirección.",
+      "results": "{count, plural, =0 {Sin resultados} one {1 oferta} other {# ofertas}}"
+    },
+    "cities": {
+      "title": "Por ciudad",
+      "subtitle": "Mira directamente lo que hay abierto en tu zona.",
+      "pageTitle": "Trabajo en {city}",
+      "pageSubtitle": "{count, plural, one {1 oferta abierta} other {# ofertas abiertas}} en {city}.",
+      "seeServices": "Servicios que prestamos en {city}",
+      "backToAll": "Ver todas las ofertas",
+      "metaTitle": "Trabajo en {city}: ofertas de empleo",
+      "metaDescription": "{count, plural, one {1 oferta de empleo abierta} other {# ofertas de empleo abiertas}} en {city}. Consulta el puesto, las condiciones y presenta tu candidatura online."
+    },
+    "card": {
+      "featured": "Destacada",
+      "paused": "Proceso en pausa",
+      "publishedAgo": "{days, plural, =0 {Publicada hoy} one {Publicada hace 1 día} other {Publicada hace # días}}",
+      "salaryFrom": "Desde {min}",
+      "salaryRange": "{min} - {max}",
+      "salaryHidden": "Salario no publicado",
+      "vacancies": "{count, plural, one {1 puesto} other {# puestos}}"
+    },
+    "detail": {
+      "apply": "Presentar candidatura",
+      "applyExternal": "Presentar candidatura en la web del proceso",
+      "responsibilities": "Qué vas a hacer",
+      "requirements": "Qué pedimos",
+      "niceToHave": "Qué suma, pero no descarta",
+      "benefits": "Qué ofrecemos",
+      "reference": "Referencia",
+      "conditions": "El puesto",
+      "applicants": "{count, plural, one {1 persona se ha presentado} other {# personas se han presentado}}",
+      "applyModalTitle": "Presentar candidatura",
+      "closedTitle": "Esta oferta ya se cerró",
+      "closedText": "El proceso ha terminado. Puedes ver las ofertas que siguen abiertas.",
+      "relatedTitle": "Otras ofertas parecidas",
+      "pausedNotice": "Este proceso está en pausa: la oferta sigue visible, pero ahora mismo no se admiten candidaturas.",
+      "back": "Todas las ofertas"
+    },
+    "empty": {
+      "noJobs": "Ahora mismo no hay ofertas abiertas",
+      "noJobsText": "No siempre tenemos procesos en marcha. Si quieres, déjanos tu candidatura y te escribimos cuando salga algo que encaje.",
+      "noResults": "Ninguna oferta encaja con lo que buscas",
+      "noResultsText": "Prueba a quitar algún filtro, o busca en todas las ciudades.",
+      "clearFilters": "Quitar los filtros",
+      "spontaneous": "Dejar mi candidatura"
+    },
+    "form": {
+      "title": "Presentar candidatura",
+      "subtitle": "Cuéntanos quién eres y adjunta tu CV. Te llegará un correo con la referencia.",
+      "spontaneousTitle": "Candidatura espontánea",
+      "spontaneousSubtitle": "No hay una oferta concreta para ti ahora mismo, pero podemos guardar tu candidatura para los próximos procesos.",
+      "fields": {
+        "firstName": "Nombre",
+        "lastName": "Apellidos",
+        "email": "Correo electrónico",
+        "phone": "Teléfono",
+        "city": "Dónde puedes trabajar",
+        "coverLetter": "Cuéntanos algo sobre ti",
+        "linkedin": "Perfil de LinkedIn",
+        "cv": "Tu CV"
+      },
+      "placeholders": {
+        "firstName": "Tu nombre",
+        "lastName": "Tus apellidos",
+        "email": "tucorreo@ejemplo.com",
+        "phone": "600 000 000",
+        "city": "Elige una ciudad",
+        "coverLetter": "Qué has hecho antes, qué te interesa de este puesto…",
+        "linkedin": "https://www.linkedin.com/in/…"
+      },
+      "cvHint": "Solo PDF, hasta 5 MB. La mayoría de programas permiten «Guardar como PDF».",
+      "cvChoose": "Elegir fichero",
+      "cvDrop": "Arrastra aquí tu CV o elige un fichero",
+      "cvRemove": "Quitar el fichero",
+      "privacy": "He leído la <link>información sobre el tratamiento de mis datos</link>.",
+      "talentPool": "Guardad mi candidatura 12 meses para futuros procesos.",
+      "talentPoolRequired": "En una candidatura espontánea este permiso es necesario: sin él no tendríamos base para conservar tus datos.",
+      "noPhoto": "No pedimos fotografía, ni edad, ni nacionalidad: no influyen en la decisión.",
+      "steps": {
+        "who": "Quién eres",
+        "application": "Tu candidatura",
+        "consents": "Permisos"
+      },
+      "next": "Siguiente",
+      "back": "Atrás",
+      "submit": "Enviar mi candidatura",
+      "submitting": "Enviando…",
+      "error": "No hemos podido enviar tu candidatura. Inténtalo de nuevo en unos minutos.",
+      "successTitle": "Candidatura enviada",
+      "successText": "Te llegará un correo con la referencia y un enlace para seguir su estado o retirarla."
+    },
+    "tracking": {
+      "title": "Tu candidatura",
+      "reference": "Referencia",
+      "job": "Puesto",
+      "submitted": "Enviada el",
+      "lastChange": "Último cambio",
+      "status": "Estado",
+      "reason": "Motivo",
+      "talentPool": "Autorizaste guardar tu candidatura para futuros procesos.",
+      "noTalentPool": "No autorizaste guardar tu candidatura para futuros procesos.",
+      "withdraw": "Retirar mi candidatura",
+      "withdrawing": "Retirando…",
+      "rejectedTitle": "Esta vez no hemos seguido adelante con tu candidatura.",
+      "dangerTitle": "Retirar la candidatura",
+      "withdrawHint": "Se borra tu CV y dejamos de tratar tus datos para este proceso.",
+      "withdrawClosedHint": "El proceso ya terminó, pero puedes retirarla igual: eso borra tu CV antes del plazo de conservación.",
+      "withdrawTitle": "¿Retirar la candidatura?",
+      "withdrawText": "Se retira tu candidatura y se elimina tu CV. Es irreversible: si más adelante quieres volver a presentarte, tendrás que hacerlo de nuevo.",
+      "withdrawConfirm": "Sí, retirarla",
+      "withdrawCancel": "No, dejarla",
+      "withdrawnTitle": "Candidatura retirada",
+      "withdrawnText": "Tu candidatura se ha retirado y tu CV se ha eliminado.",
+      "invalidTitle": "Este enlace ya no está disponible",
+      "invalidText": "El enlace no es válido o ha caducado. Si necesitas saber cómo va tu candidatura, escríbenos.",
+      "Status": {
+        "RECEIVED": "Recibida",
+        "IN_REVIEW": "En revisión",
+        "INTERVIEW": "En entrevistas",
+        "OFFER": "Te hemos hecho una oferta",
+        "HIRED": "Contratado",
+        "REJECTED": "No seguimos adelante",
+        "WITHDRAWN": "Retirada"
+      }
+    },
+    "WorkMode": {
+      "ON_SITE": "Presencial",
+      "HYBRID": "Híbrido",
+      "REMOTE": "Remoto"
+    },
+    "Experience": {
+      "NONE": "Sin experiencia",
+      "UP_TO_1": "Hasta 1 año",
+      "FROM_1_TO_3": "De 1 a 3 años",
+      "FROM_3_TO_5": "De 3 a 5 años",
+      "OVER_5": "Más de 5 años"
+    },
+    "SalaryPeriod": {
+      "HOUR": "por hora",
+      "MONTH": "al mes",
+      "YEAR": "al año"
     }
   }
 }

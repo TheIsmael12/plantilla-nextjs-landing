@@ -12,6 +12,7 @@
  * @property {number} FORBIDDEN            - 403 The server understood the request but refuses to authorise it.
  * @property {number} NOT_FOUND            - 404 The requested resource could not be found.
  * @property {number} NOT_ACCEPTABLE       - 406 The requested resource cannot generate content matching Accept headers.
+ * @property {number} GONE                 - 410 The resource existed and is permanently gone (a closed job posting).
  * @property {number} PRECONDITION_FAILED  - 412 One or more conditions in the request headers evaluated to false.
  * @property {number} CONTENT_TOO_LARGE    - 413 The request body exceeds the server-defined limit.
  * @property {number} TOO_MANY_REQUEST     - 429 The client has sent too many requests in a given time window.
@@ -31,6 +32,7 @@ interface HttpStatusCode {
   FORBIDDEN: number;
   NOT_FOUND: number;
   NOT_ACCEPTABLE: number;
+  GONE: number;
   PRECONDITION_FAILED: number;
   CONTENT_TOO_LARGE: number;
   TOO_MANY_REQUEST: number;

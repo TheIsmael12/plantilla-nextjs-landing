@@ -5,7 +5,9 @@
       "emailInvalid": "Introduce un correo electrónico válido.",
       "emailOrPhoneRequired": "Indica al menos un correo electrónico o un teléfono.",
       "privacyRequired": "Debes aceptar la política de privacidad para continuar.",
-      "maxLength": "Este campo es demasiado largo."
+      "maxLength": "Este campo es demasiado largo.",
+      "invalidOption": "Elige una de las opciones de la lista.",
+      "invalidPropertiesCount": "Indica un número de fincas entre 1 y 5000."
     },
     "common": {
       "required": "Este campo es obligatorio.",
@@ -53,6 +55,18 @@
       "emailInvalid": "Introduce un correo electrónico válido.",
       "privacyRequired": "Debes aceptar la política de privacidad para continuar.",
       "maxLength": "Este campo es demasiado largo."
+    },
+    "careers": {
+      "maxLength": "Es demasiado largo",
+      "firstNameRequired": "Dinos tu nombre",
+      "lastNameRequired": "Dinos tus apellidos",
+      "emailRequired": "Necesitamos un correo para contestarte",
+      "emailInvalid": "Ese correo no parece válido",
+      "urlInvalid": "La dirección tiene que empezar por http:// o https://",
+      "cvRequired": "Adjunta tu CV",
+      "cvType": "El CV tiene que ser un PDF",
+      "cvSize": "El CV no puede pasar de 5 MB",
+      "privacyRequired": "Hay que confirmar que has leído la información"
     }
   }
 }

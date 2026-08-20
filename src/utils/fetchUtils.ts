@@ -111,6 +111,20 @@ export async function networkError<T = never>(
 }
 
 /**
+ * Los campos del estándar RFC 9457, más el `errors` por campo y el `timestamp` que añade el backend en todos
+ * sus problemas. Todo lo que no esté en esta lista es un *extension member* del error concreto.
+ */
+const PROBLEM_DETAILS_FIELDS = [
+  "type",
+  "title",
+  "status",
+  "detail",
+  "instance",
+  "timestamp",
+  "errors",
+];
+
+/**
  * Vuelca el cuerpo de error de una respuesta no exitosa de la API al contrato
  * {@link FetchResponse}. El backend responde en formato RFC 9457 Problem
  * Details (`{type, title, status, detail, instance, errors?, timestamp}`):
@@ -128,10 +142,26 @@ export async function parseError<T = never>(
   try {
     const body = await response.json();
     if (body?.detail || body?.title) {
+      /*
+       * Los campos que RFC 9457 llama *extension members* —cualquier cosa que el backend añada al problema
+       * además de los siete del estándar— se reenvían en `extensions` en vez de tirarse.
+       *
+       * Hacía falta para un caso concreto y real: la ficha de una oferta pedida en el idioma equivocado
+       * responde `404` con el `correctSlug` dentro, y es lo único que permite redirigir a la misma oferta en
+       * el otro idioma en vez de enseñar un error a alguien que solo cambió de idioma. Sin esto, el dato
+       * llegaba a la API y se perdía en esta función.
+       */
+      const extensions = Object.fromEntries(
+        Object.entries(body as Record<string, unknown>).filter(
+          ([key]) => !PROBLEM_DETAILS_FIELDS.includes(key),
+        ),
+      );
+
       return {
         status: response.status,
         message: body.detail ?? body.title,
         errors: body.errors as FetchResponseFieldError[] | undefined,
+        ...(Object.keys(extensions).length > 0 ? { extensions } : {}),
       };
     }
   } catch {

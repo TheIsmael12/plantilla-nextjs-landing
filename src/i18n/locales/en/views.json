@@ -789,14 +789,24 @@
         "companyName": "Company or community",
         "email": "Email",
         "phone": "Phone",
-        "message": "Message"
+        "message": "Message",
+        "contactProfile": "Who is getting in touch?",
+        "serviceInterest": "Which service are you interested in?",
+        "zone": "Which town?",
+        "timeframe": "When do you need it?",
+        "managedPropertiesCount": "How many properties do you manage?"
       },
       "placeholders": {
         "contactName": "Your full name",
         "companyName": "Your company or community name (optional)",
         "email": "you@email.com",
         "phone": "+1 555 000 0000",
-        "message": "Tell us about your enquiry..."
+        "message": "Tell us about your enquiry...",
+        "contactProfile": "Choose an option (optional)",
+        "serviceInterest": "Choose a service (optional)",
+        "zone": "Choose a town (optional)",
+        "timeframe": "Choose a timeframe (optional)",
+        "managedPropertiesCount": "For example, 12"
       },
       "contactHint": "Please provide at least an email address or a phone number.",
       "consents": {
@@ -810,7 +820,29 @@
       "success": "Message sent! We will get back to you as soon as possible.",
       "error": "We couldn't send your message. Please try again in a few minutes.",
       "privacy": "By submitting you accept our",
-      "privacyLink": "privacy policy"
+      "privacyLink": "privacy policy",
+      "options": {
+        "profile": {
+          "PROPERTY_OWNERS_ASSOCIATION": "A homeowners association",
+          "PROPERTY_MANAGER": "A property manager",
+          "COMPANY": "A company or our own building",
+          "INDIVIDUAL": "An individual"
+        },
+        "service": {
+          "CONCIERGE": "Concierge",
+          "SECURITY": "Security",
+          "POOLS": "Pools",
+          "CLEANING": "Cleaning",
+          "GARDENING": "Gardening",
+          "MAINTENANCE": "Maintenance",
+          "OTHER": "Something else, or several"
+        },
+        "timeframe": {
+          "ASAP": "As soon as possible",
+          "THIS_MONTH": "This month",
+          "JUST_INFO": "I'm just asking for information"
+        }
+      }
     },
     "map": {
       "label": "Where We Are",
@@ -2808,6 +2840,179 @@
         "emptyFilteredDescription": "Try «All» to see the full history.",
         "filterAll": "All"
       }
+    }
+  },
+  "Careers": {
+    "hero": {
+      "title": "Work with us",
+      "subtitle": "These are the openings we have right now. If none of them fits, you can still send us your application.",
+      "count": "{count, plural, =0 {No openings right now} one {1 opening} other {# openings}}",
+      "countWithCities": "{jobs, plural, one {1 opening} other {# openings}} in {cities, plural, one {1 city} other {# cities}}"
+    },
+    "search": {
+      "label": "Search by position",
+      "placeholder": "Concierge, cleaning, gardening…",
+      "submit": "Search",
+      "cityLabel": "City",
+      "cityAll": "All cities"
+    },
+    "filters": {
+      "title": "Filters",
+      "open": "Show filters",
+      "close": "Close",
+      "clear": "Clear all",
+      "applied": "Active filters",
+      "remove": "Remove this filter",
+      "city": "City",
+      "category": "Position",
+      "contract": "Contract",
+      "workMode": "Work mode",
+      "experience": "Experience",
+      "experienceAny": "Any",
+      "salaryMin": "Minimum salary",
+      "salaryHint": "Openings that do not publish a salary are hidden.",
+      "unknownFilter": "A filter from the address could not be applied.",
+      "results": "{count, plural, =0 {No results} one {1 opening} other {# openings}}"
+    },
+    "cities": {
+      "title": "By city",
+      "subtitle": "Go straight to what is open in your area.",
+      "pageTitle": "Jobs in {city}",
+      "pageSubtitle": "{count, plural, one {1 opening} other {# openings}} in {city}.",
+      "seeServices": "Services we provide in {city}",
+      "backToAll": "See all openings",
+      "metaTitle": "Jobs in {city}: current openings",
+      "metaDescription": "{count, plural, one {1 open position} other {# open positions}} in {city}. Check the role, the terms and apply online."
+    },
+    "card": {
+      "featured": "Featured",
+      "paused": "Process paused",
+      "publishedAgo": "{days, plural, =0 {Published today} one {Published 1 day ago} other {Published # days ago}}",
+      "salaryFrom": "From {min}",
+      "salaryRange": "{min} - {max}",
+      "salaryHidden": "Salary not published",
+      "vacancies": "{count, plural, one {1 position} other {# positions}}"
+    },
+    "detail": {
+      "apply": "Apply now",
+      "applyExternal": "Apply on the external site",
+      "responsibilities": "What you will do",
+      "requirements": "What we ask for",
+      "niceToHave": "Nice to have, not a dealbreaker",
+      "benefits": "What we offer",
+      "reference": "Reference",
+      "conditions": "The role",
+      "applicants": "{count, plural, one {1 person has applied} other {# people have applied}}",
+      "applyModalTitle": "Apply for this role",
+      "closedTitle": "This opening is closed",
+      "closedText": "The process has ended. You can see the openings that are still live.",
+      "relatedTitle": "Other similar openings",
+      "pausedNotice": "This process is paused: the opening is still visible, but applications are not being accepted right now.",
+      "back": "All openings"
+    },
+    "empty": {
+      "noJobs": "There are no openings right now",
+      "noJobsText": "We do not always have live processes. If you like, send us your application and we will write when something fits.",
+      "noResults": "No opening matches what you are looking for",
+      "noResultsText": "Try removing a filter, or search across all cities.",
+      "clearFilters": "Clear the filters",
+      "spontaneous": "Send a speculative application"
+    },
+    "form": {
+      "title": "Apply now",
+      "subtitle": "Tell us who you are and attach your CV. You will get an email with the reference.",
+      "spontaneousTitle": "Speculative application",
+      "spontaneousSubtitle": "There is no specific opening for you right now, but we can keep your application for the next processes.",
+      "fields": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "phone": "Phone",
+        "city": "Where you can work",
+        "coverLetter": "Tell us something about you",
+        "linkedin": "LinkedIn profile",
+        "cv": "Your CV"
+      },
+      "placeholders": {
+        "firstName": "Your first name",
+        "lastName": "Your last name",
+        "email": "you@example.com",
+        "phone": "600 000 000",
+        "city": "Choose a city",
+        "coverLetter": "What you have done before, what interests you about this role…",
+        "linkedin": "https://www.linkedin.com/in/…"
+      },
+      "cvHint": "PDF only, up to 5 MB. Most programs offer \"Save as PDF\".",
+      "cvChoose": "Choose file",
+      "cvDrop": "Drag your CV here or choose a file",
+      "cvRemove": "Remove the file",
+      "privacy": "I have read the <link>information about how my data is handled</link>.",
+      "talentPool": "Keep my application for 12 months for future processes.",
+      "talentPoolRequired": "For a speculative application this permission is required: without it we would have no basis to keep your data.",
+      "noPhoto": "We do not ask for a photo, age or nationality: they play no part in the decision.",
+      "steps": {
+        "who": "About you",
+        "application": "Your application",
+        "consents": "Permissions"
+      },
+      "next": "Next",
+      "back": "Back",
+      "submit": "Send my application",
+      "submitting": "Sending…",
+      "error": "We could not send your application. Please try again in a few minutes.",
+      "successTitle": "Application sent",
+      "successText": "You will get an email with the reference and a link to follow its status or withdraw it."
+    },
+    "tracking": {
+      "title": "Your application",
+      "reference": "Reference",
+      "job": "Position",
+      "submitted": "Sent on",
+      "lastChange": "Last change",
+      "status": "Status",
+      "reason": "Reason",
+      "talentPool": "You allowed us to keep your application for future processes.",
+      "noTalentPool": "You did not allow us to keep your application for future processes.",
+      "withdraw": "Withdraw my application",
+      "withdrawing": "Withdrawing…",
+      "rejectedTitle": "We have not taken your application forward this time.",
+      "dangerTitle": "Withdraw your application",
+      "withdrawHint": "Your CV is deleted and we stop processing your data for this role.",
+      "withdrawClosedHint": "The process is over, but you can still withdraw: that deletes your CV before the retention deadline.",
+      "withdrawTitle": "Withdraw the application?",
+      "withdrawText": "Your application is withdrawn and your CV is deleted. This cannot be undone: if you want to apply again later, you will have to start over.",
+      "withdrawConfirm": "Yes, withdraw it",
+      "withdrawCancel": "No, keep it",
+      "withdrawnTitle": "Application withdrawn",
+      "withdrawnText": "Your application has been withdrawn and your CV deleted.",
+      "invalidTitle": "This link is no longer available",
+      "invalidText": "The link is invalid or has expired. If you need to know how your application is going, write to us.",
+      "Status": {
+        "RECEIVED": "Received",
+        "IN_REVIEW": "In review",
+        "INTERVIEW": "In interviews",
+        "OFFER": "We have made you an offer",
+        "HIRED": "Hired",
+        "REJECTED": "Not moving forward",
+        "WITHDRAWN": "Withdrawn"
+      }
+    },
+    "WorkMode": {
+      "ON_SITE": "On site",
+      "HYBRID": "Hybrid",
+      "REMOTE": "Remote"
+    },
+    "Experience": {
+      "NONE": "No experience",
+      "UP_TO_1": "Up to 1 year",
+      "FROM_1_TO_3": "1 to 3 years",
+      "FROM_3_TO_5": "3 to 5 years",
+      "OVER_5": "Over 5 years"
+    },
+    "SalaryPeriod": {
+      "HOUR": "per hour",
+      "MONTH": "per month",
+      "YEAR": "per year"
     }
   }
 }

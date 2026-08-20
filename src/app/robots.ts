@@ -30,6 +30,27 @@ const PRIVATE_ROUTE_PATTERNS = [
 ];
 
 /**
+ * Enlace de seguimiento de una candidatura (`/empleo/candidatura/<token>`,
+ * `/careers/applications/<token>`): la página de una sola persona, a la que se llega
+ * por un enlace firmado que va en un correo. Que un token acabe en un índice sería una
+ * fuga, no un problema de posicionamiento — la página va además `noindex, nofollow`
+ * desde su propio `generateMetadata`, que es lo que de verdad la mantiene fuera.
+ *
+ * Se escriben las dos formas de cada ruta a propósito, con y sin comodín de locale:
+ * `localePrefix: "as-needed"` sirve el idioma por defecto **sin** prefijo
+ * (`/empleo/candidatura/...`), así que un patrón con comodín de locale delante no basta por sí
+ * solo. Es la lección de `requisitos-seo.md` §26, donde los patrones anunciados no
+ * casaban con ninguna ruta real: hay una prueba (`test/careersRobots.test.ts`) que
+ * comprueba que estos sí casan.
+ */
+const APPLICATION_TRACKING_PATTERNS = [
+  "/empleo/candidatura/",
+  "/*/empleo/candidatura/",
+  "/careers/applications/",
+  "/*/careers/applications/",
+];
+
+/**
  * Genera las reglas de `robots.txt`: permite el rastreo estándar y el de
  * bots de IA con fines GEO, bloquea rutas privadas/de API y scrapers sin
  * valor, y publica las URLs de los sitemaps.
@@ -46,6 +67,7 @@ export default function robots(): MetadataRoute.Robots {
           // Rutas de API internas
           "/api/",
           ...PRIVATE_ROUTE_PATTERNS,
+          ...APPLICATION_TRACKING_PATTERNS,
           // Parámetros de búsqueda / paginación que generan URLs duplicadas
           "/*?*page=",
           "/*?*sort=",
@@ -61,42 +83,42 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "GPTBot",
         allow: ["/"],
-        disallow: ["/api/"],
+        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
       },
       {
         userAgent: "ChatGPT-User",
         allow: ["/"],
-        disallow: ["/api/"],
+        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
       },
       {
         userAgent: "OAI-SearchBot",
         allow: ["/"],
-        disallow: ["/api/"],
+        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
       },
       {
         userAgent: "anthropic-ai",
         allow: ["/"],
-        disallow: ["/api/"],
+        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
       },
       {
         userAgent: "Claude-Web",
         allow: ["/"],
-        disallow: ["/api/"],
+        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
       },
       {
         userAgent: "Google-Extended",
         allow: ["/"],
-        disallow: ["/api/"],
+        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
       },
       {
         userAgent: "PerplexityBot",
         allow: ["/"],
-        disallow: ["/api/"],
+        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
       },
       {
         userAgent: "YouBot",
         allow: ["/"],
-        disallow: ["/api/"],
+        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
       },
       
       // ── Scrapers genéricos sin valor GEO — seguir bloqueando ──────────
@@ -110,14 +132,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "Googlebot",
         allow: ["/"],
-        disallow: ["/api/", ...PRIVATE_ROUTE_PATTERNS],
+        disallow: ["/api/", ...PRIVATE_ROUTE_PATTERNS, ...APPLICATION_TRACKING_PATTERNS],
       },
 
       // ── Permitir explícitamente Bingbot ────────────────────────────────
       {
         userAgent: "Bingbot",
         allow: ["/"],
-        disallow: ["/api/", ...PRIVATE_ROUTE_PATTERNS],
+        disallow: ["/api/", ...PRIVATE_ROUTE_PATTERNS, ...APPLICATION_TRACKING_PATTERNS],
       },
     ],
 

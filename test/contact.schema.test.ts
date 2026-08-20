@@ -13,6 +13,12 @@ const valid = {
   marketingConsent: false,
   attributionConsent: false,
   honeypot: "",
+  // Cualificación sin contestar: es el caso normal, y tiene que seguir siendo válido.
+  contactProfile: "",
+  serviceInterest: "",
+  zone: "",
+  timeframe: "",
+  managedPropertiesCount: "",
 };
 
 /**
@@ -102,5 +108,93 @@ describe("contactSchema", () => {
       field === "email" ? `${"a".repeat(length - 12)}@example.com` : "a".repeat(length);
 
     await expect(errorsOf({ ...valid, [field]: tooLong })).resolves.toContain("contact.maxLength");
+  });
+});
+
+describe("contactSchema · cualificación", () => {
+  it("acepta un envío cualificado por completo", async () => {
+    await expect(
+      errorsOf({
+        ...valid,
+        contactProfile: "PROPERTY_MANAGER",
+        serviceInterest: "CLEANING",
+        zone: "pozuelo-de-alarcon",
+        timeframe: "ASAP",
+        managedPropertiesCount: "18",
+      }),
+    ).resolves.toEqual([]);
+  });
+
+  it("acepta un envío sin ningún campo de cualificación", async () => {
+    // Los cinco son opcionales: se piden para atender mejor, no para dejar preguntar.
+    await expect(errorsOf(valid)).resolves.toEqual([]);
+  });
+
+  it("rechaza un perfil que no está en la lista", async () => {
+    await expect(errorsOf({ ...valid, contactProfile: "LANDLORD" })).resolves.toEqual([
+      "contact.invalidOption",
+    ]);
+  });
+
+  it("rechaza un servicio que no está en la lista", async () => {
+    await expect(errorsOf({ ...valid, serviceInterest: "PLUMBING" })).resolves.toEqual([
+      "contact.invalidOption",
+    ]);
+  });
+
+  /*
+   * El municipio se valida contra la lista real de zonas, no contra la forma del slug: el desplegable
+   * solo ofrece esos 20, y aceptar aquí cualquier slug bien formado dejaría que el envío llegara al
+   * backend para que él decidiera — con el error saliendo como «no se ha podido enviar».
+   */
+  it("rechaza un municipio que no es de la zona de cobertura", async () => {
+    await expect(errorsOf({ ...valid, zone: "barcelona" })).resolves.toEqual([
+      "contact.invalidOption",
+    ]);
+  });
+
+  it("acepta los municipios que ofrece la web", async () => {
+    await expect(errorsOf({ ...valid, zone: "arganda-del-rey" })).resolves.toEqual([]);
+  });
+
+  it("rechaza un plazo que no está en la lista", async () => {
+    await expect(errorsOf({ ...valid, timeframe: "NEXT_YEAR" })).resolves.toEqual([
+      "contact.invalidOption",
+    ]);
+  });
+
+  it("rechaza un número de fincas fuera de rango", async () => {
+    await expect(
+      errorsOf({
+        ...valid,
+        contactProfile: "PROPERTY_MANAGER",
+        managedPropertiesCount: "99999",
+      }),
+    ).resolves.toEqual(["contact.invalidPropertiesCount"]);
+  });
+
+  it("rechaza un número de fincas que no es entero", async () => {
+    await expect(
+      errorsOf({
+        ...valid,
+        contactProfile: "PROPERTY_MANAGER",
+        managedPropertiesCount: "2,5",
+      }),
+    ).resolves.toEqual(["contact.invalidPropertiesCount"]);
+  });
+
+  /*
+   * El caso que motivó el `when`: se elige administrador, se escribe un número, y luego se cambia de
+   * perfil. El campo desaparece de la vista pero se queda en Formik con lo último escrito, y sin la
+   * condición ese resto bloquearía el envío por un campo que ya no existe en pantalla.
+   */
+  it("ignora el número de fincas si el perfil ya no es administrador", async () => {
+    await expect(
+      errorsOf({
+        ...valid,
+        contactProfile: "INDIVIDUAL",
+        managedPropertiesCount: "99999",
+      }),
+    ).resolves.toEqual([]);
   });
 });

@@ -462,7 +462,8 @@ problemas fuera del trabajo de esta rama, no solo revalidó lo ya tocado.
       se construyó (404 confirmado en producción real). El propio `sitemap.ts` ya lo sabía y
       excluía esa ruta a propósito ("no existe todavía"), pero el footer no se había
       actualizado a la vez, así que el 404 estaba presente en cada página del sitio. Quitado
-      el enlace hasta que la página exista de verdad.
+      el enlace hasta que la página exista de verdad. **Cerrado el 2026-08-20** (ver §36): la
+      página existe, el enlace está restaurado y `/empleo` entra en el sitemap.
 - [x] **Verificación de integridad de datos, ampliada.** Confirmado con build de producción
       real: `og:title`/`og:description` heredan el metadata ya corregido; `/login` y el resto
       de páginas de autenticación llevan `robots: noindex, nofollow` correctamente; el peso
@@ -1322,3 +1323,97 @@ real, servidor en puerto nuevo y `curl` contra el HTML servido: fecha "17 de ago
 biografía" o `cookie_consent` en el HTML servido, y el aviso de `localStorage` presente en las 4
 páginas (ES/EN). `npx vitest run --project=unit`: 361 passed, 1 failed (mismo fallo preexistente
 de siempre).
+
+## 36. La bolsa de empleo cierra las tres exclusiones de `/empleo` (2026-08-20)
+
+El módulo de empleo (`requisitos-empleo.md`) construye de verdad las páginas que faltaban, así que las
+tres exclusiones que arrastraba el proyecto por ese 404 dejan de tener motivo y se quitan **juntas**, que
+es lo que no se hizo la última vez:
+
+- **`sitemap.ts`**: fuera el comentario de «las que todavía no existen (`/careers`)». `/empleo` entra en
+  `SITEMAP_ROUTES` (prioridad 0.7, `daily`), y las ofertas vigentes y las páginas de ciudad se añaden con
+  `buildCareersSitemapEntries()`, mismo patrón que los posts del blog.
+- **`Footer.tsx`**: enlace restaurado en la columna de contacto, y borrado el comentario que decía
+  «volver a añadirlo cuando exista la página de verdad».
+- **Este documento**: el punto de la auditoría #5 (§17) queda marcado como cerrado.
+
+Lo que aporta el módulo, en términos de SEO:
+
+- **Datos estructurados `JobPosting`** en la ficha de cada oferta, y solo ahí. Con `validThrough` real
+  (la caducidad es obligatoria en el backend justo por esto) y **sin `baseSalary`** cuando la oferta no
+  publica el importe: un dato estructurado que no coincide con lo que ve el usuario es motivo de
+  penalización, no un detalle.
+- **Páginas de ciudad indexables** (`/empleo/ciudades/<ciudad>`), que son las que pueden posicionar por
+  «trabajo en Getafe». Una ciudad sin ofertas responde **404**, no una página de relleno.
+- **Las URLs con filtros van `noindex, follow`**, y el canónico de `?citySlug=<ciudad>` apunta a la
+  página de ciudad. Es la fuente clásica de contenido duplicado de cualquier buscador con facetas.
+- **Una oferta cerrada** responde `200` con `noindex, follow` y una página que explica que el proceso
+  terminó (el enrutador de Next no permite emitir un `410` desde una página; ver `requisitos-empleo.md`,
+  10.7). Sale del índice sin dejar a nadie en una página de error, y sin que la URL quede como error en
+  Search Console.
+- **`robots.ts`** bloquea `/empleo/candidatura/` y `/careers/applications/` en los cuatro patrones (con y
+  sin prefijo de idioma), para el rastreador genérico, los de IA, Googlebot y Bingbot. Con la lección de
+  §26 aprendida: hay una prueba (`test/careersRobots.test.ts`) que **comprueba que los patrones casan**
+  con las URLs reales y que no bloquean el buscador ni las fichas.
+
+**Un soft 404 encontrado y arreglado por el camino**: las rutas de empleo se escribieron con `loading.tsx`
+y eso hacía que una ciudad sin ofertas respondiera **200 con el cuerpo de un 404** — el Suspense confirma
+el estado antes de que la página pueda lanzar `notFound()`. Comprobado en los dos sentidos y quitados los
+dos `loading.tsx` (ver `requisitos-empleo.md`, 10.6). Merece la pena tenerlo presente para cualquier ruta
+futura que dependa de responder 404, 410 o una redirección.
+
+## 37. Cualificación en el formulario de contacto (2026-08-20)
+
+Cuatro desplegables y un campo condicional, todos opcionales: qué es quien escribe, qué servicio le
+interesa, en qué municipio y para cuándo; y, **solo si elige «administrador de fincas»**, cuántas
+gestiona. El contrato está en `requisitos-leads.md` §7.2.1 del backend; aquí van las decisiones de la
+web:
+
+- **Los municipios salen de `ZONES`**, la misma lista que genera las 20 páginas de zona. El nombre que se
+  lee en el desplegable y el de la página desde la que ha llegado quien escribe son el mismo dato, no dos
+  copias que puedan discrepar.
+- **Los servicios se derivan de `SERVICE_SLUGS`** (`config/leadQualification.ts`) en vez de escribirse
+  otra vez: los valores que espera la API son exactamente esos slugs en mayúsculas, así que un servicio
+  nuevo en la web aparece en el formulario solo.
+- **El campo de fincas aparece al elegir el perfil**, junto al desplegable que lo provoca y no al final
+  del formulario. Preguntárselo a todo el mundo sería preguntar por algo que a la mayoría no le aplica, y
+  la API además lo rechaza con un 400 con cualquier otro perfil.
+- **Yup valida contra las opciones reales**, incluida la lista de municipios. No es desconfianza del
+  desplegable: sin esa comprobación, un valor que la API rechaza llegaría a quien rellena el formulario
+  como «no se ha podido enviar tu mensaje», sin decir qué campo.
+- **El `when` del número de fincas no es adorno**: si se elige administrador, se teclea un número y luego
+  se cambia de perfil, el campo desaparece de la vista pero se queda en Formik con lo último escrito.
+  Sin la condición, ese resto bloquearía el envío por un campo que ya no existe en pantalla — y el
+  contenedor tampoco lo manda.
+- **Las etiquetas son preguntas** («¿Quién nos escribe?», no «Perfil»): son campos opcionales en medio de
+  un formulario, y una pregunta invita a contestar donde una etiqueta de base de datos invita a saltar.
+
+### La sesión del portal se cerraba a los 15 minutos, por lo mismo que la de la intranet
+
+Los dos frontales tenían **el mismo par de defectos**, y el del portal no se había mirado:
+
+1. **La renovación no se guardaba.** El callback `jwt` renueva el `accessToken` desde donde haga falta,
+   pero **solo el route handler de NextAuth escribe la cookie de sesión**: una renovación ocurrida en un
+   Server Component o en una Server Action vale para esa petición y se pierde. Encadenado con
+   `portalRefreshTokenCache`, la sesión se apaga sola — cada petición relee el token viejo de la cookie, la
+   primera renovación guarda el par nuevo en la caché indexado por el token viejo, las siguientes lo
+   devuelven **sin llamar a la API**, y cuando ese par caduca de verdad el latido recibe un 401.
+2. **Ese 401 se leía como una revocación**, y cerraba la sesión.
+
+El arreglo es el mismo: `usePortalSessionMonitor` llama a `update()` cuando al token le queda menos que
+`AUTH_TOKEN_REFRESH_MARGIN_MS` —eso pasa por el route handler y persiste el par nuevo—, y
+`getPortalSessionStatus` solo trata un 401 como revocación si **nuestro** `accessToken` todavía debería
+valer. La caducidad va en una `ref` sincronizada por un efecto: leerla del closure del intervalo la dejaba
+congelada en el valor del montaje, y `update()` se habría disparado cada 15 segundos para siempre.
+
+`accessTokenExpires` pasa a estar en la sesión del cliente para que el vigilante pueda decidir. No es un
+dato sensible —es una marca de tiempo— y los `backendTokens` siguen sin salir del servidor.
+
+**Lo que aquí no se ha podido probar en vivo:** en esta base de datos no existe ninguna cuenta de portal
+de cliente, así que la reproducción con el token acortado a 90 s se hizo en la intranet, donde el
+mecanismo es idéntico. En el portal la corrección está cubierta por `test/portalSessionStatus.test.ts`,
+que fija las cuatro combinaciones del 401 (token vigente, token caducado, sin sesión, y el `revoked` que
+devuelve la API con un 200).
+
+El criterio de no cerrar sesión ante un fallo de renovación (`session.error`) **no se ha tocado**: ya
+estaba decidido a propósito, porque provocaba el «inicias sesión y te devuelve al principio».

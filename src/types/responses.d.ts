@@ -67,12 +67,14 @@ export interface FetchResponseFieldError {
  * @property {string} [message] - Mensaje descriptivo, normalmente presente solo en caso de error.
  * @property {T} [data] - Datos devueltos por la operación cuando tiene éxito.
  * @property {FetchResponseFieldError[]} [errors] - Errores de validación por campo, si el backend los envía.
+ * @property {Record<string, unknown>} [extensions] - Campos extra del error (RFC 9457 los llama *extension members*): todo lo que el backend añade al problema además de los siete campos del estándar. Solo aparece en respuestas de error, y solo si venía algo.
  */
 export interface FetchResponse<T> {
   status: number;
   message?: string;
   data?: T;
   errors?: FetchResponseFieldError[];
+  extensions?: Record<string, unknown>;
 }
 
 /**

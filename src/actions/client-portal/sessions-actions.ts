@@ -1,9 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
 
 import { fetchDataToken } from "@/actions/fetch";
 import { HTTPStatus } from "@/constants/httpStatus";
+import { authOptions } from "@/lib/authOptions";
 import type { FetchResponse } from "@/types/responses";
 import type { PortalSession, PortalSessionStatus } from "@/types/client-portal/sessions";
 
@@ -25,10 +27,15 @@ export async function getMySessions(): Promise<FetchResponse<PortalSession[]>> {
 
 /**
  * Estado de la sesión en curso (`GET client/me/session-status`), usado por el
- * latido de `usePortalSessionMonitor`. Un 401 significa que la sesión fue
- * revocada, así que se traduce a `revoked: true`; cualquier otro fallo se
- * considera indeterminado y no cierra la sesión, para que un corte de red
- * pasajero no eche al cliente de la pantalla.
+ * latido de `usePortalSessionMonitor`.
+ *
+ * Un 401 solo se traduce a `revoked: true` si **nuestro** `accessToken` todavía debería valer: los dos
+ * casos llegan igual —«te han revocado la sesión» y «el token que acabo de mandar está caducado»— y solo
+ * uno justifica echar al cliente de su pantalla. Confundirlos era lo que la cerraba a los 15 minutos.
+ *
+ * Cualquier otro fallo se considera indeterminado y tampoco cierra la sesión, para que un corte de red
+ * pasajero no eche a nadie. Equivocarse hacia el lado prudente no abre nada: la autorización real la
+ * aplica la API en cada llamada.
  * @returns {Promise<PortalSessionStatus>} Si la sesión debe darse por revocada
  */
 export async function getPortalSessionStatus(): Promise<PortalSessionStatus> {
@@ -37,7 +44,13 @@ export async function getPortalSessionStatus(): Promise<PortalSessionStatus> {
     "GET",
   );
 
-  if (response.status === HTTPStatus.UNAUTHORIZED) return { revoked: true };
+  if (response.status === HTTPStatus.UNAUTHORIZED) {
+    const session = await getServerSession(authOptions);
+    const tokenExpired =
+      !session?.user?.accessTokenExpires || Date.now() >= session.user.accessTokenExpires;
+
+    return { revoked: !tokenExpired };
+  }
 
   return { revoked: response.data?.revoked ?? false };
 }

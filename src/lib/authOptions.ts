@@ -207,6 +207,14 @@ export const authOptions: AuthOptions = {
       session.user.email = token.email;
       session.user.phone = token.phone;
       session.user.preferences = token.preferences;
+      /*
+       * La caducidad va a la sesión, y los tokens no.
+       *
+       * No es un dato sensible —es una marca de tiempo— y es lo que necesita `portalSessionMonitor`
+       * para renovar **por el route handler** antes de que caduque: es el único camino que puede escribir
+       * la cookie de sesión.
+       */
+      session.user.accessTokenExpires = token.accessTokenExpires;
       session.user.backendTokens = token.backendTokens;
       session.error = token.error;
       return session;

@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import { Clock, MapPin, ExternalLink, PhoneCall } from 'lucide-react';
 
 import { ENV } from '@/config/env';
+import { useIsMounted } from '@/hooks/useIsMounted';
 import { buildMapsHref, buildFallbackMapsHref } from '@/utils/mapLinkUtils';
 
 import '@/styles/04-components/help/helpBase.scss';
@@ -34,17 +33,19 @@ export default function SupportInfo() {
   const fullAddress = `${ENV.COMPANY_ADDRESS}, ${ENV.COMPANY_POSTAL_CODE}, ${ENV.COMPANY_CITY}, ${ENV.COMPANY_COUNTRY}`;
 
   /*
-   * Calculado tras montar: en servidor no hay `navigator`, así que el primer render usa un
-   * enlace neutro (Google Maps web) y se sustituye por el nativo del sistema operativo real
-   * del visitante en cuanto el efecto corre — mismo criterio que `ContactMapSection.tsx`.
+   * En servidor no hay `navigator`, así que el primer render usa un enlace neutro (Google Maps web) y pasa
+   * al nativo del sistema operativo real del visitante en cuanto hidrata — mismo criterio que
+   * `ContactMapSection.tsx`.
+   *
+   * Se resuelve leyendo `useIsMounted()` **durante el render** y no con `setState` en un efecto, que es como
+   * estaba: eso es exactamente lo que persigue la regla `react-hooks/set-state-in-effect`, y además
+   * provocaba un render de más. El hook ya existe para esto y lleva el motivo escrito.
    */
-  const [mapsHref, setMapsHref] = useState(
-    () => buildFallbackMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE),
-  );
+  const isMounted = useIsMounted();
 
-  useEffect(() => {
-    setMapsHref(buildMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE, fullAddress));
-  }, [fullAddress]);
+  const mapsHref = isMounted
+    ? buildMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE, fullAddress)
+    : buildFallbackMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE);
 
   return (
     <section className="support__info">
