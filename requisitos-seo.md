@@ -1361,3 +1361,29 @@ y eso hacía que una ciudad sin ofertas respondiera **200 con el cuerpo de un 40
 el estado antes de que la página pueda lanzar `notFound()`. Comprobado en los dos sentidos y quitados los
 dos `loading.tsx` (ver `requisitos-empleo.md`, 10.6). Merece la pena tenerlo presente para cualquier ruta
 futura que dependa de responder 404, 410 o una redirección.
+
+## 37. Cualificación en el formulario de contacto (2026-08-20)
+
+Cuatro desplegables y un campo condicional, todos opcionales: qué es quien escribe, qué servicio le
+interesa, en qué municipio y para cuándo; y, **solo si elige «administrador de fincas»**, cuántas
+gestiona. El contrato está en `requisitos-leads.md` §7.2.1 del backend; aquí van las decisiones de la
+web:
+
+- **Los municipios salen de `ZONES`**, la misma lista que genera las 20 páginas de zona. El nombre que se
+  lee en el desplegable y el de la página desde la que ha llegado quien escribe son el mismo dato, no dos
+  copias que puedan discrepar.
+- **Los servicios se derivan de `SERVICE_SLUGS`** (`config/leadQualification.ts`) en vez de escribirse
+  otra vez: los valores que espera la API son exactamente esos slugs en mayúsculas, así que un servicio
+  nuevo en la web aparece en el formulario solo.
+- **El campo de fincas aparece al elegir el perfil**, junto al desplegable que lo provoca y no al final
+  del formulario. Preguntárselo a todo el mundo sería preguntar por algo que a la mayoría no le aplica, y
+  la API además lo rechaza con un 400 con cualquier otro perfil.
+- **Yup valida contra las opciones reales**, incluida la lista de municipios. No es desconfianza del
+  desplegable: sin esa comprobación, un valor que la API rechaza llegaría a quien rellena el formulario
+  como «no se ha podido enviar tu mensaje», sin decir qué campo.
+- **El `when` del número de fincas no es adorno**: si se elige administrador, se teclea un número y luego
+  se cambia de perfil, el campo desaparece de la vista pero se queda en Formik con lo último escrito.
+  Sin la condición, ese resto bloquearía el envío por un campo que ya no existe en pantalla — y el
+  contenedor tampoco lo manda.
+- **Las etiquetas son preguntas** («¿Quién nos escribe?», no «Perfil»): son campos opcionales en medio de
+  un formulario, y una pregunta invita a contestar donde una etiqueta de base de datos invita a saltar.

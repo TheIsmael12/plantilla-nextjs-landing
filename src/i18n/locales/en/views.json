@@ -789,14 +789,24 @@
         "companyName": "Company or community",
         "email": "Email",
         "phone": "Phone",
-        "message": "Message"
+        "message": "Message",
+        "contactProfile": "Who is getting in touch?",
+        "serviceInterest": "Which service are you interested in?",
+        "zone": "Which town?",
+        "timeframe": "When do you need it?",
+        "managedPropertiesCount": "How many properties do you manage?"
       },
       "placeholders": {
         "contactName": "Your full name",
         "companyName": "Your company or community name (optional)",
         "email": "you@email.com",
         "phone": "+1 555 000 0000",
-        "message": "Tell us about your enquiry..."
+        "message": "Tell us about your enquiry...",
+        "contactProfile": "Choose an option (optional)",
+        "serviceInterest": "Choose a service (optional)",
+        "zone": "Choose a town (optional)",
+        "timeframe": "Choose a timeframe (optional)",
+        "managedPropertiesCount": "For example, 12"
       },
       "contactHint": "Please provide at least an email address or a phone number.",
       "consents": {
@@ -810,7 +820,29 @@
       "success": "Message sent! We will get back to you as soon as possible.",
       "error": "We couldn't send your message. Please try again in a few minutes.",
       "privacy": "By submitting you accept our",
-      "privacyLink": "privacy policy"
+      "privacyLink": "privacy policy",
+      "options": {
+        "profile": {
+          "PROPERTY_OWNERS_ASSOCIATION": "A homeowners association",
+          "PROPERTY_MANAGER": "A property manager",
+          "COMPANY": "A company or our own building",
+          "INDIVIDUAL": "An individual"
+        },
+        "service": {
+          "CONCIERGE": "Concierge",
+          "SECURITY": "Security",
+          "POOLS": "Pools",
+          "CLEANING": "Cleaning",
+          "GARDENING": "Gardening",
+          "MAINTENANCE": "Maintenance",
+          "OTHER": "Something else, or several"
+        },
+        "timeframe": {
+          "ASAP": "As soon as possible",
+          "THIS_MONTH": "This month",
+          "JUST_INFO": "I'm just asking for information"
+        }
+      }
     },
     "map": {
       "label": "Where We Are",
@@ -2869,6 +2901,9 @@
       "niceToHave": "Nice to have, not a dealbreaker",
       "benefits": "What we offer",
       "reference": "Reference",
+      "conditions": "The role",
+      "applicants": "{count, plural, one {1 person has applied} other {# people have applied}}",
+      "applyModalTitle": "Apply for this role",
       "closedTitle": "This opening is closed",
       "closedText": "The process has ended. You can see the openings that are still live.",
       "relatedTitle": "Other similar openings",
@@ -2902,6 +2937,7 @@
         "lastName": "Your last name",
         "email": "you@example.com",
         "phone": "600 000 000",
+        "city": "Choose a city",
         "coverLetter": "What you have done before, what interests you about this role…",
         "linkedin": "https://www.linkedin.com/in/…"
       },
@@ -2913,6 +2949,13 @@
       "talentPool": "Keep my application for 12 months for future processes.",
       "talentPoolRequired": "For a speculative application this permission is required: without it we would have no basis to keep your data.",
       "noPhoto": "We do not ask for a photo, age or nationality: they play no part in the decision.",
+      "steps": {
+        "who": "About you",
+        "application": "Your application",
+        "consents": "Permissions"
+      },
+      "next": "Next",
+      "back": "Back",
       "submit": "Send my application",
       "submitting": "Sending…",
       "error": "We could not send your application. Please try again in a few minutes.",
@@ -2931,6 +2974,10 @@
       "noTalentPool": "You did not allow us to keep your application for future processes.",
       "withdraw": "Withdraw my application",
       "withdrawing": "Withdrawing…",
+      "rejectedTitle": "We have not taken your application forward this time.",
+      "dangerTitle": "Withdraw your application",
+      "withdrawHint": "Your CV is deleted and we stop processing your data for this role.",
+      "withdrawClosedHint": "The process is over, but you can still withdraw: that deletes your CV before the retention deadline.",
       "withdrawTitle": "Withdraw the application?",
       "withdrawText": "Your application is withdrawn and your CV is deleted. This cannot be undone: if you want to apply again later, you will have to start over.",
       "withdrawConfirm": "Yes, withdraw it",

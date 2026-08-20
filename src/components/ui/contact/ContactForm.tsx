@@ -8,14 +8,30 @@ import { CheckCircle, SendIcon } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 
 import Input from '@/components/ui/inputs/Input';
+import Select from '@/components/ui/inputs/Select';
 import Textarea from '@/components/ui/inputs/Textarea';
 import Button from '@/components/ui/buttons/Button';
 import Captcha from '@/components/ui/inputs/Captcha';
 
 import { HONEYPOT_FIELD_NAME } from '@/config/settings';
+import {
+    CONTACT_PROFILES,
+    PROPERTY_MANAGER_PROFILE,
+    SERVICE_INTERESTS,
+    TIMEFRAMES,
+} from '@/config/leadQualification';
+import { ZONES } from '@/config/zones';
 import { contactSchema } from '@/schemas/contact.schema';
 import '@/styles/04-components/contact/contactBase.scss';
 import '@/styles/04-components/contact/contactForm.scss';
+
+/**
+ * Los cuatro campos que gobierna un desplegable de cualificación.
+ *
+ * Escritos aquí y no como `keyof ContactFormValues`: el formulario tiene además tres booleanos de
+ * consentimiento, y con la clave abierta el valor del desplegable pasaba a ser `string | boolean`.
+ */
+type QualificationSelectField = 'contactProfile' | 'serviceInterest' | 'zone' | 'timeframe';
 
 const INITIAL: ContactFormValues = {
     contactName: '',
@@ -23,6 +39,13 @@ const INITIAL: ContactFormValues = {
     email: '',
     phone: '',
     message: '',
+    // Cadena vacía y no una primera opción preseleccionada: «no ha contestado» tiene que distinguirse de
+    // haber elegido, o el CRM se llena de comunidades de propietarios que nadie declaró.
+    contactProfile: '',
+    serviceInterest: '',
+    zone: '',
+    timeframe: '',
+    managedPropertiesCount: '',
     privacyNoticeAcknowledged: false,
     marketingConsent: false,
     attributionConsent: false,
@@ -34,6 +57,11 @@ const INITIAL: ContactFormValues = {
  * (`contactSchema`), traduce toda la copia mediante `Contact.form`, y
  * alterna entre estado de envío (`loading`), error a nivel de formulario
  * (`error`) y confirmación de éxito (`success`).
+ *
+ * Además de los datos de contacto pregunta cuatro cosas que sirven para atender mejor: qué es quien
+ * escribe, qué servicio le interesa, en qué municipio y para cuándo (y, solo a un administrador de
+ * fincas, cuántas gestiona). Los cuatro son **opcionales**: son lo que permite repartir la bandeja sin
+ * leerse cada mensaje, pero exigirlos convertiría un formulario de contacto en un cuestionario.
  *
  * Incluye lo que exige el backend público de leads (RGPD/LSSI): nombre,
  * email o teléfono, checkbox de privacidad obligatorio, checkboxes
@@ -56,6 +84,26 @@ export default function ContactForm({
         initialValues: INITIAL,
         validationSchema: contactSchema(),
         onSubmit: (values) => onSubmit?.(values, captchaTokenRef.current),
+    });
+
+    /**
+     * Props comunes de los cuatro desplegables de cualificación.
+     *
+     * `Select` no emite un evento del DOM sino el valor ya elegido, así que `formik.handleChange` no
+     * sirve: hay que escribirlo con `setFieldValue`. Y marcarlo como tocado a la vez, porque tampoco
+     * hay `onBlur` — sin eso el error de un valor no válido no se pintaría nunca.
+     * @param {QualificationSelectField} field - Campo del formulario que controla el desplegable
+     * @returns Las props de valor, cambio, error y ancho
+     */
+    const selectFieldProps = (field: QualificationSelectField) => ({
+        value: formik.values[field],
+        onChange: (value: string) => {
+            void formik.setFieldValue(field, value);
+            void formik.setFieldTouched(field, true);
+        },
+        error: formik.errors[field],
+        touched: formik.touched[field],
+        className: 'select__full',
     });
 
     if (success) {
@@ -150,6 +198,85 @@ export default function ContactForm({
                 <div className="contact__form-full">
                     <p className="contact__form-hint">{t('contactHint')}</p>
                 </div>
+
+                <Select
+                    id="cf-profile"
+                    name="contactProfile"
+                    label={t('fields.contactProfile')}
+                    placeholder={t('placeholders.contactProfile')}
+                    noTranslate
+                    options={CONTACT_PROFILES.map((value) => ({
+                        value,
+                        label: t(`options.profile.${value}`),
+                    }))}
+                    {...selectFieldProps('contactProfile')}
+                />
+
+                <Select
+                    id="cf-service"
+                    name="serviceInterest"
+                    label={t('fields.serviceInterest')}
+                    placeholder={t('placeholders.serviceInterest')}
+                    noTranslate
+                    options={SERVICE_INTERESTS.map((value) => ({
+                        value,
+                        label: t(`options.service.${value}`),
+                    }))}
+                    {...selectFieldProps('serviceInterest')}
+                />
+
+                {/*
+                    Los municipios salen de `ZONES`, la misma lista que genera las 20 páginas de
+                    zona: el nombre que se lee aquí y el de la página desde la que ha llegado quien escribe
+                    son el mismo dato, no dos copias que puedan discrepar.
+                */}
+                <Select
+                    id="cf-zone"
+                    name="zone"
+                    label={t('fields.zone')}
+                    placeholder={t('placeholders.zone')}
+                    noTranslate
+                    options={ZONES.map((item) => ({ value: item.slug, label: item.name }))}
+                    {...selectFieldProps('zone')}
+                />
+
+                <Select
+                    id="cf-timeframe"
+                    name="timeframe"
+                    label={t('fields.timeframe')}
+                    placeholder={t('placeholders.timeframe')}
+                    noTranslate
+                    options={TIMEFRAMES.map((value) => ({
+                        value,
+                        label: t(`options.timeframe.${value}`),
+                    }))}
+                    {...selectFieldProps('timeframe')}
+                />
+
+                {/*
+                    El número de fincas solo aparece si el perfil es administrador.
+
+                    Preguntárselo a todo el mundo sería preguntar por algo que a la mayoría no le aplica, y
+                    el backend además responde 400 si llega con otro perfil. Sale al elegir, junto al
+                    desplegable que lo provoca, y no al final del formulario.
+                */}
+                {formik.values.contactProfile === PROPERTY_MANAGER_PROFILE && (
+                    <Input
+                        id="cf-managed-properties"
+                        name="managedPropertiesCount"
+                        label={t('fields.managedPropertiesCount')}
+                        type="number"
+                        placeholder={t('placeholders.managedPropertiesCount')}
+                        noTranslate
+                        min={1}
+                        value={formik.values.managedPropertiesCount}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.errors.managedPropertiesCount}
+                        touched={formik.touched.managedPropertiesCount}
+                        className="input__full"
+                    />
+                )}
 
                 <div className="contact__form-full">
                     <Textarea

@@ -4,6 +4,12 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { submitContactLead } from '@/actions/leads/leads-actions';
+import {
+    isContactProfile,
+    isServiceInterest,
+    isTimeframe,
+    PROPERTY_MANAGER_PROFILE,
+} from '@/config/leadQualification';
 import { PRIVACY_NOTICE_VERSION } from '@/config/settings';
 import { pushLeadGenerated } from '@/lib/gtm';
 import { isErrorStatus } from '@/utils/httpStatusUtils';
@@ -50,12 +56,36 @@ export default function ContactViewPage() {
         setLoading(true);
         setFormError(undefined);
 
+        /*
+         * El número de fincas solo viaja si el perfil es administrador.
+         *
+         * No es una precaución de más: el backend responde 400 cuando llega con otro perfil, y el campo
+         * puede conservar lo que se escribió antes de cambiar de perfil (queda montado en Formik aunque
+         * deje de verse). Aquí es donde se decide, en un sitio y no en cada `onChange`.
+         */
+        const isPropertyManager = values.contactProfile === PROPERTY_MANAGER_PROFILE;
+        const managedProperties =
+            isPropertyManager && values.managedPropertiesCount
+                ? Number(values.managedPropertiesCount)
+                : undefined;
+
         const response = await submitContactLead({
             contactName: values.contactName,
             email: values.email || undefined,
             phone: values.phone || undefined,
             companyName: values.companyName || undefined,
             message: values.message || undefined,
+            // Cualificación: `undefined` cuando no se contestó, nunca cadena vacía — el backend
+            // valida el enum y rechazaría un valor vacío con un 400.
+            contactProfile: isContactProfile(values.contactProfile)
+                ? values.contactProfile
+                : undefined,
+            serviceInterest: isServiceInterest(values.serviceInterest)
+                ? values.serviceInterest
+                : undefined,
+            zone: values.zone || undefined,
+            timeframe: isTimeframe(values.timeframe) ? values.timeframe : undefined,
+            managedPropertiesCount: managedProperties,
             privacyNoticeVersion: PRIVACY_NOTICE_VERSION,
             privacyNoticeAcknowledged: values.privacyNoticeAcknowledged,
             marketingConsent: values.marketingConsent,

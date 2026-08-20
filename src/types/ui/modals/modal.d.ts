@@ -63,6 +63,7 @@ export interface FormikRenderProps<T extends FormikValues = FormikValues> {
  * @property {FormikConfig<T>["onSubmit"]} [onSubmit] - Handler de envío del formulario
  * @property {ReactNode | ((props: FormikRenderProps<T>) => ReactNode)} [children] - Contenido estático, o render-function con acceso al estado de Formik en modo formulario
  * @property {boolean} [isLarge] - Activa la variante ancha del modal (`max-width` mayor)
+ * @property {boolean} [isFull] - Activa la variante a pantalla completa; pensada para formularios largos con pasos, donde una caja centrada deja el contenido a saltos
  */
 export interface ModalProps<T extends FormikValues = FormikValues> {
   title?: string;
@@ -87,4 +88,5 @@ export interface ModalProps<T extends FormikValues = FormikValues> {
   onSubmit?: FormikConfig<T>["onSubmit"];
   children?: ReactNode | ((props: FormikRenderProps<T>) => ReactNode);
   isLarge?: boolean;
+  isFull?: boolean;
 }
