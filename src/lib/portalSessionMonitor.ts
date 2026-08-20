@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { signOut, useSession } from "next-auth/react";
 
 import { useLocale } from "next-intl";
 
 import { getPortalSessionStatus } from "@/actions/client-portal/sessions-actions";
-import { SESSION_HEARTBEAT_INTERVAL_MS } from "@/config/settings";
+import {
+  AUTH_TOKEN_REFRESH_MARGIN_MS,
+  SESSION_HEARTBEAT_INTERVAL_MS,
+} from "@/config/settings";
 import { locales } from "@/config/pathnames";
 import { getPathname } from "@/i18n/navigation";
 
@@ -111,9 +114,22 @@ async function leaveToLogin(locale: string, reason: SignOutReason): Promise<void
  * @returns {null} No renderiza nada; solo sincroniza los efectos de vigilancia
  */
 export function usePortalSessionMonitor(): null {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const locale = useLocale();
   const hasSession = Boolean(session?.user);
+
+  /*
+   * La caducidad del `accessToken` en una ref, sincronizada por un efecto.
+   *
+   * Cambia en cada renovación, y leerla del closure del intervalo la dejaría congelada en el valor que
+   * tenía al montarse: el latido creería para siempre que el token está a punto de caducar y llamaría a
+   * `update()` cada 15 segundos. Escribir una ref durante el render no está permitido, de ahí el efecto.
+   */
+  const expiresAtRef = useRef<number | undefined>(undefined);
+
+  useEffect(() => {
+    expiresAtRef.current = session?.user?.accessTokenExpires;
+  }, [session?.user?.accessTokenExpires]);
 
   useEffect(() => {
     if (!hasSession) return;
@@ -135,6 +151,22 @@ export function usePortalSessionMonitor(): null {
      * 401, así que no se pierde la protección: se pierde el falso positivo.
      */
     const check = async () => {
+      /*
+       * Primero renovar si toca, y **volver**: el token nuevo se comprueba en el latido siguiente.
+       *
+       * El callback `jwt` renueva desde cualquier sitio, pero **solo el route handler de NextAuth
+       * escribe la cookie de sesión**: una renovación ocurrida en un Server Component o en una Server
+       * Action vale para esa petición y se pierde. Sin esto, la sesión del portal se caía **a una vida de
+       * `accessToken`** (15 min): cada petición releía el token viejo de la cookie, la caché de rotación
+       * devolvía siempre el mismo par ya emitido —así que la API no se llamaba más—, y al caducar ese par
+       * el latido recibía el 401 que se lee como revocación. `update()` pasa por el route handler.
+       */
+      const expiresAt = expiresAtRef.current;
+      if (expiresAt && Date.now() >= expiresAt - AUTH_TOKEN_REFRESH_MARGIN_MS) {
+        await update();
+        return;
+      }
+
       const status = await getPortalSessionStatus();
       if (cancelled || !status.revoked) return;
 
@@ -148,12 +180,13 @@ export function usePortalSessionMonitor(): null {
     };
     document.addEventListener("visibilitychange", onVisibilityChange);
 
+
     return () => {
       cancelled = true;
       clearInterval(interval);
       document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, [hasSession, locale]);
+  }, [hasSession, locale, update]);
 
   return null;
 }

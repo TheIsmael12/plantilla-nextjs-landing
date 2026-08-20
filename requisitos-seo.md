@@ -1387,3 +1387,33 @@ web:
   contenedor tampoco lo manda.
 - **Las etiquetas son preguntas** («¿Quién nos escribe?», no «Perfil»): son campos opcionales en medio de
   un formulario, y una pregunta invita a contestar donde una etiqueta de base de datos invita a saltar.
+
+### La sesión del portal se cerraba a los 15 minutos, por lo mismo que la de la intranet
+
+Los dos frontales tenían **el mismo par de defectos**, y el del portal no se había mirado:
+
+1. **La renovación no se guardaba.** El callback `jwt` renueva el `accessToken` desde donde haga falta,
+   pero **solo el route handler de NextAuth escribe la cookie de sesión**: una renovación ocurrida en un
+   Server Component o en una Server Action vale para esa petición y se pierde. Encadenado con
+   `portalRefreshTokenCache`, la sesión se apaga sola — cada petición relee el token viejo de la cookie, la
+   primera renovación guarda el par nuevo en la caché indexado por el token viejo, las siguientes lo
+   devuelven **sin llamar a la API**, y cuando ese par caduca de verdad el latido recibe un 401.
+2. **Ese 401 se leía como una revocación**, y cerraba la sesión.
+
+El arreglo es el mismo: `usePortalSessionMonitor` llama a `update()` cuando al token le queda menos que
+`AUTH_TOKEN_REFRESH_MARGIN_MS` —eso pasa por el route handler y persiste el par nuevo—, y
+`getPortalSessionStatus` solo trata un 401 como revocación si **nuestro** `accessToken` todavía debería
+valer. La caducidad va en una `ref` sincronizada por un efecto: leerla del closure del intervalo la dejaba
+congelada en el valor del montaje, y `update()` se habría disparado cada 15 segundos para siempre.
+
+`accessTokenExpires` pasa a estar en la sesión del cliente para que el vigilante pueda decidir. No es un
+dato sensible —es una marca de tiempo— y los `backendTokens` siguen sin salir del servidor.
+
+**Lo que aquí no se ha podido probar en vivo:** en esta base de datos no existe ninguna cuenta de portal
+de cliente, así que la reproducción con el token acortado a 90 s se hizo en la intranet, donde el
+mecanismo es idéntico. En el portal la corrección está cubierta por `test/portalSessionStatus.test.ts`,
+que fija las cuatro combinaciones del 401 (token vigente, token caducado, sin sesión, y el `revoked` que
+devuelve la API con un 200).
+
+El criterio de no cerrar sesión ante un fallo de renovación (`session.error`) **no se ha tocado**: ya
+estaba decidido a propósito, porque provocaba el «inicias sesión y te devuelve al principio».
