@@ -3003,7 +3003,8 @@
       "closedTitle": "Esta oferta ya se cerró",
       "closedText": "El proceso ha terminado. Puedes ver las ofertas que siguen abiertas.",
       "relatedTitle": "Otras ofertas parecidas",
-      "pausedNotice": "Este proceso está en pausa: la oferta sigue visible, pero ahora mismo no se admiten candidaturas."
+      "pausedNotice": "Este proceso está en pausa: la oferta sigue visible, pero ahora mismo no se admiten candidaturas.",
+      "back": "Todas las ofertas"
     },
     "empty": {
       "noJobs": "Ahora mismo no hay ofertas abiertas",

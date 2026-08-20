@@ -464,3 +464,40 @@ Todo lo de esta sección salió de una revisión sobre la web ya montada.
   el resto de la web, con la insignia de estado, y la acción de retirar en su propio bloque al final con la
   confirmación en un modal. «En revisión» no dice si eso es al principio o al final, y esa es la pregunta de
   quien abre el enlace.
+
+### 10.12 La cabecera de la oferta y el diálogo de candidatura
+
+**La cabecera no seguía el patrón de las demás cabeceras de detalle de la web.** Llevaba el degradado del
+hero del *listado* copiado a una página de detalle —dos pantallas seguidas con el mismo fondo grande hacen
+que no se note que se ha entrado en algo—, no había forma de volver al buscador salvo el botón del navegador,
+y encabezaba con la referencia, que ocupaba el sitio de lo que dice de qué va el puesto.
+
+Ahora tiene la forma de `services__detail-hero`: fondo `surface` con una línea abajo, enlace de volver, la
+familia profesional en la píldora que las otras fichas usan para su categoría, título, resumen, y la
+referencia debajo en pequeño. Las condiciones y el botón de presentarse siguen en la columna de la derecha,
+como se pidió.
+
+**El formulario de candidatura tiene ahora su propio diálogo** (`JobApplyDialog`) en vez del modal genérico
+con la variante `isFull`. Tres razones concretas, y la variante se ha retirado del modal compartido porque
+este era su único uso:
+
+- **Los pasos y los botones se iban con el scroll.** Todo el asistente vivía dentro del cuerpo desplazable,
+  así que en el paso del CV —el más alto— desaparecían a la vez el indicador de en qué paso estás y el botón
+  de continuar. Ahora la fila de pasos se queda arriba, las acciones abajo, y solo se desplazan los campos.
+- **Se perdía a qué oferta se estaba presentando.** El modal genérico lleva un título fijo; este lleva el
+  puesto y la referencia en su cabecera.
+- **Un click fuera lo cerraba y se perdía todo lo escrito.** Aquí solo cierran el aspa y Escape: rellenar
+  nueve campos y un fichero para perderlos por pulsar al lado es la clase de cosa que hace que alguien no se
+  vuelva a presentar.
+
+El formulario sigue siendo el mismo componente presentacional; solo se le ha añadido `hideHeader`, porque
+dentro del diálogo el título lo pone la cabecera. Se oculta con una prop y no con CSS: un `h2` escondido con
+`display: none` sigue en el documento y un lector de pantalla lo anuncia igual, así que habría dos títulos.
+
+El reparto en tres filas es **flex y no una rejilla**: el formulario tiene un hijo condicional —el error a
+nivel de formulario— y con `grid-template-rows: auto 1fr auto` el `1fr` le tocaba al error en cuanto
+aparecía uno, justo cuando había algo que corregir.
+
+Medido en el navegador: panel 960×736, cabecera 80 px arriba, pasos 90 px fijos, campos 483 px desplazables,
+acciones 73 px fijas abajo; un solo `h2` dentro, el scroll de la página bloqueado, y sigue abierto tras
+pulsar fuera.

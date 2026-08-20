@@ -8,21 +8,65 @@
 @use "../../00-settings/variables" as *;
 @use "../../01-tools/mixins" as *;
 
+/**
+ * La cabecera de la ficha, con la misma forma que las demás cabeceras de detalle de la web
+ * (`services__detail-hero`): fondo `surface` y una línea abajo, no un degradado propio.
+ *
+ * El degradado que tenía antes era el del hero del **listado** (`careers__hero`), copiado a una página de
+ * detalle: dos pantallas seguidas con el mismo fondo grande hacen que no se note que se ha entrado en algo.
+ */
 .careers__detail-header {
-  background: linear-gradient(180deg, var(--primary-color-light) 0%, var(--background-color) 100%);
-  @include py(3rem);
+  background: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  @include py(3.5rem);
 }
 
-.careers__detail-reference {
-  @include flex(row, flex-start, center, 0.5rem);
-  flex-wrap: wrap;
-  margin: 0 0 0.6rem;
-  font-family: $font-family-base;
+.careers__detail-header-inner {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+}
+
+// Volver al buscador. Mismo tratamiento que el de la ficha de un servicio.
+.careers__detail-back {
+  @include flex(row, flex-start, center, 0.4rem);
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--neutral-color);
+
+  &:hover {
+    text-decoration: none;
+    color: var(--primary-color-active);
+  }
+}
+
+// La familia profesional, en la píldora que las demás fichas usan para su categoría.
+.careers__detail-tag {
+  display: inline-flex;
+  width: fit-content;
+  margin: 0;
   font-size: $text-xs;
   font-weight: $font-bold;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   color: var(--primary-color-active);
+  background: rgba(var(--primary-color-rgb), 0.08);
+  @include px(0.85rem);
+  @include py(0.4rem);
+  @include rounded(999px);
+}
+
+// La referencia, debajo del resumen: hay que poder leerla, no encabezar con ella.
+.careers__detail-reference {
+  margin: 0.2rem 0 0;
+  font-size: $text-xs;
+  color: var(--neutral-color);
+
+  code {
+    font-family: monospace;
+    font-size: $text-xs;
+    color: var(--color);
+  }
 }
 
 .careers__detail-title {

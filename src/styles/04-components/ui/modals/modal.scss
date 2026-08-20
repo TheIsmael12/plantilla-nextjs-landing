@@ -61,29 +61,6 @@
     width: min(56rem, calc(100vw - 2rem));
   }
 
-  /*
-   * A pantalla completa, para un formulario largo con pasos: la candidatura de una oferta.
-   *
-   * No es un `--large` más ancho: es que un formulario de siete campos con su CV y sus consentimientos no
-   * cabe en una caja centrada sin dejar el contenido a saltos, y en móvil un modal a media pantalla con
-   * teclado abierto no deja ver ni el campo que se está rellenando. Se queda con un margen mínimo en
-   * escritorio para que siga leyéndose como una capa por encima de la página y no como otra pantalla.
-   */
-  &--full {
-    width: calc(100vw - 2rem);
-    max-width: 64rem;
-    height: calc(100vh - 2rem);
-    max-height: calc(100vh - 2rem);
-
-    @include screen(md, max) {
-      width: 100vw;
-      height: 100vh;
-      max-height: 100vh;
-      border: none;
-      @include rounded(0);
-    }
-  }
-
   &__header {
     flex: 0 0 auto;
     border-bottom: 1px solid var(--border-color);

@@ -2907,7 +2907,8 @@
       "closedTitle": "This opening is closed",
       "closedText": "The process has ended. You can see the openings that are still live.",
       "relatedTitle": "Other similar openings",
-      "pausedNotice": "This process is paused: the opening is still visible, but applications are not being accepted right now."
+      "pausedNotice": "This process is paused: the opening is still visible, but applications are not being accepted right now.",
+      "back": "All openings"
     },
     "empty": {
       "noJobs": "There are no openings right now",

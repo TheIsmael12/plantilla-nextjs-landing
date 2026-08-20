@@ -14,7 +14,7 @@ import {
 
 import Button from '@/components/ui/buttons/Button';
 import Alert from '@/components/ui/alerts/Alert';
-import JobApplyModal from '@/components/ui/careers/JobApplyModal';
+import JobApplyDialog from '@/components/ui/careers/JobApplyDialog';
 
 import { formatJobSalary } from '@/utils/careersFormatUtils';
 
@@ -28,7 +28,8 @@ import '@/styles/04-components/careers/careersDetail.scss';
  * **debajo de los datos**, que es donde termina esa lectura: quien ya ha visto el salario y la ciudad es
  * quien está listo para presentarse.
  *
- * El formulario no vive aquí: se abre en un modal a pantalla completa con sus pasos ({@link JobApplyModal}).
+ * El formulario no vive aquí: se abre en su propio diálogo a pantalla completa, con los pasos arriba y las
+ * acciones abajo ({@link JobApplyDialog}).
  * Así la ficha se puede leer entera sin un formulario de nueve campos empujando el contenido.
  * @param {JobDetailAsideProps} props - La oferta y las ciudades del selector
  * @returns {JSX.Element} La columna renderizada
@@ -126,8 +127,9 @@ export default function JobDetailAside({ job, cities }: JobDetailAsideProps) {
             </div>
 
             {canApply && (
-                <JobApplyModal
+                <JobApplyDialog
                     jobCode={job.jobCode}
+                    jobTitle={job.title}
                     cities={cities}
                     isOpen={isApplyOpen}
                     onClose={() => setIsApplyOpen(false)}

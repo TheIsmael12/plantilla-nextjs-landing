@@ -120,6 +120,7 @@ interface JobDetailBodyProps {
  * @property {boolean} [loading] - Mientras sube: el botón se deshabilita y cambia de texto
  * @property {boolean} [success] - Sustituye el formulario por la confirmación
  * @property {string} [error] - Mensaje de error a nivel de formulario
+ * @property {boolean} [hideHeader] - Oculta el título y el subtítulo del formulario, para cuando quien lo contiene ya los pone (ver `JobApplyDialog`)
  */
 interface JobApplyFormProps {
   jobCode?: string;
@@ -129,6 +130,7 @@ interface JobApplyFormProps {
   loading?: boolean;
   success?: boolean;
   error?: string;
+  hideHeader?: boolean;
 }
 
 /**
@@ -139,11 +141,13 @@ interface JobApplyFormProps {
  * @property {string} [jobCode] - Oferta a la que se presenta
  * @property {PublicJobFacet[]} cities - Ciudades, para el selector
  * @property {boolean} [requireTalentPool] - Candidatura espontánea
+ * @property {boolean} [hideHeader] - Se pasa tal cual al formulario (ver `JobApplyFormProps`)
  */
 interface JobApplySectionProps {
   jobCode?: string;
   cities: PublicJobFacet[];
   requireTalentPool?: boolean;
+  hideHeader?: boolean;
 }
 
 /**
@@ -180,15 +184,20 @@ interface JobDetailAsideProps {
 }
 
 /**
- * Props de `JobApplyModal`.
- * @interface JobApplyModalProps
+ * Props de `JobApplyDialog`.
+ *
+ * Lleva `jobTitle` además del código porque el diálogo tapa la ficha: sin el título del puesto en su
+ * cabecera, una vez abierto no hay forma de comprobar a qué oferta se está presentando.
+ * @interface JobApplyDialogProps
  * @property {string} jobCode - Oferta a la que se presenta
+ * @property {string} jobTitle - Título del puesto, para la cabecera del diálogo
  * @property {PublicJobFacet[]} cities - Ciudades, para el selector
- * @property {boolean} isOpen - Si el modal está abierto
+ * @property {boolean} isOpen - Si el diálogo está abierto
  * @property {() => void} onClose - Handler de cierre
  */
-interface JobApplyModalProps {
+interface JobApplyDialogProps {
   jobCode: string;
+  jobTitle: string;
   cities: PublicJobFacet[];
   isOpen: boolean;
   onClose: () => void;

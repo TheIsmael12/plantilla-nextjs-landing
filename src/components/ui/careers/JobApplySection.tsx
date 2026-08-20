@@ -24,13 +24,14 @@ import { isErrorStatus } from '@/utils/httpStatusUtils';
  * También es donde se traduce el formulario a lo que espera la API: los valores se recortan y la versión de
  * la información de privacidad se pone aquí, porque es un dato del despliegue y no algo que el usuario
  * rellene.
- * @param {JobApplySectionProps} props - Oferta, ciudades y si la bolsa de talento es obligatoria
+ * @param {JobApplySectionProps} props - Oferta, ciudades, si la bolsa de talento es obligatoria y si el título lo pone quien contiene
  * @returns {JSX.Element} El formulario con su estado
  */
 export default function JobApplySection({
     jobCode,
     cities,
     requireTalentPool = false,
+    hideHeader = false,
 }: JobApplySectionProps) {
     const t = useTranslations('Careers.form');
 
@@ -90,6 +91,7 @@ export default function JobApplySection({
             loading={loading}
             success={success}
             error={error}
+            hideHeader={hideHeader}
         />
     );
 }

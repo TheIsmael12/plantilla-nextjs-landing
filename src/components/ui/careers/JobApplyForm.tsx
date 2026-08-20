@@ -78,6 +78,7 @@ export default function JobApplyForm({
     loading = false,
     success = false,
     error,
+    hideHeader = false,
 }: JobApplyFormProps) {
     const t = useTranslations('Careers.form');
     const tValidations = useTranslations('Validations');
@@ -157,10 +158,17 @@ export default function JobApplyForm({
 
     return (
         <form id="candidatura" className="careers__form" onSubmit={formik.handleSubmit} noValidate>
-            <div className="careers__form-header">
-                <h2>{jobCode ? t('title') : t('spontaneousTitle')}</h2>
-                <p>{jobCode ? t('subtitle') : t('spontaneousSubtitle')}</p>
-            </div>
+            {/*
+              Dentro del diálogo el título lo pone su cabecera, con el puesto y la referencia. Se oculta con
+              una prop y no con CSS: un `h2` escondido con `display: none` sigue estando en el
+              documento y un lector de pantalla lo anuncia igual, así que habría dos títulos.
+            */}
+            {!hideHeader && (
+                <div className="careers__form-header">
+                    <h2>{jobCode ? t('title') : t('spontaneousTitle')}</h2>
+                    <p>{jobCode ? t('subtitle') : t('spontaneousSubtitle')}</p>
+                </div>
+            )}
 
             <Stepper
                 steps={steps}
