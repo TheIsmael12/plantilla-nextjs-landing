@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import { MapPin, Phone, PhoneCall, Mail, Clock, ExternalLink } from 'lucide-react';
 
 import { ENV } from '@/config/env';
+import { useIsMounted } from '@/hooks/useIsMounted';
 import { buildMapsHref, buildFallbackMapsHref } from '@/utils/mapLinkUtils';
 import '@/styles/04-components/contact/contactBase.scss';
 import '@/styles/04-components/contact/contactMapSection.scss';
@@ -44,19 +43,20 @@ export default function ContactMapSection({
     const fullAddress = `${address}, ${city}, ${ENV.COMPANY_COUNTRY}`;
 
     /*
-     * Calculado tras montar, no en el primer render: en servidor no hay `navigator`, así que
-     * el primer render (y la hidratación) usan un enlace neutro (Google Maps web, que abre en
-     * cualquier dispositivo aunque no sea la app nativa) para no desajustar el HTML entre
-     * servidor y cliente — justo después, en cuanto el efecto corre, se sustituye por el
+     * En servidor no hay `navigator`, así que el primer render (y la hidratación) usan un
+     * enlace neutro (Google Maps web, que abre en cualquier dispositivo aunque no sea la app
+     * nativa) para no desajustar el HTML entre servidor y cliente. Ya hidratado se pasa al
      * enlace nativo del sistema operativo real del visitante.
+     *
+     * Se lee `useIsMounted()` **durante el render** en vez de hacer `setState` en un efecto,
+     * que es como estaba: eso es justo lo que persigue la regla `react-hooks/set-state-in-effect`
+     * y además provocaba un render de más. El hook existe para esto y lleva el motivo escrito.
      */
-    const [mapsHref, setMapsHref] = useState(
-        () => buildFallbackMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE),
-    );
+    const isMounted = useIsMounted();
 
-    useEffect(() => {
-        setMapsHref(buildMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE, fullAddress));
-    }, [fullAddress]);
+    const mapsHref = isMounted
+        ? buildMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE, fullAddress)
+        : buildFallbackMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE);
 
     return (
 
