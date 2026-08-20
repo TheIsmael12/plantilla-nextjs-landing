@@ -5,7 +5,7 @@ import { getTranslations } from 'next-intl/server';
 import { getPublicJob, getPublicJobFilters, getPublicJobs } from '@/actions/careers/careers-actions';
 
 import JobPostingJsonLd from '@/components/seo/JobPostingJsonLd';
-import JobApplySection from '@/components/ui/careers/JobApplySection';
+import JobDetailAside from '@/components/ui/careers/JobDetailAside';
 import JobDetailBody from '@/components/ui/careers/JobDetailBody';
 import JobDetailHeader from '@/components/ui/careers/JobDetailHeader';
 import JobList from '@/components/ui/careers/JobList';
@@ -140,16 +140,16 @@ export default async function JobDetailViewPage({ slug, locale }: JobDetailViewP
 
             <section className="careers__section">
                 <div className="careers__container careers__detail-layout">
+                    {/* El cuerpo a la izquierda, que es donde se lee de arriba abajo. */}
                     <JobDetailBody job={job} />
 
                     {/*
-                      El formulario solo se pinta si de verdad se puede presentar alguien: con la oferta en
-                      pausa o con candidatura externa, enseñarlo sería invitar a rellenar algo que la API va a
-                      rechazar con un 409.
+                      Las condiciones y el botón de presentarse, a la derecha. El formulario se abre en un
+                      modal desde ahí: con la oferta en pausa o con candidatura externa, el propio bloque
+                      cambia el botón por el aviso o por el enlace de fuera, así que nadie rellena algo que
+                      la API va a rechazar con un 409.
                     */}
-                    {job.acceptingApplications && !job.applyUrl && (
-                        <JobApplySection jobCode={job.jobCode} cities={cities} />
-                    )}
+                    <JobDetailAside job={job} cities={cities} />
                 </div>
             </section>
 

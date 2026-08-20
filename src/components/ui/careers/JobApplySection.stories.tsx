@@ -25,11 +25,17 @@ async function fillAndSubmit(canvasElement: HTMLElement) {
     await userEvent.type(canvas.getByLabelText(/Nombre/), 'Lucía');
     await userEvent.type(canvas.getByLabelText(/Apellidos/), 'Ferrer Gómez');
     await userEvent.type(canvas.getByLabelText(/Correo/), 'lucia.ferrer@example.com');
+    await userEvent.click(canvas.getByRole('button', { name: /Siguiente/ }));
+
+    // Paso dos: el CV.
     await userEvent.upload(
-        canvas.getByLabelText(/Tu CV/),
+        await canvas.findByLabelText(/Tu CV/),
         new File([new Uint8Array(240 * 1024)], 'cv-lucia.pdf', { type: 'application/pdf' }),
     );
-    await userEvent.click(canvas.getByRole('checkbox', { name: /He leído la/ }));
+    await userEvent.click(canvas.getByRole('button', { name: /Siguiente/ }));
+
+    // Paso tres: los permisos y el envío.
+    await userEvent.click(await canvas.findByRole('checkbox', { name: /He leído la/ }));
     await userEvent.click(canvas.getByRole('button', { name: 'Enviar mi candidatura' }));
 }
 
@@ -128,6 +134,10 @@ export const RejectedByApi: Story = {
 
         const canvas = within(canvasElement);
         expect(await canvas.findByText('Esta oferta ya no admite candidaturas.')).toBeInTheDocument();
+
+        // Nada se ha perdido: se vuelve al primer paso y el correo sigue escrito.
+        await userEvent.click(canvas.getByRole('button', { name: /Atrás/ }));
+        await userEvent.click(canvas.getByRole('button', { name: /Atrás/ }));
         expect(canvas.getByLabelText(/Correo/)).toHaveValue('lucia.ferrer@example.com');
     },
 };

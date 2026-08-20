@@ -443,3 +443,24 @@ arrastre, y la confirmación que lo sustituye), y partirlos habría repartido en
 que se lee de una vez; `JobFiltersDrawer` es el mismo panel de `JobFilters` abierto por CSS, y
 `JobListEmpty`/`JobShare` se resolvieron como `JobEmptyState` y con el enlace normal del navegador. En su
 lugar apareció `JobApplySection`, que sí separa dos responsabilidades distintas.
+
+### 10.11 Segunda ronda de correcciones
+
+Todo lo de esta sección salió de una revisión sobre la web ya montada.
+
+- **Los campos son los del sistema de diseño.** El buscador y el selector de ciudad del formulario usaban
+  `<select>` y `<input>` a pelo: ahora son `Input` y `Select`, con `input__full`/`select__full` y las filas
+  de `form-row`, como el resto de formularios del proyecto. El buscador sigue enviándose de forma nativa
+  —el texto en un `input` y la ciudad en el oculto que pinta `Select`—; lo que necesita JavaScript es abrir
+  el desplegable, igual que en toda la web.
+- **Una oferta recién publicada aparecía solo al pulsar «Buscar».** Era la caché: el listado y las facetas
+  se guardaban 300 s, y pulsar «Buscar» cambia la query y con ella la clave de caché. Ahora esas dos
+  llamadas van **sin caché** y la ficha baja a 60 s (ver `getPublicJobs`).
+- **La ficha, rediseñada**: el cuerpo a la izquierda sobre `--surface-color`, las condiciones del puesto en
+  una columna pegada a la derecha con el botón de presentarse debajo, y el número de candidaturas cuando
+  pasa del umbral. El formulario se abre en un **modal a pantalla completa** (`modal--full`, variante nueva
+  del sistema de diseño) con un **asistente de tres pasos** que valida cada paso antes de dejar avanzar.
+- **El seguimiento de la candidatura** enseña en qué punto del proceso está con la misma fila de pasos que
+  el resto de la web, con la insignia de estado, y la acción de retirar en su propio bloque al final con la
+  confirmación en un modal. «En revisión» no dice si eso es al principio o al final, y esa es la pregunta de
+  quien abre el enlace.

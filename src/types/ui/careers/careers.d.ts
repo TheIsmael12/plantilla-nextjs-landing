@@ -167,3 +167,29 @@ interface JobPostingJsonLdProps {
   job: PublicJobDetail;
   locale: string;
 }
+
+/**
+ * Props de `JobDetailAside`.
+ * @interface JobDetailAsideProps
+ * @property {PublicJobDetail} job - Oferta que se está viendo
+ * @property {PublicJobFacet[]} cities - Ciudades, para el selector del formulario
+ */
+interface JobDetailAsideProps {
+  job: PublicJobDetail;
+  cities: PublicJobFacet[];
+}
+
+/**
+ * Props de `JobApplyModal`.
+ * @interface JobApplyModalProps
+ * @property {string} jobCode - Oferta a la que se presenta
+ * @property {PublicJobFacet[]} cities - Ciudades, para el selector
+ * @property {boolean} isOpen - Si el modal está abierto
+ * @property {() => void} onClose - Handler de cierre
+ */
+interface JobApplyModalProps {
+  jobCode: string;
+  cities: PublicJobFacet[];
+  isOpen: boolean;
+  onClose: () => void;
+}

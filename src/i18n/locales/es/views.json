@@ -789,14 +789,24 @@
         "companyName": "Empresa o comunidad",
         "email": "Correo electrónico",
         "phone": "Teléfono",
-        "message": "Mensaje"
+        "message": "Mensaje",
+        "contactProfile": "¿Quién nos escribe?",
+        "serviceInterest": "¿Qué servicio te interesa?",
+        "zone": "¿En qué municipio?",
+        "timeframe": "¿Para cuándo lo necesitas?",
+        "managedPropertiesCount": "¿Cuántas fincas gestionas?"
       },
       "placeholders": {
         "contactName": "Tu nombre completo",
         "companyName": "Nombre de tu empresa o comunidad (opcional)",
         "email": "tu@email.com",
         "phone": "+34 600 000 000",
-        "message": "Cuéntanos con detalle tu consulta…"
+        "message": "Cuéntanos con detalle tu consulta…",
+        "contactProfile": "Elige una opción (opcional)",
+        "serviceInterest": "Elige un servicio (opcional)",
+        "zone": "Elige un municipio (opcional)",
+        "timeframe": "Elige un plazo (opcional)",
+        "managedPropertiesCount": "Por ejemplo, 12"
       },
       "contactHint": "Indica al menos un correo electrónico o un teléfono de contacto.",
       "consents": {
@@ -810,7 +820,29 @@
       "success": "¡Mensaje enviado! Te responderemos lo antes posible.",
       "error": "No se ha podido enviar tu mensaje. Inténtalo de nuevo en unos minutos.",
       "privacy": "Al enviar aceptas nuestra",
-      "privacyLink": "política de privacidad"
+      "privacyLink": "política de privacidad",
+      "options": {
+        "profile": {
+          "PROPERTY_OWNERS_ASSOCIATION": "Una comunidad de propietarios",
+          "PROPERTY_MANAGER": "Un administrador de fincas",
+          "COMPANY": "Una empresa o un edificio propio",
+          "INDIVIDUAL": "Un particular"
+        },
+        "service": {
+          "CONCIERGE": "Conserjería",
+          "SECURITY": "Seguridad",
+          "POOLS": "Piscinas",
+          "CLEANING": "Limpieza",
+          "GARDENING": "Jardinería",
+          "MAINTENANCE": "Mantenimiento",
+          "OTHER": "Otra cosa, o varias"
+        },
+        "timeframe": {
+          "ASAP": "Lo antes posible",
+          "THIS_MONTH": "Este mes",
+          "JUST_INFO": "Solo estoy pidiendo información"
+        }
+      }
     },
     "map": {
       "label": "Dónde estamos",
@@ -2965,6 +2997,9 @@
       "niceToHave": "Qué suma, pero no descarta",
       "benefits": "Qué ofrecemos",
       "reference": "Referencia",
+      "conditions": "El puesto",
+      "applicants": "{count, plural, one {1 persona se ha presentado} other {# personas se han presentado}}",
+      "applyModalTitle": "Presentar candidatura",
       "closedTitle": "Esta oferta ya se cerró",
       "closedText": "El proceso ha terminado. Puedes ver las ofertas que siguen abiertas.",
       "relatedTitle": "Otras ofertas parecidas",
@@ -2998,6 +3033,7 @@
         "lastName": "Tus apellidos",
         "email": "tucorreo@ejemplo.com",
         "phone": "600 000 000",
+        "city": "Elige una ciudad",
         "coverLetter": "Qué has hecho antes, qué te interesa de este puesto…",
         "linkedin": "https://www.linkedin.com/in/…"
       },
@@ -3009,6 +3045,13 @@
       "talentPool": "Guardad mi candidatura 12 meses para futuros procesos.",
       "talentPoolRequired": "En una candidatura espontánea este permiso es necesario: sin él no tendríamos base para conservar tus datos.",
       "noPhoto": "No pedimos fotografía, ni edad, ni nacionalidad: no influyen en la decisión.",
+      "steps": {
+        "who": "Quién eres",
+        "application": "Tu candidatura",
+        "consents": "Permisos"
+      },
+      "next": "Siguiente",
+      "back": "Atrás",
       "submit": "Enviar mi candidatura",
       "submitting": "Enviando…",
       "error": "No hemos podido enviar tu candidatura. Inténtalo de nuevo en unos minutos.",
@@ -3027,6 +3070,10 @@
       "noTalentPool": "No autorizaste guardar tu candidatura para futuros procesos.",
       "withdraw": "Retirar mi candidatura",
       "withdrawing": "Retirando…",
+      "rejectedTitle": "Esta vez no hemos seguido adelante con tu candidatura.",
+      "dangerTitle": "Retirar la candidatura",
+      "withdrawHint": "Se borra tu CV y dejamos de tratar tus datos para este proceso.",
+      "withdrawClosedHint": "El proceso ya terminó, pero puedes retirarla igual: eso borra tu CV antes del plazo de conservación.",
       "withdrawTitle": "¿Retirar la candidatura?",
       "withdrawText": "Se retira tu candidatura y se elimina tu CV. Es irreversible: si más adelante quieres volver a presentarte, tendrás que hacerlo de nuevo.",
       "withdrawConfirm": "Sí, retirarla",

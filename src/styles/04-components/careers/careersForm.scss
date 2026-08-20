@@ -8,6 +8,9 @@
 @use "../../00-settings/variables" as *;
 @use "../../01-tools/mixins" as *;
 
+// El formulario vive en dos sitios: dentro del modal de la ficha y como
+// contenido de la página en la candidatura espontánea. De ahí que no traiga
+// posición ni ancho propios: los pone quien lo coloca.
 .careers__form {
   display: grid;
   gap: 1rem;
@@ -16,12 +19,12 @@
   border: 1px solid var(--border-color);
   @include rounded(0.75rem);
 
-  // En la ficha el formulario va en la columna derecha y acompaña la lectura;
-  // en la candidatura espontánea es el contenido de la página, y ahí se centra
-  // con un ancho de lectura en vez de estirarse a todo el ancho.
-  @include screen(lg) {
-    position: sticky;
-    top: 6rem;
+  // Dentro del modal la caja ya la pone el propio modal: aquí sobra el marco, y
+  // el relleno lo lleva el cuerpo del modal.
+  .modal & {
+    border: none;
+    background: transparent;
+    padding: 0;
   }
 
   // Confirmación de envío: la misma caja, centrada, sin los campos. Se mantiene
@@ -32,10 +35,6 @@
     text-align: center;
     gap: 0.6rem;
     @include py(2.5rem);
-
-    @include screen(lg) {
-      position: static;
-    }
 
     svg {
       color: var(--success-color);
@@ -60,43 +59,10 @@
   }
 }
 
-.careers__form-grid {
-  display: grid;
-  gap: 1rem;
-
-  @include screen(sm) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.careers__form-field {
-  display: grid;
-  gap: 0.35rem;
-  min-width: 0;
-
-  label {
-    font-family: $font-family-base;
-    font-size: $text-sm;
-    font-weight: $font-medium;
-    color: var(--color);
-  }
-
-  select {
-    height: 2.75rem;
-    @include px(0.8rem);
-    font-family: $font-family-base;
-    font-size: $text-sm;
-    color: var(--color);
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    @include rounded(0.4rem);
-
-    &:focus-visible {
-      outline: 2px solid var(--primary-color-active);
-      outline-offset: 1px;
-    }
-  }
-}
+// Sin reglas para el selector de ciudad: es el `Select` del sistema de diseño y
+// trae las suyas (`04-components/ui/inputs/select.scss`). Aquí solo se le da el
+// ancho de la rejilla con `select__full`, igual que a los campos de texto con
+// `input__full`.
 
 // Selector de CV: zona de arrastrar y soltar (borde discontinuo) con el input de
 // fichero real dentro, oculto pero **enfocable** — no se usa `display: none`,
@@ -234,4 +200,21 @@
   height: 1px;
   opacity: 0;
   pointer-events: none;
+}
+
+// Pie del asistente: «Atrás» a la izquierda y la acción que avanza a la derecha,
+// que es donde termina la lectura y donde cae el pulgar en un móvil. El orden lo
+// pone el JSX y no un `row-reverse`, para que el tabulador los recorra igual que
+// se ven.
+.careers__form-actions {
+  @include flex(row, flex-end, center, 0.6rem);
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+
+  // Con un solo botón (el primer paso) se queda a la derecha igual.
+  > *:first-child:not(:last-child) {
+    margin-right: auto;
+  }
 }

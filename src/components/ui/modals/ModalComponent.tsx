@@ -50,6 +50,7 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
   onSubmit,
   children,
   isLarge,
+  isFull,
 }: ModalProps<T>) {
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
@@ -162,7 +163,7 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
       <dialog
         open
         ref={modalRef}
-        className={`modal ${isLarge ? "modal--large" : ""}`}
+        className={`modal${isFull ? " modal--full" : isLarge ? " modal--large" : ""}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"

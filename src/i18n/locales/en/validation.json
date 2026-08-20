@@ -5,7 +5,9 @@
       "emailInvalid": "Please enter a valid email address.",
       "emailOrPhoneRequired": "Please provide at least an email address or a phone number.",
       "privacyRequired": "You must accept the privacy policy to continue.",
-      "maxLength": "This field is too long."
+      "maxLength": "This field is too long.",
+      "invalidOption": "Choose one of the options in the list.",
+      "invalidPropertiesCount": "Enter a number of properties between 1 and 5000."
     },
     "common": {
       "required": "This field is required.",

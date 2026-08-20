@@ -7,7 +7,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
  * 10.10): al bajarla a la acción hay que dejarla cubierta, porque un campo que se olvida aquí es una
  * candidatura que la API rechaza con un 400 y nadie ve hasta producción.
  */
-const fetchData = vi.fn(() => Promise.resolve({ status: 201 }));
+const fetchData = vi.fn((..._args: unknown[]) => Promise.resolve({ status: 201 }));
 
 vi.mock("@/actions/fetch", () => ({ fetchData }));
 

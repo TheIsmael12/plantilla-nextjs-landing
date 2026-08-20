@@ -16,6 +16,40 @@ function fakeFile(name: string, type: string, sizeBytes = 1024): File {
     return new File([new Uint8Array(sizeBytes)], name, { type });
 }
 
+/**
+ * Lleva el asistente al paso del CV, que es el segundo: los datos personales del primero son obligatorios y
+ * el paso no deja avanzar sin ellos.
+ * @param {HTMLElement} canvasElement - Raíz de la historia
+ */
+async function goToCvStep(canvasElement: HTMLElement) {
+    const canvas = within(canvasElement);
+
+    await userEvent.type(canvas.getByLabelText(/Nombre/), 'Lucía');
+    await userEvent.type(canvas.getByLabelText(/Apellidos/), 'Ferrer Gómez');
+    await userEvent.type(canvas.getByLabelText(/Correo/), 'lucia.ferrer@example.com');
+    await userEvent.click(canvas.getByRole('button', { name: /Siguiente/ }));
+
+    await canvas.findByLabelText(/Tu CV/);
+}
+
+/**
+ * Lleva el asistente al último paso, el de los permisos: es donde está el botón de enviar.
+ * @param {HTMLElement} canvasElement - Raíz de la historia
+ */
+async function goToConsentsStep(canvasElement: HTMLElement) {
+    await goToCvStep(canvasElement);
+
+    const canvas = within(canvasElement);
+
+    await userEvent.upload(
+        canvas.getByLabelText(/Tu CV/),
+        fakeFile('cv-lucia.pdf', 'application/pdf', 240 * 1024),
+    );
+    await userEvent.click(canvas.getByRole('button', { name: /Siguiente/ }));
+
+    await canvas.findByRole('checkbox', { name: /He leído la/ });
+}
+
 const meta = {
     title: 'Components/UI/Careers/JobApplyForm',
     component: JobApplyForm,
@@ -58,8 +92,10 @@ export const Default: Story = {
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
 
-        expect(canvas.getByText(/No pedimos fotografía/)).toBeInTheDocument();
-        expect(canvas.getByLabelText(/Tu CV/)).toBeInTheDocument();
+        expect(canvas.getByLabelText(/Nombre/)).toBeInTheDocument();
+        expect(canvas.getByRole('button', { name: /Siguiente/ })).toBeInTheDocument();
+        // El CV y los permisos llegan en los pasos siguientes, no en este.
+        expect(canvas.queryByLabelText(/Tu CV/)).not.toBeInTheDocument();
     },
 };
 
@@ -78,28 +114,44 @@ export const Spontaneous: Story = {
         const canvas = within(canvasElement);
 
         expect(canvas.getByRole('heading', { name: 'Candidatura espontánea' })).toBeInTheDocument();
+
+        await goToConsentsStep(canvasElement);
+
+        // Sin marcar la bolsa de talento no se puede enviar: es la única base legal para conservarla.
         expect(canvas.getByRole('button', { name: /Enviar/ })).toBeDisabled();
     },
 };
 
 /**
- * Los errores de validación al enviar sin rellenar nada. Los mensajes son los del esquema de Yup
- * (`schemas/careers.schema.ts`), traducidos desde `Validations.careers`.
- *
- * Y se comprueba lo que de verdad define este componente: con el formulario inválido **no se llama a
- * `onSubmit`**. Es Formik quien lo decide, y por eso el formulario puede ser presentacional.
+ * Los errores de validación del primer paso: pulsar «Siguiente» sin rellenar nada **no avanza** y dice qué
+ * falta. Es lo que hace que el asistente no sea decorado: sin esta comprobación se podría llegar al último
+ * paso con el correo mal escrito y enterarse al final.
  */
 export const WithErrors: Story = {
     name: 'Con errores de validación',
-    play: async ({ args, canvasElement }) => {
+    play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
 
-        await userEvent.click(canvas.getByRole('button', { name: /Enviar/ }));
+        await userEvent.click(canvas.getByRole('button', { name: /Siguiente/ }));
 
         // El mensaje lo pinta `Input`, que le pone un asterisco delante: se busca por expresión regular.
         expect(await canvas.findByText(/Dinos tu nombre/)).toBeInTheDocument();
-        expect(await canvas.findByText(/Adjunta tu CV/)).toBeInTheDocument();
-        expect(args.onSubmit).not.toHaveBeenCalled();
+        expect(canvas.getByLabelText(/Nombre/)).toBeInTheDocument();
+    },
+};
+
+/** El asistente avanza cuando el paso está bien, y el paso dos es el del CV. */
+export const SecondStep: Story = {
+    name: 'Segundo paso (el CV)',
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        await userEvent.type(canvas.getByLabelText(/Nombre/), 'Lucía');
+        await userEvent.type(canvas.getByLabelText(/Apellidos/), 'Ferrer Gómez');
+        await userEvent.type(canvas.getByLabelText(/Correo/), 'lucia.ferrer@example.com');
+        await userEvent.click(canvas.getByRole('button', { name: /Siguiente/ }));
+
+        expect(await canvas.findByLabelText(/Tu CV/)).toBeInTheDocument();
     },
 };
 
@@ -116,6 +168,7 @@ export const RejectsTooLargeCv: Story = {
     name: 'CV de más de 5 MB',
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
+        await goToCvStep(canvasElement);
 
         await userEvent.upload(
             canvas.getByLabelText(/Tu CV/),
@@ -134,6 +187,7 @@ export const WithChosenCv: Story = {
     name: 'Con el CV elegido',
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
+        await goToCvStep(canvasElement);
 
         await userEvent.upload(
             canvas.getByLabelText(/Tu CV/),
@@ -152,6 +206,8 @@ export const WithChosenCv: Story = {
 export const DragOverHighlight: Story = {
     name: 'Arrastrando un fichero encima',
     play: async ({ canvasElement }) => {
+        await goToCvStep(canvasElement);
+
         const dropZone = canvasElement.querySelector('.careers__form-file');
         expect(dropZone).not.toBeNull();
 
@@ -171,8 +227,9 @@ export const Loading: Story = {
         loading: true,
     },
     play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
+        await goToConsentsStep(canvasElement);
 
+        const canvas = within(canvasElement);
         expect(canvas.getByRole('button', { name: 'Enviando…' })).toBeDisabled();
     },
 };
@@ -209,7 +266,8 @@ export const WithError: Story = {
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
 
+        // El error se pinta en cualquier paso: es del formulario, no de un campo.
         expect(canvas.getByText('Esta oferta ya no admite candidaturas.')).toBeInTheDocument();
-        expect(canvas.getByLabelText(/Tu CV/)).toBeInTheDocument();
+        expect(canvas.getByLabelText(/Nombre/)).toBeInTheDocument();
     },
 };

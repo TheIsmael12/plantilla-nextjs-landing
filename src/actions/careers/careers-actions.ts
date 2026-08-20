@@ -5,11 +5,15 @@ import { fetchData } from "@/actions/fetch";
 import type { FetchResponse, PaginatedResult } from "@/types/responses";
 
 /**
- * Alineado con el `Cache-Control: public, max-age=300` que ya envía el backend en las rutas públicas de
- * empleo. El mismo número que el blog, y por el mismo motivo: es la red de seguridad cuando no llega un
- * aviso de revalidación.
+ * Caché de la ficha de una oferta y del sitemap.
+ *
+ * Un minuto, no los cinco del `Cache-Control` que manda el backend: lo que se guarda aquí es contenido
+ * editable, y con cinco minutos corregir una falta en la descripción y recargar para comprobarlo no
+ * enseñaba el cambio.
+ *
+ * El listado y las facetas van **sin caché**; el motivo está en `getPublicJobs`.
  */
-const CAREERS_REVALIDATE_SECONDS = 300;
+const CAREERS_REVALIDATE_SECONDS = 60;
 
 /**
  * Filtros del buscador de empleo, tal como llegan de la URL.
@@ -77,11 +81,20 @@ function buildJobsQuery(params: PublicJobsQuery): string {
 export async function getPublicJobs(
   params: PublicJobsQuery,
 ): Promise<FetchResponse<PaginatedResult<PublicJobListItem>>> {
+  /*
+   * **Sin caché a propósito**: al no pasar `revalidate`, `fetchData` manda `cache: "no-store"`.
+   *
+   * Con caché, una oferta recién publicada no aparecía en `/empleo` hasta que vencía el plazo —o hasta que
+   * alguien pulsaba «Buscar», porque eso cambia la query y con ella la clave de caché—, y desde la intranet
+   * eso se lee como que la publicación no ha funcionado.
+   *
+   * El precio es una llamada a la API por visita del listado: doce filas contra un endpoint que responde en
+   * milisegundos. La ficha y el sitemap sí se cachean, que es donde el contenido pesa y no cambia cada
+   * minuto.
+   */
   return fetchData<PaginatedResult<PublicJobListItem>, never>(
     `public/careers/jobs${buildJobsQuery(params)}`,
     "GET",
-    undefined,
-    { revalidate: CAREERS_REVALIDATE_SECONDS, tags: ["careers-jobs"] },
   );
 }
 
@@ -96,12 +109,8 @@ export async function getPublicJobs(
 export async function getPublicJobFilters(
   locale: string,
 ): Promise<FetchResponse<PublicJobFilters>> {
-  return fetchData<PublicJobFilters, never>(
-    `public/careers/filters?locale=${locale}`,
-    "GET",
-    undefined,
-    { revalidate: CAREERS_REVALIDATE_SECONDS, tags: ["careers-filters"] },
-  );
+  // Sin caché, por lo mismo que el listado: las ciudades y sus contadores salen de las ofertas vigentes.
+  return fetchData<PublicJobFilters, never>(`public/careers/filters?locale=${locale}`, "GET");
 }
 
 /**

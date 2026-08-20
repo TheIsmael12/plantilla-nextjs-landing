@@ -115,6 +115,7 @@ interface PublicJobListItem {
  * @property {string | null} [applyUrl] - Si la candidatura se gestiona fuera
  * @property {string} employmentType - `employmentType` de schema.org, para el JSON-LD
  * @property {Record<string, string>} alternateSlugs - Slug del mismo puesto en los otros idiomas
+ * @property {number | null} [applicantCount] - Cuánta gente se ha presentado; solo llega a partir del umbral que fija el backend, y por debajo es null
  */
 interface PublicJobDetail extends PublicJobListItem {
   description: string;
@@ -128,6 +129,7 @@ interface PublicJobDetail extends PublicJobListItem {
   applyUrl?: string | null;
   employmentType: string;
   alternateSlugs: Record<string, string>;
+  applicantCount?: number | null;
 }
 
 /**
