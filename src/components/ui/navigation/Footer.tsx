@@ -62,13 +62,11 @@ export default function Footer() {
 
                 <div className="footer__contact">
                     <ul className="footer__contact__info">
-                        {/*
-                          Sin enlace a /careers ("/empleo"): auditoría #5 (app completa,
-                          requisitos-seo.md §17) encontró que esa página nunca se construyó
-                          (404 real) — sitemap.ts ya la excluía a propósito por el mismo
-                          motivo, pero este enlace no se había actualizado a la vez. Volver a
-                          añadirlo cuando exista la página de verdad.
-                        */}
+                        <li>
+                            <Link href="/careers" aria-label={routesT("/careers")} className="footer__contact__info-link">
+                                {routesT("/careers")}
+                            </Link>
+                        </li>
                         <li>
                             <Link href="/blog" aria-label={routesT("/blog")} className="footer__contact__info-link">
                                 {routesT("/blog")}

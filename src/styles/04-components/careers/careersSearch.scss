@@ -1,0 +1,111 @@
+// Barra de búsqueda del buscador de empleo ({@link JobSearchBar}): texto libre
+// + ciudad + botón, en una fila en escritorio y apilada en móvil.
+//
+// Es un `<form>` que funciona sin JavaScript, así que el botón de enviar tiene
+// que existir y verse siempre — no es un adorno del campo de texto.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.careers__search {
+  display: grid;
+  gap: 0.9rem;
+  @include p(1.25rem);
+  margin-bottom: 1.75rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+
+  @include screen(md) {
+    grid-template-columns: 1fr 16rem auto;
+    align-items: end;
+    gap: 1rem;
+  }
+}
+
+.careers__search-field {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+
+  label {
+    font-family: $font-family-base;
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--neutral-color);
+  }
+
+  select {
+    height: 2.75rem;
+    @include px(0.8rem);
+    font-family: $font-family-base;
+    font-size: $text-sm;
+    color: var(--color);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    @include rounded(0.4rem);
+
+    &:focus-visible {
+      outline: 2px solid var(--primary-color-active);
+      outline-offset: 1px;
+    }
+  }
+}
+
+// El icono va dentro de la caja del input, no delante: así el foco rodea el
+// conjunto y no queda un icono suelto fuera del control.
+.careers__search-input {
+  @include flex(row, flex-start, center, 0.5rem);
+  height: 2.75rem;
+  @include px(0.8rem);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.4rem);
+
+  &:focus-within {
+    border-color: var(--primary-color-active);
+    outline: 2px solid var(--primary-color-active);
+    outline-offset: 1px;
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: var(--neutral-color);
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: none;
+    background: transparent;
+    font-family: $font-family-base;
+    font-size: $text-sm;
+    color: var(--color);
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}
+
+.careers__search-submit {
+  height: 2.75rem;
+  @include px(1.6rem);
+  font-family: $font-family-base;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--light-color);
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  @include rounded(0.4rem);
+
+  &:hover {
+    background: var(--primary-color-hover);
+    border-color: var(--primary-color-hover);
+  }
+}

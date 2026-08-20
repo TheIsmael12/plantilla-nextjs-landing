@@ -53,6 +53,18 @@
       "emailInvalid": "Please enter a valid email address.",
       "privacyRequired": "You must accept the privacy policy to continue.",
       "maxLength": "This field is too long."
+    },
+    "careers": {
+      "maxLength": "This is too long",
+      "firstNameRequired": "Tell us your first name",
+      "lastNameRequired": "Tell us your last name",
+      "emailRequired": "We need an email to reply to you",
+      "emailInvalid": "That email does not look valid",
+      "urlInvalid": "The address must start with http:// or https://",
+      "cvRequired": "Attach your CV",
+      "cvType": "The CV must be a PDF",
+      "cvSize": "The CV cannot be larger than 5 MB",
+      "privacyRequired": "You must confirm you have read the information"
     }
   }
 }

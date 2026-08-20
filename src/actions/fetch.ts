@@ -81,11 +81,20 @@ const baseURL = ENV.BACKEND_URL;
 export async function fetchData<T, Y>(
   endpoint: string,
   method: HttpMethod = "GET",
-  data?: Partial<Y>,
+  data?: Partial<Y> | FormData,
   options?: FetchDataOptions,
 ): Promise<FetchResponse<T>> {
+  /*
+   * Un `FormData` se manda tal cual y **sin** `Content-Type`, igual que ya hacía `fetchDataToken`: el
+   * runtime añade el `multipart/form-data; boundary=...` correcto, que un `JSON.stringify` rompería.
+   *
+   * Hacía falta aquí porque el formulario de candidatura sube el CV a un endpoint **público** (sin token),
+   * y era el único helper de los dos que no sabía mandar un fichero.
+   */
+  const isFormData = data instanceof FormData;
+
   const requestHeaders = await buildHeaders({
-    "Content-Type": "application/json",
+    ...(isFormData ? {} : { "Content-Type": "application/json" }),
     ...options?.extraHeaders,
   });
 
@@ -95,7 +104,7 @@ export async function fetchData<T, Y>(
     response = await fetch(`${baseURL}/${endpoint}`, {
       method,
       headers: requestHeaders,
-      body: method !== "GET" ? JSON.stringify(data) : undefined,
+      body: method !== "GET" ? (isFormData ? data : JSON.stringify(data)) : undefined,
       ...cacheOptions(options?.revalidate, options?.tags),
       signal: AbortSignal.timeout(30_000),
     });

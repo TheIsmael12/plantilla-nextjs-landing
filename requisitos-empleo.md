@@ -311,3 +311,135 @@ Bloquear `/empleo/candidatura/` y `/careers/applications/`. Con la lección de q
 - **Buscador por distancia** («ofertas a menos de 20 km»): el filtro es por ciudad.
 - **Traducción automática** de una oferta que no tiene versión inglesa. Sin traducción, no se lista (ver backend, 2.2).
 - **Página de categoría indexable** (`/empleo/categorias/limpieza`), equivalente a la de ciudad. Tiene sentido y probablemente sea el siguiente paso, pero la ciudad es la que manda en la intención de búsqueda de este sector y no conviene abrir dos familias de facetas indexables a la vez sin ver antes cómo se comporta la primera.
+
+---
+
+## 10. Lo que se hizo distinto de este documento
+
+Este documento se escribió antes de tocar código. Al implementarlo hubo cosas que se hicieron de otra forma,
+y se dejan anotadas aquí con el motivo: un documento que no cuadra con el código deja de servir para leerlo.
+
+### 10.1 La candidatura va por acción de servidor, no por `POST` directo del navegador (contra 4.2.2)
+
+La sección 4.2.2 pedía que el formulario hiciera `POST` directamente a la API, con dos argumentos: conservar
+la IP real del candidato y evitar que el fichero hiciera dos saltos. El primero **ya está resuelto** sin ir
+directo —`utils/fetchUtils.ts` reenvía `x-forwarded-for`, así que el límite por IP y la prueba del
+consentimiento siguen valiendo—, y en cambio ir directo obligaba a dos cosas de despliegue para no ganar
+nada: publicar `API_BASE_URL` como `NEXT_PUBLIC_*` (hoy es solo de servidor, y publicarla ya causó un fallo
+real en producción en este proyecto) y abrir CORS de la API a este origen.
+
+El precio es el que decía el documento: el fichero hace dos saltos, y eso obliga a subir el
+`bodySizeLimit` de las acciones de servidor (1 MB por defecto) por encima del máximo del CV. Está hecho en
+`next.config.ts`.
+
+### 10.2 El JSON-LD va sin `nonce`
+
+`application/ld+json` es un bloque de datos que el navegador no ejecuta, así que la CSP de `script-src` no lo
+bloquea. Es lo mismo que ya hace el resto del JSON-LD de la web.
+
+### 10.3 Los componentes están en `components/ui/careers/`, no en `components/careers/`
+
+Es la convención del repositorio: todo lo que se pinta vive bajo `components/ui/<área>/`, con sus props en
+`types/ui/<área>/`. Solo `JobPostingJsonLd` queda fuera, en `components/seo/`, con el resto del SEO.
+
+### 10.4 Los textos van en `views.json`, no en un `careers.json` nuevo
+
+La sección 6.4 pedía un fichero nuevo por módulo. En este repositorio los textos de las páginas viven en el
+namespace `Views` de `views.json` —el blog está ahí, y el resto de secciones también—, así que empleo va en
+`Careers` dentro del mismo fichero. Un fichero nuevo habría exigido tocar el cargador de mensajes para nada.
+
+### 10.5 No hay `generateStaticParams` en las páginas de ciudad (contra 2.2)
+
+Tres motivos, en orden de peso:
+
+1. **Movería una llamada a la API al `next build`.** Este proyecto ya tiene un fallo documentado por
+   depender de la API en tiempo de compilación; una API caída pasaría de «una página tarda 300 ms más» a
+   «el despliegue no sale».
+2. **No cambia el comportamiento.** Con `dynamicParams` activo (el valor por defecto), una ciudad que no
+   estuviera en la lista se renderiza igual bajo demanda. Lo único que se gana es la caché caliente.
+3. **Ninguna página de este repositorio lo usa**, ni siquiera el detalle del blog, que tiene el mismo
+   problema.
+
+### 10.6 No hay `loading.tsx` en las rutas de empleo, y es a propósito
+
+Se escribieron dos (`/careers` y `/careers/[slug]`) y **se quitaron** al comprobar el efecto: un Suspense por
+encima de la página confirma el `200` antes de que la vista pueda lanzar el `notFound()`, así que
+`/empleo/ciudades/<ciudad-sin-ofertas>` respondía **200 con el cuerpo de un 404** — un soft 404 en toda
+regla, justo lo contrario de lo que pide 3.5. Lo mismo valía para la redirección al otro idioma de la ficha,
+que se quedaba sin emitir el `307`.
+
+Comprobado en los dos sentidos: con `loading.tsx`, esa URL responde 200; sin él, 404.
+
+### 10.7 La ficha de una oferta cerrada responde `200` con `noindex`, no `410`
+
+La API sí responde `410` y la página lo trata como corresponde (explica que el proceso terminó y enlaza al
+buscador, ver 4.1), pero el enrutador de Next no permite emitir un `410` desde una página: solo `404` vía
+`notFound()`. Así que la respuesta es `200` con `robots: noindex, follow`, que es lo que saca esa URL del
+índice sin dejar a la persona en una página de error.
+
+### 10.8 Añadidos que no estaban en el documento
+
+Salieron al verificar contra el backend real y se dejan hechos:
+
+- **`extensions` en `FetchResponse`** (`utils/fetchUtils.ts`): los *extension members* de un problema
+  RFC 9457 se conservaban en la API y se tiraban en el frontal. Sin ellos, el `correctSlug` del `404` en el
+  idioma equivocado no llegaba nunca y la redirección de 4.1 no podía funcionar.
+- **`GONE` (410) en `constants/httpStatus.ts`**: no existía en el catálogo de estados.
+- **`formatJobSalary` en `utils/careersFormatUtils.ts`**: la API manda los importes como cadena decimal
+  (`"18000.00"`) y la tarjeta los pintaba tal cual.
+- **El error del CV se traduce en el componente**: ese campo no pasa por `Input`, que es quien resuelve las
+  claves de `Validations`, así que se pintaba la clave en crudo. Es exactamente el caso que 6.4 señalaba
+  como el peor.
+- **`locale` en el seguimiento de la candidatura**: el endpoint devolvía el título y el slug de la oferta en
+  el idioma que la base de datos pusiera primero, así que la página en español enseñaba el título en inglés
+  y enlazaba a un slug que en el sitio en español no existe. Se arregló en el backend
+  (`utils/translation.util.ts`) y el landing manda el idioma de la página.
+
+### 10.9 Dónde quedó cada prueba de la sección 8
+
+| Lo que pedía la sección 8 | Dónde está |
+| --- | --- |
+| Historias de `JobCard`, `JobFilters`, `JobList`, `JobApplyForm` y `JobDetailHeader` | `src/components/ui/careers/*.stories.tsx` (34 historias, con sus *play functions*) |
+| `JobList` «con datos, vacío y cargando» | Datos y vacío en `JobList.stories.tsx`; el vacío real es `JobEmptyState.stories.tsx`, que es quien lo pinta. **Cargando no existe**: no hay `loading.tsx` a propósito (ver 10.6) |
+| `JobApplyForm` «limpio, con errores, subiendo, enviado» | Las cuatro, más «rechazado por la API» y las del CV. Los tres estados van **por props** en `JobApplyForm.stories.tsx` (el formulario es presentacional, ver 10.10); el envío de verdad se prueba en `JobApplySection.stories.tsx` con un doble de la acción (`.storybook/mocks/careers-actions.ts`), porque el módulo real no se puede ni importar en el navegador |
+| El texto no se sale de la caja | Historias de título y resumen largos en `JobCard`, y el recorte va con `line-clamp` en la tarjeta |
+| Una oferta sin traducción `en` no aparece en `locale=en` | Es una regla del backend, así que se comprobó **contra la API en marcha**: publicada una oferta solo en español, `locale=es` devuelve 2 y `locale=en` devuelve 1 |
+| El JSON-LD no incluye `baseSalary` sin salario público | `test/JobPostingJsonLd.test.tsx` |
+| Una URL con filtros lleva `noindex` y una página de ciudad no | `test/careersMetadata.test.ts`, y comprobado en el HTML servido |
+| El canónico de `?citySlug=` apunta a la página de ciudad | `test/careersMetadata.test.ts` (incluye los casos en que **no** debe apuntar ahí: varias ciudades, o ciudad con otro filtro) |
+| Rechazo en cliente de un CV que no es PDF y de uno de más de 5 MB | `test/careers.schema.test.ts` las dos reglas; en Storybook la del tamaño (`userEvent.upload` respeta el `accept` del input, así que un PNG no llega a entrar) |
+
+Además, y no estaban en la lista: `test/careersRobots.test.ts` (que los patrones de `robots.txt` casan de
+verdad con las URLs del seguimiento y **no** con el buscador), `test/careersFormatUtils.test.ts` (el formato
+del salario) y dos casos nuevos en `test/fetchUtils.test.ts` (los campos extra del problema RFC 9457).
+
+### 10.10 El formulario es presentacional, y el `FormData` lo monta la acción
+
+Corregido en revisión: la primera versión de `JobApplyForm` importaba la acción de servidor, se guardaba el
+estado de envío y **montaba el `FormData` a mano**. Funcionaba, pero no es como se hacen los formularios en
+este proyecto, y eso es motivo suficiente para cambiarlo: un patrón propio en un formulario obliga a
+aprenderlo aparte y se va copiando al siguiente.
+
+El reparto correcto es el de `ContactForm` / `ContactViewPage`, y ahora es el mismo:
+
+- **`JobApplyForm`**: valida con Formik + Yup (`jobApplicationSchema`) y **entrega los valores** por
+  `onSubmit(values, captchaToken)`. Recibe `loading`, `success` y `error` por props. No importa acciones ni
+  sabe cómo viaja el fichero — mismas props que `ContactFormProps`.
+- **`JobApplySection`** (`'use client'`): pone el estado, mapea los valores al payload y llama a la acción.
+  En contacto esto vive en la vista; aquí hace falta un componente aparte porque las vistas de empleo son
+  Server Components a propósito (el listado y la ficha tienen que salir ya pintados en el HTML), así que la
+  parte de cliente se queda en esta capa fina en vez de arrastrar la página entera.
+- **`submitJobApplication(payload)`**: recibe un objeto tipado (`JobApplicationPayload`, el equivalente de
+  `CreatePublicLeadPayload`) y **monta ahí el `multipart/form-data`**. El endpoint es multipart porque lleva
+  un fichero; eso es transporte, y el transporte es de la capa de acciones.
+
+Lo que se gana, además de la coherencia: el formulario se puede probar sin doblar ninguna acción de servidor
+—sus estados entran por props, como los de `ContactForm`— y el punto donde se decide qué se manda a la API
+queda en un solo sitio.
+
+De la lista de ficheros de la sección 1 quedan fuera cinco cajas que no llegaron a hacer falta:
+`JobApplyCvField` y `JobApplySuccess` son dos bloques del propio formulario (el campo del CV con su zona de
+arrastre, y la confirmación que lo sustituye), y partirlos habría repartido en tres ficheros un componente
+que se lee de una vez; `JobFiltersDrawer` es el mismo panel de `JobFilters` abierto por CSS, y
+`JobListEmpty`/`JobShare` se resolvieron como `JobEmptyState` y con el enlace normal del navegador. En su
+lugar apareció `JobApplySection`, que sí separa dos responsabilidades distintas.

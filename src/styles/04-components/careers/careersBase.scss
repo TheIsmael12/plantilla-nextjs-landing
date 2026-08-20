@@ -1,0 +1,276 @@
+// Bloques base compartidos por todas las páginas de empleo (buscador, ciudad,
+// ficha y seguimiento): contenedor, secciones, hero, chips, cuadrícula, estado
+// vacío y paginación — mismo reparto que `04-components/blog/blogBase.scss`.
+//
+// Solo tokens globales (`00-settings/`) y mixins de `01-tools/`: los colores
+// salen de las variables CSS, que es lo que hace que el tema oscuro (`.dark`)
+// funcione sin escribir una sola regla más.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.careers {
+  overflow-x: hidden;
+}
+
+.careers__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  @include px(1.5rem);
+}
+
+.careers__section {
+  @include py(3.5rem);
+}
+
+// Hero del buscador y de las páginas de ciudad. El degradado es el mismo
+// recurso que usa el resto del sitio para separar la cabecera del contenido
+// sin meter una imagen que habría que cargar.
+.careers__hero {
+  background: linear-gradient(
+    180deg,
+    var(--primary-color-light) 0%,
+    var(--background-color) 100%
+  );
+  @include py(3.5rem);
+}
+
+.careers__hero-title {
+  font-family: $font-title;
+  font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+  font-weight: $font-semibold;
+  color: var(--primary-color);
+  line-height: 1.14;
+  text-wrap: balance;
+  margin: 0 0 0.85rem;
+}
+
+.careers__hero-subtitle {
+  font-family: $font-family-base;
+  font-size: $text-lg;
+  color: var(--neutral-color);
+  line-height: 1.6;
+  max-width: 46rem;
+  margin: 0;
+}
+
+.careers__hero-count {
+  @include flex(row, flex-start, center, 0.4rem);
+  flex-wrap: wrap;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--primary-color-active);
+  margin: 1.1rem 0 0;
+}
+
+.careers__hero-links {
+  @include flex(row, flex-start, center, 1.25rem);
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+
+  a {
+    color: var(--primary-color-active);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.careers__button {
+  @include flex(row, center, center, 0.5rem);
+  @include px(1.4rem);
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  font-family: $font-family-base;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--light-color);
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  @include rounded(999px);
+
+  &:hover {
+    background: var(--primary-color-hover);
+    border-color: var(--primary-color-hover);
+  }
+
+  // Variante secundaria: se aplica sola cuando el botón es un enlace externo
+  // (`target="_blank"`), que es el caso de la candidatura gestionada fuera.
+  &[target="_blank"] {
+    color: var(--primary-color);
+    background: transparent;
+  }
+}
+
+// Aviso de proceso en pausa o de información que no es un error: el amarillo
+// de `--warning-color` ya está calculado para cumplir contraste sobre su fondo
+// claro, así que no hace falta tocar la opacidad.
+.careers__notice {
+  @include p(0.9rem 1.1rem);
+  margin: 1.25rem 0 0;
+  font-size: $text-sm;
+  color: var(--warning-color);
+  background: var(--warning-color-light);
+  border-left: 3px solid var(--warning-color);
+  @include rounded(0.4rem);
+}
+
+// Chip: la misma pieza para los enlaces de ciudad y para los filtros, porque
+// son la misma cosa (un valor con su número de ofertas) en dos sitios.
+.careers__chip {
+  @include flex(row, center, center, 0.4rem);
+  @include px(0.95rem);
+  height: 2.2rem;
+  font-family: $font-family-base;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--color);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  @include rounded(999px);
+
+  &:hover {
+    border-color: var(--primary-color-active);
+    color: var(--primary-color-active);
+  }
+
+  &--active {
+    color: var(--light-color);
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+
+    &:hover {
+      color: var(--light-color);
+      background: var(--primary-color-hover);
+    }
+  }
+}
+
+.careers__chip-count {
+  font-size: $text-xs;
+  opacity: 0.75;
+  font-variant-numeric: tabular-nums;
+}
+
+.careers__cities {
+  margin-bottom: 2.25rem;
+}
+
+.careers__cities-title {
+  font-family: $font-title;
+  font-size: $text-xl;
+  font-weight: $font-semibold;
+  color: var(--color);
+  margin: 0 0 0.3rem;
+}
+
+.careers__cities-subtitle {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  margin: 0 0 0.9rem;
+}
+
+.careers__cities-list {
+  @include flex(row, flex-start, center, 0.5rem);
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.careers__grid {
+  @include grid(1, 1.5rem);
+
+  @include screen(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include screen(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.careers__empty {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.6rem;
+  @include py(3.5rem);
+  color: var(--neutral-color);
+}
+
+.careers__empty-title {
+  font-family: $font-title;
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  color: var(--color);
+  margin: 0.4rem 0 0;
+}
+
+.careers__empty-text {
+  font-size: $text-base;
+  line-height: 1.65;
+  max-width: 34rem;
+  margin: 0 0 0.9rem;
+}
+
+.careers__pagination {
+  @include flex(row, center, center, 0.4rem);
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+.careers__pagination-page,
+.careers__pagination-arrow {
+  @include flex(row, center, center, 0);
+  min-width: 2.4rem;
+  height: 2.4rem;
+  @include px(0.6rem);
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--color);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  @include rounded(0.4rem);
+
+  &:hover {
+    border-color: var(--primary-color-active);
+    color: var(--primary-color-active);
+  }
+}
+
+.careers__pagination-page--active {
+  color: var(--light-color);
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+
+  &:hover {
+    color: var(--light-color);
+  }
+}
+
+// La flecha deshabilitada se pinta como un `<span>`, no como un enlace muerto:
+// se ve el borde del control para que la barra no baile, pero no hay nada que
+// pulsar ni que anunciar.
+.careers__pagination-arrow--disabled {
+  color: var(--border-color-active);
+  cursor: default;
+
+  &:hover {
+    border-color: var(--border-color);
+    color: var(--border-color-active);
+  }
+}

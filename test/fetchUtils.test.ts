@@ -220,6 +220,49 @@ describe("parseError", () => {
       message: "Common.Errors.unexpectedError",
     });
   });
+
+  /*
+   * Los campos extra del problema (RFC 9457 los llama *extension members*) se conservan.
+   *
+   * No es una comodidad: la ficha de una oferta pedida en el idioma equivocado responde `404` con el
+   * `correctSlug` dentro, y es lo único que permite redirigir a la misma oferta en el otro idioma. Cuando
+   * esta función los tiraba, el dato llegaba de la API y se perdía aquí.
+   */
+  it("conserva los campos extra del problema", async () => {
+    const response = new Response(
+      JSON.stringify({
+        type: "/errors/careers/posting-wrong-locale",
+        title: "Oferta en otro idioma",
+        status: 404,
+        detail: 'Esa dirección no existe en "es"',
+        instance: "/api/public/careers/jobs/concierge-in-getafe",
+        timestamp: "2026-08-20T09:51:05.813Z",
+        correctSlug: "conserje-en-getafe",
+        availableLocale: "en",
+      }),
+      { status: 404 },
+    );
+
+    await expect(parseError(response)).resolves.toEqual({
+      status: 404,
+      message: 'Esa dirección no existe en "es"',
+      errors: undefined,
+      extensions: { correctSlug: "conserje-en-getafe", availableLocale: "en" },
+    });
+  });
+
+  /** Un problema sin campos extra no gana un `extensions` vacío: sigue siendo la misma respuesta de antes. */
+  it("no añade extensions cuando el problema solo trae los campos del estándar", async () => {
+    const response = new Response(
+      JSON.stringify({ type: "/errors/conflict", title: "Conflicto", status: 409, detail: "Ya existe" }),
+      { status: 409 },
+    );
+
+    const parsed = await parseError(response);
+
+    expect(parsed).toEqual({ status: 409, message: "Ya existe", errors: undefined });
+    expect(parsed.extensions).toBeUndefined();
+  });
 });
 
 describe("parseSuccess", () => {

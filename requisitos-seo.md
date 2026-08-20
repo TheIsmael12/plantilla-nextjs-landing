@@ -462,7 +462,8 @@ problemas fuera del trabajo de esta rama, no solo revalidó lo ya tocado.
       se construyó (404 confirmado en producción real). El propio `sitemap.ts` ya lo sabía y
       excluía esa ruta a propósito ("no existe todavía"), pero el footer no se había
       actualizado a la vez, así que el 404 estaba presente en cada página del sitio. Quitado
-      el enlace hasta que la página exista de verdad.
+      el enlace hasta que la página exista de verdad. **Cerrado el 2026-08-20** (ver §36): la
+      página existe, el enlace está restaurado y `/empleo` entra en el sitemap.
 - [x] **Verificación de integridad de datos, ampliada.** Confirmado con build de producción
       real: `og:title`/`og:description` heredan el metadata ya corregido; `/login` y el resto
       de páginas de autenticación llevan `robots: noindex, nofollow` correctamente; el peso
@@ -1322,3 +1323,41 @@ real, servidor en puerto nuevo y `curl` contra el HTML servido: fecha "17 de ago
 biografía" o `cookie_consent` en el HTML servido, y el aviso de `localStorage` presente en las 4
 páginas (ES/EN). `npx vitest run --project=unit`: 361 passed, 1 failed (mismo fallo preexistente
 de siempre).
+
+## 36. La bolsa de empleo cierra las tres exclusiones de `/empleo` (2026-08-20)
+
+El módulo de empleo (`requisitos-empleo.md`) construye de verdad las páginas que faltaban, así que las
+tres exclusiones que arrastraba el proyecto por ese 404 dejan de tener motivo y se quitan **juntas**, que
+es lo que no se hizo la última vez:
+
+- **`sitemap.ts`**: fuera el comentario de «las que todavía no existen (`/careers`)». `/empleo` entra en
+  `SITEMAP_ROUTES` (prioridad 0.7, `daily`), y las ofertas vigentes y las páginas de ciudad se añaden con
+  `buildCareersSitemapEntries()`, mismo patrón que los posts del blog.
+- **`Footer.tsx`**: enlace restaurado en la columna de contacto, y borrado el comentario que decía
+  «volver a añadirlo cuando exista la página de verdad».
+- **Este documento**: el punto de la auditoría #5 (§17) queda marcado como cerrado.
+
+Lo que aporta el módulo, en términos de SEO:
+
+- **Datos estructurados `JobPosting`** en la ficha de cada oferta, y solo ahí. Con `validThrough` real
+  (la caducidad es obligatoria en el backend justo por esto) y **sin `baseSalary`** cuando la oferta no
+  publica el importe: un dato estructurado que no coincide con lo que ve el usuario es motivo de
+  penalización, no un detalle.
+- **Páginas de ciudad indexables** (`/empleo/ciudades/<ciudad>`), que son las que pueden posicionar por
+  «trabajo en Getafe». Una ciudad sin ofertas responde **404**, no una página de relleno.
+- **Las URLs con filtros van `noindex, follow`**, y el canónico de `?citySlug=<ciudad>` apunta a la
+  página de ciudad. Es la fuente clásica de contenido duplicado de cualquier buscador con facetas.
+- **Una oferta cerrada** responde `200` con `noindex, follow` y una página que explica que el proceso
+  terminó (el enrutador de Next no permite emitir un `410` desde una página; ver `requisitos-empleo.md`,
+  10.7). Sale del índice sin dejar a nadie en una página de error, y sin que la URL quede como error en
+  Search Console.
+- **`robots.ts`** bloquea `/empleo/candidatura/` y `/careers/applications/` en los cuatro patrones (con y
+  sin prefijo de idioma), para el rastreador genérico, los de IA, Googlebot y Bingbot. Con la lección de
+  §26 aprendida: hay una prueba (`test/careersRobots.test.ts`) que **comprueba que los patrones casan**
+  con las URLs reales y que no bloquean el buscador ni las fichas.
+
+**Un soft 404 encontrado y arreglado por el camino**: las rutas de empleo se escribieron con `loading.tsx`
+y eso hacía que una ciudad sin ofertas respondiera **200 con el cuerpo de un 404** — el Suspense confirma
+el estado antes de que la página pueda lanzar `notFound()`. Comprobado en los dos sentidos y quitados los
+dos `loading.tsx` (ver `requisitos-empleo.md`, 10.6). Merece la pena tenerlo presente para cualquier ruta
+futura que dependa de responder 404, 410 o una redirección.

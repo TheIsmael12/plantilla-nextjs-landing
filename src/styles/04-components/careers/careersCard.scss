@@ -1,0 +1,131 @@
+// Tarjeta de oferta del listado ({@link JobCard}). Sin imagen a propósito: una
+// oferta no tiene portada, y rellenar el hueco con un icono grande solo quitaría
+// sitio al título y al salario, que es lo que se compara de un vistazo.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.careers__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  @include p(1.5rem);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  @include rounded(0.75rem);
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color-active);
+    box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.16);
+  }
+
+  // Destacada: solo el borde izquierdo. Un fondo distinto haría que el texto
+  // dejara de cumplir el contraste que ya está comprobado sobre `--surface-color`.
+  &--featured {
+    border-left: 3px solid var(--fill-color);
+  }
+}
+
+.careers__card-tags {
+  @include flex(row, flex-start, center, 0.4rem);
+  flex-wrap: wrap;
+  min-height: 1.4rem;
+}
+
+.careers__tag {
+  @include px(0.6rem);
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  font-family: $font-family-base;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--dark-color);
+  background: var(--fill-color);
+  @include rounded(999px);
+
+  &--muted {
+    color: var(--neutral-color);
+    background: var(--neutral-color-light);
+  }
+}
+
+.careers__card-title {
+  margin: 0;
+  font-family: $font-title;
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  line-height: 1.32;
+
+  a {
+    color: var(--color);
+    text-decoration: none;
+    background-image: linear-gradient(var(--primary-color-active), var(--primary-color-active));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size 0.25s ease, color 0.25s ease;
+
+    &:hover {
+      color: var(--primary-color-active);
+      background-size: 100% 1px;
+    }
+  }
+}
+
+.careers__card-summary {
+  flex: 1;
+  margin: 0;
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  line-height: 1.65;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.careers__card-meta {
+  @include flex(row, flex-start, center, 0.9rem);
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: $text-xs;
+  color: var(--neutral-color);
+
+  li {
+    @include flex(row, flex-start, center, 0.3rem);
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: var(--primary-color-active);
+  }
+}
+
+.careers__card-salary {
+  margin: 0;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+
+  // Cuando la oferta no publica importe se pinta el texto de "a convenir" con
+  // el color apagado: sigue siendo la misma línea, así que las tarjetas de una
+  // fila no se descuadran unas con otras.
+  &:empty {
+    display: none;
+  }
+}
+
+.careers__card-date {
+  margin: 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border-color);
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}

@@ -1,0 +1,281 @@
+// Ficha de la oferta ({@link JobDetailHeader}, {@link JobDetailBody}), página de
+// proceso cerrado y seguimiento de la candidatura ({@link ApplicationTracking}).
+//
+// El cuerpo de la oferta llega en Markdown ya convertido, así que sus estilos se
+// aplican por etiqueta dentro de .careers__prose: no hay clases que poner en un
+// HTML que no escribimos nosotros.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.careers__detail-header {
+  background: linear-gradient(180deg, var(--primary-color-light) 0%, var(--background-color) 100%);
+  @include py(3rem);
+}
+
+.careers__detail-reference {
+  @include flex(row, flex-start, center, 0.5rem);
+  flex-wrap: wrap;
+  margin: 0 0 0.6rem;
+  font-family: $font-family-base;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--primary-color-active);
+}
+
+.careers__detail-title {
+  font-family: $font-title;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: $font-semibold;
+  color: var(--primary-color);
+  line-height: 1.16;
+  text-wrap: balance;
+  margin: 0 0 0.75rem;
+}
+
+.careers__detail-summary {
+  font-size: $text-lg;
+  color: var(--neutral-color);
+  line-height: 1.6;
+  max-width: 48rem;
+  margin: 0;
+}
+
+.careers__detail-meta {
+  @include flex(row, flex-start, center, 1.1rem);
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  font-size: $text-sm;
+  color: var(--color);
+
+  li {
+    @include flex(row, flex-start, center, 0.4rem);
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: var(--primary-color-active);
+  }
+}
+
+.careers__detail-salary {
+  margin: 0.9rem 0 0;
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+// Dos columnas en escritorio: la oferta a la izquierda y el formulario a la
+// derecha. En móvil el formulario queda debajo, que es donde se llega después
+// de leer.
+.careers__detail-layout {
+  display: grid;
+  gap: 2rem;
+
+  @include screen(lg) {
+    grid-template-columns: minmax(0, 1fr) 24rem;
+    align-items: start;
+  }
+}
+
+.careers__detail-body {
+  display: grid;
+  gap: 2rem;
+  min-width: 0;
+}
+
+.careers__detail-section {
+  h2 {
+    font-family: $font-title;
+    font-size: $text-xl;
+    font-weight: $font-semibold;
+    color: var(--color);
+    margin: 0 0 0.7rem;
+  }
+}
+
+.careers__prose {
+  font-family: $font-family-base;
+  font-size: $text-base;
+  color: var(--color);
+  line-height: 1.72;
+
+  p,
+  ul,
+  ol {
+    margin: 0 0 1rem;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.35rem;
+  }
+
+  li {
+    margin-bottom: 0.35rem;
+  }
+
+  a {
+    color: var(--primary-color-active);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  strong {
+    font-weight: $font-semibold;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.careers__benefits {
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    @include flex(row, flex-start, center, 0.5rem);
+    font-size: $text-sm;
+    color: var(--color);
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: var(--success-color);
+  }
+}
+
+.careers__detail-links {
+  @include flex(row, flex-start, center, 0.5rem);
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: $text-sm;
+
+  a {
+    color: var(--primary-color-active);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+}
+
+// Proceso cerrado y enlace de seguimiento no válido: la misma caja centrada. En
+// los dos casos no hay nada que hacer en la página salvo volver al buscador, y
+// eso es exactamente lo que se ve.
+.careers__closed {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.7rem;
+  @include py(3rem);
+
+  h1 {
+    font-family: $font-title;
+    font-size: $text-3xl;
+    font-weight: $font-semibold;
+    color: var(--primary-color);
+    margin: 0;
+  }
+
+  p {
+    font-size: $text-base;
+    color: var(--neutral-color);
+    line-height: 1.65;
+    max-width: 34rem;
+    margin: 0 0 0.6rem;
+  }
+}
+
+.careers__tracking {
+  max-width: 38rem;
+  margin: 0 auto;
+  @include p(1.75rem);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+
+  h1 {
+    font-family: $font-title;
+    font-size: $text-2xl;
+    font-weight: $font-semibold;
+    color: var(--primary-color);
+    margin: 0 0 1.25rem;
+  }
+
+  // Ya retirada: la caja se queda, pero apagada. Es la señal de que la acción
+  // se hizo, sin cambiar la página por otra.
+  &--done {
+    text-align: center;
+    color: var(--neutral-color);
+  }
+}
+
+.careers__tracking-data {
+  display: grid;
+  gap: 0.5rem 1rem;
+  margin: 0;
+
+  @include screen(sm) {
+    grid-template-columns: 10rem minmax(0, 1fr);
+  }
+
+  dt {
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--neutral-color);
+  }
+
+  dd {
+    margin: 0;
+    font-size: $text-sm;
+    color: var(--color);
+  }
+}
+
+.careers__tracking-confirm {
+  margin-top: 1.5rem;
+  @include p(1rem);
+  background: var(--neutral-color-light);
+  @include rounded(0.5rem);
+
+  p {
+    margin: 0 0 0.9rem;
+    font-size: $text-sm;
+    color: var(--color);
+  }
+}
+
+.careers__tracking-actions {
+  @include flex(row, flex-start, center, 0.6rem);
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+// Ofertas parecidas al final de la ficha: fondo distinto para que se lea como
+// «otra cosa» y no como una continuación de la oferta que se acaba de leer.
+.careers__related {
+  background: var(--background-color);
+}
+
+.careers__related-title {
+  font-family: $font-title;
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  color: var(--color);
+  margin: 0 0 1.25rem;
+}

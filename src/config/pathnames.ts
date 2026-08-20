@@ -163,6 +163,18 @@ export const pathnames = {
     en: "/careers",
     es: "/empleo",
   },
+  "/careers/[slug]": {
+    en: "/careers/[slug]",
+    es: "/empleo/[slug]",
+  },
+  "/careers/cities/[city]": {
+    en: "/careers/cities/[city]",
+    es: "/empleo/ciudades/[city]",
+  },
+  "/careers/applications/[token]": {
+    en: "/careers/applications/[token]",
+    es: "/empleo/candidatura/[token]",
+  },
 
   // Ayuda y soporte
   "/help": {

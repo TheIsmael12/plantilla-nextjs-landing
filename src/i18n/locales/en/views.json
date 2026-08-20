@@ -2809,5 +2809,162 @@
         "filterAll": "All"
       }
     }
+  },
+  "Careers": {
+    "hero": {
+      "title": "Work with us",
+      "subtitle": "These are the openings we have right now. If none of them fits, you can still send us your application.",
+      "count": "{count, plural, =0 {No openings right now} one {1 opening} other {# openings}}",
+      "countWithCities": "{jobs, plural, one {1 opening} other {# openings}} in {cities, plural, one {1 city} other {# cities}}"
+    },
+    "search": {
+      "label": "Search by position",
+      "placeholder": "Concierge, cleaning, gardening…",
+      "submit": "Search",
+      "cityLabel": "City",
+      "cityAll": "All cities"
+    },
+    "filters": {
+      "title": "Filters",
+      "open": "Show filters",
+      "close": "Close",
+      "clear": "Clear all",
+      "applied": "Active filters",
+      "remove": "Remove this filter",
+      "city": "City",
+      "category": "Position",
+      "contract": "Contract",
+      "workMode": "Work mode",
+      "experience": "Experience",
+      "experienceAny": "Any",
+      "salaryMin": "Minimum salary",
+      "salaryHint": "Openings that do not publish a salary are hidden.",
+      "unknownFilter": "A filter from the address could not be applied.",
+      "results": "{count, plural, =0 {No results} one {1 opening} other {# openings}}"
+    },
+    "cities": {
+      "title": "By city",
+      "subtitle": "Go straight to what is open in your area.",
+      "pageTitle": "Jobs in {city}",
+      "pageSubtitle": "{count, plural, one {1 opening} other {# openings}} in {city}.",
+      "seeServices": "Services we provide in {city}",
+      "backToAll": "See all openings",
+      "metaTitle": "Jobs in {city}: current openings",
+      "metaDescription": "{count, plural, one {1 open position} other {# open positions}} in {city}. Check the role, the terms and apply online."
+    },
+    "card": {
+      "featured": "Featured",
+      "paused": "Process paused",
+      "publishedAgo": "{days, plural, =0 {Published today} one {Published 1 day ago} other {Published # days ago}}",
+      "salaryFrom": "From {min}",
+      "salaryRange": "{min} - {max}",
+      "salaryHidden": "Salary not published",
+      "vacancies": "{count, plural, one {1 position} other {# positions}}"
+    },
+    "detail": {
+      "apply": "Apply now",
+      "applyExternal": "Apply on the external site",
+      "responsibilities": "What you will do",
+      "requirements": "What we ask for",
+      "niceToHave": "Nice to have, not a dealbreaker",
+      "benefits": "What we offer",
+      "reference": "Reference",
+      "closedTitle": "This opening is closed",
+      "closedText": "The process has ended. You can see the openings that are still live.",
+      "relatedTitle": "Other similar openings",
+      "pausedNotice": "This process is paused: the opening is still visible, but applications are not being accepted right now."
+    },
+    "empty": {
+      "noJobs": "There are no openings right now",
+      "noJobsText": "We do not always have live processes. If you like, send us your application and we will write when something fits.",
+      "noResults": "No opening matches what you are looking for",
+      "noResultsText": "Try removing a filter, or search across all cities.",
+      "clearFilters": "Clear the filters",
+      "spontaneous": "Send a speculative application"
+    },
+    "form": {
+      "title": "Apply now",
+      "subtitle": "Tell us who you are and attach your CV. You will get an email with the reference.",
+      "spontaneousTitle": "Speculative application",
+      "spontaneousSubtitle": "There is no specific opening for you right now, but we can keep your application for the next processes.",
+      "fields": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "phone": "Phone",
+        "city": "Where you can work",
+        "coverLetter": "Tell us something about you",
+        "linkedin": "LinkedIn profile",
+        "cv": "Your CV"
+      },
+      "placeholders": {
+        "firstName": "Your first name",
+        "lastName": "Your last name",
+        "email": "you@example.com",
+        "phone": "600 000 000",
+        "coverLetter": "What you have done before, what interests you about this role…",
+        "linkedin": "https://www.linkedin.com/in/…"
+      },
+      "cvHint": "PDF only, up to 5 MB. Most programs offer \"Save as PDF\".",
+      "cvChoose": "Choose file",
+      "cvDrop": "Drag your CV here or choose a file",
+      "cvRemove": "Remove the file",
+      "privacy": "I have read the <link>information about how my data is handled</link>.",
+      "talentPool": "Keep my application for 12 months for future processes.",
+      "talentPoolRequired": "For a speculative application this permission is required: without it we would have no basis to keep your data.",
+      "noPhoto": "We do not ask for a photo, age or nationality: they play no part in the decision.",
+      "submit": "Send my application",
+      "submitting": "Sending…",
+      "error": "We could not send your application. Please try again in a few minutes.",
+      "successTitle": "Application sent",
+      "successText": "You will get an email with the reference and a link to follow its status or withdraw it."
+    },
+    "tracking": {
+      "title": "Your application",
+      "reference": "Reference",
+      "job": "Position",
+      "submitted": "Sent on",
+      "lastChange": "Last change",
+      "status": "Status",
+      "reason": "Reason",
+      "talentPool": "You allowed us to keep your application for future processes.",
+      "noTalentPool": "You did not allow us to keep your application for future processes.",
+      "withdraw": "Withdraw my application",
+      "withdrawing": "Withdrawing…",
+      "withdrawTitle": "Withdraw the application?",
+      "withdrawText": "Your application is withdrawn and your CV is deleted. This cannot be undone: if you want to apply again later, you will have to start over.",
+      "withdrawConfirm": "Yes, withdraw it",
+      "withdrawCancel": "No, keep it",
+      "withdrawnTitle": "Application withdrawn",
+      "withdrawnText": "Your application has been withdrawn and your CV deleted.",
+      "invalidTitle": "This link is no longer available",
+      "invalidText": "The link is invalid or has expired. If you need to know how your application is going, write to us.",
+      "Status": {
+        "RECEIVED": "Received",
+        "IN_REVIEW": "In review",
+        "INTERVIEW": "In interviews",
+        "OFFER": "We have made you an offer",
+        "HIRED": "Hired",
+        "REJECTED": "Not moving forward",
+        "WITHDRAWN": "Withdrawn"
+      }
+    },
+    "WorkMode": {
+      "ON_SITE": "On site",
+      "HYBRID": "Hybrid",
+      "REMOTE": "Remote"
+    },
+    "Experience": {
+      "NONE": "No experience",
+      "UP_TO_1": "Up to 1 year",
+      "FROM_1_TO_3": "1 to 3 years",
+      "FROM_3_TO_5": "3 to 5 years",
+      "OVER_5": "Over 5 years"
+    },
+    "SalaryPeriod": {
+      "HOUR": "per hour",
+      "MONTH": "per month",
+      "YEAR": "per year"
+    }
   }
 }

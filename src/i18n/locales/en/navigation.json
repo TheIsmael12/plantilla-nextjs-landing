@@ -42,7 +42,10 @@
     "/zones/colmenar-viejo": "Colmenar Viejo",
     "/zones/torrelodones": "Torrelodones",
     "/zones/collado-villalba": "Collado Villalba",
-    "/zones/arganda-del-rey": "Arganda del Rey"
+    "/zones/arganda-del-rey": "Arganda del Rey",
+    "/careers/[slug]": "Job opening",
+    "/careers/cities/[city]": "Jobs by city",
+    "/careers/applications/[token]": "Your application"
   },
   "Navbar": {
     "login": "Client access",

@@ -78,6 +78,14 @@ const config: StorybookConfig = {
         find: "@/actions/client-portal/profile-actions",
         replacement: path.resolve(dirname, "mocks/profile-actions.ts"),
       },
+      {
+        // `careers-actions.ts` no solo llamaría al backend: **no se puede ni importar** en el
+        // navegador. Arrastra `actions/fetch.ts` → `lib/authOptions` → next-auth → openid-client, que
+        // usa `Buffer`, y la historia del formulario de candidatura fallaba al cargar con "Buffer is
+        // not defined" antes de pintar nada.
+        find: "@/actions/careers/careers-actions",
+        replacement: path.resolve(dirname, "mocks/careers-actions.ts"),
+      },
       ...existingEntries,
       // La resolución nativa de `paths` de tsconfig que trae Vite 8 (usada
       // por @storybook/nextjs-vite en vez del plugin vite-tsconfig-paths)

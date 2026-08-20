@@ -1,0 +1,237 @@
+// Formulario de candidatura ({@link JobApplyForm}), tanto en la ficha de una
+// oferta como en la candidatura espontánea.
+//
+// Los campos de texto son el Input global del proyecto y ya traen sus estilos;
+// aquí solo va lo propio del formulario: la caja, la rejilla, el selector de
+// fichero y los dos consentimientos.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.careers__form {
+  display: grid;
+  gap: 1rem;
+  @include p(1.5rem);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+
+  // En la ficha el formulario va en la columna derecha y acompaña la lectura;
+  // en la candidatura espontánea es el contenido de la página, y ahí se centra
+  // con un ancho de lectura en vez de estirarse a todo el ancho.
+  @include screen(lg) {
+    position: sticky;
+    top: 6rem;
+  }
+
+  // Confirmación de envío: la misma caja, centrada, sin los campos. Se mantiene
+  // el marco para que la página no dé un salto al desaparecer el formulario.
+  &--success {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 0.6rem;
+    @include py(2.5rem);
+
+    @include screen(lg) {
+      position: static;
+    }
+
+    svg {
+      color: var(--success-color);
+    }
+  }
+}
+
+.careers__form-header {
+  h2 {
+    font-family: $font-title;
+    font-size: $text-xl;
+    font-weight: $font-semibold;
+    color: var(--color);
+    margin: 0 0 0.3rem;
+  }
+
+  p {
+    font-size: $text-sm;
+    color: var(--neutral-color);
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+.careers__form-grid {
+  display: grid;
+  gap: 1rem;
+
+  @include screen(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.careers__form-field {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+
+  label {
+    font-family: $font-family-base;
+    font-size: $text-sm;
+    font-weight: $font-medium;
+    color: var(--color);
+  }
+
+  select {
+    height: 2.75rem;
+    @include px(0.8rem);
+    font-family: $font-family-base;
+    font-size: $text-sm;
+    color: var(--color);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    @include rounded(0.4rem);
+
+    &:focus-visible {
+      outline: 2px solid var(--primary-color-active);
+      outline-offset: 1px;
+    }
+  }
+}
+
+// Selector de CV: zona de arrastrar y soltar (borde discontinuo) con el input de
+// fichero real dentro, oculto pero **enfocable** — no se usa `display: none`,
+// que lo sacaría del tabulador. La etiqueta es el control visible y el teclado
+// sigue llegando al mismo campo.
+.careers__form-file {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+  @include p(1rem);
+  border: 1px dashed var(--border-color-active);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  @include rounded(0.5rem);
+
+  // Mientras se arrastra un fichero encima: la zona se ilumina para que se vea
+  // que va a caer aquí y no en la ventana del navegador.
+  &--dragging {
+    border-color: var(--primary-color);
+    background: var(--primary-color-light);
+  }
+
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+.careers__form-file-label {
+  font-family: $font-family-base;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--color);
+}
+
+.careers__form-file-choose {
+  @include flex(row, center, center, 0.5rem);
+  @include px(1.1rem);
+  height: 2.5rem;
+  font-family: $font-family-base;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--primary-color);
+  background: var(--primary-color-light);
+  cursor: pointer;
+  @include rounded(999px);
+
+  &:hover {
+    background: var(--border-color);
+  }
+}
+
+// Foco visible en la etiqueta cuando el input oculto lo recibe: sin esto, quien
+// navega con teclado no vería dónde está.
+.careers__form-file input[type="file"]:focus-visible + .careers__form-file-choose {
+  outline: 2px solid var(--primary-color-active);
+  outline-offset: 2px;
+}
+
+.careers__form-file-chosen {
+  @include flex(row, space-between, center, 0.6rem);
+  margin: 0;
+  font-size: $text-sm;
+  color: var(--color);
+  word-break: break-all;
+
+  button {
+    flex-shrink: 0;
+    font-family: $font-family-base;
+    font-size: $text-xs;
+    font-weight: $font-medium;
+    // Mismo motivo que en `careersFilters.scss`: el rojo de marca no llega al
+    // contraste AA en texto pequeño, y este botón va a 12 px.
+    color: var(--danger-color);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+.careers__form-hint {
+  margin: 0;
+  font-size: $text-xs;
+  color: var(--neutral-color);
+  line-height: 1.55;
+}
+
+.careers__form-error {
+  margin: 0;
+  font-size: $text-sm;
+  color: var(--error-color);
+  line-height: 1.55;
+}
+
+.careers__form-check {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 0.6rem;
+  font-family: $font-family-base;
+  font-size: $text-sm;
+  color: var(--color);
+  line-height: 1.55;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    width: 1.05rem;
+    height: 1.05rem;
+    margin-top: 0.15rem;
+    accent-color: var(--primary-color);
+  }
+
+  a {
+    color: var(--primary-color-active);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+// Campo trampa: fuera de la vista y fuera del tabulador, pero presente en el
+// DOM — es lo que hace que un bot lo rellene y una persona no.
+.careers__form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
