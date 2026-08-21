@@ -2844,6 +2844,7 @@
   },
   "Careers": {
     "hero": {
+      "eyebrow": "Careers",
       "title": "Work with us",
       "subtitle": "These are the openings we have right now. If none of them fits, you can still send us your application.",
       "count": "{count, plural, =0 {No openings right now} one {1 opening} other {# openings}}",
@@ -2875,6 +2876,7 @@
       "results": "{count, plural, =0 {No results} one {1 opening} other {# openings}}"
     },
     "cities": {
+      "eyebrow": "Careers",
       "title": "By city",
       "subtitle": "Go straight to what is open in your area.",
       "pageTitle": "Jobs in {city}",

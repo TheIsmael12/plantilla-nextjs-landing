@@ -501,3 +501,37 @@ aparecía uno, justo cuando había algo que corregir.
 Medido en el navegador: panel 960×736, cabecera 80 px arriba, pasos 90 px fijos, campos 483 px desplazables,
 acciones 73 px fijas abajo; un solo `h2` dentro, el scroll de la página bloqueado, y sigue abierto tras
 pulsar fuera.
+
+### 10.13 «Trabaja con nosotros» tampoco seguía el patrón de la web
+
+La ficha de una oferta ya se corrigió (§10.12); el **listado** arrastraba lo mismo, y con él las páginas
+de ciudad, porque comparten el bloque `careers__hero`.
+
+El SCSS decía en un comentario que su degradado era «el mismo recurso que usa el resto del sitio». No lo
+era: los nueve heroes de la web —inicio, servicios, blog, ayuda, soporte, FAQ, contacto, zonas y quiénes
+somos— van sobre `surface` con una línea inferior, y este era **el único** con degradado. En una web donde
+todas las cabeceras se resuelven igual, la que no lo hace no se lee como una variante: se lee como una
+página de otro sitio.
+
+Ahora comparte el patrón completo de una cabecera de listado:
+
+| | Antes | Ahora |
+|---|---|---|
+| Fondo | degradado `primary-light → background` | `surface` + línea inferior de 1 px |
+| Contenido | alineado a la izquierda, a todo el ancho | centrado, con `max-width: 42rem` |
+| Antetítulo | ninguno | «Empleo», como «Blog» o «Ayuda» |
+| Decoración | ninguna | la forma de abajo a la derecha que llevan el del blog, servicios, ayuda, soporte y zonas |
+| Relleno vertical | `3.5rem` | `4.5rem` |
+
+El título y el subtítulo **no se han tocado**: sus valores ya coincidían exactamente con los de
+`blog__title-lg` y `blog__text-muted`. El recuento de ofertas y ciudades se queda —es lo que hace creíble
+la sección— y solo pasa a estar centrado, igual que la fila de enlaces de las páginas de ciudad.
+
+Se usa `thoughts.svg`, la única forma decorativa sin utilizar: `shape.svg` ya sale en tres cabeceras y
+repetirla una cuarta vez habría hecho que empleo pareciera la misma página que el blog.
+
+Comprobado en el navegador midiendo las cinco cabeceras a la vez: empleo (buscador), empleo (ciudad),
+blog, servicios y ayuda devuelven ahora el mismo fondo, la misma línea, la misma alineación y todas con
+su decoración y su antetítulo. Y ninguna de las tres páginas de empleo pinta una sola clave de traducción
+en crudo ni deja un `MISSING_MESSAGE` en consola — el antetítulo de la página de ciudad sí lo hacía al
+principio, porque esa vista lee de `Careers.cities` y no de `Careers.hero`.

@@ -2940,6 +2940,7 @@
   },
   "Careers": {
     "hero": {
+      "eyebrow": "Empleo",
       "title": "Trabaja con nosotros",
       "subtitle": "Estas son las ofertas abiertas ahora mismo. Si no encaja ninguna, puedes dejarnos tu candidatura igualmente.",
       "count": "{count, plural, =0 {No hay ofertas abiertas ahora mismo} one {1 oferta abierta} other {# ofertas abiertas}}",
@@ -2971,6 +2972,7 @@
       "results": "{count, plural, =0 {Sin resultados} one {1 oferta} other {# ofertas}}"
     },
     "cities": {
+      "eyebrow": "Empleo",
       "title": "Por ciudad",
       "subtitle": "Mira directamente lo que hay abierto en tu zona.",
       "pageTitle": "Trabajo en {city}",

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 import { getTranslations } from 'next-intl/server';
@@ -68,7 +69,21 @@ export default async function CityJobsViewPage({
     return (
         <main className="careers">
             <section className="careers__hero">
-                <div className="careers__container">
+                {/* La misma forma decorativa que el hero del buscador: son la misma cabecera. */}
+                <Image
+                    src="/images/assets/decor/thoughts.svg"
+                    alt=""
+                    width={190}
+                    height={190}
+                    className="careers__hero-decor"
+                />
+
+                <div className="careers__container careers__hero-inner">
+                    {/*
+                      El antetítulo nombra la sección y no la ciudad: la ciudad ya está en el título, y en
+                      el blog o en la ayuda este hueco es siempre el nombre de la sección.
+                    */}
+                    <p className="careers__eyebrow">{t('eyebrow')}</p>
                     <h1 className="careers__hero-title">{t('pageTitle', { city: cityName })}</h1>
                     <p className="careers__hero-subtitle">
                         {t('pageSubtitle', {

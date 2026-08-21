@@ -23,16 +23,61 @@
   @include py(3.5rem);
 }
 
-// Hero del buscador y de las páginas de ciudad. El degradado es el mismo
-// recurso que usa el resto del sitio para separar la cabecera del contenido
-// sin meter una imagen que habría que cargar.
+/**
+ * Hero del buscador y de las páginas de ciudad.
+ *
+ * Llevaba un degradado y decía en un comentario que era «el mismo recurso que usa el resto del sitio».
+ * No lo era: los heroes de inicio, servicios, blog, ayuda, soporte, FAQ, contacto, zonas y «quiénes
+ * somos» —los nueve— van sobre `surface` con una línea abajo, y este era el único con degradado. En
+ * una web donde todas las cabeceras se resuelven igual, la que no lo hace no se lee como una variante,
+ * se lee como una página de otro sitio.
+ *
+ * Ahora comparte el patrón completo de un hero de listado: fondo `surface`, línea inferior, contenido
+ * centrado con su ancho máximo, y la forma decorativa abajo a la derecha que llevan el del blog, el de
+ * servicios, el de ayuda, el de soporte y el de zonas.
+ */
 .careers__hero {
-  background: linear-gradient(
-    180deg,
-    var(--primary-color-light) 0%,
-    var(--background-color) 100%
-  );
-  @include py(3.5rem);
+  position: relative;
+  background: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+  overflow: hidden;
+  @include py(4.5rem);
+}
+
+/*
+ * La forma decorativa. Se oculta en móvil como en los demás heroes: ahí no cabe sin competir con el
+ * texto, y es un adorno, no información.
+ */
+.careers__hero-decor {
+  position: absolute;
+  bottom: -3rem;
+  right: -3rem;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+
+  @include screen(sm, max) {
+    display: none;
+  }
+}
+
+.careers__hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+// El antetítulo que nombra la sección, igual que en el blog o en la ayuda.
+.careers__eyebrow {
+  font-family: $font-family-base;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--primary-color-active);
+  margin: 0 0 0.6rem;
 }
 
 .careers__hero-title {
@@ -50,12 +95,14 @@
   font-size: $text-lg;
   color: var(--neutral-color);
   line-height: 1.6;
-  max-width: 46rem;
-  margin: 0;
+  // Sin `max-width` propio: el ancho lo pone ahora `careers__hero-inner`, y dejar los dos hacía que
+  // el texto se descentrara respecto al título.
+  margin: 0 auto;
 }
 
 .careers__hero-count {
-  @include flex(row, flex-start, center, 0.4rem);
+  // Centrado, como el resto del hero.
+  @include flex(row, center, center, 0.4rem);
   flex-wrap: wrap;
   font-size: $text-sm;
   font-weight: $font-medium;
@@ -64,7 +111,7 @@
 }
 
 .careers__hero-links {
-  @include flex(row, flex-start, center, 1.25rem);
+  @include flex(row, center, center, 1.25rem);
   flex-wrap: wrap;
   margin-top: 1.25rem;
   font-size: $text-sm;

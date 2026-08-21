@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import '@/styles/04-components/careers/careersBase.scss';
@@ -16,7 +17,21 @@ export default function CareersHero({ totalJobs, totalCities }: CareersHeroProps
 
     return (
         <section className="careers__hero">
-            <div className="careers__container">
+            {/*
+              La misma forma decorativa que el hero del blog, el de servicios o el de ayuda: es lo que
+              hace que una cabecera de listado de esta web se reconozca como tal. `alt` vacío porque no
+              aporta nada que contar a quien no la ve.
+            */}
+            <Image
+                src="/images/assets/decor/thoughts.svg"
+                alt=""
+                width={190}
+                height={190}
+                className="careers__hero-decor"
+            />
+
+            <div className="careers__container careers__hero-inner">
+                <p className="careers__eyebrow">{t('eyebrow')}</p>
                 <h1 className="careers__hero-title">{t('title')}</h1>
                 <p className="careers__hero-subtitle">{t('subtitle')}</p>
 
