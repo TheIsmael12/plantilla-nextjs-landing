@@ -12,7 +12,6 @@ import { Fraunces, Public_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
-import GoogleAnalytics from "@/components/seo/GoogleAnalytics";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import CookieConsentController from "@/components/ui/cookies/CookieConsentController";
@@ -148,10 +147,10 @@ export default async function LocaleLayout({
                         </ThemeProvider>
                     </SessionAuthProvider>
                 </NextIntlClientProvider>
-                <GoogleAnalytics nonce={nonce} />
                 {/*
-                  Vercel Web Analytics. Va sin `nonce` y no es un olvido: al contrario que
-                  `GoogleAnalytics`, este componente no renderiza ningún `<script>` en el HTML — se
+                  Vercel Web Analytics. Va sin `nonce` y no es un olvido: al contrario que el
+                  `<script>` en línea del contenedor (`GoogleTagManager`, que Next.js firma con el
+                  nonce de la petición), este componente no renderiza ningún `<script>` en el HTML — se
                   monta en cliente y lo inyecta con `document.createElement`, así que lo cubre
                   `'strict-dynamic'` de la CSP (un script creado por otro ya confiado hereda la
                   confianza) y la política `default` de Trusted Types de arriba, que es la que permite

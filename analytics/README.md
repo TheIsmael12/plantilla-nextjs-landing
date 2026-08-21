@@ -38,8 +38,29 @@ reasigna a los del contenedor de destino durante la importación.
 Son variables de tipo constante justamente para esto: el ID de GA4 se cambia
 en **un** sitio y lo heredan las cinco etiquetas.
 
+> **Si el ID se queda en `G-XXXXXXXXXX`, no se mide nada.** Las cinco etiquetas
+> disparan contra una propiedad que no existe, y GTM lo acaba reportando en
+> *Calidad del contenedor* como una tasa de consentimiento del 0%: no es que los
+> visitantes rechacen, es que no llega ningún dato a ninguna parte.
+
 Las tres etiquetas de Google Ads vienen **en pausa** porque hoy no hay
 campañas. Ver más abajo qué hace falta el día que las haya.
+
+## La CSP tiene que dejar pasar la medición
+
+`NEXT_PUBLIC_GTM_ID` manda dos cosas: que se inyecte el script de arranque, y que
+`config/csp.ts` añada los orígenes de Google a `script-src` y `connect-src`.
+**`connect-src` no se beneficia de `'strict-dynamic'`**, así que sin esa variable
+puesta los envíos a `googletagmanager.com/g/collect` y a `*.google-analytics.com`
+se bloquean uno a uno. La CSP solo se envía en producción, así que en local todo
+parece correcto y el bloqueo solo se ve en la consola del navegador.
+
+Y es una `NEXT_PUBLIC_*`: su valor se incrusta en el **build**, no se lee en cada
+petición. Ponerla en Vercel sin volver a desplegar no cambia nada, ni la CSP ni el
+contenedor.
+
+El día que haya campañas de Ads habrá que añadir también `https://td.doubleclick.net`
+a esa lista.
 
 ## Qué mide, y quién lo dispara
 

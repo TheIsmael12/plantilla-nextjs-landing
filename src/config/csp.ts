@@ -46,18 +46,27 @@ const TURNSTILE_ORIGIN = "https://challenges.cloudflare.com";
 const GOOGLE_MAPS_EMBED_ORIGIN = "https://www.google.com";
 
 /**
- * Google Analytics (GA4, `GoogleAnalytics.tsx`), solo si `ENV.GOOGLE_ANALYTICS_ID` está
- * configurado. `googletagmanager.com` sirve el script `gtag.js`; `'strict-dynamic'` ya
- * permitiría cargarlo sin listarlo (lo carga un script con nonce), pero `connect-src` no se
- * beneficia de `'strict-dynamic'` — las peticiones de medición de gtag.js a
- * `google-analytics.com`/`analytics.google.com` se bloquearían igual sin esta entrada.
+ * Medición de Google (el contenedor de GTM y las etiquetas de GA4 que monta dentro,
+ * `GoogleTagManager.tsx`), solo si `NEXT_PUBLIC_GTM_ID` está configurado.
+ * `googletagmanager.com` sirve `gtm.js` y `gtag.js`; `'strict-dynamic'` ya permitiría
+ * cargarlos sin listarlos (los carga el script de arranque, que va con nonce), pero
+ * `connect-src` **no** se beneficia de `'strict-dynamic'` — sin esta entrada los envíos de
+ * medición a `googletagmanager.com/g/collect` y a
+ * `google-analytics.com`/`analytics.google.com` se bloquean igual, y el bloqueo solo se ve
+ * en la consola del navegador: para Google es indistinguible de que no haya tráfico.
+ *
+ * **Se mira `NEXT_PUBLIC_GTM_ID` y no la vieja `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID`**: esa
+ * segunda instalación directa de `gtag.js` ya no existe (se cargaba sin declarar
+ * `consent default`, así que escribía cookies antes del banner y duplicaba las visitas
+ * del contenedor). Mientras la condición siguió colgando de ella, un despliegue con
+ * contenedor y sin esa variable dejaba a GTM cargado pero con `connect-src` cerrado.
  *
  * `*.google-analytics.com` (con comodín) y no solo `www.google-analytics.com`: gtag.js elige en
  * runtime un endpoint de medición "regional" (`region1.google-analytics.com`, `regionN...`)
  * según la localización del visitante para reducir latencia — sin el comodín, esas peticiones
  * se bloqueaban con el mismo error para visitantes fuera de la región por defecto.
  */
-const GOOGLE_ANALYTICS_ORIGINS = [
+const GOOGLE_MEASUREMENT_ORIGINS = [
   "https://www.googletagmanager.com",
   "https://www.google-analytics.com",
   "https://*.google-analytics.com",
@@ -114,10 +123,10 @@ function resolveBackendWebSocketOrigin(): string {
 export function buildContentSecurityPolicy(nonce: string): string {
   const backendOrigin = resolveBackendOrigin();
   const backendWebSocketOrigin = resolveBackendWebSocketOrigin();
-  // Se lee `process.env` directamente (no `ENV.GOOGLE_ANALYTICS_ID` de
-  // `config/env.ts`) para no acoplar este módulo, que también evalúa
-  // `next.config.ts` en build time, al módulo de configuración pública.
-  const analyticsEnabled = Boolean(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
+  // Se lee `process.env` directamente (no `ENV.GTM_ID` de `config/env.ts`) para no
+  // acoplar este módulo, que también evalúa `next.config.ts` en build time, al módulo
+  // de configuración pública.
+  const analyticsEnabled = Boolean(process.env.NEXT_PUBLIC_GTM_ID);
 
   return [
     "default-src 'self'",
@@ -125,8 +134,8 @@ export function buildContentSecurityPolicy(nonce: string): string {
     // (con nonce) carguen a su vez otros sin que cada uno necesite su propio
     // nonce — es lo que necesita el runtime de Next para sus chunks
     // dinámicos. Los navegadores que lo entienden ignoran la lista de hosts
-    // de después; los que no, caen a esa lista (Turnstile, Google Analytics)
-    // como respaldo.
+    // de después; los que no, caen a esa lista (Turnstile, la medición de
+    // Google) como respaldo.
     //
     // `'unsafe-inline'` al final, retrocompatible con navegadores antiguos que no entienden
     // `nonce-*`/`strict-dynamic` (Lighthouse, "Asegura que la CSP sea efectiva frente a ataques
@@ -134,7 +143,7 @@ export function buildContentSecurityPolicy(nonce: string): string {
     // no cae a `'unsafe-inline'` cuando hay un nonce válido en la misma directiva), así que no
     // reabre la protección real para el caso normal — solo evita que un navegador muy antiguo se
     // quede sin ninguna política de scripts en vez de una parcial.
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${TURNSTILE_ORIGIN}${analyticsEnabled ? ` ${GOOGLE_ANALYTICS_ORIGINS.join(" ")}` : ""} 'unsafe-inline'`,
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${TURNSTILE_ORIGIN}${analyticsEnabled ? ` ${GOOGLE_MEASUREMENT_ORIGINS.join(" ")}` : ""} 'unsafe-inline'`,
     // `'unsafe-inline'` se queda solo en `style-src`: Next.js no permite
     // todavía nonce en los `<style>` que inyecta por RSC/CSS-in-JS del propio
     // framework, y bloquearlos rompería el pintado. El riesgo que cubre un
@@ -143,7 +152,7 @@ export function buildContentSecurityPolicy(nonce: string): string {
     "style-src 'self' 'unsafe-inline'",
     `img-src 'self' data: blob: ${MAP_TILES_ORIGIN}${backendOrigin ? ` ${backendOrigin}` : ""}`,
     "font-src 'self' data:",
-    `connect-src 'self'${backendOrigin ? ` ${backendOrigin}` : ""}${backendWebSocketOrigin ? ` ${backendWebSocketOrigin}` : ""}${analyticsEnabled ? ` ${GOOGLE_ANALYTICS_ORIGINS.join(" ")}` : ""}`,
+    `connect-src 'self'${backendOrigin ? ` ${backendOrigin}` : ""}${backendWebSocketOrigin ? ` ${backendWebSocketOrigin}` : ""}${analyticsEnabled ? ` ${GOOGLE_MEASUREMENT_ORIGINS.join(" ")}` : ""}`,
     `frame-src 'self' ${TURNSTILE_ORIGIN} ${GOOGLE_MAPS_EMBED_ORIGIN}`,
     "object-src 'none'",
     "base-uri 'self'",

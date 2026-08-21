@@ -20,9 +20,6 @@ export const ENV = {
   APP_URL: process.env.NEXT_PUBLIC_APP_URL || "https://imora.es",
   OG_IMAGE: process.env.NEXT_PUBLIC_OG_IMAGE || "/images/og-image.png",
   GOOGLE_SITE_VERIFICATION: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-  GOOGLE_ANALYTICS_ID:
-    process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || "",
-
   // Analítica — contenedor de Google Tag Manager (`GTM-XXXXXXX`), que es
   // quien monta dentro las etiquetas de GA4 y demás. Vacío = sin medición:
   // `GoogleTagManager` no pinta nada y no se carga ningún script externo.

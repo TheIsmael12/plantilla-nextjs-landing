@@ -290,6 +290,9 @@ ven por bajo tráfico.
       de la propiedad GA4 de Imora. **Revisar que el `.env` de producción en Vercel tenga
       también el ID real** y no ese mismo placeholder heredado (mismo tipo de problema que la
       dirección/teléfono ficticios del §1).
+      **Obsoleto desde §38**: `GoogleAnalytics.tsx` ya no existe. Era una segunda instalación de
+      GA4 en paralelo al contenedor de GTM, sin `consent default` y sin escuchar el banner, y se
+      borró junto con `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID`. La medición va entera por el contenedor.
 
 ## Roadmap de ejecución
 
@@ -1417,3 +1420,81 @@ devuelve la API con un 200).
 
 El criterio de no cerrar sesión ante un fallo de renovación (`session.error`) **no se ha tocado**: ya
 estaba decidido a propósito, porque provocaba el «inicias sesión y te devuelve al principio».
+
+## 38. El 0% de consentimiento de GTM: tres causas, y solo una era del banner (2026-08-21)
+
+GTM levantó un aviso urgente en *Calidad del contenedor*: «Verifique si se ha configurado el modo
+de consentimiento, ya que se ha detectado una tasa de consentimiento del 0%». Investigándolo
+salieron **tres cosas distintas** — dos bugs reales de esta base de código y una tercera que vive
+en el contenedor y no en el repositorio. Ninguna de las dos primeras se ve en desarrollo.
+
+- [x] **La CSP cerraba `connect-src` a la propia medición.** La condición que añade los orígenes
+      de Google colgaba de `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID` —la variable de la instalación
+      directa de `gtag.js`— y **no de `NEXT_PUBLIC_GTM_ID`**, que es la que enciende el
+      contenedor. Con contenedor y sin esa otra variable, en producción pasaba lo peor posible:
+      `script-src` colaba por `'strict-dynamic'` (el script de arranque va con nonce y es él
+      quien carga `gtm.js`), así que **GTM parecía funcionar**, pero `connect-src` no se
+      beneficia de `'strict-dynamic'` y cada envío a `googletagmanager.com/g/collect` y a
+      `*.google-analytics.com` se bloqueaba uno a uno. El banner pedía consentimiento, el
+      `consent update` se emitía, y a Google no llegaba nada: para el diagnóstico de GTM es
+      indistinguible de que nadie acepte. `analyticsEnabled` pasa a leer `NEXT_PUBLIC_GTM_ID`, y
+      `GOOGLE_ANALYTICS_ORIGINS` se renombra a `GOOGLE_MEASUREMENT_ORIGINS`, que es lo que son.
+      Mismo patrón que los tres hallazgos de §32, encontrados también solo en producción: **la
+      CSP únicamente se manda con `NODE_ENV=production`** (`proxy.ts`), así que en local todo
+      funcionaba y el bloqueo solo se veía en la consola del navegador.
+- [x] **Había dos instalaciones de GA4, y la segunda se saltaba el consentimiento entero.**
+      `GoogleAnalytics.tsx` (§12) cargaba `gtag.js` y llamaba a `gtag('config', …)` **sin
+      declarar ningún `consent default` y sin escuchar el banner**, montado además en el layout
+      raíz de locale — o sea en todas las páginas, incluida el área privada de cliente, donde
+      [GoogleTagManager.tsx](src/components/analytics/GoogleTagManager.tsx) (el que sí monta el
+      Consent Mode v2) no llega. Sin `consent default` declarado, gtag.js mide a pleno y escribe
+      las cookies `_ga` al cargar, antes de que el visitante toque el banner; y donde sí
+      coincidía con el contenedor, duplicaba las visitas contra la etiqueta de Google
+      (`send_page_view: true`). Los dos scripts comparten `window.dataLayer`, así que *si* el
+      arranque de GTM corriera primero su `default` le aplicaría también — pero son dos
+      `afterInteractive` en layouts distintos y el orden no está garantizado. Borrado el
+      componente, su uso en el layout y `GOOGLE_ANALYTICS_ID` de `config/env.ts`. **La medición
+      pasa a ser una sola cosa: el contenedor.** Deja obsoleta la ficha «GA4: implementado» de
+      §12.
+- [ ] **El contenedor sigue con el placeholder `G-XXXXXXXXXX`** en `CFG - GA4 ID de medicion`
+      (visto por el usuario en *Etiquetas de Google*: ID y destino con las X sin resolver). Las
+      cinco etiquetas de GA4 heredan esa variable, así que **disparan contra una propiedad que no
+      existe** y no se mide nada, con o sin consentimiento. Se arregla en la interfaz de GTM, no
+      aquí: *Variables → `CFG - GA4 ID de medicion`* → el `G-…` real → publicar. Es el paso «Lo
+      que hay que rellenar» de [analytics/README.md](analytics/README.md), que se saltó al
+      importar el contenedor. **Es la tercera vez que el mismo placeholder muerde** — la nota de
+      §12 ya lo cazó una vez en el `.env` local; por eso ahora está documentado en el README con
+      un aviso explícito de qué se ve en GTM cuando pasa.
+- [x] **Y sí, el banner cambió, pero por otro motivo.** Petición del usuario en la misma sesión:
+      la X del panel pasa a **aceptar todo** (y Escape con ella, que ya seguía a la X), y
+      «Rechazar opcionales» se renombra a **«Aceptar solo necesarias»** (clave `rejectAll` →
+      `acceptNecessary`, handler incluido, ES/EN, `closeAriaLabel` a juego para que el lector de
+      pantalla no anuncie lo contrario de lo que hace el botón). **Advertido y decidido por el
+      usuario:** cerrar con la X y contarlo como consentimiento es el patrón que el EDPB
+      considera consentimiento no válido, porque exige una acción afirmativa e inequívoca. Esto
+      puede subir el consentimiento de *analytics*; **no mueve el aviso de GTM**, que es lo que
+      llevó a los dos bugs de arriba.
+
+**Lo que se ha dejado a propósito.** Las tres señales de publicidad (`ad_storage`, `ad_user_data`,
+`ad_personalization`) siguen fijadas a `denied` en `CONSENT_SIGNAL_RULE`, sin categoría que las
+pueda conceder, así que su tasa de consentimiento es 0% por construcción. No se toca: las tres
+etiquetas de Ads del contenedor están en pausa y el usuario confirma que las campañas son cosa del
+futuro. El día que las haya, hay que devolver la categoría `marketing` al banner (paso 2 del README
+de `analytics/`) y añadir `https://td.doubleclick.net` a `GOOGLE_MEASUREMENT_ORIGINS`.
+
+**Detalle de despliegue que conviene no olvidar.** `NEXT_PUBLIC_GTM_ID` es una `NEXT_PUBLIC_*`: su
+valor se **incrusta en el build**, no se lee en cada petición. Ponerla en Vercel sin volver a
+desplegar no cambia ni la CSP ni el contenedor. Y el orden importa: primero el `G-…` real en GTM y
+publicar, después desplegar esto — al revés se queda un rato sin datos, porque la vía directa que
+igual estaba midiendo desaparece con este cambio.
+
+Verificado con `tsc --noEmit` limpio, `eslint` limpio, `next build` de producción real (necesita
+`API_BASE_URL`, `NEXTAUTH_URL` y `NEXTAUTH_SECRET` en el entorno del proceso, que no los lee de
+`.env.development`) y el servidor de producción servido en un puerto nuevo: la cabecera CSP lleva
+los cuatro orígenes de Google en `script-src` **y** en `connect-src` gobernados por
+`NEXT_PUBLIC_GTM_ID`, `gtag/js?id=` desaparece del HTML servido (0 ocurrencias) y el arranque del
+contenedor sigue presente con su `consent default` en el chunk de cliente. Comprobado además que
+arrancar el mismo build con y sin la variable en el entorno da una CSP idéntica, que es lo que
+demuestra el incrustado en build time. Los textos nuevos del banner confirmados en el HTML servido
+en los dos idiomas («Aceptar solo necesarias» / «Accept only necessary»), sin rastro de los
+antiguos. `npx vitest run --project=unit`: 451 passed (39 ficheros), ninguno fallido.
