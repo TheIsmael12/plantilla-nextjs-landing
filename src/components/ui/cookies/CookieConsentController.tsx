@@ -32,9 +32,11 @@ const DEFAULT_DRAFT: Draft = DENIED_CONSENT;
 
 /**
  * Banner de consentimiento de cookies: se muestra si no hay preferencias
- * guardadas, permite aceptar o rechazar todo, o ajustar cada categoría por
- * separado, y persiste la elección con `lib/cookieConsent.ts`, que además
- * avisa a quien dependa de ella (la medición de `GoogleTagManager`).
+ * guardadas, permite aceptar todo, aceptar solo las necesarias, o ajustar
+ * cada categoría por separado, y persiste la elección con
+ * `lib/cookieConsent.ts`, que además avisa a quien dependa de ella (la
+ * medición de `GoogleTagManager`). Cerrar el panel sin elegir (la X o
+ * Escape) equivale a aceptar todo.
  * También escucha el evento `na:open-cookie-consent` para poder reabrirse
  * desde otras partes de la app (p. ej. un enlace del footer).
  * @returns {JSX.Element | null} El banner de cookies renderizado, o `null` mientras está oculto
@@ -83,7 +85,7 @@ export default function CookieConsentController() {
         persist({ analytics: true, functional: true, timestamp: Date.now() });
     }, [persist]);
 
-    const rejectAll = useCallback(() => {
+    const acceptNecessary = useCallback(() => {
         persist({ analytics: false, functional: false, timestamp: Date.now() });
     }, [persist]);
 
@@ -99,11 +101,11 @@ export default function CookieConsentController() {
     );
 
     // Focus trap: keeps keyboard focus inside the panel while it is open.
-    // Escape triggers rejectAll (minimal-consent close), matching the X button behaviour.
+    // Escape triggers acceptAll (dismiss-as-consent close), matching the X button behaviour.
     useFocusTrap({
         isActive: visible && !saving,
         ref: panelRef,
-        onEscape: rejectAll,
+        onEscape: acceptAll,
     });
 
     if (!visible) return null;
@@ -129,7 +131,7 @@ export default function CookieConsentController() {
                 </div>
                 <button
                     className="cookie-consent__close"
-                    onClick={rejectAll}
+                    onClick={acceptAll}
                     aria-label={t('closeAriaLabel')}
                     type="button"
                 >
@@ -231,7 +233,7 @@ export default function CookieConsentController() {
 
             {/* Actions */}
             <div className="cookie-consent__actions">
-                <Button variant="secondary" size="sm" onClick={rejectAll}>{t('rejectAll')}</Button>
+                <Button variant="secondary" size="sm" onClick={acceptNecessary}>{t('acceptNecessary')}</Button>
                 {expanded && (
                     <Button variant="outline" size="sm" onClick={saveSelection}>{t('saveSelection')}</Button>
                 )}

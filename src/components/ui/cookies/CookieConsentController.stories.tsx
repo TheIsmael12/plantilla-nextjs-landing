@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Panel de consentimiento de cookies RGPD/ePrivacy. Se muestra como un card compacto en la esquina inferior derecha. Permite aceptar todo, rechazar opcionales o personalizar categoría a categoría.',
+          'Panel de consentimiento de cookies RGPD/ePrivacy. Se muestra como un card compacto en la esquina inferior derecha. Permite aceptar todo, aceptar solo las necesarias o personalizar categoría a categoría. Cerrar el panel con la X o con Escape acepta todo.',
       },
     },
   },
