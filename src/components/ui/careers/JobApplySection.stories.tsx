@@ -5,7 +5,7 @@ import { submitJobApplication } from '@/actions/careers/careers-actions';
 
 import { HTTPStatus } from '@/constants/httpStatus';
 
-import { CITY_FACETS } from './careers.fixtures';
+import { CITY_LOCATIONS } from './careers.fixtures';
 
 import JobApplySection from './JobApplySection';
 
@@ -65,7 +65,7 @@ const meta = {
     tags: ['autodocs'],
     args: {
         jobCode: 'EMP-000001',
-        cities: CITY_FACETS,
+        cities: CITY_LOCATIONS,
     },
 } satisfies Meta<typeof JobApplySection>;
 

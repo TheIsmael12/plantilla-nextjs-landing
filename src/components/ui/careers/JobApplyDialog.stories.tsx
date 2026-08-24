@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect, fn, userEvent, within } from 'storybook/test';
 
-import { CITY_FACETS, JOB_DETAIL } from './careers.fixtures';
+import { CITY_LOCATIONS, JOB_DETAIL } from './careers.fixtures';
 
 import JobApplyDialog from './JobApplyDialog';
 
@@ -25,7 +25,7 @@ const meta = {
     args: {
         jobCode: JOB_DETAIL.jobCode,
         jobTitle: JOB_DETAIL.title,
-        cities: CITY_FACETS,
+        cities: CITY_LOCATIONS,
         isOpen: true,
         onClose: fn(),
     },

@@ -152,6 +152,7 @@ Tres, y distintos a propósito:
 Formik + Yup, con la validación reflejando exactamente los límites del backend (ver backend, sección 13). Campos: nombre, apellidos, correo, teléfono, ciudad, carta de presentación, LinkedIn, CV.
 
 - **No pide fotografía, fecha de nacimiento, nacionalidad, sexo, estado civil ni DNI.** Ni ahora ni como campo opcional (ver backend, 8.3). Si alguien pide añadirlos, la respuesta está ahí.
+- El selector de ciudad sale de `GET /public/careers/locations` (backend, 5.2.1) y **no** de las facetas del buscador. El campo pregunta dónde puede trabajar quien se presenta, no dónde hay vacante hoy; y con las facetas la candidatura espontánea —que es la que se manda cuando no hay ninguna oferta abierta— llegaba con el desplegable vacío.
 - Casilla de la información de privacidad, con enlace a la política y la **versión** que se envía en `privacyNoticeVersion`.
 - Casilla **separada y sin premarcar** para la bolsa de talento, con su plazo escrito («guardar mi candidatura 12 meses para futuros procesos»). Sin marcarla se puede enviar igual.
 - Honeypot oculto y captcha (Turnstile), igual que el formulario de contacto.

@@ -114,6 +114,25 @@ export async function getPublicJobFilters(
 }
 
 /**
+ * Las ciudades del catálogo: **todas las activas**, con ofertas abiertas o sin ellas.
+ *
+ * No son las `cities` de `getPublicJobFilters`, y la diferencia importa: esas son facetas del buscador
+ * —salen de las ofertas vigentes— y el campo «dónde puedes trabajar» del formulario no pregunta dónde hay
+ * vacante, pregunta dónde puede trabajar quien se presenta. Con las facetas, la candidatura espontánea
+ * —que es justo la que se manda cuando **no** hay ninguna oferta abierta— se quedaba con el desplegable
+ * vacío y sin nada que elegir.
+ *
+ * Con caché: es un catálogo, no un contador. Sin `locale` porque los topónimos no se traducen.
+ * @returns {Promise<FetchResponse<PublicJobLocation[]>>} Las ciudades, o el error
+ */
+export async function getPublicJobLocations(): Promise<FetchResponse<PublicJobLocation[]>> {
+  return fetchData<PublicJobLocation[], never>("public/careers/locations", "GET", undefined, {
+    revalidate: CAREERS_REVALIDATE_SECONDS,
+    tags: ["careers-locations"],
+  });
+}
+
+/**
  * Ficha de una oferta por su slug.
  *
  * Puede responder tres cosas que la página trata distinto: la oferta, un `404` con el slug del otro idioma

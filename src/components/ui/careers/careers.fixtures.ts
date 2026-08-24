@@ -14,6 +14,19 @@ export const CITY_FACETS: PublicJobFacet[] = [
     { slug: 'leganes', name: 'Leganés', count: 1 },
 ];
 
+/**
+ * Ciudades del catálogo, tal como las devuelve `GET /public/careers/locations`.
+ *
+ * Aparte de {@link CITY_FACETS} porque no son lo mismo: una faceta lleva su número de ofertas y sale de
+ * las vigentes; esto es el catálogo de la empresa, y es lo que alimenta el selector del formulario.
+ */
+export const CITY_LOCATIONS: PublicJobLocation[] = [
+    { slug: 'madrid', name: 'Madrid', province: 'Madrid', country: 'ES' },
+    { slug: 'getafe', name: 'Getafe', province: 'Madrid', country: 'ES' },
+    { slug: 'alcorcon', name: 'Alcorcón', province: 'Madrid', country: 'ES' },
+    { slug: 'leganes', name: 'Leganés', province: 'Madrid', country: 'ES' },
+];
+
 /** Todas las facetas del buscador. */
 export const JOB_FILTERS: PublicJobFilters = {
     cities: CITY_FACETS,

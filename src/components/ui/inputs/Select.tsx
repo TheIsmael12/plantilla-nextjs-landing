@@ -65,6 +65,17 @@ export default function Select(props: SelectProps) {
   const listboxRef = useRef<HTMLUListElement>(null);
   const typeaheadRef = useRef({ buffer: "", timeout: 0 });
 
+  /*
+   * Sin ninguna opción el selector se pinta **deshabilitado**.
+   *
+   * `openDropdown` ya salía sin hacer nada en ese caso, y eso es lo peor de los dos mundos: un control con
+   * su flecha, con su aspecto de pulsable, que al pulsarlo no hace nada. Es exactamente lo que pasaba en el
+   * formulario de candidatura espontánea cuando la lista de ciudades llegaba vacía, y desde fuera se lee
+   * como que el desplegable está roto. Deshabilitado se ve que no hay nada que elegir.
+   */
+  const hasNoOptions = options.length === 0;
+  const isInert = disabled || hasNoOptions;
+
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const [position, setPosition] = useState<DropdownPosition | null>(null);
@@ -209,7 +220,7 @@ export default function Select(props: SelectProps) {
   };
 
   const handleTriggerKeyDown = (event: ReactKeyboardEvent) => {
-    if (disabled) return;
+    if (isInert) return;
 
     if (!isOpen) {
       if (OPEN_KEYS.includes(event.key)) {
@@ -341,7 +352,7 @@ export default function Select(props: SelectProps) {
           }
           aria-required={required}
           aria-invalid={Boolean(error && touched)}
-          disabled={disabled}
+          disabled={isInert}
           className={`select${error && touched ? " select__error" : ""}`}
           onClick={() => (isOpen ? closeDropdown() : openDropdown())}
           onKeyDown={handleTriggerKeyDown}

@@ -2,7 +2,7 @@ import { notFound, redirect } from 'next/navigation';
 
 import { getTranslations } from 'next-intl/server';
 
-import { getPublicJob, getPublicJobFilters, getPublicJobs } from '@/actions/careers/careers-actions';
+import { getPublicJob, getPublicJobLocations, getPublicJobs } from '@/actions/careers/careers-actions';
 
 import JobPostingJsonLd from '@/components/seo/JobPostingJsonLd';
 import JobDetailAside from '@/components/ui/careers/JobDetailAside';
@@ -85,9 +85,13 @@ interface JobDetailViewPageProps {
 export default async function JobDetailViewPage({ slug, locale }: JobDetailViewPageProps) {
     const t = await getTranslations({ locale, namespace: 'Careers.detail' });
 
-    const [response, filtersResponse] = await Promise.all([
+    /*
+     * Las ciudades del formulario salen del catálogo y no de las facetas del buscador: el campo pregunta
+     * dónde puede trabajar quien se presenta, no dónde hay vacante ahora mismo.
+     */
+    const [response, locationsResponse] = await Promise.all([
         getPublicJob(slug, locale),
-        getPublicJobFilters(locale),
+        getPublicJobLocations(),
     ]);
 
     if (!response.data) {
@@ -126,7 +130,7 @@ export default async function JobDetailViewPage({ slug, locale }: JobDetailViewP
     }
 
     const job = response.data;
-    const cities = filtersResponse.data?.cities ?? [];
+    const cities = locationsResponse.data ?? [];
 
     // Va después de resolver la oferta porque el criterio sale de ella (su familia profesional): no se puede
     // pedir en paralelo con la ficha.

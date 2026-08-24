@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect, fireEvent, fn, userEvent, within } from 'storybook/test';
 
-import { CITY_FACETS } from './careers.fixtures';
+import { CITY_LOCATIONS } from './careers.fixtures';
 
 import JobApplyForm from './JobApplyForm';
 
@@ -72,7 +72,7 @@ const meta = {
     tags: ['autodocs'],
     args: {
         jobCode: 'EMP-000001',
-        cities: CITY_FACETS,
+        cities: CITY_LOCATIONS,
         onSubmit: fn(),
     },
 } satisfies Meta<typeof JobApplyForm>;

@@ -1,4 +1,8 @@
-import { getPublicJobFilters, getPublicJobs } from '@/actions/careers/careers-actions';
+import {
+    getPublicJobFilters,
+    getPublicJobLocations,
+    getPublicJobs,
+} from '@/actions/careers/careers-actions';
 
 import CareersHero from '@/components/ui/careers/CareersHero';
 import JobApplySection from '@/components/ui/careers/JobApplySection';
@@ -61,8 +65,17 @@ function listOf(value: string | string[] | undefined): string[] | undefined {
  */
 export default async function CareersViewPage({ locale, searchParams }: CareersViewPageProps) {
     const page = Number(firstOf(searchParams.page)) > 0 ? Number(firstOf(searchParams.page)) : 1;
+    const isSpontaneous = firstOf(searchParams.spontaneous) === 'true';
 
-    const [jobsResponse, filtersResponse] = await Promise.all([
+    /*
+     * El selector de ciudad del formulario sale del **catálogo** (`getPublicJobLocations`), no de las
+     * facetas del buscador, y solo se pide cuando el formulario se va a pintar —de ahí el `undefined`.
+     *
+     * Con las facetas, la candidatura espontánea que se abre desde el estado vacío —«ahora mismo no hay
+     * ofertas abiertas, déjanos tu candidatura»— llegaba con la lista vacía: el desplegable no se abría al
+     * pulsarlo, porque no había ni una opción que enseñar.
+     */
+    const [jobsResponse, filtersResponse, locationsResponse] = await Promise.all([
         getPublicJobs({
             locale,
             page,
@@ -77,6 +90,7 @@ export default async function CareersViewPage({ locale, searchParams }: CareersV
             sort: firstOf(searchParams.sort) === 'salary' ? 'salary' : 'recent',
         }),
         getPublicJobFilters(locale),
+        isSpontaneous ? getPublicJobLocations() : undefined,
     ]);
 
     const jobs = jobsResponse.data?.items ?? [];
@@ -95,7 +109,7 @@ export default async function CareersViewPage({ locale, searchParams }: CareersV
     );
     const hasFilters = Object.keys(activeFilters).length > 0;
 
-    const isSpontaneous = firstOf(searchParams.spontaneous) === 'true';
+    const formCities = locationsResponse?.data ?? [];
 
     return (
         <main className="careers">
@@ -104,7 +118,7 @@ export default async function CareersViewPage({ locale, searchParams }: CareersV
             <section className="careers__section">
                 <div className="careers__container">
                     {isSpontaneous ? (
-                        <JobApplySection cities={filters.cities} requireTalentPool />
+                        <JobApplySection cities={formCities} requireTalentPool />
                     ) : (
                         <>
                             <JobSearchBar

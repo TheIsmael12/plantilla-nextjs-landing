@@ -114,7 +114,7 @@ interface JobDetailBodyProps {
  * componente no sabe nada de acciones de servidor ni de cómo viaja el fichero.
  * @interface JobApplyFormProps
  * @property {string} [jobCode] - Código de la oferta; sin él, el formulario es de candidatura espontánea
- * @property {PublicJobFacet[]} cities - Ciudades, para el selector de disponibilidad
+ * @property {PublicJobLocation[]} cities - Ciudades del catálogo, para el selector de disponibilidad. **No** las facetas del buscador: el campo pregunta dónde puede trabajar quien se presenta, no dónde hay vacante hoy
  * @property {boolean} [requireTalentPool] - Exige el consentimiento de bolsa de talento (candidatura espontánea)
  * @property {(values: JobApplicationFormValues, captchaToken?: string) => void} [onSubmit] - Recibe los valores validados y el token de Turnstile, si se resolvió
  * @property {boolean} [loading] - Mientras sube: el botón se deshabilita y cambia de texto
@@ -124,7 +124,7 @@ interface JobDetailBodyProps {
  */
 interface JobApplyFormProps {
   jobCode?: string;
-  cities: PublicJobFacet[];
+  cities: PublicJobLocation[];
   requireTalentPool?: boolean;
   onSubmit?: (values: JobApplicationFormValues, captchaToken?: string) => void;
   loading?: boolean;
@@ -139,15 +139,26 @@ interface JobApplyFormProps {
  * Los mismos que el formulario menos el estado, que es justo lo que aporta esta capa.
  * @interface JobApplySectionProps
  * @property {string} [jobCode] - Oferta a la que se presenta
- * @property {PublicJobFacet[]} cities - Ciudades, para el selector
+ * @property {PublicJobLocation[]} cities - Ciudades del catálogo, para el selector
  * @property {boolean} [requireTalentPool] - Candidatura espontánea
  * @property {boolean} [hideHeader] - Se pasa tal cual al formulario (ver `JobApplyFormProps`)
  */
 interface JobApplySectionProps {
   jobCode?: string;
-  cities: PublicJobFacet[];
+  cities: PublicJobLocation[];
   requireTalentPool?: boolean;
   hideHeader?: boolean;
+}
+
+/**
+ * Props de `ApplicationProgress`.
+ * @interface ApplicationProgressProps
+ * @property {{ key: string; label: string }[]} steps - Los estados por los que pasa el proceso, en orden y con su nombre ya traducido
+ * @property {number} currentIndex - Índice (base 0) del estado actual; los anteriores se pintan como hechos y los siguientes como pendientes
+ */
+interface ApplicationProgressProps {
+  steps: { key: string; label: string }[];
+  currentIndex: number;
 }
 
 /**
@@ -176,11 +187,11 @@ interface JobPostingJsonLdProps {
  * Props de `JobDetailAside`.
  * @interface JobDetailAsideProps
  * @property {PublicJobDetail} job - Oferta que se está viendo
- * @property {PublicJobFacet[]} cities - Ciudades, para el selector del formulario
+ * @property {PublicJobLocation[]} cities - Ciudades del catálogo, para el selector del formulario
  */
 interface JobDetailAsideProps {
   job: PublicJobDetail;
-  cities: PublicJobFacet[];
+  cities: PublicJobLocation[];
 }
 
 /**
@@ -191,14 +202,14 @@ interface JobDetailAsideProps {
  * @interface JobApplyDialogProps
  * @property {string} jobCode - Oferta a la que se presenta
  * @property {string} jobTitle - Título del puesto, para la cabecera del diálogo
- * @property {PublicJobFacet[]} cities - Ciudades, para el selector
+ * @property {PublicJobLocation[]} cities - Ciudades del catálogo, para el selector
  * @property {boolean} isOpen - Si el diálogo está abierto
  * @property {() => void} onClose - Handler de cierre
  */
 interface JobApplyDialogProps {
   jobCode: string;
   jobTitle: string;
-  cities: PublicJobFacet[];
+  cities: PublicJobLocation[];
   isOpen: boolean;
   onClose: () => void;
 }

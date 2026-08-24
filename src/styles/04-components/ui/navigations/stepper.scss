@@ -18,8 +18,14 @@
   flex: 1 1 0;
   min-width: 0;
 
+  /*
+   * El último paso **no crece**: no tiene conector detrás, así que el espacio que le sobraba se quedaba
+   * a su derecha —el paso pegado a la izquierda de su hueco— y la fila terminaba antes de llegar al
+   * borde, como si faltara algo. Sin crecer, ese espacio lo reparten los conectores y la fila queda
+   * repartida de punta a punta.
+   */
   &:last-child {
-    flex: 1 1 0;
+    flex: 0 0 auto;
   }
 }
 

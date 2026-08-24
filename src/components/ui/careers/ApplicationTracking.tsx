@@ -13,7 +13,7 @@ import Alert from '@/components/ui/alerts/Alert';
 import Badge from '@/components/ui/buttons/Badge';
 import Button from '@/components/ui/buttons/Button';
 import ModalComponent from '@/components/ui/modals/ModalComponent';
-import Stepper from '@/components/ui/navigations/Stepper';
+import ApplicationProgress from '@/components/ui/careers/ApplicationProgress';
 
 import { isErrorStatus } from '@/utils/httpStatusUtils';
 
@@ -42,9 +42,10 @@ const STATUS_VARIANT: Record<JobApplicationStatus, 'info' | 'success' | 'warning
 /**
  * Estado de una candidatura, con la opción de retirarla.
  *
- * Enseña **en qué punto del proceso está** con la misma fila de pasos que usa el resto de la web, y no solo
- * el nombre del estado: «en revisión» no dice si eso es al principio o al final, y esa es justo la pregunta
- * de quien abre este enlace.
+ * Enseña **en qué punto del proceso está** y no solo el nombre del estado: «en revisión» no dice si eso es
+ * al principio o al final, y esa es justo la pregunta de quien abre este enlace. Lo hace con
+ * {@link ApplicationProgress}, una línea de tiempo propia y no la fila de pasos de los formularios: el
+ * motivo está escrito en ese componente.
  *
  * Retirarse **es** el derecho de supresión, así que está aquí y no detrás de un correo a nadie: obligar a
  * escribir para ejercerlo funciona en la práctica como una barrera. Va en su propio bloque al final, separado
@@ -124,10 +125,9 @@ export default function ApplicationTracking({ application, token }: ApplicationT
                     }
                 />
             ) : (
-                <Stepper
+                <ApplicationProgress
                     steps={PROGRESS.map((status) => ({ key: status, label: t(`Status.${status}`) }))}
                     currentIndex={stepIndex}
-                    furthestIndex={stepIndex}
                 />
             )}
 

@@ -434,6 +434,106 @@
   }
 }
 
+// ── En qué punto va la candidatura ({@link ApplicationProgress}) ────────────
+//
+// En vertical, y no en la fila de pasos de los formularios: los nombres de los estados son frases («Te
+// hemos hecho una oferta»), y cinco de ellas en una fila dentro de una tarjeta de 38rem se salían por la
+// derecha sin barra de desplazamiento. Con una línea por estado no hay nada que desbordar, y de arriba
+// abajo es como se lee un historial.
+.careers__progress {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+/**
+ * Un estado.
+ *
+ * La línea que une dos puntos consecutivos la dibuja el propio elemento con `::before`, desde su punto
+ * hacia abajo: así no hay un conector suelto al que haya que quitarle el último. `padding-bottom` es lo que
+ * le da longitud, de modo que la línea siempre llega al punto siguiente sin depender de cuántas líneas
+ * ocupe la etiqueta.
+ */
+.careers__progress-step {
+  position: relative;
+  @include flex(row, flex-start, flex-start, 0.75rem);
+  padding-bottom: 1rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 1.35rem;
+    left: 0.53rem;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-color);
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+
+    &::before {
+      content: none;
+    }
+  }
+}
+
+.careers__progress-marker {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 0.15rem;
+  background: var(--surface-color);
+  border: 2px solid var(--border-color);
+  @include rounded(999px);
+  @include flex(row, center, center, 0);
+
+  svg {
+    width: 0.7rem;
+    height: 0.7rem;
+    stroke-width: 3;
+    color: var(--light-color);
+  }
+}
+
+.careers__progress-label {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  line-height: 1.4;
+}
+
+// Ya pasado: punto lleno con su marca, y la línea que sale de él también en color — es lo que hace ver de
+// un golpe cuánto camino se lleva hecho.
+.careers__progress-step--done {
+  &::before {
+    background: var(--primary-color);
+  }
+
+  .careers__progress-marker {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  .careers__progress-label {
+    color: var(--color);
+  }
+}
+
+// El de ahora: el punto con anillo, y la etiqueta con el peso del resto de la ficha. Es la respuesta a la
+// pregunta con la que se abre esta página.
+.careers__progress-step--current {
+  .careers__progress-marker {
+    background: var(--primary-color);
+    border-color: var(--primary-color-light);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.18);
+  }
+
+  .careers__progress-label {
+    color: var(--color);
+    font-weight: $font-semibold;
+  }
+}
+
 // ── Seguimiento de la candidatura ({@link ApplicationTracking}) ─────────────
 .careers__tracking-header {
   @include flex(row, space-between, flex-start, 1rem);
