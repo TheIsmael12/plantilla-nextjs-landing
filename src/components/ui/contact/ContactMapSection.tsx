@@ -6,6 +6,11 @@ import { MapPin, Phone, PhoneCall, Mail, Clock, ExternalLink } from 'lucide-reac
 
 import { ENV } from '@/config/env';
 import { useIsMounted } from '@/hooks/useIsMounted';
+import {
+  COMPANY_ADDRESS_SHORT,
+  COMPANY_COORDINATES,
+  toTelHref,
+} from '@/utils/companyAddressUtils';
 import { buildMapsHref, buildFallbackMapsHref } from '@/utils/mapLinkUtils';
 import '@/styles/04-components/contact/contactBase.scss';
 import '@/styles/04-components/contact/contactMapSection.scss';
@@ -30,8 +35,7 @@ const ContactMapCanvas = dynamic(() => import('@/components/ui/contact/ContactMa
  * @returns {JSX.Element} La sección de mapa y contacto renderizada
  */
 export default function ContactMapSection({
-    address = `${ENV.COMPANY_ADDRESS}, ${ENV.COMPANY_POSTAL_CODE}`,
-    city = `${ENV.COMPANY_CITY}, ${ENV.COMPANY_STATE}`,
+    address = COMPANY_ADDRESS_SHORT,
     phone = ENV.COMPANY_PHONE,
     email = ENV.COMPANY_EMAIL,
     schedule = ENV.COMPANY_SCHEDULE,
@@ -40,7 +44,14 @@ export default function ContactMapSection({
 
     const t = useTranslations('Contact.map');
 
-    const fullAddress = `${address}, ${city}, ${ENV.COMPANY_COUNTRY}`;
+    /*
+     * La dirección que se enseña llega ya montada de `companyAddressUtils` y aquí solo se le añade el
+     * país, que hace falta para buscarla en un mapa pero no para leerla en pantalla.
+     *
+     * Antes esta pantalla la recomponía por su cuenta con cuatro variables de `ENV`, y ponía la ciudad y
+     * la provincia una detrás de otra: con la sede en la capital, eso se leía «Madrid, Madrid».
+     */
+    const fullAddress = `${address}, ${ENV.COMPANY_COUNTRY}`;
 
     /*
      * En servidor no hay `navigator`, así que el primer render (y la hidratación) usan un
@@ -55,8 +66,8 @@ export default function ContactMapSection({
     const isMounted = useIsMounted();
 
     const mapsHref = isMounted
-        ? buildMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE, fullAddress)
-        : buildFallbackMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE);
+        ? buildMapsHref(fullAddress, COMPANY_COORDINATES)
+        : buildFallbackMapsHref(fullAddress, COMPANY_COORDINATES);
 
     return (
 
@@ -74,12 +85,12 @@ export default function ContactMapSection({
 
                     <li className="contact__map-item">
                         <MapPin className="contact__map-item-icon" aria-hidden="true" />
-                        <span className="contact__map-item-value">{address}, {city}</span>
+                        <span className="contact__map-item-value">{address}</span>
                     </li>
 
                     <li className="contact__map-item">
                         <Phone className="contact__map-item-icon" aria-hidden="true" />
-                        <a href={`tel:${phone.replace(/\s/g, '')}`} className="contact__map-item-value">
+                        <a href={toTelHref(phone)} className="contact__map-item-value">
                             {phone}
                         </a>
                     </li>
@@ -94,7 +105,7 @@ export default function ContactMapSection({
                     {emergencyPhone && (
                         <li className="contact__map-item">
                             <PhoneCall className="contact__map-item-icon" aria-hidden="true" />
-                            <a href={`tel:${emergencyPhone.replace(/\s/g, '')}`} className="contact__map-item-value">
+                            <a href={toTelHref(emergencyPhone)} className="contact__map-item-value">
                                 {t('emergencyLabel')}: {emergencyPhone}
                             </a>
                         </li>
@@ -120,25 +131,33 @@ export default function ContactMapSection({
 
             </div>
 
-            {/* ── Mapa real, a todo lo ancho ── */}
-            <div className="contact__map-frame">
+            {/*
+              ── Mapa real, a todo lo ancho ──
 
-                <ContactMapCanvas
-                    latitude={ENV.COMPANY_LATITUDE}
-                    longitude={ENV.COMPANY_LONGITUDE}
-                    title={fullAddress}
-                />
+              Solo si hay coordenadas configuradas. Sin ellas no se pinta: un mapa centrado en un
+              punto inventado es peor que no tener mapa, porque parece un dato. La dirección y el
+              enlace a Maps —que entonces busca por la dirección escrita— siguen estando arriba.
+            */}
+            {COMPANY_COORDINATES && (
+                <div className="contact__map-frame">
 
-                <a
-                    href={mapsHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="contact__map-badge"
-                >
-                    <ExternalLink aria-hidden="true" /> {t('viewOnMaps')}
-                </a>
+                    <ContactMapCanvas
+                        latitude={COMPANY_COORDINATES.latitude}
+                        longitude={COMPANY_COORDINATES.longitude}
+                        title={fullAddress}
+                    />
 
-            </div>
+                    <a
+                        href={mapsHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="contact__map-badge"
+                    >
+                        <ExternalLink aria-hidden="true" /> {t('viewOnMaps')}
+                    </a>
+
+                </div>
+            )}
 
         </div>
 

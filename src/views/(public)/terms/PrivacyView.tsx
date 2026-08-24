@@ -3,6 +3,7 @@ import { ShieldIcon } from 'lucide-react';
 
 import { Link } from '@/i18n/navigation';
 import { ENV } from '@/config/env';
+import { COMPANY_ADDRESS_SHORT } from '@/utils/companyAddressUtils';
 
 import LegalHero from '@/components/ui/legal/LegalHero';
 import LegalToc from '@/components/ui/legal/LegalToc';
@@ -152,7 +153,7 @@ export default async function PrivacyView() {
                                 {ENV.COMPANY_PRIVACY_EMAIL}
                             </a>
                         </p>
-                        <p>{ps('contacto.addressLabel')} {ENV.COMPANY_ADDRESS}, {ENV.COMPANY_CITY}</p>
+                        <p>{ps('contacto.addressLabel')} {COMPANY_ADDRESS_SHORT}</p>
                     </LegalContactCard>
                 </LegalSection>
             </LegalLayout>

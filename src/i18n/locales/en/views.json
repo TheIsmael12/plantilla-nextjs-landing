@@ -886,7 +886,7 @@
       },
       "office": {
         "value": "Madrid",
-        "label": "Single office, visits by appointment"
+        "label": "Coverage across the whole Madrid region"
       }
     }
   },
@@ -1087,8 +1087,8 @@
     },
     "info": {
       "eyebrow": "Our office",
-      "title": "One office, close attention",
-      "subtitle": "We welcome visits by appointment; outside office hours, we're still available by phone for any emergency.",
+      "title": "One office, the whole Madrid region",
+      "subtitle": "We serve the whole Madrid region; outside office hours, we're still available by phone for any emergency.",
       "scheduleLabel": "Opening hours",
       "addressLabel": "Address",
       "mapLabel": "Map of Imora's office location",

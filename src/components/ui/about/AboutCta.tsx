@@ -4,6 +4,7 @@ import { Clock, MapPin } from 'lucide-react';
 
 import { ENV } from '@/config/env';
 import { ZONES, type MetropolitanArea } from '@/config/zones';
+import { COMPANY_ADDRESS_SHORT } from '@/utils/companyAddressUtils';
 
 import '@/styles/04-components/about/aboutBase.scss';
 import '@/styles/04-components/about/aboutCta.scss';
@@ -68,7 +69,7 @@ export default function AboutCta() {
             <div>
               <p className="about__cta-fact-label">{t('addressLabel')}</p>
               <p className="about__cta-fact-value">
-                {ENV.COMPANY_ADDRESS}, {ENV.COMPANY_CITY}
+                {COMPANY_ADDRESS_SHORT}
               </p>
             </div>
           </div>

@@ -886,7 +886,7 @@
       },
       "office": {
         "value": "Madrid",
-        "label": "Sede única, visitas con cita previa"
+        "label": "Cobertura en toda la Comunidad de Madrid"
       }
     }
   },
@@ -1087,8 +1087,8 @@
     },
     "info": {
       "eyebrow": "Nuestra sede",
-      "title": "Una sede única, trato cercano",
-      "subtitle": "Atendemos visitas con cita previa; fuera de horario de oficina, seguimos disponibles por teléfono para cualquier urgencia.",
+      "title": "Una oficina, toda la Comunidad de Madrid",
+      "subtitle": "Damos servicio en toda la Comunidad de Madrid; fuera de horario de oficina, seguimos disponibles por teléfono para cualquier urgencia.",
       "scheduleLabel": "Horario",
       "addressLabel": "Dirección",
       "mapLabel": "Mapa de ubicación de la sede de Imora",

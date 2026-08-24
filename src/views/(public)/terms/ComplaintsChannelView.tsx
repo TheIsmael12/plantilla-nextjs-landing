@@ -3,6 +3,7 @@ import { MegaphoneIcon } from 'lucide-react';
 
 import { ENV } from '@/config/env';
 import { Link } from '@/i18n/navigation';
+import { COMPANY_ADDRESS_SHORT } from '@/utils/companyAddressUtils';
 
 import LegalHero from '@/components/ui/legal/LegalHero';
 import LegalToc from '@/components/ui/legal/LegalToc';
@@ -107,7 +108,7 @@ export default async function ComplaintsChannelView() {
                                 {ENV.COMPANY_LEGAL_EMAIL}
                             </a>
                         </p>
-                        <p>{ps('contacto.addressLabel')} {ENV.COMPANY_ADDRESS}, {ENV.COMPANY_CITY}</p>
+                        <p>{ps('contacto.addressLabel')} {COMPANY_ADDRESS_SHORT}</p>
                     </LegalContactCard>
                 </LegalSection>
             </LegalLayout>

@@ -15,7 +15,7 @@ const HIGHLIGHTS: { key: HighlightKey; Icon: LucideIcon }[] = [
 /**
  * Hero de la página de contacto: titular, subtítulo y, en vez de una franja
  * de confianza aparte, los tres datos que la respaldan (tiempo de
- * respuesta, trato directo, sede única) integrados aquí mismo.
+ * respuesta, trato directo, cobertura) integrados aquí mismo.
  * @returns {JSX.Element} El hero de contacto renderizado
  */
 export default function ContactHero() {

@@ -7,6 +7,21 @@
  * de cabecera de ese fichero para el bug real que causó tenerlas juntas.
  */
 
+/**
+ * Una coordenada leída del entorno, o `undefined` si no está puesta o no es un número.
+ *
+ * **Sin valor por defecto, a propósito.** Antes caían al centro de Madrid, y eso convertía una variable sin
+ * rellenar en un mapa que funciona pero señala otro sitio: el pin salía en la Puerta del Sol mientras la
+ * dirección impresa justo al lado decía otra calle y otro código postal, y nada en la pantalla delataba que
+ * faltara configuración. Sin coordenadas no se pinta el mapa, y eso sí se nota.
+ * @param {string | undefined} value - El valor de la variable de entorno
+ * @returns {number | undefined} La coordenada, o `undefined`
+ */
+const coordinate = (value: string | undefined): number | undefined => {
+  const parsed = Number(value);
+  return value !== undefined && value !== "" && Number.isFinite(parsed) ? parsed : undefined;
+};
+
 export const ENV = {
   // App settings
   APP_NAME: process.env.NEXT_PUBLIC_APP_NAME || "Imora",
@@ -40,10 +55,11 @@ export const ENV = {
   COMPANY_STATE: process.env.NEXT_PUBLIC_COMPANY_STATE || "Madrid",
   COMPANY_COUNTRY: process.env.NEXT_PUBLIC_COMPANY_COUNTRY || "España",
 
-  // Coordenadas de la sede, para el marcado `geo` (PENDIENTE: sustituir por
-  // las reales de la dirección definitiva; por defecto, centro de Madrid)
-  COMPANY_LATITUDE: Number(process.env.NEXT_PUBLIC_COMPANY_LATITUDE) || 40.4168,
-  COMPANY_LONGITUDE: Number(process.env.NEXT_PUBLIC_COMPANY_LONGITUDE) || -3.7038,
+  // Coordenadas de la sede: el pin del mapa y el marcado `geo`. Tienen que ser
+  // las de COMPANY_ADDRESS, y sin ellas no se pinta ningún mapa — ver
+  // `coordinate` arriba y `utils/companyAddressUtils.ts`.
+  COMPANY_LATITUDE: coordinate(process.env.NEXT_PUBLIC_COMPANY_LATITUDE),
+  COMPANY_LONGITUDE: coordinate(process.env.NEXT_PUBLIC_COMPANY_LONGITUDE),
 
   COMPANY_SCHEDULE: process.env.NEXT_PUBLIC_COMPANY_SCHEDULE || "Oficina: L-V 9:00-18:00 · Urgencias 24h, 365 días",
 

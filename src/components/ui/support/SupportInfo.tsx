@@ -6,6 +6,12 @@ import { Clock, MapPin, ExternalLink, PhoneCall } from 'lucide-react';
 
 import { ENV } from '@/config/env';
 import { useIsMounted } from '@/hooks/useIsMounted';
+import {
+  COMPANY_ADDRESS_FULL,
+  COMPANY_ADDRESS_SHORT,
+  COMPANY_COORDINATES,
+  toTelHref,
+} from '@/utils/companyAddressUtils';
 import { buildMapsHref, buildFallbackMapsHref } from '@/utils/mapLinkUtils';
 
 import '@/styles/04-components/help/helpBase.scss';
@@ -30,7 +36,8 @@ const ContactMapCanvas = dynamic(() => import('@/components/ui/contact/ContactMa
 export default function SupportInfo() {
   const t = useTranslations('Support.info');
 
-  const fullAddress = `${ENV.COMPANY_ADDRESS}, ${ENV.COMPANY_POSTAL_CODE}, ${ENV.COMPANY_CITY}, ${ENV.COMPANY_COUNTRY}`;
+  // La misma dirección que el resto de la web, montada en un solo sitio (`companyAddressUtils`).
+  const fullAddress = COMPANY_ADDRESS_FULL;
 
   /*
    * En servidor no hay `navigator`, así que el primer render usa un enlace neutro (Google Maps web) y pasa
@@ -44,8 +51,8 @@ export default function SupportInfo() {
   const isMounted = useIsMounted();
 
   const mapsHref = isMounted
-    ? buildMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE, fullAddress)
-    : buildFallbackMapsHref(ENV.COMPANY_LATITUDE, ENV.COMPANY_LONGITUDE);
+    ? buildMapsHref(fullAddress, COMPANY_COORDINATES)
+    : buildFallbackMapsHref(fullAddress, COMPANY_COORDINATES);
 
   return (
     <section className="support__info">
@@ -71,7 +78,7 @@ export default function SupportInfo() {
               <div>
                 <p className="support__info-label">{t('emergencyLabel')}</p>
                 <p className="support__info-value">
-                  <a href={`tel:${ENV.COMPANY_EMERGENCY_PHONE}`} className="support__info-emergency-link">
+                  <a href={toTelHref(ENV.COMPANY_EMERGENCY_PHONE)} className="support__info-emergency-link">
                     {ENV.COMPANY_EMERGENCY_PHONE}
                   </a>
                 </p>
@@ -82,9 +89,7 @@ export default function SupportInfo() {
               <MapPin aria-hidden="true" />
               <div>
                 <p className="support__info-label">{t('addressLabel')}</p>
-                <p className="support__info-value">
-                  {ENV.COMPANY_ADDRESS}, {ENV.COMPANY_CITY}
-                </p>
+                <p className="support__info-value">{COMPANY_ADDRESS_SHORT}</p>
               </div>
             </div>
 
@@ -93,17 +98,23 @@ export default function SupportInfo() {
             </a>
           </div>
 
-          <div className="support__info-frame">
-            <ContactMapCanvas
-              latitude={ENV.COMPANY_LATITUDE}
-              longitude={ENV.COMPANY_LONGITUDE}
-              title={fullAddress}
-            />
+          {/*
+            Solo con coordenadas configuradas, igual que en la página de contacto: sin ellas no se
+            pinta un mapa centrado en un punto inventado. La dirección y el enlace a Maps siguen ahí.
+          */}
+          {COMPANY_COORDINATES && (
+            <div className="support__info-frame">
+              <ContactMapCanvas
+                latitude={COMPANY_COORDINATES.latitude}
+                longitude={COMPANY_COORDINATES.longitude}
+                title={fullAddress}
+              />
 
-            <a href={mapsHref} target="_blank" rel="noopener noreferrer" className="support__info-badge">
-              <ExternalLink aria-hidden="true" /> {t('viewOnMaps')}
-            </a>
-          </div>
+              <a href={mapsHref} target="_blank" rel="noopener noreferrer" className="support__info-badge">
+                <ExternalLink aria-hidden="true" /> {t('viewOnMaps')}
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </section>

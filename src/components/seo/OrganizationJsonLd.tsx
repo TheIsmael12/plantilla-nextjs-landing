@@ -4,6 +4,7 @@ import { getPathname, type AnyHref } from '@/i18n/navigation';
 import { ENV } from '@/config/env';
 import { SERVICE_SLUGS } from '@/config/routing';
 import { ZONES } from '@/config/zones';
+import { COMPANY_COORDINATES } from '@/utils/companyAddressUtils';
 
 interface OrganizationJsonLdProps {
   locale: string;
@@ -58,11 +59,21 @@ export default async function OrganizationJsonLd({ locale }: OrganizationJsonLdP
       addressRegion: ENV.COMPANY_STATE,
       addressCountry: 'ES',
     },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: ENV.COMPANY_LATITUDE,
-      longitude: ENV.COMPANY_LONGITUDE,
-    },
+    /*
+      El bloque `geo` solo va si hay coordenadas configuradas. Antes caían al centro de Madrid por
+      defecto, así que este marcado afirmaba —con la autoridad de un dato estructurado— que la sede
+      está en la Puerta del Sol mientras la `PostalAddress` de al lado decía otra calle. Un dato
+      contradictorio es peor que uno ausente: `geo` es opcional en `LocalBusiness`.
+    */
+    ...(COMPANY_COORDINATES
+      ? {
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: COMPANY_COORDINATES.latitude,
+            longitude: COMPANY_COORDINATES.longitude,
+          },
+        }
+      : {}),
     areaServed: zones.map((zone) => ({ '@type': 'City', name: zone })),
     openingHoursSpecification: [
       {

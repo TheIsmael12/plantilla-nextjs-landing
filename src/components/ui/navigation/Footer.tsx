@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import { ENV } from "@/config/env";
 import { PUBLIC_ROUTES, SERVICE_SLUGS } from '@/config/routing';
+import { COMPANY_ADDRESS_FULL } from "@/utils/companyAddressUtils";
 
 import ImageLogo from "@/components/ui/images/ImageLogo";
 import FooterThemeToggle from "@/components/ui/navigation/FooterThemeToggle";
@@ -30,7 +31,7 @@ const BRAND = {
     contact: {
         email: ENV.COMPANY_EMAIL,
         phone: ENV.COMPANY_PHONE,
-        location: `${ENV.COMPANY_ADDRESS}, ${ENV.COMPANY_CITY}, ${ENV.COMPANY_COUNTRY}`,
+        location: COMPANY_ADDRESS_FULL,
     }
 }
 
