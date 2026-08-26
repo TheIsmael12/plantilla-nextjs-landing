@@ -11,8 +11,9 @@
  * sumidero DOM peligroso (`innerHTML`, `document.write`...) pase por un
  * `TrustedTypePolicy`, en vez de aceptar cualquier string.
  *
- * `trusted-types default html 'allow-duplicates'` — y no `'none'` — porque hay
- * dos políticas legítimas en juego, y una de ellas se registra más de una vez:
+ * `trusted-types default html nextjs goog#html 'allow-duplicates'` — y no
+ * `'none'` — porque hay varias políticas legítimas en juego, y una de ellas se
+ * registra más de una vez:
  *
  * - `default`: la registra `[locale]/layout.tsx` en un script inline, antes de
  *   que cargue nada más, para el propio runtime de producción de React/Next
@@ -33,6 +34,16 @@
  *   `'allow-duplicates'` es la salida real: es la keyword que la propia CSP
  *   ofrece para esto, permite registrar una política con un nombre ya usado
  *   en vez de bloquearla.
+ * - `goog#html`: la registra el propio contenedor (`gtm.js`, y también
+ *   `gtag.js`) para asignar `innerHTML` y `script.src` al montar las etiquetas.
+ *   Sin este nombre el navegador bloquea su creación —«Creating a
+ *   TrustedTypePolicy named 'goog#html' violates the following Content Security
+ *   policy directive», visto en producción en `imora.es`— y el contenedor se
+ *   queda sin política propia: sus asignaciones caen a `default`, que las deja
+ *   pasar, así que la medición sigue funcionando, pero cada carga de página
+ *   deja ese error en la consola y Lighthouse lo cuenta como «errores del
+ *   navegador registrados en la consola». Va condicionado a `NEXT_PUBLIC_GTM_ID`
+ *   como el resto de la medición: sin contenedor nadie registra esa política.
  *
  * Cuando existe una política llamada exactamente `default`, el navegador la
  * usa automáticamente para cualquier asignación que no pase ya por una
@@ -64,13 +75,16 @@ const GOOGLE_MAPS_EMBED_ORIGIN = "https://www.google.com";
  * `*.google-analytics.com` (con comodín) y no solo `www.google-analytics.com`: gtag.js elige en
  * runtime un endpoint de medición "regional" (`region1.google-analytics.com`, `regionN...`)
  * según la localización del visitante para reducir latencia — sin el comodín, esas peticiones
- * se bloqueaban con el mismo error para visitantes fuera de la región por defecto.
+ * se bloqueaban con el mismo error para visitantes fuera de la región por defecto. Por lo
+ * mismo `*.analytics.google.com` además del host pelado: los envíos de conversiones
+ * mejoradas salen contra `regionN.analytics.google.com`.
  */
 const GOOGLE_MEASUREMENT_ORIGINS = [
   "https://www.googletagmanager.com",
   "https://www.google-analytics.com",
   "https://*.google-analytics.com",
   "https://analytics.google.com",
+  "https://*.analytics.google.com",
 ];
 
 /**
@@ -150,7 +164,12 @@ export function buildContentSecurityPolicy(nonce: string): string {
     // nonce en `script-src` (ejecución de código arbitrario) no es el mismo
     // que el de CSS inyectado.
     "style-src 'self' 'unsafe-inline'",
-    `img-src 'self' data: blob: ${MAP_TILES_ORIGIN}${backendOrigin ? ` ${backendOrigin}` : ""}`,
+    // Los orígenes de medición van también en `img-src`, no solo en `connect-src`: cuando
+    // `sendBeacon`/`fetch` no están disponibles —o la etiqueta mide con píxel, como el enlazador
+    // de conversiones— GA4 manda el evento como imagen contra `/g/collect`, y sin esto ese envío
+    // se bloquea con el mismo silencio que el resto: para Google es indistinguible de que no haya
+    // tráfico.
+    `img-src 'self' data: blob: ${MAP_TILES_ORIGIN}${backendOrigin ? ` ${backendOrigin}` : ""}${analyticsEnabled ? ` ${GOOGLE_MEASUREMENT_ORIGINS.join(" ")}` : ""}`,
     "font-src 'self' data:",
     `connect-src 'self'${backendOrigin ? ` ${backendOrigin}` : ""}${backendWebSocketOrigin ? ` ${backendWebSocketOrigin}` : ""}${analyticsEnabled ? ` ${GOOGLE_MEASUREMENT_ORIGINS.join(" ")}` : ""}`,
     `frame-src 'self' ${TURNSTILE_ORIGIN} ${GOOGLE_MAPS_EMBED_ORIGIN}`,
@@ -166,6 +185,10 @@ export function buildContentSecurityPolicy(nonce: string): string {
     // navegador rechaza esa asignación aunque `default` ya esté registrada y funcionando para
     // el resto de la app: «This document requires 'TrustedScriptURL' assignment», visto en
     // producción exactamente en el cargador de chunks (`loadChunkCached`), no en código propio.
-    "trusted-types default html nextjs 'allow-duplicates'",
+    //
+    // `goog#html`: la política del propio contenedor de GTM (ver la cabecera del módulo),
+    // solo cuando hay contenedor configurado — sin `NEXT_PUBLIC_GTM_ID` no se carga `gtm.js`
+    // y nadie la registra, así que no hay razón para admitirla.
+    `trusted-types default html nextjs${analyticsEnabled ? " goog#html" : ""} 'allow-duplicates'`,
   ].join("; ");
 }

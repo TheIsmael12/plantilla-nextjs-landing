@@ -143,7 +143,7 @@ describe("parseCsv", () => {
 
 describe("isSafeFileUrl", () => {
   it("acepta http y https", () => {
-    expect(isSafeFileUrl("https://api.enovait.es/files/1.pdf")).toBe(true);
+    expect(isSafeFileUrl("https://api.imora.es/files/1.pdf")).toBe(true);
     expect(isSafeFileUrl("http://localhost:5000/files/1.pdf")).toBe(true);
   });
 

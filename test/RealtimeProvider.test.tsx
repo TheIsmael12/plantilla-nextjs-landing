@@ -50,7 +50,7 @@ beforeEach(() => {
   session.status = "authenticated";
   getRealtimeTicket.mockResolvedValue({
     status: 200,
-    data: { origin: "https://api.enovait.es", namespace: "/portal", ticket: "ticket-1" },
+    data: { origin: "https://api.imora.es", namespace: "/portal", ticket: "ticket-1" },
   });
 });
 
@@ -96,7 +96,7 @@ describe("la conexión", () => {
     await waitFor(() => expect(io).toHaveBeenCalled());
 
     const [url, options] = io.mock.calls[0] ?? [];
-    expect(url).toBe("https://api.enovait.es/portal");
+    expect(url).toBe("https://api.imora.es/portal");
     // Solo websocket: el sondeo largo por HTTP no aporta nada aquí y multiplica las peticiones.
     expect((options as { transports: string[] }).transports).toEqual(["websocket"]);
   });

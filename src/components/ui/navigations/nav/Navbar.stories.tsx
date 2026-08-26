@@ -12,7 +12,7 @@ const mockSession: Session = {
     username: "ismael.ben",
     firstName: "Ismael",
     lastName: "Ben",
-    email: "ismael.ben@enovait.es",
+    email: "ismael.ben@imora.es",
     permissions: ["USER_READ"],
     corporateEmail: null,
     avatarUrl: null,

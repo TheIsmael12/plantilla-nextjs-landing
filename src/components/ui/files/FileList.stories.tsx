@@ -199,7 +199,7 @@ export const WithResolvedUrls: Story = {
   name: "Con URLs resueltas",
   args: {
     files: [FILES[1]!],
-    resolveUrl: (src: string) => (src.startsWith("data:") ? src : `https://api.enovait.es${src}`),
+    resolveUrl: (src: string) => (src.startsWith("data:") ? src : `https://api.imora.es${src}`),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
