@@ -54,8 +54,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <MenuItems onNavigate={onClose} />
         </nav>
         <div className="sidebar__footer">
-          <a href="https://enovait.es">
-            <span>Enova IT Solutions S.L</span>
+          <a href="https://imora.es">
+            <span>Imora</span>
           </a>
         </div>
       </aside>
