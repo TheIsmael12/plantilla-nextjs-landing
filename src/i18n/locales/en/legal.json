@@ -8,22 +8,22 @@
       "examples": "Examples:"
     },
     "Terms": {
-      "title": "Terms and Conditions",
-      "subtitle": "Please read these terms carefully before using our services. By accessing and using the platform, you agree to be bound by these conditions.",
-      "updatedDate": "August 17, 2026",
-      "tocAriaLabel": "Terms and Conditions index",
+      "title": "Terms of use",
+      "subtitle": "These terms govern the use of this website and of the private areas reached from it. Contracted services are governed by their own contract.",
+      "updatedDate": "August 27, 2026",
+      "tocAriaLabel": "Terms of use index",
       "toc": [
         {
           "href": "#aceptacion",
-          "label": "1. Acceptance of terms"
+          "label": "1. Purpose and acceptance"
         },
         {
           "href": "#servicios",
-          "label": "2. Services description"
+          "label": "2. What you will find on this site"
         },
         {
           "href": "#cuenta",
-          "label": "3. User account"
+          "label": "3. Access to the client area"
         },
         {
           "href": "#uso-aceptable",
@@ -35,7 +35,7 @@
         },
         {
           "href": "#pagos",
-          "label": "6. Billing"
+          "label": "6. Contracting and invoicing"
         },
         {
           "href": "#privacidad",
@@ -43,11 +43,11 @@
         },
         {
           "href": "#garantias",
-          "label": "8. Warranties"
+          "label": "8. Warranties and liability"
         },
         {
           "href": "#terminacion",
-          "label": "9. Termination"
+          "label": "9. Suspension and end of access"
         },
         {
           "href": "#ley",
@@ -60,70 +60,84 @@
       ],
       "sections": {
         "aceptacion": {
-          "title": "1. Acceptance of terms",
-          "p1": "By accessing or using this platform's services, you confirm that you have read, understood and agreed to be bound by these Terms and Conditions, as well as our Privacy Policy.",
-          "p2": "If you do not agree with any part of these terms, you may not access the service. These terms apply to all visitors, users and anyone else who accesses or uses the service."
+          "title": "1. Purpose and acceptance",
+          "p1": "These terms govern the use of this website and of the private areas reached from it: the client area for communities, buildings and companies, and the resident app. The website belongs to the company identified at the end of this document.",
+          "p2": "What they do not govern is the delivery of the services themselves. Concierge, security, cleaning, gardening, pool and general maintenance services are governed by the contract signed with each community, building or company, and that contract prevails over this text. By browsing the site or using any of its features you accept these terms; if you do not agree, please do not use them."
         },
         "servicios": {
-          "title": "2. Services description",
-          "intro": "The platform offers the following services:",
+          "title": "2. What you will find on this site",
+          "intro": "This site is informational and, for existing clients, a management tool. From here you can:",
           "list": [
             {
-              "strong": "Content publishing: ",
-              "rest": "Tools to create, edit and publish articles and blog posts."
+              "strong": "Learn about the services: ",
+              "rest": "concierge, security, cleaning, gardening, pools and maintenance, and the areas we cover."
             },
             {
-              "strong": "User management: ",
-              "rest": "Registration, authentication and profile administration system."
+              "strong": "Request a quote: ",
+              "rest": "the contact form starts a commercial conversation. Sending it does not contract anything or bind either party."
             },
             {
-              "strong": "Analytics: ",
-              "rest": "Access to performance metrics for published content."
+              "strong": "Enter the client area: ",
+              "rest": "for communities, property managers and companies with a contracted service. It holds incidents, quotes, invoices and service details."
+            },
+            {
+              "strong": "Use the resident app: ",
+              "rest": "for people living in a community with a contracted service: report an incident, follow its answer and read the noticeboard."
+            },
+            {
+              "strong": "Work with us: ",
+              "rest": "browse published openings and send an application."
+            },
+            {
+              "strong": "Read the blog: ",
+              "rest": "general articles about building maintenance and community management. They are guidance only and replace neither a technical report nor professional advice."
             }
           ],
-          "outro": "We reserve the right to modify, suspend or discontinue any aspect of the service at any time, with or without notice."
+          "outro": "We may change, extend or withdraw any of these sections. That affects the website, never a service already contracted: what has been agreed in a contract is delivered even if the site changes."
         },
         "cuenta": {
-          "title": "3. User account",
-          "sub1": "Registration and responsibilities",
+          "title": "3. Access to the client area",
+          "sub1": "How access is granted",
           "list1": [
-            "You must provide accurate, complete and up-to-date information during registration.",
-            "You are responsible for maintaining the confidentiality of your credentials.",
-            "You are responsible for all activities that occur under your account.",
-            "You must notify us immediately of any unauthorized use of your account."
+            "There is no open sign-up: accounts are created by us for the client, for the property manager they appoint, or by invitation for residents of a community with a contracted service.",
+            "The contact details you give us must be accurate and kept up to date: they are how we reach you about an incident or a visit.",
+            "Credentials are personal and must not be shared. If several people in the management office need access, request an account for each.",
+            "You are responsible for what is done from your account while it is open.",
+            "Tell us as soon as you suspect someone has accessed it without your permission, so we can close that session."
           ],
-          "sub2": "Account security",
-          "securityText": "We implement reasonable security measures to protect your account. We recommend using a unique password and not sharing it with third parties."
+          "sub2": "Access security",
+          "securityText": "We apply security measures that are reasonable and proportionate to the data involved. On your side, use a password unique to this service and sign out on shared devices. The client area itself lets you see open sessions and close them."
         },
         "uso_aceptable": {
           "title": "4. Acceptable use",
-          "intro": "By using our services, you agree not to:",
+          "intro": "When using this site and the client area, you agree not to do any of the following:",
           "list": [
-            "Post illegal, defamatory, harassing, abusive, threatening or harmful content.",
-            "Infringe the intellectual property rights of third parties.",
-            "Attempt to gain unauthorized access to any part of the services.",
-            "Interfere with or disrupt the integrity or performance of the services.",
-            "Transmit malware, viruses or other harmful code.",
-            "Use the services for fraudulent or illegal purposes."
+            "Access or try to access information about communities, units or people that is not yours to see.",
+            "Use the data shown in the client area —residents, homes, incidents, access logs— for anything other than managing the contracted service.",
+            "Extract the site's content in bulk or by automated means without our authorisation.",
+            "Interfere with the operation of the site, the app or the systems behind them.",
+            "Introduce harmful software or code.",
+            "Impersonate another person, community or company, or misrepresent your relationship with them."
           ],
-          "warning": "Violation of these conditions may result in the immediate suspension or cancellation of your account, and we may take legal action if necessary."
+          "warning": "If this happens we may suspend access immediately to protect everyone else, and report the conduct where it warrants it. The service's contractual relationship is a separate matter and follows its own contract."
         },
         "propiedad": {
           "title": "5. Intellectual property",
-          "sub1": "Our content",
-          "p1": "The service and its original content are the exclusive property of the company and its licensors. They are protected by copyright and other intellectual property laws.",
-          "sub2": "Your content",
-          "p2": "You retain all rights to the content you post. By posting it, you grant us a worldwide, non-exclusive license to use it in the context of providing the service.",
-          "sub3": "Permitted use",
-          "p3": "You may not reproduce, distribute or modify our content without our express written authorization."
+          "sub1": "What is ours",
+          "p1": "The texts, images, brand, site design and the software behind the client area and the resident app belong to the company or to those who licensed them to us, and are protected by intellectual and industrial property law.",
+          "sub2": "What you contribute",
+          "p2": "What you upload remains yours: the photos of an incident, the documents you attach or the CV in an application. By sending it you authorise us to use it only for what it was sent for —resolving that incident, handling that request or assessing that application— and for the period explained in the privacy policy.",
+          "sub3": "What you may do with our content",
+          "p3": "You may read and print the site's content for personal use or to manage your community. Reproducing, distributing or modifying it for commercial purposes requires our written authorisation."
         },
         "pagos": {
-          "title": "6. Billing",
+          "title": "6. Contracting and invoicing",
           "list": [
-            "The price of each service is agreed by contract before we start providing it, based on the fixed quote we prepare for your community, building or business.",
-            "Invoices for contracted services are available to view in the private client area.",
-            "Invoices are paid through the method agreed in the service contract (bank transfer, direct debit or another agreed method), not through a payment gateway integrated into this website.",
-            "Any query about an invoice can be raised through our usual contact channels."
+            "The price of each service is agreed by contract before we start delivering it, following the fixed quote we prepared for your community, building or business.",
+            "What is contracted, its scope and its term are set out in that contract. This website is not where services are contracted and does not replace what was signed.",
+            "Invoices for contracted services are available in the client area.",
+            "Payment is made as agreed in the contract (transfer, direct debit or another agreed method), not through a payment gateway on this website.",
+            "Any claim about an invoice can be raised through the usual contact channels or from the client area."
           ]
         },
         "privacidad": {
@@ -134,23 +148,24 @@
         },
         "garantias": {
           "title": "8. Warranties and liability",
-          "intro": "The service is provided 'as is' and 'without warranties'. To the maximum extent permitted by law, we expressly disclaim:",
+          "intro": "What follows refers to this website, not to the services we deliver. Contracted services answer for what their contract and the law require, and nothing in this section limits that:",
           "list": [
-            "Any implied warranties of merchantability or fitness for a particular purpose.",
-            "Warranties regarding the accuracy, reliability or completeness of the content.",
-            "Our liability for indirect, incidental or consequential damages."
+            "The site's informational content is guidance: it may contain errors or become outdated, and replaces neither a technical report nor professional advice.",
+            "We aim to keep the site and the client area available at all times, but we cannot guarantee there will be no interruptions for maintenance or reasons beyond our control.",
+            "We are not responsible for the content of third-party sites we link to.",
+            "None of the above affects the rights that consumer law grants to anyone holding that status."
           ]
         },
         "terminacion": {
-          "title": "9. Termination",
-          "p1": "We may terminate or suspend your access to the service immediately, without prior notice or liability, for any reason, including breach of these Terms.",
-          "p2": "Upon termination, your right to use the service will cease immediately. If you wish to cancel your account, contact us to request deletion.",
-          "p3": "Provisions of these Terms that by their nature should survive termination will continue in effect."
+          "title": "9. Suspension and end of access",
+          "p1": "We may suspend access to the client area if we detect any of the misuse described above or a risk to data security. Unless urgency prevents it, we give notice first.",
+          "p2": "Access ends when the contractual relationship with the community, building or company ends. From then on, data is kept or deleted as explained in the privacy policy, not as stated in this document.",
+          "p3": "Clauses that by their nature must survive the end of access —liability, intellectual property and governing law— continue to apply."
         },
         "ley": {
           "title": "10. Governing law",
-          "p1": "These Terms shall be governed by and construed in accordance with the laws of the Kingdom of Spain.",
-          "p2": "Any disputes arising in connection with these Terms shall be subject to the exclusive jurisdiction of the competent courts of Spain."
+          "p1": "These terms are governed by Spanish law.",
+          "p2": "For any dispute, the parties submit to the courts that have jurisdiction under the law. Where the user is a consumer, the court of their domicile has jurisdiction, as consumer law provides."
         },
         "contacto": {
           "title": "11. Contact",
@@ -474,7 +489,7 @@
     "Complaints": {
       "title": "Complaints channel",
       "subtitle": "A direct, confidential channel for reporting breaches, irregularities or conduct contrary to regulations related to our activity.",
-      "updatedDate": "1 January 2025",
+      "updatedDate": "August 27, 2026",
       "tocAriaLabel": "Complaints channel index",
       "toc": [
         {

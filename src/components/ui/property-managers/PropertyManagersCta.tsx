@@ -23,6 +23,18 @@ export default function PropertyManagersCta() {
         <Link href="/contact" className="about__btn about__btn--accent">
           {t('button')}
         </Link>
+
+        {/*
+          El camino de vuelta a las zonas, que estaba cortado.
+          Desde aquí se llegaba a los servicios pero no a los municipios, y la primera pregunta de un administrador
+          es si llegamos a donde tiene las fincas. Sin este enlace había que salir al menú a buscarlo.
+        */}
+        <p className="about__cta-alt">
+          {t('zonesPrefix')}{' '}
+          <Link href="/zones" className="about__cta-alt-link">
+            {t('zonesLink')}
+          </Link>
+        </p>
       </div>
     </section>
   );

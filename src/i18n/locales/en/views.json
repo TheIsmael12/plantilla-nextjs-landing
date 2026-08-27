@@ -89,7 +89,7 @@
       "eyebrow": "Property managers",
       "title": "One provider for every community you manage",
       "subtitle": "Concierge, cleaning, maintenance, gardening, pools and security with the same in-house team and the same point of contact, across every property in your portfolio.",
-      "cta": "Talk to Imora",
+      "cta": "I want a proposal for my portfolio",
       "imageAlt": "Property manager reviewing a community's issues with the Imora team"
     },
     "services": {
@@ -123,7 +123,9 @@
       "eyebrow": "Let's talk",
       "title": "Tell us how many communities you manage",
       "subtitle": "We prepare a proposal per property, detailing what services each one already has and which ones could be outsourced to Imora.",
-      "button": "Request a proposal for my portfolio"
+      "button": "Request a proposal for my portfolio",
+      "zonesPrefix": "Do you manage buildings across the Madrid region?",
+      "zonesLink": "See which municipalities we cover"
     },
     "faqTitle": "Frequently asked questions for property management firms",
     "faq": [
@@ -691,7 +693,9 @@
           "maintenance": "Electrical maintenance in the old town buildings of Arganda del Rey, with older installations, tends to require different attention than the new developments on the outskirts."
         }
       }
-    }
+    },
+    "ctaManagersPrefix": "Do you manage buildings in {zone}?",
+    "ctaManagersLink": "See the proposal for property managers"
   },
   "Complaints": {
     "wizard": {
@@ -861,13 +865,13 @@
       "title": "Who would you like to talk to?",
       "sales": {
         "name": "Sales",
-        "description": "Tell us what service you need and we'll prepare a tailored quote.",
+        "description": "Tell us which service you need, for how many homes or square metres and when. We prepare a fixed quote, with no obligation.",
         "cta": "Request a quote"
       },
       "support": {
         "name": "Customer service",
-        "description": "Already a customer? We'll resolve incidents and questions about your service as soon as possible.",
-        "cta": "Contact customer service"
+        "description": "You already have a service with us and something is wrong, or you have a question. This takes you to the support page, which explains what counts as an emergency and what does not.",
+        "cta": "I am a client and need help"
       },
       "billing": {
         "name": "Billing",
@@ -1045,7 +1049,9 @@
     "hero": {
       "eyebrow": "Help",
       "title": "Already a client? We're here to help",
-      "subtitle": "No call centres, no middlemen: your query goes straight to the team looking after your community or building. Pick the reason for your query below, or write to us directly."
+      "subtitle": "No call centres, no middlemen: your query goes straight to the team looking after your community or building. Pick the reason for your query below, or write to us directly.",
+      "notClientPrefix": "Not a client yet?",
+      "notClientLink": "Request a quote with no obligation"
     },
     "routing": {
       "title": "What kind of help do you need?",
@@ -1082,7 +1088,7 @@
       },
       "emergency": {
         "title": "24-hour emergencies",
-        "description": "Outside office hours, for incidents that can't wait."
+        "description": "Only for what cannot wait until tomorrow: a leak, a lift stuck with someone inside, an entrance that will not lock or anything putting people at risk. Everything else is handled during office hours."
       }
     },
     "info": {
@@ -1273,19 +1279,19 @@
             "icon": "UserCheck",
             "title": "Reception and resident support",
             "image": "/images/services/subservices/concierge-1.jpg",
-            "description": "The concierge knows every resident by name and which suppliers each home has authorised. Anything they can't resolve on the spot gets logged in a daily report and reaches the property administrator that same day, not at month's end."
+            "description": "The concierge works to recognise residents and to know which suppliers each home has authorised: the more stable the post, the sooner that happens. Anything they cannot solve on the spot is logged in a daily report that reaches the property manager the same day, not at the end of the month."
           },
           {
             "icon": "ScanLine",
             "title": "Access control",
             "image": "/images/services/subservices/concierge-2.jpg",
-            "description": "Every visit is logged with an entry time, and the concierge checks identity before letting in anyone they don't recognise. Couriers follow a specific protocol so as not to disturb residents at night."
+            "description": "Every visit is logged with its entry time, and the concierge checks the identity of anyone they do not recognise before letting them through. Couriers and delivery drivers follow a specific protocol so residents are not disturbed at night. The log is kept following the community's instructions and data protection law: only what is necessary is recorded, it is kept for the agreed period and it is not used for anything else."
           },
           {
             "icon": "Package",
             "title": "Mail and parcels",
             "image": "/images/services/subservices/concierge-3.jpg",
-            "description": "Parcels that need a signature are kept in a marked area and residents are notified through whatever channel the community chooses: a note, WhatsApp or an app. Registered mail and official notices are always handled with proof of receipt."
+            "description": "Parcels requiring a signature are stored in an identified space and the resident is notified through whichever channel the community chooses: a physical note, WhatsApp or an app. Registered mail and official notices are handled with proof of receipt, and only where the community has authorised in writing that the concierge may receive them on residents' behalf."
           },
           {
             "icon": "RefreshCcw",
@@ -1310,6 +1316,10 @@
           {
             "question": "Can I hire coverage for mornings only?",
             "answer": "Yes, shifts are adapted to what each community needs: half-day, split shift or full 6-to-24-hour coverage."
+          },
+          {
+            "question": "What visitor data is kept, and what happens to it?",
+            "answer": "Only what is needed to know who came in and when: usually name, reason for the visit, destination home and time. The data controller is the community; we keep the log on their behalf, under their instructions and a data processing agreement. It is not shared with third parties, it is not used for anything other than access control, and it is kept for the period the community has set."
           }
         ],
         "audience": {
@@ -1338,7 +1348,7 @@
             "icon": "Camera",
             "title": "Video surveillance (CCTV)",
             "image": "/images/services/subservices/security-1.jpg",
-            "description": "Cameras go where the building's actual blind spots are (entrances, garage, common areas), not in a standard pattern. Footage is kept for a maximum of 30 days, following the Spanish data protection authority's general guidance on video surveillance."
+            "description": "Cameras go where the building actually has blind spots (entrances, garage, common areas), not in a standard pattern. Recordings are deleted within one month of being captured, as article 22.3 of the Spanish data protection act requires, unless they record events that must be evidenced before the competent authority. The data controller is the community or the company that owns the installation; we maintain it on their behalf and follow their instructions."
           },
           {
             "icon": "KeyRound",
@@ -1362,7 +1372,7 @@
         "faq": [
           {
             "question": "How long is footage kept?",
-            "answer": "A maximum of 30 days, following the Spanish data protection authority's general guidance, unless it's needed for an ongoing investigation."
+            "answer": "Yes. The installation is signposted, camera placement avoids public streets and private spaces, and retention follows article 22.3 of the Spanish data protection act. The data controller remains the community, who must inform residents and handle their rights; we act as processor."
           },
           {
             "question": "Who can view the recordings?",
@@ -1403,7 +1413,7 @@
             "icon": "Droplet",
             "title": "Water chemical maintenance",
             "image": "/images/services/subservices/pools-1.jpg",
-            "description": "We measure pH (target 7.2-7.6) and free chlorine (0.5-2 mg/l) daily, following Spanish health regulations for collective-use pools. Dosing is adjusted to that day's actual pool usage, not a fixed factory routine."
+            "description": "Royal Decree 742/2013 sets pool water at a pH between 7.2 and 8.0 and free residual chlorine between 0.5 and 2 mg/l. Within that range we aim narrower —pH between 7.2 and 7.6— because that is where chlorine disinfects best and irritates the eyes least. It is measured daily and the dose follows the pool's actual use, not a fixed factory schedule."
           },
           {
             "icon": "Brush",
@@ -1673,7 +1683,9 @@
       "subservicesEyebrow": "In detail",
       "faqTitle": "Frequently asked questions about this service",
       "audienceEyebrow": "Who it's for",
-      "audienceTitle": "How this service adapts to who's hiring it"
+      "audienceTitle": "How this service adapts to who's hiring it",
+      "ctaManagersPrefix": "Do you manage several communities?",
+      "ctaManagersLink": "How we work with property managers"
     },
     "viewService": "View service",
     "process": {
@@ -2884,7 +2896,8 @@
       "seeServices": "Services we provide in {city}",
       "backToAll": "See all openings",
       "metaTitle": "Jobs in {city}: current openings",
-      "metaDescription": "{count, plural, one {1 open position} other {# open positions}} in {city}. Check the role, the terms and apply online."
+      "metaDescription": "{count, plural, one {1 open position} other {# open positions}} in {city}. Check the role, the terms and apply online.",
+      "countNote": "{total, plural, one {There is 1 open role right now and it covers several areas} other {There are # open roles right now and some cover several areas}}: the number on each city is how many you can apply to there, not how many different roles exist."
     },
     "card": {
       "featured": "Featured",

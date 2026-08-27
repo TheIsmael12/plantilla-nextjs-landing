@@ -128,7 +128,11 @@ export default function ContactViewPage() {
 
             <ContactHero />
 
-            <section className="contact__content">
+            {/*
+              El formulario lleva ancla propia: es el destino de «Solicitar presupuesto» desde los departamentos, que
+              está más abajo. Sin ella, la tarjeta de comercial solo podía abrir un cliente de correo.
+            */}
+            <section className="contact__content" id="formulario">
                 <div className="contact__container contact__content-grid">
 
                     <div className="contact__content-form">

@@ -36,8 +36,20 @@
   display: block;
   line-height: 0;
   flex-shrink: 0;
-  width: clamp(5rem, 5vw + 1rem, 5rem);
-  height: clamp(5rem, 5vw + 1rem, 5rem);
+
+  /*
+   * La caja del logo tiene **la proporción del logo**, y antes era un cuadrado.
+   *
+   * El archivo mide 1854 × 597, es decir algo más de 3:1. Metido en un cuadrado de 5rem con `object-fit: contain`
+   * —que es como lo pinta `ImageLogo`— la marca solo podía ocupar 80 × 26 px y se quedaba flotando en el centro de
+   * un hueco de 80 × 80, con más aire que dibujo: de ahí que se viera pequeño y descolocado.
+   *
+   * Y esos 5rem eran además el alto entero de la barra, así que el logo peleaba con el relleno vertical del
+   * contenedor. Con 8rem × 4rem hay proporción parecida a la del archivo y sitio de sobra dentro de la barra: son
+   * las mismas medidas que el navbar público, que es de donde esta cabecera copia el patrón.
+   */
+  width: 8rem;
+  height: 4rem;
 }
 
 .client-area-header__links {

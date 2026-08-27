@@ -127,7 +127,7 @@ export default async function CareersViewPage({ locale, searchParams }: CareersV
                                 activeCity={firstOf(searchParams.citySlug)}
                             />
 
-                            <JobCityLinks cities={filters.cities} />
+                            <JobCityLinks cities={filters.cities} totalJobs={filters.totalJobs} />
 
                             <JobFilters
                                 filters={filters}

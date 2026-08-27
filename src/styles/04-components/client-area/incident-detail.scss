@@ -158,6 +158,29 @@
   list-style: none;
   margin: 0;
   padding: 0;
+
+  /*
+   * El hilo se desplaza **dentro de su caja**, no arrastrando la página.
+   *
+   * Sin esto crecía sin límite: en una incidencia con veinte mensajes, el campo de escribir quedaba a dos pantallas
+   * del principio, y para contestar había que recorrer la conversación entera. Que es justo lo contrario de lo que
+   * hace cualquier chat, donde lo último y el campo de escribir están siempre juntos y a la vista.
+   *
+   * `min()` y no un alto fijo: en un portátil manda el 60 % del alto de la ventana, y en una pantalla grande el tope
+   * de 34rem evita una columna de conversación tan alta que haya que mover la cabeza para leerla.
+   */
+  max-height: min(60vh, 34rem);
+  overflow-y: auto;
+
+  // El hueco de la derecha es para la barra de desplazamiento: sin él se pinta encima de las burbujas propias, que
+  // están pegadas a ese borde.
+  padding-right: 0.5rem;
+
+  // El foco del teclado se ve: una zona desplazable a la que se llega con el tabulador tiene que decir que la tiene.
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
 }
 
 .incident-detail__thread-item {

@@ -41,6 +41,19 @@ export default function ServiceDetailCta() {
           <Link href="/services" className="services__detail-cta-secondary">
             {t('ctaSecondaryButton')}
           </Link>
+
+          {/*
+            El desvío para el administrador de fincas.
+            Quien lee una ficha de servicio puede ser una comunidad —que pide presupuesto para la suya— o quien
+            gestiona una cartera entera, y a ese lo que le sirve no es este formulario sino la propuesta por cartera.
+            Es el eslabón que le faltaba al recorrido servicio → localidad → administrador → contacto.
+          */}
+          <p className="services__detail-cta-alt">
+            {t('ctaManagersPrefix')}{' '}
+            <Link href="/for/property-managers" className="services__detail-cta-alt-link">
+              {t('ctaManagersLink')}
+            </Link>
+          </p>
         </div>
 
         <div className="services__detail-cta-action">

@@ -28,3 +28,21 @@
   z-index: 1;
   max-width: 42rem;
 }
+
+/*
+ * La salida para quien no es cliente.
+ *
+ * Discreta y debajo del subtítulo: no compite con el mensaje de la página —que es para clientes— pero está donde se
+ * lee antes de bajar, que es el único sitio donde sirve de algo.
+ */
+.support__hero-alt {
+  margin: 1rem 0 0;
+  font-size: 0.9375rem;
+  color: var(--neutral-color);
+}
+
+.support__hero-alt-link {
+  color: var(--primary-color-active);
+  font-weight: 600;
+  text-decoration: underline;
+}

@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
+import { Link } from '@/i18n/navigation';
+
 import '@/styles/04-components/help/helpBase.scss';
 import '@/styles/04-components/support/supportHero.scss';
 
@@ -25,6 +27,21 @@ export default function SupportHero() {
         <p className="help__eyebrow">{t('eyebrow')}</p>
         <h1 className="help__title-lg">{t('title')}</h1>
         <p className="help__text-muted">{t('subtitle')}</p>
+
+        {/*
+          La salida para quien **no** es cliente, arriba del todo.
+
+          Toda esta página está escrita para quien ya tiene servicio contratado, y quien no lo tiene llegaba igual
+          —desde el buscador o desde el menú de Ayuda— y se encontraba un teléfono de urgencias y un formulario de
+          incidencias que no le sirven de nada. Decirlo en una línea, con su enlace, cuesta menos que dejarle
+          recorrer la página entera para descubrir que se ha equivocado de sitio.
+        */}
+        <p className="support__hero-alt">
+          {t('notClientPrefix')}{' '}
+          <Link href="/contact" className="support__hero-alt-link">
+            {t('notClientLink')}
+          </Link>
+        </p>
       </div>
     </section>
   );

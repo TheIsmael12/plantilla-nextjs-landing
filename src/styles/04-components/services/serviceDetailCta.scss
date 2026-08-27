@@ -138,3 +138,20 @@
     background: var(--warning-color-light);
   }
 }
+
+/*
+ * El desvío al administrador de fincas.
+ * Discreto y debajo del enlace secundario: no compite con el botón de presupuesto, que es la acción principal de
+ * la ficha, pero está donde ya se está mirando al terminar de leer.
+ */
+.services__detail-cta-alt {
+  margin: 0.75rem 0 0;
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+.services__detail-cta-alt-link {
+  font-weight: $font-semibold;
+  color: var(--primary-color-active);
+  text-decoration: underline;
+}

@@ -81,6 +81,28 @@ export default function IncidentConversation({
   const [body, setBody] = useState('');
   const [files, setFiles] = useState<File[]>([]);
   const [isSubmitting, startSubmit] = useTransition();
+  /**
+   * La caja del hilo, que ahora se desplaza por dentro.
+   *
+   * Lleva `tabIndex` y nombre accesible en el marcado porque es una **región desplazable**: sin ellos, quien navega
+   * con el teclado no puede entrar en la conversación ni recorrerla, y un lector de pantalla anuncia una lista sin
+   * decir de qué es.
+   */
+  const threadRef = useRef<HTMLUListElement>(null);
+
+  /*
+   * Al abrir y con cada mensaje nuevo, el hilo se coloca **abajo del todo**.
+   *
+   * Los mensajes se añaden al final, así que con la caja desplazable lo primero que se vería sería el mensaje más
+   * antiguo: había que bajar a mano para leer lo último, que es lo único que casi siempre se quiere leer. Es el
+   * comportamiento de cualquier chat y sin esto el desplazamiento habría empeorado la pantalla en vez de arreglarla.
+   */
+  useEffect(() => {
+    const thread = threadRef.current;
+
+    if (thread) thread.scrollTop = thread.scrollHeight;
+  }, [comments.length]);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handlePick = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,7 +157,13 @@ export default function IncidentConversation({
       {comments.length === 0 ? (
         <p className="incident-detail__text">{t('threadEmpty')}</p>
       ) : (
-        <ul className="incident-detail__thread">
+        <ul
+          className="incident-detail__thread"
+          ref={threadRef}
+          tabIndex={0}
+          role="log"
+          aria-label={t('threadTitle')}
+        >
           {comments.map((comment) => {
             const isMine = comment.authorName === null || comment.authorName === undefined;
             const author = isMine ? t('threadYou') : (comment.authorName ?? t('threadYou'));

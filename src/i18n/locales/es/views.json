@@ -89,7 +89,7 @@
       "eyebrow": "Administradores de fincas",
       "title": "Un solo proveedor para todas las comunidades que gestionas",
       "subtitle": "Conserjería, limpieza, mantenimiento, jardinería, piscinas y seguridad con el mismo equipo propio y el mismo interlocutor, en cada una de las fincas de tu cartera.",
-      "cta": "Hablar con Imora",
+      "cta": "Quiero una propuesta para mi cartera",
       "imageAlt": "Administrador de fincas revisando incidencias de una comunidad con el equipo de Imora"
     },
     "services": {
@@ -123,7 +123,9 @@
       "eyebrow": "Hablemos",
       "title": "Cuéntanos cuántas comunidades gestionas",
       "subtitle": "Preparamos una propuesta por finca, con el detalle de servicios que ya tiene contratados cada una y los que podrían externalizarse con Imora.",
-      "button": "Solicitar propuesta para mi cartera"
+      "button": "Solicitar propuesta para mi cartera",
+      "zonesPrefix": "¿Tienes fincas repartidas por la Comunidad de Madrid?",
+      "zonesLink": "Mira en qué municipios trabajamos"
     },
     "faqTitle": "Preguntas frecuentes de administradores de fincas",
     "faq": [
@@ -691,7 +693,9 @@
           "maintenance": "El mantenimiento eléctrico en los edificios del casco antiguo de Arganda del Rey, con instalaciones de más años, suele requerir una atención distinta a la de las promociones nuevas de la periferia."
         }
       }
-    }
+    },
+    "ctaManagersPrefix": "¿Administras fincas en {zone}?",
+    "ctaManagersLink": "Mira la propuesta para administradores"
   },
   "Complaints": {
     "wizard": {
@@ -861,13 +865,13 @@
       "title": "¿Con quién quieres hablar?",
       "sales": {
         "name": "Comercial",
-        "description": "Cuéntanos qué servicio necesitas y te preparamos un presupuesto a medida.",
+        "description": "Cuéntanos qué servicio necesitas, para cuántas viviendas o metros y cuándo lo quieres. Te preparamos un presupuesto cerrado, sin compromiso.",
         "cta": "Solicitar presupuesto"
       },
       "support": {
         "name": "Atención al cliente",
-        "description": "¿Ya eres cliente? Resolvemos incidencias y dudas sobre tu servicio lo antes posible.",
-        "cta": "Contactar con atención al cliente"
+        "description": "Ya tienes servicio con nosotros y algo no va bien o tienes una duda. Te llevamos a la página de soporte, donde se explica qué es una urgencia y qué no.",
+        "cta": "Soy cliente y necesito ayuda"
       },
       "billing": {
         "name": "Administración",
@@ -1045,7 +1049,9 @@
     "hero": {
       "eyebrow": "Ayuda",
       "title": "¿Ya eres cliente? Estamos para ayudarte",
-      "subtitle": "Sin centralitas ni intermediarios: tu consulta llega directa al equipo que atiende tu comunidad o edificio. Elige abajo el motivo de tu consulta o escríbenos directamente."
+      "subtitle": "Sin centralitas ni intermediarios: tu consulta llega directa al equipo que atiende tu comunidad o edificio. Elige abajo el motivo de tu consulta o escríbenos directamente.",
+      "notClientPrefix": "¿Todavía no eres cliente?",
+      "notClientLink": "Pide un presupuesto sin compromiso"
     },
     "routing": {
       "title": "¿Qué tipo de ayuda necesitas?",
@@ -1082,7 +1088,7 @@
       },
       "emergency": {
         "title": "Urgencias 24 horas",
-        "description": "Fuera de horario de oficina, para incidencias que no puedan esperar."
+        "description": "Solo para lo que no puede esperar a mañana: una fuga, un ascensor parado con alguien dentro, un portal que no cierra o cualquier riesgo para las personas. El resto se atiende en horario de oficina."
       }
     },
     "info": {
@@ -1273,19 +1279,19 @@
             "icon": "UserCheck",
             "title": "Recepción y atención al vecino",
             "image": "/images/services/subservices/concierge-1.jpg",
-            "description": "El conserje conoce a cada vecino por su nombre y sabe qué proveedores tiene autorizados cada vivienda. Las incidencias que no puede resolver en el momento quedan registradas en un parte diario y llegan a la administración de fincas ese mismo día, no a final de mes."
+            "description": "El conserje trabaja para reconocer a los vecinos y saber qué proveedores tiene autorizados cada vivienda: cuanto más estable es el puesto, antes ocurre. Las incidencias que no puede resolver en el momento quedan registradas en un parte diario y llegan a la administración de fincas ese mismo día, no a final de mes."
           },
           {
             "icon": "ScanLine",
             "title": "Control de accesos",
             "image": "/images/services/subservices/concierge-2.jpg",
-            "description": "Cada visita queda registrada con hora de entrada, y el conserje verifica la identidad antes de dejar pasar a cualquier persona que no reconoce. Los repartidores y mensajeros siguen un protocolo específico para no interrumpir el descanso de los vecinos por la noche."
+            "description": "Cada visita queda registrada con su hora de entrada, y el conserje comprueba la identidad de quien no reconoce antes de dejarle pasar. Los repartidores y mensajeros siguen un protocolo específico para no interrumpir el descanso de los vecinos por la noche. El registro se lleva conforme a las instrucciones de la comunidad y a la normativa de protección de datos: se anota lo imprescindible, se conserva el tiempo acordado y no se usa para otra cosa."
           },
           {
             "icon": "Package",
             "title": "Correspondencia y paquetería",
             "image": "/images/services/subservices/concierge-3.jpg",
-            "description": "Los paquetes que requieren firma se guardan en un espacio identificado y se avisa al vecino por el canal que la comunidad decida: nota física, WhatsApp o una app. El correo certificado y las notificaciones oficiales se gestionan siempre con acuse de recibo."
+            "description": "Los paquetes que requieren firma se guardan en un espacio identificado y se avisa al vecino por el canal que la comunidad decida: nota física, WhatsApp o una app. El correo certificado y las notificaciones oficiales se gestionan con acuse de recibo, y solo si la comunidad ha autorizado por escrito que el conserje pueda recibirlos en nombre de los vecinos."
           },
           {
             "icon": "RefreshCcw",
@@ -1326,6 +1332,10 @@
           {
             "question": "¿Cómo se hace el cambio si ya tenemos un conserje que queremos mantener?",
             "answer": "Gestionamos la transición con la administración de fincas actual, y si el conserje quiere continuar en el edificio, valoramos su incorporación al equipo de Imora en vez de sustituirlo."
+          },
+          {
+            "question": "¿Qué datos se guardan de las visitas y qué se hace con ellos?",
+            "answer": "Lo imprescindible para saber quién entró y cuándo: normalmente nombre, motivo de la visita, vivienda de destino y hora. El responsable del tratamiento es la comunidad; nosotros lo llevamos por cuenta suya, con las instrucciones que nos dé y con un contrato de encargo de tratamiento. Ni se cede a terceros ni se usa para nada distinto del control de accesos, y se conserva el tiempo que la comunidad haya fijado."
           }
         ],
         "audience": {
@@ -1354,7 +1364,7 @@
             "icon": "Camera",
             "title": "Videovigilancia (CCTV)",
             "image": "/images/services/subservices/security-1.jpg",
-            "description": "Las cámaras se ubican en los puntos ciegos reales del edificio (accesos, garaje, zonas comunes), no en un patrón estándar. La grabación se conserva un máximo de 30 días, siguiendo el criterio orientativo de la Agencia Española de Protección de Datos para uso de videovigilancia."
+            "description": "Las cámaras se ubican en los puntos ciegos reales del edificio (accesos, garaje, zonas comunes), no en un patrón estándar. Las grabaciones se suprimen en el plazo máximo de un mes desde su captación, tal y como exige el artículo 22.3 de la LOPDGDD, salvo que recojan hechos que deban acreditarse ante la autoridad competente. El responsable del tratamiento es la comunidad o la empresa titular de la instalación; nosotros la mantenemos por cuenta suya y siguiendo sus instrucciones."
           },
           {
             "icon": "KeyRound",
@@ -1378,7 +1388,7 @@
         "faq": [
           {
             "question": "¿Cuánto tiempo se conservan las grabaciones?",
-            "answer": "Un máximo de 30 días, siguiendo el criterio orientativo de la Agencia Española de Protección de Datos, salvo que se necesiten para una investigación en curso."
+            "answer": "Se suprimen como máximo en un mes desde que se graban, que es el plazo del artículo 22.3 de la LOPDGDD. La excepción son las imágenes que acrediten hechos contra personas, bienes o instalaciones: esas se conservan y se ponen a disposición de la autoridad competente dentro de las 72 horas siguientes a tener conocimiento de la grabación."
           },
           {
             "question": "¿Quién puede ver las grabaciones?",
@@ -1406,7 +1416,7 @@
           },
           {
             "question": "¿Las cámaras cumplen con la protección de datos?",
-            "answer": "Sí, la ubicación y el tiempo de conservación de las grabaciones siguen el criterio orientativo de la Agencia Española de Protección de Datos para uso de videovigilancia en zonas comunes."
+            "answer": "Sí. La instalación se señaliza, la ubicación de las cámaras evita la vía pública y los espacios privativos, y la conservación se ajusta al artículo 22.3 de la LOPDGDD. El responsable del tratamiento sigue siendo la comunidad, que es quien debe informar a los vecinos y atender sus derechos; nosotros actuamos como encargado."
           }
         ],
         "audience": {
@@ -1435,7 +1445,7 @@
             "icon": "Droplet",
             "title": "Mantenimiento químico del agua",
             "image": "/images/services/subservices/pools-1.jpg",
-            "description": "Medimos el pH (objetivo 7,2-7,6) y el cloro libre (0,5-2 mg/l) a diario, según los parámetros del Real Decreto 742/2013 sobre piscinas de uso colectivo. La dosis se ajusta al uso real de la piscina cada día, no a una pauta fija de fábrica."
+            "description": "El Real Decreto 742/2013 fija para el agua del vaso un pH entre 7,2 y 8,0 y un cloro libre residual entre 0,5 y 2 mg/l. Dentro de esa horquilla trabajamos con un objetivo más estrecho —pH entre 7,2 y 7,6—, porque es donde el cloro desinfecta mejor y menos irrita los ojos. Se mide a diario y la dosis se ajusta al uso real de la piscina, no a una pauta fija de fábrica."
           },
           {
             "icon": "Brush",
@@ -1475,7 +1485,7 @@
           },
           {
             "question": "¿Cómo se controla el pH y el cloro del agua?",
-            "answer": "Medimos el pH (objetivo 7,2-7,6) y el cloro libre (0,5-2 mg/l) a diario, según los parámetros del Real Decreto 742/2013 sobre piscinas de uso colectivo, ajustando la dosis al uso real de cada día."
+            "answer": "Se miden a diario. El Real Decreto 742/2013 admite un pH de 7,2 a 8,0 y un cloro libre residual de 0,5 a 2 mg/l; nosotros apuntamos a la parte baja de la horquilla de pH (7,2-7,6), que es donde el cloro rinde más, y ajustamos la dosis al uso que ha tenido la piscina ese día."
           },
           {
             "question": "¿Qué incluye la apertura y el cierre de temporada?",
@@ -1769,7 +1779,9 @@
       "subservicesEyebrow": "En detalle",
       "faqTitle": "Preguntas frecuentes sobre este servicio",
       "audienceEyebrow": "Para quién",
-      "audienceTitle": "Cómo se adapta este servicio según quién lo contrata"
+      "audienceTitle": "Cómo se adapta este servicio según quién lo contrata",
+      "ctaManagersPrefix": "¿Gestionas varias comunidades?",
+      "ctaManagersLink": "Así trabajamos con administradores de fincas"
     },
     "viewService": "Ver servicio",
     "process": {
@@ -2980,7 +2992,8 @@
       "seeServices": "Servicios que prestamos en {city}",
       "backToAll": "Ver todas las ofertas",
       "metaTitle": "Trabajo en {city}: ofertas de empleo",
-      "metaDescription": "{count, plural, one {1 oferta de empleo abierta} other {# ofertas de empleo abiertas}} en {city}. Consulta el puesto, las condiciones y presenta tu candidatura online."
+      "metaDescription": "{count, plural, one {1 oferta de empleo abierta} other {# ofertas de empleo abiertas}} en {city}. Consulta el puesto, las condiciones y presenta tu candidatura online.",
+      "countNote": "{total, plural, one {Ahora mismo hay 1 oferta abierta y cubre varias zonas} other {Ahora mismo hay # ofertas abiertas y algunas cubren varias zonas}}: el número de cada ciudad dice cuántas puedes solicitar allí, no que sean distintas."
     },
     "card": {
       "featured": "Destacada",

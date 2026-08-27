@@ -81,10 +81,12 @@ interface JobPaginationProps {
  * Props de `JobCityLinks`.
  * @interface JobCityLinksProps
  * @property {PublicJobFacet[]} cities - Ciudades con ofertas, ya ordenadas por número
+ * @property {number} totalJobs - Cuántas ofertas hay en total, para saber si los recuentos por ciudad confunden
  * @property {number} [limit] - Cuántas enseñar; el resto se dejan fuera
  */
 interface JobCityLinksProps {
   cities: PublicJobFacet[];
+  totalJobs: number;
   limit?: number;
 }
 

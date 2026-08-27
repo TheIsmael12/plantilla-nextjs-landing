@@ -121,3 +121,20 @@
     color: var(--light-color);
   }
 }
+
+/*
+ * El desvío al administrador de fincas desde una página de zona.
+ * Debajo del botón de contacto y en tono secundario: el visitante mayoritario de una zona es un vecino o un
+ * presidente, y el administrador es el caso que hasta ahora no tenía salida.
+ */
+.about__cta-alt {
+  margin: 1rem 0 0;
+  font-size: 0.9375rem;
+  color: var(--neutral-color);
+}
+
+.about__cta-alt-link {
+  font-weight: 600;
+  color: var(--primary-color-active);
+  text-decoration: underline;
+}

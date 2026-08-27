@@ -235,6 +235,16 @@
   margin: 0;
 }
 
+/*
+ * La aclaración de por qué una misma oferta aparece en varias ciudades.
+ * Va debajo de las fichas y en tono secundario: es una nota al pie, no un mensaje que compita con los enlaces.
+ */
+.careers__cities-note {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  margin: 0.75rem 0 0;
+}
+
 .careers__grid {
   @include grid(1, 1.5rem);
 

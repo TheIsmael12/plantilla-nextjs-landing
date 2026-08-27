@@ -8,22 +8,22 @@
       "examples": "Ejemplos:"
     },
     "Terms": {
-      "title": "Términos y Condiciones",
-      "subtitle": "Lee detenidamente estos términos antes de usar nuestros servicios. Al acceder y utilizar la plataforma, aceptas quedar vinculado por estas condiciones.",
-      "updatedDate": "17 de agosto de 2026",
-      "tocAriaLabel": "Índice de Términos y Condiciones",
+      "title": "Condiciones de uso",
+      "subtitle": "Estas condiciones regulan el uso de esta web y de las áreas privadas a las que se accede desde ella. Los servicios contratados se rigen por su propio contrato.",
+      "updatedDate": "27 de agosto de 2026",
+      "tocAriaLabel": "Índice de las Condiciones de uso",
       "toc": [
         {
           "href": "#aceptacion",
-          "label": "1. Aceptación de los términos"
+          "label": "1. Objeto y aceptación"
         },
         {
           "href": "#servicios",
-          "label": "2. Descripción de los servicios"
+          "label": "2. Qué encontrarás en esta web"
         },
         {
           "href": "#cuenta",
-          "label": "3. Cuenta de usuario"
+          "label": "3. Acceso al área privada"
         },
         {
           "href": "#uso-aceptable",
@@ -35,7 +35,7 @@
         },
         {
           "href": "#pagos",
-          "label": "6. Facturación"
+          "label": "6. Contratación y facturación"
         },
         {
           "href": "#privacidad",
@@ -47,7 +47,7 @@
         },
         {
           "href": "#terminacion",
-          "label": "9. Terminación del servicio"
+          "label": "9. Suspensión y fin del acceso"
         },
         {
           "href": "#ley",
@@ -60,70 +60,84 @@
       ],
       "sections": {
         "aceptacion": {
-          "title": "1. Aceptación de los términos",
-          "p1": "Al acceder o utilizar los servicios de esta plataforma, confirmas que has leído, entendido y aceptado quedar vinculado por estos Términos y Condiciones, así como por nuestra Política de Privacidad.",
-          "p2": "Si no estás de acuerdo con alguna parte de estos términos, no podrás acceder al servicio. Estos términos se aplican a todos los visitantes, usuarios y cualquier otra persona que acceda o utilice el servicio."
+          "title": "1. Objeto y aceptación",
+          "p1": "Estas condiciones regulan el uso de este sitio web y de las áreas privadas a las que se accede desde él: el área de cliente de comunidades, edificios y empresas, y la aplicación para vecinos. La titularidad de la web es de la empresa que se identifica al final de este documento.",
+          "p2": "Lo que no regulan es la prestación de los servicios. La conserjería, la seguridad, la limpieza, la jardinería, el mantenimiento de piscinas y el mantenimiento general se rigen por el contrato firmado con cada comunidad, edificio o empresa, y ese contrato prevalece sobre este texto. Al navegar por la web o usar cualquiera de sus funciones aceptas estas condiciones; si no estás de acuerdo, no las utilices."
         },
         "servicios": {
-          "title": "2. Descripción de los servicios",
-          "intro": "La plataforma ofrece los siguientes servicios:",
+          "title": "2. Qué encontrarás en esta web",
+          "intro": "Esta web es informativa y, para quien ya es cliente, una herramienta de gestión. Desde ella puedes:",
           "list": [
             {
-              "strong": "Publicación de contenido: ",
-              "rest": "Herramientas para crear, editar y publicar artículos y entradas de blog."
+              "strong": "Conocer los servicios: ",
+              "rest": "conserjería, seguridad, limpieza, jardinería, piscinas y mantenimiento, y las zonas donde trabajamos."
             },
             {
-              "strong": "Gestión de usuarios: ",
-              "rest": "Sistema de registro, autenticación y administración de perfiles."
+              "strong": "Pedir un presupuesto: ",
+              "rest": "el formulario de contacto abre una conversación comercial. Enviarlo no contrata nada ni obliga a ninguna de las dos partes."
             },
             {
-              "strong": "Análisis y estadísticas: ",
-              "rest": "Acceso a métricas de rendimiento del contenido publicado."
+              "strong": "Entrar al área privada de cliente: ",
+              "rest": "para comunidades, administradores de fincas y empresas con servicio contratado. Ahí están las incidencias, los presupuestos, las facturas y los datos del servicio."
+            },
+            {
+              "strong": "Usar la aplicación del vecino: ",
+              "rest": "para quienes viven en una comunidad con servicio contratado: avisar de una incidencia, seguir su respuesta y consultar el tablón."
+            },
+            {
+              "strong": "Trabajar con nosotros: ",
+              "rest": "consultar las ofertas publicadas y enviar una candidatura."
+            },
+            {
+              "strong": "Leer el blog: ",
+              "rest": "artículos divulgativos sobre el mantenimiento y la gestión de comunidades. Son orientativos y no sustituyen a un informe técnico ni a asesoramiento profesional."
             }
           ],
-          "outro": "Nos reservamos el derecho de modificar, suspender o discontinuar cualquier aspecto del servicio en cualquier momento, con o sin previo aviso."
+          "outro": "Podemos modificar, ampliar o retirar cualquiera de estas secciones. Eso afecta a la web, nunca a un servicio ya contratado: lo que se haya acordado por contrato se cumple aunque la web cambie."
         },
         "cuenta": {
-          "title": "3. Cuenta de usuario",
-          "sub1": "Registro y responsabilidades",
+          "title": "3. Acceso al área privada",
+          "sub1": "Cómo se consigue el acceso",
           "list1": [
-            "Debes proporcionar información precisa, completa y actualizada durante el proceso de registro.",
-            "Eres responsable de mantener la confidencialidad de tus credenciales de acceso.",
-            "Eres responsable de todas las actividades que ocurran bajo tu cuenta.",
-            "Debes notificarnos inmediatamente de cualquier uso no autorizado de tu cuenta."
+            "No hay registro abierto: las cuentas las crea Imora para el cliente, para el administrador de fincas que este designe, o por invitación en el caso de los vecinos de una comunidad con servicio contratado.",
+            "Los datos de contacto que nos facilites deben ser ciertos y mantenerse actualizados: son por donde te avisamos de una incidencia o de una visita.",
+            "Las credenciales son personales y no se comparten. Si varias personas de la administración necesitan entrar, se pide una cuenta para cada una.",
+            "Eres responsable de lo que se haga desde tu cuenta mientras esté abierta.",
+            "Avísanos en cuanto sospeches que alguien ha entrado sin tu permiso, para poder cerrar esa sesión."
           ],
-          "sub2": "Seguridad de la cuenta",
-          "securityText": "Implementamos medidas de seguridad razonables para proteger tu cuenta. Te recomendamos usar una contraseña única y no compartirla con terceros."
+          "sub2": "Seguridad del acceso",
+          "securityText": "Aplicamos medidas de seguridad razonables y proporcionadas al tipo de datos que se manejan. Por tu parte, usa una contraseña única para este servicio y cierra la sesión en dispositivos compartidos. Desde el propio área privada puedes ver las sesiones abiertas y cerrarlas."
         },
         "uso_aceptable": {
           "title": "4. Uso aceptable",
-          "intro": "Al utilizar nuestros servicios, aceptas no realizar ninguna de las siguientes acciones:",
+          "intro": "Al usar esta web y el área privada, te comprometes a no hacer nada de lo siguiente:",
           "list": [
-            "Publicar contenido ilegal, difamatorio, acosador, abusivo, amenazante, dañino u objetable.",
-            "Infringir los derechos de propiedad intelectual de terceros.",
-            "Intentar acceder de manera no autorizada a cualquier parte de los servicios.",
-            "Interferir o interrumpir la integridad o el rendimiento de los servicios.",
-            "Transmitir malware, virus u otros códigos dañinos.",
-            "Utilizar los servicios con fines fraudulentos o ilegales."
+            "Acceder o intentar acceder a información de comunidades, unidades o personas que no te corresponden.",
+            "Usar los datos que veas en el área privada —vecinos, viviendas, incidencias, accesos— para algo distinto de la gestión del servicio contratado.",
+            "Extraer de forma masiva o automatizada el contenido de la web sin nuestra autorización.",
+            "Interferir en el funcionamiento del sitio, de la aplicación o de los sistemas que hay detrás.",
+            "Introducir programas o código dañinos.",
+            "Hacerte pasar por otra persona, comunidad o empresa, o falsear la relación que tienes con ellas."
           ],
-          "warning": "El incumplimiento de estas condiciones puede resultar en la suspensión o cancelación inmediata de tu cuenta, y podríamos emprender acciones legales si fuera necesario."
+          "warning": "Si esto ocurre podemos suspender el acceso de inmediato para proteger al resto, y comunicarlo a quien corresponda cuando la conducta lo requiera. La relación contractual del servicio es otra cosa y sigue lo que diga su contrato."
         },
         "propiedad": {
           "title": "5. Propiedad intelectual",
-          "sub1": "Nuestro contenido",
-          "p1": "El servicio y su contenido original son propiedad exclusiva de la empresa y sus licenciantes. Están protegidos por las leyes de derechos de autor y otras leyes de propiedad intelectual.",
-          "sub2": "Tu contenido",
-          "p2": "Conservas todos los derechos sobre el contenido que publicas. Al publicarlo, nos otorgas una licencia mundial no exclusiva para usarlo en el contexto de la prestación del servicio.",
-          "sub3": "Uso permitido",
-          "p3": "No puedes reproducir, distribuir o modificar nuestro contenido sin nuestra autorización expresa por escrito."
+          "sub1": "Lo que es nuestro",
+          "p1": "Los textos, las imágenes, la marca, el diseño de la web y el software del área privada y de la aplicación del vecino son propiedad de la empresa o de quienes nos han cedido su uso, y están protegidos por la normativa de propiedad intelectual e industrial.",
+          "sub2": "Lo que aportas tú",
+          "p2": "Lo que subes sigue siendo tuyo: las fotos de una incidencia, los documentos que adjuntes o el currículum de una candidatura. Al enviarlo nos autorizas a usarlo solo para lo que se envió —resolver esa incidencia, atender esa solicitud o valorar esa candidatura— y durante el tiempo que se explica en la política de privacidad.",
+          "sub3": "Qué puedes hacer con nuestro contenido",
+          "p3": "Puedes consultar e imprimir el contenido de la web para tu uso personal o para la gestión de tu comunidad. Reproducirlo, distribuirlo o modificarlo con fines comerciales necesita nuestra autorización por escrito."
         },
         "pagos": {
-          "title": "6. Facturación",
+          "title": "6. Contratación y facturación",
           "list": [
             "El precio de cada servicio se acuerda por contrato antes de empezar a prestarlo, según el presupuesto cerrado que hayamos preparado para tu comunidad, edificio o negocio.",
-            "Las facturas correspondientes a los servicios contratados están disponibles para su consulta en el área privada de cliente.",
-            "El pago de las facturas se realiza según la forma acordada en el contrato de servicio (transferencia, domiciliación u otro medio pactado), no a través de una pasarela de pago integrada en esta web.",
-            "Cualquier reclamación sobre una factura puede tramitarse a través de los canales de contacto habituales."
+            "Lo que se contrata, con qué alcance y durante cuánto tiempo lo dice ese contrato. Esta web no es el sitio donde se contrata ni sustituye a lo firmado.",
+            "Las facturas de los servicios contratados están disponibles para su consulta en el área privada de cliente.",
+            "El pago se realiza según la forma acordada en el contrato (transferencia, domiciliación u otro medio pactado), no a través de una pasarela de pago integrada en esta web.",
+            "Cualquier reclamación sobre una factura puede tramitarse por los canales de contacto habituales o desde el área privada."
           ]
         },
         "privacidad": {
@@ -134,23 +148,24 @@
         },
         "garantias": {
           "title": "8. Garantías y responsabilidad",
-          "intro": "El servicio se proporciona «tal cual» y «sin garantías». En la medida máxima permitida por la ley, excluimos expresamente:",
+          "intro": "Lo que sigue se refiere a esta web, no a los servicios que prestamos. Los servicios contratados responden de lo acordado en su contrato y de lo que exige la ley, y nada de este apartado los limita:",
           "list": [
-            "Cualquier garantía implícita de comerciabilidad o idoneidad para un propósito particular.",
-            "Garantías relativas a la exactitud, fiabilidad o integridad del contenido.",
-            "Nuestra responsabilidad por daños indirectos, incidentales o consecuentes."
+            "El contenido divulgativo de la web es orientativo: puede contener erratas o quedar desactualizado, y no sustituye a un informe técnico ni a asesoramiento profesional.",
+            "Procuramos que la web y el área privada estén siempre disponibles, pero no podemos garantizar que no haya interrupciones por mantenimiento o por causas ajenas.",
+            "No respondemos del contenido de webs de terceros a las que enlacemos.",
+            "Nada de lo anterior afecta a los derechos que la normativa de consumidores reconoce a quien tenga esa condición."
           ]
         },
         "terminacion": {
-          "title": "9. Terminación del servicio",
-          "p1": "Podemos terminar o suspender tu acceso al servicio inmediatamente, sin previo aviso ni responsabilidad, por cualquier razón, incluyendo el incumplimiento de estos Términos.",
-          "p2": "Tras la terminación, tu derecho a usar el servicio cesará inmediatamente. Si deseas cancelar tu cuenta, contáctanos para solicitar la eliminación.",
-          "p3": "Las disposiciones de estos Términos que por su naturaleza deban sobrevivir a la terminación, continuarán vigentes."
+          "title": "9. Suspensión y fin del acceso",
+          "p1": "Podemos suspender el acceso al área privada si detectamos un uso indebido de los descritos más arriba o un riesgo para la seguridad de los datos. Salvo que la urgencia lo impida, avisamos antes.",
+          "p2": "El acceso termina cuando termina la relación contractual con la comunidad, el edificio o la empresa. A partir de ahí, los datos se conservan o se suprimen según lo que explica la política de privacidad, y no según lo que diga este documento.",
+          "p3": "Las cláusulas que por su naturaleza deban seguir vigentes tras el fin del acceso —responsabilidad, propiedad intelectual y ley aplicable— continúan aplicándose."
         },
         "ley": {
           "title": "10. Ley aplicable",
-          "p1": "Estos Términos se regirán e interpretarán de acuerdo con las leyes del Reino de España.",
-          "p2": "Cualquier disputa que surja en relación con estos Términos estará sujeta a la jurisdicción exclusiva de los tribunales competentes de España."
+          "p1": "Estas condiciones se rigen por la legislación española.",
+          "p2": "Para cualquier controversia, las partes se someten a los juzgados y tribunales que correspondan conforme a la ley. Cuando el usuario tenga la condición de consumidor, será competente el tribunal de su domicilio, tal y como reconoce la normativa de consumo."
         },
         "contacto": {
           "title": "11. Contacto",
@@ -474,7 +489,7 @@
     "Complaints": {
       "title": "Canal de reclamaciones",
       "subtitle": "Un canal directo y confidencial para comunicar incumplimientos, irregularidades o conductas contrarias a la normativa relacionadas con nuestra actividad.",
-      "updatedDate": "1 de enero de 2025",
+      "updatedDate": "27 de agosto de 2026",
       "tocAriaLabel": "Índice del canal de reclamaciones",
       "toc": [
         {

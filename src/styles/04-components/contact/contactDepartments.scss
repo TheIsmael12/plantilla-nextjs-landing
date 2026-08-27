@@ -43,6 +43,17 @@
       border-color: var(--primary-color-active);
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
     }
+
+    /*
+     * La tarjeta destacada: pedir presupuesto.
+     *
+     * Las tres eran idénticas y por eso ninguna guiaba. El borde de marca y la sombra permanente la separan del resto
+     * sin cambiarle el tamaño —una tarjeta más grande rompería la rejilla en móvil, donde van una debajo de otra—.
+     */
+    &--primary {
+      border-color: var(--primary-color);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+    }
   }
 
   &__department-icon {

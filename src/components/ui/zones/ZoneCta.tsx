@@ -33,6 +33,19 @@ export default function ZoneCta({ slug }: ZoneCtaProps) {
         <Link href="/contact" className="about__btn about__btn--accent">
           {tZones('ctaButton')}
         </Link>
+
+        {/*
+          El desvío para el administrador de fincas, que es el eslabón que faltaba del recorrido.
+          Una página de zona la lee tanto un presidente de comunidad como quien gestiona veinte fincas en ese
+          municipio, y hasta ahora los dos acababan en el mismo formulario. El segundo tiene su propia página —con
+          la propuesta por cartera— y no había forma de llegar a ella desde aquí.
+        */}
+        <p className="about__cta-alt">
+          {tZones('ctaManagersPrefix', { zone: zoneName })}{' '}
+          <Link href="/for/property-managers" className="about__cta-alt-link">
+            {tZones('ctaManagersLink')}
+          </Link>
+        </p>
       </div>
     </section>
   );
