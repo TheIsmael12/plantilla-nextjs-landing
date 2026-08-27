@@ -3,17 +3,17 @@
     "default": {
       "title": "Imora Servicios S.L.",
       "description": "Full-service facility management company for businesses, homeowner communities, buildings and shopping centres in Madrid.",
-      "keywords": "Imora, services for businesses and communities, concierge, security, cleaning, maintenance"
+      "keywords": "Imora, services for businesses and communities, concierge, video surveillance, cleaning, maintenance"
     },
     "routes": {
       "/": {
         "title": "Comprehensive services for communities in Madrid",
-        "description": "Concierge, security, cleaning, pools and maintenance for homeowner communities, businesses and buildings in Madrid, with our own team.",
+        "description": "Concierge, video surveillance, cleaning, pools and maintenance for homeowner communities, businesses and buildings in Madrid, with stable staff.",
         "keywords": "concierge Madrid, services for homeowner communities, facility management company, building maintenance, security and CCTV, community and shopping centre cleaning"
       },
       "/services": {
         "title": "Our services for businesses and communities",
-        "description": "Concierge, security, pool maintenance, cleaning, gardening and building maintenance: six services, one single provider.",
+        "description": "Concierge, video surveillance and access control, pool maintenance, cleaning, gardening and building maintenance: six services, one provider.",
         "keywords": "services for businesses and homeowner communities, concierge, security CCTV, pool maintenance, cleaning and gardening, building maintenance"
       },
       "/services/concierge": {
@@ -38,7 +38,7 @@
       },
       "/services/gardening": {
         "title": "Community Gardening Company in Madrid",
-        "description": "Garden and green area upkeep, watering and pruning for communities, buildings and businesses, with an in-house team and scheduled visits.",
+        "description": "Garden and green area upkeep, watering and pruning for communities, buildings and businesses, with an in-house gardening team and scheduled visits.",
         "keywords": "gardening for communities, garden maintenance Madrid, pruning and watering green areas, homeowner community gardener"
       },
       "/services/maintenance": {
@@ -47,9 +47,9 @@
         "keywords": "building and business maintenance, community plumbing, common area electrics, emergency locksmith, technical maintenance Madrid"
       },
       "/about": {
-        "title": "About Imora: our own team and 24-hour support",
-        "description": "How we work: our own team, an inspection department and coverage across Madrid and its metropolitan area.",
-        "keywords": "facility management company Madrid, services for businesses and communities, in-house concierge team, 24-hour support"
+        "title": "About Imora: stable staff and a 24-hour incident hotline",
+        "description": "How we work: staff mostly hired directly, an inspection department and coverage across Madrid and its metropolitan area.",
+        "keywords": "facility management company Madrid, services for businesses and communities, in-house concierge staff, 24-hour incident hotline"
       },
       "/for/property-managers": {
         "title": "Services for property managers in Madrid",
@@ -252,8 +252,8 @@
         "keywords": ""
       },
       "/zones/madrid": {
-        "title": "24-hour concierge across Madrid's 21 districts",
-        "description": "24-hour concierge cover, security, cleaning and maintenance for communities, offices and shopping centres in Madrid city's 21 districts.",
+        "title": "Concierge company in Madrid: all 21 districts",
+        "description": "Concierge, cleaning, video surveillance and maintenance for homeowner communities, offices and shopping centres across Madrid city's 21 districts.",
         "keywords": "24-hour concierge Madrid, multiservice company Madrid city, Madrid districts, building maintenance Madrid"
       },
       "/zones/pozuelo-de-alarcon": {

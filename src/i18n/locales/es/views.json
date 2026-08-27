@@ -3,22 +3,22 @@
     "hero": {
       "eyebrow": "Sobre nosotros",
       "title": "El equipo que cuida tu comunidad, tu edificio y tu negocio",
-      "subtitle": "Imora es una empresa de servicios integrales para empresas, comunidades de propietarios, edificios y centros comerciales en Madrid: conserjería, seguridad, limpieza, jardinería, piscinas y mantenimiento, con equipo propio y atención 24 horas.",
+      "subtitle": "Imora es una empresa de servicios integrales para empresas, comunidades de propietarios, edificios y centros comerciales en Madrid: conserjería, videovigilancia, limpieza, jardinería, piscinas y mantenimiento, con personal estable y un teléfono de incidencias atendido todos los días del año.",
       "cta": "Habla con nosotros",
       "imageAlt": "Conserje de Imora atendiendo a un vecino en el portal"
     },
     "approach": {
       "eyebrow": "Cómo trabajamos",
-      "title": "Un equipo propio, coordinado por un departamento de inspección",
-      "descriptionA": "Conserjes, controladores y técnicos de contratación directa, no subcontratados: el mismo equipo que conoce tu finca es el que la atiende cada día.",
-      "descriptionB": "Antes de proponer nada, analizamos las necesidades reales de cada comunidad, edificio o negocio y diseñamos un plan de mantenimiento a medida, con sustituciones garantizadas y atención 24 horas los 365 días del año.",
+      "title": "Un equipo estable, coordinado por un departamento de inspección",
+      "descriptionA": "Conserjes, controladores y técnicos mayoritariamente con contratación directa: el mismo equipo que conoce tu finca es el que la atiende cada día.",
+      "descriptionB": "Antes de proponer nada, analizamos las necesidades reales de cada comunidad, edificio o negocio y diseñamos un plan de mantenimiento a medida, con las ausencias del personal cubiertas y un teléfono de incidencias atendido los 365 días del año.",
       "descriptionC": "Nuestro departamento de inspección visita cada servicio sobre el terreno para comprobar que se cumple lo acordado y detectar mejoras antes de que se conviertan en incidencias.",
       "imageAlt": "Técnico de mantenimiento de Imora revisando una instalación"
     },
     "certifications": {
       "eyebrow": "Garantías",
       "title": "Certificaciones que respaldan cada servicio",
-      "subtitle": "Auditamos nuestros procesos externamente para que la calidad, el respeto ambiental, la seguridad laboral y la protección de datos no dependan solo de nuestra palabra.",
+      "subtitle": "Auditamos externamente los procesos que están certificados, para que no dependan solo de nuestra palabra.",
       "items": {
         "iso9001": {
           "code": "ISO 9001",
@@ -43,12 +43,12 @@
       "title": "Por qué comunidades, edificios y empresas eligen Imora",
       "items": {
         "team": {
-          "title": "Equipo propio y cualificado",
-          "description": "Conserjes, controladores y técnicos con la máxima garantía de profesionalidad, mayoritariamente de contratación directa."
+          "title": "Personal cualificado y estable",
+          "description": "Conserjes, controladores y técnicos seleccionados y formados por nosotros, mayoritariamente con contratación directa."
         },
         "availability": {
           "title": "Atención 24 horas",
-          "description": "Disponibles 365 días al año para cualquier incidencia o urgencia que pueda surgir."
+          "description": "Un teléfono de incidencias atendido los 365 días del año para cualquier urgencia que no pueda esperar al día siguiente."
         },
         "substitutions": {
           "title": "Sustituciones garantizadas",
@@ -88,7 +88,7 @@
     "hero": {
       "eyebrow": "Administradores de fincas",
       "title": "Un solo proveedor para todas las comunidades que gestionas",
-      "subtitle": "Conserjería, limpieza, mantenimiento, jardinería, piscinas y seguridad con el mismo equipo propio y el mismo interlocutor, en cada una de las fincas de tu cartera.",
+      "subtitle": "Conserjería, limpieza, mantenimiento, jardinería, piscinas y videovigilancia con el mismo equipo y el mismo interlocutor, en cada una de las fincas de tu cartera.",
       "cta": "Quiero una propuesta para mi cartera",
       "imageAlt": "Administrador de fincas revisando incidencias de una comunidad con el equipo de Imora"
     },
@@ -183,12 +183,142 @@
           "description": "Cuando sumas una comunidad nueva a tu cartera, aplicamos el mismo proceso de alta, reporte y facturación que ya conoces — no hay una curva de aprendizaje nueva cada vez que crece tu cartera."
         }
       }
+    },
+    "comparison": {
+      "eyebrow": "La diferencia",
+      "title": "Varios proveedores por finca, o uno para toda tu cartera",
+      "subtitle": "Lo que cambia en el día a día de tu despacho cuando los servicios de todas tus comunidades los lleva el mismo proveedor.",
+      "columnTopic": "En tu día a día",
+      "columnMultiple": "Con varios proveedores",
+      "columnImora": "Con Imora",
+      "rows": [
+        {
+          "topic": "Interlocución",
+          "multiple": "Un contacto por cada servicio y por cada comunidad.",
+          "imora": "Un único interlocutor para todas las fincas de tu cartera."
+        },
+        {
+          "topic": "Cuando falta un trabajador",
+          "multiple": "Llamas tú al proveedor y esperas a que encuentre un reemplazo.",
+          "imora": "Lo cubrimos nosotros con otro profesional del mismo perfil, sin coste adicional."
+        },
+        {
+          "topic": "Aviso de una incidencia",
+          "multiple": "Primero averiguas de qué proveedor es el problema, y luego lo avisas.",
+          "imora": "Un solo aviso, sea de conserjería, limpieza, jardinería o mantenimiento."
+        },
+        {
+          "topic": "Facturación",
+          "multiple": "Una factura por cada proveedor y por cada comunidad, en fechas distintas.",
+          "imora": "Una factura por comunidad con todos sus servicios, lista para la junta."
+        },
+        {
+          "topic": "Alta de una finca nueva",
+          "multiple": "Negociar de cero con cada proveedor, servicio por servicio.",
+          "imora": "Las mismas condiciones y el mismo estándar que ya tienes en el resto de la cartera."
+        },
+        {
+          "topic": "Control de calidad",
+          "multiple": "Cada proveedor se supervisa a sí mismo, y tú te enteras por los vecinos.",
+          "imora": "Departamento de inspección propio que visita el servicio sobre el terreno."
+        },
+        {
+          "topic": "Preparar una junta",
+          "multiple": "Reúnes la información de varios sitios y la unificas tú.",
+          "imora": "Un informe por comunidad con el histórico de partes y actuaciones del periodo."
+        }
+      ]
+    },
+    "example": {
+      "eyebrow": "Cómo se ve por dentro",
+      "title": "Una cartera de doce comunidades, un mes cualquiera",
+      "disclaimer": "Ejemplo ilustrativo para explicar cómo se organiza el servicio. No corresponde a una cartera real.",
+      "portfolioTitle": "El reparto de servicios",
+      "portfolio": [
+        {
+          "label": "12 comunidades",
+          "detail": "repartidas entre Móstoles, Alcorcón y Leganés."
+        },
+        {
+          "label": "12 contratos de limpieza",
+          "detail": "con frecuencias distintas: cuatro diarias, seis de tres días por semana y dos semanales."
+        },
+        {
+          "label": "4 conserjerías",
+          "detail": "las de los edificios más grandes, dos a media jornada y dos a jornada completa."
+        },
+        {
+          "label": "5 piscinas",
+          "detail": "en temporada, de junio a septiembre, dos de ellas con socorrista por aforo."
+        },
+        {
+          "label": "12 planes de mantenimiento",
+          "detail": "preventivo mensual, más las averías que salgan."
+        },
+        {
+          "label": "1 interlocutor",
+          "detail": "el mismo para las doce, con un teléfono de incidencias para fuera de horario."
+        }
+      ],
+      "monthTitle": "Y el mes, visto desde tu despacho",
+      "month": [
+        "Los partes de cada intervención llegan al día siguiente, con la comunidad y el servicio identificados.",
+        "Las dos bajas de conserje del mes se cubren sin que tengas que llamar a nadie.",
+        "Cada comunidad recibe su factura por separado, con el detalle de lo que tiene contratado.",
+        "El departamento de inspección visita cuatro de las doce fincas y te pasa lo que ha corregido.",
+        "Antes de la junta de una de las comunidades, pides el histórico del periodo y lo tienes en un documento."
+      ],
+      "reportTitle": "Y así llega un parte de incidencia",
+      "reportDisclaimer": "Ejemplo del formato del parte, con datos figurados.",
+      "report": {
+        "heading": "Parte de incidencia",
+        "reference": "P-2026-0481",
+        "fields": [
+          {
+            "label": "Comunidad",
+            "value": "C.P. Ejemplo, 14 — Móstoles"
+          },
+          {
+            "label": "Servicio",
+            "value": "Mantenimiento — Fontanería"
+          },
+          {
+            "label": "Aviso recibido",
+            "value": "12/03/2026, 08:40 · Presidenta de la comunidad"
+          },
+          {
+            "label": "Prioridad",
+            "value": "Urgente — fuga activa en zona común"
+          },
+          {
+            "label": "Descripción",
+            "value": "Fuga en la bajante del garaje, a la altura de la plaza 14, con agua acumulada en el suelo."
+          },
+          {
+            "label": "Intervención",
+            "value": "12/03/2026, 09:55 · Técnico asignado y corte del tramo afectado. Sustitución de la abrazadera y del tramo de PVC de 40 cm."
+          },
+          {
+            "label": "Material",
+            "value": "Tramo de PVC 110 mm, abrazadera y sellador. Incluido en el plan de mantenimiento."
+          },
+          {
+            "label": "Estado",
+            "value": "Resuelto · Tiempo de respuesta: 1 h 15 min"
+          },
+          {
+            "label": "Seguimiento",
+            "value": "Revisión de la bajante completa en la visita preventiva de abril."
+          }
+        ]
+      }
     }
   },
   "Zones": {
     "hero": {
       "eyebrow": "Zona de cobertura",
-      "cta": "Solicitar presupuesto"
+      "cta": "Solicitar presupuesto",
+      "title": "Servicios para comunidades y edificios en {zone}"
     },
     "index": {
       "eyebrow": "Zonas de cobertura",
@@ -226,6 +356,10 @@
           {
             "question": "¿Podéis atender un edificio de oficinas de la almendra central además de una comunidad de vecinos?",
             "answer": "Sí, los mismos servicios (conserjería, limpieza, mantenimiento, seguridad) se adaptan igual a sedes de empresa, comunidades de propietarios y centros comerciales, en cualquier distrito."
+          },
+          {
+            "question": "¿Cómo organizáis el servicio en un edificio del centro sin plaza de carga ni acceso rodado?",
+            "answer": "Con material y maquinaria dimensionados para entrar por el portal y horarios pactados con la comunidad para no chocar con el tránsito de vecinos. En los distritos del interior de la M-30 es lo habitual: se trabaja a primera hora y con carros de mano, no con furgón aparcado a pie de fachada."
           }
         ],
         "serviceNotes": {
@@ -250,12 +384,16 @@
           {
             "question": "¿El servicio de jardinería se adapta a zonas verdes grandes, como las de una urbanización?",
             "answer": "Sí, adaptamos el equipo y la frecuencia al tamaño real de la zona verde, desde el jardín de un chalet hasta las zonas comunes de una urbanización completa."
+          },
+          {
+            "question": "¿Podéis llevar a la vez una urbanización de chalets y una torre residencial de bloque?",
+            "answer": "Sí, y en Pozuelo conviven las dos cosas a poca distancia. Son planes distintos: la urbanización pide viales, jardín y control de accesos con varias entradas, y la torre pide portal, ascensores y garaje. El interlocutor es el mismo, la propuesta no."
           }
         ],
         "serviceNotes": {
           "concierge": "En las torres residenciales de bloque alto cerca de la Casa de Campo, la conserjería suele combinarse con el control de accesos de varios portales bajo una misma comunidad, algo distinto al chalet individual de Somosaguas.",
           "security": "En las zonas de chalet de Somosaguas, la seguridad se centra en el control de accesos y la videovigilancia perimetral de la parcela, mientras que en las torres de bloque alto se integra con la conserjería del edificio.",
-          "pools": "Con la renta media más alta de la región, Pozuelo tiene un número elevado de piscinas privadas y comunitarias por comunidad, lo que convierte el mantenimiento de piscinas en uno de los servicios con mayor volumen del municipio.",
+          "pools": "Pozuelo tiene un número elevado de piscinas privadas y comunitarias por comunidad, propio de un municipio de urbanizaciones. Llevamos el mantenimiento químico, la limpieza y la apertura y el cierre de temporada de cada vaso.",
           "cleaning": "En las torres residenciales de bloque alto, la limpieza cubre varios portales y ascensores bajo una misma comunidad, mientras que en las urbanizaciones de chalet se centra en accesos y zonas comunes compartidas.",
           "gardening": "El jardín propio de cada parcela es habitual en Somosaguas, mientras que en las torres de bloque alto las zonas verdes se gestionan como zona común compartida entre varios portales.",
           "maintenance": "Entre las parcelas de Somosaguas y las torres residenciales de bloque alto, el mantenimiento técnico en Pozuelo cubre desde instalaciones individuales de chalet hasta zonas comunes de comunidades de varios portales."
@@ -274,15 +412,19 @@
           {
             "question": "¿La limpieza incluye garajes y zonas exteriores?",
             "answer": "Sí, el plan de limpieza cubre portal, escaleras, garaje y zonas exteriores compartidas, con la frecuencia que decida cada comunidad."
+          },
+          {
+            "question": "¿Qué revisáis primero en un bloque de los años 70 u 80 de Alcorcón?",
+            "answer": "Bajantes, cubierta y cuadro eléctrico. En los bloques que crecieron con el polígono, esas tres partidas son las que llevan más años sin tocarse y las que más avisos generan después. La primera visita preventiva se centra ahí antes de proponer nada más."
           }
         ],
         "serviceNotes": {
           "concierge": "En los bloques de tamaño medio y grande de Alcorcón, construidos sobre todo durante el crecimiento industrial de los años 60 a 90, la conserjería suele centrarse en control de accesos y atención al vecino en horario de mañana y tarde.",
           "security": "El control de accesos electrónico gana peso en los edificios más antiguos de Alcorcón que están renovando el portero automático original, como complemento a la conserjería tradicional.",
           "pools": "En los bloques de tamaño medio construidos durante el crecimiento industrial de Alcorcón, la piscina suele compartir presupuesto de mantenimiento con las zonas comunes, así que conviene coordinarlos con el mismo proveedor.",
-          "cleaning": "La limpieza de zonas comunes es uno de los servicios con más demanda continua en Alcorcón, dado el volumen de bloques de tamaño medio y grande con varias décadas de uso diario a sus espaldas.",
+          "cleaning": "Alcorcón tiene un buen número de bloques de tamaño medio y grande con varias décadas de uso diario a sus espaldas. En zonas comunes con ese desgaste ajustamos la frecuencia de limpieza al tránsito real de cada portal, en vez de aplicar la misma pauta a todo el edificio.",
           "gardening": "En los bloques construidos durante el crecimiento industrial del municipio, las zonas ajardinadas suelen ser más reducidas que en una urbanización, pero igualmente necesitan mantenimiento periódico.",
-          "maintenance": "El mantenimiento técnico es, junto a la limpieza, el servicio con más demanda continua en Alcorcón: las instalaciones de fontanería, electricidad y portero automático de los edificios de los años 60 a 90 empiezan a necesitar renovaciones periódicas."
+          "maintenance": "Las instalaciones de fontanería, electricidad y portero automático de los edificios de los años 60 a 90 empiezan a necesitar renovaciones periódicas. En Alcorcón, donde el parque creció al calor del polígono, el mantenimiento suele plantearse como un plan por fases más que como averías sueltas."
         }
       },
       "majadahonda": {
@@ -298,14 +440,18 @@
           {
             "question": "¿Podéis gestionar varias urbanizaciones distintas de la misma zona?",
             "answer": "Sí, si tu despacho administra varias comunidades en Majadahonda o alrededores, consulta también nuestros servicios para administradores de fincas."
+          },
+          {
+            "question": "¿Cómo se cubre una urbanización cerrada con varias entradas y viales propios?",
+            "answer": "Con control de accesos en cada entrada y una ronda del conserje por los viales, en lugar de un puesto fijo en una única puerta. En Majadahonda la mayoría de las urbanizaciones tienen más de un acceso, y cubrir solo el principal deja el resto sin control."
           }
         ],
         "serviceNotes": {
           "concierge": "En las urbanizaciones cerradas de Majadahonda, con varios viales internos, la conserjería suele combinarse con el control de accesos general de la urbanización, más que con un portal individual.",
           "security": "Con una de las proporciones de vivienda unifamiliar más altas del noroeste de Madrid, en Majadahonda la seguridad y el control de accesos de las urbanizaciones cerradas pesan más en la demanda que en un municipio de bloque convencional.",
-          "pools": "Las urbanizaciones de Majadahonda suelen incluir piscina comunitaria, así que el mantenimiento de piscinas es de los servicios más solicitados en la zona, con socorrista titulado durante toda la temporada.",
+          "pools": "Buena parte de las urbanizaciones de Majadahonda cuenta con piscina comunitaria. Llevamos el mantenimiento químico y la limpieza durante toda la temporada, y ponemos socorrista titulado cuando el aforo de la piscina lo exige.",
           "cleaning": "Además de las zonas comunes de los bloques de comunidad, en las urbanizaciones cerradas con varios viales internos la limpieza suele extenderse a accesos peatonales y de vehículos compartidos.",
-          "gardening": "El mantenimiento de zonas ajardinadas y viales verdes es uno de los servicios más solicitados en las urbanizaciones cerradas de Majadahonda, junto al de la piscina comunitaria.",
+          "gardening": "Las urbanizaciones cerradas de Majadahonda tienen zonas ajardinadas y viales verdes propios. Los mantenemos con visitas programadas, y podemos llevar en el mismo plan la piscina comunitaria.",
           "maintenance": "Al no depender de un portal ni un ascensor como en un bloque urbano, en Majadahonda el mantenimiento técnico se centra en el vallado perimetral, los viales internos y las instalaciones de la propia urbanización."
         }
       },
@@ -322,6 +468,10 @@
           {
             "question": "¿Qué incluye el servicio de videovigilancia para una urbanización grande?",
             "answer": "Diseñamos el sistema según los puntos de acceso reales de la urbanización (entradas, garajes, zonas comunes) y nos encargamos del mantenimiento trimestral de cámaras y grabadores."
+          },
+          {
+            "question": "¿Dais servicio también a parques empresariales y locales comerciales, no solo a comunidades?",
+            "answer": "Sí. En Las Rozas trabajamos tanto la comunidad residencial como oficinas y locales, con la diferencia de que en el entorno comercial el refuerzo de limpieza y de conserjería se concentra en fin de semana, que es cuando entra el tránsito de fuera del municipio."
           }
         ],
         "serviceNotes": {
@@ -329,7 +479,7 @@
           "security": "Con un entorno comercial y de oficinas que atrae tránsito de fuera del municipio, la seguridad y la videovigilancia tienen un peso distinto en Las Rozas al de un municipio puramente residencial, tanto en urbanizaciones como en comunidades próximas a esas zonas.",
           "pools": "Las comunidades de Las Rozas con piscina, tanto en bloque como en urbanización, necesitan socorrista titulado y mantenimiento químico durante toda la temporada de baño según la normativa vigente.",
           "cleaning": "En las comunidades de bloque cercanas al entorno comercial y de oficinas del municipio, la limpieza de zonas comunes se pide con una frecuencia similar a la de cualquier comunidad urbana consolidada.",
-          "gardening": "El mantenimiento de zonas verdes es especialmente relevante en las urbanizaciones más extensas de Las Rozas, con más superficie ajardinada compartida que una comunidad cercana al entorno comercial.",
+          "gardening": "Las urbanizaciones más extensas de Las Rozas tienen bastante más superficie ajardinada compartida que una comunidad cercana al entorno comercial, así que el plan de jardinería y la frecuencia de las visitas se plantean por separado en cada caso.",
           "maintenance": "Entre las urbanizaciones extensas y las comunidades de bloque cerca del entorno comercial y de oficinas, el mantenimiento técnico en Las Rozas cubre perfiles muy distintos dentro del mismo municipio."
         }
       },
@@ -346,14 +496,18 @@
           {
             "question": "¿Puedo contratar solo jardinería y piscina, sin el resto de servicios?",
             "answer": "Sí, cada servicio se contrata de forma independiente según lo que ya tenga cubierto la comunidad."
+          },
+          {
+            "question": "¿Merece la pena contratar servicios si la comunidad es de solo diez o doce chalets?",
+            "answer": "Sí, y en Boadilla es el tamaño más frecuente. Para comunidades pequeñas ajustamos la frecuencia en lugar de poner personal fijo: jardinería quincenal, limpieza semanal de zonas comunes y mantenimiento preventivo mensual salen a un coste asumible por vivienda."
           }
         ],
         "serviceNotes": {
           "concierge": "En las comunidades pequeñas de chalets adosados de Boadilla, la conserjería suele combinarse con el control de accesos de la urbanización completa, no de una vivienda individual.",
           "security": "En un municipio con predominio casi total de urbanizaciones de baja densidad, el control de accesos en Boadilla cubre un perímetro amplio en lugar de un portal, a diferencia de los municipios con más bloque vertical.",
-          "pools": "Con comunidades pequeñas que comparten piscina desde su constitución, el mantenimiento de piscinas es uno de los servicios más solicitados en Boadilla, dado el escaso peso del bloque de vivienda vertical en el municipio.",
+          "pools": "En Boadilla pesa poco el bloque de vivienda vertical: predominan las comunidades pequeñas que comparten piscina desde su constitución. Nos ocupamos del mantenimiento químico, la limpieza y la preparación y el cierre de temporada.",
           "cleaning": "En las urbanizaciones de baja densidad de Boadilla, la limpieza de zonas comunes se centra menos en portales y más en accesos compartidos, piscina y zonas de uso colectivo de comunidades pequeñas.",
-          "gardening": "La jardinería es, junto al mantenimiento de piscinas, de los servicios más solicitados en Boadilla: las zonas comunes ajardinadas son la norma, no la excepción, en las comunidades de chalets adosados del municipio.",
+          "gardening": "En las comunidades de chalets adosados de Boadilla las zonas comunes ajardinadas son la norma, no la excepción. Las mantenemos con la frecuencia que pida cada jardín, y podemos llevar también la piscina.",
           "maintenance": "Con varios chalets adosados compartiendo la misma instalación de piscina o el mismo acceso en comunidades pequeñas, en Boadilla una sola avería técnica puede afectar a toda la comunidad en lugar de a una vivienda aislada."
         }
       },
@@ -370,11 +524,15 @@
           {
             "question": "¿Podéis cubrir varios edificios de la misma empresa en Alcobendas?",
             "answer": "Sí, un mismo interlocutor puede coordinar el servicio en varias sedes o edificios de la misma empresa dentro del municipio."
+          },
+          {
+            "question": "¿Podéis mantener a la vez la sede de una empresa y las comunidades de vivienda de al lado?",
+            "answer": "Sí. Alcobendas tiene uno de los mayores parques empresariales de la región pegado a barrios de bloque, y llevar los dos en la misma ruta abarata los desplazamientos. Los contratos van separados, con horarios y niveles de servicio distintos."
           }
         ],
         "serviceNotes": {
           "concierge": "Con uno de los mayores parques empresariales de la región en Alcobendas, la conserjería para sedes de empresa tiene una demanda tan constante como la de las comunidades de vecinos del municipio.",
-          "security": "La seguridad para sedes de empresa es uno de los servicios con más demanda en Alcobendas, dado el peso de su parque empresarial junto a las comunidades residenciales de tamaño medio-alto.",
+          "security": "Alcobendas junta uno de los mayores parques empresariales de la región con comunidades residenciales de tamaño medio-alto. Damos videovigilancia y control de accesos en los dos entornos, con proyectos distintos: en una sede de empresa mandan los horarios y el personal externo; en una comunidad, los accesos y el garaje.",
           "pools": "En las comunidades de vivienda en bloque de tamaño medio-alto de Alcobendas, el mantenimiento de piscinas sigue el calendario habitual de temporada, con socorrista titulado.",
           "cleaning": "Tanto las sedes corporativas del parque empresarial como las comunidades de vecinos de tamaño medio-alto de Alcobendas piden limpieza con continuidad, aunque con necesidades distintas según sea oficina o zona común residencial.",
           "gardening": "El mantenimiento de zonas ajardinadas en Alcobendas se reparte entre las comunidades de vivienda en bloque y los espacios exteriores de las sedes empresariales del municipio.",
@@ -394,6 +552,10 @@
           {
             "question": "¿Con qué frecuencia se puede contratar la jardinería en las zonas nuevas del municipio?",
             "answer": "La que decida cada comunidad: desde un mantenimiento quincenal hasta visitas semanales, según el tamaño de la zona ajardinada."
+          },
+          {
+            "question": "¿Cambia el mantenimiento entre los barrios nuevos y el casco de San Sebastián de los Reyes?",
+            "answer": "Bastante. En las promociones de las dos últimas décadas el trabajo va a garajes, zonas comunes amplias y sistemas de riego; en el núcleo consolidado va a bajantes, portales y carpintería. Lo valoramos en la visita, no aplicamos el mismo plan a los dos."
           }
         ],
         "serviceNotes": {
@@ -418,6 +580,10 @@
           {
             "question": "¿Podéis encargaros de una comunidad con varias zonas ajardinadas separadas?",
             "answer": "Sí, adaptamos el equipo y la frecuencia al tamaño real de las zonas verdes, sean una o varias dentro de la misma comunidad."
+          },
+          {
+            "question": "¿Cómo se mantiene tanta zona verde entre bloques sin disparar el coste?",
+            "answer": "Agrupando la siega y la poda en visitas más largas y menos frecuentes, y revisando el riego antes del verano para que no se pierda agua. Tres Cantos se planificó con mucho espacio abierto entre edificios, y ahí la jardinería pesa más que en un bloque entre medianeras."
           }
         ],
         "serviceNotes": {
@@ -433,7 +599,7 @@
         "name": "Getafe",
         "areaLabel": "Corona sur",
         "heroSubtitle": "Seguridad y control de accesos para naves y comunidades de Getafe, municipio industrial y universitario a 14 km al sur de Madrid.",
-        "context": "Getafe combina un extenso parque de bloques de comunidad con un peso industrial y aeronáutico histórico y un campus universitario propio, lo que genera una demanda de seguridad y control de accesos poco habitual en un municipio puramente residencial: desde el control de accesos de una nave o instalación hasta la seguridad de comunidades cercanas a zonas de tránsito universitario.",
+        "context": "Getafe combina un extenso parque de bloques de comunidad con un peso industrial y aeronáutico histórico y un campus universitario propio. Eso hace que aquí trabajemos tanto en comunidades de propietarios como en el control de accesos de naves e instalaciones, y en la videovigilancia de comunidades cercanas a las zonas de tránsito universitario.",
         "faq": [
           {
             "question": "¿Atendéis instalaciones cerca del entorno industrial y universitario de Getafe, no solo comunidades de vecinos?",
@@ -442,14 +608,18 @@
           {
             "question": "¿Podéis cubrir conserjería de 6 a 24 horas en un edificio grande de Getafe?",
             "answer": "Sí, los turnos se ajustan a lo que necesite cada comunidad, desde media jornada hasta cobertura completa de 6 a 24 horas."
+          },
+          {
+            "question": "¿El control de accesos de una nave se lleva igual que el de una comunidad?",
+            "answer": "No. En una nave o instalación hay entrada de vehículos, horarios de carga y personal externo rotando, así que el control se organiza por franjas y por tipo de acceso. En Getafe damos los dos servicios, pero con proyectos distintos."
           }
         ],
         "serviceNotes": {
           "concierge": "En los bloques de comunidad grandes de Getafe, coordinar la conserjería y el mantenimiento con un mismo proveedor evita que cada incidencia técnica pase por un contacto distinto al del conserje.",
-          "security": "Con un peso industrial y aeronáutico histórico y un campus universitario propio, la seguridad y el control de accesos tienen en Getafe una demanda poco habitual para un municipio de su tamaño en la corona sur.",
+          "security": "En Getafe damos servicio tanto a comunidades como a naves e instalaciones industriales: el peso industrial y aeronáutico del municipio y su campus universitario hacen que aquí el control de accesos no se limite al portal de un bloque.",
           "pools": "Las comunidades con piscina en Getafe, dentro de un parque de vivienda extenso con predominancia de bloques grandes, siguen el calendario de mantenimiento habitual de la temporada de baño.",
           "cleaning": "La limpieza de zonas comunes en Getafe se pide con continuidad en el amplio parque de bloques de comunidad del municipio, muchos de ellos de tamaño grande.",
-          "gardening": "El mantenimiento de zonas ajardinadas en Getafe varía según el tamaño del bloque de comunidad, siendo más relevante en los conjuntos residenciales más recientes del municipio.",
+          "gardening": "Las zonas ajardinadas de las comunidades de Getafe cambian mucho entre el bloque tradicional y los conjuntos residenciales más recientes; ajustamos la frecuencia de las visitas a lo que tenga cada una.",
           "maintenance": "En bloques grandes como los que predominan en Getafe, coordinar la conserjería y el mantenimiento técnico con un mismo proveedor evita que cada avería pase por un contacto distinto."
         }
       },
@@ -466,15 +636,19 @@
           {
             "question": "¿Incluye la limpieza de cristales de zonas comunes?",
             "answer": "Sí, los cristales de portal y zonas comunes entran en el plan habitual de limpieza."
+          },
+          {
+            "question": "¿Podéis llevar edificios de décadas muy distintas dentro del mismo barrio?",
+            "answer": "Sí, y en Leganés es lo normal: casco antiguo y promociones recientes en la misma calle. Cada finca lleva su propio plan de mantenimiento según la edad de sus instalaciones, aunque el equipo que las atiende y el interlocutor sean los mismos."
           }
         ],
         "serviceNotes": {
           "concierge": "Con una de las mayores densidades de comunidades de propietarios de la región, en Leganés la conserjería convive con edificios de muy distintas décadas de construcción dentro del mismo barrio.",
           "security": "El control de accesos gana peso en los edificios más recientes cercanos al campus universitario de Leganés, mientras que en los del casco antiguo suele complementar a una conserjería ya establecida.",
-          "pools": "En un municipio tan denso como Leganés, no todas las comunidades tienen piscina: suele ser un servicio de los bloques más grandes o de construcción más reciente, con mantenimiento químico y socorrista titulado en temporada.",
-          "cleaning": "La limpieza de zonas comunes es uno de los servicios con más volumen de solicitudes por metro cuadrado en Leganés, dada la alta densidad de comunidades de propietarios del municipio.",
+          "pools": "En un municipio tan denso como Leganés no todas las comunidades tienen piscina: la tienen sobre todo los bloques más grandes o de construcción más reciente. Donde la hay, llevamos el mantenimiento químico y ponemos socorrista titulado en temporada cuando el aforo lo exige.",
+          "cleaning": "Leganés es uno de los municipios con más densidad de comunidades de propietarios de la región. Esa densidad permite agrupar rutas de limpieza entre fincas cercanas, lo que se nota sobre todo al cubrir una baja sin avisar con días de antelación.",
           "gardening": "El mantenimiento de jardinería en Leganés varía mucho según la década de construcción del edificio: los conjuntos más recientes cerca del campus universitario suelen tener más superficie ajardinada que los del casco urbano tradicional.",
-          "maintenance": "El mantenimiento de instalaciones (fontanería, electricidad) es, junto a la limpieza, de los servicios con más volumen de solicitudes en Leganés, por la densidad y variedad de décadas de construcción de sus edificios."
+          "maintenance": "En Leganés conviven edificios de décadas muy distintas en la misma calle, así que el mantenimiento de fontanería y electricidad se plantea finca a finca según la edad de sus instalaciones, aunque el equipo y el interlocutor sean los mismos."
         }
       },
       "fuenlabrada": {
@@ -490,15 +664,19 @@
           {
             "question": "¿Cómo se avisa de una avería en una comunidad de Fuenlabrada?",
             "answer": "Por teléfono, email o a través del conserje del edificio si también contratas ese servicio; el técnico revisa el aviso en el plazo acordado."
+          },
+          {
+            "question": "¿Qué es un plan de renovación por fases y por qué encaja en Fuenlabrada?",
+            "answer": "Es repartir por años las partidas grandes —portales, bajantes, alumbrado, cubierta— en vez de afrontarlas de golpe. Encaja aquí porque buena parte del municipio se construyó en pocas décadas y muchas instalaciones llegan a la misma edad a la vez."
           }
         ],
         "serviceNotes": {
           "concierge": "En el amplio parque de bloques de vivienda de tamaño medio y grande de Fuenlabrada, construidos en su mayoría durante el crecimiento acelerado de los años 70 a 90, la conserjería suele combinarse con un mantenimiento técnico continuo por parte del mismo equipo.",
           "security": "El control de accesos electrónico se está incorporando en los bloques de mayor tamaño de Fuenlabrada como complemento a la conserjería tradicional, sobre todo en los edificios que están renovando instalaciones de aquella época.",
           "pools": "Las comunidades con piscina en Fuenlabrada, dentro de un parque residencial con gran número de comunidades de bloques de la misma época de construcción, siguen el calendario habitual de mantenimiento de temporada.",
-          "cleaning": "La limpieza con frecuencia ajustable es uno de los servicios más solicitados por las comunidades de Fuenlabrada, junto al mantenimiento técnico continuo que exige un parque de vivienda de antigüedad similar.",
+          "cleaning": "Buena parte de Fuenlabrada se construyó en pocas décadas, así que muchas comunidades tienen instalaciones de antigüedad parecida. Ajustamos la frecuencia de la limpieza de zonas comunes a lo que necesite cada finca, y la combinamos con el mantenimiento técnico cuando interesa.",
           "gardening": "El mantenimiento de zonas ajardinadas en Fuenlabrada se reparte de forma desigual entre los distintos bloques del municipio, según la superficie verde de cada comunidad construida durante la expansión de los años 70 a 90.",
-          "maintenance": "El mantenimiento técnico continuo es, junto a la limpieza, el servicio más solicitado por las comunidades de Fuenlabrada: al haberse construido gran parte del municipio en pocas décadas, muchas instalaciones necesitan renovaciones en paralelo."
+          "maintenance": "Al haberse construido gran parte de Fuenlabrada en pocas décadas, muchas instalaciones llegan a la misma edad a la vez y necesitan renovaciones en paralelo. Por eso aquí el mantenimiento técnico continuo suele ir de la mano de un plan de renovación por fases."
         }
       },
       "mostoles": {
@@ -514,14 +692,18 @@
           {
             "question": "¿Puedo pedir una limpieza puntual, no periódica, en mi comunidad?",
             "answer": "Sí, por ejemplo tras una obra o antes de un evento de la comunidad, como servicio adicional al plan habitual."
+          },
+          {
+            "question": "¿Se puede unificar la limpieza y la conserjería de varias comunidades del mismo barrio?",
+            "answer": "Sí, y en Móstoles sale a cuenta por la densidad de comunidades. Cada finca mantiene su contrato y su factura, pero al estar cerca se comparten rutas y refuerzos, lo que se nota sobre todo en las sustituciones de última hora."
           }
         ],
         "serviceNotes": {
-          "concierge": "Siendo el municipio más poblado de la región tras Madrid capital, en Móstoles la conserjería y la limpieza de zonas comunes son los servicios con mayor demanda constante de todo el parque de comunidades de propietarios.",
+          "concierge": "Móstoles es el municipio más poblado de la región tras Madrid capital, con un parque de comunidades de propietarios enorme. Damos conserjería con horarios de 6 a 24 horas, adaptados al tamaño y al tránsito de entrada de cada finca.",
           "security": "El control de accesos gana peso en los bloques de mayor tamaño de Móstoles, como complemento a la conserjería en los edificios donde un solo punto de control no cubre todos los accesos.",
           "pools": "Con un parque de comunidades tan amplio como el de Móstoles, el número de piscinas comunitarias que requieren socorrista titulado y mantenimiento químico en temporada es proporcionalmente alto frente a municipios más pequeños.",
-          "cleaning": "La limpieza de zonas comunes es, junto a la conserjería, el servicio con mayor demanda constante en Móstoles, dado el volumen de población concentrada en el segundo municipio más poblado de la región.",
-          "gardening": "El mantenimiento de jardinería en Móstoles varía según el tipo de comunidad, siendo más relevante en los conjuntos residenciales con más zonas verdes compartidas.",
+          "cleaning": "El volumen de vivienda en bloque de Móstoles hace que la limpieza de zonas comunes se organice por frecuencias: diaria en los portales con más tránsito, y semanal o quincenal en garajes y zonas de menos uso.",
+          "gardening": "Las zonas verdes compartidas de Móstoles cambian mucho de una comunidad a otra; programamos las visitas de jardinería según lo que tenga cada conjunto residencial.",
           "maintenance": "El mantenimiento técnico en Móstoles convive con la alta demanda de conserjería y limpieza propia del segundo municipio más poblado de la Comunidad de Madrid."
         }
       },
@@ -538,11 +720,15 @@
           {
             "question": "¿Con qué frecuencia se limpia una comunidad en Torrejón?",
             "answer": "La que decida la comunidad: desde una limpieza semanal hasta un equipo a diario, según el tamaño y el uso del inmueble."
+          },
+          {
+            "question": "¿Trabajáis en naves y edificios logísticos además de en comunidades?",
+            "answer": "Sí. Torrejón combina vivienda en bloque con un tejido industrial y logístico importante, y damos limpieza, mantenimiento y control de accesos en los dos entornos. Lo que cambia son los horarios: en logística, el servicio suele ir fuera de la franja de operación."
           }
         ],
         "serviceNotes": {
           "concierge": "En las comunidades de vivienda en bloque de Torrejón de Ardoz, la conserjería suele coordinarse con el mantenimiento técnico dado el peso del entorno industrial y logístico de la zona.",
-          "security": "La seguridad y el control de accesos tienen una demanda especialmente relevante en Torrejón de Ardoz, tanto en comunidades residenciales como en instalaciones vinculadas al entorno industrial y logístico del municipio, marcado históricamente por su base aérea.",
+          "security": "En Torrejón de Ardoz damos videovigilancia y control de accesos tanto en comunidades residenciales como en instalaciones del entorno industrial y logístico del municipio, marcado históricamente por su base aérea. Son proyectos distintos: en la nave hay entrada de vehículos y horarios de carga; en la comunidad, portal y garaje.",
           "pools": "Las comunidades con piscina en Torrejón de Ardoz necesitan mantenimiento químico y socorrista titulado durante toda la temporada de baño, con independencia del perfil industrial del municipio.",
           "cleaning": "La limpieza de zonas comunes en Torrejón de Ardoz se pide con continuidad en un municipio que combina vivienda en bloque con actividad industrial y logística relevante.",
           "gardening": "El mantenimiento de zonas ajardinadas en Torrejón de Ardoz se limita sobre todo a las comunidades residenciales, con menos peso en el entorno industrial y logístico del municipio.",
@@ -562,6 +748,10 @@
           {
             "question": "¿Puedo contratar cobertura de conserjería solo por las mañanas en Coslada?",
             "answer": "Sí, los turnos se ajustan a lo que necesite cada comunidad: media jornada, turno partido o cobertura completa."
+          },
+          {
+            "question": "¿Cómo afecta el tránsito de los polígonos a las comunidades de Coslada?",
+            "answer": "Sobre todo al control de accesos y a la limpieza de exteriores, por el tránsito de paso y el polvo. En las comunidades cercanas al nudo logístico reforzamos la limpieza de portales y accesos y revisamos que los cierres de garaje aguanten el uso."
           }
         ],
         "serviceNotes": {
@@ -586,6 +776,10 @@
           {
             "question": "¿Es obligatorio tener socorrista si la piscina de la comunidad es pequeña?",
             "answer": "Depende de la normativa autonómica y del aforo de la piscina; te asesoramos según el caso concreto de tu comunidad."
+          },
+          {
+            "question": "¿Qué hay que vigilar en promociones construidas desde los noventa?",
+            "answer": "El riego, las bombas de garaje y las zonas comunes exteriores, que en Rivas son amplias y forman parte de casi todas las promociones. Son instalaciones que aún no dan problemas de edad, pero que se degradan rápido si nadie las revisa cada temporada."
           }
         ],
         "serviceNotes": {
@@ -593,7 +787,7 @@
           "security": "El control de accesos electrónico es habitual desde el origen en las comunidades de Rivas-Vaciamadrid, integrado con el resto de instalaciones del edificio al ser, en su mayoría, construcción posterior a los años 90.",
           "pools": "Al ser un municipio de crecimiento casi por completo posterior a los años 90, las comunidades de Rivas-Vaciamadrid suelen llegar con instalaciones de piscina ya construidas desde el primer año, así que el mantenimiento empieza a necesitarse desde que la comunidad se constituye.",
           "cleaning": "La limpieza de zonas comunes en Rivas-Vaciamadrid se pide desde la constitución de la comunidad, dado que prácticamente todo el parque residencial del municipio es de construcción reciente.",
-          "gardening": "El mantenimiento de zonas ajardinadas es de los servicios más solicitados en Rivas-Vaciamadrid: al no existir apenas casco histórico, casi todas las comunidades incluyen jardín desde la propia construcción de la promoción.",
+          "gardening": "En Rivas-Vaciamadrid apenas hay casco histórico: casi todas las comunidades incluyen jardín desde la propia construcción de la promoción. Mantenemos zonas verdes y sistemas de riego con visitas programadas.",
           "maintenance": "El mantenimiento técnico en Rivas-Vaciamadrid empieza a necesitarse desde la constitución de la comunidad, dado que las instalaciones de sus promociones, casi todas posteriores a los años 90, se estrenan junto al resto de servicios."
         }
       },
@@ -610,6 +804,10 @@
           {
             "question": "¿Qué pasa si el conserje de mi comunidad se pone enfermo?",
             "answer": "Cubrimos la baja con otro profesional del mismo perfil, sin coste adicional ni interrupción del servicio."
+          },
+          {
+            "question": "¿Cómo se trabaja en edificios de escalera de baja altura del casco histórico?",
+            "answer": "Sin ascensor y con escaleras estrechas, la limpieza va con material ligero y el mantenimiento se organiza por plantas. En Colmenar Viejo conviven ese casco con urbanizaciones de la periferia, y las dos cosas se presupuestan por separado."
           }
         ],
         "serviceNotes": {
@@ -624,8 +822,8 @@
       "torrelodones": {
         "name": "Torrelodones",
         "areaLabel": "Corona noroeste",
-        "heroSubtitle": "Seguridad y jardinería para las urbanizaciones de renta alta de Torrelodones, al pie de la sierra, a 27 km al noroeste de Madrid.",
-        "context": "Torrelodones es uno de los municipios de mayor renta media de la Comunidad de Madrid, con un urbanismo dominado por urbanizaciones de vivienda unifamiliar y chalets repartidos entre el núcleo urbano y las laderas hacia la sierra de Guadarrama. La seguridad, el control de accesos y el mantenimiento de jardines y piscinas privadas comunitarias son los servicios más relevantes en este perfil de urbanización dispersa junto al monte.",
+        "heroSubtitle": "Videovigilancia y jardinería para las urbanizaciones de Torrelodones, al pie de la sierra, a 27 km al noroeste de Madrid.",
+        "context": "Torrelodones tiene un urbanismo dominado por urbanizaciones de vivienda unifamiliar y chalets, repartidos entre el núcleo urbano y las laderas hacia la sierra de Guadarrama. En ese tipo de urbanización dispersa trabajamos sobre todo el control de accesos y el mantenimiento de jardines y piscinas comunitarias.",
         "faq": [
           {
             "question": "¿Instaláis videovigilancia en urbanizaciones de vivienda unifamiliar cerca de la sierra?",
@@ -634,14 +832,18 @@
           {
             "question": "¿Puedo ampliar el sistema de seguridad más adelante?",
             "answer": "Sí, el proyecto se diseña pensando en poder añadir cámaras o puntos de control de acceso sin sustituir el sistema completo."
+          },
+          {
+            "question": "¿Cubrís urbanizaciones alejadas del núcleo, ya en la ladera hacia la sierra?",
+            "answer": "Sí. Es el perfil más habitual del municipio, y lo tenemos en cuenta al planificar: las visitas se agrupan para no encadenar desplazamientos cortos entre urbanizaciones dispersas, y el calendario de jardinería va ajustado al clima de sierra."
           }
         ],
         "serviceNotes": {
           "concierge": "En las urbanizaciones de vivienda unifamiliar de Torrelodones, repartidas entre el núcleo urbano y las laderas hacia la sierra, la conserjería suele combinarse con el control de accesos del conjunto residencial.",
-          "security": "La seguridad y el control de accesos son de los servicios más relevantes en Torrelodones, dado el predominio de urbanizaciones dispersas de vivienda unifamiliar y chalets propias de uno de los municipios de mayor renta de la región.",
-          "pools": "El mantenimiento de piscinas privadas comunitarias es uno de los servicios más relevantes en Torrelodones, propio del perfil de urbanización de renta alta repartida entre el núcleo urbano y la sierra.",
+          "security": "El control de accesos en Torrelodones tiene poco que ver con el portal de un bloque: son urbanizaciones dispersas de vivienda unifamiliar y chalets, con varias entradas y viales propios que cubrir.",
+          "pools": "Muchas comunidades de Torrelodones tienen piscina propia, repartidas entre el núcleo urbano y la sierra. Llevamos el mantenimiento químico, la limpieza y la preparación y el cierre de temporada.",
           "cleaning": "En las urbanizaciones de Torrelodones, la limpieza se centra más en accesos y zonas comunes compartidas que en portales individuales de bloque, poco habituales en este municipio.",
-          "gardening": "El mantenimiento de jardines es, junto a la piscina y la seguridad, uno de los servicios más relevantes en las urbanizaciones de vivienda unifamiliar de Torrelodones, al pie de la sierra de Guadarrama.",
+          "gardening": "Las urbanizaciones de vivienda unifamiliar de Torrelodones, al pie de la sierra de Guadarrama, tienen jardín y zonas verdes propias. Las mantenemos con un calendario ajustado al clima de sierra.",
           "maintenance": "El mantenimiento técnico en Torrelodones cubre las instalaciones comunes de las urbanizaciones de vivienda unifamiliar y chalets repartidas entre el núcleo urbano y las laderas hacia la sierra."
         }
       },
@@ -649,7 +851,7 @@
         "name": "Collado Villalba",
         "areaLabel": "Corona sur",
         "heroSubtitle": "Mantenimiento técnico de comunidades en Collado Villalba, el municipio más distante de la cobertura, nudo de comunicaciones de la Sierra de Guadarrama.",
-        "context": "Collado Villalba, a 36 km de Madrid capital, es el municipio más alejado de nuestra cobertura y funciona como puerta de entrada y nudo de comunicaciones hacia la Sierra de Guadarrama, con estación de tren de largo recorrido y cercanías propia. Su parque de vivienda mixto entre bloques de comunidad y urbanizaciones, sumado al clima de sierra —con más lluvia e inviernos más fríos que en Madrid capital—, hace que el mantenimiento técnico con equipo propio, sin depender de terceros que tarden en desplazarse, sea especialmente valorado en la zona.",
+        "context": "Collado Villalba, a 36 km de Madrid capital, es el municipio más alejado de nuestra cobertura y funciona como puerta de entrada y nudo de comunicaciones hacia la Sierra de Guadarrama, con estación de tren de largo recorrido y cercanías propia. Su parque de vivienda mezcla bloques de comunidad y urbanizaciones, y el clima de sierra —con más lluvia e inviernos más fríos que en Madrid capital— condiciona el calendario de los trabajos exteriores. Por distancia, aquí el mantenimiento técnico lo llevamos con equipo propio y ruta programada, sin depender de terceros que tarden en desplazarse.",
         "faq": [
           {
             "question": "¿Atendéis comunidades tan alejadas de Madrid como Collado Villalba?",
@@ -658,15 +860,19 @@
           {
             "question": "¿El clima de sierra afecta al mantenimiento de las instalaciones?",
             "answer": "Sí, los inviernos más fríos y la mayor pluviometría que en Madrid capital exigen una atención distinta en instalaciones como canalones, tejados y sistemas de calefacción."
+          },
+          {
+            "question": "¿Tardáis más en atender una urgencia por ser el municipio más lejano?",
+            "answer": "Por eso aquí el mantenimiento va con equipo propio y ruta programada, en lugar de avisar a un tercero que tenga que desplazarse desde Madrid. El teléfono de incidencias atiende igual que en el resto de la cobertura; lo que se planifica distinto es la ruta."
           }
         ],
         "serviceNotes": {
           "concierge": "En el parque de vivienda mixto de Collado Villalba, entre bloques de comunidad y urbanizaciones, la conserjería se adapta al perfil de cada conjunto residencial, con horarios ajustados a la menor densidad del municipio.",
           "security": "El control de accesos en Collado Villalba varía entre los bloques de comunidad del municipio y las urbanizaciones, cada una con necesidades de seguridad distintas dentro de este nudo de comunicaciones hacia la sierra.",
           "pools": "Las comunidades con piscina en Collado Villalba siguen el calendario de mantenimiento habitual, aunque la temporada de baño efectiva suele ser algo más corta que en Madrid capital por el clima de sierra.",
-          "cleaning": "La limpieza en Collado Villalba se reparte entre bloques de comunidad y urbanizaciones, con un mantenimiento técnico con equipo propio especialmente valorado al ser el municipio más distante de la cobertura.",
-          "gardening": "El mantenimiento de zonas ajardinadas en Collado Villalba es más relevante en las urbanizaciones del municipio que en los bloques de comunidad tradicionales, con un calendario ajustado al clima más frío de la sierra.",
-          "maintenance": "Siendo el municipio más distante de Madrid capital de toda la cobertura, el mantenimiento técnico con equipo propio, sin depender de terceros que tarden en desplazarse, es especialmente valorado en Collado Villalba."
+          "cleaning": "La limpieza en Collado Villalba se reparte entre bloques de comunidad y urbanizaciones, con frecuencias distintas para cada tipo de finca. Al ser el municipio más distante de la cobertura, la combinamos con el mantenimiento técnico en la misma visita siempre que se puede.",
+          "gardening": "Las zonas ajardinadas de Collado Villalba están sobre todo en las urbanizaciones, más que en los bloques de comunidad tradicionales. El calendario de jardinería va ajustado al clima más frío de la sierra.",
+          "maintenance": "Collado Villalba es el municipio más distante de Madrid capital de toda nuestra cobertura, así que el mantenimiento técnico lo llevamos con equipo propio y ruta programada, sin depender de terceros que tarden en desplazarse."
         }
       },
       "arganda-del-rey": {
@@ -682,6 +888,10 @@
           {
             "question": "¿Qué incluye el mantenimiento eléctrico de zonas comunes?",
             "answer": "Revisamos el cuadro eléctrico general y la iluminación de zonas comunes, con sustitución progresiva del alumbrado antiguo por LED cuando se pide, algo habitual en los edificios más veteranos del casco antiguo."
+          },
+          {
+            "question": "¿Se lleva igual un edificio del casco de Arganda que uno de la expansión sur?",
+            "answer": "No. En el casco tradicional pesan la carpintería, los patios y las bajantes antiguas; en la expansión de las últimas décadas, los garajes, el riego y las zonas comunes exteriores. Es el mismo equipo, pero con dos planes de mantenimiento distintos."
           }
         ],
         "serviceNotes": {
@@ -892,6 +1102,33 @@
         "value": "Madrid",
         "label": "Cobertura en toda la Comunidad de Madrid"
       }
+    },
+    "nextSteps": {
+      "eyebrow": "Después de escribirnos",
+      "title": "Qué pasa cuando envías el formulario",
+      "subtitle": "Cuatro pasos, sin compromiso de contratar en ninguno de ellos. Puedes parar en cualquier momento.",
+      "steps": [
+        {
+          "title": "Recibimos tu solicitud",
+          "description": "Te llega un correo de confirmación. La solicitud entra con el servicio, la zona y el tipo de cliente que hayas indicado, para que no haya que preguntarlo otra vez.",
+          "timing": "Al momento"
+        },
+        {
+          "title": "Te llamamos",
+          "description": "Una llamada corta para entender qué necesita la comunidad, el edificio o el negocio: superficie, horarios, qué tenéis contratado ya y qué falla de lo actual.",
+          "timing": "En menos de 24 h laborables"
+        },
+        {
+          "title": "Visitamos la finca",
+          "description": "Vamos a verla. Sin la visita no se puede dar un precio serio: el portal, el garaje, la zona verde o el vaso de la piscina cambian el presupuesto más que cualquier dato del formulario.",
+          "timing": "En la fecha que os venga bien"
+        },
+        {
+          "title": "Recibes el presupuesto cerrado",
+          "description": "Con el detalle de lo que incluye y lo que no, la frecuencia de cada servicio y el precio cerrado. Si hay que llevarlo a una junta de vecinos, te lo preparamos para presentarlo.",
+          "timing": "48 h después de la visita"
+        }
+      ]
     }
   },
   "Blog": {
@@ -977,17 +1214,17 @@
         "items": {
           "overview": {
             "question": "¿Qué servicios ofrece Imora?",
-            "answer": "Conserjería y control de accesos, seguridad y CCTV, mantenimiento de piscinas, limpieza y jardinería y mantenimiento de edificios. Todos con equipo propio, no subcontratado."
+            "answer": "Conserjería y control de accesos, videovigilancia y control de accesos, mantenimiento de piscinas, limpieza y jardinería y mantenimiento de edificios. El personal fijo de los servicios es mayoritariamente de contratación directa."
           },
-          "conserjeria": {
+          "concierge": {
             "question": "¿Qué incluye el servicio de conserjería?",
             "answer": "Recepción, control de accesos, reparto de correspondencia y atención a los vecinos, con horarios flexibles de 6 a 24 horas según las necesidades de cada finca."
           },
-          "seguridad": {
+          "security": {
             "question": "¿Cómo funciona el servicio de seguridad y CCTV?",
             "answer": "Nos encargamos del proyecto, la instalación y el mantenimiento de los sistemas de videovigilancia y control de accesos, para proteger tu edificio o centro comercial de principio a fin."
           },
-          "mantenimiento": {
+          "maintenance": {
             "question": "¿Hacéis mantenimiento de edificios?",
             "answer": "Sí. Nuestro equipo técnico propio cubre fontanería, electricidad, cerrajería y pequeñas obras en las zonas comunes, con respuesta rápida ante averías."
           }
@@ -1006,7 +1243,7 @@
           },
           "availability": {
             "question": "¿Tenéis atención fuera del horario de oficina?",
-            "answer": "Sí. Además del horario de oficina, disponemos de atención a urgencias 24 horas, los 365 días del año, para cualquier incidencia que no pueda esperar."
+            "answer": "Sí. Además del horario de oficina, tenemos un teléfono de incidencias atendido 24 horas los 365 días del año para cualquier urgencia que no pueda esperar. Es atención telefónica y coordinación de la intervención: la presencia en la finca es la del horario contratado."
           }
         }
       },
@@ -1112,15 +1349,15 @@
     "hero": {
       "eyebrow": "Cuidamos tu comunidad, tu edificio, tu negocio",
       "title": "Servicios integrales para comunidades, empresas y edificios en Madrid",
-      "subtitle": "Conserjería, seguridad, limpieza, piscinas, jardinería y mantenimiento con un único proveedor.",
+      "subtitle": "Conserjería, videovigilancia, limpieza, piscinas, jardinería y mantenimiento con un único proveedor.",
       "primaryCta": "Solicitar presupuesto",
       "secondaryCta": "Ver servicios",
-      "trust": "Atención 24 horas, 365 días al año",
+      "trust": "Teléfono de incidencias 24 h, todos los días del año",
       "imageAlt": "Equipo de conserjería y mantenimiento de Imora",
-      "chipsLabel": "Nuestros servicios más solicitados",
+      "chipsLabel": "Nuestros servicios",
       "chips": {
         "conserjeria": "Conserjería",
-        "seguridad": "Seguridad",
+        "seguridad": "Videovigilancia",
         "limpieza": "Limpieza",
         "jardineria": "Jardinería",
         "piscinas": "Piscinas"
@@ -1131,7 +1368,7 @@
       "items": {
         "availability": {
           "value": "24h",
-          "label": "Disponibilidad de atención, los 365 días del año"
+          "label": "Teléfono de incidencias atendido, los 365 días del año"
         },
         "response": {
           "value": "48h",
@@ -1139,10 +1376,10 @@
         },
         "coverage": {
           "value": "0€",
-          "label": "Coste adicional por sustituciones garantizadas"
+          "label": "Coste adicional por cubrir bajas y vacaciones del personal asignado"
         },
         "certifications": {
-          "label": "Certificados en calidad, ambiente, PRL y seguridad de la información"
+          "label": "Certificaciones acreditadas de nuestros procesos"
         }
       }
     },
@@ -1159,8 +1396,8 @@
       "playLabel": "Reproducir vídeo",
       "caption": "Así cuidamos cada comunidad, paso a paso",
       "title": "Esto es Imora",
-      "descriptionA": "Un equipo propio de conserjes, controladores y técnicos, coordinado por un departamento de inspección que revisa cada servicio sobre el terreno.",
-      "descriptionB": "Analizamos las necesidades de cada finca y diseñamos un plan de mantenimiento a medida, con sustituciones garantizadas y atención 24 horas."
+      "descriptionA": "Un equipo estable de conserjes, controladores y técnicos, coordinado por un departamento de inspección que revisa cada servicio sobre el terreno.",
+      "descriptionB": "Analizamos las necesidades de cada finca y diseñamos un plan de mantenimiento a medida, con las ausencias del personal cubiertas y un teléfono de incidencias atendido a cualquier hora."
     },
     "services": {
       "title": "Nuestros servicios",
@@ -1176,8 +1413,8 @@
       "subtitle": "Recursos, flexibilidad y garantías pensadas para el día a día de tu comunidad.",
       "cards": {
         "experts": {
-          "title": "Equipo propio y cualificado",
-          "description": "Conserjes, controladores y técnicos con la máxima garantía de profesionalidad, mayoritariamente de contratación directa.",
+          "title": "Personal cualificado y estable",
+          "description": "Conserjes, controladores y técnicos seleccionados y formados por nosotros, mayoritariamente con contratación directa. Sabes siempre quién va a tu finca.",
           "imageAlt": "Profesional de conserjería de Imora"
         },
         "model": {
@@ -1186,11 +1423,11 @@
         },
         "business": {
           "title": "Sustituciones garantizadas",
-          "description": "Cubrimos cualquier ausencia sin coste añadido, para que el servicio nunca se interrumpa."
+          "description": "Bajas, vacaciones y ausencias imprevistas del personal asignado las cubrimos con otro profesional del mismo perfil, sin coste adicional sobre el precio del contrato."
         },
         "support": {
-          "title": "Atención 24 horas",
-          "description": "Disponibles 365 días al año para cualquier incidencia o urgencia que pueda surgir."
+          "title": "Teléfono de incidencias 24 h",
+          "description": "Un número al que llamar cualquier día del año si surge una incidencia o una urgencia. La presencia en la finca es la del horario que tengas contratado."
         },
         "feature": {
           "title": "Inspección de calidad periódica",
@@ -1351,12 +1588,56 @@
             "title": "Empresas y centros comerciales",
             "description": "La recepción y el control de accesos se adaptan al volumen de visitas y proveedores de un negocio, no al ritmo de un portal residencial: más tránsito en hora punta, registro de paquetería y atención a clientes o empleados."
           }
+        },
+        "scope": {
+          "included": [
+            "Recepción y atención a vecinos, propietarios y visitas en el horario contratado.",
+            "Control de accesos: identificación de visitas, proveedores y personal externo.",
+            "Recepción, custodia y reparto de correspondencia y paquetería.",
+            "Apertura y cierre de portales, garajes y zonas comunes.",
+            "Aviso y coordinación de incidencias con la administración de la finca.",
+            "Pequeñas tareas de conserjería: lecturas, revisión visual de zonas comunes, sacar y recoger los contenedores.",
+            "Uniforme, formación y sustitución del personal en bajas y vacaciones, sin coste adicional."
+          ],
+          "excluded": [
+            "Vigilancia de seguridad y control de acceso con vigilante habilitado: es una actividad reservada a empresas de seguridad privada inscritas al amparo de la Ley 5/2014.",
+            "Limpieza de zonas comunes: se contrata aparte, aunque se puede unificar en el mismo contrato de servicios.",
+            "Reparaciones y mantenimiento técnico de las instalaciones.",
+            "Gestión administrativa o contable de la comunidad, que corresponde a la administración de fincas.",
+            "Custodia de llaves de las viviendas, salvo acuerdo expreso por escrito con la comunidad."
+          ],
+          "frequencies": [
+            {
+              "label": "Media jornada",
+              "detail": "6 horas al día, normalmente en la franja de mañana o de tarde."
+            },
+            {
+              "label": "Jornada completa",
+              "detail": "8 horas al día, de lunes a viernes o con fin de semana incluido."
+            },
+            {
+              "label": "Doble turno",
+              "detail": "Dos turnos encadenados para cubrir de la mañana a la noche."
+            },
+            {
+              "label": "24 horas",
+              "detail": "Tres turnos rotativos para edificios que necesitan conserjería permanente."
+            },
+            {
+              "label": "Refuerzo puntual",
+              "detail": "Cobertura de días concretos: mudanzas, obras, juntas o periodos de más tránsito."
+            },
+            {
+              "label": "Sustituciones",
+              "detail": "Solo bajas y vacaciones del conserje propio de la comunidad."
+            }
+          ]
         }
       },
       "security": {
         "tag": "Servicio 02",
         "title": "Videovigilancia y control de accesos",
-        "summary": "Proyecto, instalación y mantenimiento de sistemas de videovigilancia y control de accesos para proteger tu comunidad, edificio, negocio o centro comercial.",
+        "summary": "Proyecto, instalación y mantenimiento de sistemas de videovigilancia y control de accesos para tu comunidad, edificio, negocio o centro comercial. No somos empresa de seguridad privada: no ponemos vigilantes ni conectamos a central de alarmas.",
         "description": "Diseñamos el sistema de seguridad según los puntos de acceso reales de cada comunidad, edificio, negocio o centro comercial, lo instalamos y nos encargamos de su mantenimiento para que las cámaras y los controles de acceso sigan funcionando el día que se necesiten.",
         "cta": "Pedir estudio de seguridad para mi edificio o negocio",
         "subservices": [
@@ -1376,7 +1657,7 @@
             "icon": "Wrench",
             "title": "Mantenimiento de los equipos",
             "image": "/images/services/subservices/security-3.jpg",
-            "description": "Revisamos el estado de cámaras y grabadores cada trimestre, y sustituimos los discos de grabación antes de que fallen por desgaste. La idea es detectar el problema antes de que la comunidad se dé cuenta de que llevaba semanas sin grabar."
+            "description": "Revisamos el estado de cámaras y grabadores según el plan de mantenimiento contratado —por defecto proponemos una revisión trimestral— y sustituimos los discos de grabación antes de que fallen por desgaste. La idea es detectar el problema antes de que la comunidad se dé cuenta de que llevaba semanas sin grabar."
           },
           {
             "icon": "Siren",
@@ -1412,7 +1693,7 @@
           },
           {
             "question": "¿Con qué frecuencia se revisan las cámaras y grabadores?",
-            "answer": "Cada trimestre, sustituyendo los discos de grabación antes de que fallen por desgaste, para detectar el problema antes de que la comunidad note que llevaba semanas sin grabar."
+            "answer": "Con la frecuencia que se fije en el contrato de mantenimiento; por defecto proponemos una revisión trimestral, sustituyendo los discos de grabación antes de que fallen por desgaste, para detectar el problema antes de que la comunidad note que llevaba semanas sin grabar."
           },
           {
             "question": "¿Las cámaras cumplen con la protección de datos?",
@@ -1432,20 +1713,56 @@
             "title": "Empresas y centros comerciales",
             "description": "El proyecto de seguridad se diseña según los puntos de acceso reales de un local comercial o una oficina (accesos de público, zona de carga, almacén), con tarjetas o códigos que pueden limitarse a franjas horarias concretas."
           }
+        },
+        "scope": {
+          "included": [
+            "Proyecto del sistema según los accesos y puntos ciegos reales del edificio.",
+            "Suministro e instalación de cámaras, grabadores y equipos de control de accesos.",
+            "Configuración de la instalación y señalización de zona videovigilada.",
+            "Alta y baja de tarjetas o códigos de acceso, con franjas horarias si la comunidad las pide.",
+            "Mantenimiento preventivo de cámaras y grabadores, con sustitución de discos antes de que fallen por desgaste.",
+            "Soporte ante averías, con revisión del aviso en menos de 24 horas laborables.",
+            "Apoyo a la comunidad, como encargado del tratamiento, para que la instalación cumpla el artículo 22.3 de la LOPDGDD."
+          ],
+          "excluded": [
+            "Vigilantes de seguridad. La vigilancia privada está reservada a empresas de seguridad inscritas al amparo de la Ley 5/2014, y Imora no presta ese servicio.",
+            "Conexión a central receptora de alarmas y respuesta ante saltos de alarma, reservadas igualmente a empresas de seguridad inscritas.",
+            "Visionado permanente de las cámaras por nuestra parte: las imágenes las custodia y consulta la comunidad, que es la responsable del tratamiento.",
+            "Redacción del registro de actividades de tratamiento y atención de los derechos de los vecinos, que corresponden a la comunidad como responsable.",
+            "Obra civil de gran alcance (canalizaciones nuevas, rozas en fachada), que se presupuesta aparte."
+          ],
+          "frequencies": [
+            {
+              "label": "Instalación",
+              "detail": "Proyecto, suministro y puesta en marcha, con presupuesto cerrado tras la visita."
+            },
+            {
+              "label": "Mantenimiento preventivo",
+              "detail": "Revisión programada de cámaras, grabadores y control de accesos; la frecuencia se fija en el contrato, y por defecto proponemos una revisión trimestral."
+            },
+            {
+              "label": "Soporte correctivo",
+              "detail": "Averías fuera del plan preventivo, con revisión del aviso en menos de 24 horas laborables."
+            },
+            {
+              "label": "Ampliación",
+              "detail": "Cámaras o puntos de acceso nuevos sobre una instalación ya existente."
+            }
+          ]
         }
       },
       "pools": {
         "tag": "Servicio 03",
         "title": "Mantenimiento de piscinas",
-        "summary": "Servicio integral de piscina, con socorristas cualificados durante toda la temporada de verano, para comunidades de propietarios, edificios y complejos con zona de baño.",
-        "description": "Nos encargamos del mantenimiento químico y de la limpieza de la piscina comunitaria, y aportamos socorristas titulados durante toda la temporada de baño para que la comunidad, el edificio o el complejo disfrute de la piscina con las garantías legales al día.",
+        "summary": "Servicio integral de piscina para comunidades de propietarios, edificios y complejos con zona de baño: mantenimiento del agua durante toda la temporada, apertura y cierre, y socorrista titulado en las piscinas en las que la normativa lo exige.",
+        "description": "Nos encargamos del mantenimiento químico y de la limpieza de la piscina comunitaria durante toda la temporada de baño, y de la apertura y el cierre de temporada. Cuando la normativa de la Comunidad de Madrid exige socorrista por la superficie o el aforo del vaso, lo aportamos nosotros con el título en vigor, y si no lo exige podéis contratarlo igualmente aparte.",
         "cta": "Preparar mi piscina para la temporada",
         "subservices": [
           {
             "icon": "Droplet",
             "title": "Mantenimiento químico del agua",
             "image": "/images/services/subservices/pools-1.jpg",
-            "description": "El Real Decreto 742/2013 fija para el agua del vaso un pH entre 7,2 y 8,0 y un cloro libre residual entre 0,5 y 2 mg/l. Dentro de esa horquilla trabajamos con un objetivo más estrecho —pH entre 7,2 y 7,6—, porque es donde el cloro desinfecta mejor y menos irrita los ojos. Se mide a diario y la dosis se ajusta al uso real de la piscina, no a una pauta fija de fábrica."
+            "description": "El Real Decreto 742/2013, que regula los criterios sanitarios de las piscinas de uso colectivo —y una piscina de comunidad lo es—, fija para el agua del vaso un pH entre 7,2 y 8,0 y un cloro libre residual entre 0,5 y 2 mg/l. Dentro de esa horquilla trabajamos con un objetivo más estrecho, un pH entre 7,2 y 7,6, porque es donde el cloro desinfecta mejor y menos irrita los ojos. Se mide a diario y la dosis se ajusta al uso real de la piscina, no a una pauta fija de fábrica."
           },
           {
             "icon": "Brush",
@@ -1455,9 +1772,9 @@
           },
           {
             "icon": "LifeBuoy",
-            "title": "Socorrismo titulado",
+            "title": "Socorrismo titulado, cuando toca",
             "image": "/images/services/subservices/pools-3.jpg",
-            "description": "Los socorristas tienen el título oficial de socorrismo acuático en vigor y cubren todo el horario de baño que fije la comunidad, sin huecos sin vigilancia a mediodía ni el último fin de semana de la temporada."
+            "description": "Si la piscina necesita socorrista, lo ponemos nosotros con el título oficial de socorrismo acuático en vigor, cubriendo todo el horario de baño que fije la comunidad: sin huecos sin vigilancia a mediodía ni el último fin de semana de la temporada. Quién lo necesita no lo decidimos nosotros, lo marca la normativa de la Comunidad de Madrid según la superficie de lámina de agua y el aforo del vaso; antes de presupuestar lo comprobamos para tu piscina y te lo decimos por escrito."
           },
           {
             "icon": "CalendarClock",
@@ -1473,7 +1790,7 @@
           },
           {
             "question": "¿Es obligatorio tener socorrista si la piscina es pequeña?",
-            "answer": "Depende de la normativa autonómica y del aforo de la piscina; te asesoramos según el caso concreto de tu comunidad."
+            "answer": "No siempre. Lo determina la normativa de la Comunidad de Madrid en función de la superficie de lámina de agua y del aforo del vaso, no del tipo de comunidad. Lo comprobamos para tu piscina antes de presupuestar y te decimos por escrito si te obliga o no: si te obliga, va incluido en la propuesta; si no, puedes contratarlo igual, pero sabiendo que es una decisión de la comunidad y no una imposición legal."
           },
           {
             "question": "¿Qué pasa si el socorrista falta un día?",
@@ -1493,7 +1810,7 @@
           },
           {
             "question": "¿Los socorristas tienen el título en vigor?",
-            "answer": "Sí, todos tienen el título oficial de socorrismo acuático en vigor y cubren todo el horario de baño que fije la comunidad, sin huecos a mediodía ni el último fin de semana de temporada."
+            "answer": "Sí, todos tienen el título oficial de socorrismo acuático en vigor. Cuando el servicio incluye socorrismo, cubrimos todo el horario de baño que fije la comunidad, sin huecos a mediodía ni el último fin de semana de temporada, y las ausencias las cubrimos con otro socorrista titulado."
           },
           {
             "question": "¿Se puede contratar el servicio para un complejo con varias piscinas?",
@@ -1513,6 +1830,47 @@
             "title": "Empresas y centros comerciales",
             "description": "Una piscina de uso semi-público (hotel, urbanización con zona comercial) tiene una normativa y un volumen de baño distintos a los de una comunidad de vecinos, y el plan de mantenimiento se ajusta a ese uso real."
           }
+        },
+        "scope": {
+          "included": [
+            "Análisis y corrección diaria de los parámetros del agua durante la temporada de baño.",
+            "Dosificación de productos químicos y control de pH y desinfectante residual.",
+            "Limpieza del vaso, la playa, el fondo y la línea de flotación.",
+            "Limpieza de skimmers, cestillos y prefiltro, y lavado del filtro.",
+            "Revisión de la depuradora, bombas y dosificadores.",
+            "Preparación de apertura y cierre de temporada, con invernaje del vaso.",
+            "Registro de los controles realizados, para el libro oficial de la piscina.",
+            "Socorrista titulado cuando la normativa lo exige por aforo o características del vaso."
+          ],
+          "excluded": [
+            "Obra y reparación del vaso: fisuras, cambio de gresite o de lámina, y renovación de la playa.",
+            "Sustitución de bombas, filtros o cuadros eléctricos averiados, que se presupuesta aparte.",
+            "Analíticas microbiológicas de laboratorio acreditado, cuando la autoridad sanitaria las requiera.",
+            "Tramitación de la licencia de apertura de la piscina ante el ayuntamiento.",
+            "Vigilancia del recinto fuera del horario de baño."
+          ],
+          "frequencies": [
+            {
+              "label": "Temporada de baño",
+              "detail": "Mantenimiento diario o en días alternos entre la apertura y el cierre, según el uso del vaso."
+            },
+            {
+              "label": "Apertura de temporada",
+              "detail": "Puesta a punto: vaciado o recuperación del agua, limpieza a fondo, arranque de la depuradora y primeros ajustes químicos."
+            },
+            {
+              "label": "Cierre e invernaje",
+              "detail": "Tratamiento de invernaje, protección del vaso y parada controlada de la instalación."
+            },
+            {
+              "label": "Mantenimiento de invierno",
+              "detail": "Visitas periódicas fuera de temporada para que el agua no se degrade y la apertura del año siguiente salga más barata."
+            },
+            {
+              "label": "Socorrismo",
+              "detail": "Socorrista titulado durante el horario de baño, en las piscinas en las que la normativa lo exige."
+            }
+          ]
         }
       },
       "cleaning": {
@@ -1594,6 +1952,46 @@
             "title": "Empresas y centros comerciales",
             "description": "La limpieza de un negocio o un centro comercial se coordina fuera del horario de apertura al público cuando así se pide, y cubre zonas que una comunidad de vecinos no tiene: escaparates, zonas de carga o áreas comunes de mucho tránsito."
           }
+        },
+        "scope": {
+          "included": [
+            "Limpieza de portal, escaleras, rellanos y ascensores.",
+            "Limpieza de garajes, trasteros y zonas comunes exteriores.",
+            "Limpieza de cristales de portal y zonas comunes accesibles desde el suelo.",
+            "Sacar y recoger los contenedores en el día que marque el ayuntamiento.",
+            "Suministro del material y la maquinaria de limpieza.",
+            "Sustitución del personal en bajas y vacaciones, sin coste adicional.",
+            "Parte de trabajo y revisión periódica del departamento de inspección."
+          ],
+          "excluded": [
+            "Limpieza del interior de las viviendas o de los locales privativos.",
+            "Limpieza de cristales en altura con medios de elevación, que se presupuesta aparte.",
+            "Desinsectación y desratización, que exige empresa inscrita en el registro oficial de biocidas.",
+            "Limpieza de la piscina, incluida en el servicio de mantenimiento de piscinas.",
+            "Retirada de enseres, escombros o mudanzas abandonadas en zonas comunes."
+          ],
+          "frequencies": [
+            {
+              "label": "Diaria",
+              "detail": "De lunes a viernes, para portales con mucho tránsito o edificios de oficinas."
+            },
+            {
+              "label": "Varios días por semana",
+              "detail": "Dos o tres días, la opción más habitual en comunidades de tamaño medio."
+            },
+            {
+              "label": "Semanal",
+              "detail": "Un día a la semana, en comunidades pequeñas o de segunda residencia."
+            },
+            {
+              "label": "Quincenal o mensual",
+              "detail": "Para garajes, trasteros y zonas de uso ocasional."
+            },
+            {
+              "label": "Limpiezas puntuales",
+              "detail": "Fin de obra, cambio de inquilino, tras una avería o antes de una junta."
+            }
+          ]
         }
       },
       "gardening": {
@@ -1675,13 +2073,53 @@
             "title": "Empresas y centros comerciales",
             "description": "Las zonas ajardinadas de un centro comercial o una sede de empresa suelen ser más visibles de cara al público que las de una comunidad de vecinos, así que el mantenimiento prioriza que luzcan bien todo el año, no solo que estén cuidadas."
           }
+        },
+        "scope": {
+          "included": [
+            "Siega, recorte y perfilado del césped y de las zonas verdes.",
+            "Poda de arbustos, setos y arbolado de porte accesible.",
+            "Abonado, tratamientos fitosanitarios y control de malas hierbas.",
+            "Revisión del sistema de riego: programador, electroválvulas, aspersores y goteo.",
+            "Recogida y retirada de los restos de poda y siega.",
+            "Limpieza de las zonas ajardinadas y de los viales verdes.",
+            "Ajuste del calendario de trabajos a la estación."
+          ],
+          "excluded": [
+            "Diseño y obra de jardinería nueva: replantación completa, césped nuevo o instalación de riego desde cero.",
+            "Tala y poda en altura de arbolado que exija trepa o plataforma elevadora, que se presupuesta aparte.",
+            "Reparación de averías de la red de riego que impliquen obra o sustitución de tramos enterrados.",
+            "Tratamientos que requieran aplicador con carné fitosanitario de nivel cualificado en recintos de uso público, cuando el ayuntamiento los exija por escrito.",
+            "Mantenimiento de jardines privativos de cada vivienda."
+          ],
+          "frequencies": [
+            {
+              "label": "Semanal",
+              "detail": "Jardines con césped y riego automático, sobre todo en primavera y verano."
+            },
+            {
+              "label": "Quincenal",
+              "detail": "La frecuencia más habitual en comunidades con zona verde de tamaño medio."
+            },
+            {
+              "label": "Mensual",
+              "detail": "Zonas ajardinadas de bajo mantenimiento o con especies de secano."
+            },
+            {
+              "label": "Estacional",
+              "detail": "Poda de invierno, abonado de primavera y puesta a punto antes del verano."
+            },
+            {
+              "label": "Trabajos puntuales",
+              "detail": "Poda extraordinaria, replantación de alcorques o limpieza tras un temporal."
+            }
+          ]
         }
       },
       "maintenance": {
         "tag": "Servicio 06",
         "title": "Mantenimiento de comunidades y edificios",
         "summary": "Fontanería, electricidad, cerrajería y pequeñas obras para comunidades, edificios, empresas y centros comerciales, con un equipo técnico propio y respuesta rápida.",
-        "description": "Resolvemos las incidencias de mantenimiento del día a día en comunidades, edificios, negocios y centros comerciales con un equipo técnico propio (no subcontratado), lo que nos permite responder rápido ante averías de fontanería, electricidad, cerrajería o pequeñas obras.",
+        "description": "Resolvemos las incidencias de mantenimiento del día a día en comunidades, edificios, negocios y centros comerciales con un equipo técnico propio, lo que nos permite responder rápido ante averías de fontanería, electricidad, cerrajería o pequeñas obras.",
         "cta": "Solicitar mantenimiento técnico para mi comunidad o negocio",
         "subservices": [
           {
@@ -1740,7 +2178,7 @@
           },
           {
             "question": "¿El equipo técnico es propio o subcontratado?",
-            "answer": "Propio, no subcontratado, lo que nos permite responder rápido ante averías de fontanería, electricidad, cerrajería o pequeñas obras sin depender de terceros."
+            "answer": "Propio para el mantenimiento del día a día, lo que nos permite responder rápido ante averías de fontanería, electricidad, cerrajería o pequeñas obras. Para trabajos que exigen una habilitación específica (por ejemplo instalaciones de gas o alta tensión) trabajamos con especialistas acreditados."
           }
         ],
         "audience": {
@@ -1756,6 +2194,46 @@
             "title": "Empresas y centros comerciales",
             "description": "El mantenimiento técnico de un negocio o un centro comercial se programa para minimizar el impacto en la actividad (fuera de horario de apertura cuando se puede), y cubre instalaciones que una comunidad de vecinos no tiene, como climatización comercial."
           }
+        },
+        "scope": {
+          "included": [
+            "Revisiones periódicas programadas de las instalaciones de la finca.",
+            "Reparaciones de fontanería: fugas, atascos, grifería y desagües de zonas comunes.",
+            "Reparaciones eléctricas: alumbrado, automáticos, cuadros y detectores de presencia.",
+            "Cerrajería: cierres de portal, puertas de garaje, buzones y bombines.",
+            "Albañilería y pintura de pequeño alcance en zonas comunes.",
+            "Revisión de cubiertas, bajantes y sumideros antes de la época de lluvias.",
+            "Parte de cada intervención y aviso a la administración de la finca."
+          ],
+          "excluded": [
+            "Instalaciones con reglamento propio y mantenedor autorizado: ascensores, gas, alta tensión, protección contra incendios y calderas por encima de la potencia reglamentada.",
+            "Inspecciones técnicas obligatorias del edificio (ITE) y su tramitación.",
+            "Obras de rehabilitación, refuerzo estructural o reforma integral.",
+            "Material de repuesto de coste elevado, que se presupuesta aparte antes de reponerlo.",
+            "Reparaciones en el interior de las viviendas, que corresponden a cada propietario."
+          ],
+          "frequencies": [
+            {
+              "label": "Preventivo mensual",
+              "detail": "Ronda de revisión de las instalaciones y detección de lo que va a fallar."
+            },
+            {
+              "label": "Preventivo trimestral",
+              "detail": "Revisión más amplia, con cubiertas, bajantes y cuadros eléctricos."
+            },
+            {
+              "label": "Correctivo",
+              "detail": "Reparación de las averías que surgen, dentro o fuera del plan preventivo."
+            },
+            {
+              "label": "Urgencias",
+              "detail": "Avisos que no pueden esperar: fugas, ascensor bloqueado con personas dentro, portal sin cierre o sin luz."
+            },
+            {
+              "label": "Plan por fases",
+              "detail": "Renovación programada por partidas, para fincas cuyas instalaciones cumplen años a la vez."
+            }
+          ]
         }
       }
     },
@@ -1770,7 +2248,7 @@
       "ctaButton": "Contactar ahora",
       "ctaCardLabel": "Te preparamos una propuesta en menos de 48 horas",
       "ctaOrLabel": "o",
-      "ctaPillAvailability": "Atención 24 horas, 365 días al año",
+      "ctaPillAvailability": "Teléfono de incidencias 24 h, 365 días al año",
       "ctaPillGuarantee": "Sustituciones garantizadas sin coste añadido",
       "subservicesTitle": "Todo lo que hacemos, sin letra pequeña",
       "ctaSecondaryButton": "Ver todos los servicios",
@@ -1781,7 +2259,11 @@
       "audienceEyebrow": "Para quién",
       "audienceTitle": "Cómo se adapta este servicio según quién lo contrata",
       "ctaManagersPrefix": "¿Gestionas varias comunidades?",
-      "ctaManagersLink": "Así trabajamos con administradores de fincas"
+      "ctaManagersLink": "Así trabajamos con administradores de fincas",
+      "scopeTitle": "Qué incluye el servicio y qué no",
+      "scopeIncludedTitle": "Incluido en el precio",
+      "scopeExcludedTitle": "No incluido",
+      "scopeFrequencyTitle": "Frecuencias y modalidades"
     },
     "viewService": "Ver servicio",
     "process": {

@@ -35,7 +35,13 @@ export default function ZoneHero({ slug }: ZoneHeroProps) {
             <MapPin size={14} aria-hidden="true" style={{ display: 'inline', verticalAlign: '-2px' }} />{' '}
             {tHero('eyebrow')} · {t('areaLabel')}
           </p>
-          <h1 className="about__hero-title">{t('name')}</h1>
+          {/*
+            El H1 dice qué se ofrece y dónde, no solo dónde.
+            Era el nombre del municipio a secas ("Madrid"), que como encabezado de página no dice nada:
+            ni qué se vende ahí, ni a quién. Search Console lo confirma — estas páginas aparecen para
+            "empresa de conserjería en Madrid" y similares, nunca para el nombre del municipio suelto.
+          */}
+          <h1 className="about__hero-title">{tHero('title', { zone: t('name') })}</h1>
           <p className="about__hero-subtitle">{t('heroSubtitle')}</p>
 
           <Link href="/contact" className="about__btn about__btn--accent">

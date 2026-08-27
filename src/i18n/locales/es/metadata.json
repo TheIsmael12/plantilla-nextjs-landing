@@ -3,18 +3,18 @@
     "default": {
       "title": "Imora Servicios S.L.",
       "description": "Empresa de servicios integrales para empresas, comunidades de propietarios, edificios y centros comerciales en Madrid.",
-      "keywords": "Imora, servicios para empresas y comunidades, conserjería, seguridad, limpieza, mantenimiento"
+      "keywords": "Imora, servicios para empresas y comunidades, conserjería, videovigilancia, limpieza, mantenimiento"
     },
     "routes": {
       "/": {
         "title": "Servicios integrales para comunidades en Madrid",
-        "description": "Conserjería, seguridad, limpieza, piscinas y mantenimiento para comunidades de propietarios, empresas y edificios en Madrid, con equipo propio.",
+        "description": "Conserjería, videovigilancia, limpieza, piscinas y mantenimiento para comunidades de propietarios, empresas y edificios en Madrid, con personal estable.",
         "keywords": "conserjería Madrid, servicios para comunidades de propietarios, empresa de servicios para empresas, mantenimiento de edificios, seguridad y CCTV, limpieza de comunidades y centros comerciales"
       },
       "/services": {
         "title": "Nuestros servicios para empresas y comunidades",
-        "description": "Conserjería, seguridad, mantenimiento de piscinas, limpieza, jardinería y mantenimiento de edificios: seis servicios, un solo proveedor.",
-        "keywords": "servicios para empresas y comunidades de vecinos, conserjería, seguridad CCTV, mantenimiento de piscinas, limpieza y jardinería, mantenimiento de edificios"
+        "description": "Conserjería, videovigilancia y control de accesos, mantenimiento de piscinas, limpieza, jardinería y mantenimiento de edificios: seis servicios, un solo proveedor.",
+        "keywords": "servicios para empresas y comunidades de vecinos, conserjería, videovigilancia y CCTV, mantenimiento de piscinas, limpieza y jardinería, mantenimiento de edificios"
       },
       "/services/concierge": {
         "title": "Empresa de Conserjería para Comunidades en Madrid",
@@ -38,7 +38,7 @@
       },
       "/services/gardening": {
         "title": "Empresa de Jardinería de Comunidades en Madrid",
-        "description": "Mantenimiento de jardines, zonas verdes y riego para comunidades, edificios y empresas, con equipo propio y visitas periódicas programadas.",
+        "description": "Mantenimiento de jardines, zonas verdes y riego para comunidades, edificios y empresas, con equipo propio de jardinería y visitas periódicas programadas.",
         "keywords": "jardinería para comunidades, mantenimiento de jardines Madrid, poda y riego zonas verdes, jardinero comunidad de vecinos"
       },
       "/services/maintenance": {
@@ -47,9 +47,9 @@
         "keywords": "mantenimiento de edificios y empresas, fontanería comunidades, electricidad zonas comunes, cerrajería urgente, mantenimiento técnico Madrid"
       },
       "/about": {
-        "title": "Sobre Imora: equipo propio y atención 24 horas",
-        "description": "Cómo trabajamos: equipo propio, departamento de inspección y cobertura en Madrid y su área metropolitana.",
-        "keywords": "empresa de servicios integrales Madrid, servicios para empresas y comunidades, equipo propio conserjería, atención 24 horas"
+        "title": "Sobre Imora: personal estable y teléfono de incidencias 24 h",
+        "description": "Cómo trabajamos: personal mayoritariamente de contratación directa, departamento de inspección y cobertura en Madrid y su área metropolitana.",
+        "keywords": "empresa de servicios integrales Madrid, servicios para empresas y comunidades, conserjería con personal propio, teléfono de incidencias 24 horas"
       },
       "/for/property-managers": {
         "title": "Servicios para administradores de fincas en Madrid",
@@ -252,9 +252,9 @@
         "keywords": ""
       },
       "/zones/madrid": {
-        "title": "Conserjería 24 horas en los 21 distritos de Madrid",
-        "description": "Conserjería 24 horas, seguridad, limpieza y mantenimiento para comunidades, oficinas y centros comerciales en los 21 distritos de Madrid capital.",
-        "keywords": "conserjería 24 horas Madrid, empresa multiservicios Madrid capital, distritos Madrid, mantenimiento de edificios Madrid"
+        "title": "Empresa de conserjería en Madrid: los 21 distritos",
+        "description": "Conserjería, limpieza, videovigilancia y mantenimiento para comunidades de propietarios, oficinas y centros comerciales en los 21 distritos de Madrid capital.",
+        "keywords": "empresa de conserjería Madrid, servicios de conserjería Madrid, conserjes para urbanizaciones Madrid, mantenimiento de edificios Madrid, empresa multiservicios Madrid capital"
       },
       "/zones/pozuelo-de-alarcon": {
         "title": "Mantenimiento de piscinas en Pozuelo y Somosaguas",

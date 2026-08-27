@@ -1,0 +1,237 @@
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+// Secciones propias de la página de administradores de fincas: la comparativa contra trabajar con varios
+// proveedores (PropertyManagersComparison.tsx) y el ejemplo de cartera y de parte (PropertyManagersExample.tsx).
+// El resto de la página reutiliza las clases `services__*` de `services/servicesBase.scss`.
+
+.managers__comparison {
+  background: var(--surface-color);
+  @include py(4.5rem);
+}
+
+.managers__comparison-header,
+.managers__example-header {
+  text-align: center;
+  max-width: 42rem;
+  margin: 0 auto 2.5rem;
+}
+
+.managers__comparison-subtitle {
+  color: var(--neutral-color);
+  line-height: 1.6;
+  margin: 0.75rem 0 0;
+}
+
+/*
+ * La tabla se desplaza dentro de su caja, no empuja el ancho de la página.
+ *
+ * Son tres columnas de texto: por debajo de unos 40rem no caben sin partir las palabras. Dejar que
+ * desborde el `body` rompe el desplazamiento vertical de toda la página en el móvil, y es un fallo que
+ * solo se ve en el móvil.
+ */
+.managers__comparison-scroll {
+  overflow-x: auto;
+  max-width: 62rem;
+  margin-inline: auto;
+  @include pb(0.5rem);
+}
+
+.managers__comparison-table {
+  width: 100%;
+  min-width: 40rem;
+  border-collapse: collapse;
+  text-align: left;
+
+  th,
+  td {
+    @include p(0.95rem);
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  thead th {
+    font-family: $font-title;
+    font-size: $text-sm;
+    color: var(--primary-color-active);
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  tbody th {
+    font-weight: $font-semibold;
+    color: var(--color);
+    width: 22%;
+  }
+
+  tbody td {
+    color: var(--neutral-color);
+  }
+}
+
+// La columna de Imora se destaca de arriba abajo, para que se lea como una columna y no como celdas sueltas.
+.managers__comparison-th--imora,
+.managers__comparison-td--imora {
+  background: var(--primary-color-light);
+  color: var(--color);
+}
+
+.managers__example {
+  background: var(--background-color);
+  @include py(4.5rem);
+}
+
+.managers__example-grid {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 62rem;
+  margin-inline: auto;
+
+  @include screen(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.managers__card {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+  @include p(1.75rem);
+}
+
+.managers__card-title {
+  font-family: $font-title;
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: var(--primary-color-active);
+  margin: 0 0 1rem;
+}
+
+// Aviso de "esto es un ejemplo": discreto, pero dentro del bloque que califica y no al pie de la página.
+.managers__note {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  align-items: start;
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  font-style: italic;
+  margin: 0.75rem 0 1.25rem;
+  text-align: left;
+}
+
+.managers__note-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.managers__portfolio {
+  margin: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.managers__portfolio-row {
+  border-top: 1px solid var(--border-color);
+  @include pt(0.85rem);
+}
+
+.managers__portfolio-label {
+  font-weight: $font-semibold;
+  color: var(--primary-color-active);
+  margin: 0;
+}
+
+.managers__portfolio-detail {
+  margin: 0.15rem 0 0;
+  color: var(--neutral-color);
+  line-height: 1.5;
+}
+
+.managers__month {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.managers__month-item {
+  color: var(--neutral-color);
+  line-height: 1.55;
+  border-top: 1px solid var(--border-color);
+  @include pt(0.85rem);
+}
+
+.managers__report-block {
+  max-width: 62rem;
+  margin: 2.5rem auto 0;
+}
+
+/*
+ * El parte se pinta con aire de documento (fondo claro, cabecera con referencia, campos en dos columnas)
+ * porque lo que se está enseñando **es el formato**: la pregunta que responde esta sección no es qué
+ * información se recoge, sino qué le llega al administrador y con qué pinta.
+ */
+.managers__report {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color-active);
+  @include rounded(0.5rem);
+  overflow: hidden;
+}
+
+.managers__report-head {
+  @include flex(row, space-between, center, 1rem);
+  flex-wrap: wrap;
+  background: var(--primary-color);
+  color: var(--light-color);
+  @include px(1.5rem);
+  @include py(0.9rem);
+}
+
+.managers__report-heading {
+  font-family: $font-title;
+  font-weight: $font-semibold;
+}
+
+.managers__report-ref {
+  font-size: $text-sm;
+  letter-spacing: 0.06em;
+}
+
+.managers__report-fields {
+  margin: 0;
+  @include p(1.5rem);
+  display: grid;
+  gap: 0;
+}
+
+.managers__report-row {
+  display: grid;
+  gap: 0.2rem;
+  @include py(0.7rem);
+
+  & + & {
+    border-top: 1px solid var(--border-color);
+  }
+
+  @include screen(md) {
+    grid-template-columns: 12rem 1fr;
+    gap: 1rem;
+  }
+}
+
+.managers__report-label {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--primary-color-active);
+  margin: 0;
+}
+
+.managers__report-value {
+  margin: 0;
+  color: var(--color);
+  line-height: 1.55;
+}

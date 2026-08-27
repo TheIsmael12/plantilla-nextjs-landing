@@ -3,6 +3,7 @@ import ServiceDetailHero from '@/components/ui/services/ServiceDetailHero';
 import ServiceDetailTrust from '@/components/ui/services/ServiceDetailTrust';
 import ServiceDetailSubservices from '@/components/ui/services/ServiceDetailSubservices';
 import ServiceDetailAudience from '@/components/ui/services/ServiceDetailAudience';
+import ServiceDetailScope from '@/components/ui/services/ServiceDetailScope';
 import ServiceDetailFaq from '@/components/ui/services/ServiceDetailFaq';
 import ServiceDetailProcess from '@/components/ui/services/ServiceDetailProcess';
 import ServiceDetailZones from '@/components/ui/services/ServiceDetailZones';
@@ -33,6 +34,7 @@ export default function MaintenanceViewPage({ locale }: MaintenanceViewPageProps
       <ServiceDetailTrust />
       <ServiceDetailSubservices slug="maintenance" />
       <ServiceDetailAudience slug="maintenance" />
+      <ServiceDetailScope slug="maintenance" />
       <ServiceDetailFaq slug="maintenance" />
       <ServiceDetailProcess />
       <ServiceDetailCta />
