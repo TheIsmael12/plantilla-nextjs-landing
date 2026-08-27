@@ -1588,50 +1588,6 @@
             "title": "Empresas y centros comerciales",
             "description": "La recepción y el control de accesos se adaptan al volumen de visitas y proveedores de un negocio, no al ritmo de un portal residencial: más tránsito en hora punta, registro de paquetería y atención a clientes o empleados."
           }
-        },
-        "scope": {
-          "included": [
-            "Recepción y atención a vecinos, propietarios y visitas en el horario contratado.",
-            "Control de accesos: identificación de visitas, proveedores y personal externo.",
-            "Recepción, custodia y reparto de correspondencia y paquetería.",
-            "Apertura y cierre de portales, garajes y zonas comunes.",
-            "Aviso y coordinación de incidencias con la administración de la finca.",
-            "Pequeñas tareas de conserjería: lecturas, revisión visual de zonas comunes, sacar y recoger los contenedores.",
-            "Uniforme, formación y sustitución del personal en bajas y vacaciones, sin coste adicional."
-          ],
-          "excluded": [
-            "Vigilancia de seguridad y control de acceso con vigilante habilitado: es una actividad reservada a empresas de seguridad privada inscritas al amparo de la Ley 5/2014.",
-            "Limpieza de zonas comunes: se contrata aparte, aunque se puede unificar en el mismo contrato de servicios.",
-            "Reparaciones y mantenimiento técnico de las instalaciones.",
-            "Gestión administrativa o contable de la comunidad, que corresponde a la administración de fincas.",
-            "Custodia de llaves de las viviendas, salvo acuerdo expreso por escrito con la comunidad."
-          ],
-          "frequencies": [
-            {
-              "label": "Media jornada",
-              "detail": "6 horas al día, normalmente en la franja de mañana o de tarde."
-            },
-            {
-              "label": "Jornada completa",
-              "detail": "8 horas al día, de lunes a viernes o con fin de semana incluido."
-            },
-            {
-              "label": "Doble turno",
-              "detail": "Dos turnos encadenados para cubrir de la mañana a la noche."
-            },
-            {
-              "label": "24 horas",
-              "detail": "Tres turnos rotativos para edificios que necesitan conserjería permanente."
-            },
-            {
-              "label": "Refuerzo puntual",
-              "detail": "Cobertura de días concretos: mudanzas, obras, juntas o periodos de más tránsito."
-            },
-            {
-              "label": "Sustituciones",
-              "detail": "Solo bajas y vacaciones del conserje propio de la comunidad."
-            }
-          ]
         }
       },
       "security": {
@@ -1713,42 +1669,6 @@
             "title": "Empresas y centros comerciales",
             "description": "El proyecto de seguridad se diseña según los puntos de acceso reales de un local comercial o una oficina (accesos de público, zona de carga, almacén), con tarjetas o códigos que pueden limitarse a franjas horarias concretas."
           }
-        },
-        "scope": {
-          "included": [
-            "Proyecto del sistema según los accesos y puntos ciegos reales del edificio.",
-            "Suministro e instalación de cámaras, grabadores y equipos de control de accesos.",
-            "Configuración de la instalación y señalización de zona videovigilada.",
-            "Alta y baja de tarjetas o códigos de acceso, con franjas horarias si la comunidad las pide.",
-            "Mantenimiento preventivo de cámaras y grabadores, con sustitución de discos antes de que fallen por desgaste.",
-            "Soporte ante averías, con revisión del aviso en menos de 24 horas laborables.",
-            "Apoyo a la comunidad, como encargado del tratamiento, para que la instalación cumpla el artículo 22.3 de la LOPDGDD."
-          ],
-          "excluded": [
-            "Vigilantes de seguridad. La vigilancia privada está reservada a empresas de seguridad inscritas al amparo de la Ley 5/2014, y Imora no presta ese servicio.",
-            "Conexión a central receptora de alarmas y respuesta ante saltos de alarma, reservadas igualmente a empresas de seguridad inscritas.",
-            "Visionado permanente de las cámaras por nuestra parte: las imágenes las custodia y consulta la comunidad, que es la responsable del tratamiento.",
-            "Redacción del registro de actividades de tratamiento y atención de los derechos de los vecinos, que corresponden a la comunidad como responsable.",
-            "Obra civil de gran alcance (canalizaciones nuevas, rozas en fachada), que se presupuesta aparte."
-          ],
-          "frequencies": [
-            {
-              "label": "Instalación",
-              "detail": "Proyecto, suministro y puesta en marcha, con presupuesto cerrado tras la visita."
-            },
-            {
-              "label": "Mantenimiento preventivo",
-              "detail": "Revisión programada de cámaras, grabadores y control de accesos; la frecuencia se fija en el contrato, y por defecto proponemos una revisión trimestral."
-            },
-            {
-              "label": "Soporte correctivo",
-              "detail": "Averías fuera del plan preventivo, con revisión del aviso en menos de 24 horas laborables."
-            },
-            {
-              "label": "Ampliación",
-              "detail": "Cámaras o puntos de acceso nuevos sobre una instalación ya existente."
-            }
-          ]
         }
       },
       "pools": {
@@ -1830,47 +1750,6 @@
             "title": "Empresas y centros comerciales",
             "description": "Una piscina de uso semi-público (hotel, urbanización con zona comercial) tiene una normativa y un volumen de baño distintos a los de una comunidad de vecinos, y el plan de mantenimiento se ajusta a ese uso real."
           }
-        },
-        "scope": {
-          "included": [
-            "Análisis y corrección diaria de los parámetros del agua durante la temporada de baño.",
-            "Dosificación de productos químicos y control de pH y desinfectante residual.",
-            "Limpieza del vaso, la playa, el fondo y la línea de flotación.",
-            "Limpieza de skimmers, cestillos y prefiltro, y lavado del filtro.",
-            "Revisión de la depuradora, bombas y dosificadores.",
-            "Preparación de apertura y cierre de temporada, con invernaje del vaso.",
-            "Registro de los controles realizados, para el libro oficial de la piscina.",
-            "Socorrista titulado cuando la normativa lo exige por aforo o características del vaso."
-          ],
-          "excluded": [
-            "Obra y reparación del vaso: fisuras, cambio de gresite o de lámina, y renovación de la playa.",
-            "Sustitución de bombas, filtros o cuadros eléctricos averiados, que se presupuesta aparte.",
-            "Analíticas microbiológicas de laboratorio acreditado, cuando la autoridad sanitaria las requiera.",
-            "Tramitación de la licencia de apertura de la piscina ante el ayuntamiento.",
-            "Vigilancia del recinto fuera del horario de baño."
-          ],
-          "frequencies": [
-            {
-              "label": "Temporada de baño",
-              "detail": "Mantenimiento diario o en días alternos entre la apertura y el cierre, según el uso del vaso."
-            },
-            {
-              "label": "Apertura de temporada",
-              "detail": "Puesta a punto: vaciado o recuperación del agua, limpieza a fondo, arranque de la depuradora y primeros ajustes químicos."
-            },
-            {
-              "label": "Cierre e invernaje",
-              "detail": "Tratamiento de invernaje, protección del vaso y parada controlada de la instalación."
-            },
-            {
-              "label": "Mantenimiento de invierno",
-              "detail": "Visitas periódicas fuera de temporada para que el agua no se degrade y la apertura del año siguiente salga más barata."
-            },
-            {
-              "label": "Socorrismo",
-              "detail": "Socorrista titulado durante el horario de baño, en las piscinas en las que la normativa lo exige."
-            }
-          ]
         }
       },
       "cleaning": {
@@ -1952,46 +1831,6 @@
             "title": "Empresas y centros comerciales",
             "description": "La limpieza de un negocio o un centro comercial se coordina fuera del horario de apertura al público cuando así se pide, y cubre zonas que una comunidad de vecinos no tiene: escaparates, zonas de carga o áreas comunes de mucho tránsito."
           }
-        },
-        "scope": {
-          "included": [
-            "Limpieza de portal, escaleras, rellanos y ascensores.",
-            "Limpieza de garajes, trasteros y zonas comunes exteriores.",
-            "Limpieza de cristales de portal y zonas comunes accesibles desde el suelo.",
-            "Sacar y recoger los contenedores en el día que marque el ayuntamiento.",
-            "Suministro del material y la maquinaria de limpieza.",
-            "Sustitución del personal en bajas y vacaciones, sin coste adicional.",
-            "Parte de trabajo y revisión periódica del departamento de inspección."
-          ],
-          "excluded": [
-            "Limpieza del interior de las viviendas o de los locales privativos.",
-            "Limpieza de cristales en altura con medios de elevación, que se presupuesta aparte.",
-            "Desinsectación y desratización, que exige empresa inscrita en el registro oficial de biocidas.",
-            "Limpieza de la piscina, incluida en el servicio de mantenimiento de piscinas.",
-            "Retirada de enseres, escombros o mudanzas abandonadas en zonas comunes."
-          ],
-          "frequencies": [
-            {
-              "label": "Diaria",
-              "detail": "De lunes a viernes, para portales con mucho tránsito o edificios de oficinas."
-            },
-            {
-              "label": "Varios días por semana",
-              "detail": "Dos o tres días, la opción más habitual en comunidades de tamaño medio."
-            },
-            {
-              "label": "Semanal",
-              "detail": "Un día a la semana, en comunidades pequeñas o de segunda residencia."
-            },
-            {
-              "label": "Quincenal o mensual",
-              "detail": "Para garajes, trasteros y zonas de uso ocasional."
-            },
-            {
-              "label": "Limpiezas puntuales",
-              "detail": "Fin de obra, cambio de inquilino, tras una avería o antes de una junta."
-            }
-          ]
         }
       },
       "gardening": {
@@ -2073,46 +1912,6 @@
             "title": "Empresas y centros comerciales",
             "description": "Las zonas ajardinadas de un centro comercial o una sede de empresa suelen ser más visibles de cara al público que las de una comunidad de vecinos, así que el mantenimiento prioriza que luzcan bien todo el año, no solo que estén cuidadas."
           }
-        },
-        "scope": {
-          "included": [
-            "Siega, recorte y perfilado del césped y de las zonas verdes.",
-            "Poda de arbustos, setos y arbolado de porte accesible.",
-            "Abonado, tratamientos fitosanitarios y control de malas hierbas.",
-            "Revisión del sistema de riego: programador, electroválvulas, aspersores y goteo.",
-            "Recogida y retirada de los restos de poda y siega.",
-            "Limpieza de las zonas ajardinadas y de los viales verdes.",
-            "Ajuste del calendario de trabajos a la estación."
-          ],
-          "excluded": [
-            "Diseño y obra de jardinería nueva: replantación completa, césped nuevo o instalación de riego desde cero.",
-            "Tala y poda en altura de arbolado que exija trepa o plataforma elevadora, que se presupuesta aparte.",
-            "Reparación de averías de la red de riego que impliquen obra o sustitución de tramos enterrados.",
-            "Tratamientos que requieran aplicador con carné fitosanitario de nivel cualificado en recintos de uso público, cuando el ayuntamiento los exija por escrito.",
-            "Mantenimiento de jardines privativos de cada vivienda."
-          ],
-          "frequencies": [
-            {
-              "label": "Semanal",
-              "detail": "Jardines con césped y riego automático, sobre todo en primavera y verano."
-            },
-            {
-              "label": "Quincenal",
-              "detail": "La frecuencia más habitual en comunidades con zona verde de tamaño medio."
-            },
-            {
-              "label": "Mensual",
-              "detail": "Zonas ajardinadas de bajo mantenimiento o con especies de secano."
-            },
-            {
-              "label": "Estacional",
-              "detail": "Poda de invierno, abonado de primavera y puesta a punto antes del verano."
-            },
-            {
-              "label": "Trabajos puntuales",
-              "detail": "Poda extraordinaria, replantación de alcorques o limpieza tras un temporal."
-            }
-          ]
         }
       },
       "maintenance": {
@@ -2194,46 +1993,6 @@
             "title": "Empresas y centros comerciales",
             "description": "El mantenimiento técnico de un negocio o un centro comercial se programa para minimizar el impacto en la actividad (fuera de horario de apertura cuando se puede), y cubre instalaciones que una comunidad de vecinos no tiene, como climatización comercial."
           }
-        },
-        "scope": {
-          "included": [
-            "Revisiones periódicas programadas de las instalaciones de la finca.",
-            "Reparaciones de fontanería: fugas, atascos, grifería y desagües de zonas comunes.",
-            "Reparaciones eléctricas: alumbrado, automáticos, cuadros y detectores de presencia.",
-            "Cerrajería: cierres de portal, puertas de garaje, buzones y bombines.",
-            "Albañilería y pintura de pequeño alcance en zonas comunes.",
-            "Revisión de cubiertas, bajantes y sumideros antes de la época de lluvias.",
-            "Parte de cada intervención y aviso a la administración de la finca."
-          ],
-          "excluded": [
-            "Instalaciones con reglamento propio y mantenedor autorizado: ascensores, gas, alta tensión, protección contra incendios y calderas por encima de la potencia reglamentada.",
-            "Inspecciones técnicas obligatorias del edificio (ITE) y su tramitación.",
-            "Obras de rehabilitación, refuerzo estructural o reforma integral.",
-            "Material de repuesto de coste elevado, que se presupuesta aparte antes de reponerlo.",
-            "Reparaciones en el interior de las viviendas, que corresponden a cada propietario."
-          ],
-          "frequencies": [
-            {
-              "label": "Preventivo mensual",
-              "detail": "Ronda de revisión de las instalaciones y detección de lo que va a fallar."
-            },
-            {
-              "label": "Preventivo trimestral",
-              "detail": "Revisión más amplia, con cubiertas, bajantes y cuadros eléctricos."
-            },
-            {
-              "label": "Correctivo",
-              "detail": "Reparación de las averías que surgen, dentro o fuera del plan preventivo."
-            },
-            {
-              "label": "Urgencias",
-              "detail": "Avisos que no pueden esperar: fugas, ascensor bloqueado con personas dentro, portal sin cierre o sin luz."
-            },
-            {
-              "label": "Plan por fases",
-              "detail": "Renovación programada por partidas, para fincas cuyas instalaciones cumplen años a la vez."
-            }
-          ]
         }
       }
     },
@@ -2259,11 +2018,7 @@
       "audienceEyebrow": "Para quién",
       "audienceTitle": "Cómo se adapta este servicio según quién lo contrata",
       "ctaManagersPrefix": "¿Gestionas varias comunidades?",
-      "ctaManagersLink": "Así trabajamos con administradores de fincas",
-      "scopeTitle": "Qué incluye el servicio y qué no",
-      "scopeIncludedTitle": "Incluido en el precio",
-      "scopeExcludedTitle": "No incluido",
-      "scopeFrequencyTitle": "Frecuencias y modalidades"
+      "ctaManagersLink": "Así trabajamos con administradores de fincas"
     },
     "viewService": "Ver servicio",
     "process": {

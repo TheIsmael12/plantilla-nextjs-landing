@@ -3,7 +3,6 @@ import ServiceDetailHero from '@/components/ui/services/ServiceDetailHero';
 import ServiceDetailTrust from '@/components/ui/services/ServiceDetailTrust';
 import ServiceDetailSubservices from '@/components/ui/services/ServiceDetailSubservices';
 import ServiceDetailAudience from '@/components/ui/services/ServiceDetailAudience';
-import ServiceDetailScope from '@/components/ui/services/ServiceDetailScope';
 import ServiceDetailFaq from '@/components/ui/services/ServiceDetailFaq';
 import ServiceDetailProcess from '@/components/ui/services/ServiceDetailProcess';
 import ServiceDetailZones from '@/components/ui/services/ServiceDetailZones';
@@ -34,7 +33,6 @@ export default function ConciergeViewPage({ locale }: ConciergeViewPageProps) {
       <ServiceDetailTrust />
       <ServiceDetailSubservices slug="concierge" />
       <ServiceDetailAudience slug="concierge" />
-      <ServiceDetailScope slug="concierge" />
       <ServiceDetailFaq slug="concierge" />
       <ServiceDetailProcess />
       <ServiceDetailCta />

@@ -1588,50 +1588,6 @@
             "title": "Businesses and shopping centres",
             "description": "Reception and access control adapt to a business's visitor and supplier volume, not a residential building's rhythm: more traffic at peak times, parcel logging, and attending customers or staff."
           }
-        },
-        "scope": {
-          "included": [
-            "Reception and assistance for residents, owners and visitors during the contracted hours.",
-            "Access control: identifying visitors, suppliers and external staff.",
-            "Receiving, holding and distributing mail and parcels.",
-            "Opening and closing entrances, garages and communal areas.",
-            "Reporting and coordinating incidents with the property manager.",
-            "Small concierge tasks: meter readings, visual checks of communal areas, putting the bins out and back.",
-            "Uniform, training and cover for staff sick leave and holidays, at no extra cost."
-          ],
-          "excluded": [
-            "Security guarding and access control by a licensed security guard: that activity is reserved to private security firms registered under Ley 5/2014.",
-            "Cleaning of communal areas: contracted separately, though it can be combined into the same services contract.",
-            "Repairs and technical maintenance of the building's installations.",
-            "Administrative or accounting management of the community, which is the property manager's job.",
-            "Holding keys to individual homes, unless expressly agreed in writing with the community."
-          ],
-          "frequencies": [
-            {
-              "label": "Half shift",
-              "detail": "6 hours a day, usually mornings or afternoons."
-            },
-            {
-              "label": "Full shift",
-              "detail": "8 hours a day, Monday to Friday or including weekends."
-            },
-            {
-              "label": "Double shift",
-              "detail": "Two back-to-back shifts covering morning through to night."
-            },
-            {
-              "label": "24 hours",
-              "detail": "Three rotating shifts for buildings that need permanent concierge cover."
-            },
-            {
-              "label": "Temporary cover",
-              "detail": "Specific days only: moves, building works, meetings or busier periods."
-            },
-            {
-              "label": "Absence cover",
-              "detail": "Sick leave and holidays of the community's own concierge only."
-            }
-          ]
         }
       },
       "security": {
@@ -1713,42 +1669,6 @@
             "title": "Businesses and shopping centres",
             "description": "The security project is designed around a commercial premises or office's real access points (public entrances, loading area, storage), with cards or codes that can be limited to specific time slots."
           }
-        },
-        "scope": {
-          "included": [
-            "System design based on the building's real entry points and blind spots.",
-            "Supply and installation of cameras, recorders and access control equipment.",
-            "Configuration of the installation and CCTV-area signage.",
-            "Issuing and revoking access cards or codes, with time windows if the community asks for them.",
-            "Preventive maintenance of cameras and recorders, replacing drives before they fail through wear.",
-            "Fault support, with the report reviewed within 24 working hours.",
-            "Support for the community, as data processor, so the installation complies with article 22.3 of the LOPDGDD."
-          ],
-          "excluded": [
-            "Security guards. Private security guarding is reserved to security firms registered under Ley 5/2014, and Imora does not provide it.",
-            "Connection to an alarm receiving centre and response to alarm activations, likewise reserved to registered security firms.",
-            "Continuous monitoring of the cameras by us: the footage is held and viewed by the community, which is the data controller.",
-            "Drafting the record of processing activities and handling residents' data rights, which fall to the community as controller.",
-            "Major building work (new ducting, channelling into the façade), quoted separately."
-          ],
-          "frequencies": [
-            {
-              "label": "Installation",
-              "detail": "Design, supply and commissioning, with a fixed quote after the site visit."
-            },
-            {
-              "label": "Preventive maintenance",
-              "detail": "Scheduled checks of cameras, recorders and access control; the frequency is set in the contract, and we propose quarterly checks by default."
-            },
-            {
-              "label": "Corrective support",
-              "detail": "Faults outside the preventive plan, with the report reviewed within 24 working hours."
-            },
-            {
-              "label": "Extension",
-              "detail": "New cameras or access points on an existing installation."
-            }
-          ]
         }
       },
       "pools": {
@@ -1830,47 +1750,6 @@
             "title": "Businesses and shopping centres",
             "description": "A semi-public pool (hotel, development with a commercial area) has different regulations and swimming volume than a residential community's, and the maintenance plan is adjusted to that real use."
           }
-        },
-        "scope": {
-          "included": [
-            "Daily testing and correction of water parameters throughout the bathing season.",
-            "Dosing of chemicals and control of pH and residual disinfectant.",
-            "Cleaning of the pool, surround, floor and waterline.",
-            "Cleaning of skimmers, baskets and pre-filter, and backwashing the filter.",
-            "Checks on the filtration plant, pumps and dosing equipment.",
-            "Season opening and closing, including winterising the pool.",
-            "A record of the checks carried out, for the pool's official logbook.",
-            "A qualified lifeguard where regulations require one, based on capacity or pool characteristics."
-          ],
-          "excluded": [
-            "Structural work and repairs to the pool: cracks, replacing tiling or liner, and resurfacing the surround.",
-            "Replacing failed pumps, filters or electrical panels, quoted separately.",
-            "Microbiological laboratory analyses by an accredited lab, where the health authority requires them.",
-            "Applying for the pool's opening licence from the town council.",
-            "Guarding the pool area outside bathing hours."
-          ],
-          "frequencies": [
-            {
-              "label": "Bathing season",
-              "detail": "Daily or alternate-day maintenance between opening and closing, depending on how much the pool is used."
-            },
-            {
-              "label": "Season opening",
-              "detail": "Getting ready: draining or recovering the water, deep clean, starting the filtration plant and the first chemical adjustments."
-            },
-            {
-              "label": "Closing and winterising",
-              "detail": "Winterising treatment, pool protection and controlled shutdown of the installation."
-            },
-            {
-              "label": "Winter maintenance",
-              "detail": "Periodic out-of-season visits so the water does not degrade and next year's opening costs less."
-            },
-            {
-              "label": "Lifeguarding",
-              "detail": "A qualified lifeguard during bathing hours, at the pools where regulations require one."
-            }
-          ]
         }
       },
       "cleaning": {
@@ -1952,46 +1831,6 @@
             "title": "Businesses and shopping centres",
             "description": "Cleaning for a business or shopping centre is scheduled outside opening hours when requested, and covers areas a residential community doesn't have: shop windows, loading areas or high-traffic common spaces."
           }
-        },
-        "scope": {
-          "included": [
-            "Cleaning of the entrance hall, stairs, landings and lifts.",
-            "Cleaning of garages, storage areas and outdoor communal areas.",
-            "Cleaning of entrance glazing and communal-area glass reachable from ground level.",
-            "Putting the bins out and bringing them back on the council's collection day.",
-            "Supply of cleaning materials and equipment.",
-            "Cover for staff sick leave and holidays, at no extra cost.",
-            "A work record and periodic checks by the inspection department."
-          ],
-          "excluded": [
-            "Cleaning inside individual homes or privately owned units.",
-            "Cleaning glass at height using access equipment, quoted separately.",
-            "Pest control, which requires a firm listed on the official biocides register.",
-            "Cleaning the pool, which is part of the pool maintenance service.",
-            "Removing bulky items, rubble or abandoned belongings from communal areas."
-          ],
-          "frequencies": [
-            {
-              "label": "Daily",
-              "detail": "Monday to Friday, for busy entrances or office buildings."
-            },
-            {
-              "label": "Several days a week",
-              "detail": "Two or three days, the most common option in medium-sized communities."
-            },
-            {
-              "label": "Weekly",
-              "detail": "One day a week, in small communities or second-home developments."
-            },
-            {
-              "label": "Fortnightly or monthly",
-              "detail": "For garages, storage areas and occasionally used spaces."
-            },
-            {
-              "label": "One-off cleans",
-              "detail": "After building work, a change of tenant, a breakdown, or before a meeting."
-            }
-          ]
         }
       },
       "gardening": {
@@ -2073,46 +1912,6 @@
             "title": "Businesses and shopping centres",
             "description": "A shopping centre or business premises' green areas tend to be more publicly visible than a residential community's, so maintenance prioritises them looking good year-round, not just being tended to."
           }
-        },
-        "scope": {
-          "included": [
-            "Mowing, trimming and edging of lawns and green areas.",
-            "Pruning of shrubs, hedges and trees within reach from the ground.",
-            "Fertilising, plant health treatments and weed control.",
-            "Checks on the irrigation system: controller, solenoid valves, sprinklers and drip lines.",
-            "Collection and removal of pruning and mowing waste.",
-            "Cleaning of the landscaped areas and green roads.",
-            "Adjustment of the work schedule to the season."
-          ],
-          "excluded": [
-            "Landscape design and construction: full replanting, new turf or installing irrigation from scratch.",
-            "Felling and high pruning requiring climbing or a platform lift, quoted separately.",
-            "Irrigation repairs involving building work or replacing buried sections.",
-            "Treatments requiring a qualified-level plant health applicator licence in public-use grounds, where the council requires it in writing.",
-            "Maintenance of gardens belonging to individual homes."
-          ],
-          "frequencies": [
-            {
-              "label": "Weekly",
-              "detail": "Gardens with lawn and automatic irrigation, especially in spring and summer."
-            },
-            {
-              "label": "Fortnightly",
-              "detail": "The most common frequency in communities with a medium-sized green area."
-            },
-            {
-              "label": "Monthly",
-              "detail": "Low-maintenance planting or drought-tolerant species."
-            },
-            {
-              "label": "Seasonal",
-              "detail": "Winter pruning, spring fertilising and getting ready before summer."
-            },
-            {
-              "label": "One-off work",
-              "detail": "Extraordinary pruning, replanting tree pits or clearing up after a storm."
-            }
-          ]
         }
       },
       "maintenance": {
@@ -2194,46 +1993,6 @@
             "title": "Businesses and shopping centres",
             "description": "Technical maintenance for a business or shopping centre is scheduled to minimise impact on activity (outside opening hours when possible), and covers installations a residential community doesn't have, like commercial climate control."
           }
-        },
-        "scope": {
-          "included": [
-            "Scheduled periodic checks of the building's installations.",
-            "Plumbing repairs: leaks, blockages, taps and communal-area drains.",
-            "Electrical repairs: lighting, circuit breakers, panels and presence detectors.",
-            "Locksmithing: entrance closers, garage doors, letterboxes and lock barrels.",
-            "Small-scale building work and painting in communal areas.",
-            "Checks on roofs, downpipes and drains before the rainy season.",
-            "A report on each intervention and notification to the property manager."
-          ],
-          "excluded": [
-            "Installations with their own regulations and an authorised maintainer: lifts, gas, high voltage, fire protection and boilers above the regulated output.",
-            "Mandatory building inspections (ITE) and the associated paperwork.",
-            "Refurbishment, structural reinforcement or full renovation works.",
-            "High-cost spare parts, quoted separately before being replaced.",
-            "Repairs inside individual homes, which are each owner's responsibility."
-          ],
-          "frequencies": [
-            {
-              "label": "Monthly preventive",
-              "detail": "A round of checks on the installations, spotting what is about to fail."
-            },
-            {
-              "label": "Quarterly preventive",
-              "detail": "A broader check, covering roofs, downpipes and electrical panels."
-            },
-            {
-              "label": "Corrective",
-              "detail": "Repairing faults as they come up, inside or outside the preventive plan."
-            },
-            {
-              "label": "Emergencies",
-              "detail": "Calls that cannot wait: leaks, a lift stuck with people inside, an entrance that will not lock or has no light."
-            },
-            {
-              "label": "Phased plan",
-              "detail": "Scheduled renewal by section, for buildings whose installations age at the same time."
-            }
-          ]
         }
       }
     },
@@ -2259,11 +2018,7 @@
       "audienceEyebrow": "Who it's for",
       "audienceTitle": "How this service adapts to who's hiring it",
       "ctaManagersPrefix": "Do you manage several communities?",
-      "ctaManagersLink": "How we work with property managers",
-      "scopeTitle": "What the service includes, and what it does not",
-      "scopeIncludedTitle": "Included in the price",
-      "scopeExcludedTitle": "Not included",
-      "scopeFrequencyTitle": "Frequencies and options"
+      "ctaManagersLink": "How we work with property managers"
     },
     "viewService": "View service",
     "process": {
