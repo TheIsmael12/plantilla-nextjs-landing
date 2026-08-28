@@ -41,7 +41,7 @@ export default function FeatureMosaicSection() {
             </div>
             <div className="home__tile-media">
               <Image
-                src="/images/home/mosaic-experts.jpg"
+                src="/images/home/mosaic-experts.png"
                 alt={t('cards.experts.imageAlt')}
                 fill
                 sizes="(max-width: 1024px) 100vw, 30vw"
