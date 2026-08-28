@@ -1,6 +1,8 @@
 import PropertyManagersHero from '@/components/ui/property-managers/PropertyManagersHero';
 import PropertyManagersServices from '@/components/ui/property-managers/PropertyManagersServices';
 import PropertyManagersBenefits from '@/components/ui/property-managers/PropertyManagersBenefits';
+import PropertyManagersComparison from '@/components/ui/property-managers/PropertyManagersComparison';
+import PropertyManagersExample from '@/components/ui/property-managers/PropertyManagersExample';
 import PropertyManagersProcess from '@/components/ui/property-managers/PropertyManagersProcess';
 import PropertyManagersFaq from '@/components/ui/property-managers/PropertyManagersFaq';
 import PropertyManagersCta from '@/components/ui/property-managers/PropertyManagersCta';
@@ -27,6 +29,8 @@ export default function PropertyManagersViewPage() {
       <PropertyManagersHero />
       <PropertyManagersServices />
       <PropertyManagersBenefits />
+      <PropertyManagersComparison />
+      <PropertyManagersExample />
       <PropertyManagersProcess />
       <PropertyManagersFaq />
       <PropertyManagersCta />
