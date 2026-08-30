@@ -20,9 +20,6 @@ const config = [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        // tsconfig.json excludes *.stories.tsx (Storybook files aren't part
-        // of the Next.js build); tsconfig.eslint.json extends it and adds
-        // them back so ESLint can still type-check story files.
         project: ["./tsconfig.json", "./tsconfig.eslint.json"],
       },
     },
