@@ -1,0 +1,65 @@
+// Las llaves de un vecino, dentro de su ficha (ResidentKeysModal).
+//
+// Cada llave es una fila con su nombre a la izquierda y sus acciones a la derecha. Va con alto máximo y
+// desplazamiento propio: un conserje con quince llaves empujaría el botón de cerrar fuera de la pantalla y
+// obligaría a desplazar el modal entero para poder salir.
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.resident-keys__head {
+  @include flex($justify: space-between, $align: center, $gap: 0.75rem);
+  flex-wrap: wrap;
+}
+
+.resident-keys {
+  list-style: none;
+  max-height: 22rem;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+}
+
+.resident-keys__item {
+  @include flex($justify: space-between, $align: flex-start, $gap: 0.75rem);
+  @include px(0.9rem);
+  @include py(0.7rem);
+
+  & + & {
+    border-top: 1px solid var(--border-color);
+  }
+}
+
+.resident-keys__main {
+  min-width: 0;
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.35rem);
+}
+
+.resident-keys__label {
+  @include flex($justify: flex-start, $align: center, $gap: 0.4rem);
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    color: var(--neutral-color);
+  }
+}
+
+.resident-keys__target {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+.resident-keys__badges {
+  @include flex($justify: flex-start, $align: center, $gap: 0.35rem);
+  flex-wrap: wrap;
+}
+
+.resident-keys__actions {
+  flex-shrink: 0;
+  @include flex($justify: flex-end, $align: center, $gap: 0.35rem);
+}

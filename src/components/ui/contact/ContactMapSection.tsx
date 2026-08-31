@@ -77,7 +77,6 @@ export default function ContactMapSection({
             <div className="contact__map-card">
 
                 <div className="contact__map-heading">
-                    <p className="contact__map-label">{t('label')}</p>
                     <h2 className="contact__map-title">{t('title')}</h2>
                 </div>
 

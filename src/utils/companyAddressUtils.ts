@@ -42,7 +42,7 @@ export const COMPANY_COORDINATES: { latitude: number; longitude: number } | null
 /**
  * Un teléfono como `href` de `tel:`, sin espacios.
  *
- * Los espacios de «+34 913 559 135» hacen falta para leerlo y **no valen dentro de un URI**: unos
+ * Los espacios de «+34 912 345 678» hacen falta para leerlo y **no valen dentro de un URI**: unos
  * navegadores los toleran y otros no marcan. Estaba resuelto en la página de contacto y olvidado en la de
  * soporte, con el mismo número.
  * @param {string} phone - El teléfono tal como se enseña

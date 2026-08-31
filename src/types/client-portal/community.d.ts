@@ -407,7 +407,7 @@ export interface LockGroupLock {
  * @property {string | null} description - Descripción del llavero
  * @property {boolean} isDefault - Si es el llavero que se concede por defecto
  * @property {LockGroupLock[]} locks - Puertas incluidas
- * @property {number} activeCredentials - Credenciales activas emitidas sobre este llavero
+ * @property {number} memberCount - Cuánta gente lo tiene
  */
 export interface LockGroup {
   id: string;
@@ -416,7 +416,181 @@ export interface LockGroup {
   description: string | null;
   isDefault: boolean;
   locks: LockGroupLock[];
-  activeCredentials: number;
+  /**
+   * Cuánta **gente** lo tiene, no cuántas llaves hay.
+   *
+   * Quien lo tiene con la app y con el PIN es una persona, y contarla dos veces hacía que un llavero de
+   * tres vecinos dijera «6 llaves».
+   */
+  memberCount: number;
+  /*
+   * La regla de acceso: cómo se abre, desde dónde y a qué horas.
+   *
+   * Vive aquí y no en la puerta porque es donde el fabricante la pone: allí una puerta solo dice qué sabe
+   * hacer el aparato instalado, y lo que se concede se decide al juntar puertas en un llavero.
+   */
+  allowsOnline: boolean;
+  allowsBluetooth: boolean;
+  allowsMobileNfc: boolean;
+  allowsPin: boolean;
+  allowsCard: boolean;
+  /** Si hay que estar delante para abrir. Falso es «desde cualquier lugar». */
+  requiresPresence: boolean;
+  tags: string[];
+  /** Su horario. **Vacío significa que abre siempre**, no que no abra nunca. */
+  scheduleSlots: LockGroupScheduleSlot[];
+  validFrom: string | null;
+  validUntil: string | null;
+  /** Lo que no llegó a las cerraduras al guardar; `null` si todo llegó. */
+  syncWarning?: string | null;
+}
+
+/**
+ * Un tramo del horario de un llavero.
+ * @interface LockGroupScheduleSlot
+ * @property {DayOfWeek} dayOfWeek - Día de la semana
+ * @property {string} startTime - Hora de inicio, `HH:mm`
+ * @property {string} endTime - Hora de fin, `HH:mm`
+ * @property {string} [label] - Nombre del tramo, si se le pone
+ */
+export interface LockGroupScheduleSlot {
+  dayOfWeek: DayOfWeek;
+  startTime: string;
+  endTime: string;
+  label?: string;
+}
+
+/**
+ * Una persona dentro de un llavero.
+ * @interface KeyringMember
+ * @property {string} id - La pertenencia al llavero, que es lo que se retira
+ * @property {string} residentMembershipId - El vecino
+ * @property {string} lockGroupId - El llavero
+ * @property {string} keyringName - Nombre del llavero
+ * @property {string} residentName - Nombre del vecino
+ * @property {string} email - Su correo
+ * @property {string | null} communityUnitCode - Su vivienda
+ * @property {string | null} validFrom - Desde cuándo lo tiene
+ * @property {string | null} validUntil - Hasta cuándo lo tiene
+ * @property {string} createdAt - Cuándo entró
+ */
+export interface KeyringMember {
+  id: string;
+  residentMembershipId: string;
+  lockGroupId: string;
+  keyringName: string;
+  residentName: string;
+  email: string;
+  communityUnitCode: string | null;
+  validFrom: string | null;
+  validUntil: string | null;
+  createdAt: string;
+}
+
+/**
+ * Con qué se identifica una persona: su PIN, su tarjeta, su móvil.
+ *
+ * **No es la llave de una puerta.** Lo que abre lo deciden sus llaveros, y por eso no tiene destino ni se
+ * elige el tipo al darla: se emite sola con lo que sus llaveros conceden.
+ * @interface MemberCredential
+ * @property {string} id - La credencial
+ * @property {LockCredentialType} type - PIN, tarjeta o móvil
+ * @property {LockCredentialStatus} status - En qué estado está
+ * @property {string} label - Cómo se la llama
+ * @property {number} syncedLocks - En cuántas puertas está programada
+ * @property {number} totalLocks - En cuántas debería estarlo
+ * @property {string} createdAt - Cuándo se emitió
+ */
+export interface MemberCredential {
+  id: string;
+  type: LockCredentialType;
+  status: LockCredentialStatus;
+  label: string;
+  syncedLocks: number;
+  totalLocks: number;
+  createdAt: string;
+}
+
+/**
+ * La ficha de una persona en el llavero: quién es, a qué llega y con qué.
+ * @interface MemberDetail
+ * @property {string} residentMembershipId - El vecino
+ * @property {string} residentName - Su nombre
+ * @property {string} email - Su correo
+ * @property {string | null} communityUnitCode - Su vivienda
+ * @property {string | null} validFrom - Desde cuándo es vecino
+ * @property {string | null} validUntil - Hasta cuándo lo es
+ * @property {KeyringMember[]} keyrings - Sus llaveros
+ * @property {MemberCredential[]} credentials - Con qué se identifica
+ */
+export interface MemberDetail {
+  residentMembershipId: string;
+  residentName: string;
+  email: string;
+  communityUnitCode: string | null;
+  validFrom: string | null;
+  validUntil: string | null;
+  keyrings: KeyringMember[];
+  credentials: MemberCredential[];
+}
+
+/**
+ * Cuerpo del reparto de llaves
+ * (`POST client/me/communities/:serviceId/keys/assign`).
+ * @interface AssignKeysDto
+ * @property {string} lockGroupId - Llavero a repartir; es lo único que se reparte
+ * @property {string[]} [membershipIds] - Vecinos que entran ahora
+ * @property {string[]} [invitationIds] - Invitaciones a las que se les planifica el llavero
+ */
+export interface AssignKeysDto {
+  lockGroupId: string;
+  membershipIds?: string[];
+  invitationIds?: string[];
+}
+
+/**
+ * Una llave emitida en un reparto, con su PIN si se ha generado.
+ * @interface AssignedKey
+ * @property {string} credentialId - La credencial creada
+ * @property {string} residentName - Quién la recibe
+ * @property {string | null} [unitCode] - Su vivienda, si la tiene
+ * @property {LockCredentialType} type - Tarjeta, PIN o app
+ * @property {string} [pin] - El PIN en claro; **solo se ve aquí y solo ahora**
+ */
+export interface AssignedKey {
+  credentialId: string;
+  residentName: string;
+  unitCode?: string | null;
+  type: LockCredentialType;
+  pin?: string;
+}
+
+/**
+ * Parte de un reparto de llaves.
+ *
+ * Los cuatro recuentos se enseñan porque contestan a cosas distintas, y callar cualquiera deja a quien
+ * reparte creyendo que hizo más —o menos— de lo que hizo.
+ * @interface AssignKeysResult
+ * @property {number} joined - Cuánta gente ha entrado en el llavero
+ * @property {AssignedKey[]} issued - Llaves emitidas, con los PIN generados
+ * @property {number} planned - Llaveros planificados en invitaciones sin aceptar
+ * @property {number} skipped - Personas que ya lo tenían y se han dejado como estaban
+ * @property {number} pendingCards - Tarjetas que hay que entregar y enrolar en persona
+ * @property {LockCredentialType[]} unsupportedTypes - Métodos que las puertas del llavero no admiten
+ */
+export interface AssignKeysResult {
+  /**
+   * A cuánta gente se le ha metido en el llavero.
+   *
+   * No coincide con `issued`: a quien ya tenía PIN no se le crea otro —es suyo y se lo sabe de memoria—,
+   * así que puede entrar en el llavero sin que se emita nada.
+   */
+  joined: number;
+  issued: AssignedKey[];
+  planned: number;
+  skipped: number;
+  pendingCards: number;
+  unsupportedTypes: LockCredentialType[];
 }
 
 /**
@@ -432,6 +606,24 @@ export interface CreateLockGroupDto {
   description?: string;
   isDefault?: boolean;
   lockIds: string[];
+  /*
+   * La regla de acceso: cómo se abre, desde dónde y a qué horas.
+   *
+   * Vive aquí y no en la puerta porque es donde el fabricante la pone: allí una puerta solo dice qué sabe
+   * hacer el aparato instalado, y lo que se concede se decide al juntar puertas en un llavero.
+   */
+  allowsOnline?: boolean;
+  allowsBluetooth?: boolean;
+  allowsMobileNfc?: boolean;
+  allowsPin?: boolean;
+  allowsCard?: boolean;
+  /** Si hay que estar delante para abrir. Falso es «desde cualquier lugar». */
+  requiresPresence?: boolean;
+  tags?: string[];
+  /** Su horario. **Vacío significa que abre siempre**, no que no abra nunca. */
+  scheduleSlots?: LockGroupScheduleSlot[];
+  validFrom?: string;
+  validUntil?: string;
 }
 
 /**
@@ -449,6 +641,24 @@ export interface UpdateLockGroupDto {
   description?: string;
   isDefault?: boolean;
   lockIds?: string[];
+  /*
+   * La regla de acceso: cómo se abre, desde dónde y a qué horas.
+   *
+   * Vive aquí y no en la puerta porque es donde el fabricante la pone: allí una puerta solo dice qué sabe
+   * hacer el aparato instalado, y lo que se concede se decide al juntar puertas en un llavero.
+   */
+  allowsOnline?: boolean;
+  allowsBluetooth?: boolean;
+  allowsMobileNfc?: boolean;
+  allowsPin?: boolean;
+  allowsCard?: boolean;
+  /** Si hay que estar delante para abrir. Falso es «desde cualquier lugar». */
+  requiresPresence?: boolean;
+  tags?: string[];
+  /** Su horario. **Vacío significa que abre siempre**, no que no abra nunca. */
+  scheduleSlots?: LockGroupScheduleSlot[];
+  validFrom?: string;
+  validUntil?: string;
 }
 
 /**
@@ -741,9 +951,11 @@ export interface CommunityLock {
   provider: LockProviderName;
   externalId: string;
   connectivity: LockConnectivity;
-  supportsNfc: boolean;
+  supportsOnline: boolean;
+  supportsBluetooth: boolean;
+  supportsMobileNfc: boolean;
   supportsPin: boolean;
-  supportsApp: boolean;
+  supportsCard: boolean;
   supportsButton: boolean;
   isMainAccess: boolean;
   scheduleMode: LockScheduleMode;

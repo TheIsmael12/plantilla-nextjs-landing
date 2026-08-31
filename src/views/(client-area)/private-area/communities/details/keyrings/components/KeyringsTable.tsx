@@ -83,12 +83,12 @@ export default function KeyringsTable({
           ),
       },
       {
-        id: 'activeCredentials',
-        accessorKey: 'activeCredentials',
-        header: () => t('Keyrings.activeCredentials'),
+        id: 'memberCount',
+        accessorKey: 'memberCount',
+        header: () => t('Keyrings.memberCount'),
         enableSorting: false,
-        // Campo calculado (recuento de credenciales activas), no una columna
-        // real de la entidad: no ordenable.
+        // Campo calculado (cuánta gente lo tiene), no una columna real de la
+        // entidad: no ordenable.
       },
       {
         id: 'actions',

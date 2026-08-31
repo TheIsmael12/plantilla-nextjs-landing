@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { getCommunityConfig } from '@/actions/client-portal/communities-actions';
 import { getCommunityKeyrings } from '@/actions/client-portal/community-keyrings-actions';
+import { getCommunityLocks } from '@/actions/client-portal/community-locks-actions';
 import {
   getCommunityInvitations,
   getCommunityResidentsPaginated,
@@ -71,7 +72,14 @@ export default async function CommunitiesResidentsViewPage({
         ? 'DESC'
         : undefined;
 
-  const [residentsResponse, invitationsResponse, unitsResponse, keyringsResponse, configResponse] =
+  const [
+    residentsResponse,
+    invitationsResponse,
+    unitsResponse,
+    keyringsResponse,
+    locksResponse,
+    configResponse,
+  ] =
     await Promise.all([
       getCommunityResidentsPaginated(serviceId, {
         page: residentsPage,
@@ -90,6 +98,7 @@ export default async function CommunitiesResidentsViewPage({
       }),
       getCommunityUnits(serviceId),
       getCommunityKeyrings(serviceId),
+      getCommunityLocks(serviceId),
       getCommunityConfig(serviceId),
     ]);
 
@@ -119,6 +128,7 @@ export default async function CommunitiesResidentsViewPage({
         }
         units={unitsResponse.data ?? []}
         keyrings={keyringsResponse.data ?? []}
+        locks={locksResponse.data ?? []}
         includeClosed={includeClosed}
         residentsManagedByClient={residentsManagedByClient}
       />

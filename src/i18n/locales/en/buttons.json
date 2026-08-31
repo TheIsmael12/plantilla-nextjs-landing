@@ -79,6 +79,8 @@
     "downloading": "Downloading…",
     "viewResidents": "View residents",
     "viewHolders": "View key holders",
-    "markAllAsRead": "Mark {count} as read"
+    "markAllAsRead": "Mark {count} as read",
+    "assigning": "Handing out...",
+    "communityResidentKeys": "View their keys"
   }
 }

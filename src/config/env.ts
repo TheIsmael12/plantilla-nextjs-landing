@@ -46,7 +46,7 @@ export const ENV = {
   
   // Contact information
   COMPANY_EMAIL: process.env.NEXT_PUBLIC_COMPANY_EMAIL || "info@imora.es",
-  COMPANY_PHONE: process.env.NEXT_PUBLIC_COMPANY_PHONE || "+34 913 559 135",
+  COMPANY_PHONE: process.env.NEXT_PUBLIC_COMPANY_PHONE || "",
 
   // Address information (PENDIENTE: sustituir por la dirección real de la sede)
   COMPANY_ADDRESS: process.env.NEXT_PUBLIC_COMPANY_STREET_ADDRESS || "Calle Ejemplo, 123",

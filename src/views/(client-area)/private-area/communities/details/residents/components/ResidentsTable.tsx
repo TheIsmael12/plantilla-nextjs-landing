@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { PencilIcon, XIcon } from 'lucide-react';
+import { KeyRoundIcon, PencilIcon, XIcon } from 'lucide-react';
 
 import type { ColumnDef } from '@tanstack/react-table';
 
@@ -22,6 +22,7 @@ interface ResidentsTableProps {
   data: PaginatedResult<PortalResident>;
   isActionPending: boolean;
   onEdit: (resident: PortalResident) => void;
+  onViewKeys: (resident: PortalResident) => void;
   onRevoke: (resident: PortalResident) => void;
 }
 
@@ -37,6 +38,7 @@ export default function ResidentsTable({
   data,
   isActionPending,
   onEdit,
+  onViewKeys,
   onRevoke,
 }: ResidentsTableProps) {
   const t = useTranslations('Views.ClientArea.Communities');
@@ -148,6 +150,16 @@ export default function ResidentsTable({
         enableSorting: false,
         cell: ({ row }) => (
           <div className="community-table__actions">
+            {/* Sus llaves: es lo que se mira más veces de un vecino, y estaba a dos pantallas de aquí. */}
+            <Button
+              size="sm"
+              variant="outline"
+              ariaLabel="communityResidentKeys"
+              onClick={() => onViewKeys(row.original)}
+              disabled={isActionPending}
+            >
+              <KeyRoundIcon />
+            </Button>
             <Button
               size="sm"
               variant="outline"
@@ -170,7 +182,7 @@ export default function ResidentsTable({
         ),
       },
     ],
-    [t, isActionPending, onEdit, onRevoke, otherUnits],
+    [t, isActionPending, onEdit, onViewKeys, onRevoke, otherUnits],
   );
 
   return (

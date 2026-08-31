@@ -2,6 +2,10 @@
 
 import { fetchDataToken } from "@/actions/fetch";
 import type {
+  AssignKeysDto,
+  AssignKeysResult,
+  KeyringMember,
+  MemberDetail,
   BatchCreateLockCredentialsDto,
   CommunityCredentialsQuery,
   CreateLockCredentialDto,
@@ -95,6 +99,89 @@ export async function createCommunityLockCredentialsBatch(
     `client/me/communities/${encodeURIComponent(serviceId)}/lock-credentials/batch`,
     "POST",
     dto,
+  );
+}
+
+/**
+ * Reparte un llavero o una puerta entre varios vecinos e invitaciones de una vez
+ * (`POST client/me/communities/:serviceId/keys/assign`).
+ *
+ * Sustituye a dar de alta una credencial por persona. El destino se elige una vez —y si es un llavero, él ya
+ * dice cómo se abre y con qué condiciones—, y aquí solo se decide a quién.
+ *
+ * **Solo llaveros**: una puerta suelta ya no se reparte. A quien ya aceptó la invitación se le emite al
+ * momento lo que le falte; a quien no, se le **planifica** el llavero y nace el día que entre.
+ *
+ * Como en el alta individual, los PIN en claro viajan en esta respuesta y **solo** aquí.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {AssignKeysDto} dto - Destino y destinatarios
+ * @returns {Promise<FetchResponse<AssignKeysResult>>} El parte del reparto, con los PIN generados
+ */
+export async function assignCommunityKeys(
+  serviceId: string,
+  dto: AssignKeysDto,
+): Promise<FetchResponse<AssignKeysResult>> {
+  return fetchDataToken<AssignKeysResult, AssignKeysDto>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/keys/assign`,
+    "POST",
+    dto,
+  );
+}
+
+/**
+ * Quién tiene un llavero
+ * (`GET client/me/communities/:serviceId/keyrings/:keyringId/members`).
+ *
+ * Es la única fuente de «quién tiene esto»: bajo el modelo nuevo una credencial no dice a qué llavero
+ * pertenece —es el medio con el que alguien se identifica, y le vale para todos los suyos—, así que el
+ * acceso lo dan sus pertenencias y no sus llaves.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {string} keyringId - El llavero
+ * @returns {Promise<FetchResponse<KeyringMember[]>>} Sus miembros, por orden de entrada
+ */
+export async function getKeyringMembers(
+  serviceId: string,
+  keyringId: string,
+): Promise<FetchResponse<KeyringMember[]>> {
+  return fetchDataToken<KeyringMember[], never>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/keyrings/${encodeURIComponent(keyringId)}/members`,
+  );
+}
+
+/**
+ * La ficha de una persona: sus llaveros y con qué se identifica
+ * (`GET client/me/communities/:serviceId/members/:membershipId/keyring-detail`).
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {string} residentMembershipId - El vecino
+ * @returns {Promise<FetchResponse<MemberDetail>>} Su ficha
+ */
+export async function getKeyringMemberDetail(
+  serviceId: string,
+  residentMembershipId: string,
+): Promise<FetchResponse<MemberDetail>> {
+  return fetchDataToken<MemberDetail, never>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/members/${encodeURIComponent(residentMembershipId)}/keyring-detail`,
+  );
+}
+
+/**
+ * Saca a alguien de un llavero
+ * (`DELETE client/me/communities/:serviceId/keyring-members/:keyringMembershipId`).
+ *
+ * **No le quita sus llaves**: su PIN y su móvil son suyos y le siguen valiendo para los llaveros que le
+ * queden. Solo cuando se queda sin ninguno se retiran, porque entonces serían un código vivo en la cerradura
+ * detrás de alguien que ya no tiene por qué abrir nada.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {string} keyringMembershipId - La pertenencia a retirar
+ * @returns {Promise<FetchResponse<null>>} Vacío si se ha retirado
+ */
+export async function revokeKeyringMember(
+  serviceId: string,
+  keyringMembershipId: string,
+): Promise<FetchResponse<null>> {
+  return fetchDataToken<null, never>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/keyring-members/${encodeURIComponent(keyringMembershipId)}`,
+    "DELETE",
   );
 }
 

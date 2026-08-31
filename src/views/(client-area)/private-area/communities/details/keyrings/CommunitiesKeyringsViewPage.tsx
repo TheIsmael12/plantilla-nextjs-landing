@@ -11,13 +11,16 @@ import {
   getCommunityLockCredentials,
 } from '@/actions/client-portal/community-lock-credentials-actions';
 import { getCommunityLocks } from '@/actions/client-portal/community-locks-actions';
-import { getCommunityResidents } from '@/actions/client-portal/community-residents-actions';
+import {
+  getCommunityInvitations,
+  getCommunityResidents,
+} from '@/actions/client-portal/community-residents-actions';
 import { CREDENTIAL_STATUS_VARIANTS } from '@/utils/communityFormatUtils';
 
 import Badge from '@/components/ui/buttons/Badge';
 import SettingsSection from '@/components/ui/sections/SettingsSection';
-import CredentialsSection from '@/views/(client-area)/private-area/communities/details/keyrings/components/CredentialsSection';
 import KeyMatrixGrid from '@/views/(client-area)/private-area/communities/details/keyrings/components/KeyMatrixGrid';
+import MembersSection from '@/views/(client-area)/private-area/communities/details/keyrings/components/MembersSection';
 import KeyringsSection from '@/views/(client-area)/private-area/communities/details/keyrings/components/KeyringsSection';
 
 import '@/styles/04-components/client-area/client-list.scss';
@@ -27,6 +30,15 @@ import ViewHeader from '@/views/(client-area)/private-area/components/ViewHeader
 
 const KEYRINGS_PER_PAGE = 10;
 const CREDENTIALS_PER_PAGE = 10;
+
+/**
+ * Cuántas invitaciones se traen para poder repartirles llaves.
+ *
+ * Cien es el tope de la paginación de la API. No van paginadas porque no se listan: alimentan el selector de
+ * «a quién», donde se busca escribiendo, y una comunidad no tiene cien invitaciones abiertas a la vez salvo
+ * el día del alta — que es justo cuando se reparte todo de golpe y con esto llega.
+ */
+const INVITATIONS_LIMIT = 100;
 
 interface KeyringsViewPageProps {
   serviceId: string;
@@ -91,6 +103,7 @@ export default async function CommunitiesKeyringsViewPage({
     credentialsResponse,
     matrixResponse,
     residentsResponse,
+    invitationsResponse,
     bypassResponse,
   ] = await Promise.all([
     getCommunityKeyringsPaginated(serviceId, {
@@ -111,10 +124,22 @@ export default async function CommunitiesKeyringsViewPage({
     }),
     getCommunityKeyMatrix(serviceId),
     getCommunityResidents(serviceId),
+    getCommunityInvitations(serviceId, { limit: INVITATIONS_LIMIT }),
     getCommunityBypassReport(serviceId),
   ]);
 
   const bypassCredentials = bypassResponse.data ?? [];
+
+  /*
+   * Solo las que siguen abiertas.
+   *
+   * `includeClosed` deja fuera las aceptadas y las revocadas, pero **no las caducadas**: siguen ahí hasta que
+   * se reenvían. Planificarle un llavero a una invitación caducada es trabajo que no llega a nadie, porque el
+   * enlace ya no se puede aceptar.
+   */
+  const pendingInvitations = (invitationsResponse.data?.items ?? []).filter(
+    (invitation) => invitation.status === 'PENDING',
+  );
 
   return (
     <>
@@ -132,22 +157,15 @@ export default async function CommunitiesKeyringsViewPage({
       />
 
       <SettingsSection
-        title={t('Keyrings.CredentialsSection.title')}
-        description={t('Keyrings.CredentialsSection.description')}
+        title={t('Keyrings.Members.title')}
+        description={t('Keyrings.Members.description')}
         icon={KeyRoundIcon}
       >
-        <CredentialsSection
+        <MembersSection
           serviceId={serviceId}
-          locale={locale}
-          credentials={
-            credentialsResponse.data ?? {
-              items: [],
-              pagination: { page: 1, limit: credentialsLimit, totalItems: 0, totalPages: 1 },
-            }
-          }
           keyrings={allKeyringsResponse.data ?? []}
-          locks={locksResponse.data ?? []}
           residents={residentsResponse.data ?? []}
+          invitations={pendingInvitations}
         />
       </SettingsSection>
 
@@ -169,11 +187,10 @@ export default async function CommunitiesKeyringsViewPage({
             <table className="community-table">
               <thead>
                 <tr>
-                  <th>{t('Keyrings.CredentialsSection.labelLabel')}</th>
-                  <th>{t('Keyrings.CredentialsSection.holderColumn')}</th>
-                  <th>{t('Keyrings.CredentialsSection.targetColumn')}</th>
+                  <th>{t('Keyrings.Members.labelColumn')}</th>
+                  <th>{t('Keyrings.Members.holderColumn')}</th>
                   <th>{t('Keyrings.BypassSection.reasonColumn')}</th>
-                  <th>{t('Keyrings.CredentialsSection.statusColumn')}</th>
+                  <th>{t('Keyrings.Members.statusColumn')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -186,11 +203,10 @@ export default async function CommunitiesKeyringsViewPage({
                       {credential.residentName ??
                         credential.issuedForName ?? (
                           <span className="community-table__muted">
-                            {t('Keyrings.CredentialsSection.noResident')}
+                            {t('Keyrings.Members.noResident')}
                           </span>
                         )}
                     </td>
-                    <td>{credential.targetName ?? '—'}</td>
                     <td>
                       {credential.bypassReason ?? (
                         <span className="community-table__muted">—</span>

@@ -21,6 +21,7 @@ import Button from '@/components/ui/buttons/Button';
 import Input from '@/components/ui/inputs/Input';
 import InvitationsTable from '@/views/(client-area)/private-area/communities/details/residents/components/InvitationsTable';
 import ModalComponent from '@/components/ui/modals/ModalComponent';
+import MemberDetailModal from '@/views/(client-area)/private-area/communities/details/keyrings/components/MemberDetailModal';
 import ResidentsTable from '@/views/(client-area)/private-area/communities/details/residents/components/ResidentsTable';
 import Select from '@/components/ui/inputs/Select';
 import SelectSearch from '@/components/ui/inputs/SelectSearch';
@@ -29,6 +30,7 @@ import TagsInput from '@/components/ui/inputs/TagsInput';
 import Toggle from '@/components/ui/inputs/Toggle';
 
 import type {
+  CommunityLock,
   CommunityUnit,
   LockCredentialType,
   LockGroup,
@@ -52,6 +54,7 @@ interface ResidentsManagerProps {
   invitations: PaginatedResult<ResidentInvitation>;
   units: CommunityUnit[];
   keyrings: LockGroup[];
+  locks: CommunityLock[];
   includeClosed: boolean;
   /** Si las altas de vecinos las gestiona el cliente; con `false` la API rechaza invitar y aquí no se ofrece. */
   residentsManagedByClient: boolean;
@@ -73,6 +76,7 @@ export default function CommunitiesResidentsPanel({
   invitations,
   units,
   keyrings,
+  locks,
   includeClosed,
   residentsManagedByClient,
 }: ResidentsManagerProps) {
@@ -86,6 +90,7 @@ export default function CommunitiesResidentsPanel({
   const [isInviteOpen, setIsInviteOpen] = useState(false);
   const [editing, setEditing] = useState<PortalResident | null>(null);
   const [revoking, setRevoking] = useState<PortalResident | null>(null);
+  const [keysTarget, setKeysTarget] = useState<PortalResident | null>(null);
   const [revokingInvitation, setRevokingInvitation] = useState<ResidentInvitation | null>(null);
 
   const [emails, setEmails] = useState<string[]>([]);
@@ -238,6 +243,7 @@ export default function CommunitiesResidentsPanel({
         data={residents}
         isActionPending={isPending}
         onEdit={openEdit}
+        onViewKeys={setKeysTarget}
         onRevoke={setRevoking}
       />
 
@@ -517,6 +523,22 @@ export default function CommunitiesResidentsPanel({
         >
           <p>{t('Residents.revokeInvitationDescription')}</p>
         </ModalComponent>
+      )}
+
+      {/*
+        Las llaves de un vecino, desde su propia fila.
+
+        `key` con el id porque el modal carga la ficha al montarse: sin él, abrir la de otro vecino
+        reutilizaría el componente y enseñaría un instante los llaveros del anterior.
+      */}
+      {keysTarget && (
+        <MemberDetailModal
+          key={keysTarget.membershipId}
+          serviceId={serviceId}
+          residentMembershipId={keysTarget.membershipId}
+          keyrings={keyrings}
+          onClose={() => setKeysTarget(null)}
+        />
       )}
     </>
   );

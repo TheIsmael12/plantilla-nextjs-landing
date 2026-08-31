@@ -78,6 +78,9 @@ export default function ContactForm({
 }: ContactFormProps) {
 
     const t = useTranslations('Contact.form');
+    // La casilla de privacidad se pinta a mano, así que aquí hay que resolver la clave del error contra
+    // `Validations` igual que hace `Input` por dentro con su prop `error`.
+    const tValidations = useTranslations('Validations');
     const captchaTokenRef = useRef<string | undefined>(undefined);
 
     const formik = useFormik<ContactFormValues>({
@@ -331,8 +334,16 @@ export default function ContactForm({
                         <Link href="/privacy-policy">{t('consents.privacyLink')}</Link> *
                     </label>
                 </div>
+                {/*
+                    El mensaje sale del error del propio campo, no de `contactHint`.
+                    Pintaba el aviso de «indica un correo o un teléfono» —copiado del par de contacto de
+                    arriba—, así que al no marcar la casilla de privacidad el formulario se quejaba de un
+                    campo que estaba bien relleno y no decía nada de la casilla, que era lo que faltaba.
+                */}
                 {formik.errors.privacyNoticeAcknowledged && formik.touched.privacyNoticeAcknowledged && (
-                    <p className="label__error">* {t('contactHint')}</p>
+                    <p className="label__error">
+                        * {tValidations(formik.errors.privacyNoticeAcknowledged)}
+                    </p>
                 )}
 
                 <div className="contact__form-consent">
