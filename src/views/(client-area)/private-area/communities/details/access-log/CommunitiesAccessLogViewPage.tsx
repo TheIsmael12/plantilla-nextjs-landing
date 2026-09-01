@@ -1,7 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 import { ShieldAlertIcon } from 'lucide-react';
 
-import { getCommunityAccessSummary } from '@/actions/client-portal/community-locks-actions';
+import {
+  getCommunityAccessSummary,
+  getCommunityLocks,
+} from '@/actions/client-portal/community-locks-actions';
 
 import ClientListEmptyState from '@/views/(client-area)/private-area/components/ClientListEmptyState';
 import AccessLogSummary from '@/views/(client-area)/private-area/communities/details/access-log/components/AccessLogSummary';
@@ -16,10 +19,11 @@ interface AccessLogViewPageProps {
 }
 
 /**
- * Vista del registro de accesos: siempre visible el resumen agregado por
- * puerta, que no identifica a nadie, y detrás de un motivo justificado el
- * detalle nominal. La separación es del dominio, no cosmética: el endpoint de
- * detalle exige un `reason` que el backend audita.
+ * La pantalla del registro de accesos: el resumen por puerta y, debajo, el historial de aperturas.
+ *
+ * **Ya no hay que justificar un motivo para mirarlo**, igual que en la intranet: se exigía escribirlo para
+ * poder ver una sola fila y no protegía nada, porque quien llega hasta aquí lo mira igual. La consulta se
+ * sigue auditando en el servidor, que es lo que sí deja rastro de quién ha mirado.
  * @param {AccessLogViewPageProps} props - Comunidad activa y locale
  * @returns {Promise<JSX.Element>} La pantalla del registro de accesos renderizada
  */
@@ -29,8 +33,17 @@ export default async function CommunitiesAccessLogViewPage({
 }: AccessLogViewPageProps) {
   const t = await getTranslations('Views.ClientArea.Communities');
 
-  const response = await getCommunityAccessSummary(serviceId);
-  const summaries = response.data ?? [];
+  /*
+   * Las puertas hacen falta para el filtro del historial, y se piden a la vez que el resumen: son dos
+   * llamadas independientes y en serie solo sumarían espera.
+   */
+  const [summaryResponse, locksResponse] = await Promise.all([
+    getCommunityAccessSummary(serviceId),
+    getCommunityLocks(serviceId),
+  ]);
+
+  const summaries = summaryResponse.data ?? [];
+  const locks = locksResponse.data ?? [];
 
   return (
     <>
@@ -41,8 +54,13 @@ export default async function CommunitiesAccessLogViewPage({
         {t('AccessLog.aggregatedNotice')}
       </p>
 
-      {summaries.length > 0 ? (
-        <AccessLogSummary summaries={summaries} locale={locale} />
+      {locks.length > 0 ? (
+        <AccessLogSummary
+          serviceId={serviceId}
+          summaries={summaries}
+          locks={locks}
+          locale={locale}
+        />
       ) : (
         <ClientListEmptyState
           resource="accessLog"

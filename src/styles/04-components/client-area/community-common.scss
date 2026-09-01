@@ -336,3 +336,107 @@
     color: var(--neutral-color);
   }
 }
+
+// Una regla de permiso dentro del formulario de un llavero.
+//
+// Va enmarcada y con su número visible porque un llavero lleva varias y hay que poder decir «la segunda no
+// está bien»: sin el marco, cinco reglas seguidas se leen como un formulario largo de treinta campos donde
+// no se sabe dónde acaba una y empieza la siguiente.
+.permission-rule {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  background-color: var(--neutral-color-light);
+}
+
+.permission-rule__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.permission-rule__index {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--neutral-color);
+}
+
+// La batería de un aparato, dentro de la ficha de una puerta. Vivía en el
+// editor de horario, que se quitó al pasar las puertas a solo lectura.
+.community-facts__battery {
+  @include flex($justify: flex-start, $align: center, $gap: 0.35rem);
+  font-size: $text-sm;
+  color: var(--neutral-color-active);
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.community-facts__battery--low {
+  color: var(--danger-color-active);
+}
+
+/*
+ * Una sección de una pantalla de comunidad: su título, su explicación y su contenido.
+ *
+ * No es una tarjeta. Las de arriba —el resumen por puerta— ya son tarjetas, y meter el historial en otra
+ * dejaba dos niveles de caja anidados sin que la segunda añadiera nada.
+ */
+.community-section {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+  margin-top: 1.5rem;
+  min-width: 0;
+}
+
+.community-section__title {
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+/** Texto de apoyo: la explicación de una sección y las advertencias que no son un aviso con icono. */
+.community-muted {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+/*
+ * Las insignias de una fila, juntas.
+ *
+ * Sueltas en un contenedor flex se estiraban a la altura de la fila y, en móvil, la última se salía por la
+ * derecha en vez de caer a la línea siguiente.
+ */
+.community-badges {
+  @include flex($justify: flex-end, $align: center, $gap: 0.4rem);
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+/*
+ * Un secreto recién emitido —un PIN o un enlace— con su botón de copiar al lado.
+ *
+ * El valor va en monoespaciada y parte por donde haga falta: un enlace de acceso mide más que el diálogo, y
+ * sin esto empujaba el botón de copiar fuera de la pantalla justo cuando es lo único que hay que pulsar.
+ */
+.secret-row {
+  @include flex($justify: space-between, $align: center, $gap: 0.5rem);
+  flex-wrap: wrap;
+  @include p(0.75rem);
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.5rem);
+}
+
+.secret-row__value {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: monospace;
+  font-size: $text-sm;
+  overflow-wrap: anywhere;
+  color: var(--color);
+}

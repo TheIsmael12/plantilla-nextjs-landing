@@ -279,7 +279,7 @@
   // mínimo reparte el espacio entre los grupos que haya, sin depender de
   // cuántos sean.
   @include screen(sm) {
-    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
   }
 
   &__group {

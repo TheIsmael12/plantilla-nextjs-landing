@@ -17,6 +17,10 @@
 /** Corona metropolitana a la que pertenece cada zona, para agrupar en el listado y en el copy. */
 export type MetropolitanArea = "capital" | "noroeste" | "norte" | "sur" | "este";
 
+/**
+ * Una zona en la que se presta servicio, tal como se lista y se enlaza.
+ * @interface ZoneData
+ */
 export interface ZoneData {
   /** Slug de la zona, único, usado en la URL y como clave de i18n (`Zones.items.<slug>`). */
   slug: string;

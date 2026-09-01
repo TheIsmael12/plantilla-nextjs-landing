@@ -31,9 +31,6 @@ export type CommunityLockStatus = "ACTIVE" | "OFFLINE" | "MAINTENANCE" | "RETIRE
 /** Modo de horario de una cerradura (`LockScheduleMode` del backend). */
 export type LockScheduleMode = "ALWAYS_OPEN" | "SCHEDULED";
 
-/** Tipo de excepción puntual sobre el horario semanal (`LockScheduleExceptionType` del backend). */
-export type LockScheduleExceptionType = "CLOSED" | "MODIFIED" | "OPEN_ALL_DAY";
-
 /** Tipo de credencial de acceso (`LockCredentialType` del backend). */
 export type LockCredentialType = "NFC_CARD" | "NFC_PHONE" | "PIN" | "APP";
 
@@ -61,7 +58,6 @@ export type LockAccessMethod = "NFC" | "PIN" | "APP" | "BUTTON" | "PHYSICAL_KEY"
 export type LockAccessResult =
   | "GRANTED"
   | "GRANTED_BYPASS"
-  | "GRANTED_RELEASED"
   | "DENIED_UNKNOWN"
   | "DENIED_EXPIRED"
   | "DENIED_LOCK_SCHEDULE"
@@ -398,16 +394,140 @@ export interface LockGroupLock {
 }
 
 /**
- * Llavero: agrupación de puertas que se concede de una vez
- * (`GET client/me/communities/:serviceId/keyrings`).
+ * A qué apunta una regla de permiso.
+ *
+ * `EVERYTHING` es la regla vacía del fabricante: abre toda la organización, incluida la puerta que se monte
+ * mañana.
+ */
+export type LockPermissionTarget = "EVERYTHING" | "SITE" | "LOCK";
+
+/**
+ * Si para abrir **en remoto** hay que estar en el edificio.
+ *
+ * Solo afecta a la apertura por internet: el PIN, la tarjeta y el Bluetooth exigen estar delante por su
+ * propia naturaleza y esto no los toca. El círculo es el de la **sede**, no el de la puerta.
+ */
+export type LockPermissionPresence = "NONE" | "GPS";
+
+/**
+ * Una sede: el edificio, tal y como lo tiene dado de alta el fabricante.
+ *
+ * **No se configura aquí, se lee.** Importa por dos cosas: el radio del GPS es el de la sede y su zona
+ * horaria es en la que se evalúan los horarios.
+ * @interface CommunitySite
+ */
+export interface CommunitySite {
+  id: string;
+  name: string;
+  timezone: string | null;
+  geoLatitude: number | null;
+  geoLongitude: number | null;
+  /** En metros. Sin él, exigir presencia en una regla no puede funcionar. */
+  geoRadius: number | null;
+  address: string | null;
+  lastSyncedAt: string | null;
+}
+
+/** Lo que sabe hacer el aparato instalado. Del fabricante, no editable. */
+export interface DeviceCapabilities {
+  gadgets: string;
+  gadgetMaxCount: number;
+  script: boolean;
+  internet: boolean;
+  ethernet: boolean;
+  wifi: boolean;
+  cellular: boolean;
+  /** Tiene teclado. */
+  pin: boolean;
+  /** Lee NFC: tarjetas y móviles emulando una. */
+  nfc: boolean;
+  inputRules: boolean;
+  mains: boolean;
+  battery: boolean;
+  batteryRechargeable: boolean;
+  audio: boolean;
+}
+
+/** Cómo está el aparato ahora mismo. */
+export interface DeviceStatus {
+  online: boolean;
+  mainsPresent: boolean;
+  batteryPresent: boolean;
+  batteryCharging: boolean;
+  /** 0-100. */
+  batteryPercent: number;
+}
+
+/** Algo que una puerta sabe hacer, en qué situación puede estar, o de qué avisa. */
+export interface LockAction {
+  id: string;
+  name: string;
+  i18nName: string;
+  index: number;
+  help: string;
+}
+
+/**
+ * Un horario con nombre, reutilizable entre reglas de permiso.
+ *
+ * **Sin franjas no restringe nada**, no es que no abra nunca.
+ * @interface LockSchedule
+ */
+export interface LockSchedule {
+  id: string;
+  clientServiceId: string;
+  name: string;
+  slots: { dayOfWeek: DayOfWeek; startTime: string; endTime: string }[];
+  /** En cuántas reglas se usa: cambiarlo les cambia el horario a todas. */
+  usedByRules: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * Una regla de permiso: **qué abre, cuándo y cómo**.
+ * @interface LockPermissionRule
+ */
+export interface LockPermissionRule {
+  id: string;
+  target: LockPermissionTarget;
+  siteId: string | null;
+  siteName: string | null;
+  lockId: string | null;
+  lockName: string | null;
+  actionId: string | null;
+  actionName: string | null;
+  scheduleId: string | null;
+  scheduleName: string | null;
+  presence: LockPermissionPresence;
+  allowsOnline: boolean;
+  allowsBluetooth: boolean;
+  allowsMobileNfc: boolean;
+  allowsPin: boolean;
+  allowsCard: boolean;
+}
+
+/** Lo que se manda al guardar una regla. */
+export interface LockPermissionRuleInput {
+  target: LockPermissionTarget;
+  siteId?: string;
+  lockId?: string;
+  actionId?: string;
+  scheduleId?: string;
+  presence?: LockPermissionPresence;
+  allowsOnline?: boolean;
+  allowsBluetooth?: boolean;
+  allowsMobileNfc?: boolean;
+  allowsPin?: boolean;
+  allowsCard?: boolean;
+}
+
+/**
+ * Un llavero: un conjunto de **reglas de permiso** con nombre, que se le da a personas.
+ *
+ * No tiene «puertas» como tal: tiene reglas, y cada una dice qué abre —toda una sede, una puerta, o una sola
+ * acción de esa puerta—, cuándo y con qué métodos.
  * @interface LockGroup
- * @property {string} id - Identificador del llavero
- * @property {string} clientServiceId - Servicio contratado al que pertenece
- * @property {string} name - Nombre del llavero
- * @property {string | null} description - Descripción del llavero
- * @property {boolean} isDefault - Si es el llavero que se concede por defecto
- * @property {LockGroupLock[]} locks - Puertas incluidas
- * @property {number} memberCount - Cuánta gente lo tiene
  */
 export interface LockGroup {
   id: string;
@@ -415,50 +535,16 @@ export interface LockGroup {
   name: string;
   description: string | null;
   isDefault: boolean;
-  locks: LockGroupLock[];
-  /**
-   * Cuánta **gente** lo tiene, no cuántas llaves hay.
-   *
-   * Quien lo tiene con la app y con el PIN es una persona, y contarla dos veces hacía que un llavero de
-   * tres vecinos dijera «6 llaves».
-   */
-  memberCount: number;
-  /*
-   * La regla de acceso: cómo se abre, desde dónde y a qué horas.
-   *
-   * Vive aquí y no en la puerta porque es donde el fabricante la pone: allí una puerta solo dice qué sabe
-   * hacer el aparato instalado, y lo que se concede se decide al juntar puertas en un llavero.
-   */
-  allowsOnline: boolean;
-  allowsBluetooth: boolean;
-  allowsMobileNfc: boolean;
-  allowsPin: boolean;
-  allowsCard: boolean;
-  /** Si hay que estar delante para abrir. Falso es «desde cualquier lugar». */
-  requiresPresence: boolean;
+  permissionRules: LockPermissionRule[];
   tags: string[];
-  /** Su horario. **Vacío significa que abre siempre**, no que no abra nunca. */
-  scheduleSlots: LockGroupScheduleSlot[];
+  /** Cuánta **gente** lo tiene, no cuántas llaves hay. */
+  memberCount: number;
   validFrom: string | null;
   validUntil: string | null;
   /** Lo que no llegó a las cerraduras al guardar; `null` si todo llegó. */
   syncWarning?: string | null;
 }
 
-/**
- * Un tramo del horario de un llavero.
- * @interface LockGroupScheduleSlot
- * @property {DayOfWeek} dayOfWeek - Día de la semana
- * @property {string} startTime - Hora de inicio, `HH:mm`
- * @property {string} endTime - Hora de fin, `HH:mm`
- * @property {string} [label] - Nombre del tramo, si se le pone
- */
-export interface LockGroupScheduleSlot {
-  dayOfWeek: DayOfWeek;
-  startTime: string;
-  endTime: string;
-  label?: string;
-}
 
 /**
  * Una persona dentro de un llavero.
@@ -532,6 +618,28 @@ export interface MemberDetail {
   validUntil: string | null;
   keyrings: KeyringMember[];
   credentials: MemberCredential[];
+  /*
+   * Cuántos enlaces de acceso tiene vivos.
+   *
+   * Un enlace no se puede volver a leer una vez emitido, así que este número es lo único que dice si esa
+   * persona tiene uno, tres o ninguno — y si retirarlos va a retirar algo.
+   */
+  magicLinks: number;
+}
+
+/**
+ * Hasta cuándo le vale a alguien un llavero
+ * (`PATCH client/me/communities/:serviceId/keyring-members/:keyringMembershipId`).
+ *
+ * Es distinta de la vigencia del vecino: se puede vivir aquí indefinidamente y tener el llavero del gimnasio
+ * solo mientras dure el abono. `null` quita el límite.
+ * @interface UpdateKeyringMembershipDto
+ * @property {string | null} [validFrom] - Desde cuándo (ISO 8601)
+ * @property {string | null} [validUntil] - Hasta cuándo (ISO 8601)
+ */
+export interface UpdateKeyringMembershipDto {
+  validFrom?: string | null;
+  validUntil?: string | null;
 }
 
 /**
@@ -605,23 +713,9 @@ export interface CreateLockGroupDto {
   name: string;
   description?: string;
   isDefault?: boolean;
-  lockIds: string[];
-  /*
-   * La regla de acceso: cómo se abre, desde dónde y a qué horas.
-   *
-   * Vive aquí y no en la puerta porque es donde el fabricante la pone: allí una puerta solo dice qué sabe
-   * hacer el aparato instalado, y lo que se concede se decide al juntar puertas en un llavero.
-   */
-  allowsOnline?: boolean;
-  allowsBluetooth?: boolean;
-  allowsMobileNfc?: boolean;
-  allowsPin?: boolean;
-  allowsCard?: boolean;
-  /** Si hay que estar delante para abrir. Falso es «desde cualquier lugar». */
-  requiresPresence?: boolean;
   tags?: string[];
-  /** Su horario. **Vacío significa que abre siempre**, no que no abra nunca. */
-  scheduleSlots?: LockGroupScheduleSlot[];
+  /** Sustituye la lista entera: es lo único que hace que quitar una regla llegue a la cerradura. */
+  permissionRules: LockPermissionRuleInput[];
   validFrom?: string;
   validUntil?: string;
 }
@@ -640,23 +734,9 @@ export interface UpdateLockGroupDto {
   name?: string;
   description?: string;
   isDefault?: boolean;
-  lockIds?: string[];
-  /*
-   * La regla de acceso: cómo se abre, desde dónde y a qué horas.
-   *
-   * Vive aquí y no en la puerta porque es donde el fabricante la pone: allí una puerta solo dice qué sabe
-   * hacer el aparato instalado, y lo que se concede se decide al juntar puertas en un llavero.
-   */
-  allowsOnline?: boolean;
-  allowsBluetooth?: boolean;
-  allowsMobileNfc?: boolean;
-  allowsPin?: boolean;
-  allowsCard?: boolean;
-  /** Si hay que estar delante para abrir. Falso es «desde cualquier lugar». */
-  requiresPresence?: boolean;
   tags?: string[];
-  /** Su horario. **Vacío significa que abre siempre**, no que no abra nunca. */
-  scheduleSlots?: LockGroupScheduleSlot[];
+  /** Sustituye la lista entera: es lo único que hace que quitar una regla llegue a la cerradura. */
+  permissionRules?: LockPermissionRuleInput[];
   validFrom?: string;
   validUntil?: string;
 }
@@ -914,58 +994,79 @@ export interface LockProviderCapabilities {
 }
 
 /**
- * Cerradura de la comunidad (`GET client/me/communities/:serviceId/locks`). El
- * cliente no da de alta ni de baja cerraduras (es hardware, lo hace personal
- * interno): solo puede tocar su horario y liberarlas temporalmente.
+ * Una puerta de la comunidad (`GET client/me/communities/:serviceId/locks`).
+ *
+ * Es el espejo de lo que el fabricante tiene, y **aquí no se configura**: en su API una puerta es de solo
+ * lectura, y el cliente no da de alta ni de baja hardware. Lo único que se edita es lo que el fabricante no
+ * sabe —a qué vivienda pertenece y si la damos por activa—; el horario y los métodos con los que se abre son
+ * de la regla del llavero, no de la puerta.
  * @interface CommunityLock
- * @property {string} id - Identificador de la cerradura
+ * @property {string} id - Identificador de la puerta
  * @property {string} clientServiceId - Servicio contratado al que pertenece
- * @property {string} name - Nombre de la puerta
- * @property {string | null} communityUnitId - Unidad a la que da acceso, si es de una unidad
- * @property {string | null} communityUnitCode - Código de esa unidad
- * @property {LockProviderName} provider - Proveedor del hardware
- * @property {string} externalId - Identificador en el sistema del proveedor
- * @property {LockConnectivity} connectivity - Cómo se comunica la cerradura
- * @property {boolean} supportsNfc - Si acepta NFC
- * @property {boolean} supportsPin - Si acepta PIN
- * @property {boolean} supportsApp - Si acepta apertura desde la app
- * @property {boolean} supportsButton - Si tiene botón físico de apertura
- * @property {boolean} isMainAccess - Si es un acceso principal (no admite modo `SCHEDULED`)
- * @property {LockScheduleMode} scheduleMode - Modo de horario actual
- * @property {string | null} releasedUntil - Hasta cuándo está liberada (ISO 8601)
- * @property {boolean} isReleased - Si está liberada ahora mismo
- * @property {number | null} batteryLevel - Nivel de batería (0-100)
- * @property {string | null} lastSeenAt - Última vez que se comunicó (ISO 8601)
+ * @property {LockProviderName} provider - Fabricante
+ * @property {string} externalId - Identificador en el sistema del fabricante
+ * @property {string} name - Nombre de la puerta, tal y como está dado de alta allí
+ * @property {string | null} siteId - Sede en la que está
+ * @property {string | null} siteName - Nombre de esa sede
+ * @property {string | null} deviceId - Aparato del que cuelga
+ * @property {string | null} deviceName - Nombre de ese aparato
+ * @property {string | null} productName - Modelo del aparato
+ * @property {string | null} revisionId - Revisión del modelo
+ * @property {string | null} hardwareId - Número de serie
+ * @property {DeviceCapabilities | null} capabilities - Lo que el aparato sabe hacer
+ * @property {DeviceStatus | null} deviceStatus - Cómo está el aparato ahora
+ * @property {LockAction[]} actions - Lo que la puerta sabe hacer
+ * @property {LockAction[]} states - En qué situación puede estar
+ * @property {LockAction[]} signals - Avisos puntuales que emite
+ * @property {string | null} currentStateId - En cuál está ahora
+ * @property {string | null} lastSyncedAt - Cuándo se trajo del fabricante (ISO 8601)
+ * @property {string | null} communityUnitId - Vivienda a la que da acceso, si es de una
+ * @property {string | null} communityUnitCode - Código de esa vivienda
+ * @property {boolean} isMainAccess - Si es un acceso principal
  * @property {CommunityLockStatus} status - Estado operativo
- * @property {LockProviderCapabilities} capabilities - Lo que el proveedor soporta
- * @property {boolean} isScheduleInformationalOnly - Si el horario configurado no se aplica de verdad
  * @property {string} createdAt - Fecha de alta (ISO 8601)
  * @property {string} updatedAt - Última modificación (ISO 8601)
  */
 export interface CommunityLock {
   id: string;
   clientServiceId: string;
+  provider: LockProviderName;
+  /** Su identificador en el sistema del fabricante. */
+  externalId: string;
   name: string;
+
+  /*
+   * De dónde cuelga y qué sabe hacer: **todo esto lo manda el fabricante** y aquí solo se lee.
+   *
+   * Las capacidades vienen del **aparato**, no de la puerta: seis puertas pueden colgar del mismo
+   * controlador, y copiarlas a cada una era garantizar que tarde o temprano dijeran cosas distintas.
+   */
+  siteId: string | null;
+  siteName: string | null;
+  deviceId: string | null;
+  deviceName: string | null;
+  /** El modelo del aparato, presentable: «Pinpad», no `pinpad`. */
+  productName: string | null;
+  revisionId: string | null;
+  /** Número de serie impreso en la etiqueta. */
+  hardwareId: string | null;
+  capabilities: DeviceCapabilities | null;
+  deviceStatus: DeviceStatus | null;
+  /** Abrir, subir, bajar… Lo que la puerta sabe hacer. */
+  actions: LockAction[];
+  /** En qué situación puede estar, si sabe decirlo. */
+  states: LockAction[];
+  /** Avisos puntuales: un timbre, un sensor. */
+  signals: LockAction[];
+  currentStateId: string | null;
+  lastSyncedAt: string | null;
+
+  /* Y lo nuestro, que es lo único editable: el fabricante no sabe de viviendas. */
   communityUnitId: string | null;
   communityUnitCode: string | null;
-  provider: LockProviderName;
-  externalId: string;
-  connectivity: LockConnectivity;
-  supportsOnline: boolean;
-  supportsBluetooth: boolean;
-  supportsMobileNfc: boolean;
-  supportsPin: boolean;
-  supportsCard: boolean;
-  supportsButton: boolean;
   isMainAccess: boolean;
-  scheduleMode: LockScheduleMode;
-  releasedUntil: string | null;
-  isReleased: boolean;
-  batteryLevel: number | null;
-  lastSeenAt: string | null;
   status: CommunityLockStatus;
-  capabilities: LockProviderCapabilities;
-  isScheduleInformationalOnly: boolean;
+
   createdAt: string;
   updatedAt: string;
 }
@@ -989,88 +1090,6 @@ export interface LockScheduleSlot {
   label: string | null;
 }
 
-/**
- * Excepción puntual sobre el horario semanal de una cerradura (un festivo, una
- * obra...). No tiene endpoint propio de lectura: llega dentro de
- * {@link LockSchedule}.
- * @interface LockScheduleException
- * @property {string} id - Identificador de la excepción
- * @property {string} lockId - Cerradura a la que pertenece
- * @property {string} date - Día al que aplica (ISO `YYYY-MM-DD`)
- * @property {LockScheduleExceptionType} type - Qué hace ese día
- * @property {string | null} modifiedStartTime - Hora de inicio alternativa (`HH:mm`), solo si `type` es `MODIFIED`
- * @property {string | null} modifiedEndTime - Hora de fin alternativa (`HH:mm`)
- * @property {string | null} reason - Motivo de la excepción
- */
-export interface LockScheduleException {
-  id: string;
-  lockId: string;
-  date: string;
-  type: LockScheduleExceptionType;
-  modifiedStartTime: string | null;
-  modifiedEndTime: string | null;
-  reason: string | null;
-}
-
-/**
- * Horario completo de una cerradura
- * (`GET client/me/communities/locks/:lockId/schedule`). Sin tramos, la puerta
- * abre siempre: la ausencia de horario no cierra la puerta.
- * @interface LockSchedule
- * @property {LockScheduleSlot[]} slots - Tramos de la semana
- * @property {LockScheduleException[]} exceptions - Excepciones puntuales
- * @property {boolean} isEnforced - Si el horario se está aplicando de verdad
- * @property {boolean} isScheduleInformationalOnly - Si el proveedor no soporta horarios y esto es solo informativo
- * @property {boolean} isOpenNow - Si según el horario la puerta está abierta ahora
- */
-export interface LockSchedule {
-  slots: LockScheduleSlot[];
-  exceptions: LockScheduleException[];
-  isEnforced: boolean;
-  isScheduleInformationalOnly: boolean;
-  isOpenNow: boolean;
-}
-
-/**
- * Cuerpo de `PUT client/me/communities/locks/:lockId/schedule`: sustituye la
- * semana completa. Un array vacío significa "abre siempre".
- * @interface PutLockScheduleDto
- * @property {LockScheduleSlotDto[]} slots - Semana completa de tramos
- */
-export interface PutLockScheduleDto {
-  slots: LockScheduleSlotDto[];
-}
-
-/**
- * Cuerpo de alta de una excepción
- * (`POST client/me/communities/locks/:lockId/schedule/exceptions`).
- * @interface CreateLockScheduleExceptionDto
- * @property {string} date - Día al que aplica (ISO)
- * @property {LockScheduleExceptionType} type - Qué hace ese día
- * @property {string} [modifiedStartTime] - Hora de inicio alternativa (`HH:mm`), solo con `type` `MODIFIED`
- * @property {string} [modifiedEndTime] - Hora de fin alternativa (`HH:mm`)
- * @property {string} [reason] - Motivo (máx. 300)
- */
-export interface CreateLockScheduleExceptionDto {
-  date: string;
-  type: LockScheduleExceptionType;
-  modifiedStartTime?: string;
-  modifiedEndTime?: string;
-  reason?: string;
-}
-
-/**
- * Cuerpo de liberación de una puerta
- * (`POST client/me/communities/locks/:lockId/release`): la deja abierta hasta
- * la hora indicada, como máximo 24 h desde ahora.
- * @interface ReleaseLockDto
- * @property {string} releasedUntil - Hasta cuándo queda liberada (ISO 8601, obligatorio)
- * @property {string} [reason] - Motivo de la liberación (máx. 300)
- */
-export interface ReleaseLockDto {
-  releasedUntil: string;
-  reason?: string;
-}
 
 /**
  * Resumen agregado de accesos por puerta
@@ -1094,9 +1113,10 @@ export interface LockAccessSummary {
 }
 
 /**
- * Evento individual del registro de accesos
- * (`GET client/me/communities/locks/:lockId/access-log`). Es una pantalla
- * sensible: el backend exige un motivo auditado para poder consultarla.
+ * Una apertura del registro (`GET client/me/communities/:serviceId/access-log-detail`).
+ *
+ * Ya no hace falta motivo para consultarlo, pero la consulta se sigue auditando: un registro de entradas dice
+ * a qué hora llega cada uno a su casa.
  * @interface LockAccessLogEntry
  * @property {string} id - Identificador del evento
  * @property {string} lockId - Puerta
@@ -1105,6 +1125,7 @@ export interface LockAccessSummary {
  * @property {string | null} credentialLabel - Etiqueta de esa credencial
  * @property {string | null} residentMembershipId - Vecino que accedió
  * @property {string | null} residentName - Nombre de ese vecino
+ * @property {string | null} openedByLabel - Quién abrió cuando no es un vecino (el fabricante sí lo dice)
  * @property {LockAccessMethod} method - Método de apertura
  * @property {LockAccessResult} result - Resultado del intento
  * @property {string} occurredAt - Cuándo ocurrió (ISO 8601)
@@ -1119,6 +1140,11 @@ export interface LockAccessLogEntry {
   credentialLabel: string | null;
   residentMembershipId: string | null;
   residentName: string | null;
+  /*
+   * Quién abrió cuando no lo hizo un vecino: el administrador desde el panel del fabricante, un instalador.
+   * El fabricante sí dice de dónde vino la apertura, y enseñar «sin identificar» a secas suena a fallo.
+   */
+  openedByLabel: string | null;
   method: LockAccessMethod;
   result: LockAccessResult;
   occurredAt: string;
@@ -1127,20 +1153,23 @@ export interface LockAccessLogEntry {
 }
 
 /**
- * Filtros de `GET client/me/communities/locks/:lockId/access-log`. `reason` no
- * es opcional pese a lo que sugiera cualquier otra firma: el backend lo exige
- * (5-300 caracteres) y lo audita.
+ * Filtros del registro de accesos.
+ *
+ * La puerta es uno más y no la condición para ver algo: la pregunta que trae aquí casi nunca es «qué ha
+ * pasado en el garaje», es «qué ha pasado esta noche».
  * @interface LockAccessLogQuery
- * @property {string} reason - Motivo de la consulta (obligatorio, 5-300 caracteres)
+ * @property {string} [lockId] - Una puerta concreta
  * @property {string} [from] - Desde cuándo (ISO 8601)
  * @property {string} [to] - Hasta cuándo (ISO 8601)
- * @property {string} [residentMembershipId] - Filtrar por un vecino concreto
+ * @property {LockAccessResult} [result] - Solo las aperturas con este resultado
+ * @property {string} [search] - Busca por nombre de quien abrió
  */
 export interface LockAccessLogQuery {
-  reason: string;
+  lockId?: string;
   from?: string;
   to?: string;
-  residentMembershipId?: string;
+  result?: LockAccessResult;
+  search?: string;
 }
 
 /**

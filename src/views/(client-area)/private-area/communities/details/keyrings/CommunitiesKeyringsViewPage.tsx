@@ -2,6 +2,8 @@ import { getTranslations } from 'next-intl/server';
 import { KeyRoundIcon, ShieldAlertIcon, TableIcon } from 'lucide-react';
 
 import {
+  getCommunitySchedules,
+  getCommunitySites,
   getCommunityKeyMatrix,
   getCommunityKeyrings,
   getCommunityKeyringsPaginated,
@@ -105,6 +107,8 @@ export default async function CommunitiesKeyringsViewPage({
     residentsResponse,
     invitationsResponse,
     bypassResponse,
+    sitesResponse,
+    schedulesResponse,
   ] = await Promise.all([
     getCommunityKeyringsPaginated(serviceId, {
       page: keyringsPage,
@@ -126,6 +130,8 @@ export default async function CommunitiesKeyringsViewPage({
     getCommunityResidents(serviceId),
     getCommunityInvitations(serviceId, { limit: INVITATIONS_LIMIT }),
     getCommunityBypassReport(serviceId),
+    getCommunitySites(serviceId),
+    getCommunitySchedules(serviceId),
   ]);
 
   const bypassCredentials = bypassResponse.data ?? [];
@@ -154,6 +160,8 @@ export default async function CommunitiesKeyringsViewPage({
           }
         }
         locks={locksResponse.data ?? []}
+        sites={sitesResponse.data ?? []}
+        schedules={schedulesResponse.data ?? []}
       />
 
       <SettingsSection

@@ -106,7 +106,6 @@ export const INCIDENT_STATUS_VARIANTS: Record<IncidentStatus, BadgeVariant> = {
 export const ACCESS_RESULT_VARIANTS: Record<LockAccessResult, BadgeVariant> = {
   GRANTED: "success",
   GRANTED_BYPASS: "warning",
-  GRANTED_RELEASED: "info",
   DENIED_UNKNOWN: "danger",
   DENIED_EXPIRED: "danger",
   DENIED_LOCK_SCHEDULE: "neutral",

@@ -1,597 +1,165 @@
-'use client';
-
-import { useState, useTransition } from 'react';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import {
-  BatteryIcon,
-  CalendarPlusIcon,
-  DoorOpenIcon,
-  PlusIcon,
-  SaveIcon,
-  TrashIcon,
-  TriangleAlertIcon,
-  XIcon,
-} from 'lucide-react';
+import { BatteryIcon, InfoIcon, PlugZapIcon, WifiIcon, WifiOffIcon } from 'lucide-react';
 
-import {
-  cancelLockRelease,
-  createLockScheduleException,
-  deleteLockScheduleException,
-  putLockSchedule,
-  releaseLock,
-} from '@/actions/client-portal/community-locks-actions';
-import { HTTPStatus } from '@/constants/httpStatus';
-import { notifyResponse } from '@/utils/toastUtils';
 import { LOCK_STATUS_VARIANTS, formatCommunityDateTime } from '@/utils/communityFormatUtils';
 
-import Alert from '@/components/ui/alerts/Alert';
 import Badge from '@/components/ui/buttons/Badge';
-import Button from '@/components/ui/buttons/Button';
-import IconButton from '@/components/ui/buttons/IconButton';
-import Input from '@/components/ui/inputs/Input';
-import ModalComponent from '@/components/ui/modals/ModalComponent';
-import Select from '@/components/ui/inputs/Select';
 import SettingsSection from '@/components/ui/sections/SettingsSection';
 
-import type {
-  CommunityLock,
-  DayOfWeek,
-  LockSchedule,
-  LockScheduleExceptionType,
-  LockScheduleSlotDto,
-} from '@/types/client-portal/community';
-import type { FetchResponse } from '@/types/responses';
+import type { CommunityLock } from '@/types/client-portal/community';
 
-import '@/styles/04-components/ui/forms/form-row.scss';
 import '@/styles/04-components/client-area/community-common.scss';
-import '@/styles/04-components/client-area/community-schedule.scss';
 
-const DAYS: DayOfWeek[] = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-const EXCEPTION_TYPES: LockScheduleExceptionType[] = ['CLOSED', 'MODIFIED', 'OPEN_ALL_DAY'];
-const LOW_BATTERY_THRESHOLD = 20;
-/** Horas que se propone liberar por defecto: una mudanza dura una tarde. */
-const DEFAULT_RELEASE_HOURS = 4;
-/** Tope que impone la API (requisitos-app-comunidad.md, sección 7.7). */
-const MAX_RELEASE_HOURS = 24;
+/** Por debajo de esto, la batería se pinta en rojo: es el aviso que hay que ver venir. */
+const LOW_BATTERY_THRESHOLD = 25;
 
 interface LockCardProps {
   lock: CommunityLock;
   locale: string;
-  schedule: LockSchedule | null;
 }
 
 /**
- * Ficha de una cerradura: estado, horario semanal editable, excepciones y
- * liberación temporal. Refleja tres reglas del dominio que, mal representadas,
- * confundirían al usuario: sin tramos la puerta abre siempre (no al revés), un
- * acceso principal no admite modo horario, y con un proveedor que no soporta
- * horarios lo configurado aquí es solo informativo.
- * @param {LockCardProps} props - Cerradura, locale y su horario ya cargado
- * @returns {JSX.Element} La ficha de la cerradura renderizada
+ * La ficha de una puerta, tal y como la manda el fabricante.
+ *
+ * **Aquí no se configura nada.** Una puerta es el `gadget` del fabricante y en su API es de solo lectura: el
+ * nombre, el aparato al que cuelga, la sede y lo que sabe hacer se deciden al montar la instalación. Hubo
+ * aquí un editor de horario y de excepciones de fecha, y era una copia que no llegaba a ninguna cerradura —
+ * en el fabricante una puerta no tiene horario, lo tiene la regla de permiso del llavero.
+ *
+ * Lo que esta tarjeta tiene que decir es **por qué una puerta no responde**, que casi siempre es que el
+ * aparato está sin línea o sin pilas.
+ * @param {LockCardProps} props - La puerta y el idioma
+ * @returns {JSX.Element} La tarjeta renderizada
  */
-export default function LockCard({ lock, locale, schedule }: LockCardProps) {
+export default function LockCard({ lock, locale }: LockCardProps) {
   const t = useTranslations('Views.ClientArea.Communities');
   const tCommon = useTranslations('Views.ClientArea.Common');
 
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const capabilities = lock.capabilities;
+  const status = lock.deviceStatus;
 
-  const [slots, setSlots] = useState<LockScheduleSlotDto[]>(
-    schedule?.slots.map((slot) => ({
-      dayOfWeek: slot.dayOfWeek,
-      startTime: slot.startTime,
-      endTime: slot.endTime,
-      label: slot.label ?? undefined,
-    })) ?? [],
-  );
-
-  const [isExceptionOpen, setIsExceptionOpen] = useState(false);
-  const [exceptionDate, setExceptionDate] = useState('');
-  const [exceptionType, setExceptionType] = useState<LockScheduleExceptionType>('CLOSED');
-  const [exceptionStart, setExceptionStart] = useState('');
-  const [exceptionEnd, setExceptionEnd] = useState('');
-  const [exceptionReason, setExceptionReason] = useState('');
-
-  const [isReleaseOpen, setIsReleaseOpen] = useState(false);
-  const [releaseHours, setReleaseHours] = useState(String(DEFAULT_RELEASE_HOURS));
-  const [releaseReason, setReleaseReason] = useState('');
-
-  const parsedReleaseHours = Number(releaseHours);
-  const isReleaseHoursValid =
-    Number.isFinite(parsedReleaseHours) &&
-    parsedReleaseHours > 0 &&
-    parsedReleaseHours <= MAX_RELEASE_HOURS;
-
-  const run = (action: () => Promise<FetchResponse<unknown>>, onDone?: () => void) => {
-    startTransition(async () => {
-      const response = await action();
-      notifyResponse(response, t('loadError'));
-
-      if (
-        response.status === HTTPStatus.OK ||
-        response.status === HTTPStatus.CREATED ||
-        response.status === HTTPStatus.NO_CONTENT
-      ) {
-        onDone?.();
-        router.refresh();
-      }
-    });
-  };
-
-  const hasInvalidSlot = slots.some((slot) => slot.endTime <= slot.startTime);
-
-  const addSlot = () =>
-    setSlots([...slots, { dayOfWeek: 'MON', startTime: '08:00', endTime: '20:00' }]);
-
-  const updateSlot = (index: number, patch: Partial<LockScheduleSlotDto>) =>
-    setSlots(slots.map((slot, i) => (i === index ? { ...slot, ...patch } : slot)));
-
-  const removeSlot = (index: number) => setSlots(slots.filter((_, i) => i !== index));
+  /** Lo que el aparato sabe hacer, en palabras: aquí no se marca nada. */
+  const canDo = [
+    capabilities?.pin && t('AccessMethod.PIN'),
+    capabilities?.nfc && t('AccessMethod.CARD'),
+    capabilities?.internet || capabilities?.wifi || capabilities?.ethernet || capabilities?.cellular
+      ? t('Locks.capabilityInternet')
+      : null,
+  ].filter(Boolean);
 
   return (
     <SettingsSection
       title={lock.name}
-      description={lock.communityUnitCode ?? undefined}
-      icon={DoorOpenIcon}
+      description={[lock.siteName, lock.communityUnitCode].filter(Boolean).join(' · ')}
       actions={
-        <div className="schedule-lock__badges">
-          <Badge
-            variant={LOCK_STATUS_VARIANTS[lock.status]}
-            text={t(`LockStatus.${lock.status}`)}
-          />
+        <div className="community-badges">
+          <Badge variant={LOCK_STATUS_VARIANTS[lock.status]} text={t(`LockStatus.${lock.status}`)} />
+
           {lock.isMainAccess && <Badge variant="info" text={t('Locks.mainAccess')} />}
-          {lock.isReleased && <Badge variant="warning" text={t('Locks.released')} />}
+
+          {/*
+            Cómo está el aparato, arriba y no escondido: es el dato que se viene a buscar cuando alguien
+            llama diciendo que no puede entrar.
+          */}
+          {status && (
+            <Badge
+              variant={status.online ? 'success' : 'warning'}
+              text={status.online ? t('Locks.online') : t('Locks.offline')}
+            />
+          )}
         </div>
       }
     >
       <dl className="community-facts">
         <div className="community-facts__item">
-          <dt className="community-facts__label">{t('Locks.provider')}</dt>
-          <dd className="community-facts__value">{t(`LockProvider.${lock.provider}`)}</dd>
-        </div>
-        <div className="community-facts__item">
-          <dt className="community-facts__label">{t('Locks.connectivity')}</dt>
+          <dt className="community-facts__label">{t('Locks.device')}</dt>
           <dd className="community-facts__value">
-            {t(`LockConnectivity.${lock.connectivity}`)}
+            {[lock.deviceName, lock.productName, lock.revisionId && `rev. ${lock.revisionId}`]
+              .filter(Boolean)
+              .join(' · ') || tCommon('notAvailable')}
           </dd>
         </div>
+
         <div className="community-facts__item">
-          <dt className="community-facts__label">{t('Locks.scheduleMode')}</dt>
-          <dd className="community-facts__value">{t(`ScheduleMode.${lock.scheduleMode}`)}</dd>
+          <dt className="community-facts__label">{t('Locks.hardwareId')}</dt>
+          <dd className="community-facts__value">{lock.hardwareId ?? tCommon('notAvailable')}</dd>
         </div>
+
         <div className="community-facts__item">
-          <dt className="community-facts__label">{t('Locks.battery')}</dt>
-          <dd
-            className={`community-facts__value schedule-lock__battery${
-              lock.batteryLevel !== null && lock.batteryLevel <= LOW_BATTERY_THRESHOLD
-                ? ' schedule-lock__battery--low'
-                : ''
-            }`}
-          >
-            <BatteryIcon aria-hidden="true" />
-            {lock.batteryLevel !== null ? `${lock.batteryLevel}%` : tCommon('notAvailable')}
-          </dd>
-        </div>
-        <div className="community-facts__item">
-          <dt className="community-facts__label">{t('Locks.lastSeen')}</dt>
+          <dt className="community-facts__label">{t('Locks.canDo')}</dt>
           <dd className="community-facts__value">
-            {formatCommunityDateTime(lock.lastSeenAt, locale, tCommon('notAvailable'))}
+            {canDo.length > 0 ? canDo.join(' · ') : tCommon('notAvailable')}
           </dd>
         </div>
-        {lock.isReleased && (
+
+        <div className="community-facts__item">
+          <dt className="community-facts__label">{t('Locks.actions')}</dt>
+          <dd className="community-facts__value">
+            {(lock.actions ?? []).map((action) => action.name).join(' · ') ||
+              tCommon('notAvailable')}
+          </dd>
+        </div>
+
+        {/*
+          La corriente y la batería solo si el aparato las tiene.
+          Un controlador enchufado reporta `batteryPercent: 0`, y enseñar ese cero se leería como «batería
+          agotada» en una puerta que no lleva pilas.
+        */}
+        {status?.mainsPresent && (
           <div className="community-facts__item">
-            <dt className="community-facts__label">{t('Locks.releasedUntil')}</dt>
+            <dt className="community-facts__label">{t('Locks.power')}</dt>
             <dd className="community-facts__value">
-              {formatCommunityDateTime(lock.releasedUntil, locale, tCommon('notAvailable'))}
+              <PlugZapIcon aria-hidden="true" />
+              {t('Locks.mains')}
             </dd>
           </div>
         )}
-      </dl>
 
-      {lock.isScheduleInformationalOnly && (
-        <p className="community-notice community-notice--warning">
-          <TriangleAlertIcon aria-hidden="true" />
-          {t('Locks.informationalOnlyWarning')}
-        </p>
-      )}
-
-      {/*
-        Un acceso principal **no tiene editor de horario**, solo la explicación.
-
-        Antes se avisaba de que no admite modo horario y aun así se pintaba el editor entero: se podían
-        añadir tramos, guardarlos y ver un horario configurado en una puerta que seguía abriendo a cualquier
-        hora. Ofrecer un control que no hace nada es peor que no ofrecerlo, porque parece que sí lo hace.
-      */}
-      {lock.isMainAccess ? (
-        <div className="schedule-editor">
-          <strong>{t('Locks.ScheduleSection.title')}</strong>
-          <p className="community-notice">
-            <DoorOpenIcon aria-hidden="true" />
-            {t('Locks.mainAccessScheduleWarning')}
-          </p>
-        </div>
-      ) : (
-        <div className="schedule-editor">
-          <strong>{t('Locks.ScheduleSection.title')}</strong>
-          <span className="community-form__help">{t('Locks.ScheduleSection.description')}</span>
-
-          {slots.length === 0 && (
-            <p className="community-notice">
-              <DoorOpenIcon aria-hidden="true" />
-              {t('Locks.alwaysOpenNotice')}
-            </p>
-          )}
-
-          <div className="schedule-editor__slots">
-            {slots.map((slot, index) => (
-              <div key={index} className="schedule-editor__slot">
-                <Select
-                  id={`${lock.id}-day-${index}`}
-                  name={`day-${index}`}
-                  label={t('Locks.ScheduleSection.dayLabel')}
-                  noTranslate
-                  placeholder={t('Locks.ScheduleSection.dayPlaceholder')}
-                  className="select__full"
-                  value={slot.dayOfWeek}
-                  onChange={(value) => updateSlot(index, { dayOfWeek: value as DayOfWeek })}
-                  options={DAYS.map((day) => ({
-                    value: day,
-                    label: t(`DayOfWeek.${day}`),
-                  }))}
-                />
-
-                <Input
-                  id={`${lock.id}-start-${index}`}
-                  name={`slot-start-${index}`}
-                  type="time"
-                  label={t('Locks.ScheduleSection.startLabel')}
-                  noTranslate
-                  className="input__full"
-                  value={slot.startTime}
-                  onChange={(event) => updateSlot(index, { startTime: event.target.value })}
-                />
-
-                <Input
-                  id={`${lock.id}-end-${index}`}
-                  name={`slot-end-${index}`}
-                  type="time"
-                  label={t('Locks.ScheduleSection.endLabel')}
-                  noTranslate
-                  className="input__full"
-                  value={slot.endTime}
-                  onChange={(event) => updateSlot(index, { endTime: event.target.value })}
-                />
-
-                <Input
-                  id={`${lock.id}-label-${index}`}
-                  name={`slot-label-${index}`}
-                  label={t('Locks.ScheduleSection.slotLabel')}
-                  noTranslate
-                  placeholder={t('Locks.ScheduleSection.slotPlaceholder')}
-                  className="input__full"
-                  value={slot.label ?? ''}
-                  maxLength={100}
-                  onChange={(event) => updateSlot(index, { label: event.target.value })}
-                />
-
-                {/*
-                  El `IconButton` del sistema, no un `<button>` con clase propia: así el aspa de quitar un
-                  tramo tiene el mismo tamaño, el mismo color de peligro y el mismo comportamiento al pasar
-                  el ratón que cualquier otra acción de icono de la aplicación.
-                */}
-                <IconButton
-                  size="sm"
-                  variant="error"
-                  ariaLabel="removeSlot"
-                  className="schedule-editor__slot-remove"
-                  onClick={() => removeSlot(index)}
-                >
-                  <TrashIcon />
-                </IconButton>
-              </div>
-            ))}
-          </div>
-
-          {hasInvalidSlot && (
-            <p className="community-form__error">{t('Locks.ScheduleSection.invalidRange')}</p>
-          )}
-
-          <div className="schedule-editor__actions">
-            <Button size="sm" variant="outline" title="add" onClick={addSlot}>
-              <PlusIcon />
-            </Button>
-            <Button
-              size="sm"
-              variant="primary"
-              title="save"
-              onClick={() => run(() => putLockSchedule(lock.id, slots))}
-              disabled={isPending || hasInvalidSlot}
+        {status?.batteryPresent && (
+          <div className="community-facts__item">
+            <dt className="community-facts__label">{t('Locks.battery')}</dt>
+            <dd
+              className={`community-facts__value community-facts__battery${
+                status.batteryPercent <= LOW_BATTERY_THRESHOLD
+                  ? ' community-facts__battery--low'
+                  : ''
+              }`}
             >
-              <SaveIcon />
-            </Button>
-            {slots.length > 0 && (
-              <Button size="sm" variant="outline" onClick={() => setSlots([])}>
-                {t('Locks.ScheduleSection.clearAll')}
-              </Button>
-            )}
+              <BatteryIcon aria-hidden="true" />
+              {`${Math.round(status.batteryPercent)}%`}
+            </dd>
           </div>
-        </div>
-      )}
-
-      <div className="schedule-editor">
-        <strong>{t('Locks.ExceptionsSection.title')}</strong>
-        <span className="community-form__help">{t('Locks.ExceptionsSection.description')}</span>
-
-        {schedule && schedule.exceptions.length > 0 ? (
-          <div className="community-table__scroll">
-            <table className="community-table">
-              <thead>
-                <tr>
-                  <th>{t('Locks.ExceptionsSection.dateLabel')}</th>
-                  <th>{t('Locks.ExceptionsSection.typeLabel')}</th>
-                  <th>{t('Locks.ExceptionsSection.reasonLabel')}</th>
-                  <th aria-hidden="true" />
-                </tr>
-              </thead>
-              <tbody>
-                {schedule.exceptions.map((exception) => (
-                  <tr key={exception.id}>
-                    <td>{exception.date}</td>
-                    <td>
-                      {t(`ExceptionType.${exception.type}`)}
-                      {exception.type === 'MODIFIED' && exception.modifiedStartTime && (
-                        <>
-                          {' '}
-                          ({exception.modifiedStartTime} – {exception.modifiedEndTime})
-                        </>
-                      )}
-                    </td>
-                    <td>
-                      {exception.reason ?? <span className="community-table__muted">—</span>}
-                    </td>
-                    <td>
-                      <div className="community-table__actions">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          ariaLabel="delete"
-                          onClick={() =>
-                            run(() => deleteLockScheduleException(lock.id, exception.id))
-                          }
-                          disabled={isPending}
-                        >
-                          <TrashIcon />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <p className="community-empty">{t('Locks.ExceptionsSection.empty')}</p>
         )}
 
-        <div className="schedule-editor__actions">
-          <Button
-            size="sm"
-            variant="outline"
-            title="add"
-            onClick={() => setIsExceptionOpen(true)}
-          >
-            <CalendarPlusIcon />
-          </Button>
-
-          {lock.isReleased ? (
-            <Button
-              size="sm"
-              variant="outline-danger"
-              title="cancelRelease"
-              onClick={() => run(() => cancelLockRelease(lock.id))}
-              disabled={isPending}
-            >
-              <XIcon />
-            </Button>
-          ) : (
-            <Button
-              size="sm"
-              variant="outline"
-              title="release"
-              onClick={() => {
-                setReleaseHours(String(DEFAULT_RELEASE_HOURS));
-                setReleaseReason('');
-                setIsReleaseOpen(true);
-              }}
-              disabled={isPending}
-            >
-              <DoorOpenIcon />
-            </Button>
-          )}
-        </div>
-      </div>
-
-      {isExceptionOpen && (
-        <ModalComponent
-          title={t('Locks.ExceptionsSection.addTitle')}
-          isOpen
-          isLoading={isPending}
-          onClose={() => setIsExceptionOpen(false)}
-          onCancel={() => setIsExceptionOpen(false)}
-          onConfirm={() =>
-            run(
-              () =>
-                createLockScheduleException(lock.id, {
-                  date: exceptionDate,
-                  type: exceptionType,
-                  modifiedStartTime:
-                    exceptionType === 'MODIFIED' ? exceptionStart || undefined : undefined,
-                  modifiedEndTime:
-                    exceptionType === 'MODIFIED' ? exceptionEnd || undefined : undefined,
-                  reason: exceptionReason || undefined,
-                }),
-              () => setIsExceptionOpen(false),
-            )
-          }
-          confirmText="create"
-          isLoadingText="creating"
-          confirmDisabled={!exceptionDate}
-        >
-          <div className="community-form">
-            <div className="form-row form-row--cols-2">
-              <div className="community-form__field">
-                <Input
-                  id={`${lock.id}-exc-date`}
-                  name="exceptionDate"
-                  type="date"
-                  label={t('Locks.ExceptionsSection.dateLabel')}
-                  noTranslate
-                  className="input__full"
-                  value={exceptionDate}
-                  onChange={(event) => setExceptionDate(event.target.value)}
-                />
-                <span className="community-form__help">
-                  {t('Locks.ExceptionsSection.dateHelp')}
-                </span>
-              </div>
-
-              <Select
-                id={`${lock.id}-exc-type`}
-                name="exceptionType"
-                label={t('Locks.ExceptionsSection.typeLabel')}
-                noTranslate
-                placeholder={t('Locks.ExceptionsSection.typePlaceholder')}
-                description={t('Locks.ExceptionsSection.typeHelp')}
-                className="select__full"
-                value={exceptionType}
-                onChange={(value) => setExceptionType(value as LockScheduleExceptionType)}
-                options={EXCEPTION_TYPES.map((type) => ({
-                  value: type,
-                  label: t(`ExceptionType.${type}`),
-                }))}
-              />
-
-              {exceptionType === 'MODIFIED' && (
-                <>
-                  <Input
-                    id={`${lock.id}-exc-start`}
-                    name="exceptionStart"
-                    type="time"
-                    label={t('Locks.ExceptionsSection.modifiedStartLabel')}
-                    noTranslate
-                    className="input__full"
-                    value={exceptionStart}
-                    onChange={(event) => setExceptionStart(event.target.value)}
-                  />
-
-                  <Input
-                    id={`${lock.id}-exc-end`}
-                    name="exceptionEnd"
-                    type="time"
-                    label={t('Locks.ExceptionsSection.modifiedEndLabel')}
-                    noTranslate
-                    className="input__full"
-                    value={exceptionEnd}
-                    onChange={(event) => setExceptionEnd(event.target.value)}
-                  />
-                </>
-              )}
-            </div>
-
-            <div className="community-form__field">
-              <Input
-                id={`${lock.id}-exc-reason`}
-                name="exceptionReason"
-                label={t('Locks.ExceptionsSection.reasonLabel')}
-                noTranslate
-                placeholder={t('Locks.ExceptionsSection.reasonPlaceholder')}
-                className="input__full"
-                value={exceptionReason}
-                maxLength={300}
-                onChange={(event) => setExceptionReason(event.target.value)}
-              />
-              <span className="community-form__help">
-                {t('Locks.ExceptionsSection.reasonHelp')}
-              </span>
-            </div>
-          </div>
-        </ModalComponent>
-      )}
-
-      {isReleaseOpen && (
-        <ModalComponent
-          title={t('Locks.ReleaseSection.releaseTitle')}
-          isOpen
-          isLoading={isPending}
-          onClose={() => setIsReleaseOpen(false)}
-          onCancel={() => setIsReleaseOpen(false)}
-          onConfirm={() =>
-            run(
-              () =>
-                releaseLock(lock.id, {
-                  releasedUntil: new Date(
-                    Date.now() + parsedReleaseHours * 60 * 60 * 1000,
-                  ).toISOString(),
-                  reason: releaseReason || undefined,
-                }),
-              () => setIsReleaseOpen(false),
-            )
-          }
-          confirmText="release"
-          isLoadingText="releasing"
-          confirmDisabled={!isReleaseHoursValid}
-        >
-          <div className="community-form">
-            <Alert
-              type="warning"
-              message={t('Locks.ReleaseSection.opensWithoutCredential')}
-              className="input__full"
-            />
-
-            <div className="community-form__field">
-              <Input
-                id={`${lock.id}-release-hours`}
-                name="releaseHours"
-                type="number"
-                label={t('Locks.ReleaseSection.hoursLabel')}
-                noTranslate
-                className="input__full"
-                value={releaseHours}
-                onChange={(event) => setReleaseHours(event.target.value)}
-              />
-              <span className="community-form__help">
-                {t('Locks.ReleaseSection.hoursHelp')}
-              </span>
-            </div>
-
-            {!isReleaseHoursValid && (
-              <p className="community-form__error">
-                {t('Locks.ReleaseSection.maxHours', { max: MAX_RELEASE_HOURS })}
-              </p>
+        <div className="community-facts__item">
+          <dt className="community-facts__label">{t('Locks.connection')}</dt>
+          <dd className="community-facts__value">
+            {status?.online ? (
+              <WifiIcon aria-hidden="true" />
+            ) : (
+              <WifiOffIcon aria-hidden="true" />
             )}
+            {status?.online ? t('Locks.online') : t('Locks.offline')}
+          </dd>
+        </div>
 
-            <div className="community-form__field">
-              <Input
-                id={`${lock.id}-release-reason`}
-                name="releaseReason"
-                label={t('Locks.ReleaseSection.reasonLabel')}
-                noTranslate
-                placeholder={t('Locks.ReleaseSection.reasonPlaceholder')}
-                className="input__full"
-                value={releaseReason}
-                maxLength={300}
-                onChange={(event) => setReleaseReason(event.target.value)}
-              />
-              <span className="community-form__help">
-                {t('Locks.ReleaseSection.reasonHelp')}
-              </span>
-            </div>
+        <div className="community-facts__item">
+          <dt className="community-facts__label">{t('Locks.syncedAt')}</dt>
+          <dd className="community-facts__value">
+            {formatCommunityDateTime(lock.lastSyncedAt, locale, tCommon('notAvailable'))}
+          </dd>
+        </div>
+      </dl>
 
-            <span className="community-form__help">{t('Locks.ReleaseSection.audited')}</span>
-          </div>
-        </ModalComponent>
-      )}
+      {/*
+        Dónde se cambia esto, dicho una vez.
+        La pregunta que trae a esta pantalla suele ser «¿por qué no puedo editar nada?», y la respuesta es
+        que la puerta es del fabricante: aquí se lee, y el horario vive en el llavero.
+      */}
+      <p className="community-notice">
+        <InfoIcon aria-hidden="true" />
+        {t('Locks.readOnlyExplanation')}
+      </p>
     </SettingsSection>
   );
 }

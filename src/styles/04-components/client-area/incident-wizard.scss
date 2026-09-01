@@ -57,7 +57,7 @@
 
 .incident-wizard__summary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
   gap: 0.85rem 1.25rem;
   margin: 0;
   border: 1px solid var(--border-color);

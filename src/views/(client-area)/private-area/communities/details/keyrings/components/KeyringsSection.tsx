@@ -14,6 +14,7 @@ import { getKeyringMembers } from '@/actions/client-portal/community-lock-creden
 import { HTTPStatus } from '@/constants/httpStatus';
 import { notifyResponse } from '@/utils/toastUtils';
 
+import Alert from '@/components/ui/alerts/Alert';
 import Button from '@/components/ui/buttons/Button';
 import Input from '@/components/ui/inputs/Input';
 import Select from '@/components/ui/inputs/Select';
@@ -26,22 +27,21 @@ import Toggle from '@/components/ui/inputs/Toggle';
 
 import type {
   CommunityLock,
-  DayOfWeek,
+  CommunitySite,
   LockGroup,
-  LockGroupScheduleSlot,
+  LockPermissionPresence,
+  LockPermissionTarget,
+  LockSchedule,
 } from '@/types/client-portal/community';
 import type { FetchResponse, PaginatedResult } from '@/types/responses';
 
 import '@/styles/04-components/client-area/community-common.scss';
 
-/** Los días de la semana, en el orden en que se leen. */
-const DAYS: DayOfWeek[] = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-
 /**
- * Los cinco métodos del fabricante, con la bandera del formulario que los enciende.
+ * Los cinco métodos del fabricante, con la bandera de la regla que los enciende.
  *
- * Están en el llavero y no en la puerta porque es donde el fabricante los decide: allí una puerta solo dice
- * qué sabe hacer el aparato instalado, y lo que se concede vive en la regla del grupo.
+ * Se guardan juntos porque siempre se pintan juntos: son las cinco casillas de «cómo se abre», y tenerlos en
+ * una lista evita escribir cinco veces el mismo interruptor.
  */
 const METHODS = [
   ['ONLINE', 'allowsOnline'],
@@ -51,58 +51,96 @@ const METHODS = [
   ['CARD', 'allowsCard'],
 ] as const;
 
-interface KeyringFormState {
-  name: string;
-  description: string;
-  isDefault: boolean;
-  lockIds: string[];
-  /** Cómo se abre con este llavero, desde dónde y a qué horas. */
+/** A qué puede apuntar una regla, de lo más amplio a lo más concreto. */
+const TARGETS: LockPermissionTarget[] = ['EVERYTHING', 'SITE', 'LOCK'];
+
+/** Desde dónde se puede abrir en remoto. */
+const PRESENCES: LockPermissionPresence[] = ['NONE', 'GPS'];
+
+/**
+ * Una regla dentro del formulario.
+ *
+ * Es lo mismo que manda la API pero con todos los campos presentes, para que los controles no salten entre
+ * controlado y no controlado según lo que se haya tocado.
+ * @interface RuleFormValue
+ */
+interface RuleFormValue {
+  target: LockPermissionTarget;
+  siteId: string;
+  lockId: string;
+  actionId: string;
+  scheduleId: string;
+  presence: LockPermissionPresence;
   allowsOnline: boolean;
   allowsBluetooth: boolean;
   allowsMobileNfc: boolean;
   allowsPin: boolean;
   allowsCard: boolean;
-  requiresPresence: boolean;
-  tags: string[];
-  scheduleSlots: LockGroupScheduleSlot[];
 }
 
-/*
- * Sin decir nada, Bluetooth y PIN.
- *
- * Es lo que abre un portal con el móvil delante y con el teclado, que es lo que hay instalado en la inmensa
- * mayoría. Online se deja apagado a propósito: sin pasarela no funciona, y encenderlo por defecto haría que
- * el llavero prometiera una apertura remota que la puerta no puede dar.
- */
-const EMPTY_FORM: KeyringFormState = {
-  name: '',
-  description: '',
-  isDefault: false,
-  lockIds: [],
+/** Una regla nueva: una puerta, con el móvil y el PIN, que es lo que casi siempre se quiere. */
+const EMPTY_RULE: RuleFormValue = {
+  target: 'LOCK',
+  siteId: '',
+  lockId: '',
+  actionId: '',
+  scheduleId: '',
+  presence: 'NONE',
   allowsOnline: false,
   allowsBluetooth: true,
   allowsMobileNfc: false,
   allowsPin: true,
   allowsCard: false,
-  requiresPresence: false,
+};
+
+interface KeyringFormState {
+  name: string;
+  description: string;
+  isDefault: boolean;
+  tags: string[];
+  /** Qué abre, cuándo y cómo. El acceso se concede si al menos una regla encaja. */
+  permissionRules: RuleFormValue[];
+}
+
+const EMPTY_FORM: KeyringFormState = {
+  name: '',
+  description: '',
+  isDefault: false,
   tags: [],
-  scheduleSlots: [],
+  permissionRules: [EMPTY_RULE],
 };
 
 interface KeyringsManagerProps {
   serviceId: string;
   keyrings: PaginatedResult<LockGroup>;
   locks: CommunityLock[];
+  sites: CommunitySite[];
+  schedules: LockSchedule[];
 }
 
 /**
- * Alta, edición y baja de llaveros. Al editar, `lockIds` sustituye la lista
- * completa de puertas del llavero (no la amplía), así que el formulario parte
- * siempre de la selección actual.
- * @param {KeyringsManagerProps} props - Comunidad activa, página actual de llaveros y puertas disponibles
+ * Alta, edición y baja de llaveros.
+ *
+ * **Un llavero es un conjunto de reglas de permiso**, que es lo que concede acceso en el fabricante. Cada
+ * regla dice qué abre —toda la organización, toda una sede, una puerta, o una sola acción de esa puerta—,
+ * cuándo y con qué métodos.
+ *
+ * Antes esto era «una lista de puertas y unos métodos comunes», y eso no sabía decir las dos cosas que en un
+ * edificio hacen falta: *toda la sede*, para que el llavero del administrador incluya la puerta que se monte
+ * mañana, y *una acción concreta*, para dejar subir el garaje a quien no puede bajarlo.
+ *
+ * Al editar, las reglas **sustituyen la lista entera**: es lo único que hace que quitar una llegue de verdad
+ * a la cerradura, porque allí los permisos de un grupo se reescriben de una pieza.
+ * @param {KeyringsManagerProps} props - Comunidad, llaveros, puertas, sedes y horarios
  * @returns {JSX.Element} El listado de llaveros con sus acciones
  */
-export default function KeyringsSection({ serviceId, keyrings, locks }: KeyringsManagerProps) {
+export default function KeyringsSection({
+  serviceId,
+  keyrings,
+  locks,
+  sites,
+  schedules,
+}: KeyringsManagerProps) {
   const t = useTranslations('Views.ClientArea.Communities');
 
   const router = useRouter();
@@ -144,15 +182,22 @@ export default function KeyringsSection({ serviceId, keyrings, locks }: Keyrings
       name: keyring.name,
       description: keyring.description ?? '',
       isDefault: keyring.isDefault,
-      lockIds: keyring.locks.map((lock) => lock.id),
-      allowsOnline: keyring.allowsOnline ?? false,
-      allowsBluetooth: keyring.allowsBluetooth ?? true,
-      allowsMobileNfc: keyring.allowsMobileNfc ?? false,
-      allowsPin: keyring.allowsPin ?? true,
-      allowsCard: keyring.allowsCard ?? false,
-      requiresPresence: keyring.requiresPresence ?? false,
       tags: keyring.tags ?? [],
-      scheduleSlots: keyring.scheduleSlots ?? [],
+      permissionRules: keyring.permissionRules?.length
+        ? keyring.permissionRules.map((rule) => ({
+            target: rule.target,
+            siteId: rule.siteId ?? '',
+            lockId: rule.lockId ?? '',
+            actionId: rule.actionId ?? '',
+            scheduleId: rule.scheduleId ?? '',
+            presence: rule.presence,
+            allowsOnline: rule.allowsOnline,
+            allowsBluetooth: rule.allowsBluetooth,
+            allowsMobileNfc: rule.allowsMobileNfc,
+            allowsPin: rule.allowsPin,
+            allowsCard: rule.allowsCard,
+          }))
+        : [EMPTY_RULE],
     });
     setIsFormOpen(true);
   };
@@ -163,62 +208,57 @@ export default function KeyringsSection({ serviceId, keyrings, locks }: Keyrings
     setForm(EMPTY_FORM);
   };
 
-  const toggleLock = (lockId: string) => {
+  const updateRule = (index: number, patch: Partial<RuleFormValue>) => {
     setForm((previous) => ({
       ...previous,
-      lockIds: previous.lockIds.includes(lockId)
-        ? previous.lockIds.filter((id) => id !== lockId)
-        : [...previous.lockIds, lockId],
-    }));
-  };
-
-  /** Añade un tramo nuevo, en lunes de mañana, que es lo que casi siempre se quiere. */
-  const addSlot = () => {
-    setForm((previous) => ({
-      ...previous,
-      scheduleSlots: [
-        ...previous.scheduleSlots,
-        { dayOfWeek: 'MON' as DayOfWeek, startTime: '08:00', endTime: '22:00' },
-      ],
-    }));
-  };
-
-  const updateSlot = (index: number, patch: Partial<LockGroupScheduleSlot>) => {
-    setForm((previous) => ({
-      ...previous,
-      scheduleSlots: previous.scheduleSlots.map((slot, i) =>
-        i === index ? { ...slot, ...patch } : slot,
+      permissionRules: previous.permissionRules.map((rule, i) =>
+        i === index ? { ...rule, ...patch } : rule,
       ),
     }));
   };
 
   /*
-   * Un llavero tiene que abrirse de alguna manera.
+   * Cada regla tiene que apuntar a algo y abrirse de alguna manera.
    *
-   * Con los cinco apagados, la regla que baja a la cerradura dice «este grupo no abre nada», y guardarlo
-   * sería un botón que no hace nada sin decir por qué.
+   * Sin destino la API la rechaza; sin ningún método, la regla baja a la cerradura diciendo «este grupo no
+   * abre esto de ninguna manera», que es una forma cara de no escribirla.
    */
-  const hasAnyMethod =
-    form.allowsOnline ||
-    form.allowsBluetooth ||
-    form.allowsMobileNfc ||
-    form.allowsPin ||
-    form.allowsCard;
+  const rulesAreValid = form.permissionRules.every((rule) => {
+    const hasTarget =
+      rule.target === 'EVERYTHING' ||
+      (rule.target === 'SITE' && Boolean(rule.siteId)) ||
+      (rule.target === 'LOCK' && Boolean(rule.lockId));
+
+    const hasMethod =
+      rule.allowsOnline ||
+      rule.allowsBluetooth ||
+      rule.allowsMobileNfc ||
+      rule.allowsPin ||
+      rule.allowsCard;
+
+    return hasTarget && hasMethod;
+  });
 
   const handleSubmit = () => {
     const payload = {
       name: form.name,
       description: form.description || undefined,
       isDefault: form.isDefault,
-      lockIds: form.lockIds,
-      allowsOnline: form.allowsOnline,
-      allowsBluetooth: form.allowsBluetooth,
-      allowsMobileNfc: form.allowsMobileNfc,
-      allowsPin: form.allowsPin,
-      allowsCard: form.allowsCard,
-      requiresPresence: form.requiresPresence,
       tags: form.tags,
-      scheduleSlots: form.scheduleSlots,
+      permissionRules: form.permissionRules.map((rule) => ({
+        target: rule.target,
+        siteId: rule.target === 'SITE' ? rule.siteId : undefined,
+        lockId: rule.target === 'LOCK' ? rule.lockId : undefined,
+        // Una acción concreta solo tiene sentido sobre una puerta concreta.
+        actionId: rule.target === 'LOCK' && rule.actionId ? rule.actionId : undefined,
+        scheduleId: rule.scheduleId || undefined,
+        presence: rule.presence,
+        allowsOnline: rule.allowsOnline,
+        allowsBluetooth: rule.allowsBluetooth,
+        allowsMobileNfc: rule.allowsMobileNfc,
+        allowsPin: rule.allowsPin,
+        allowsCard: rule.allowsCard,
+      })),
     };
 
     run(
@@ -294,14 +334,8 @@ export default function KeyringsSection({ serviceId, keyrings, locks }: Keyrings
           onConfirm={handleSubmit}
           confirmText="save"
           isLoadingText="saving"
-          confirmDisabled={!form.name.trim() || form.lockIds.length === 0 || !hasAnyMethod}
-          footerError={
-            form.lockIds.length === 0
-              ? t('Keyrings.locksRequired')
-              : !hasAnyMethod
-                ? t('Keyrings.methodsRequired')
-                : undefined
-          }
+          confirmDisabled={!form.name.trim() || !rulesAreValid}
+          footerError={rulesAreValid ? undefined : t('Keyrings.rulesInvalid')}
         >
           <div className="community-form">
             <Input
@@ -327,14 +361,6 @@ export default function KeyringsSection({ serviceId, keyrings, locks }: Keyrings
               onChange={(event) => setForm({ ...form, description: event.target.value })}
             />
 
-            <Toggle
-              name="isDefault"
-              label={t('Keyrings.isDefaultLabel')}
-              description={t('Keyrings.isDefaultHelp')}
-              checked={form.isDefault}
-              onChange={(checked) => setForm({ ...form, isDefault: checked })}
-            />
-
             {/* Las etiquetas son de quien administra el edificio: se escriben, no se eligen de una lista. */}
             <TagsInput
               id="keyring-tags"
@@ -347,132 +373,206 @@ export default function KeyringsSection({ serviceId, keyrings, locks }: Keyrings
               className="input__full"
             />
 
-            {/*
-              Cómo se abre con este llavero, decidido aquí y una sola vez.
-
-              Son los cinco métodos del fabricante y viven aquí y no en la puerta: allí la puerta solo dice
-              qué sabe hacer el aparato instalado. Antes esto preguntaba «qué llaves entrega», que es otra
-              cosa —eso son credenciales, y son de la persona— y por eso cambiarlo no llegaba a la cerradura.
-            */}
-            <div className="community-form__field">
-              <span className="community-form__label">{t('Keyrings.accessMethodsLabel')}</span>
-              <span className="community-form__help">{t('Keyrings.accessMethodsHelp')}</span>
-
-              <div className="community-form__check-list">
-                {METHODS.map(([method, field]) => (
-                  <Toggle
-                    key={field}
-                    name={field}
-                    label={t(`AccessMethod.${method}`)}
-                    checked={form[field]}
-                    onChange={(checked) => setForm({ ...form, [field]: checked })}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <Select
-              name="requiresPresence"
-              label={t('Keyrings.presenceLabel')}
-              noTranslate
-              placeholder={t('Keyrings.presenceLabel')}
-              description={t('Keyrings.presenceHelp')}
-              options={[
-                { value: 'ANYWHERE', label: t('Keyrings.presenceAnywhere') },
-                { value: 'GEO', label: t('Keyrings.presenceGeo') },
-              ]}
-              value={form.requiresPresence ? 'GEO' : 'ANYWHERE'}
-              onChange={(value) => setForm({ ...form, requiresPresence: value === 'GEO' })}
-              className="select__full"
+            <Toggle
+              name="isDefault"
+              label={t('Keyrings.isDefaultLabel')}
+              description={t('Keyrings.isDefaultHelp')}
+              checked={form.isDefault}
+              onChange={(checked) => setForm({ ...form, isDefault: checked })}
             />
 
-            {/*
-              El horario del llavero. **Vacío significa que abre siempre**, no que no abra nunca: el defecto
-              no puede ser «cerrado», porque una tabla vacía dejaría a los vecinos en la calle.
-            */}
             <div className="community-form__field">
-              <span className="community-form__label">{t('Keyrings.scheduleLabel')}</span>
-              <span className="community-form__help">
-                {form.scheduleSlots.length === 0
-                  ? t('Keyrings.scheduleEmptyMeansAlways')
-                  : t('Keyrings.scheduleHelp')}
-              </span>
+              <span className="community-form__label">{t('Keyrings.rulesLabel')}</span>
+              <span className="community-form__help">{t('Keyrings.rulesHelp')}</span>
 
-              {form.scheduleSlots.map((slot, index) => (
-                <div key={`slot-${index}`} className="community-form__slot">
-                  <Select
-                    name={`slot-day-${index}`}
-                    label={t('Keyrings.slotDay')}
-                    noTranslate
-                    placeholder={t('Keyrings.slotDay')}
-                    options={DAYS.map((day) => ({ value: day, label: t(`DayOfWeek.${day}`) }))}
-                    value={slot.dayOfWeek}
-                    onChange={(value) => updateSlot(index, { dayOfWeek: value as DayOfWeek })}
-                    className="select__full"
-                  />
+              {form.permissionRules.map((rule, index) => {
+                const lock = locks.find((item) => item.id === rule.lockId);
 
-                  {/* Dos campos y no un componente de rango: aquí no hay uno, y la hora nativa ya valida. */}
-                  <Input
-                    id={`slot-start-${index}`}
-                    name={`slot-start-${index}`}
-                    type="time"
-                    label={t('Keyrings.slotStart')}
-                    noTranslate
-                    value={slot.startTime}
-                    onChange={(event) => updateSlot(index, { startTime: event.target.value })}
-                  />
+                return (
+                  <div key={`rule-${index}`} className="permission-rule">
+                    <div className="permission-rule__head">
+                      <span className="permission-rule__index">
+                        {t('Keyrings.ruleNumber', { number: index + 1 })}
+                      </span>
 
-                  <Input
-                    id={`slot-end-${index}`}
-                    name={`slot-end-${index}`}
-                    type="time"
-                    label={t('Keyrings.slotEnd')}
-                    noTranslate
-                    value={slot.endTime}
-                    onChange={(event) => updateSlot(index, { endTime: event.target.value })}
-                  />
+                      {/* La última no se puede quitar: un llavero sin reglas no abre nada. */}
+                      {form.permissionRules.length > 1 && (
+                        <Button
+                          variant="outline"
+                          ariaLabel="delete"
+                          onClick={() =>
+                            setForm({
+                              ...form,
+                              permissionRules: form.permissionRules.filter((_, i) => i !== index),
+                            })
+                          }
+                        >
+                          <Trash2Icon />
+                        </Button>
+                      )}
+                    </div>
 
-                  <Button
-                    variant="outline"
-                    ariaLabel="delete"
-                    onClick={() =>
-                      setForm({
-                        ...form,
-                        scheduleSlots: form.scheduleSlots.filter((_, i) => i !== index),
-                      })
-                    }
-                  >
-                    <Trash2Icon />
-                  </Button>
-                </div>
-              ))}
+                    <Select
+                      name={`rule-target-${index}`}
+                      label={t('Keyrings.targetLabel')}
+                      noTranslate
+                      placeholder={t('Keyrings.targetLabel')}
+                      className="select__full"
+                      options={TARGETS.map((value) => ({
+                        value,
+                        label: t(`Keyrings.Target.${value}`),
+                      }))}
+                      value={rule.target}
+                      onChange={(value) =>
+                        updateRule(index, {
+                          target: value as LockPermissionTarget,
+                          // Al cambiar de destino, lo elegido antes deja de tener sentido.
+                          siteId: '',
+                          lockId: '',
+                          actionId: '',
+                        })
+                      }
+                    />
 
-              <Button variant="outline" title="add" onClick={addSlot}>
+                    {rule.target === 'SITE' && (
+                      <Select
+                        name={`rule-site-${index}`}
+                        label={t('Keyrings.siteLabel')}
+                        noTranslate
+                        placeholder={t('Keyrings.siteLabel')}
+                        className="select__full"
+                        options={[
+                          { value: '', label: '—' },
+                          ...sites.map((site) => ({ value: site.id, label: site.name })),
+                        ]}
+                        value={rule.siteId}
+                        onChange={(value) => updateRule(index, { siteId: value })}
+                      />
+                    )}
+
+                    {rule.target === 'LOCK' && (
+                      <Select
+                        name={`rule-lock-${index}`}
+                        label={t('Keyrings.lockLabel')}
+                        noTranslate
+                        placeholder={t('Keyrings.lockLabel')}
+                        className="select__full"
+                        options={[
+                          { value: '', label: '—' },
+                          ...locks.map((item) => ({ value: item.id, label: item.name })),
+                        ]}
+                        value={rule.lockId}
+                        onChange={(value) => updateRule(index, { lockId: value, actionId: '' })}
+                      />
+                    )}
+
+                    {/*
+                      La acción, solo cuando la puerta sabe hacer más de una.
+                      Con una sola no hay nada que elegir, y un desplegable de un elemento invita a pensar
+                      que hay una decisión que tomar donde no la hay.
+                    */}
+                    {rule.target === 'LOCK' && (lock?.actions?.length ?? 0) > 1 && (
+                      <Select
+                        name={`rule-action-${index}`}
+                        label={t('Keyrings.actionLabel')}
+                        noTranslate
+                        placeholder={t('Keyrings.actionLabel')}
+                        className="select__full"
+                        options={[
+                          { value: '', label: t('Keyrings.allActions') },
+                          ...(lock?.actions ?? []).map((action) => ({
+                            value: action.id,
+                            label: action.name,
+                          })),
+                        ]}
+                        value={rule.actionId}
+                        onChange={(value) => updateRule(index, { actionId: value })}
+                      />
+                    )}
+
+                    <div className="community-form__field">
+                      <span className="community-form__label">{t('Keyrings.methodsLabel')}</span>
+
+                      {/*
+                        Lo que la puerta no sabe hacer sale **bloqueado**, no marcable.
+                        Antes se dejaba marcar y aparecía debajo un aviso —«esta puerta no sabe abrir con:
+                        Online»— que había que leer para enterarse de que lo que acababas de activar no iba a
+                        funcionar. Un interruptor que no se puede subir dice lo mismo sin que nadie tenga que
+                        leer nada, y el motivo va en su propia línea.
+                      */}
+                      <div className="community-form__check-list">
+                        {METHODS.map(([method, field]) => {
+                          const supported = supports(lock, method);
+
+                          return (
+                            <Toggle
+                              key={field}
+                              name={`rule-${field}-${index}`}
+                              label={t(`AccessMethod.${method}`)}
+                              description={
+                                supported ? undefined : t('Keyrings.methodNotSupported')
+                              }
+                              checked={rule[field] && supported}
+                              disabled={!supported}
+                              onChange={(checked) => updateRule(index, { [field]: checked })}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <Select
+                      name={`rule-schedule-${index}`}
+                      label={t('Keyrings.scheduleLabel')}
+                      noTranslate
+                      placeholder={t('Keyrings.scheduleLabel')}
+                      description={t('Keyrings.scheduleHelp')}
+                      className="select__full"
+                      options={[
+                        { value: '', label: t('Keyrings.alwaysOpen') },
+                        ...schedules.map((schedule) => ({
+                          value: schedule.id,
+                          label: schedule.name,
+                        })),
+                      ]}
+                      value={rule.scheduleId}
+                      onChange={(value) => updateRule(index, { scheduleId: value })}
+                    />
+
+                    <Select
+                      name={`rule-presence-${index}`}
+                      label={t('Keyrings.presenceLabel')}
+                      noTranslate
+                      placeholder={t('Keyrings.presenceLabel')}
+                      description={t('Keyrings.presenceHelp')}
+                      className="select__full"
+                      options={PRESENCES.map((value) => ({
+                        value,
+                        label: t(`Keyrings.Presence.${value}`),
+                      }))}
+                      value={rule.presence}
+                      onChange={(value) =>
+                        updateRule(index, { presence: value as LockPermissionPresence })
+                      }
+                      /*
+                       * Sin apertura en remoto esto no gobierna nada: el PIN, la tarjeta y el Bluetooth
+                       * exigen estar delante por su propia naturaleza y la presencia no los toca.
+                       */
+                      disabled={!rule.allowsOnline}
+                    />
+                  </div>
+                );
+              })}
+
+              <Button
+                variant="outline"
+                title="add"
+                onClick={() =>
+                  setForm({ ...form, permissionRules: [...form.permissionRules, EMPTY_RULE] })
+                }
+              >
                 <PlusIcon />
               </Button>
-            </div>
-
-            <div className="community-form__field">
-              <span className="community-form__label">{t('Keyrings.locksLabel')}</span>
-              {editing && (
-                <span className="community-form__help">{t('Keyrings.locksHelp')}</span>
-              )}
-
-              {locks.length > 0 ? (
-                <div className="community-form__check-list">
-                  {locks.map((lock) => (
-                    <Toggle
-                      key={lock.id}
-                      name={`lock-${lock.id}`}
-                      label={lock.name}
-                      checked={form.lockIds.includes(lock.id)}
-                      onChange={() => toggleLock(lock.id)}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <span className="community-form__help">{t('Keyrings.locksEmpty')}</span>
-              )}
             </div>
           </div>
         </ModalComponent>
@@ -486,15 +586,53 @@ export default function KeyringsSection({ serviceId, keyrings, locks }: Keyrings
           onClose={() => setDeleting(null)}
           onCancel={() => setDeleting(null)}
           onConfirm={() =>
-            run(() => deleteCommunityKeyring(serviceId, deleting.id), () => setDeleting(null))
+            run(
+              () => deleteCommunityKeyring(serviceId, deleting.id),
+              () => setDeleting(null),
+            )
           }
           confirmVariant="danger"
           confirmText="delete"
           isLoadingText="deleting"
         >
           <p>{t('Keyrings.deleteDescription')}</p>
+
+          {deleting.memberCount > 0 && (
+            <Alert
+              type="warning"
+              message={t('Keyrings.deleteBlocked', { count: deleting.memberCount })}
+            />
+          )}
         </ModalComponent>
       )}
     </>
+  );
+}
+
+/**
+ * Si una puerta sabe abrirse de una forma concreta.
+ *
+ * Lo que decide no es la puerta sino **el aparato del que cuelga**: el lector y el teclado son suyos, y seis
+ * puertas pueden colgar del mismo controlador. Una regla que apunta a una ubicación —o a toda la
+ * organización— no puede saberlo, porque ahí caben puertas distintas: en ese caso se deja marcar todo.
+ * @param {CommunityLock | undefined} lock - La puerta, si la regla apunta a una concreta
+ * @param {(typeof METHODS)[number][0]} method - El método
+ * @returns {boolean} Si esa puerta lo admite
+ */
+function supports(lock: CommunityLock | undefined, method: (typeof METHODS)[number][0]): boolean {
+  if (!lock) return true;
+
+  const capabilities = lock.capabilities;
+
+  // Bluetooth lo tiene todo lo que se instala hoy, y el fabricante no lo reporta como capacidad aparte.
+  if (method === 'BLUETOOTH') return true;
+  if (method === 'PIN') return Boolean(capabilities?.pin);
+  if (method === 'CARD' || method === 'MOBILE_NFC') return Boolean(capabilities?.nfc);
+
+  return Boolean(
+    capabilities?.internet ||
+      capabilities?.wifi ||
+      capabilities?.ethernet ||
+      capabilities?.cellular,
   );
 }

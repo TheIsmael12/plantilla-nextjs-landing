@@ -36,3 +36,24 @@ export function downloadBase64File(base64: string, fileName: string, mimeType: s
   link.click();
   URL.revokeObjectURL(url);
 }
+
+/**
+ * Descarga texto como fichero con un tipo MIME concreto.
+ *
+ * Existe aparte de {@link downloadTextFile} porque el tipo no es un detalle: un CSV declarado como
+ * `text/plain` se lo queda el editor de texto en vez de la hoja de cálculo, y el registro de accesos se
+ * exporta justamente para abrirlo en Excel.
+ * @param {string} fileName - Nombre del fichero a descargar, con su extensión
+ * @param {string} content - Contenido del fichero
+ * @param {string} mimeType - Tipo MIME con el que se declara (p. ej. `text/csv`)
+ * @returns {void}
+ */
+export function downloadFile(fileName: string, content: string, mimeType: string): void {
+  const blob = new Blob([content], { type: `${mimeType};charset=utf-8` });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+  link.click();
+  URL.revokeObjectURL(url);
+}

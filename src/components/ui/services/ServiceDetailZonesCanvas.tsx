@@ -41,6 +41,10 @@ const TOOLTIP_DIRECTION: Partial<Record<string, L.Direction>> = {
 };
 const DEFAULT_TOOLTIP_DIRECTION: L.Direction = 'top';
 
+/**
+ * Props de {@link ServiceDetailZonesCanvas}: las zonas que se pintan y cómo se llaman.
+ * @interface ServiceDetailZonesCanvasProps
+ */
 export interface ServiceDetailZonesCanvasProps {
   zones: ZoneData[];
   zoneNames: Record<string, string>;

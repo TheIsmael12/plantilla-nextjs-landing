@@ -202,7 +202,7 @@ export default function AssignKeysModal({
 
   const targetOptions = keyrings.map((group) => ({
     value: group.id,
-    label: `${group.name} · ${t('doors', { count: group.locks.length })}`,
+    label: `${group.name} · ${t('rules', { count: group.permissionRules.length })}`,
   }));
 
   return (
@@ -332,7 +332,15 @@ export default function AssignKeysModal({
             <Alert
               type="info"
               message={t('keyringOpensWith', {
-                methods: METHODS.filter(([, field]) => keyring[field])
+                /*
+                 * La **unión** de lo que conceden sus reglas, no la intersección.
+                 *
+                 * Si una regla da PIN para el portal y otra solo app para el garaje, a la persona hay que
+                 * darle las dos cosas — cada una le servirá donde valga.
+                 */
+                methods: METHODS.filter(([, field]) =>
+                  keyring.permissionRules.some((rule) => rule[field]),
+                )
                   .map(([method]) => tMethods(method))
                   .join(', '),
               })}

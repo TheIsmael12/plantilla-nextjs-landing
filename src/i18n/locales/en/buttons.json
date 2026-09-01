@@ -81,6 +81,17 @@
     "viewHolders": "View key holders",
     "markAllAsRead": "Mark {count} as read",
     "assigning": "Handing out...",
-    "communityResidentKeys": "View their keys"
+    "communityResidentKeys": "View their keys",
+    "refresh": "Refresh",
+    "export": "Export",
+    "communityKeyringValidity": "How long it lasts",
+    "communityIssuePin": "Give them a PIN",
+    "communityIssueCard": "Give them a card",
+    "communityIssueMagicLink": "Give them an access link",
+    "communityRevokeMagicLinks": "Revoke their links",
+    "communityRevealPin": "Show the PIN",
+    "communityResyncCredential": "Reprogram",
+    "communityRevokeCredential": "Revoke the key",
+    "view": "View"
   }
 }

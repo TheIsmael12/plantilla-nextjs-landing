@@ -2,11 +2,13 @@
 
 import "@/styles/04-components/ui/modals/modal.scss";
 
-import { useRef } from "react";
+import { useId, useRef } from "react";
 import { createPortal } from "react-dom";
 
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { overlayZIndex, useOverlayLayer } from "@/hooks/useOverlayLayer";
+import { useScrollLock } from "@/hooks/useScrollLock";
 
 import Button from "@/components/ui/buttons/Button";
 
@@ -53,17 +55,39 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
 }: ModalProps<T>) {
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
+  /*
+   * El id del título es propio de cada modal.
+   *
+   * Con uno fijo, dos modales abiertos a la vez —uno desde dentro del otro— dejaban dos elementos con el
+   * mismo id en el documento: el lector de pantalla lee el primero que encuentra, que es el de abajo, y
+   * anuncia el diálogo equivocado.
+   */
+  const titleId = useId();
+
+  /*
+   * Manda el de arriba.
+   *
+   * Un modal abierto desde dentro de otro rompía los dos: Escape los cerraba a la vez, y como cada uno se
+   * dibuja en la raíz del documento, para el de abajo **cualquier clic dentro del de arriba caía fuera** y
+   * se cerraba solo dejando al otro huérfano. Ahora el de debajo se queda quieto hasta que el de encima se
+   * cierra.
+   */
+  const { isTop, depth } = useOverlayLayer(isOpen);
+
   useFocusTrap<HTMLDialogElement>({
-    isActive: isOpen,
+    isActive: isOpen && isTop,
     onEscape: onClose,
     ref: modalRef,
   });
 
   useOutsideClick(modalRef, {
     onOutsideClick: () => onClose(),
-    isActive: isOpen && closeOnOutsideClick,
-    lockScroll: true,
+    isActive: isOpen && isTop && closeOnOutsideClick,
+    // El bloqueo del scroll se lleva aparte: contado, para que cerrar el de arriba no lo suelte por los dos.
+    lockScroll: false,
   });
+
+  useScrollLock(isOpen);
 
   if (!isOpen) return null;
 
@@ -73,7 +97,7 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
   const renderContent = () => {
     if (!children) {
       return (
-        <h3 id="modal-title" className="modal__content__title">
+        <h3 id={titleId} className="modal__content__title">
           {title}
         </h3>
       );
@@ -157,19 +181,29 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
 
   const modalContent = (
     <>
-      <div className="modal__overlay" />
+      {/*
+        El fondo oscuro se pinta por encima del modal de debajo, no solo de la página.
+        Sin esto los dos usaban el mismo `z-index` y decidía el orden del documento: el de abajo se veía
+        por encima de la cortinilla del que él mismo había abierto.
+      */}
+      <div className="modal__overlay" style={{ zIndex: overlayZIndex(depth, "overlay") }} />
 
       <dialog
         open
         ref={modalRef}
-        className={`modal${isLarge ? " modal--large" : ""}`}
+        style={{ zIndex: overlayZIndex(depth, "panel") }}
+        /*
+          Sin contenido, el diálogo es solo una pregunta y dos botones: ni cabecera que separar ni
+          formulario que acabe, así que las dos líneas sobran.
+        */
+        className={`modal${isLarge ? " modal--large" : ""}${children ? "" : " modal--plain"}`}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="modal-title"
+        aria-labelledby={titleId}
       >
         <div className="modal__header">
           {children && (
-            <h3 id="modal-title" className="modal__header__title">
+            <h3 id={titleId} className="modal__header__title">
               {title}
             </h3>
           )}

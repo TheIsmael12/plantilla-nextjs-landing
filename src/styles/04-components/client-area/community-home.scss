@@ -70,7 +70,7 @@
    * Son cuatro cifras cortas: en un móvil caben dos por fila y en un escritorio las cuatro, sin que haya que
    * escribir un punto de ruptura para cada caso. Y si algún día se añade una quinta, se coloca sola.
    */
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
   gap: 1rem;
   margin: 0;
 }
@@ -221,7 +221,7 @@
 
 .community-home__charts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
   gap: 1rem;
 }
 
@@ -266,7 +266,7 @@
 
 .community-home__doors {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
   gap: 1rem;
   list-style: none;
 }

@@ -71,13 +71,20 @@ export default function KeyringsTable({
         ),
       },
       {
-        id: 'locks',
-        header: () => t('Keyrings.locksLabel'),
+        id: 'permissionRules',
+        header: () => t('Keyrings.rulesLabel'),
         enableSorting: false,
-        // Relación `ManyToMany`, no una columna de `LockGroup`: no ordenable.
+        // Filas hijas, no una columna de `LockGroup`: no ordenable.
         cell: ({ row }) =>
-          row.original.locks.length > 0 ? (
-            row.original.locks.map((lock) => lock.name).join(', ')
+          row.original.permissionRules.length > 0 ? (
+            row.original.permissionRules
+              .map((rule) =>
+                rule.target === 'EVERYTHING'
+                  ? t('Keyrings.Target.EVERYTHING')
+                  : (rule.siteName ?? rule.lockName ?? ''),
+              )
+              .filter(Boolean)
+              .join(', ')
           ) : (
             <span className="community-table__muted">—</span>
           ),

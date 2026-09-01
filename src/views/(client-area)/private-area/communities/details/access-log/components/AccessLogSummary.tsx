@@ -1,82 +1,203 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useCallback, useEffect, useState, useTransition } from 'react';
 import { useTranslations } from 'next-intl';
-import { SearchIcon } from 'lucide-react';
+import { DownloadIcon, RotateCwIcon } from 'lucide-react';
 
-import { getLockAccessLog } from '@/actions/client-portal/community-locks-actions';
-import { HTTPStatus } from '@/constants/httpStatus';
+import { getCommunityAccessLog } from '@/actions/client-portal/community-locks-actions';
+import { isErrorStatus } from '@/utils/httpStatusUtils';
 import { notifyResponse } from '@/utils/toastUtils';
 import { ACCESS_RESULT_VARIANTS, formatCommunityDateTime } from '@/utils/communityFormatUtils';
+import { downloadFile } from '@/utils/fileDownloadUtils';
 import { toLocalIsoDate } from '@/utils/dateUtils';
 
 import Badge from '@/components/ui/buttons/Badge';
 import Button from '@/components/ui/buttons/Button';
-import DatePicker from '@/components/ui/inputs/DatePicker';
-import ModalComponent from '@/components/ui/modals/ModalComponent';
-import Textarea from '@/components/ui/inputs/Textarea';
+import List from '@/components/ui/lists/List';
+import ListItem from '@/components/ui/lists/ListItem';
 
-import type { LockAccessLogEntry, LockAccessSummary } from '@/types/client-portal/community';
+import type {
+  CommunityLock,
+  LockAccessLogEntry,
+  LockAccessResult,
+  LockAccessSummary,
+} from '@/types/client-portal/community';
+import type { Filter, FilterValue, FilterValues } from '@/types/ui/tables/table';
 
-import '@/styles/04-components/ui/forms/form-row.scss';
+import '@/styles/04-components/client-area/client-list.scss';
 import '@/styles/04-components/client-area/community-common.scss';
 
-const MIN_REASON_LENGTH = 5;
-const MAX_REASON_LENGTH = 300;
+const ENTRIES_PER_PAGE = 25;
+
+/** Resultados por los que se puede filtrar, en el orden en que se buscan. */
+const RESULT_OPTIONS: LockAccessResult[] = [
+  'GRANTED',
+  'GRANTED_BYPASS',
+  'DENIED_UNKNOWN',
+  'DENIED_EXPIRED',
+  'DENIED_LOCK_SCHEDULE',
+  'DENIED_CREDENTIAL_SCHEDULE',
+  'DENIED_LOCK_DISABLED',
+  'ERROR',
+];
+
+/** Los filtros vacíos, que son también con los que se entra. */
+const EMPTY_FILTERS: FilterValues = { lockId: '', result: '', from: '', to: '' };
 
 interface AccessLogSummaryProps {
+  serviceId: string;
   summaries: LockAccessSummary[];
+  locks: CommunityLock[];
   locale: string;
 }
 
 /**
- * Resumen agregado de accesos por puerta y, tras justificar el motivo, el
- * detalle nominal de una puerta concreta. El motivo se pide en un modal
- * *antes* de la petición y nunca es opcional: el backend lo exige (5-300
- * caracteres) y deja constancia de quién consultó qué y por qué.
- * @param {AccessLogSummaryProps} props - Resumen ya cargado en servidor y locale
- * @returns {JSX.Element} Las tarjetas de resumen y el detalle bajo demanda
+ * El resumen por puerta y, debajo, el historial de aperturas de la comunidad.
+ *
+ * **Ya no se pide motivo**, igual que en la intranet. Se exigía escribir uno de cinco letras antes de enseñar
+ * una sola fila, y eso no protegía nada: quien entra en esta pantalla lo mira igual, y lo único que
+ * conseguía era que se escribiera «revisión» cuarenta veces. La consulta **se sigue auditando** en el
+ * servidor, que es lo que de verdad deja rastro de quién ha mirado.
+ *
+ * Y la puerta pasa a ser un filtro más, no la condición para ver algo: la pregunta que trae aquí casi nunca
+ * es «qué ha pasado en el garaje», es «qué ha pasado esta noche», y con una consulta por puerta eso obligaba
+ * a repetirla seis veces y ordenar a ojo.
+ * @param {AccessLogSummaryProps} props - Comunidad, resumen ya cargado, puertas y locale
+ * @returns {JSX.Element} El resumen y el historial
  */
-export default function AccessLogSummary({ summaries, locale }: AccessLogSummaryProps) {
+export default function AccessLogSummary({
+  serviceId,
+  summaries,
+  locks,
+  locale,
+}: AccessLogSummaryProps) {
   const t = useTranslations('Views.ClientArea.Communities');
   const tCommon = useTranslations('Views.ClientArea.Common');
 
   const [isPending, startTransition] = useTransition();
 
-  const [target, setTarget] = useState<LockAccessSummary | null>(null);
-  const [reason, setReason] = useState('');
-  const [from, setFrom] = useState<Date | null>(null);
-  const [to, setTo] = useState<Date | null>(null);
-  const [entries, setEntries] = useState<LockAccessLogEntry[] | null>(null);
-  const [detailFor, setDetailFor] = useState<LockAccessSummary | null>(null);
+  const [search, setSearch] = useState('');
+  const [filterValues, setFilterValues] = useState<FilterValues>(EMPTY_FILTERS);
+  const [entries, setEntries] = useState<LockAccessLogEntry[]>([]);
 
-  const isReasonValid =
-    reason.trim().length >= MIN_REASON_LENGTH && reason.trim().length <= MAX_REASON_LENGTH;
+  /** Un filtro tal como lo espera la API: siempre texto, nunca un `Date` ni una lista. */
+  const asText = (value: FilterValue): string =>
+    typeof value === 'string' ? value : value instanceof Date ? toLocalIsoDate(value) : '';
 
-  const handleConsult = () => {
-    if (!target || !isReasonValid) return;
+  const load = useCallback(() => {
+    const lockId = asText(filterValues.lockId);
+    const result = asText(filterValues.result);
+    const from = asText(filterValues.from);
+    const to = asText(filterValues.to);
 
     startTransition(async () => {
-      const response = await getLockAccessLog(target.lockId, {
-        reason: reason.trim(),
-        // El filtro elige días, no momentos exactos: se busca desde el
-        // primer instante del día de inicio hasta el último del día final.
-        from: from ? `${toLocalIsoDate(from)}T00:00:00.000Z` : undefined,
-        to: to ? `${toLocalIsoDate(to)}T23:59:59.999Z` : undefined,
+      const response = await getCommunityAccessLog(serviceId, {
+        lockId: lockId || undefined,
+        // El filtro elige días, no momentos: desde el primer instante del día hasta el último del final.
+        from: from ? `${from}T00:00:00` : undefined,
+        to: to ? `${to}T23:59:59` : undefined,
+        result: (result as LockAccessResult) || undefined,
+        search: search.trim() || undefined,
       });
 
-      if (response.status === HTTPStatus.OK) {
-        setEntries(response.data ?? []);
-        setDetailFor(target);
-        setTarget(null);
-        setReason('');
-        setFrom(null);
-        setTo(null);
+      if (isErrorStatus(response.status)) {
+        notifyResponse(response, t('AccessLog.loadError'));
+
         return;
       }
 
-      notifyResponse(response, t('loadError'));
+      setEntries(response.data ?? []);
     });
+    // `t` no cambia entre renders; incluirlo recargaría el registro sin motivo.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [serviceId, filterValues, search]);
+
+  /*
+   * Se carga solo y se recarga al cambiar un filtro.
+   *
+   * Es lo que convierte esto en un historial en vez de un formulario: no hay nada que enviar, se mira. El
+   * botón que queda es el de recargar, para cuando se está esperando a que entre alguien.
+   */
+  useEffect(load, [load]);
+
+  const filters: Filter[] = [
+    {
+      key: 'lockId',
+      type: 'select',
+      label: t('AccessLog.lockLabel'),
+      options: [
+        { value: '', label: t('AccessLog.allLocks') },
+        ...locks.map((lock) => ({ value: lock.id, label: lock.name })),
+      ],
+    },
+    {
+      key: 'result',
+      type: 'select',
+      label: t('AccessLog.resultLabel'),
+      options: [
+        { value: '', label: t('AccessLog.anyResult') },
+        ...RESULT_OPTIONS.map((value) => ({ value, label: t(`AccessResult.${value}`) })),
+      ],
+    },
+    {
+      key: 'from',
+      type: 'date',
+      label: t('AccessLog.from'),
+      maxDate: asText(filterValues.to) || undefined,
+      disableFuture: true,
+    },
+    {
+      key: 'to',
+      type: 'date',
+      label: t('AccessLog.to'),
+      minDate: asText(filterValues.from) || undefined,
+      disableFuture: true,
+    },
+  ];
+
+  /** Quién abrió, con la mejor identificación que haya de la apertura. */
+  const openedBy = (entry: LockAccessLogEntry) =>
+    entry.residentName ??
+    entry.credentialLabel ??
+    entry.openedByLabel ??
+    t('AccessLog.unidentified');
+
+  /**
+   * Se lleva el historial a una hoja de cálculo.
+   *
+   * Sale en CSV con `;` y con marca de orden de bytes, que es lo que Excel abre de un doble clic en un
+   * Windows en español: con `,` mete todo en una columna, y sin la marca destroza los acentos. No se genera
+   * un `.xlsx` de verdad porque eso pide una dependencia entera para lo mismo.
+   */
+  const handleExport = () => {
+    const cabecera = [
+      t('AccessLog.csvDate'),
+      t('AccessLog.csvLock'),
+      t('AccessLog.csvWho'),
+      t('AccessLog.csvMethod'),
+      t('AccessLog.csvResult'),
+    ];
+
+    /** Un valor listo para una celda: sin `;` ni saltos que rompan la fila. */
+    const celda = (valor: string) => `"${valor.replace(/"/g, '""')}"`;
+
+    const filas = entries.map((entry) =>
+      [
+        formatCommunityDateTime(entry.occurredAt, locale, tCommon('notAvailable')),
+        entry.lockName,
+        openedBy(entry),
+        t(`AccessMethod.${entry.method}`),
+        t(`AccessResult.${entry.result}`),
+      ]
+        .map(celda)
+        .join(';'),
+    );
+
+    downloadFile(
+      `${t('AccessLog.csvFileName')}.csv`,
+      `﻿${[cabecera.map(celda).join(';'), ...filas].join('\r\n')}`,
+      'text/csv',
+    );
   };
 
   return (
@@ -109,152 +230,88 @@ export default function AccessLogSummary({ summaries, locale }: AccessLogSummary
                 {formatCommunityDateTime(summary.lastAccessAt, locale, tCommon('notAvailable'))}
               </span>
             </div>
-
-            <Button
-              size="sm"
-              variant="outline"
-              title="viewDetail"
-              onClick={() => {
-                setTarget(summary);
-                setReason('');
-              }}
-              disabled={isPending}
-            >
-              <SearchIcon />
-            </Button>
           </article>
         ))}
       </div>
 
-      {target && (
-        <ModalComponent
-          title={t('AccessLog.reasonTitle')}
-          isOpen
+      <section className="community-section">
+        <h2 className="community-section__title">{t('AccessLog.historyTitle')}</h2>
+        <p className="community-muted">{t('AccessLog.historyDescription')}</p>
+
+        <List
+          items={entries}
+          getItemId={(entry) => entry.id}
+          ariaLabel={t('AccessLog.historyTitle')}
+          initialPageSize={ENTRIES_PER_PAGE}
+          searchable
+          searchPlaceholder={t('AccessLog.searchPlaceholder')}
+          /* El backend es quien filtra y busca: aquí solo se pagina lo que ha contestado. */
+          manualFiltering
+          globalFilter={search}
+          onSearchChange={setSearch}
+          filters={filters}
+          filterValues={filterValues}
+          onFilterChange={(key, value) =>
+            setFilterValues((previous) => ({ ...previous, [key]: asText(value) }))
+          }
+          onClearAll={() => setFilterValues(EMPTY_FILTERS)}
           isLoading={isPending}
-          onClose={() => setTarget(null)}
-          onCancel={() => setTarget(null)}
-          onConfirm={handleConsult}
-          confirmText="consult"
-          isLoadingText="consulting"
-          confirmDisabled={!isReasonValid}
-        >
-          <div className="community-form">
-            <p>{t('AccessLog.reasonDescription')}</p>
+          emptyMessage={t('AccessLog.empty')}
+          toolbarActions={
+            <>
+              <Button
+                variant="outline"
+                title={isPending ? 'loading' : 'refresh'}
+                onClick={load}
+                disabled={isPending}
+              >
+                <RotateCwIcon />
+              </Button>
 
-            <div className="community-form__field">
-              <Textarea
-                id="access-reason"
-                name="reason"
-                label={t('AccessLog.reasonLabel')}
-                noTranslate
-                value={reason}
-                maxLength={MAX_REASON_LENGTH}
-                placeholder={t('AccessLog.reasonPlaceholder')}
-                onChange={(event) => setReason(event.target.value)}
-              />
-              {!isReasonValid && reason.length > 0 && (
-                <span className="community-form__error">{t('AccessLog.reasonTooShort')}</span>
-              )}
-            </div>
+              <Button
+                variant="primary"
+                title="export"
+                onClick={handleExport}
+                disabled={entries.length === 0}
+              >
+                <DownloadIcon />
+              </Button>
+            </>
+          }
+          renderItem={(entry) => (
+            <ListItem
+              /*
+                Quién abrió va de título porque es la pregunta que trae a nadie hasta aquí.
+                Cuando no es un vecino —el administrador desde el panel del fabricante, un instalador— el
+                fabricante sí dice de dónde vino, y eso se enseña: «sin identificar» a secas suena a fallo y
+                deja pensando que el registro está roto cuando no lo está.
+              */
+              title={openedBy(entry)}
+              subtitle={`${entry.lockName} · ${t(`AccessMethod.${entry.method}`)} · ${formatCommunityDateTime(entry.occurredAt, locale, tCommon('notAvailable'))}`}
+              badge={
+                <>
+                  <Badge
+                    variant={ACCESS_RESULT_VARIANTS[entry.result]}
+                    text={t(`AccessResult.${entry.result}`)}
+                  />
 
-            <div className="form-row form-row--cols-2">
-              <DatePicker
-                id="access-from"
-                name="from"
-                label={t('AccessLog.fromLabel')}
-                value={from}
-                onChange={setFrom}
-                maxDate={to ?? undefined}
-                disableFuture
-                clearable
-                className="date-picker__full"
-              />
+                  {/* Que no sea un vecino se dice, para que nadie lo tome por uno. */}
+                  {!entry.residentName && entry.openedByLabel && (
+                    <Badge variant="neutral" text={t('AccessLog.notAResident')} />
+                  )}
 
-              <DatePicker
-                id="access-to"
-                name="to"
-                label={t('AccessLog.toLabel')}
-                value={to}
-                onChange={setTo}
-                minDate={from ?? undefined}
-                disableFuture
-                clearable
-                className="date-picker__full"
-              />
-            </div>
-          </div>
-        </ModalComponent>
-      )}
-
-      {entries && detailFor && (
-        <ModalComponent
-          title={t('AccessLog.detailTitle', { lock: detailFor.lockName })}
-          isOpen
-          isLarge
-          onClose={() => {
-            setEntries(null);
-            setDetailFor(null);
-          }}
-        >
-          {entries.length > 0 ? (
-            <div className="community-table__scroll">
-              <table className="community-table">
-                <thead>
-                  <tr>
-                    <th>{t('AccessLog.occurredAtColumn')}</th>
-                    <th>{t('AccessLog.residentColumn')}</th>
-                    <th>{t('AccessLog.credentialColumn')}</th>
-                    <th>{t('AccessLog.methodColumn')}</th>
-                    <th>{t('AccessLog.resultColumn')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {entries.map((entry) => (
-                    <tr key={entry.id}>
-                      <td>
-                        {formatCommunityDateTime(
-                          entry.occurredAt,
-                          locale,
-                          tCommon('notAvailable'),
-                        )}
-                        {entry.isOccurredAtApproximate && (
-                          <>
-                            <br />
-                            <span className="community-table__muted">
-                              {t('AccessLog.approximateTime')}
-                            </span>
-                          </>
-                        )}
-                      </td>
-                      <td>
-                        {entry.residentName ?? (
-                          <span className="community-table__muted">
-                            {t('Incidents.unknownResident')}
-                          </span>
-                        )}
-                      </td>
-                      <td>
-                        {entry.credentialLabel ?? (
-                          <span className="community-table__muted">—</span>
-                        )}
-                      </td>
-                      <td>{t(`AccessMethod.${entry.method}`)}</td>
-                      <td>
-                        <Badge
-                          variant={ACCESS_RESULT_VARIANTS[entry.result]}
-                          text={t(`AccessResult.${entry.result}`)}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <p className="community-empty">{t('AccessLog.detailEmpty')}</p>
+                  {entry.isOccurredAtApproximate && (
+                    <Badge variant="warning" text={t('AccessLog.approximateTime')} />
+                  )}
+                </>
+              }
+            />
           )}
-        </ModalComponent>
-      )}
+        />
+
+        <p className="community-muted">{t('AccessLog.buttonHasNoIdentity')}</p>
+        <p className="community-muted">{t('AccessLog.physicalKeyLeavesNoTrace')}</p>
+      </section>
     </>
   );
 }

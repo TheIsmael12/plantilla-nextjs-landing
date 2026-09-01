@@ -81,6 +81,17 @@
     "viewHolders": "Ver quién tiene llave",
     "markAllAsRead": "Marcar {count} como leídas",
     "assigning": "Repartiendo...",
-    "communityResidentKeys": "Ver sus llaves"
+    "communityResidentKeys": "Ver sus llaves",
+    "refresh": "Actualizar",
+    "export": "Exportar",
+    "communityKeyringValidity": "Hasta cuándo le vale",
+    "communityIssuePin": "Darle un PIN",
+    "communityIssueCard": "Darle una tarjeta",
+    "communityIssueMagicLink": "Darle un enlace de acceso",
+    "communityRevokeMagicLinks": "Retirar sus enlaces",
+    "communityRevealPin": "Ver el PIN",
+    "communityResyncCredential": "Reprogramar",
+    "communityRevokeCredential": "Retirar la llave",
+    "view": "Ver"
   }
 }

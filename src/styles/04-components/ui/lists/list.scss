@@ -101,7 +101,14 @@
   color: var(--neutral-color);
 }
 
+/*
+ * Las acciones de una fila caben o parten, pero no empujan.
+ *
+ * Con `flex-shrink: 0` y sin permiso para partir, tres botones fijaban el ancho mínimo de la fila y en un
+ * móvil se salían por la derecha arrastrando a la página entera. Ahora bajan a la línea siguiente.
+ */
 .list__item__actions {
   @include flex($justify: flex-end, $align: center, $gap: 0.5rem);
-  flex-shrink: 0;
+  flex-wrap: wrap;
+  min-width: 0;
 }

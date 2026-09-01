@@ -61,6 +61,25 @@
     width: min(56rem, calc(100vw - 2rem));
   }
 
+  /*
+   * El diálogo que **es** una pregunta: «¿Cerrar sesión?» y dos botones.
+   *
+   * Ahí no hay cabecera que separar del contenido —solo está la X— ni un formulario que acabe: el título va
+   * centrado en el cuerpo, así que las dos líneas partían en tres algo que se lee de una sola vez. Los
+   * huecos también se ajustan: la cabecera solo tiene que dejar sitio a la X.
+   */
+  &--plain {
+    .modal__header {
+      border-bottom: none;
+      @include pb(0);
+    }
+
+    .modal__footer {
+      border-top: none;
+      @include pt(0);
+    }
+  }
+
   &__header {
     flex: 0 0 auto;
     border-bottom: 1px solid var(--border-color);

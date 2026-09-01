@@ -35,14 +35,18 @@ $layer-dropdown: 50;
 /// Botones que flotan sobre el contenido sin pertenecer a ninguna barra, como el «volver arriba».
 $layer-floating: 60;
 
-/// Cortinilla del modal. A partir de aquí ya no se ve nada de lo de arriba, que es el punto.
+/// Cortinilla del **primer** modal. A partir de aquí ya no se ve nada de lo de arriba, que es el punto.
 $layer-modal-overlay: 90;
 
-/// El modal.
-$layer-modal: 100;
+/// El **primer** modal.
+///
+/// Los modales se apilan —uno abierto desde dentro de otro— y cada piso se pinta dos por encima del
+/// anterior: 90/91, 92/93, 94/95... Lo calcula `overlayZIndex` (hooks/useOverlayLayer), porque el CSS no
+/// sabe cuántos hay abiertos. La banda 90-109 es suya, y por eso los saltos aquí son de uno y no de diez.
+$layer-modal: 91;
 
 /// Lo que abre un campo **dentro** de un modal: el calendario de una fecha, la lista de un desplegable.
-/// Tiene que superar al modal para no quedarse recortado dentro de él.
+/// Tiene que superar al modal —a cualquiera de los diez pisos de la banda— para no recortarse dentro de él.
 $layer-modal-dropdown: 110;
 
 /// El aviso de cookies. Por encima del modal porque es un consentimiento: mientras no se responda, no

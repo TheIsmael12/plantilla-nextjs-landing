@@ -14,6 +14,7 @@ import type {
   LockCredentialBatchResult,
   LockCredentialCreated,
   RevokeLockCredentialDto,
+  UpdateKeyringMembershipDto,
   UpdateLockCredentialDto,
 } from "@/types/client-portal/community";
 import type { FetchResponse, PaginatedResult } from "@/types/responses";
@@ -254,5 +255,105 @@ export async function getCommunityBypassReport(
   return fetchDataToken<LockCredential[], never>(
     `client/me/communities/${encodeURIComponent(serviceId)}/bypass-report`,
     "GET",
+  );
+}
+
+/**
+ * Cambia hasta cuándo le vale a alguien un llavero
+ * (`PATCH client/me/communities/:serviceId/keyring-members/:keyringMembershipId`).
+ *
+ * Es distinta de la vigencia del vecino: se puede vivir aquí indefinidamente y tener el llavero del gimnasio
+ * solo mientras dure el abono. Baja al fabricante en el momento.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {string} keyringMembershipId - La pertenencia
+ * @param {UpdateKeyringMembershipDto} dto - Desde y hasta cuándo (`null` quita el límite)
+ * @returns {Promise<FetchResponse<MemberDetail>>} La ficha del vecino ya actualizada
+ */
+export async function updateKeyringMembership(
+  serviceId: string,
+  keyringMembershipId: string,
+  dto: UpdateKeyringMembershipDto,
+): Promise<FetchResponse<MemberDetail>> {
+  return fetchDataToken<MemberDetail, UpdateKeyringMembershipDto>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/keyring-members/${encodeURIComponent(keyringMembershipId)}`,
+    "PATCH",
+    dto,
+  );
+}
+
+/**
+ * Emite el enlace de acceso de un vecino
+ * (`POST client/me/communities/:serviceId/members/:membershipId/magic-link`).
+ *
+ * Es cómo se da acceso a quien no quiere instalarse nada: se abre en el móvil y abre sus puertas. **Solo se
+ * puede leer en esta respuesta**, así que quien la recibe tiene que entregarlo antes de cerrar.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {string} residentMembershipId - El vecino
+ * @returns {Promise<FetchResponse<{ link: string }>>} El enlace
+ */
+export async function issueResidentMagicLink(
+  serviceId: string,
+  residentMembershipId: string,
+): Promise<FetchResponse<{ link: string }>> {
+  return fetchDataToken<{ link: string }, never>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/members/${encodeURIComponent(residentMembershipId)}/magic-link`,
+    "POST",
+  );
+}
+
+/**
+ * Retira todos los enlaces de acceso de un vecino
+ * (`DELETE client/me/communities/:serviceId/members/:membershipId/magic-links`).
+ *
+ * Se retiran **todos** y no uno concreto porque no se pueden leer: quien viene a cortar uno no sabe cuál se
+ * filtró, y dejar otro vivo sería no haber cortado nada. Sigue entrando con su PIN y su tarjeta.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {string} residentMembershipId - El vecino
+ * @returns {Promise<FetchResponse<{ revoked: number }>>} Cuántos se han retirado
+ */
+export async function revokeResidentMagicLinks(
+  serviceId: string,
+  residentMembershipId: string,
+): Promise<FetchResponse<{ revoked: number }>> {
+  return fetchDataToken<{ revoked: number }, never>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/members/${encodeURIComponent(residentMembershipId)}/magic-links`,
+    "DELETE",
+  );
+}
+
+/**
+ * Vuelve a leer el PIN de una llave, preguntándoselo al fabricante
+ * (`POST client/me/communities/lock-credentials/:credentialId/reveal-pin`).
+ *
+ * Aquí se guarda hasheado y no se puede releer; **allí sí**, y es lo que la cerradura espera de verdad. **No
+ * emite uno nuevo**: el que el vecino se sabe sigue valiendo, así que sirve para repetírselo a quien lo ha
+ * olvidado. Queda auditado.
+ * @param {string} credentialId - La llave
+ * @returns {Promise<FetchResponse<{ pin: string }>>} El PIN en claro
+ */
+export async function revealCredentialPin(
+  credentialId: string,
+): Promise<FetchResponse<{ pin: string }>> {
+  return fetchDataToken<{ pin: string }, never>(
+    `client/me/communities/lock-credentials/${encodeURIComponent(credentialId)}/reveal-pin`,
+    "POST",
+  );
+}
+
+/**
+ * Reprograma una llave en las puertas que le falten
+ * (`POST client/me/communities/lock-credentials/:credentialId/resync`).
+ *
+ * Hace falta porque una llave se emite con las puertas que hay ese día: cuando se monta una nueva, la que la
+ * gente ya tenía no la conoce y esa puerta no les abre.
+ * @param {string} credentialId - La llave
+ * @returns {Promise<FetchResponse<LockCredential>>} La llave ya reprogramada
+ */
+export async function resyncLockCredential(
+  credentialId: string,
+): Promise<FetchResponse<LockCredential>> {
+  return fetchDataToken<LockCredential, never>(
+    `client/me/communities/lock-credentials/${encodeURIComponent(credentialId)}/resync`,
+    "POST",
   );
 }

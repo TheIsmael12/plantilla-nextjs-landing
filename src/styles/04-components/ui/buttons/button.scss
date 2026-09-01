@@ -10,6 +10,15 @@
   font-size: $text-sm;
   line-height: 1;
   cursor: pointer;
+  /*
+   * Un botón puede encogerse por debajo de su texto.
+   *
+   * Sin esto, una etiqueta larga fija su ancho y no hay forma de que quepa en un móvil: empuja a su
+   * contenedor y con él a la página entera. Lo que sobre se recorta —la etiqueta completa sigue en el
+   * `title`, que es lo que sale al posarse encima— y eso es preferible a una página que se desplaza de lado.
+   */
+  min-width: 0;
+  overflow: hidden;
   @include rounded();
   @include flex($justify: center, $gap: 0.5rem);
   transition:

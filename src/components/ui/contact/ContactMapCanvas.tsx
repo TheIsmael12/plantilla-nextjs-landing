@@ -19,6 +19,10 @@ const TILE_SUBDOMAINS = 'abcd';
 const TILE_ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
+/**
+ * Props de {@link ContactMapCanvas}: dónde cae el pin y qué se lee al pulsarlo.
+ * @interface ContactMapCanvasProps
+ */
 export interface ContactMapCanvasProps {
   latitude: number;
   longitude: number;

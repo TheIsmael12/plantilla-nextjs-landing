@@ -3,9 +3,11 @@
 import { fetchDataToken } from "@/actions/fetch";
 import type {
   CommunityListQuery,
+  CommunitySite,
   CreateLockGroupDto,
   KeyMatrix,
   LockGroup,
+  LockSchedule,
   UpdateLockGroupDto,
 } from "@/types/client-portal/community";
 import type { FetchResponse, PaginatedResult } from "@/types/responses";
@@ -133,5 +135,38 @@ export async function getCommunityKeyMatrix(
   return fetchDataToken<KeyMatrix, never>(
     `client/me/communities/${encodeURIComponent(serviceId)}/key-matrix`,
     "GET",
+  );
+}
+
+/**
+ * Las sedes de una comunidad (`GET client/me/communities/:serviceId/sites`).
+ *
+ * **No se dan de alta aquí**: son del fabricante y se traen al sincronizar el catálogo. Hacen falta para
+ * poder escribir una regla que diga «toda la sede», que es la que incluye sola las puertas que se monten
+ * después.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @returns {Promise<FetchResponse<CommunitySite[]>>} Las sedes
+ */
+export async function getCommunitySites(
+  serviceId: string,
+): Promise<FetchResponse<CommunitySite[]>> {
+  return fetchDataToken<CommunitySite[], never>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/sites`,
+  );
+}
+
+/**
+ * Los horarios de una comunidad (`GET client/me/communities/:serviceId/lock-schedules`).
+ *
+ * Tienen nombre y se reutilizan entre reglas: «Zonas comunes» se define una vez y lo usan el gimnasio, la
+ * piscina y la sala de reuniones.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @returns {Promise<FetchResponse<LockSchedule[]>>} Los horarios
+ */
+export async function getCommunitySchedules(
+  serviceId: string,
+): Promise<FetchResponse<LockSchedule[]>> {
+  return fetchDataToken<LockSchedule[], never>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/lock-schedules`,
   );
 }
