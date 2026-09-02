@@ -79,21 +79,33 @@ export default function Footer() {
                             </Link>
                         </li>
                     </ul>
+                    {/*
+                      Cada dato solo si lo hay.
+                      Los datos de contacto ya no tienen valor de ejemplo —los que había acabaron
+                      publicados—, así que pueden venir vacíos, y un `tel:` sin número es un enlace sin
+                      texto: inútil para quien lo pulsa e ilegible para un lector de pantalla, que anuncia
+                      un enlace y no sabe decir a dónde lleva.
+                    */}
                     <ul className="footer__contact__list">
-                        <li>
-                            <a
-                                href={`mailto:${BRAND.contact.email}`}
-                                className="footer__contact__list-link">
-                                <MailIcon aria-hidden="true" /> {BRAND.contact.email}
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href={`tel:${BRAND.contact.phone}`}
-                                className="footer__contact__list-link">
-                                <PhoneIcon aria-hidden="true" /> {BRAND.contact.phone}
-                            </a>
-                        </li>
+                        {BRAND.contact.email && (
+                            <li>
+                                <a
+                                    href={`mailto:${BRAND.contact.email}`}
+                                    className="footer__contact__list-link">
+                                    <MailIcon aria-hidden="true" /> {BRAND.contact.email}
+                                </a>
+                            </li>
+                        )}
+                        {BRAND.contact.phone && (
+                            <li>
+                                <a
+                                    href={`tel:${BRAND.contact.phone}`}
+                                    className="footer__contact__list-link">
+                                    <PhoneIcon aria-hidden="true" /> {BRAND.contact.phone}
+                                </a>
+                            </li>
+                        )}
+                        {BRAND.contact.location && (
                         <li>
                             <a
                                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BRAND.contact.location)}`}
@@ -103,6 +115,7 @@ export default function Footer() {
                                 <MapIcon aria-hidden="true" /> {BRAND.contact.location}
                             </a>
                         </li>
+                        )}
                     </ul>
                 </div>
 

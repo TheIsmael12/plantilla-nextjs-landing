@@ -82,24 +82,37 @@ export default function ContactMapSection({
 
                 <ul className="contact__map-items">
 
-                    <li className="contact__map-item">
-                        <MapPin className="contact__map-item-icon" aria-hidden="true" />
-                        <span className="contact__map-item-value">{address}</span>
-                    </li>
+                    {/*
+                      Cada dato solo si lo hay.
+                      Los datos de contacto ya no tienen valor de ejemplo —los que había acabaron
+                      publicados—, así que pueden venir vacíos, y un `tel:` sin número es un enlace sin
+                      texto: inútil para quien lo pulsa e ilegible para un lector de pantalla, que anuncia
+                      un enlace y no sabe decir a dónde lleva.
+                    */}
+                    {address && (
+                        <li className="contact__map-item">
+                            <MapPin className="contact__map-item-icon" aria-hidden="true" />
+                            <span className="contact__map-item-value">{address}</span>
+                        </li>
+                    )}
 
-                    <li className="contact__map-item">
-                        <Phone className="contact__map-item-icon" aria-hidden="true" />
-                        <a href={toTelHref(phone)} className="contact__map-item-value">
-                            {phone}
-                        </a>
-                    </li>
+                    {phone && (
+                        <li className="contact__map-item">
+                            <Phone className="contact__map-item-icon" aria-hidden="true" />
+                            <a href={toTelHref(phone)} className="contact__map-item-value">
+                                {phone}
+                            </a>
+                        </li>
+                    )}
 
-                    <li className="contact__map-item">
-                        <Mail className="contact__map-item-icon" aria-hidden="true" />
-                        <a href={`mailto:${email}`} className="contact__map-item-value">
-                            {email}
-                        </a>
-                    </li>
+                    {email && (
+                        <li className="contact__map-item">
+                            <Mail className="contact__map-item-icon" aria-hidden="true" />
+                            <a href={`mailto:${email}`} className="contact__map-item-value">
+                                {email}
+                            </a>
+                        </li>
+                    )}
 
                     {emergencyPhone && (
                         <li className="contact__map-item">

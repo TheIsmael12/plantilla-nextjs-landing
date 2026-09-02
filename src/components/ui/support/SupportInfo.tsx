@@ -73,6 +73,12 @@ export default function SupportInfo() {
               </div>
             </div>
 
+            {/*
+              Sin número de urgencias no se ofrece la línea.
+              Un enlace `tel:` vacío no llama a nadie y un lector de pantalla lo anuncia como un enlace sin
+              destino. Mismo criterio que en las fichas de servicio y en el pie.
+            */}
+            {ENV.COMPANY_EMERGENCY_PHONE && (
             <div className="support__info-fact">
               <PhoneCall aria-hidden="true" />
               <div>
@@ -84,6 +90,7 @@ export default function SupportInfo() {
                 </p>
               </div>
             </div>
+            )}
 
             <div className="support__info-fact">
               <MapPin aria-hidden="true" />
