@@ -1,0 +1,23 @@
+@use "../../../00-settings/layers" as *;
+
+/*
+ * Leaflet, contenido dentro de su propia caja.
+ *
+ * Su hoja de estilos reparte z-index del 200 al 1000 entre sus capas y sus controles, y esos números son
+ * ajenos a la escala del proyecto (`00-settings/_layers.scss`): con la cabecera en 30 y el mega-menú en 50,
+ * **cualquier mapa gana a los dos**. El síntoma es el del mapa de la página de soporte: al desplazarse, el
+ * mapa pasa por encima de la barra de navegación.
+ *
+ * `position: relative` con un z-index bajo crea un contexto de apilamiento propio: todo lo interno de
+ * Leaflet se ordena **dentro** de él y deja de compararse con el resto de la página. Lo único que compite
+ * fuera es el contenedor, y está en `$layer-raised` (10), por debajo de todo lo que tiene que taparlo.
+ *
+ * Va sobre `.leaflet-container` —la clase que pone Leaflet a cualquier mapa— y no sobre la clase de cada
+ * componente a propósito. Estaba resuelto solo en el mapa de zonas de cobertura, donde alguien se encontró
+ * el problema con el mega-menú, y los otros dos se quedaron sin ello. Un mapa nuevo lo hereda; con la regla
+ * repetida en cada hoja, el cuarto volvería a salir tapando la cabecera.
+ */
+.leaflet-container {
+  position: relative;
+  z-index: $layer-raised;
+}

@@ -7,11 +7,7 @@ import { useEffect, useRef } from 'react';
 
 import L from 'leaflet';
 
-import {
-  MAP_TILE_ATTRIBUTION,
-  MAP_TILE_MAX_ZOOM,
-  MAP_TILE_URL,
-} from '@/config/mapTiles';
+import { addMapBaseLayer } from '@/utils/mapBaseLayer';
 
 /** Zoom al centrar sobre la sede: cercano, para reconocer la calle sin perder el contexto del
  *  barrio — mismo criterio que `LocationMapCanvas.tsx` (área de cliente). */
@@ -52,8 +48,7 @@ export default function ContactMapCanvas({ latitude, longitude, title }: Contact
     });
 
     L.control.zoom({ position: 'topleft' }).addTo(map);
-    L.control.attribution({ prefix: false }).addAttribution(MAP_TILE_ATTRIBUTION).addTo(map);
-    L.tileLayer(MAP_TILE_URL, { maxZoom: MAP_TILE_MAX_ZOOM }).addTo(map);
+    addMapBaseLayer(map);
 
     const marker = L.marker([latitude, longitude], {
       title,

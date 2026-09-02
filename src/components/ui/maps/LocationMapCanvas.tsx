@@ -6,11 +6,7 @@ import { useEffect, useRef } from 'react';
 
 import { useTranslations } from 'next-intl';
 
-import {
-  MAP_TILE_ATTRIBUTION,
-  MAP_TILE_MAX_ZOOM,
-  MAP_TILE_URL,
-} from '@/config/mapTiles';
+import { addMapBaseLayer } from '@/utils/mapBaseLayer';
 
 import L from 'leaflet';
 
@@ -59,14 +55,16 @@ export default function LocationMapCanvas({
     const map = L.map(container.current, {
       center: [latitude, longitude],
       zoom: POINT_ZOOM,
-      attributionControl: false,
+      // La atribución la monta `addMapBaseLayer`: la licencia de los datos la exige en los tres mapas.
+      attributionControl: true,
       zoomControl: false,
     });
 
     L.control
       .zoom({ position: 'topleft', zoomInTitle: t('zoomIn'), zoomOutTitle: t('zoomOut') })
       .addTo(map);
-    L.tileLayer(MAP_TILE_URL, { maxZoom: MAP_TILE_MAX_ZOOM }).addTo(map);
+
+    addMapBaseLayer(map);
 
     L.marker([latitude, longitude], {
       icon: L.divIcon({

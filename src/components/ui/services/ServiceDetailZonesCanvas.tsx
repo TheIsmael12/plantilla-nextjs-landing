@@ -8,11 +8,7 @@ import { useRouter } from '@/i18n/navigation';
 
 import L from 'leaflet';
 
-import {
-  MAP_TILE_ATTRIBUTION,
-  MAP_TILE_MAX_ZOOM,
-  MAP_TILE_URL,
-} from '@/config/mapTiles';
+import { addMapBaseLayer } from '@/utils/mapBaseLayer';
 import type { ZoneData } from '@/config/zones';
 
 /** Zoom mínimo del encuadre inicial: sin este suelo, `fitBounds` a veces elegía un zoom tan
@@ -80,8 +76,8 @@ export default function ServiceDetailZonesCanvas({
     if (map.getZoom() < MIN_ZOOM) map.setZoom(MIN_ZOOM);
 
     L.control.zoom({ position: 'topleft' }).addTo(map);
-    L.control.attribution({ prefix: false }).addAttribution(MAP_TILE_ATTRIBUTION).addTo(map);
-    L.tileLayer(MAP_TILE_URL, { maxZoom: MAP_TILE_MAX_ZOOM }).addTo(map);
+
+    addMapBaseLayer(map);
 
     const markers = zones.map((zone) => {
       const isCapital = zone.slug === 'madrid';
