@@ -1,4 +1,5 @@
 import PropertyManagersHero from '@/components/ui/property-managers/PropertyManagersHero';
+import PropertyManagersMath from '@/components/ui/property-managers/PropertyManagersMath';
 import PropertyManagersServices from '@/components/ui/property-managers/PropertyManagersServices';
 import PropertyManagersBenefits from '@/components/ui/property-managers/PropertyManagersBenefits';
 import PropertyManagersComparison from '@/components/ui/property-managers/PropertyManagersComparison';
@@ -27,6 +28,13 @@ export default function PropertyManagersViewPage() {
   return (
     <main className="about">
       <PropertyManagersHero />
+      {/*
+        La cuenta va inmediatamente después del hero, antes de los servicios.
+        El hero abre con la solución —«un solo proveedor»— y hasta ahora nada planteaba el problema que
+        resuelve. Aquí es donde el administrador ve su propio número, y desde donde entra al resto de la
+        página sabiendo qué está comparando.
+      */}
+      <PropertyManagersMath />
       <PropertyManagersServices />
       <PropertyManagersBenefits />
       <PropertyManagersComparison />

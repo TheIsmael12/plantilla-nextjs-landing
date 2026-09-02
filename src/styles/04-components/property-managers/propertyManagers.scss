@@ -235,3 +235,177 @@
   color: var(--color);
   line-height: 1.55;
 }
+
+/*
+ * La cuenta del administrador: lo que se multiplica al repartir la cartera, y lo que no.
+ *
+ * Dos columnas enfrentadas con las mismas cuatro filas, para que la comparación se lea de un vistazo. En
+ * móvil caen una debajo de otra: enfrentadas a 320px las cifras quedan tan estrechas que dejan de leerse
+ * como cifras, que es lo único que esta sección tiene que conseguir.
+ */
+.managers__math {
+  @include py(4rem);
+  background: var(--background-color);
+}
+
+.managers__math-sizes {
+  margin-top: 2rem;
+  border: none;
+  padding: 0;
+}
+
+.managers__math-legend {
+  padding: 0;
+  margin-bottom: 0.75rem;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--color);
+}
+
+.managers__math-options {
+  @include flex($justify: flex-start, $align: center, $gap: 0.5rem);
+  flex-wrap: wrap;
+}
+
+/*
+ * Cada opción es una etiqueta con su radio dentro, y el radio se esconde sin sacarlo del árbol.
+ *
+ * `display: none` lo dejaría fuera del recorrido por teclado: con cuatro opciones excluyentes, quien navega
+ * con flechas se quedaría sin poder cambiar el tramo.
+ */
+.managers__math-option {
+  @include px(1rem);
+  @include py(0.55rem);
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: var(--color);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(2rem);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+
+  &:hover {
+    border-color: var(--primary-color);
+  }
+
+  &--active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--primary-color-contrast, #fff);
+  }
+
+  &:focus-within {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+}
+
+.managers__math-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.managers__math-grid {
+  margin-top: 2rem;
+  @include grid(1, 1rem);
+
+  @include screen(md) {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.managers__math-column {
+  @include p(1.5rem);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+  min-width: 0;
+
+  // La columna de Imora se distingue por el borde y no por un fondo de color: al lado de la otra, un
+  // bloque relleno se lee como «esta es la buena» antes de que nadie haya leído las cifras.
+  &--imora {
+    border-color: var(--primary-color);
+  }
+}
+
+.managers__math-column-title {
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.managers__math-column-note {
+  margin-top: 0.35rem;
+  font-size: $text-xs;
+  color: var(--neutral-color);
+  line-height: 1.5;
+}
+
+.managers__math-list {
+  list-style: none;
+  margin-top: 1.25rem;
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.85rem);
+}
+
+.managers__math-item {
+  @include flex($justify: flex-start, $align: center, $gap: 0.65rem);
+  min-width: 0;
+}
+
+.managers__math-icon {
+  flex: 0 0 auto;
+  color: var(--neutral-color);
+}
+
+/*
+ * La cifra, que es lo que se compara.
+ *
+ * Ancho fijo y cifras tabulares para que los cuatro números queden alineados en columna: con anchos
+ * distintos, «80» y «5» empiezan en sitios distintos y la comparación entre las dos tarjetas deja de
+ * leerse de un vistazo.
+ */
+.managers__math-number {
+  flex: 0 0 auto;
+  min-width: 2.75rem;
+  font-family: $font-title;
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  font-variant-numeric: tabular-nums;
+  color: var(--color);
+}
+
+.managers__math-label {
+  min-width: 0;
+  font-size: $text-sm;
+  color: var(--neutral-color);
+  overflow-wrap: anywhere;
+}
+
+.managers__math-cta {
+  margin-top: 2rem;
+  @include flex($justify: center, $align: center, $gap: 0.5rem);
+  @include px(1.5rem);
+  @include py(0.85rem);
+  font-weight: $font-semibold;
+  color: var(--primary-color-contrast, #fff);
+  background: var(--primary-color);
+  @include rounded(0.5rem);
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background: var(--primary-color-hover);
+  }
+
+  @include screen(sm) {
+    display: inline-flex;
+  }
+}
