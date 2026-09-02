@@ -9,6 +9,7 @@ import {
   verifyClientPortalTwoFactorChallenge,
 } from "@/actions/auth/client-portal-auth";
 
+import { AUTH_COOKIE_NAMES } from "@/config/authCookies";
 import { ENV_SERVER as ENV } from "@/config/env.server";
 import { AUTH_TOKEN_REFRESH_MARGIN_MS } from "@/config/settings";
 
@@ -92,8 +93,6 @@ function resolveAuthorizeResult(result: PortalLoginActionResult): User {
  * de sesión `jwt`, y callbacks que propagan la identidad resuelta (JWT del
  * portal + `GET client/me`) al token/sesión de NextAuth.
  */
-const COOKIE_PREFIX = ENV.IS_PRODUCTION ? "__Secure-" : "";
-
 export const authOptions: AuthOptions = {
   session: { strategy: "jwt" },
   secret: ENV.NEXTAUTH_SECRET,
@@ -101,9 +100,11 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/login",
   },
+  // Los nombres salen de `config/authCookies`: en local llevan delante el de la aplicación, porque el
+  // navegador no distingue el puerto y esta y la intranet comparten `localhost`.
   cookies: {
     sessionToken: {
-      name: `${COOKIE_PREFIX}next-auth.session-token`,
+      name: AUTH_COOKIE_NAMES.sessionToken,
       options: {
         httpOnly: true,
         sameSite: "lax",
@@ -112,7 +113,7 @@ export const authOptions: AuthOptions = {
       },
     },
     callbackUrl: {
-      name: `${COOKIE_PREFIX}next-auth.callback-url`,
+      name: AUTH_COOKIE_NAMES.callbackUrl,
       options: {
         httpOnly: true,
         sameSite: "lax",
@@ -121,10 +122,7 @@ export const authOptions: AuthOptions = {
       },
     },
     csrfToken: {
-      // El token CSRF necesita __Host- (no solo __Secure-) para que el
-      // navegador exija que la cookie se fije SIN dominio explícito y con
-      // path=/, evitando que un subdominio comprometido la sobrescriba.
-      name: ENV.IS_PRODUCTION ? "__Host-next-auth.csrf-token" : "next-auth.csrf-token",
+      name: AUTH_COOKIE_NAMES.csrfToken,
       options: {
         httpOnly: true,
         sameSite: "lax",
