@@ -6,13 +6,16 @@ import { useEffect, useRef } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import {
+  MAP_TILE_ATTRIBUTION,
+  MAP_TILE_MAX_ZOOM,
+  MAP_TILE_URL,
+} from '@/config/mapTiles';
+
 import L from 'leaflet';
 
 /** Zoom al centrar sobre el punto: cercano, para reconocer la calle sin perder el contexto del barrio. */
 const POINT_ZOOM = 16;
-
-/** Teselas de OpenStreetMap, sin clave de API. */
-const TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 /**
  * Props de {@link LocationMapCanvas}.
@@ -63,7 +66,7 @@ export default function LocationMapCanvas({
     L.control
       .zoom({ position: 'topleft', zoomInTitle: t('zoomIn'), zoomOutTitle: t('zoomOut') })
       .addTo(map);
-    L.tileLayer(TILE_URL, { maxZoom: 18 }).addTo(map);
+    L.tileLayer(MAP_TILE_URL, { maxZoom: MAP_TILE_MAX_ZOOM }).addTo(map);
 
     L.marker([latitude, longitude], {
       icon: L.divIcon({

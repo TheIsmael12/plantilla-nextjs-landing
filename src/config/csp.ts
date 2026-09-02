@@ -51,6 +51,8 @@
  */
 
 /** Widget de captcha del formulario de contacto (`Captcha.tsx`): único script de terceros de la app. */
+import { MAP_TILES_ORIGIN } from "@/config/mapTiles";
+
 const TURNSTILE_ORIGIN = "https://challenges.cloudflare.com";
 
 /** Mapa embebido de la página de contacto (`ContactMapSection.tsx`, `<iframe src="...google.com/maps...">`). */
@@ -87,12 +89,14 @@ const GOOGLE_MEASUREMENT_ORIGINS = [
   "https://*.analytics.google.com",
 ];
 
-/**
- * Tiles del mapa (CARTO Voyager, `ServiceDetailZonesCanvas.tsx`/`ContactMapCanvas.tsx`):
- * servidos desde subdominios rotativos `a`–`d` (`{s}.basemaps.cartocdn.com`) para repartir la
- * carga entre varios hosts, de ahí el comodín en vez de listar los cuatro sueltos.
+/*
+ * Las teselas de los tres mapas salen de `config/mapTiles`, que es de donde las leen ellos.
+ *
+ * Aquí había un comodín de CARTO y solo de CARTO, así que el mapa que ya tiraba de OpenStreetMap tenía sus
+ * teselas bloqueadas **en producción y solo en producción**: esta cabecera no se manda en desarrollo, así
+ * que en local se veía bien y no había forma de enterarse. Compartir la constante es lo que impide que se
+ * vuelvan a separar.
  */
-const MAP_TILES_ORIGIN = "https://*.basemaps.cartocdn.com";
 
 /**
  * Origen del backend, necesario en `img-src`/`connect-src`: las portadas del

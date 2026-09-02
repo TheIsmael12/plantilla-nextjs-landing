@@ -7,17 +7,15 @@ import { useEffect, useRef } from 'react';
 
 import L from 'leaflet';
 
+import {
+  MAP_TILE_ATTRIBUTION,
+  MAP_TILE_MAX_ZOOM,
+  MAP_TILE_URL,
+} from '@/config/mapTiles';
+
 /** Zoom al centrar sobre la sede: cercano, para reconocer la calle sin perder el contexto del
  *  barrio — mismo criterio que `LocationMapCanvas.tsx` (área de cliente). */
 const POINT_ZOOM = 15;
-
-/** Teselas de CARTO "Voyager": mismo tileset que el mapa de zonas de cobertura
- *  (`ServiceDetailZonesCanvas.tsx`) — gris claro, calles bien marcadas, sin nombres de
- *  comercios/POIs. Gratis, sin API key, con atribución obligatoria. */
-const TILE_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-const TILE_SUBDOMAINS = 'abcd';
-const TILE_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
 /**
  * Props de {@link ContactMapCanvas}: dónde cae el pin y qué se lee al pulsarlo.
@@ -54,8 +52,8 @@ export default function ContactMapCanvas({ latitude, longitude, title }: Contact
     });
 
     L.control.zoom({ position: 'topleft' }).addTo(map);
-    L.control.attribution({ prefix: false }).addAttribution(TILE_ATTRIBUTION).addTo(map);
-    L.tileLayer(TILE_URL, { subdomains: TILE_SUBDOMAINS, maxZoom: 18 }).addTo(map);
+    L.control.attribution({ prefix: false }).addAttribution(MAP_TILE_ATTRIBUTION).addTo(map);
+    L.tileLayer(MAP_TILE_URL, { maxZoom: MAP_TILE_MAX_ZOOM }).addTo(map);
 
     const marker = L.marker([latitude, longitude], {
       title,

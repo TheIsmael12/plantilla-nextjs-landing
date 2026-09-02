@@ -8,6 +8,11 @@ import { useRouter } from '@/i18n/navigation';
 
 import L from 'leaflet';
 
+import {
+  MAP_TILE_ATTRIBUTION,
+  MAP_TILE_MAX_ZOOM,
+  MAP_TILE_URL,
+} from '@/config/mapTiles';
 import type { ZoneData } from '@/config/zones';
 
 /** Zoom mínimo del encuadre inicial: sin este suelo, `fitBounds` a veces elegía un zoom tan
@@ -16,15 +21,6 @@ import type { ZoneData } from '@/config/zones';
  *  Las Rozas, Boadilla, Pozuelo) tan próximos entre sí en pantalla que sus tooltips se pisaban
  *  sin importar cuánto creciera el lienzo en altura. Un zoom más cercano separa los puntos. */
 const MIN_ZOOM = 11;
-
-/** Teselas de CARTO "Voyager": gris claro, calles bien marcadas, sin la carga de POIs/nombres
- *  de comercios de un mapa estilo Google Maps clásico — el tileset oscuro (Dark Matter) se
- *  probó antes y resultó "demasiado negro" para el usuario, incluso aclarado con un filtro
- *  CSS. Gratis, sin API key, con atribución obligatoria (ver `attributionControl` más abajo). */
-const TILE_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-const TILE_SUBDOMAINS = 'abcd';
-const TILE_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
 /** Dirección del tooltip de cada zona, elegida a mano: 4 de las 6 (Majadahonda, Las Rozas,
  *  Boadilla, Pozuelo) están muy juntas en la corona noroeste — con todos los tooltips por
@@ -84,8 +80,8 @@ export default function ServiceDetailZonesCanvas({
     if (map.getZoom() < MIN_ZOOM) map.setZoom(MIN_ZOOM);
 
     L.control.zoom({ position: 'topleft' }).addTo(map);
-    L.control.attribution({ prefix: false }).addAttribution(TILE_ATTRIBUTION).addTo(map);
-    L.tileLayer(TILE_URL, { subdomains: TILE_SUBDOMAINS, maxZoom: 18 }).addTo(map);
+    L.control.attribution({ prefix: false }).addAttribution(MAP_TILE_ATTRIBUTION).addTo(map);
+    L.tileLayer(MAP_TILE_URL, { maxZoom: MAP_TILE_MAX_ZOOM }).addTo(map);
 
     const markers = zones.map((zone) => {
       const isCapital = zone.slug === 'madrid';
