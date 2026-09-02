@@ -1,7 +1,42 @@
 import { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
+import { checkCompanyIdentity } from './src/config/companyIdentity';
+
 const isDevelopment = process.env.NODE_ENV === 'development';
+
+/*
+ * La identidad legal se comprueba **al construir**, y en producción corta el despliegue.
+ *
+ * Una auditoría externa encontró publicado el CIF `B12345678` y «Calle Ejemplo, 123» en las páginas
+ * legales de imora.es. No los escribió nadie: son los valores por defecto de `config/env.ts`, que se
+ * publican solos cuando las variables no están puestas en el entorno del despliegue. Y como son
+ * `NEXT_PUBLIC_*`, se incrustan en el build — ponerlas en Vercel después no cambia lo ya publicado, así
+ * que este es el único momento en el que la comprobación sirve de algo.
+ *
+ * Solo corta cuando se construye **para producción**, que es lo único que se publica. En desarrollo avisa
+ * —trabajar en una pantalla de servicios no puede exigir tener el CIF a mano— y con las pruebas se calla:
+ * vitest carga este fichero con `NODE_ENV=test` y sin las variables del entorno, así que sin esta
+ * distinción una suite entera se caía por un dato que no pinta nada en una prueba unitaria.
+ */
+const problemasDeIdentidad = checkCompanyIdentity();
+
+if (problemasDeIdentidad.length > 0) {
+	const detalle = problemasDeIdentidad.map((problema) => `  - ${problema}`).join('\n');
+
+	if (process.env.NODE_ENV === 'production') {
+		throw new Error(
+			`Identidad legal incompleta o de ejemplo. No se publica una web con datos legales falsos:` +
+				`\n${detalle}\n`,
+		);
+	}
+
+	if (isDevelopment) {
+		console.warn(
+			`\n⚠  Identidad legal incompleta (en producción esto cortaría el build):\n${detalle}\n`,
+		);
+	}
+}
 
 const nextConfig: NextConfig = {
 	// `babel-plugin-react-compiler` ya está instalado como devDependency:

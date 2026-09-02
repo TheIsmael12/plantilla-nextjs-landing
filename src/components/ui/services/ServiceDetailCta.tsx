@@ -3,6 +3,7 @@ import { CheckCircle2, Handshake, PhoneCall } from 'lucide-react';
 
 import { Link } from '@/i18n/navigation';
 import { ENV } from '@/config/env';
+import { toTelHref } from '@/utils/companyAddressUtils';
 
 import '@/styles/04-components/services/servicesBase.scss';
 import '@/styles/04-components/services/serviceDetailCta.scss';
@@ -67,16 +68,29 @@ export default function ServiceDetailCta() {
               {t('ctaButton')}
             </Link>
 
-            <div className="services__detail-cta-divider">
-              <span>{t('ctaOrLabel')}</span>
-            </div>
+            {/*
+              Sin número configurado no se ofrece la llamada de urgencias.
+              Un teléfono inventado en un botón de urgencias es peor que no tener botón: quien lo pulsa a
+              las tres de la mañana cree que ha llamado a alguien. Mismo criterio que el mapa de la sede,
+              que sin coordenadas no se pinta en vez de caer al centro de Madrid.
+            */}
+            {ENV.COMPANY_EMERGENCY_PHONE && (
+              <>
+                <div className="services__detail-cta-divider">
+                  <span>{t('ctaOrLabel')}</span>
+                </div>
 
-            <a href={`tel:${ENV.COMPANY_EMERGENCY_PHONE}`} className="services__detail-cta-urgent">
-              <PhoneCall size={16} aria-hidden="true" />
-              <span>
-                {t('ctaUrgentLabel')} <strong>{ENV.COMPANY_EMERGENCY_PHONE}</strong>
-              </span>
-            </a>
+                <a
+                  href={toTelHref(ENV.COMPANY_EMERGENCY_PHONE)}
+                  className="services__detail-cta-urgent"
+                >
+                  <PhoneCall size={16} aria-hidden="true" />
+                  <span>
+                    {t('ctaUrgentLabel')} <strong>{ENV.COMPANY_EMERGENCY_PHONE}</strong>
+                  </span>
+                </a>
+              </>
+            )}
           </div>
         </div>
       </div>

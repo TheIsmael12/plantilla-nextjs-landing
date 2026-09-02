@@ -40,20 +40,30 @@ export const ENV = {
   // `GoogleTagManager` no pinta nada y no se carga ningún script externo.
   GTM_ID: process.env.NEXT_PUBLIC_GTM_ID || "",
 
-  // Company information
-  COMPANY_CIF: process.env.NEXT_PUBLIC_COMPANY_CIF || "B12345678",
+  /*
+   * Identidad legal: **sin valores de ejemplo**.
+   *
+   * Los que había aquí acabaron publicados en imora.es —CIF `B12345678`, «Calle Ejemplo, 123»— porque
+   * estas variables no estaban puestas en el entorno del despliegue y el valor por defecto salió solo. Un
+   * dato legal que falta tiene que verse que falta; `checkCompanyIdentity` (config/companyIdentity.ts) lo
+   * comprueba al construir y en producción corta el build.
+   *
+   * Se deja cadena vacía y no un `throw` porque este módulo lo carga también el navegador: reventar aquí
+   * tumbaría la página entera por un dato que solo importa en dos pantallas.
+   */
+  COMPANY_CIF: process.env.NEXT_PUBLIC_COMPANY_CIF || "",
   COMPANY_NAME: process.env.NEXT_PUBLIC_COMPANY_NAME || "Imora Servicios S.L.",
   
   // Contact information
   COMPANY_EMAIL: process.env.NEXT_PUBLIC_COMPANY_EMAIL || "info@imora.es",
   COMPANY_PHONE: process.env.NEXT_PUBLIC_COMPANY_PHONE || "",
 
-  // Address information (PENDIENTE: sustituir por la dirección real de la sede)
-  COMPANY_ADDRESS: process.env.NEXT_PUBLIC_COMPANY_STREET_ADDRESS || "Calle Ejemplo, 123",
-  COMPANY_POSTAL_CODE: process.env.NEXT_PUBLIC_COMPANY_POSTAL_CODE || "28029",
-  COMPANY_CITY: process.env.NEXT_PUBLIC_COMPANY_CITY || "Madrid",
-  COMPANY_STATE: process.env.NEXT_PUBLIC_COMPANY_STATE || "Madrid",
-  COMPANY_COUNTRY: process.env.NEXT_PUBLIC_COMPANY_COUNTRY || "España",
+  // La dirección de la sede, por el mismo motivo que el CIF: sin ejemplos.
+  COMPANY_ADDRESS: process.env.NEXT_PUBLIC_COMPANY_STREET_ADDRESS || "",
+  COMPANY_POSTAL_CODE: process.env.NEXT_PUBLIC_COMPANY_POSTAL_CODE || "",
+  COMPANY_CITY: process.env.NEXT_PUBLIC_COMPANY_CITY || "",
+  COMPANY_STATE: process.env.NEXT_PUBLIC_COMPANY_STATE || "",
+  COMPANY_COUNTRY: process.env.NEXT_PUBLIC_COMPANY_COUNTRY || "",
 
   // Coordenadas de la sede: el pin del mapa y el marcado `geo`. Tienen que ser
   // las de COMPANY_ADDRESS, y sin ellas no se pinta ningún mapa — ver
@@ -63,8 +73,13 @@ export const ENV = {
 
   COMPANY_SCHEDULE: process.env.NEXT_PUBLIC_COMPANY_SCHEDULE || "Oficina: L-V 9:00-18:00 · Urgencias 24h, 365 días",
 
-  // Teléfono de urgencias, disponible 24h/365 días para incidencias fuera de horario
-  COMPANY_EMERGENCY_PHONE: process.env.NEXT_PUBLIC_COMPANY_EMERGENCY_PHONE || "+34 900 123 456",
+  /*
+   * Teléfono de urgencias, 24h/365 para incidencias fuera de horario.
+   *
+   * Sin ejemplo: un número inventado en un botón de urgencias es peor que no tener botón — quien lo pulsa
+   * a las tres de la mañana cree que ha llamado a alguien.
+   */
+  COMPANY_EMERGENCY_PHONE: process.env.NEXT_PUBLIC_COMPANY_EMERGENCY_PHONE || "",
 
   // Legal and privacy contact emails
   COMPANY_PRIVACY_EMAIL: process.env.NEXT_PUBLIC_COMPANY_PRIVACY_EMAIL || "privacy@imora.es",

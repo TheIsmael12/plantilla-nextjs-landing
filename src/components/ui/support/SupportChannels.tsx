@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { Mail, Phone, ShieldAlert, type LucideIcon } from 'lucide-react';
 
 import { ENV } from '@/config/env';
+import { toTelHref } from '@/utils/companyAddressUtils';
 
 import '@/styles/04-components/help/helpBase.scss';
 import '@/styles/04-components/support/supportChannels.scss';
@@ -15,7 +16,7 @@ interface Channel {
   value: string;
 }
 
-const CHANNELS: Channel[] = [
+const ALL_CHANNELS: Channel[] = [
   {
     key: 'email',
     icon: Mail,
@@ -25,16 +26,24 @@ const CHANNELS: Channel[] = [
   {
     key: 'phone',
     icon: Phone,
-    href: `tel:${ENV.COMPANY_PHONE.replace(/\s/g, '')}`,
+    href: toTelHref(ENV.COMPANY_PHONE),
     value: ENV.COMPANY_PHONE,
   },
   {
     key: 'emergency',
     icon: ShieldAlert,
-    href: `tel:${ENV.COMPANY_EMERGENCY_PHONE.replace(/\s/g, '')}`,
+    href: toTelHref(ENV.COMPANY_EMERGENCY_PHONE),
     value: ENV.COMPANY_EMERGENCY_PHONE,
   },
 ];
+
+/*
+ * Un canal sin número no se enseña.
+ *
+ * Los teléfonos ya no tienen valor de ejemplo —los que había acabaron publicados en la web—, así que
+ * pueden venir vacíos, y una tarjeta de contacto con el hueco en blanco es peor que una tarjeta menos.
+ */
+const CHANNELS = ALL_CHANNELS.filter((canal) => canal.value);
 
 /**
  * Canales de contacto de soporte: correo específico de soporte, el teléfono
