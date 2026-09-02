@@ -92,6 +92,29 @@
       "cta": "I want a proposal for my portfolio",
       "imageAlt": "Property manager reviewing a community's issues with the Imora team"
     },
+    "math": {
+      "eyebrow": "The arithmetic",
+      "title": "What multiplies when the portfolio is split up",
+      "subtitle": "The difference is not in one community: it is in all of them at once. Pick how many you manage and look at the numbers.",
+      "sizeQuestion": "How many communities do you manage?",
+      "sizes": {
+        "small": "Up to 5",
+        "medium": "Between 6 and 20",
+        "large": "Between 21 and 50",
+        "xlarge": "More than 50"
+      },
+      "scatteredTitle": "With the services split up",
+      "scatteredNote": "Assuming each community runs its {services} usual services — concierge, cleaning, gardening and maintenance — with separate providers.",
+      "imoraTitle": "With Imora",
+      "imoraNote": "The same team and the same contact across all of them. The invoice is still one per community, so it can be taken to their meeting.",
+      "rows": {
+        "contacts": "people to call",
+        "invoices": "invoices to check and reconcile",
+        "channels": "different places to report an incident",
+        "standards": "different ways of working in the same building"
+      },
+      "cta": "I want a proposal for my portfolio"
+    },
     "services": {
       "eyebrow": "Services",
       "title": "Manage every service across your communities with a single provider",
@@ -2017,7 +2040,33 @@
       "audienceEyebrow": "Who it's for",
       "audienceTitle": "How this service adapts to who's hiring it",
       "ctaManagersPrefix": "Do you manage several communities?",
-      "ctaManagersLink": "How we work with property managers"
+      "ctaManagersLink": "How we work with property managers",
+      "byService": {
+        "concierge": {
+          "title": "Do you need a concierge for your building?",
+          "button": "I want a concierge for my building"
+        },
+        "cleaning": {
+          "title": "Would you like a cleaning plan for your building?",
+          "button": "I want a cleaning plan"
+        },
+        "maintenance": {
+          "title": "Shall we review your building's maintenance?",
+          "button": "I want to review the maintenance"
+        },
+        "pools": {
+          "title": "Shall we get your pool ready for the season?",
+          "button": "I want to get my pool ready"
+        },
+        "gardening": {
+          "title": "Would you like a gardening plan for your green areas?",
+          "button": "I want a gardening plan"
+        },
+        "security": {
+          "title": "Would you like CCTV and access control in your building?",
+          "button": "I want a CCTV quote"
+        }
+      }
     },
     "viewService": "View service",
     "process": {

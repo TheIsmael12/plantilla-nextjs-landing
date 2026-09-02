@@ -35,7 +35,7 @@ export default function GardeningViewPage({ locale }: GardeningViewPageProps) {
       <ServiceDetailAudience slug="gardening" />
       <ServiceDetailFaq slug="gardening" />
       <ServiceDetailProcess />
-      <ServiceDetailCta />
+      <ServiceDetailCta service="gardening" />
       <ServiceDetailZones slug="gardening" />
       <ServiceDetailOthers slug="gardening" />
     </main>

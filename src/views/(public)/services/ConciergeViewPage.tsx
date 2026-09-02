@@ -35,7 +35,7 @@ export default function ConciergeViewPage({ locale }: ConciergeViewPageProps) {
       <ServiceDetailAudience slug="concierge" />
       <ServiceDetailFaq slug="concierge" />
       <ServiceDetailProcess />
-      <ServiceDetailCta />
+      <ServiceDetailCta service="concierge" />
       <ServiceDetailZones slug="concierge" />
       <ServiceDetailOthers slug="concierge" />
     </main>

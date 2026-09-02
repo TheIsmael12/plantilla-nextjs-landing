@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { useFormik } from 'formik';
 import { CheckCircle, SendIcon } from 'lucide-react';
@@ -16,6 +16,7 @@ import Captcha from '@/components/ui/inputs/Captcha';
 import { HONEYPOT_FIELD_NAME } from '@/config/settings';
 import {
     CONTACT_PROFILES,
+    PORTFOLIO_BUCKETS,
     PROPERTY_MANAGER_PROFILE,
     SERVICE_INTERESTS,
     TIMEFRAMES,
@@ -83,11 +84,57 @@ export default function ContactForm({
     const tValidations = useTranslations('Validations');
     const captchaTokenRef = useRef<string | undefined>(undefined);
 
+    /*
+     * El tramo de cartera que traiga la URL, ya contestado.
+     *
+     * La landing de administradores pregunta cuántas comunidades gestiona para enseñarle la cuenta, y hasta
+     * ahora ese dato se perdía al pulsar el botón: aquí se le volvía a preguntar lo mismo, con el campo
+     * vacío. Llega como `?portfolio=medium`, y de ahí salen las dos respuestas que ya ha dado — que es
+     * administrador de fincas, y de qué tamaño es su cartera.
+     *
+     * Un valor desconocido en la URL no rellena nada: cualquiera puede escribir lo que quiera ahí, y un
+     * formulario que se autocompleta con basura es peor que uno vacío.
+     */
     const formik = useFormik<ContactFormValues>({
         initialValues: INITIAL,
         validationSchema: contactSchema(),
         onSubmit: (values) => onSubmit?.(values, captchaTokenRef.current),
     });
+
+    /*
+     * Lo que ya ha contestado antes de llegar aquí, rellenado al montar.
+     *
+     * La ficha de cada servicio manda `?service=cleaning` y la landing de administradores
+     * `?portfolio=large`: quien acaba de leer tres pantallas sobre limpieza, o de decir cuántas comunidades
+     * lleva, no debería tener que contestar lo mismo otra vez.
+     *
+     * Se lee de `window` en un efecto y no con `useSearchParams` por dos motivos: ese hook obliga a
+     * envolver la página en un `Suspense` —o Next la saca del renderizado estático— y además exige un
+     * router, así que reventaba el componente fuera de la aplicación. Y va en un efecto, no en el estado
+     * inicial, porque el servidor no tiene `window`: rellenar allí daría valores distintos en servidor y
+     * en cliente, que es un desajuste de hidratación.
+     *
+     * Un valor que no esté en la lista real no rellena nada: cualquiera puede escribir lo que quiera en la
+     * URL, y un formulario que se autocompleta con basura es peor que uno vacío.
+     */
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+
+        const service = params.get('service')?.toUpperCase();
+        if (service && (SERVICE_INTERESTS as readonly string[]).includes(service)) {
+            void formik.setFieldValue('serviceInterest', service);
+        }
+
+        const portfolio = params.get('portfolio');
+        const portfolioCount = portfolio ? PORTFOLIO_BUCKETS[portfolio] : undefined;
+
+        if (portfolioCount) {
+            void formik.setFieldValue('contactProfile', PROPERTY_MANAGER_PROFILE);
+            void formik.setFieldValue('managedPropertiesCount', String(portfolioCount));
+        }
+        // Solo al montar: es el estado de partida, no algo que deba rehacerse en cada render.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     /**
      * Props comunes de los cuatro desplegables de cualificación.

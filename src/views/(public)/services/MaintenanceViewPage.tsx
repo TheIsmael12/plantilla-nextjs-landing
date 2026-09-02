@@ -35,7 +35,7 @@ export default function MaintenanceViewPage({ locale }: MaintenanceViewPageProps
       <ServiceDetailAudience slug="maintenance" />
       <ServiceDetailFaq slug="maintenance" />
       <ServiceDetailProcess />
-      <ServiceDetailCta />
+      <ServiceDetailCta service="maintenance" />
       <ServiceDetailZones slug="maintenance" />
       <ServiceDetailOthers slug="maintenance" />
     </main>

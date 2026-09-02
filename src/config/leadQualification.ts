@@ -29,6 +29,25 @@ export type ContactProfile = (typeof CONTACT_PROFILES)[number];
 export const PROPERTY_MANAGER_PROFILE: ContactProfile = "PROPERTY_MANAGER";
 
 /**
+ * Los tramos de cartera de la landing de administradores, y cuántas fincas suponen.
+ *
+ * Existen porque esa página ya le pregunta a un administrador cuántas comunidades lleva —es lo que hace la
+ * cuenta de `PropertyManagersMath`— y llegaba al formulario sin traerlo: se le preguntaba dos veces lo
+ * mismo, la segunda con un campo vacío. El número es el que la propia sección usa para calcular, así que
+ * lo que se rellena es exactamente lo que la persona acaba de ver en pantalla.
+ *
+ * Se traduce a un número y no a un rango porque el backend guarda un entero (`managedPropertiesCount`), y
+ * porque quien llega con el campo ya puesto puede corregirlo: es una estimación de partida, no una
+ * respuesta cerrada.
+ */
+export const PORTFOLIO_BUCKETS: Record<string, number> = {
+  small: 5,
+  medium: 20,
+  large: 50,
+  xlarge: 100,
+};
+
+/**
  * Servicios que se pueden elegir: los seis de la web, más «otro».
  *
  * Se derivan de `SERVICE_SLUGS` en vez de escribirse otra vez, y ese es el punto: los valores que espera

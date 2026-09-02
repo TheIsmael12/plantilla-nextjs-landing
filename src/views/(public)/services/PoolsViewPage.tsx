@@ -36,7 +36,7 @@ export default function PoolsViewPage({ locale }: PoolsViewPageProps) {
       <ServiceDetailAudience slug="pools" />
       <ServiceDetailFaq slug="pools" />
       <ServiceDetailProcess />
-      <ServiceDetailCta />
+      <ServiceDetailCta service="pools" />
       <ServiceDetailZones slug="pools" />
       <ServiceDetailOthers slug="pools" />
     </main>

@@ -35,7 +35,7 @@ export default function SecurityViewPage({ locale }: SecurityViewPageProps) {
       <ServiceDetailAudience slug="security" />
       <ServiceDetailFaq slug="security" />
       <ServiceDetailProcess />
-      <ServiceDetailCta />
+      <ServiceDetailCta service="security" />
       <ServiceDetailZones slug="security" />
       <ServiceDetailOthers slug="security" />
     </main>

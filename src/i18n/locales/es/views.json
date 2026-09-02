@@ -92,6 +92,29 @@
       "cta": "Quiero una propuesta para mi cartera",
       "imageAlt": "Administrador de fincas revisando incidencias de una comunidad con el equipo de Imora"
     },
+    "math": {
+      "eyebrow": "La cuenta",
+      "title": "Lo que se multiplica al repartir la cartera",
+      "subtitle": "La diferencia no está en una comunidad: está en todas a la vez. Elige cuántas llevas y mira los números.",
+      "sizeQuestion": "¿Cuántas comunidades gestionas?",
+      "sizes": {
+        "small": "Hasta 5",
+        "medium": "Entre 6 y 20",
+        "large": "Entre 21 y 50",
+        "xlarge": "Más de 50"
+      },
+      "scatteredTitle": "Con los servicios repartidos",
+      "scatteredNote": "Suponiendo que cada comunidad lleve sus {services} servicios habituales —conserjería, limpieza, jardinería y mantenimiento— con proveedores distintos.",
+      "imoraTitle": "Con Imora",
+      "imoraNote": "El mismo equipo y el mismo interlocutor en todas. La factura sigue siendo una por comunidad, para poder llevarla a su junta.",
+      "rows": {
+        "contacts": "interlocutores a los que llamar",
+        "invoices": "facturas que revisar y cuadrar",
+        "channels": "sitios distintos donde avisar de una incidencia",
+        "standards": "formas distintas de trabajar en la misma finca"
+      },
+      "cta": "Quiero una propuesta para mi cartera"
+    },
     "services": {
       "eyebrow": "Servicios",
       "title": "Gestiona todos los servicios de tus comunidades con un único proveedor",
@@ -2017,7 +2040,33 @@
       "audienceEyebrow": "Para quién",
       "audienceTitle": "Cómo se adapta este servicio según quién lo contrata",
       "ctaManagersPrefix": "¿Gestionas varias comunidades?",
-      "ctaManagersLink": "Así trabajamos con administradores de fincas"
+      "ctaManagersLink": "Así trabajamos con administradores de fincas",
+      "byService": {
+        "concierge": {
+          "title": "¿Necesitas un conserje para tu comunidad?",
+          "button": "Quiero un conserje para mi comunidad"
+        },
+        "cleaning": {
+          "title": "¿Quieres un plan de limpieza para tu comunidad?",
+          "button": "Quiero un plan de limpieza"
+        },
+        "maintenance": {
+          "title": "¿Revisamos el mantenimiento de tu edificio?",
+          "button": "Quiero revisar el mantenimiento"
+        },
+        "pools": {
+          "title": "¿Preparamos tu piscina para la temporada?",
+          "button": "Quiero preparar mi piscina"
+        },
+        "gardening": {
+          "title": "¿Quieres un plan de jardinería para tus zonas verdes?",
+          "button": "Quiero un plan de jardinería"
+        },
+        "security": {
+          "title": "¿Quieres videovigilancia y control de accesos en tu comunidad?",
+          "button": "Quiero un presupuesto de videovigilancia"
+        }
+      }
     },
     "viewService": "Ver servicio",
     "process": {

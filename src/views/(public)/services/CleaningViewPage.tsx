@@ -35,7 +35,7 @@ export default function CleaningViewPage({ locale }: CleaningViewPageProps) {
       <ServiceDetailAudience slug="cleaning" />
       <ServiceDetailFaq slug="cleaning" />
       <ServiceDetailProcess />
-      <ServiceDetailCta />
+      <ServiceDetailCta service="cleaning" />
       <ServiceDetailZones slug="cleaning" />
       <ServiceDetailOthers slug="cleaning" />
     </main>
