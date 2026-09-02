@@ -1,0 +1,71 @@
+// Los contratos pendientes de firma del área de cliente
+// (views/(client-area)/private-area/profile/contracts).
+
+@use "../../00-settings/variables" as *;
+@use "../../01-tools/mixins" as *;
+
+.pending-contracts {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 1rem);
+  min-width: 0;
+}
+
+.pending-contracts__intro,
+.pending-contracts__note {
+  font-size: $text-sm;
+  color: var(--neutral-color);
+}
+
+.pending-contracts__list {
+  list-style: none;
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+}
+
+/*
+ * Cada contrato es una caja, no una fila de tabla.
+ *
+ * Lleva tres cosas que se leen en orden —qué es, si hay algo esperando, y qué se puede hacer— y en una
+ * fila de columnas el aviso de «pendiente de revisar» no cabía en ningún sitio sin partir la tabla.
+ */
+.pending-contracts__item {
+  @include flex($direction: column, $justify: flex-start, $align: stretch, $gap: 0.75rem);
+  @include p(1rem);
+  min-width: 0;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @include rounded(0.75rem);
+}
+
+.pending-contracts__head {
+  @include flex($justify: space-between, $align: flex-start, $gap: 0.75rem);
+  // La insignia de caducidad cae debajo en móvil en vez de empujar el nombre del servicio fuera.
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.pending-contracts__title {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.15rem);
+  min-width: 0;
+}
+
+.pending-contracts__service {
+  font-weight: $font-semibold;
+  color: var(--color);
+  overflow-wrap: anywhere;
+}
+
+.pending-contracts__code {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+}
+
+.pending-contracts__actions {
+  @include flex($justify: flex-start, $align: center, $gap: 0.5rem);
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.pending-contracts__signer {
+  font-size: $text-xs;
+  color: var(--neutral-color);
+  overflow-wrap: anywhere;
+}

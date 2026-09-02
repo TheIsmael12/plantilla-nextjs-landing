@@ -256,6 +256,10 @@ export const pathnames = {
     en: "/private-area/profile",
     es: "/area-privada/perfil",
   },
+  "/private-area/profile/contracts": {
+    en: "/private-area/profile/contracts",
+    es: "/area-privada/perfil/contratos",
+  },
   "/private-area/profile/security": {
     en: "/private-area/profile/security",
     es: "/area-privada/perfil/seguridad",

@@ -92,6 +92,9 @@
     "communityRevealPin": "Ver el PIN",
     "communityResyncCredential": "Reprogramar",
     "communityRevokeCredential": "Retirar la llave",
-    "view": "Ver"
+    "view": "Ver",
+    "signContract": "Firmar",
+    "uploadSignedContract": "Subir firmado",
+    "viewDocument": "Ver"
   }
 }

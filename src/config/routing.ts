@@ -4,6 +4,7 @@ import {
   Building2,
   Calendar,
   DoorClosed,
+  FileSignature,
   FileText,
   KeyRound,
   Languages,
@@ -291,6 +292,19 @@ export const PRIVATE_ROUTES: Route[] = [
             pathname: "/private-area/profile/notifications",
             category: "account",
             icon: Bell,
+            isShownInSidebar: true,
+          },
+          {
+            /*
+             * Lo que le queda por firmar.
+             *
+             * Vive en el perfil y no colgando de un servicio porque cuando un contrato está pendiente
+             * todavía no hay servicio contratado: se crea al convertir el pedido, y eso exige el contrato
+             * ya firmado.
+             */
+            pathname: "/private-area/profile/contracts",
+            category: "account",
+            icon: FileSignature,
             isShownInSidebar: true,
           },
           {

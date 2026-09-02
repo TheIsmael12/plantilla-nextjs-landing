@@ -3184,6 +3184,19 @@
         "emptyFilteredTitle": "Nothing to show with that filter",
         "emptyFilteredDescription": "Try «All» to see the full history.",
         "filterAll": "All"
+      },
+      "Contracts": {
+        "title": "Pending contracts",
+        "description": "Contracts still waiting for your signature. You can read them, sign them electronically or, if you prefer, print them, sign them by hand and upload them here.",
+        "empty": "You have nothing left to sign",
+        "emptyDescription": "When a contract is waiting for your signature, it will appear here.",
+        "expiresAt": "Until {date}",
+        "waitingFor": "It is now {email}'s turn to sign",
+        "pendingReview": "We received your signed contract on {date}. We are reviewing it; once we approve it, it will stop appearing here.",
+        "uploadNote": "The contract you upload is not signed straight away: someone reviews it before approving it.",
+        "uploadError": "The signed contract could not be uploaded.",
+        "rejected": "We could not accept the signed contract you sent. Please sign it again.",
+        "rejectedWithReason": "We could not accept the signed contract you sent: {reason}. Please sign it again."
       }
     }
   },

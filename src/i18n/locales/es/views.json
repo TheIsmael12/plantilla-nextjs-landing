@@ -3172,6 +3172,19 @@
         "emptyFilteredTitle": "Nada que enseñar con ese filtro",
         "emptyFilteredDescription": "Prueba con «Todas» para ver el histórico completo.",
         "filterAll": "Todas"
+      },
+      "Contracts": {
+        "title": "Contratos pendientes",
+        "description": "Contratos que todavía esperan tu firma. Puedes leerlos, firmarlos electrónicamente o, si lo prefieres, imprimirlos, firmarlos a mano y subirlos aquí.",
+        "empty": "No tienes nada pendiente de firmar",
+        "emptyDescription": "Cuando haya un contrato esperando tu firma, aparecerá aquí.",
+        "expiresAt": "Hasta el {date}",
+        "waitingFor": "Ahora le toca firmar a {email}",
+        "pendingReview": "Recibimos tu contrato firmado el {date}. Lo estamos revisando; en cuanto lo demos por bueno dejará de aparecer aquí.",
+        "uploadNote": "El contrato que subas no queda firmado en el momento: alguien lo revisa antes de darlo por bueno.",
+        "uploadError": "No se ha podido subir el contrato firmado.",
+        "rejected": "El contrato firmado que enviaste no lo hemos podido dar por bueno. Vuelve a firmarlo, por favor.",
+        "rejectedWithReason": "El contrato firmado que enviaste no lo hemos podido dar por bueno: {reason}. Vuelve a firmarlo, por favor."
       }
     }
   },

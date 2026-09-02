@@ -74,6 +74,7 @@
     "Routes": {
       "/private-area": "Área privada",
       "/private-area/profile": "Mi perfil",
+      "/private-area/profile/contracts": "Contratos pendientes",
       "/private-area/profile/security": "Seguridad",
       "/private-area/profile/sessions": "Sesiones",
       "/private-area/profile/preferences": "Preferencias",
