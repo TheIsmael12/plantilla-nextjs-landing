@@ -1,6 +1,5 @@
 "use client";
 
-import "@/styles/04-components/ui/errors/not-found.scss";
 import "@/styles/04-components/ui/buttons/button.scss";
 
 import { Link } from "@/i18n/navigation";

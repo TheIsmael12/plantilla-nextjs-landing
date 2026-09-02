@@ -7,3 +7,16 @@
 @use "03-elements/button";
 @use "03-elements/body";
 @use "03-elements/link";
+
+/*
+ * La hoja de la página 404, aquí y no en su componente.
+ *
+ * Importada desde `NotFound.tsx` acababa en su propio fragmento, y Next lo **precarga en todas las
+ * páginas** porque el límite `not-found` forma parte del árbol del layout — aunque casi nunca se
+ * renderice. El navegador avisaba en cada carga de que ese recurso se precargó y no se usó.
+ *
+ * Son 913 bytes: metidos aquí van en una hoja que sí se usa siempre, y no hay una petición extra ni un
+ * aviso en consola. El precio es que esas reglas viajan en todas las páginas, que es exactamente lo que ya
+ * ocurría — solo que además se pedían aparte.
+ */
+@use "04-components/ui/errors/not-found";
