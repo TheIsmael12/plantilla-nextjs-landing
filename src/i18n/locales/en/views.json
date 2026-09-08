@@ -79,9 +79,10 @@
           "role": "Portfolio and field team management"
         }
       },
-      "launchLabel": "We launch",
-      "launchDate": "Between September 2026 and January 2027",
-      "descriptionB": "We're a new company, and we say so plainly: we don't have decades of track record, but we do have an approach designed from day one to do things differently from how this sector has always worked."
+      "linkedin": "{name} on LinkedIn",
+      "newCompanyLabel": "A newly incorporated company",
+      "newCompanyValue": "With prior experience in the cleaning sector",
+      "descriptionB": "We're a newly incorporated company, and we say so plainly. What isn't new is the trade: we come from the cleaning sector and we know how it works. What we bring differently is the approach, designed from day one to do things another way."
     }
   },
   "ForPropertyManagers": {
@@ -3384,15 +3385,12 @@
       "talentPool": "You allowed us to keep your application for future processes.",
       "noTalentPool": "You did not allow us to keep your application for future processes.",
       "withdraw": "Withdraw my application",
-      "withdrawing": "Withdrawing…",
       "rejectedTitle": "We have not taken your application forward this time.",
       "dangerTitle": "Withdraw your application",
       "withdrawHint": "Your CV is deleted and we stop processing your data for this role.",
       "withdrawClosedHint": "The process is over, but you can still withdraw: that deletes your CV before the retention deadline.",
       "withdrawTitle": "Withdraw the application?",
       "withdrawText": "Your application is withdrawn and your CV is deleted. This cannot be undone: if you want to apply again later, you will have to start over.",
-      "withdrawConfirm": "Yes, withdraw it",
-      "withdrawCancel": "No, keep it",
       "withdrawnTitle": "Application withdrawn",
       "withdrawnText": "Your application has been withdrawn and your CV deleted.",
       "invalidTitle": "This link is no longer available",

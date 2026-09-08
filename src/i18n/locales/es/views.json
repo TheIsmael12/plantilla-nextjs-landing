@@ -79,9 +79,10 @@
           "role": "Gestión de cartera y del equipo de campo"
         }
       },
-      "launchLabel": "Arrancamos",
-      "launchDate": "Entre septiembre de 2026 y enero de 2027",
-      "descriptionB": "Somos una empresa nueva y lo decimos sin rodeos: no tenemos décadas de trayectoria, pero sí un planteamiento pensado desde el primer día para hacerlo de forma distinta a como se ha hecho siempre en este sector."
+      "linkedin": "LinkedIn de {name}",
+      "newCompanyLabel": "Empresa de nueva constitución",
+      "newCompanyValue": "Con experiencia previa en el sector de la limpieza",
+      "descriptionB": "Somos una empresa de nueva constitución y lo decimos sin rodeos. Lo que no es nuevo es el oficio: venimos del sector de la limpieza y sabemos cómo se trabaja en él. Lo que traemos distinto es el planteamiento, pensado desde el primer día para hacerlo de otra manera."
     }
   },
   "ForPropertyManagers": {
@@ -3372,15 +3373,12 @@
       "talentPool": "Autorizaste guardar tu candidatura para futuros procesos.",
       "noTalentPool": "No autorizaste guardar tu candidatura para futuros procesos.",
       "withdraw": "Retirar mi candidatura",
-      "withdrawing": "Retirando…",
       "rejectedTitle": "Esta vez no hemos seguido adelante con tu candidatura.",
       "dangerTitle": "Retirar la candidatura",
       "withdrawHint": "Se borra tu CV y dejamos de tratar tus datos para este proceso.",
       "withdrawClosedHint": "El proceso ya terminó, pero puedes retirarla igual: eso borra tu CV antes del plazo de conservación.",
       "withdrawTitle": "¿Retirar la candidatura?",
       "withdrawText": "Se retira tu candidatura y se elimina tu CV. Es irreversible: si más adelante quieres volver a presentarte, tendrás que hacerlo de nuevo.",
-      "withdrawConfirm": "Sí, retirarla",
-      "withdrawCancel": "No, dejarla",
       "withdrawnTitle": "Candidatura retirada",
       "withdrawnText": "Tu candidatura se ha retirado y tu CV se ha eliminado.",
       "invalidTitle": "Este enlace ya no está disponible",
