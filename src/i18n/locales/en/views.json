@@ -2879,6 +2879,8 @@
           "propertiesTitle": "Properties",
           "datesTitle": "Deadlines",
           "descriptionLabel": "Description",
+          "resolvedNoticeTitle": "Your incident has been resolved!",
+          "markResolvedAction": "Mark as resolved",
           "resolutionLabel": "Resolution",
           "serviceLabel": "Contracted service",
           "assignedToLabel": "Assigned to",

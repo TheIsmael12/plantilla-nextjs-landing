@@ -2867,6 +2867,8 @@
           "propertiesTitle": "Propiedades",
           "datesTitle": "Plazos",
           "descriptionLabel": "Descripción",
+          "resolvedNoticeTitle": "¡Tu incidencia se ha resuelto!",
+          "markResolvedAction": "Marcar como resuelta",
           "resolutionLabel": "Resolución",
           "serviceLabel": "Servicio contratado",
           "assignedToLabel": "Asignada a",

@@ -129,6 +129,28 @@
   font-weight: 600;
 }
 
+/*
+ * El aviso de "se ha resuelto tu incidencia": mismo tono de éxito que ya usan las notificaciones en
+ * vivo (`notification-banner--success`), pero aquí en línea dentro de la ficha y no flotando.
+ */
+.incident-detail__block--success {
+  background-color: var(--success-color-light);
+  border-color: var(--success-color);
+}
+
+.incident-detail__block-title--success {
+  color: var(--success-color-active);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.incident-detail__resolution-subtitle {
+  @include mb(0.35rem);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--success-color-active);
+}
+
 .incident-detail__text {
   white-space: pre-wrap;
   line-height: 1.6;

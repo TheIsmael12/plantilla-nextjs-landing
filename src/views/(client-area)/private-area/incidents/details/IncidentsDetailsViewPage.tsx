@@ -16,6 +16,7 @@ import Badge from '@/components/ui/buttons/Badge';
 import BreadcrumbLabel from '@/components/ui/navigations/BreadcrumbLabel';
 import IncidentCloseForm from '@/views/(client-area)/private-area/incidents/details/components/IncidentCloseForm';
 import IncidentConversation from '@/views/(client-area)/private-area/incidents/details/components/IncidentConversation';
+import IncidentStatusMenu from '@/views/(client-area)/private-area/incidents/details/components/IncidentStatusMenu';
 
 import '@/styles/04-components/client-area/client-detail.scss';
 import '@/styles/04-components/client-area/client-list.scss';
@@ -122,6 +123,17 @@ export default async function IncidentsDetailsViewPage({
             text={tCommunities(`IncidentPriority.${incident.priority}`)}
           />
           {incident.isOverdue && <Badge variant="danger" text={t('overdue')} />}
+
+          {/*
+            El menú de tres puntos: la vía para que el cliente dé la incidencia por resuelta él mismo,
+            sin esperar a que el staff la marque primero. Ni en `RESUELTA` —ahí ya está el flujo dedicado
+            de `IncidentCloseForm`, más abajo— ni en un estado terminal, donde no hay nada que ofrecer.
+          */}
+          {(incident.status === 'NUEVA' ||
+            incident.status === 'EN_CURSO' ||
+            incident.status === 'ESPERANDO_TERCERO') && (
+            <IncidentStatusMenu incidentId={incident.id} />
+          )}
         </div>
       </header>
 
@@ -134,9 +146,18 @@ export default async function IncidentsDetailsViewPage({
             <p className="incident-detail__text">{incident.description}</p>
           </section>
 
+          {/*
+            El titular es a propósito «Tu incidencia se ha resuelto» y no solo «Resolución»: es la
+            noticia, y va con tono de éxito porque pide una acción del cliente —confirmarla con estrellas,
+            justo debajo en `IncidentCloseForm`—. El bloque neutro de antes se leía como un dato más de la
+            ficha, y se perdía entre el resto.
+          */}
           {incident.resolution && (
-            <section className="incident-detail__block">
-              <h2 className="incident-detail__block-title">{t('resolutionLabel')}</h2>
+            <section className="incident-detail__block incident-detail__block--success">
+              <h2 className="incident-detail__block-title incident-detail__block-title--success">
+                {t('resolvedNoticeTitle')}
+              </h2>
+              <p className="incident-detail__resolution-subtitle">{t('resolutionLabel')}</p>
               <p className="incident-detail__text">{incident.resolution}</p>
             </section>
           )}
