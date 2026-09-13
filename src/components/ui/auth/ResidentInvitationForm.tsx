@@ -3,23 +3,28 @@
 import { useState } from 'react';
 import { useFormatter, useTranslations } from 'next-intl';
 import { Form, Formik } from 'formik';
-import { CheckCircle, LockIcon } from 'lucide-react';
+import { CheckCircle, LockIcon, MailIcon, PhoneIcon, UserIcon } from 'lucide-react';
 
 import Input from '@/components/ui/inputs/Input';
 import Button from '@/components/ui/buttons/Button';
 
 import { acceptResidentInvitation, type ResidentInvitationPreview } from '@/actions/auth/resident-auth-actions';
 import { HTTPStatus } from '@/constants/httpStatus';
-import { residentAcceptInvitationSchema } from '@/schemas/auth.schema';
+import {
+  residentAcceptInvitationNewAccountSchema,
+  residentAcceptInvitationSchema,
+} from '@/schemas/auth.schema';
 
 import '@/styles/04-components/auth/authForm.scss';
 
 interface AcceptValues {
+  name: string;
+  phone: string;
   newPassword: string;
   confirmPassword: string;
 }
 
-const INITIAL: AcceptValues = { newPassword: '', confirmPassword: '' };
+const INITIAL: AcceptValues = { name: '', phone: '', newPassword: '', confirmPassword: '' };
 
 interface ResidentInvitationFormProps {
   token: string;
@@ -29,9 +34,16 @@ interface ResidentInvitationFormProps {
 /**
  * Formulario de aceptación de una invitación de vecino.
  *
- * Con `accountAlreadyExists`, no se pide contraseña: el correo ya tiene cuenta y solo hace falta confirmar la
- * pertenencia (sección 4.2 de requisitos-app-comunidad.md). Sin ello, se pediría una contraseña que el backend
- * de todas formas ignoraría, y explicar por qué sería más confuso que no pedirla.
+ * Tres casos, según lo que ya se sabe de la persona (sección 4.2 de requisitos-app-comunidad.md):
+ *
+ * - **Ya puede entrar** (`hasIdentity`): no se pide nada, solo confirmar. Es quien acepta una segunda
+ *   invitación —otra comunidad, otra unidad— teniendo ya cuenta activa.
+ * - **Existe pero sin forma de entrar** (`accountAlreadyExists && !hasIdentity`): es el vecino dado de alta a
+ *   mano desde la intranet. Sus datos ya los puso el administrador, así que **no se piden ni se pueden
+ *   tocar aquí**: solo se pide la contraseña con la que va a entrar.
+ * - **Cuenta nueva** (`!accountAlreadyExists`): nadie ha escrito nada de esta persona todavía, así que se
+ *   piden sus datos igual que el alta directa desde la intranet, **sin unidad** —esa la fija la invitación,
+ *   no se elige aquí— más la contraseña.
  *
  * Tras aceptar no se guarda ninguna sesión: el backend devuelve una pensada para un dispositivo móvil, y el
  * vecino siempre entra desde la app.
@@ -46,12 +58,17 @@ export default function ResidentInvitationForm({ token, invitation }: ResidentIn
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
+  const isNewAccount = !invitation.accountAlreadyExists;
+  const needsPassword = !invitation.hasIdentity;
+
   const handleSubmit = async (values: AcceptValues) => {
     setError(null);
 
     const response = await acceptResidentInvitation({
       token,
-      password: invitation.accountAlreadyExists ? undefined : values.newPassword,
+      password: needsPassword ? values.newPassword : undefined,
+      name: isNewAccount ? values.name.trim() : undefined,
+      phone: isNewAccount ? values.phone.trim() || undefined : undefined,
     });
 
     if (response.status === HTTPStatus.OK || response.status === HTTPStatus.CREATED) {
@@ -74,10 +91,22 @@ export default function ResidentInvitationForm({ token, invitation }: ResidentIn
     );
   }
 
+  const initialValues: AcceptValues = {
+    ...INITIAL,
+    name: invitation.name ?? '',
+    phone: invitation.phone ?? '',
+  };
+
+  const validationSchema = !needsPassword
+    ? undefined
+    : isNewAccount
+      ? residentAcceptInvitationNewAccountSchema
+      : residentAcceptInvitationSchema;
+
   return (
     <Formik
-      initialValues={INITIAL}
-      validationSchema={invitation.accountAlreadyExists ? undefined : residentAcceptInvitationSchema}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
       {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
@@ -114,7 +143,90 @@ export default function ResidentInvitationForm({ token, invitation }: ResidentIn
             {t('expiresAt', { date: format.dateTime(new Date(invitation.expiresAt), { dateStyle: 'long' }) })}
           </p>
 
-          {invitation.accountAlreadyExists ? (
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            label="email"
+            value={invitation.email}
+            onChange={() => {}}
+            disabled
+            icon={MailIcon}
+            className="input__full"
+          />
+
+          {/*
+            Cuenta ya existente sin forma de entrar: sus datos los puso el administrador al darlo de alta
+            (sección 2.1) y aquí solo se enseñan, no se editan. Pedirlos de nuevo sería dejar que el vecino
+            pise lo que ya escribió quien lo invitó.
+          */}
+          {!isNewAccount && (
+            <>
+              <Input
+                id="name"
+                name="name"
+                label="name"
+                value={invitation.name ?? ''}
+                onChange={() => {}}
+                disabled
+                icon={UserIcon}
+                className="input__full"
+              />
+
+              {invitation.phone && (
+                <Input
+                  id="phone"
+                  name="phone"
+                  label="phone"
+                  value={invitation.phone}
+                  onChange={() => {}}
+                  disabled
+                  icon={PhoneIcon}
+                  className="input__full"
+                />
+              )}
+            </>
+          )}
+
+          {/*
+            Cuenta nueva: nadie ha escrito nada de esta persona todavía, así que se piden sus datos igual que
+            el alta directa desde la intranet, pero **sin unidad**: esa la fija la invitación y no se elige
+            aquí, a diferencia del formulario de la intranet.
+          */}
+          {isNewAccount && (
+            <>
+              <Input
+                id="name"
+                name="name"
+                label="name"
+                placeholder="name"
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                touched={touched.name}
+                error={errors.name}
+                required
+                icon={UserIcon}
+                className="input__full"
+              />
+
+              <Input
+                id="phone"
+                name="phone"
+                label="phone"
+                placeholder="phone"
+                value={values.phone}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                touched={touched.phone}
+                error={errors.phone}
+                icon={PhoneIcon}
+                className="input__full"
+              />
+            </>
+          )}
+
+          {!needsPassword ? (
             <p className="auth-form__notice">{t('existingAccountNotice')}</p>
           ) : (
             <>
@@ -157,7 +269,7 @@ export default function ResidentInvitationForm({ token, invitation }: ResidentIn
           {error && <p className="auth-form__error">{error}</p>}
 
           <Button
-            title={isSubmitting ? 'accepting' : invitation.accountAlreadyExists ? 'confirm' : 'accept'}
+            title={isSubmitting ? 'accepting' : !needsPassword ? 'confirm' : 'accept'}
             type="submit"
             size="full"
             variant="primary"

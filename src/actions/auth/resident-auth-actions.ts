@@ -14,6 +14,7 @@ export interface ResidentRoleValue {
 export interface ResidentInvitationPreview {
   email: string;
   name: string | null;
+  phone: string | null;
   communityName: string | null;
   unitCode: string | null;
   role: string;
@@ -21,7 +22,10 @@ export interface ResidentInvitationPreview {
   keyringNames: string[];
   allowGoogleSignIn: boolean;
   allowPasswordSignIn: boolean;
+  /** Si la cuenta ya existe con sus datos puestos: no se piden, solo se muestran. */
   accountAlreadyExists: boolean;
+  /** Si ya tiene alguna forma de entrar. Con `false` hace falta pedir contraseña, tenga o no datos ya puestos. */
+  hasIdentity: boolean;
 }
 
 /**
@@ -50,16 +54,22 @@ const WEB_DEVICE_ID = "landing-web-accept-invitation";
 
 /**
  * Acepta una invitación de vecino: crea la pertenencia (y la cuenta, si no existía) con la contraseña dada.
- * Sin `password`, solo confirma la pertenencia de una cuenta que ya existe (sección 4.2).
+ * Sin `password`, solo confirma la pertenencia de una cuenta que ya tiene forma de entrar (sección 4.2).
+ *
+ * `name`/`phone`/`language` solo hacen falta si la cuenta es nueva: si ya existía —dada de alta desde la
+ * intranet, o porque el vecino vive en otra comunidad— sus datos no se piden ni se mandan aquí.
  *
  * El backend devuelve una sesión de dispositivo junto con la confirmación, pero esta acción **no la usa**: tras
  * aceptar desde la web, el vecino entra por su cuenta desde la app, con su propio dispositivo.
- * @param {{ token: string; password?: string }} input - Token del enlace y, si la cuenta no existe, la contraseña elegida
+ * @param {{ token: string; password?: string; name?: string; phone?: string; language?: string }} input - Token del enlace y, si la cuenta es nueva, sus datos y la contraseña elegida
  * @returns {Promise<{ status: number; message?: string }>} El resultado de la operación
  */
 export async function acceptResidentInvitation(input: {
   token: string;
   password?: string;
+  name?: string;
+  phone?: string;
+  language?: string;
 }): Promise<{ status: number; message?: string }> {
   return fetchData<null, typeof input & { deviceId: string }>("residents/auth/accept-invitation", "POST", {
     ...input,

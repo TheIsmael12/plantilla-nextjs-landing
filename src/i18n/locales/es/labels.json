@@ -1,6 +1,8 @@
 {
   "Labels": {
     "email": "Correo electrónico",
+    "name": "Nombre",
+    "phone": "Teléfono",
     "password": "Contraseña",
     "roles": "Roles",
     "taxId": "CIF/NIF",

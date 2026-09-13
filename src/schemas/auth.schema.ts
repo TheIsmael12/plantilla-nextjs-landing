@@ -63,9 +63,22 @@ export const residentResetPasswordSchema = Yup.object({
 
 /**
  * Esquema para aceptar una invitación de vecino (`POST /residents/auth/accept-invitation`) cuando la cuenta
- * todavía no existe. Si ya existe, la pantalla no pide contraseña: solo confirma.
+ * **ya existe pero todavía no tiene forma de entrar**: sus datos no se piden, solo la contraseña.
  */
 export const residentAcceptInvitationSchema = Yup.object({
+  newPassword: residentPassword,
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("newPassword")], "auth.passwordsMustMatch")
+    .required("auth.passwordRequired"),
+});
+
+/**
+ * Esquema para aceptar una invitación cuando la cuenta **es nueva**: además de la contraseña, pide los datos
+ * de la persona, igual que el alta directa desde la intranet, pero sin unidad —esa la fija la invitación—.
+ */
+export const residentAcceptInvitationNewAccountSchema = Yup.object({
+  name: Yup.string().trim().min(1, "auth.nameRequired").required("auth.nameRequired"),
+  phone: Yup.string().trim(),
   newPassword: residentPassword,
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("newPassword")], "auth.passwordsMustMatch")

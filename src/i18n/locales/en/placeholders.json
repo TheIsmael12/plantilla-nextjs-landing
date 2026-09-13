@@ -1,6 +1,8 @@
 {
   "Placeholders": {
     "email": "you@email.com",
+    "name": "Your name",
+    "phone": "Your phone",
     "password": "Enter your password",
     "search": "Search...",
     "taxId": "B12345678",

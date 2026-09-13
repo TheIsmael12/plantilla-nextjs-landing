@@ -1,6 +1,8 @@
 {
   "Placeholders": {
     "email": "tu@correo.com",
+    "name": "Tu nombre",
+    "phone": "Tu teléfono",
     "password": "Introduce tu contraseña",
     "search": "Buscar...",
     "taxId": "B12345678",

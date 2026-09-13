@@ -1,6 +1,8 @@
 {
   "Labels": {
     "email": "Email",
+    "name": "Name",
+    "phone": "Phone",
     "password": "Password",
     "roles": "Roles",
     "taxId": "Tax ID",

@@ -22,6 +22,7 @@
     },
     "auth": {
       "taxIdRequired": "El CIF/NIF es obligatorio.",
+      "nameRequired": "El nombre es obligatorio.",
       "passwordRequired": "La contraseña es obligatoria.",
       "passwordMinLength": "La contraseña debe tener al menos 8 caracteres.",
       "passwordLowercase": "La contraseña debe incluir al menos una minúscula.",

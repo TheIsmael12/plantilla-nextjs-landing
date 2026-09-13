@@ -22,6 +22,7 @@
     },
     "auth": {
       "taxIdRequired": "Tax ID is required.",
+      "nameRequired": "Name is required.",
       "passwordRequired": "Password is required.",
       "passwordMinLength": "Password must be at least 8 characters.",
       "passwordLowercase": "Password must include at least one lowercase letter.",
