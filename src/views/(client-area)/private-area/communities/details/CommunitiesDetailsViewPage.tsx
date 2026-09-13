@@ -41,7 +41,7 @@ const INCIDENTS_LIMIT = 100;
  * Contarla como abierta hinchaba la cifra que precisamente se mira para saber si hay trabajo pendiente.
  */
 const OPEN_STATUSES = INCIDENT_STATUS_ORDER.filter((status) =>
-  ['NUEVA', 'EN_CURSO', 'ESPERANDO_TERCERO'].includes(status),
+  ['NEW', 'IN_PROGRESS', 'WAITING_THIRD_PARTY'].includes(status),
 );
 
 interface CommunityHomeViewPageProps {

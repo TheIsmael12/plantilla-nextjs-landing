@@ -2871,12 +2871,11 @@
           "markResolvedAction": "Marcar como resuelta",
           "resolutionLabel": "Resolución",
           "serviceLabel": "Servicio contratado",
-          "assignedToLabel": "Asignada a",
+          "reportedByResidentLabel": "Abierta por",
           "dueAtLabel": "Fecha compromiso",
           "resolvedAtLabel": "Resuelta el",
           "closedAtLabel": "Cerrada el",
           "channelLabel": "Canal de entrada",
-          "unassigned": "Sin asignar",
           "closeTitle": "¿Confirmas que quedó resuelto?",
           "closeDescription": "Valora cómo se ha resuelto antes de confirmar. Una vez cerrada, esta incidencia no se puede reabrir desde aquí.",
           "ratingLabel": "Valoración",
@@ -3019,17 +3018,17 @@
         },
         "UnitType": {
           "PORTAL": "Portal",
-          "VIVIENDA": "Vivienda",
+          "DWELLING": "Vivienda",
           "LOCAL": "Local",
-          "GARAJE": "Garaje",
-          "TRASTERO": "Trastero",
-          "COMUN": "Zona común"
+          "GARAGE": "Garaje",
+          "STORAGE_ROOM": "Trastero",
+          "COMMON": "Zona común"
         },
         "ResidentRole": {
-          "PROPIETARIO": "Propietario",
-          "INQUILINO": "Inquilino",
-          "PRESIDENTE": "Presidente",
-          "ADMINISTRADOR": "Administrador"
+          "OWNER": "Propietario",
+          "TENANT": "Inquilino",
+          "PRESIDENT": "Presidente",
+          "ADMINISTRATOR": "Administrador"
         },
         "MembershipStatus": {
           "ACTIVE": "Activo",
@@ -3135,12 +3134,12 @@
           "CRITICAL": "Crítica"
         },
         "IncidentStatus": {
-          "NUEVA": "Nueva",
-          "EN_CURSO": "En curso",
-          "ESPERANDO_TERCERO": "Esperando a un tercero",
-          "RESUELTA": "Resuelta",
-          "CERRADA": "Cerrada",
-          "RECHAZADA": "Rechazada"
+          "NEW": "Nueva",
+          "IN_PROGRESS": "En curso",
+          "WAITING_THIRD_PARTY": "Esperando a un tercero",
+          "RESOLVED": "Resuelta",
+          "CLOSED": "Cerrada",
+          "REJECTED": "Rechazada"
         },
         "Home": {
           "title": "La comunidad",

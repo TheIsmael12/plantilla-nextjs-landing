@@ -35,11 +35,11 @@ import '@/styles/04-components/client-area/community-common.scss';
 
 const UNIT_TYPES: CommunityUnitType[] = [
   'PORTAL',
-  'VIVIENDA',
+  'DWELLING',
   'LOCAL',
-  'GARAJE',
-  'TRASTERO',
-  'COMUN',
+  'GARAGE',
+  'STORAGE_ROOM',
+  'COMMON',
 ];
 
 interface UnitFormState {
@@ -56,7 +56,7 @@ const EMPTY_FORM: UnitFormState = {
   block: '',
   floor: '',
   door: '',
-  type: 'VIVIENDA',
+  type: 'DWELLING',
   isActive: true,
 };
 

@@ -43,7 +43,7 @@ import type { FetchResponse, PaginatedResult } from '@/types/responses';
 import '@/styles/04-components/ui/forms/form-row.scss';
 import '@/styles/04-components/client-area/community-common.scss';
 
-const ROLES: ResidentRole[] = ['PROPIETARIO', 'INQUILINO', 'PRESIDENTE', 'ADMINISTRADOR'];
+const ROLES: ResidentRole[] = ['OWNER', 'TENANT', 'PRESIDENT', 'ADMINISTRATOR'];
 const CREDENTIAL_TYPES: LockCredentialType[] = ['NFC_CARD', 'NFC_PHONE', 'PIN', 'APP'];
 const MAX_EMAILS = 50;
 
@@ -96,11 +96,11 @@ export default function CommunitiesResidentsPanel({
   const [emails, setEmails] = useState<string[]>([]);
   const [inviteName, setInviteName] = useState('');
   const [inviteUnitId, setInviteUnitId] = useState('');
-  const [inviteRole, setInviteRole] = useState<ResidentRole>('PROPIETARIO');
+  const [inviteRole, setInviteRole] = useState<ResidentRole>('OWNER');
   const [inviteKeyrings, setInviteKeyrings] = useState<Record<string, LockCredentialType>>({});
 
   const [editUnitId, setEditUnitId] = useState('');
-  const [editRole, setEditRole] = useState<ResidentRole>('PROPIETARIO');
+  const [editRole, setEditRole] = useState<ResidentRole>('OWNER');
   const [editName, setEditName] = useState('');
   const [editEmail, setEditEmail] = useState('');
 
@@ -128,7 +128,7 @@ export default function CommunitiesResidentsPanel({
     setEmails([]);
     setInviteName('');
     setInviteUnitId('');
-    setInviteRole('PROPIETARIO');
+    setInviteRole('OWNER');
     setInviteKeyrings({});
   };
 

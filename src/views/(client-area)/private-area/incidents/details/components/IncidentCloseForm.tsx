@@ -9,29 +9,33 @@ import { useRouter } from '@/i18n/navigation';
 import { isErrorStatus } from '@/utils/httpStatusUtils';
 import { notifyResponse } from '@/utils/toastUtils';
 
-import Button from '@/components/ui/buttons/Button';
+import ModalComponent from '@/components/ui/modals/ModalComponent';
 import Textarea from '@/components/ui/inputs/Textarea';
 
 const COMMENT_MAX = 2000;
 
 interface IncidentCloseFormProps {
   incidentId: string;
+  onClose: () => void;
 }
 
 /**
- * Confirma una incidencia resuelta, la cierra y la valora de 1 a 5 estrellas.
+ * Modal de confirmación: cierra la incidencia `RESOLVED` y la valora de 1 a 5 estrellas.
  *
- * Solo se pinta cuando la incidencia está `RESUELTA` (lo decide `IncidentsDetailsViewPage`, que es
- * quien conoce el estado): es la respuesta afirmativa del cliente a «lo hemos arreglado», simétrica a
- * la que ya existe en la app del vecino (`IncidentResolutionActions`). Una vez cerrada, esta pantalla
- * deja de mostrarse — `IncidentsDetailsViewPage` pinta la valoración ya dada en su lugar.
+ * Se abre desde `IncidentsDetailsViewPage` (mientras está `RESOLVED`) o desde `IncidentStatusMenu`
+ * (para darla por resuelta sin esperar al staff): es la respuesta afirmativa del cliente a «lo hemos
+ * arreglado», simétrica a la que ya existe en la app del vecino (`IncidentResolutionActions`, un
+ * `Sheet` real). Antes se pintaba inline en la página en vez de como modal: sin overlay ni foco
+ * atrapado, y en dos puntos del árbol a la vez si el cliente entraba por el menú de tres puntos con la
+ * incidencia además en `RESOLVED`. Como modal único, `onClose` lo puede cerrar quien lo abre sin volver
+ * a montarlo, y sea cual sea la vía es literalmente el mismo diálogo en pantalla.
  *
  * La valoración es obligatoria y el comentario no: «ya está» no necesita explicación, y pedirla
  * convertiría una confirmación de un toque en un formulario que la mitad abandona.
- * @param {IncidentCloseFormProps} props - La incidencia a cerrar
- * @returns {JSX.Element} El formulario de cierre
+ * @param {IncidentCloseFormProps} props - La incidencia a cerrar y el cierre del modal
+ * @returns {JSX.Element} El modal de cierre
  */
-export default function IncidentCloseForm({ incidentId }: IncidentCloseFormProps) {
+export default function IncidentCloseForm({ incidentId, onClose }: IncidentCloseFormProps) {
   const t = useTranslations('Views.ClientArea.Communities.Incidents');
   const tErrors = useTranslations('Common.Errors');
   const router = useRouter();
@@ -59,6 +63,7 @@ export default function IncidentCloseForm({ incidentId }: IncidentCloseFormProps
 
       if (isErrorStatus(response.status)) return;
 
+      onClose();
       router.refresh();
     });
   };
@@ -66,8 +71,16 @@ export default function IncidentCloseForm({ incidentId }: IncidentCloseFormProps
   const stars = [1, 2, 3, 4, 5];
 
   return (
-    <section className="incident-detail__block">
-      <h2 className="incident-detail__block-title">{t('closeTitle')}</h2>
+    <ModalComponent
+      title={t('closeTitle')}
+      isOpen
+      onClose={onClose}
+      closeOnOutsideClick={!isSubmitting}
+      onCancel={onClose}
+      onConfirm={handleSubmit}
+      isLoading={isSubmitting}
+      confirmText="confirmCloseIncident"
+    >
       <p className="incident-detail__text">{t('closeDescription')}</p>
 
       <div
@@ -112,14 +125,8 @@ export default function IncidentCloseForm({ incidentId }: IncidentCloseFormProps
         maxLength={COMMENT_MAX}
         value={comment}
         onChange={(event) => setComment(event.target.value)}
-      />
-
-      <Button
-        variant="primary"
-        title="confirmCloseIncident"
-        onClick={handleSubmit}
         disabled={isSubmitting}
       />
-    </section>
+    </ModalComponent>
   );
 }

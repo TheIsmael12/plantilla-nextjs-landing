@@ -19,12 +19,12 @@ import '@/styles/04-components/client-area/community-common.scss';
 const INCIDENTS_PER_PAGE = 10;
 
 const STATUS_OPTIONS: IncidentStatus[] = [
-  'NUEVA',
-  'EN_CURSO',
-  'ESPERANDO_TERCERO',
-  'RESUELTA',
-  'CERRADA',
-  'RECHAZADA',
+  'NEW',
+  'IN_PROGRESS',
+  'WAITING_THIRD_PARTY',
+  'RESOLVED',
+  'CLOSED',
+  'REJECTED',
 ];
 
 interface IncidentsListViewPageProps {

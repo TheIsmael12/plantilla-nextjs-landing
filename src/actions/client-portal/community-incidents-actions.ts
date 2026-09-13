@@ -112,7 +112,7 @@ export async function createIncident(
  *
  * Es la respuesta afirmativa del cliente a «lo hemos resuelto», simétrica a la de la app del vecino
  * (`closeIncident` de `residents/incidents-api.ts` en la app móvil). Solo vale sobre una incidencia
- * `RESUELTA`; el backend responde 409 en cualquier otro estado.
+ * `RESOLVED`; el backend responde 409 en cualquier otro estado.
  * @param {string} incidentId - Identificador de la incidencia
  * @param {PortalCloseIncidentInput} dto - Valoración de 1 a 5, comentario y nota opcionales
  * @returns {Promise<FetchResponse<CommunityIncident>>} La incidencia ya cerrada, o el error de la API

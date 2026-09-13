@@ -20,7 +20,7 @@ import type { PortalCommunityConfig, ResidentRole } from '@/types/client-portal/
 import '@/styles/04-components/ui/forms/form-row.scss';
 import '@/styles/04-components/client-area/community-common.scss';
 
-const ROLES: ResidentRole[] = ['PROPIETARIO', 'INQUILINO', 'PRESIDENTE', 'ADMINISTRADOR'];
+const ROLES: ResidentRole[] = ['OWNER', 'TENANT', 'PRESIDENT', 'ADMINISTRATOR'];
 const MIN_OPEN_INCIDENTS = 1;
 const MAX_OPEN_INCIDENTS = 100;
 const MIN_PHOTOS = 1;

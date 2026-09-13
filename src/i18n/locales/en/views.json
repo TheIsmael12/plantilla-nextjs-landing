@@ -2883,12 +2883,11 @@
           "markResolvedAction": "Mark as resolved",
           "resolutionLabel": "Resolution",
           "serviceLabel": "Contracted service",
-          "assignedToLabel": "Assigned to",
+          "reportedByResidentLabel": "Reported by",
           "dueAtLabel": "Due date",
           "resolvedAtLabel": "Resolved on",
           "closedAtLabel": "Closed on",
           "channelLabel": "Intake channel",
-          "unassigned": "Unassigned",
           "closeTitle": "Confirm it's resolved?",
           "closeDescription": "Rate how it was resolved before confirming. Once closed, this incident cannot be reopened from here.",
           "ratingLabel": "Rating",
@@ -3031,17 +3030,17 @@
         },
         "UnitType": {
           "PORTAL": "Entrance",
-          "VIVIENDA": "Home",
+          "DWELLING": "Home",
           "LOCAL": "Premises",
-          "GARAJE": "Garage",
-          "TRASTERO": "Storage room",
-          "COMUN": "Common area"
+          "GARAGE": "Garage",
+          "STORAGE_ROOM": "Storage room",
+          "COMMON": "Common area"
         },
         "ResidentRole": {
-          "PROPIETARIO": "Owner",
-          "INQUILINO": "Tenant",
-          "PRESIDENTE": "Chairperson",
-          "ADMINISTRADOR": "Administrator"
+          "OWNER": "Owner",
+          "TENANT": "Tenant",
+          "PRESIDENT": "Chairperson",
+          "ADMINISTRATOR": "Administrator"
         },
         "MembershipStatus": {
           "ACTIVE": "Active",
@@ -3147,12 +3146,12 @@
           "CRITICAL": "Critical"
         },
         "IncidentStatus": {
-          "NUEVA": "New",
-          "EN_CURSO": "In progress",
-          "ESPERANDO_TERCERO": "Waiting on a third party",
-          "RESUELTA": "Resolved",
-          "CERRADA": "Closed",
-          "RECHAZADA": "Rejected"
+          "NEW": "New",
+          "IN_PROGRESS": "In progress",
+          "WAITING_THIRD_PARTY": "Waiting on a third party",
+          "RESOLVED": "Resolved",
+          "CLOSED": "Closed",
+          "REJECTED": "Rejected"
         },
         "Home": {
           "title": "The community",

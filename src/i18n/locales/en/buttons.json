@@ -33,6 +33,7 @@
     "save": "Save",
     "saving": "Saving...",
     "confirmCloseIncident": "Confirm and close",
+    "openCloseIncident": "Confirm resolution",
     "create": "Create",
     "creating": "Creating...",
     "edit": "Edit",

@@ -117,12 +117,12 @@ describe("INCIDENT_STATUS_ORDER", () => {
    */
   it("va del ciclo de vida, no alfabético", () => {
     expect(INCIDENT_STATUS_ORDER).toEqual([
-      "NUEVA",
-      "EN_CURSO",
-      "ESPERANDO_TERCERO",
-      "RESUELTA",
-      "CERRADA",
-      "RECHAZADA",
+      "NEW",
+      "IN_PROGRESS",
+      "WAITING_THIRD_PARTY",
+      "RESOLVED",
+      "CLOSED",
+      "REJECTED",
     ]);
   });
 

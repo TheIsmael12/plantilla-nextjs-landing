@@ -14,7 +14,7 @@ import { Link, resolveHref } from '@/i18n/navigation';
 
 import Badge from '@/components/ui/buttons/Badge';
 import BreadcrumbLabel from '@/components/ui/navigations/BreadcrumbLabel';
-import IncidentCloseForm from '@/views/(client-area)/private-area/incidents/details/components/IncidentCloseForm';
+import IncidentCloseTrigger from '@/views/(client-area)/private-area/incidents/details/components/IncidentCloseTrigger';
 import IncidentConversation from '@/views/(client-area)/private-area/incidents/details/components/IncidentConversation';
 import IncidentStatusMenu from '@/views/(client-area)/private-area/incidents/details/components/IncidentStatusMenu';
 
@@ -34,10 +34,12 @@ interface IncidentDetailViewPageProps {
  *
  * No se pintan controles de estado ni de asignación aunque la respuesta traiga
  * `allowedTransitions`: ese campo describe lo que puede hacer el personal
- * interno desde intranet, no lo que puede hacer el cliente. El cliente no
- * gestiona el flujo interno de la incidencia, pero sí puede confirmar su
- * resolución y valorarla con estrellas ({@link IncidentCloseForm}) mientras
- * está `RESUELTA`; una vez cerrada, se enseña la valoración ya dada.
+ * interno desde intranet, no lo que puede hacer el cliente. Por el mismo motivo
+ * tampoco se enseña a quién está asignada internamente: es dato de gestión del
+ * staff, no algo que el cliente necesite. El cliente no gestiona el flujo
+ * interno de la incidencia, pero sí puede confirmar su resolución y valorarla
+ * con estrellas ({@link IncidentCloseTrigger}) mientras está `RESOLVED`; una
+ * vez cerrada, se enseña la valoración ya dada.
  * @param {IncidentDetailViewPageProps} props - Id de la incidencia y locale activo
  * @returns {Promise<JSX.Element>} El detalle de la incidencia renderizado
  */
@@ -75,11 +77,16 @@ export default async function IncidentsDetailsViewPage({
       label: t('serviceLabel'),
       value: incident.clientServiceName ?? tCommon('notAvailable'),
     },
-    {
-      label: t('assignedToLabel'),
-      value: incident.assignedToName ?? t('unassigned'),
-    },
   ];
+
+  // Solo cuando la abrió un vecino desde la app de la comunidad: si la abrió el propio cliente-empresa
+  // no hay "quién" que enseñar, y de las de intranet el portal no debe conocer ni el canal.
+  if (incident.reportedByResidentName) {
+    properties.push({
+      label: t('reportedByResidentLabel'),
+      value: incident.reportedByResidentName,
+    });
+  }
 
   const dates: { label: string; value: string }[] = [
     {
@@ -126,12 +133,12 @@ export default async function IncidentsDetailsViewPage({
 
           {/*
             El menú de tres puntos: la vía para que el cliente dé la incidencia por resuelta él mismo,
-            sin esperar a que el staff la marque primero. Ni en `RESUELTA` —ahí ya está el flujo dedicado
-            de `IncidentCloseForm`, más abajo— ni en un estado terminal, donde no hay nada que ofrecer.
+            sin esperar a que el staff la marque primero. Ni en `RESOLVED` —ahí ya está el botón dedicado
+            de `IncidentCloseTrigger`, más abajo— ni en un estado terminal, donde no hay nada que ofrecer.
           */}
-          {(incident.status === 'NUEVA' ||
-            incident.status === 'EN_CURSO' ||
-            incident.status === 'ESPERANDO_TERCERO') && (
+          {(incident.status === 'NEW' ||
+            incident.status === 'IN_PROGRESS' ||
+            incident.status === 'WAITING_THIRD_PARTY') && (
             <IncidentStatusMenu incidentId={incident.id} />
           )}
         </div>
@@ -149,8 +156,8 @@ export default async function IncidentsDetailsViewPage({
           {/*
             El titular es a propósito «Tu incidencia se ha resuelto» y no solo «Resolución»: es la
             noticia, y va con tono de éxito porque pide una acción del cliente —confirmarla con estrellas,
-            justo debajo en `IncidentCloseForm`—. El bloque neutro de antes se leía como un dato más de la
-            ficha, y se perdía entre el resto.
+            en el modal que abre `IncidentCloseTrigger`, justo debajo—. El bloque neutro de antes se leía
+            como un dato más de la ficha, y se perdía entre el resto.
           */}
           {incident.resolution && (
             <section className="incident-detail__block incident-detail__block--success">
@@ -159,17 +166,19 @@ export default async function IncidentsDetailsViewPage({
               </h2>
               <p className="incident-detail__resolution-subtitle">{t('resolutionLabel')}</p>
               <p className="incident-detail__text">{incident.resolution}</p>
+
+              {/*
+                Confirmar y valorar solo mientras está RESOLVED: antes no tiene nada que confirmar, y
+                una vez CLOSED ya se valoró (o la cerró el staff sin valoración, y no se puede
+                rellenar retroactivamente desde aquí).
+              */}
+              {incident.status === 'RESOLVED' && (
+                <IncidentCloseTrigger incidentId={incident.id} />
+              )}
             </section>
           )}
 
-          {/*
-            Confirmar y valorar solo mientras está RESUELTA: antes no tiene nada que confirmar, y una
-            vez CERRADA ya se valoró (o la cerró el staff sin valoración, y no se puede rellenar
-            retroactivamente desde aquí).
-          */}
-          {incident.status === 'RESUELTA' && <IncidentCloseForm incidentId={incident.id} />}
-
-          {incident.status === 'CERRADA' && incident.satisfactionRating && (
+          {incident.status === 'CLOSED' && incident.satisfactionRating && (
             <section className="incident-detail__block">
               <h2 className="incident-detail__block-title">{t('ratingLabel')}</h2>
               <p className="incident-detail__text">

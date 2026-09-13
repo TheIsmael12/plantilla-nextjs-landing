@@ -15,12 +15,12 @@ import ViewHeader from '@/views/(client-area)/private-area/components/ViewHeader
 const INCIDENTS_PER_PAGE = 10;
 
 const STATUS_OPTIONS: IncidentStatus[] = [
-  'NUEVA',
-  'EN_CURSO',
-  'ESPERANDO_TERCERO',
-  'RESUELTA',
-  'CERRADA',
-  'RECHAZADA',
+  'NEW',
+  'IN_PROGRESS',
+  'WAITING_THIRD_PARTY',
+  'RESOLVED',
+  'CLOSED',
+  'REJECTED',
 ];
 
 interface IncidentsViewPageProps {

@@ -79,7 +79,7 @@ export default async function PrivateAreaHomeViewPage({ locale }: PrivateAreaHom
       // Solo los que esperan una respuesta suya: es lo único que el panel le pide hacer.
       getClientQuotes({ status: 'SENT', limit: LIST_SIZE }),
       getClientInvoices({ status: 'OVERDUE', limit: LIST_SIZE }),
-      getCommunityIncidents({ status: 'EN_CURSO', limit: LIST_SIZE }),
+      getCommunityIncidents({ status: 'IN_PROGRESS', limit: LIST_SIZE }),
       getClientServices({ status: 'ACTIVE', limit: 1 }),
       getClientCommunities(),
     ]);

@@ -34,7 +34,8 @@ interface IncidentConversationProps {
 /**
  * Hilo de una incidencia del portal: mensajes con avatar (propios a la
  * derecha, firmados como "Tú"; los de soporte con el nombre que ya resuelve
- * el backend, "Soporte Nombre Ape") y composer con adjuntos.
+ * el backend, "Soporte Nombre Ape"; y si la incidencia la abrió un vecino de
+ * la comunidad, sus mensajes con su nombre real) y composer con adjuntos.
  *
  * Los mensajes nuevos aparecen al instante vía `onIncidentComment` (el mismo
  * evento de socket que ya usa la intranet), sin esperar a un

@@ -1,17 +1,17 @@
 /** Tipo de unidad del edificio (`CommunityUnitType` del backend). */
 export type CommunityUnitType =
   | "PORTAL"
-  | "VIVIENDA"
+  | "DWELLING"
   | "LOCAL"
-  | "GARAJE"
-  | "TRASTERO"
-  | "COMUN";
+  | "GARAGE"
+  | "STORAGE_ROOM"
+  | "COMMON";
 
 /** Estado de la cuenta de un vecino (`ResidentAccountStatus` del backend). */
 export type ResidentAccountStatus = "ACTIVE" | "BLOCKED";
 
 /** Rol de un vecino dentro de la comunidad (`ResidentRole` del backend). */
-export type ResidentRole = "PROPIETARIO" | "INQUILINO" | "PRESIDENTE" | "ADMINISTRADOR";
+export type ResidentRole = "OWNER" | "TENANT" | "PRESIDENT" | "ADMINISTRATOR";
 
 /** Estado de la pertenencia de un vecino a la comunidad (`ResidentMembershipStatus` del backend). */
 export type ResidentMembershipStatus = "ACTIVE" | "REVOKED";
@@ -73,12 +73,12 @@ export type IncidentPriority = "LOW" | "NORMAL" | "HIGH" | "CRITICAL";
 
 /** Estado de una incidencia (`IncidentStatus` del backend). */
 export type IncidentStatus =
-  | "NUEVA"
-  | "EN_CURSO"
-  | "ESPERANDO_TERCERO"
-  | "RESUELTA"
-  | "CERRADA"
-  | "RECHAZADA";
+  | "NEW"
+  | "IN_PROGRESS"
+  | "WAITING_THIRD_PARTY"
+  | "RESOLVED"
+  | "CLOSED"
+  | "REJECTED";
 
 /** Estado de una celda de la matriz de llaves: si ese vecino tiene o no llave de esa puerta. */
 export type KeyMatrixCellState = "GRANTED" | "PENDING" | "EXPIRED" | "OUT_OF_SCHEDULE" | "NONE";

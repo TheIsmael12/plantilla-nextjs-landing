@@ -85,21 +85,21 @@ export const INCIDENT_PRIORITY_VARIANTS: Record<IncidentPriority, BadgeVariant> 
  * estado del panel empezaría a contar la historia al revés, sin que fallara nada.
  */
 export const INCIDENT_STATUS_ORDER: IncidentStatus[] = [
-  "NUEVA",
-  "EN_CURSO",
-  "ESPERANDO_TERCERO",
-  "RESUELTA",
-  "CERRADA",
-  "RECHAZADA",
+  "NEW",
+  "IN_PROGRESS",
+  "WAITING_THIRD_PARTY",
+  "RESOLVED",
+  "CLOSED",
+  "REJECTED",
 ];
 
 export const INCIDENT_STATUS_VARIANTS: Record<IncidentStatus, BadgeVariant> = {
-  NUEVA: "info",
-  EN_CURSO: "pending",
-  ESPERANDO_TERCERO: "warning",
-  RESUELTA: "success",
-  CERRADA: "neutral",
-  RECHAZADA: "danger",
+  NEW: "info",
+  IN_PROGRESS: "pending",
+  WAITING_THIRD_PARTY: "warning",
+  RESOLVED: "success",
+  CLOSED: "neutral",
+  REJECTED: "danger",
 };
 
 /** Variante de `Badge` por resultado de un intento de acceso. */
