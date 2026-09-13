@@ -371,3 +371,42 @@
   opacity: 0.65;
   font-size: 0.75rem;
 }
+
+// Selector de valoración del cierre (`IncidentCloseForm`): cinco botones de estrella, no un slider —
+// valorar una resolución es una elección pequeña y discreta, más rápida de acertar con cinco objetivos
+// fijos que arrastrando un control continuo.
+.incident-detail__rating {
+  @include flex(row, flex-start, center, 0.35rem);
+  @include mb(0.5rem);
+}
+
+.incident-detail__rating-star {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  padding: 0.15rem;
+  color: var(--neutral-color-active, currentColor);
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  svg {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  // Rellena y en el color de aviso: es el mismo criterio que usa la app móvil para «esta cuenta».
+  &--filled {
+    color: var(--warning-color, #f5a623);
+    opacity: 1;
+  }
+}
+
+.incident-detail__rating-error {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  color: var(--danger-color, #d64545);
+}

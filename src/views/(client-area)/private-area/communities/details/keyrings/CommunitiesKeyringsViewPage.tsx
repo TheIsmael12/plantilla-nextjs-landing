@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { KeyRoundIcon, ShieldAlertIcon, TableIcon } from 'lucide-react';
+import { CalendarClockIcon, KeyRoundIcon, ShieldAlertIcon, TableIcon } from 'lucide-react';
 
 import {
   getCommunitySchedules,
@@ -24,6 +24,7 @@ import SettingsSection from '@/components/ui/sections/SettingsSection';
 import KeyMatrixGrid from '@/views/(client-area)/private-area/communities/details/keyrings/components/KeyMatrixGrid';
 import MembersSection from '@/views/(client-area)/private-area/communities/details/keyrings/components/MembersSection';
 import KeyringsSection from '@/views/(client-area)/private-area/communities/details/keyrings/components/KeyringsSection';
+import SchedulesSection from '@/views/(client-area)/private-area/communities/details/keyrings/components/SchedulesSection';
 
 import '@/styles/04-components/client-area/client-list.scss';
 import '@/styles/04-components/client-area/community-common.scss';
@@ -150,6 +151,14 @@ export default async function CommunitiesKeyringsViewPage({
   return (
     <>
       <ViewHeader title={t('Keyrings.title')} description={t('Keyrings.description')} />
+
+      <SettingsSection
+        title={t('Keyrings.Schedules.title')}
+        description={t('Keyrings.Schedules.description')}
+        icon={CalendarClockIcon}
+      >
+        <SchedulesSection serviceId={serviceId} schedules={schedulesResponse.data ?? []} />
+      </SettingsSection>
 
       <KeyringsSection
         serviceId={serviceId}

@@ -1,0 +1,76 @@
+// Estilos de TimeRangePicker (components/ui/inputs/TimeRangePicker.tsx).
+//
+// Mantiene el aspecto que tenía la pareja de campos nativos —dos horas cortas una al lado de la
+// otra— pero dentro de un solo recuadro, porque son un tramo y no dos datos sueltos. Las horas van
+// en tabular para que las cifras no bailen al teclear.
+
+@use "../../../00-settings/typography" as *;
+@use "../../../01-tools/mixins" as *;
+
+.time-range {
+  @include flex($direction: column, $justify: flex-start, $align: flex-start, $gap: 0.375rem);
+}
+
+.time-range__label {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: var(--color);
+}
+
+.time-range__field {
+  @include flex($justify: flex-start, $align: center, $gap: 0.25rem);
+  height: 2.5rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color-light);
+  @include px(0.75rem);
+  @include rounded();
+
+  // El foco se marca en el recuadro y no en cada extremo: lo que se está editando es el tramo.
+  &:focus-within {
+    border-color: var(--primary-color);
+  }
+
+  &--error {
+    border-color: var(--error-color);
+  }
+}
+
+.time-range__icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  color: var(--neutral-color);
+}
+
+.time-range__input {
+  width: 3.5rem;
+  border: none;
+  background: transparent;
+  color: var(--color);
+  font-size: $text-sm;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+
+  &::placeholder {
+    color: var(--neutral-color);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--neutral-color);
+  }
+}
+
+.time-range__separator {
+  color: var(--neutral-color);
+  font-size: $text-sm;
+}
+
+.time-range__error {
+  font-size: $text-sm;
+  color: var(--error-color);
+}

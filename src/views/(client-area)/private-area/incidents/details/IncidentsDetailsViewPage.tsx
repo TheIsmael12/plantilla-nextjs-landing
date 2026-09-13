@@ -14,6 +14,7 @@ import { Link, resolveHref } from '@/i18n/navigation';
 
 import Badge from '@/components/ui/buttons/Badge';
 import BreadcrumbLabel from '@/components/ui/navigations/BreadcrumbLabel';
+import IncidentCloseForm from '@/views/(client-area)/private-area/incidents/details/components/IncidentCloseForm';
 import IncidentConversation from '@/views/(client-area)/private-area/incidents/details/components/IncidentConversation';
 
 import '@/styles/04-components/client-area/client-detail.scss';
@@ -31,8 +32,11 @@ interface IncidentDetailViewPageProps {
  * el formulario para comentarla.
  *
  * No se pintan controles de estado ni de asignación aunque la respuesta traiga
- * `allowedTransitions`: ese campo es de gestión interna y el cliente solo crea
- * y comenta.
+ * `allowedTransitions`: ese campo describe lo que puede hacer el personal
+ * interno desde intranet, no lo que puede hacer el cliente. El cliente no
+ * gestiona el flujo interno de la incidencia, pero sí puede confirmar su
+ * resolución y valorarla con estrellas ({@link IncidentCloseForm}) mientras
+ * está `RESUELTA`; una vez cerrada, se enseña la valoración ya dada.
  * @param {IncidentDetailViewPageProps} props - Id de la incidencia y locale activo
  * @returns {Promise<JSX.Element>} El detalle de la incidencia renderizado
  */
@@ -134,6 +138,22 @@ export default async function IncidentsDetailsViewPage({
             <section className="incident-detail__block">
               <h2 className="incident-detail__block-title">{t('resolutionLabel')}</h2>
               <p className="incident-detail__text">{incident.resolution}</p>
+            </section>
+          )}
+
+          {/*
+            Confirmar y valorar solo mientras está RESUELTA: antes no tiene nada que confirmar, y una
+            vez CERRADA ya se valoró (o la cerró el staff sin valoración, y no se puede rellenar
+            retroactivamente desde aquí).
+          */}
+          {incident.status === 'RESUELTA' && <IncidentCloseForm incidentId={incident.id} />}
+
+          {incident.status === 'CERRADA' && incident.satisfactionRating && (
+            <section className="incident-detail__block">
+              <h2 className="incident-detail__block-title">{t('ratingLabel')}</h2>
+              <p className="incident-detail__text">
+                {t('alreadyRated', { rating: incident.satisfactionRating })}
+              </p>
             </section>
           )}
 

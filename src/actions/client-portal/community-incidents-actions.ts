@@ -8,6 +8,7 @@ import type {
   CommunityIncidentsQuery,
   IncidentAttachment,
   IncidentCommentResponse,
+  PortalCloseIncidentInput,
   PortalCreateIncidentCommentInput,
   PortalCreateIncidentInput,
   PortalIncidentCounters,
@@ -102,6 +103,31 @@ export async function createIncident(
   );
 
   if (response.data) revalidatePath("/private-area/incidents");
+
+  return response;
+}
+
+/**
+ * Confirma una incidencia resuelta, la cierra y la valora (`POST client/me/incidents/:id/close`).
+ *
+ * Es la respuesta afirmativa del cliente a «lo hemos resuelto», simétrica a la de la app del vecino
+ * (`closeIncident` de `residents/incidents-api.ts` en la app móvil). Solo vale sobre una incidencia
+ * `RESUELTA`; el backend responde 409 en cualquier otro estado.
+ * @param {string} incidentId - Identificador de la incidencia
+ * @param {PortalCloseIncidentInput} dto - Valoración de 1 a 5, comentario y nota opcionales
+ * @returns {Promise<FetchResponse<CommunityIncident>>} La incidencia ya cerrada, o el error de la API
+ */
+export async function closeIncident(
+  incidentId: string,
+  dto: PortalCloseIncidentInput,
+): Promise<FetchResponse<CommunityIncident>> {
+  const response = await fetchDataToken<CommunityIncident, PortalCloseIncidentInput>(
+    `client/me/incidents/${encodeURIComponent(incidentId)}/close`,
+    "POST",
+    dto,
+  );
+
+  if (response.data) revalidatePath(`/private-area/incidents/${incidentId}`);
 
   return response;
 }

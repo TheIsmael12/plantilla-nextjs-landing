@@ -484,6 +484,18 @@ export interface LockSchedule {
   updatedAt: string;
 }
 
+/** Alta de un horario. Sin `slots` (o vacío) se crea sin restringir nada. */
+export interface CreateLockScheduleDto {
+  name: string;
+  slots?: { dayOfWeek: DayOfWeek; startTime: string; endTime: string }[];
+}
+
+/** Edición de un horario. `slots`, si se manda, sustituye la lista entera. */
+export interface UpdateLockScheduleDto {
+  name?: string;
+  slots?: { dayOfWeek: DayOfWeek; startTime: string; endTime: string }[];
+}
+
 /**
  * Una regla de permiso: **qué abre, cuándo y cómo**.
  * @interface LockPermissionRule
@@ -1201,8 +1213,10 @@ export interface LockAccessLogQuery {
  * @property {string | null} [resolvedAt] - Cuándo se resolvió (ISO 8601)
  * @property {string | null} [closedAt] - Cuándo se cerró (ISO 8601)
  * @property {string | null} [resolution] - Texto de resolución
+ * @property {number | null} [satisfactionRating] - Valoración de 1 a 5 dada por el cliente al confirmar el cierre; `null` si no está cerrada o la cerró el staff
+ * @property {string | null} [satisfactionComment] - Comentario que acompaña a la valoración
  * @property {boolean} visibleToCommunity - Si los vecinos la ven en el tablón
- * @property {IncidentStatus[]} allowedTransitions - Transiciones posibles (informativo: el portal es de solo lectura)
+ * @property {IncidentStatus[]} allowedTransitions - Transiciones que puede hacer el personal interno desde intranet (informativo: el portal no las ofrece; el cliente confirma y valora con `POST client/me/incidents/:id/close`, que no es una de estas transiciones)
  * @property {string} createdAt - Fecha de creación (ISO 8601)
  * @property {string} updatedAt - Última modificación (ISO 8601)
  */
@@ -1231,10 +1245,26 @@ export interface CommunityIncident {
   resolvedAt?: string | null;
   closedAt?: string | null;
   resolution?: string | null;
+  satisfactionRating?: number | null;
+  satisfactionComment?: string | null;
   visibleToCommunity: boolean;
   allowedTransitions: IncidentStatus[];
   createdAt: string;
   updatedAt: string;
+}
+
+/**
+ * Cuerpo de `POST client/me/incidents/:id/close`: confirma una incidencia resuelta, la cierra y la
+ * valora. Simétrico al cierre de la app del vecino.
+ * @interface PortalCloseIncidentInput
+ * @property {number} rating - Valoración de la resolución, de 1 a 5
+ * @property {string} [comment] - Comentario que acompaña a la valoración
+ * @property {string} [note] - Un comentario al cerrar, si lo escribe
+ */
+export interface PortalCloseIncidentInput {
+  rating: number;
+  comment?: string;
+  note?: string;
 }
 
 /**

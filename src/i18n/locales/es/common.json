@@ -7,6 +7,11 @@
     "showPassword": "Mostrar contraseña",
     "hidePassword": "Ocultar contraseña",
     "noResults": "No hay resultados",
+    "TimeRange": {
+      "start": "Hora de inicio",
+      "end": "Hora de fin",
+      "endBeforeStart": "La hora de fin tiene que ir después de la de inicio."
+    },
     "DatePicker": {
       "selectDate": "Selecciona una fecha",
       "selectDateRange": "Selecciona un rango de fechas",

@@ -5,10 +5,12 @@ import type {
   CommunityListQuery,
   CommunitySite,
   CreateLockGroupDto,
+  CreateLockScheduleDto,
   KeyMatrix,
   LockGroup,
   LockSchedule,
   UpdateLockGroupDto,
+  UpdateLockScheduleDto,
 } from "@/types/client-portal/community";
 import type { FetchResponse, PaginatedResult } from "@/types/responses";
 
@@ -168,5 +170,61 @@ export async function getCommunitySchedules(
 ): Promise<FetchResponse<LockSchedule[]>> {
   return fetchDataToken<LockSchedule[], never>(
     `client/me/communities/${encodeURIComponent(serviceId)}/lock-schedules`,
+  );
+}
+
+/**
+ * Crea un horario (`POST client/me/communities/:serviceId/lock-schedules`).
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {CreateLockScheduleDto} dto - Nombre y franjas del horario
+ * @returns {Promise<FetchResponse<LockSchedule>>} El horario recién creado
+ */
+export async function createLockSchedule(
+  serviceId: string,
+  dto: CreateLockScheduleDto,
+): Promise<FetchResponse<LockSchedule>> {
+  return fetchDataToken<LockSchedule, CreateLockScheduleDto>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/lock-schedules`,
+    "POST",
+    dto,
+  );
+}
+
+/**
+ * Modifica un horario
+ * (`PATCH client/me/communities/:serviceId/lock-schedules/:scheduleId`). Si se
+ * envía `slots`, sustituye la lista completa de franjas.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {string} scheduleId - Horario a modificar
+ * @param {UpdateLockScheduleDto} dto - Campos a cambiar
+ * @returns {Promise<FetchResponse<LockSchedule>>} El horario ya actualizado
+ */
+export async function updateLockSchedule(
+  serviceId: string,
+  scheduleId: string,
+  dto: UpdateLockScheduleDto,
+): Promise<FetchResponse<LockSchedule>> {
+  return fetchDataToken<LockSchedule, UpdateLockScheduleDto>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/lock-schedules/${encodeURIComponent(scheduleId)}`,
+    "PATCH",
+    dto,
+  );
+}
+
+/**
+ * Elimina un horario
+ * (`DELETE client/me/communities/:serviceId/lock-schedules/:scheduleId`). Se
+ * rechaza si hay reglas de permiso que lo usan.
+ * @param {string} serviceId - Servicio contratado que soporta la comunidad
+ * @param {string} scheduleId - Horario a eliminar
+ * @returns {Promise<FetchResponse<void>>} Respuesta vacía si se eliminó correctamente
+ */
+export async function removeLockSchedule(
+  serviceId: string,
+  scheduleId: string,
+): Promise<FetchResponse<void>> {
+  return fetchDataToken<void, never>(
+    `client/me/communities/${encodeURIComponent(serviceId)}/lock-schedules/${encodeURIComponent(scheduleId)}`,
+    "DELETE",
   );
 }

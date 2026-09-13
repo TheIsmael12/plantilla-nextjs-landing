@@ -7,6 +7,11 @@
     "showPassword": "Show password",
     "hidePassword": "Hide password",
     "noResults": "No results found",
+    "TimeRange": {
+      "start": "Start time",
+      "end": "End time",
+      "endBeforeStart": "The end time must be after the start time."
+    },
     "DatePicker": {
       "selectDate": "Select a date",
       "selectDateRange": "Select a date range",
