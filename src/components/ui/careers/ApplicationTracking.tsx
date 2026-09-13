@@ -199,9 +199,9 @@ export default function ApplicationTracking({ application, token }: ApplicationT
                 isOpen={isConfirming}
                 isLoading={isWithdrawing}
                 confirmVariant="danger"
-                confirmText={t('withdrawConfirm')}
-                cancelText={t('withdrawCancel')}
-                isLoadingText={t('withdrawing')}
+                confirmText="withdrawApplication"
+                cancelText="keepApplication"
+                isLoadingText="withdrawingApplication"
                 onClose={() => setIsConfirming(false)}
                 onCancel={() => setIsConfirming(false)}
                 onConfirm={() => void handleWithdraw()}

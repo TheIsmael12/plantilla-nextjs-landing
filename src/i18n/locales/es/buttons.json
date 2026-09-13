@@ -95,6 +95,9 @@
     "view": "Ver",
     "signContract": "Firmar",
     "uploadSignedContract": "Subir firmado",
-    "viewDocument": "Ver"
+    "viewDocument": "Ver",
+    "withdrawApplication": "Sí, retirarla",
+    "withdrawingApplication": "Retirando...",
+    "keepApplication": "No, dejarla"
   }
 }

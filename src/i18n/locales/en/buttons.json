@@ -95,6 +95,9 @@
     "view": "View",
     "signContract": "Sign",
     "uploadSignedContract": "Upload signed",
-    "viewDocument": "View"
+    "viewDocument": "View",
+    "withdrawApplication": "Yes, withdraw it",
+    "withdrawingApplication": "Withdrawing...",
+    "keepApplication": "No, keep it"
   }
 }

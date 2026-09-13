@@ -75,7 +75,24 @@
     z-index: $layer-dropdown;
     width: max-content;
     min-width: 16rem;
-    max-width: 18rem;
+
+    /*
+     * El ancho, atado a la pantalla y no solo a un maximo fijo.
+     *
+     * Con `max-width: 18rem` a secas, en un movil estrecho el panel medía 288 px y la pantalla 320: se salia por el
+     * canto. El `min()` deja lo que sea mas pequeño, el maximo de diseño o lo que quepa con su aire.
+     */
+    max-width: min(18rem, calc(100vw - 2rem));
+
+    /*
+     * Y el alto, con desplazamiento propio.
+     *
+     * No lo tenia, así que una tabla con varios filtros abria un panel mas alto que la ventana y la parte de abajo
+     * —donde estan «limpiar» y el ultimo campo— quedaba fuera, sin forma de llegar. El 70 % del alto visible deja
+     * ver que hay tabla detras, que es lo que dice que esto es un desplegable y no una pantalla nueva.
+     */
+    max-height: min(70vh, 32rem);
+    overflow-y: auto;
     border: 1px solid var(--border-color);
     background-color: var(--surface-color);
     box-shadow:
@@ -234,9 +251,29 @@
   background-color: transparent;
   color: var(--neutral-color);
   @include rounded();
+  position: relative;
 
   &:hover {
     background-color: var(--neutral-color-light);
+  }
+
+  /*
+   * El área táctil, **más grande que el botón y sin cambiar cómo se ve**.
+   *
+   * El botón mide 32 px y el mínimo para un dedo son 44. Subirlo a 44 de verdad engordaría la fila de la tabla en
+   * todas las pantallas, así que en vez de eso se extiende la zona sensible con un pseudoelemento: 6 px por cada
+   * lado son los 44, el botón sigue viéndose de 32 y la fila no se mueve. Los clics en el pseudoelemento llegan al
+   * botón porque es hijo suyo.
+   *
+   * Solo en punteros gruesos: con ratón el objetivo de 32 px se acierta de sobra, y ahí ampliarlo solo acercaría
+   * las zonas de dos filas contiguas.
+   */
+  @media (pointer: coarse) {
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+    }
   }
 }
 

@@ -40,6 +40,36 @@
     }
   }
 
+  /*
+   * El enlace de LinkedIn de cada socio.
+   *
+   * La tarjeta se pone `relative` para poder anclarlo arriba a la derecha, donde no empuja al nombre ni al rol.
+   * Y mide 44 puntos aunque el icono sean 18: es el mínimo táctil, y sin él en un móvil se falla el toque tan a
+   * menudo que parece que el enlace no existe.
+   */
+  &__story-founders .about__value-card {
+    position: relative;
+  }
+
+  &__story-founder-link {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full, 999px);
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 1;
+    }
+  }
+
   &__story-launch {
     background: var(--primary-color);
     color: var(--light-color);

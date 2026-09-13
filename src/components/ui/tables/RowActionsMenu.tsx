@@ -18,7 +18,15 @@ interface RowActionsMenuProps {
 interface MenuPosition {
   top: number;
   right: number;
+  /** El alto que le queda al menú en pantalla. Ver el efecto que lo calcula. */
+  maxHeight: number;
 }
+
+/** El aire que se le deja a los cantos de la pantalla, en píxeles. */
+const VIEWPORT_MARGIN = 8;
+
+/** Y la separación entre el botón y el menú. */
+const TRIGGER_GAP = 6;
 
 /**
  * Desplegable de acciones para una única fila de tabla (editar, activar,
@@ -50,10 +58,61 @@ export default function RowActionsMenu({
     if (!isOpen || !triggerRef.current) return;
     const rect = triggerRef.current.getBoundingClientRect();
     setPosition({
-      top: rect.bottom + 6,
+      top: rect.bottom + TRIGGER_GAP,
       right: window.innerWidth - rect.right,
+      maxHeight: window.innerHeight - rect.bottom - TRIGGER_GAP - VIEWPORT_MARGIN,
     });
   }, [isOpen]);
+
+  /*
+   * Y luego se corrige **midiendo el menú ya montado**, que es lo único que dice si cabe.
+   *
+   * El cálculo de arriba solo sabe dónde está el botón, así que abre siempre hacia abajo. En una fila del final de
+   * la tabla eso deja el menú por debajo del borde de la pantalla: en un móvil, con la lista larga y la ventana
+   * corta, era la mayoría de las filas — el menú se abría donde no se podía ni ver ni pulsar.
+   *
+   * Aquí ya se puede medir, así que se decide de verdad:
+   *
+   * - **Si no cabe debajo, se abre hacia arriba.** Y si tampoco cabe arriba, se pega al canto y se le pone un alto
+   *   máximo con desplazamiento propio, que es mejor que un trozo de menú inalcanzable.
+   * - **Se recorta a lo ancho**, para que un menú ancho junto al borde izquierdo no se salga por ahí. Antes solo se
+   *   anclaba por la derecha del botón, sin mirar el ancho del menú.
+   *
+   * Va en `useLayoutEffect` y no en `useEffect` a propósito: se ejecuta antes de pintar, así que no se ve el salto
+   * de la posición mala a la buena. Y termina porque solo escribe estado cuando el número cambia de verdad.
+   */
+  useLayoutEffect(() => {
+    if (!isOpen || !position || !menuRef.current || !triggerRef.current) return;
+
+    const menu = menuRef.current.getBoundingClientRect();
+    const trigger = triggerRef.current.getBoundingClientRect();
+
+    const spaceBelow = window.innerHeight - trigger.bottom - TRIGGER_GAP - VIEWPORT_MARGIN;
+    const spaceAbove = trigger.top - TRIGGER_GAP - VIEWPORT_MARGIN;
+    const opensUp = menu.height > spaceBelow && spaceAbove > spaceBelow;
+
+    const top = opensUp
+      ? Math.max(VIEWPORT_MARGIN, trigger.top - TRIGGER_GAP - menu.height)
+      : trigger.bottom + TRIGGER_GAP;
+
+    // El ancla es la derecha del botón, pero sin dejar que el menú se salga por la izquierda.
+    const rightLimit = Math.max(VIEWPORT_MARGIN, window.innerWidth - menu.width - VIEWPORT_MARGIN);
+    const right = Math.min(
+      Math.max(VIEWPORT_MARGIN, window.innerWidth - trigger.right),
+      rightLimit,
+    );
+
+    const maxHeight = Math.max(opensUp ? spaceAbove : spaceBelow, 0);
+
+    const isSame =
+      Math.abs(top - position.top) < 0.5 &&
+      Math.abs(right - position.right) < 0.5 &&
+      Math.abs(maxHeight - position.maxHeight) < 0.5;
+
+    if (isSame) return;
+
+    setPosition({ top, right, maxHeight });
+  }, [isOpen, position]);
 
   // El menú vive en un portal al final de `document.body`, así que el orden
   // natural del Tab no lo alcanza al abrirse: hay que llevar el foco al
@@ -181,7 +240,14 @@ export default function RowActionsMenu({
             className="table__actions__menu"
             role="menu"
             data-outside-click-ignore=""
-            style={{ position: "fixed", top: position.top, right: position.right }}
+            style={{
+              position: "fixed",
+              top: position.top,
+              right: position.right,
+              // Con muchas acciones y una ventana corta, el menú se desplaza por dentro en vez de desbordarse.
+              maxHeight: position.maxHeight,
+              overflowY: "auto",
+            }}
             onKeyDown={handleMenuKeyDown}
           >
             {actions.map((action, index) => (
