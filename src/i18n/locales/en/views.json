@@ -2897,6 +2897,7 @@
           "closeSuccess": "Incident closed. Thanks for your rating.",
           "closeError": "The incident could not be closed.",
           "alreadyRated": "You rated this resolution {rating} out of 5 stars.",
+          "alreadyRatedByResident": "{resident} rated this resolution {rating} out of 5 stars.",
           "commentTitle": "Add a comment",
           "commentPlaceholder": "Write your comment",
           "commentSubmit": "Send comment",

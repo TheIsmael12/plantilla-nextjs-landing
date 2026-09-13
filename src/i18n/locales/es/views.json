@@ -2885,6 +2885,7 @@
           "closeSuccess": "Incidencia cerrada. Gracias por tu valoración.",
           "closeError": "No se ha podido cerrar la incidencia.",
           "alreadyRated": "Valoraste esta resolución con {rating} de 5 estrellas.",
+          "alreadyRatedByResident": "{resident} valoró esta resolución con {rating} de 5 estrellas.",
           "commentTitle": "Añadir un comentario",
           "commentPlaceholder": "Escribe tu comentario",
           "commentSubmit": "Enviar comentario",

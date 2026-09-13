@@ -182,8 +182,21 @@ export default async function IncidentsDetailsViewPage({
             <section className="incident-detail__block">
               <h2 className="incident-detail__block-title">{t('ratingLabel')}</h2>
               <p className="incident-detail__text">
-                {t('alreadyRated', { rating: incident.satisfactionRating })}
+                {/*
+                  Si la cerró un vecino desde la app, el "tú" de `alreadyRated` no vale: quien mira esta
+                  ficha en el portal es el cliente-empresa, no el vecino que valoró. Con
+                  `reportedByResidentName` se atribuye la valoración a quien la dio de verdad.
+                */}
+                {incident.reportedByResidentName
+                  ? t('alreadyRatedByResident', {
+                      resident: incident.reportedByResidentName,
+                      rating: incident.satisfactionRating,
+                    })
+                  : t('alreadyRated', { rating: incident.satisfactionRating })}
               </p>
+              {incident.satisfactionComment && (
+                <p className="incident-detail__text">{incident.satisfactionComment}</p>
+              )}
             </section>
           )}
 
