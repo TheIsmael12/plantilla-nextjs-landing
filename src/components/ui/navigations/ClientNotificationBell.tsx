@@ -250,36 +250,38 @@ export default function ClientNotificationBell({
             </span>
           </header>
 
-          <ul className="client-notification-bell__list">
-            {notifications.map((notification) => {
-              const { title, body } = resolveNotificationText(notification, t);
+          <div className="client-notification-bell__scroll">
+            <ul className="client-notification-bell__list">
+              {notifications.map((notification) => {
+                const { title, body } = resolveNotificationText(notification, t);
 
-              return (
-                <li key={notification.id}>
-                  <button
-                    type="button"
-                    className={`client-notification-bell__item${
-                      notification.readAt ? '' : ' client-notification-bell__item--unread'
-                    }`}
-                    onClick={() => handleNotificationClick(notification)}
-                  >
-                    <span className="client-notification-bell__item-header">
-                      <span className="client-notification-bell__item-title">{title}</span>
-                      <Badge
-                        variant={NOTIFICATION_SEVERITY_VARIANTS[notification.severity]}
-                        text={t(`Severity.${notification.severity}`)}
-                      />
-                    </span>
-                    {body && <span className="client-notification-bell__item-body">{body}</span>}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+                return (
+                  <li key={notification.id}>
+                    <button
+                      type="button"
+                      className={`client-notification-bell__item${
+                        notification.readAt ? '' : ' client-notification-bell__item--unread'
+                      }`}
+                      onClick={() => handleNotificationClick(notification)}
+                    >
+                      <span className="client-notification-bell__item-header">
+                        <span className="client-notification-bell__item-title">{title}</span>
+                        <Badge
+                          variant={NOTIFICATION_SEVERITY_VARIANTS[notification.severity]}
+                          text={t(`Severity.${notification.severity}`)}
+                        />
+                      </span>
+                      {body && <span className="client-notification-bell__item-body">{body}</span>}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
 
-          {!isLoading && notifications.length === 0 && (
-            <p className="client-notification-bell__empty">{t('emptyTitle')}</p>
-          )}
+            {!isLoading && notifications.length === 0 && (
+              <p className="client-notification-bell__empty">{t('emptyTitle')}</p>
+            )}
+          </div>
 
           <Link
             href="/private-area/profile/notifications"

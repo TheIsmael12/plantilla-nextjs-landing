@@ -119,11 +119,15 @@
     }
   }
 
+  // `!important`: mismo selector de una sola clase que `.leaflet-container` (`position: relative`
+  // en `leaflet/dist/leaflet.css`), así que gana el que cargue después en el bundle — y ese orden
+  // no está garantizado, el canvas se monta con `next/dynamic`. Sin esto el lienzo se queda con el
+  // `position: relative` de Leaflet, sin alto propio: el mapa no se ve aunque las teselas carguen.
   &-canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 
   &-badge {

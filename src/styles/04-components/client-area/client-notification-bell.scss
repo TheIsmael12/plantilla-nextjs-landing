@@ -50,7 +50,16 @@
   z-index: $layer-dropdown;
   width: min(22rem, calc(100vw - 2rem));
   max-height: 28rem;
-  overflow-y: auto;
+  /*
+   * Columna con la cabecera y "ver todo" quietos y solo la lista desplazable.
+   *
+   * Antes el `overflow-y: auto` iba aquí, en todo el desplegable: con muchas notificaciones, al hacer
+   * scroll el título y "marcar todo como leído" se iban hacia arriba y "ver todo" quedaba enterrado al
+   * final en vez de servir de pie fijo. Mismo patrón que `ModalComponent`/`modal.scss`.
+   */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   background-color: var(--surface-color);
   border: 1px solid var(--border-color);
   box-shadow:
@@ -155,10 +164,18 @@
 }
 
 .client-notification-bell__header {
+  flex: 0 0 auto;
   @include flex(row, space-between, center, 0.5rem);
   @include px(1rem);
   @include py(0.75rem);
   border-bottom: 1px solid var(--border-color);
+}
+
+// El único que scrollea: la cabecera y "ver todo" quedan fuera, fijos arriba y abajo.
+.client-notification-bell__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .client-notification-bell__header-actions {
@@ -261,11 +278,13 @@
 }
 
 .client-notification-bell__view-all {
+  flex: 0 0 auto;
   display: block;
   @include py(0.75rem);
   color: var(--primary-color);
   font-size: 0.85rem;
   text-align: center;
+  border-top: 1px solid var(--border-color);
 
   &:hover {
     text-decoration: underline;

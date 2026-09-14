@@ -97,9 +97,11 @@ export default function ModalComponent<T extends FormikValues = FormikValues>({
   const renderContent = () => {
     if (!children) {
       return (
-        <h3 id={titleId} className="modal__content__title">
-          {title}
-        </h3>
+        <section className="modal__content">
+          <h3 id={titleId} className="modal__content__title">
+            {title}
+          </h3>
+        </section>
       );
     }
 

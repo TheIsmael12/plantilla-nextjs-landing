@@ -161,16 +161,29 @@ export function usePortalSessionMonitor(): null {
        * devolvía siempre el mismo par ya emitido —así que la API no se llamaba más—, y al caducar ese par
        * el latido recibía el 401 que se lee como revocación. `update()` pasa por el route handler.
        */
-      const expiresAt = expiresAtRef.current;
-      if (expiresAt && Date.now() >= expiresAt - AUTH_TOKEN_REFRESH_MARGIN_MS) {
-        await update();
-        return;
+      try {
+        const expiresAt = expiresAtRef.current;
+        if (expiresAt && Date.now() >= expiresAt - AUTH_TOKEN_REFRESH_MARGIN_MS) {
+          await update();
+          return;
+        }
+
+        const status = await getPortalSessionStatus();
+        if (cancelled || !status.revoked) return;
+
+        await leaveToLogin(locale, "revoked");
+      } catch (error) {
+        /*
+         * Un latido que revienta (red caída, `update()` que lanza) no debe dejar la sesión "pillada" en
+         * silencio: sin este `catch`, la promesa rechazada no paraba el `setInterval` pero tampoco se veía
+         * en ningún sitio, así que un fallo de renovación repetido pasaba por "todo va bien" hasta que se
+         * cumplían los 15 minutos de vida del token y aparecía un 401 sin explicación previa.
+         */
+        if (!cancelled) {
+          // eslint-disable-next-line no-console
+          console.error("[portalSessionMonitor] Fallo comprobando la sesión", error);
+        }
       }
-
-      const status = await getPortalSessionStatus();
-      if (cancelled || !status.revoked) return;
-
-      await leaveToLogin(locale, "revoked");
     };
 
     const interval = setInterval(() => void check(), SESSION_HEARTBEAT_INTERVAL_MS);
