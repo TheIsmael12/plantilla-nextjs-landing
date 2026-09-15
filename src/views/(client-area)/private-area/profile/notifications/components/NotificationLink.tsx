@@ -34,6 +34,9 @@ export default function NotificationLink({
 
     if (url) {
       router.push(url as AnyHref);
+      // Se refresca también al navegar: esta ruta queda marcada como leída en el servidor, y sin
+      // esto el Router Cache podía servir la fila como "no leída" al volver atrás sin recarga dura.
+      router.refresh();
       return;
     }
 
