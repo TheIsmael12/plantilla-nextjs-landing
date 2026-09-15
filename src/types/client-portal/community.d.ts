@@ -28,6 +28,9 @@ export type LockConnectivity = "BLE_ONLY" | "GATEWAY" | "WIFI";
 /** Estado operativo de una cerradura (`CommunityLockStatus` del backend). */
 export type CommunityLockStatus = "ACTIVE" | "OFFLINE" | "MAINTENANCE" | "RETIRED";
 
+/** Por dónde se puede abrir una puerta, según lo que el aparato lleva. */
+export type LockOpenMethod = "ONLINE" | "BLUETOOTH" | "MOBILE_NFC" | "PIN" | "CARD";
+
 /** Modo de horario de una cerradura (`LockScheduleMode` del backend). */
 export type LockScheduleMode = "ALWAYS_OPEN" | "SCHEDULED";
 
@@ -1027,6 +1030,7 @@ export interface LockProviderCapabilities {
  * @property {string | null} hardwareId - Número de serie
  * @property {DeviceCapabilities | null} capabilities - Lo que el aparato sabe hacer
  * @property {DeviceStatus | null} deviceStatus - Cómo está el aparato ahora
+ * @property {LockOpenMethod[]} openMethods - Por dónde se puede abrir, según lo que el aparato lleva; si no incluye `"ONLINE"`, el aparato no tiene radio y "sin línea" no aplica
  * @property {LockAction[]} actions - Lo que la puerta sabe hacer
  * @property {LockAction[]} states - En qué situación puede estar
  * @property {LockAction[]} signals - Avisos puntuales que emite
@@ -1064,6 +1068,8 @@ export interface CommunityLock {
   hardwareId: string | null;
   capabilities: DeviceCapabilities | null;
   deviceStatus: DeviceStatus | null;
+  /** Por dónde se puede abrir; sin `"ONLINE"` el aparato no tiene radio y "sin línea" no aplica. */
+  openMethods: LockOpenMethod[];
   /** Abrir, subir, bajar… Lo que la puerta sabe hacer. */
   actions: LockAction[];
   /** En qué situación puede estar, si sabe decirlo. */

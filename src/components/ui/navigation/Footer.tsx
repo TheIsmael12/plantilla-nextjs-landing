@@ -127,7 +127,6 @@ export default function Footer() {
                             style="dark"
                             className="footer__brand__logo"
                         />
-                        <p className="footer__brand__tagline">{t("tagline")}</p>
                         {BRAND.socials.length > 0 && (
                             <ul className="footer__brand__socials">
                                 {BRAND.socials.map((s) => (

@@ -38,6 +38,16 @@ export default function LockCard({ lock, locale }: LockCardProps) {
   const capabilities = lock.capabilities;
   const status = lock.deviceStatus;
 
+  /*
+   * «Sin línea» solo cuando el aparato podría tenerla.
+   *
+   * Un cilindro o un teclado Bluetooth-only reporta `online: false` siempre, porque no tiene radio: pintarlo
+   * en naranja como los demás lo hace parecer averiado. Mismo criterio que la intranet
+   * (`CommunityLocksSection.isConnectable`): se lee de `openMethods`, que ya resuelve el servidor cruzando
+   * las capacidades reales del aparato.
+   */
+  const isConnectable = lock.openMethods.includes('ONLINE');
+
   /** Lo que el aparato sabe hacer, en palabras: aquí no se marca nada. */
   const canDo = [
     capabilities?.pin && t('AccessMethod.PIN'),
@@ -59,13 +69,18 @@ export default function LockCard({ lock, locale }: LockCardProps) {
 
           {/*
             Cómo está el aparato, arriba y no escondido: es el dato que se viene a buscar cuando alguien
-            llama diciendo que no puede entrar.
+            llama diciendo que no puede entrar. Solo si tiene sentido hablar de línea: en un aparato
+            Bluetooth-only se dice cómo se abre en su lugar (ver `canDo` más abajo).
           */}
-          {status && (
+          {status && isConnectable && (
             <Badge
               variant={status.online ? 'success' : 'warning'}
               text={status.online ? t('Locks.online') : t('Locks.offline')}
             />
+          )}
+
+          {status && !isConnectable && (
+            <Badge variant="neutral" text={t('Locks.bluetoothOnly')} />
           )}
         </div>
       }
@@ -131,17 +146,20 @@ export default function LockCard({ lock, locale }: LockCardProps) {
           </div>
         )}
 
-        <div className="community-facts__item">
-          <dt className="community-facts__label">{t('Locks.connection')}</dt>
-          <dd className="community-facts__value">
-            {status?.online ? (
-              <WifiIcon aria-hidden="true" />
-            ) : (
-              <WifiOffIcon aria-hidden="true" />
-            )}
-            {status?.online ? t('Locks.online') : t('Locks.offline')}
-          </dd>
-        </div>
+        {/* Sin radio, la fila de conexión no dice nada útil: lo que importa es cómo se abre (ver "canDo"). */}
+        {isConnectable && (
+          <div className="community-facts__item">
+            <dt className="community-facts__label">{t('Locks.connection')}</dt>
+            <dd className="community-facts__value">
+              {status?.online ? (
+                <WifiIcon aria-hidden="true" />
+              ) : (
+                <WifiOffIcon aria-hidden="true" />
+              )}
+              {status?.online ? t('Locks.online') : t('Locks.offline')}
+            </dd>
+          </div>
+        )}
 
         <div className="community-facts__item">
           <dt className="community-facts__label">{t('Locks.syncedAt')}</dt>

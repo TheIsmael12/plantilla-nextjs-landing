@@ -2838,6 +2838,7 @@
           "connection": "Connection",
           "online": "Online",
           "offline": "Offline",
+          "bluetoothOnly": "Bluetooth only",
           "capabilityInternet": "Internet access",
           "syncedAt": "Up to date"
         },
