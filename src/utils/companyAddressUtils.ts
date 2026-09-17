@@ -10,15 +10,24 @@ import { ENV } from '@/config/env';
  * que se le mandaba al buscador de mapas no coincidía con ninguna de las que se veían en pantalla.
  *
  * Aquí hay dos formas y solo dos: la **corta**, para leer, y la **completa**, que es la que viaja a un
- * mapa. La provincia no está en ninguna: no forma parte de cómo se escribe una dirección en España, y con
- * la ciudad ya escrita al lado solo la repite.
+ * mapa. La provincia (`NEXT_PUBLIC_COMPANY_STATE`) solo entra en la corta cuando aporta algo: si coincide
+ * con el municipio (sede en una capital, «Madrid, Madrid») se omite igual que antes, porque ahí sí es pura
+ * repetición; si son distintas (p. ej. «El Tiemblo (Ávila)») sí hace falta, es la única forma de saber en
+ * qué provincia cae un municipio pequeño.
  */
 
 /** Calle y número, tal cual está configurado. */
 export const COMPANY_STREET = ENV.COMPANY_ADDRESS;
 
-/** «28029 Madrid»: el código postal delante del municipio, como se escribe una dirección aquí. */
-export const COMPANY_LOCALITY = `${ENV.COMPANY_POSTAL_CODE} ${ENV.COMPANY_CITY}`;
+/**
+ * «28029 Madrid» o, con provincia distinta del municipio, «05270 El Tiemblo (Ávila)» — el código postal
+ * delante del municipio, como se escribe una dirección aquí, con la provincia entre paréntesis solo cuando
+ * no repite lo que ya dice el municipio.
+ */
+export const COMPANY_LOCALITY =
+  ENV.COMPANY_STATE && ENV.COMPANY_STATE !== ENV.COMPANY_CITY
+    ? `${ENV.COMPANY_POSTAL_CODE} ${ENV.COMPANY_CITY} (${ENV.COMPANY_STATE})`
+    : `${ENV.COMPANY_POSTAL_CODE} ${ENV.COMPANY_CITY}`;
 
 /** «Calle Ejemplo, 123, 28029 Madrid». La que se pinta en pantalla. */
 export const COMPANY_ADDRESS_SHORT = `${COMPANY_STREET}, ${COMPANY_LOCALITY}`;
