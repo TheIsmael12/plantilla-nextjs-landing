@@ -2,8 +2,8 @@
 
 import "@/styles/04-components/ui/images/image-logo.scss";
 
+import { useIsDarkTheme } from "@/hooks/useIsDarkTheme";
 import { useIsMounted } from "@/hooks/useIsMounted";
-import { useTheme } from "next-themes";
 
 import Image from "next/image";
 
@@ -21,9 +21,17 @@ const LOGO_QUALITY = 60;
 
 /**
  * Logo de la aplicación, resuelto automáticamente entre las variantes clara y
- * oscura según el tema activo (`next-themes`), salvo que `style` fuerce una
- * variante concreta. Antes de montar evita el parpadeo mostrando un placeholder
- * vacío, ya que el tema resuelto solo se conoce en cliente.
+ * oscura según el tema activo, salvo que `style` fuerce una variante concreta.
+ * Antes de montar evita el parpadeo mostrando un placeholder vacío, ya que el
+ * tema real solo se conoce en cliente.
+ *
+ * El tema se lee de la clase `dark` en `<html>` (`useIsDarkTheme`) y no de
+ * `useTheme().resolvedTheme` (`next-themes`): son cosas distintas mientras el
+ * `ThemeProvider` raíz usa `forcedTheme` (ver ese hook) — el selector de tema
+ * de Preferencias pinta esa clase directamente para el cambio instantáneo, y
+ * es la misma clase de la que depende ya todo el CSS del sitio (`.dark { ... }`
+ * en `_colors.scss`). Seguir a `resolvedTheme` aquí dejaba el logo mostrando
+ * el tema anterior mientras el resto de la interfaz ya había cambiado.
  *
  * No recibe `width`/`height`: ocupa el 100% del contenedor (`fill`) y se
  * ajusta con `object-fit: contain`, así que el tamaño real lo decide siempre
@@ -40,14 +48,14 @@ export default function ImageLogo({
   className,
 }: ImageLogoProps) {
   const isMounted = useIsMounted();
-  const { resolvedTheme } = useTheme();
+  const isDarkTheme = useIsDarkTheme();
 
   const isDark =
     style === "dark"
       ? true
       : style === "light"
         ? false
-        : resolvedTheme === "dark";
+        : isDarkTheme;
 
   const getLogoSrc = () => {
     if (size === "small") {
@@ -56,7 +64,7 @@ export default function ImageLogo({
     return isDark ? "/images/logo-dark.png" : "/images/logo.png";
   };
 
-  if (!isMounted || !resolvedTheme) {
+  if (!isMounted) {
     return (
       <span className="image-logo image-logo__placeholder" aria-hidden>
         <Image

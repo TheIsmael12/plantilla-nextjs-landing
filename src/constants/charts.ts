@@ -64,22 +64,40 @@ export function readChartTheme(): ChartTheme | null {
 }
 
 /**
+ * A partir de cuántas porciones un reparto usa la rampa completa en vez del primario/fill.
+ *
+ * Con 2 o 3 porciones el reparto casi siempre es un estado con dos polos y un intermedio —abierta/
+ * cerrada, pendiente/pagado— y ahí el color tiene que decir lo mismo que dice en un gráfico de ejes:
+ * los dos extremos son el primario y el fill de la marca. Con 4 o más porciones ya no hay dos polos
+ * que identificar, y es cuando tiene sentido la rampa entera ordenada de mayor a menor.
+ */
+const SHARE_POLARIZED_MAX_SLICES = 3;
+
+/**
  * En qué orden se reparte la paleta según lo que pinte el gráfico.
  *
- * Son los **mismos ocho tonos**, en otro orden, porque un gráfico de ejes y un reparto no piden lo
- * mismo del color:
+ * Son los **mismos ocho tonos**, en otro orden, porque no todos los repartos y gráficos de ejes
+ * piden lo mismo del color:
  *
- * - **Un reparto** (tarta, anillo, rosa) tiene las porciones ordenadas de mayor a menor, así que la
- *   rampa entera se aprovecha tal cual: la porción más grande sale en el tono más oscuro y la más
- *   pequeña en el más claro, y el color refuerza el orden que ya dice el tamaño.
- * - **Un gráfico de ejes** (línea, área, barras) tiene una o dos series, y lo que hacen falta ahí son
- *   los dos colores de la marca, no dos escalones contiguos de una rampa: «facturado» y «cobrado»
- *   tienen que ser el primario y el fill, que es como se identifican en el resto de la aplicación.
- *   Dos tonos vecinos de la escala se distinguirían peor y no significarían nada.
+ * - **Un reparto con pocas porciones** (2 o 3: abierta/cerrada, pendiente/pagado…) tiene dos polos
+ *   que identificar, igual que un gráfico de ejes: los dos extremos de la rampa son el primario y el
+ *   fill de la marca, que es como esos mismos conceptos se leen en el resto de la aplicación. Con
+ *   tres porciones, el color respeta además la **posición** de la que va en medio —«resuelta» entre
+ *   «abierta» y «cerrada»—: si fuera `[primario, fill, intermedio]`, «cerrada» (la tercera porción,
+ *   la que de verdad está en el otro polo) se quedaría con el tono intermedio y «resuelta» con el
+ *   fill, que es leer los dos extremos al revés de cómo están puestas las porciones. El orden que
+ *   coincide con las posiciones es `[primario, intermedio, fill]`.
+ * - **Un reparto con muchas porciones** (4 o más) ya no tiene dos polos que resaltar: ahí la rampa
+ *   entera se aprovecha tal cual, ordenada de mayor a menor, con la porción más grande en el tono
+ *   más oscuro y la más pequeña en el más claro — el color refuerza el orden que ya dice el tamaño.
+ * - **Un gráfico de ejes** (línea, área, barras) tiene una o dos series con el mismo criterio de
+ *   polos: «facturado» y «cobrado» son el primario y el fill, no dos escalones contiguos de la
+ *   rampa, que se distinguirían peor y no significarían nada.
  *
- * A partir de la tercera serie de un gráfico de ejes se sigue por el interior de la rampa **saltando
- * de un extremo al otro** (el segundo tono, luego el penúltimo, luego el tercero…), que es lo que
- * evita que dos series consecutivas sean dos escalones vecinos — donde la rampa deja de distinguirse.
+ * A partir de la tercera serie de un gráfico de ejes (o la cuarta porción de un reparto grande) se
+ * sigue por el interior de la rampa **saltando de un extremo al otro** (el segundo tono, luego el
+ * penúltimo, luego el tercero…), que es lo que evita que dos series consecutivas sean dos escalones
+ * vecinos — donde la rampa deja de distinguirse.
  *
  * Con las ocho series puestas, el último par **sí** acaba siendo contiguo, y no hay forma de evitarlo:
  * colocados los seis primeros solo queda el par del medio. Lo que consigue la alternancia es decidir
@@ -91,16 +109,30 @@ export function readChartTheme(): ChartTheme | null {
  * tabla sabiendo cuál era cuál, y con dos ordenaciones distintas diría lo contrario que el gráfico.
  * @param {string[]} palette - La rampa completa leída del documento
  * @param {boolean} isShare - Si el gráfico reparte un total (tarta, anillo, rosa)
+ * @param {number} [sliceCount] - Cuántas porciones tiene el reparto; sin ella (o con un gráfico de ejes) se usa siempre el criterio de polos
  * @returns {string[]} Los mismos tonos, en el orden que le toca a este gráfico
  */
-export function seriesPalette(palette: string[], isShare: boolean): string[] {
-  if (isShare) return palette;
+export function seriesPalette(
+  palette: string[],
+  isShare: boolean,
+  sliceCount?: number,
+): string[] {
+  const usesFullRamp = isShare && (sliceCount ?? 0) > SHARE_POLARIZED_MAX_SLICES;
+  if (usesFullRamp) return palette;
 
   const [first, ...rest] = palette;
   if (!first || rest.length === 0) return palette;
 
   const last = rest[rest.length - 1]!;
   const middle = rest.slice(0, -1);
+
+  // Reparto de exactamente tres porciones: la del medio va con el tono intermedio de la rampa, no
+  // con el fill — es la única forma en la que el color respeta qué porción está en cada polo y cuál
+  // va entre medias (ver el porqué en el comentario de la función).
+  if (isShare && sliceCount === 3 && middle.length > 0) {
+    const middleTone = middle[Math.floor((middle.length - 1) / 2)]!;
+    return [first, middleTone, last];
+  }
 
   // El interior, alternando principio y final: 2.º, penúltimo, 3.º, antepenúltimo…
   const alternated: string[] = [];

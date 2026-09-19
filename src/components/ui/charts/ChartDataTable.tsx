@@ -81,9 +81,11 @@ export default function ChartDataTable({
   const isMounted = useIsMounted();
   const palette = useMemo(
     () =>
-      isMounted ? seriesPalette(readChartTheme()?.palette ?? [], Boolean(isShare)) : [],
+      isMounted
+        ? seriesPalette(readChartTheme()?.palette ?? [], Boolean(isShare), categories.length)
+        : [],
     // eslint-disable-next-line react-hooks/exhaustive-deps -- `resolvedTheme` no se usa dentro, pero es lo que cambia los valores que se leen del documento
-    [isMounted, resolvedTheme, isShare],
+    [isMounted, resolvedTheme, isShare, categories.length],
   );
 
   const write = (value: number) => (formatValue ? formatValue(value) : String(value));

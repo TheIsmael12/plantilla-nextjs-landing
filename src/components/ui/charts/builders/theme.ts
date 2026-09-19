@@ -34,18 +34,18 @@ import type { ChartBuildContext } from "@/types/ui/charts/chart";
  * @returns {EChartsOption} La base común
  */
 export function baseOption(context: ChartBuildContext, isShare: boolean): EChartsOption {
-  const { theme, formatValue, series } = context;
+  const { theme, formatValue, series, categories } = context;
 
   return {
     /*
      * El orden de la paleta depende de lo que se pinte, y lo decide `seriesPalette`.
      *
-     * En un reparto se usa la rampa entera —la porción mayor en el tono más oscuro—, y en un gráfico
-     * de ejes las dos primeras series son el primario y el fill de la marca, que es como se
-     * identifican en el resto de la aplicación. La tabla de datos aplica la misma función, para que
-     * su muestra de color no diga lo contrario que el dibujo.
+     * Con dos o tres porciones (un reparto polarizado: abierta/cerrada) o en un gráfico de ejes, las
+     * primeras posiciones son el primario y el fill de la marca; con cuatro porciones o más se usa la
+     * rampa entera, la porción mayor en el tono más oscuro. La tabla de datos aplica la misma función,
+     * para que su muestra de color no diga lo contrario que el dibujo.
      */
-    color: seriesPalette(theme.palette, isShare),
+    color: seriesPalette(theme.palette, isShare, categories.length),
     textStyle: { fontFamily: "inherit", color: theme.ink },
     tooltip: {
       /*
