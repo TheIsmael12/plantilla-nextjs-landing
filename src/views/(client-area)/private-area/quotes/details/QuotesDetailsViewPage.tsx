@@ -37,44 +37,29 @@ interface ResolvedLineRow {
   isSubLine: boolean;
 }
 
-/** Una cabecera de grupo (nombre del servicio) o una fila, en el orden en que se pintan. */
-type QuoteLineTableRow =
-  | { kind: 'group'; key: string; serviceName: string }
-  | { kind: 'line'; row: ResolvedLineRow };
-
 /**
- * Resuelve `lines` a la secuencia de filas a pintar: agrupadas por `quoteRecurringServiceId`
- * (línea base primero, extras/productos después, como sub-línea) cuando hay `recurringServices`,
- * o tal cual llegan si no — mismo criterio que ya usa el PDF del presupuesto y la tabla de
- * intranet (`DocumentLinesTable`). Las líneas sueltas (sin servicio) van al final, sin cabecera.
+ * Resuelve `lines` al orden en que se pintan: agrupadas por `quoteRecurringServiceId` (línea base
+ * primero, extras/productos después, como sub-línea) cuando hay `recurringServices`, o tal cual
+ * llegan si no — mismo criterio que ya usa el PDF del presupuesto y la tabla de intranet
+ * (`DocumentLinesTable`). Sin cabecera de grupo aparte: el nombre del servicio ya lo dice la línea
+ * base. Las líneas sueltas (sin servicio) van al final.
  * @param {DocumentLine[]} lines - Líneas del presupuesto
  * @param {QuoteRecurringServiceSummary[]} [recurringServices] - Servicios recurrentes del presupuesto; sin ellos, no se agrupa
- * @returns {QuoteLineTableRow[]} La secuencia de filas (cabeceras de grupo + líneas) a pintar
+ * @returns {ResolvedLineRow[]} Las líneas en el orden en que se pintan
  */
 function resolveQuoteLineRows(
   lines: DocumentLine[],
   recurringServices?: QuoteRecurringServiceSummary[],
-): QuoteLineTableRow[] {
+): ResolvedLineRow[] {
   if (!recurringServices || recurringServices.length === 0) {
-    return lines.map((line) => ({ kind: 'line', row: { key: line.id, line, isSubLine: false } }));
+    return lines.map((line) => ({ key: line.id, line, isSubLine: false }));
   }
 
-  const rows: QuoteLineTableRow[] = [];
+  const rows: ResolvedLineRow[] = [];
 
   for (const recurringService of recurringServices) {
     const serviceLines = lines.filter((line) => line.quoteRecurringServiceId === recurringService.id);
     if (serviceLines.length === 0) continue;
-
-    // La cabecera de grupo solo aporta algo cuando hay más de una línea que agrupar bajo ella:
-    // con una sola (la base), su descripción ya dice qué es el servicio, y repetir el nombre en
-    // una fila aparte encima se lee como la misma línea dos veces.
-    if (recurringService.serviceName && serviceLines.length > 1) {
-      rows.push({
-        kind: 'group',
-        key: `group-${recurringService.id}`,
-        serviceName: recurringService.serviceName,
-      });
-    }
 
     const baseLine = serviceLines.find((line) => line.serviceId !== undefined);
     const orderedLines = baseLine
@@ -82,13 +67,13 @@ function resolveQuoteLineRows(
       : serviceLines;
 
     for (const line of orderedLines) {
-      rows.push({ kind: 'line', row: { key: line.id, line, isSubLine: line !== baseLine } });
+      rows.push({ key: line.id, line, isSubLine: line !== baseLine });
     }
   }
 
   const looseLines = lines.filter((line) => !line.quoteRecurringServiceId);
   for (const line of looseLines) {
-    rows.push({ kind: 'line', row: { key: line.id, line, isSubLine: false } });
+    rows.push({ key: line.id, line, isSubLine: false });
   }
 
   return rows;
@@ -221,25 +206,19 @@ export default async function QuotesDetailsViewPage({ id, locale }: QuoteDetailV
                 </tr>
               </thead>
               <tbody>
-                {quoteLineRows.map((tableRow) =>
-                  tableRow.kind === 'group' ? (
-                    <tr key={tableRow.key} className="client-detail__table__service-row">
-                      <td colSpan={hasLineDiscounts ? 6 : 5}>{tableRow.serviceName}</td>
-                    </tr>
-                  ) : (
-                    <tr
-                      key={tableRow.row.key}
-                      className={tableRow.row.isSubLine ? 'client-detail__table__sub-line' : undefined}
-                    >
-                      <td>{tableRow.row.line.description}</td>
-                      <td>{tableRow.row.line.quantity}</td>
-                      <td>{money(tableRow.row.line.unitPrice)}</td>
-                      {hasLineDiscounts && <td>{tableRow.row.line.discountPercentage}%</td>}
-                      <td>{tableRow.row.line.taxRate}%</td>
-                      <td>{money(tableRow.row.line.total)}</td>
-                    </tr>
-                  ),
-                )}
+                {quoteLineRows.map((row) => (
+                  <tr
+                    key={row.key}
+                    className={row.isSubLine ? 'client-detail__table__sub-line' : undefined}
+                  >
+                    <td>{row.line.description}</td>
+                    <td>{row.line.quantity}</td>
+                    <td>{money(row.line.unitPrice)}</td>
+                    {hasLineDiscounts && <td>{row.line.discountPercentage}%</td>}
+                    <td>{row.line.taxRate}%</td>
+                    <td>{money(row.line.total)}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
