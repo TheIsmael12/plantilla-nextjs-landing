@@ -65,7 +65,10 @@ function resolveQuoteLineRows(
     const serviceLines = lines.filter((line) => line.quoteRecurringServiceId === recurringService.id);
     if (serviceLines.length === 0) continue;
 
-    if (recurringService.serviceName) {
+    // La cabecera de grupo solo aporta algo cuando hay más de una línea que agrupar bajo ella:
+    // con una sola (la base), su descripción ya dice qué es el servicio, y repetir el nombre en
+    // una fila aparte encima se lee como la misma línea dos veces.
+    if (recurringService.serviceName && serviceLines.length > 1) {
       rows.push({
         kind: 'group',
         key: `group-${recurringService.id}`,
