@@ -108,6 +108,29 @@
   tbody tr:last-child td {
     border-bottom: none;
   }
+
+  // Cabecera de grupo (nombre del servicio recurrente) y sus extras/productos como sub-línea —
+  // mismo criterio visual que ya tiene el PDF del presupuesto.
+  &__service-row td {
+    background: var(--surface-color-light);
+    font-weight: $font-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: $text-xs;
+    color: var(--neutral-color-active);
+    white-space: normal;
+  }
+
+  &__sub-line td:first-child {
+    padding-left: 1.5rem;
+    color: var(--neutral-color);
+
+    &::before {
+      content: "—";
+      margin-right: 0.35rem;
+      color: var(--primary-color);
+    }
+  }
 }
 
 .client-detail__totals {

@@ -58,6 +58,8 @@ export interface DocumentTotals {
  * @property {number} subtotal - Importe de la línea antes de impuestos
  * @property {number} taxAmount - Cuota de impuestos de la línea
  * @property {number} total - Importe total de la línea
+ * @property {string} [serviceId] - Servicio de catálogo del que es línea base, si aplica
+ * @property {string} [quoteRecurringServiceId] - A qué servicio recurrente del presupuesto pertenece esta línea (base, extra o producto asociado); ausente en líneas sueltas
  */
 export interface DocumentLine {
   id: string;
@@ -69,6 +71,20 @@ export interface DocumentLine {
   subtotal: number;
   taxAmount: number;
   total: number;
+  serviceId?: string;
+  quoteRecurringServiceId?: string;
+}
+
+/**
+ * Un servicio recurrente al que pertenecen algunas líneas del presupuesto — solo el nombre, para
+ * agrupar/rotular sus líneas en pantalla igual que ya se ve en su PDF.
+ * @interface QuoteRecurringServiceSummary
+ * @property {string} id - Id del servicio recurrente, lo que referencian las líneas en `quoteRecurringServiceId`
+ * @property {string} [serviceName] - Nombre del servicio de catálogo
+ */
+export interface QuoteRecurringServiceSummary {
+  id: string;
+  serviceName?: string;
 }
 
 /**
@@ -115,6 +131,7 @@ export interface QuoteListItem {
  * @interface QuoteDetail
  * @property {DocumentLine[]} lines - Líneas del presupuesto
  * @property {DocumentTotals} totals - Totales calculados
+ * @property {QuoteRecurringServiceSummary[]} [recurringServices] - Servicios recurrentes a los que pertenecen algunas de `lines`, para agrupar/rotular sin una consulta aparte
  * @property {string} [paymentTermsText] - Condiciones de pago
  * @property {string} [billingTermsText] - Condiciones de facturación
  * @property {string} [latePaymentTermsText] - Condiciones de demora
@@ -124,6 +141,7 @@ export interface QuoteListItem {
 export interface QuoteDetail extends QuoteListItem {
   lines: DocumentLine[];
   totals: DocumentTotals;
+  recurringServices?: QuoteRecurringServiceSummary[];
   paymentTermsText?: string;
   billingTermsText?: string;
   latePaymentTermsText?: string;
