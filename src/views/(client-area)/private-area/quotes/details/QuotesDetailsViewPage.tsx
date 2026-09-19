@@ -10,6 +10,7 @@ import { formatBillingAmount, formatBillingDate } from '@/utils/billingFormatUti
 import Badge from '@/components/ui/buttons/Badge';
 import BreadcrumbLabel from '@/components/ui/navigations/BreadcrumbLabel';
 import DocumentDownloadButton from '@/views/(client-area)/private-area/components/DocumentDownloadButton';
+import MarkdownText from '@/components/ui/documents/MarkdownText';
 import QuoteActions from '@/views/(client-area)/private-area/quotes/details/components/QuoteActions';
 import SettingsSection from '@/components/ui/sections/SettingsSection';
 import { Link, resolveHref } from '@/i18n/navigation';
@@ -115,13 +116,19 @@ export default async function QuotesDetailsViewPage({ id, locale }: QuoteDetailV
               </div>
             )}
 
-            {quote.notes && (
-              <div className="client-detail__row">
-                <dt className="client-detail__term">{t('notes')}</dt>
-                <dd className="client-detail__value">{quote.notes}</dd>
-              </div>
-            )}
           </dl>
+
+          {/*
+            Fuera de `client-detail__list`: esa lista alinea el valor a la derecha, pensada para
+            pares corto/corto (fecha, importe). Las notas son Markdown de longitud libre y necesitan
+            ancho completo alineado a la izquierda, igual que las condiciones de más abajo.
+          */}
+          {quote.notes && (
+            <div className="client-detail__terms-block">
+              <p className="client-detail__terms-title">{t('notes')}</p>
+              <MarkdownText text={quote.notes} />
+            </div>
+          )}
 
           {/*
             Botón en vez de enlace de texto, y sin depender de que el PDF esté ya guardado: la API lo genera
@@ -214,7 +221,7 @@ export default async function QuotesDetailsViewPage({ id, locale }: QuoteDetailV
               {terms.map((term) => (
                 <div key={term.key} className="client-detail__terms-block">
                   <p className="client-detail__terms-title">{tDetail(term.key)}</p>
-                  <p className="client-detail__terms-text">{term.value}</p>
+                  <MarkdownText text={term.value ?? ''} />
                 </div>
               ))}
             </div>
