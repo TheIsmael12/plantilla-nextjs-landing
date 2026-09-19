@@ -10,6 +10,7 @@ import { getPortalSessionStatus } from "@/actions/client-portal/sessions-actions
 import {
   AUTH_TOKEN_REFRESH_MARGIN_MS,
   SESSION_HEARTBEAT_INTERVAL_MS,
+  SESSION_REFRESH_MAX_CONSECUTIVE_FAILURES,
 } from "@/config/settings";
 import { locales } from "@/config/pathnames";
 import { getPathname } from "@/i18n/navigation";
@@ -96,13 +97,19 @@ async function leaveToLogin(locale: string, reason: SignOutReason): Promise<void
  * El latido se adelanta al volver a la pestaña: si el portátil estaba
  * suspendido, la comprobación ocurre al retomarlo y no en el siguiente ciclo.
  *
- * **`session.error` ya no cierra la sesión, ni tampoco adelanta la
- * comprobación.** Es un aviso del cliente que no pudo renovar un token, y se
- * probó que aparece incluso con una sesión que la API acaba de emitir y acepta
- * sin problema: cerrar por él echaba a la gente nada más identificarse, y usarlo
- * para preguntar antes de tiempo hacía la pregunta con el token viejo, en la
- * propia pantalla de acceso, y devolvía al login en bucle. Quien decide es el
- * 401, y llega por sí solo en el siguiente latido.
+ * **Un solo fallo de renovación no cierra la sesión.** Un aviso aislado de que no se pudo renovar
+ * el token puede ser el falso positivo ya conocido justo tras identificarse —una carrera entre dos
+ * lecturas simultáneas, que se probó que aparece incluso con una sesión que la API acaba de emitir
+ * y acepta sin problema—, y cerrar por el primero echaba a la gente nada más entrar.
+ *
+ * **Varios fallos seguidos sí la cierran.** Si `update()` no logra corregir `accessTokenExpires`
+ * tras {@link SESSION_REFRESH_MAX_CONSECUTIVE_FAILURES} intentos consecutivos, el `refreshToken` ya
+ * no vale de verdad (caducado, revocado, sesión cerrada desde otro sitio) y no hay ningún 401 al que
+ * esperar: con el `accessToken` también caducado, `client/me/session-status` nunca se llega a
+ * preguntar —cada latido entra en la rama de renovación y sale antes de llegar ahí— y aunque se
+ * preguntara, un 401 con el token propio ya vencido se interpreta a propósito como indeterminado, no
+ * como revocación (`getPortalSessionStatus`). Sin este contador la sesión se quedaba "congelada":
+ * ni se cerraba ni se renovaba, reintentando para siempre un `refreshToken` que nunca va a funcionar.
  *
  * Al cerrar se va a `/login`, no a la portada pública como antes. La idea de
  * entonces era no dejar a nadie en una pantalla de acceso que no había pedido;
@@ -131,6 +138,16 @@ export function usePortalSessionMonitor(): null {
     expiresAtRef.current = session?.user?.accessTokenExpires;
   }, [session?.user?.accessTokenExpires]);
 
+  /*
+   * Cuántos latidos seguidos han intentado renovar el token sin conseguirlo.
+   *
+   * En una ref y no en estado: no debe provocar un render, solo condicionar la siguiente vuelta del
+   * propio intervalo. Se resetea a 0 en cuanto un ciclo no necesita renovar (el token ya está fresco)
+   * o la renovación sí corrige `accessTokenExpires` — un fallo aislado no cuenta para nada si el
+   * siguiente ciclo va bien.
+   */
+  const consecutiveRefreshFailuresRef = useRef(0);
+
   useEffect(() => {
     if (!hasSession) return;
 
@@ -139,16 +156,14 @@ export function usePortalSessionMonitor(): null {
     /**
      * Le pregunta a la API si la sesión sigue valiendo, y solo entonces cierra.
      *
-     * **Un fallo de renovación no cierra la sesión por sí solo.** Antes sí lo hacía, y era la causa de
-     * «inicias sesión y te devuelve al principio»: nada más identificarse, una lectura de sesión traía
-     * `RefreshAccessTokenError` y el navegador se cerraba la sesión que la API acababa de emitir. Se
-     * comprobó midiendo, y el fallo sobrevivía incluso a volver a pedir la sesión al servidor.
-     *
-     * El cambio es de criterio: `session.error` es **una sospecha del cliente** —no pudo renovar un token,
-     * que puede pasar por una carrera entre dos lecturas simultáneas—, mientras que un 401 de
-     * `client/me/session-status` es **la respuesta de quien manda**. Solo lo segundo justifica echar a
-     * alguien de su pantalla. Si la renovación estaba de verdad rota, el siguiente latido lo confirma con un
-     * 401, así que no se pierde la protección: se pierde el falso positivo.
+     * **Un fallo de renovación aislado no cierra la sesión.** Antes cualquier fallo la cerraba, y era
+     * la causa de «inicias sesión y te devuelve al principio»: nada más identificarse, una lectura de
+     * sesión traía `RefreshAccessTokenError` por una carrera entre dos lecturas simultáneas, y el
+     * navegador cerraba la sesión que la API acababa de emitir. Solo tras
+     * {@link SESSION_REFRESH_MAX_CONSECUTIVE_FAILURES} fallos seguidos se da por perdida de verdad —
+     * ver el porqué en el comentario de la función—, y ahí sí se cierra sin esperar a un 401 que, con
+     * el `accessToken` ya caducado, no va a distinguirse de «mi token es simplemente viejo»
+     * (`getPortalSessionStatus`).
      */
     const check = async () => {
       /*
@@ -164,9 +179,28 @@ export function usePortalSessionMonitor(): null {
       try {
         const expiresAt = expiresAtRef.current;
         if (expiresAt && Date.now() >= expiresAt - AUTH_TOKEN_REFRESH_MARGIN_MS) {
-          await update();
+          const updated = await update();
+          if (cancelled) return;
+
+          /*
+           * Se lee `accessTokenExpires` de lo que `update()` ha devuelto, no de `expiresAtRef`: el ref
+           * lo escribe un `useEffect` aparte al re-renderizar con la sesión nueva, y no hay garantía de
+           * que ya haya corrido justo cuando esta promesa resuelve — depender de él aquí arriesgaba un
+           * falso negativo (dar la renovación por fallida habiéndola conseguido). El valor que devuelve
+           * `update()` es la sesión ya actualizada, sin esa carrera.
+           */
+          const refreshed = (updated?.user?.accessTokenExpires ?? expiresAt) !== expiresAt;
+          consecutiveRefreshFailuresRef.current = refreshed
+            ? 0
+            : consecutiveRefreshFailuresRef.current + 1;
+
+          if (consecutiveRefreshFailuresRef.current >= SESSION_REFRESH_MAX_CONSECUTIVE_FAILURES) {
+            await leaveToLogin(locale, "expired");
+          }
           return;
         }
+
+        consecutiveRefreshFailuresRef.current = 0;
 
         const status = await getPortalSessionStatus();
         if (cancelled || !status.revoked) return;

@@ -41,6 +41,20 @@ export const SESSION_REFETCH_INTERVAL_SECONDS = 300;
  */
 export const SESSION_HEARTBEAT_INTERVAL_MS = 15_000;
 
+/**
+ * Intentos de renovación del `accessToken` seguidos que tienen que fallar antes de que
+ * `usePortalSessionMonitor` cierre la sesión por su cuenta.
+ *
+ * No es 1 a propósito: un solo fallo puede ser el falso positivo ya conocido justo tras iniciar
+ * sesión (una carrera entre dos lecturas simultáneas del token, ver el comentario de
+ * `portalSessionMonitor.ts`), y cerrar por eso echaba a la gente nada más entrar. Con
+ * {@link SESSION_HEARTBEAT_INTERVAL_MS} en 15 s, 3 fallos seguidos son unos 45 s de sesión
+ * realmente rota (`refreshToken` inválido/caducado, sin margen de que se recupere solo) antes de
+ * cerrarla — suficiente para no confundirlo con el falso positivo puntual, sin dejar a nadie con
+ * la pantalla "congelada" varios minutos.
+ */
+export const SESSION_REFRESH_MAX_CONSECUTIVE_FAILURES = 3;
+
 /** Milisegundos antes de que un toast (`lib/toast.ts`) se autocierre, si no se indica `duration` explícito. */
 export const TOAST_DEFAULT_DURATION_MS = 4000;
 
