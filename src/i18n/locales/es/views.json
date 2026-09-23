@@ -2962,6 +2962,12 @@
             "overdueHint": "Ya han pasado la fecha que te dimos",
             "resolved": "Resueltas",
             "closed": "Cerradas"
+          },
+          "WorkOrders": {
+            "title": "Partes de trabajo",
+            "description": "El detalle de cada visita, con lo que se hizo y su documento.",
+            "doneOn": "Hecho el {date} por {technician}",
+            "openPdf": "Abrir el parte en PDF"
           }
         },
         "AccessLog": {

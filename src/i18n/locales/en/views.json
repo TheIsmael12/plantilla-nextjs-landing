@@ -2962,6 +2962,12 @@
             "overdueHint": "The date we gave you has passed",
             "resolved": "Resolved",
             "closed": "Closed"
+          },
+          "WorkOrders": {
+            "title": "Work orders",
+            "description": "What was done on each visit, with its document.",
+            "doneOn": "Done on {date} by {technician}",
+            "openPdf": "Open the work order PDF"
           }
         },
         "AccessLog": {
