@@ -14,6 +14,7 @@ import { Link, resolveHref } from '@/i18n/navigation';
 
 import Badge from '@/components/ui/buttons/Badge';
 import BreadcrumbLabel from '@/components/ui/navigations/BreadcrumbLabel';
+import IncidentWorkOrders from '@/views/(client-area)/private-area/incidents/details/components/IncidentWorkOrders';
 import IncidentCloseTrigger from '@/views/(client-area)/private-area/incidents/details/components/IncidentCloseTrigger';
 import IncidentConversation from '@/views/(client-area)/private-area/incidents/details/components/IncidentConversation';
 import IncidentStatusMenu from '@/views/(client-area)/private-area/incidents/details/components/IncidentStatusMenu';
@@ -177,6 +178,13 @@ export default async function IncidentsDetailsViewPage({
               )}
             </section>
           )}
+
+          {/*
+            Los partes de esta incidencia (requisitos-gestimora.md, 13.7.5). Van aquí, encima de la
+            conversación, porque son la justificación del trabajo: es lo que el cliente busca cuando
+            entra a una incidencia ya resuelta.
+          */}
+          <IncidentWorkOrders incidentId={incident.id} />
 
           {incident.status === 'CLOSED' && incident.satisfactionRating && (
             <section className="incident-detail__block">

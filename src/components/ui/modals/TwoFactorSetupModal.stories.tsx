@@ -47,7 +47,7 @@ const QR_DATA_URI =
 
 const SETUP_DATA: TwoFactorSetupData = {
   secret: "JBSWY3DPEHPK3PXP",
-  otpauthUri: "otpauth://totp/Enova:demo@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Enova",
+  otpauthUri: "otpauth://totp/Imora:demo@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Imora",
   qrDataUri: QR_DATA_URI,
 };
 
