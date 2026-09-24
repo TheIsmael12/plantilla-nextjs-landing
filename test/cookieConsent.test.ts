@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   COOKIE_CONSENT_CHANGED_EVENT,
   COOKIE_CONSENT_STORAGE_KEY,
+  getCookieConsentSnapshot,
+  getServerCookieConsentSnapshot,
   readCookieConsent,
   subscribeToCookieConsent,
   writeCookieConsent,
@@ -106,5 +108,63 @@ describe("subscribeToCookieConsent", () => {
     writeCookieConsent(ONLY_ANALYTICS);
 
     expect(listener).not.toHaveBeenCalled();
+  });
+});
+
+/*
+ * El snapshot es lo que consume `useSyncExternalStore` en `useCookieConsent`, y ese hook compara la
+ * **referencia** para decidir si repinta. Si cambiara en cada lectura, React entraría en bucle y
+ * cortaría con «The result of getSnapshot should be cached»; si no cambiara al guardar, el mapa se
+ * quedaría con el consentimiento viejo. Las dos mitades se comprueban aquí.
+ */
+describe("getCookieConsentSnapshot", () => {
+  it("devuelve la misma referencia mientras no cambia nada", () => {
+    writeCookieConsent(ONLY_ANALYTICS);
+
+    expect(getCookieConsentSnapshot()).toBe(getCookieConsentSnapshot());
+  });
+
+  it("cambia de referencia cuando se guarda una decisión nueva", () => {
+    writeCookieConsent(ONLY_ANALYTICS);
+    const antes = getCookieConsentSnapshot();
+
+    writeCookieConsent({ ...ONLY_ANALYTICS, analytics: false });
+
+    expect(getCookieConsentSnapshot()).not.toBe(antes);
+    expect(getCookieConsentSnapshot()?.analytics).toBe(false);
+  });
+
+  /*
+   * El `catch` de `writeCookieConsent` existe para que la decisión valga en esta visita aunque no
+   * se pueda persistir (modo privado, cuota). Si el snapshot releyera el almacenamiento, devolvería
+   * lo de antes y esa promesa se rompería justo donde importa.
+   */
+  it("refleja la decisión aunque el almacenamiento falle", () => {
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new Error("sin cuota");
+    });
+
+    writeCookieConsent(ONLY_ANALYTICS);
+
+    expect(getCookieConsentSnapshot()).toEqual(ONLY_ANALYTICS);
+  });
+
+  it("recoge lo aceptado en otra pestaña", () => {
+    writeCookieConsent(ONLY_ANALYTICS);
+    const dejarDeEscuchar = subscribeToCookieConsent(() => {});
+
+    const enLaOtra: CookieConsentData = { ...ONLY_ANALYTICS, functional: true };
+    window.localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, JSON.stringify(enLaOtra));
+    window.dispatchEvent(
+      new StorageEvent("storage", { key: COOKIE_CONSENT_STORAGE_KEY }),
+    );
+
+    expect(getCookieConsentSnapshot()).toEqual(enLaOtra);
+    dejarDeEscuchar();
+  });
+
+  /** En el servidor no hay decisión: es lo que evita el desajuste de hidratación. */
+  it("desde el servidor no hay decisión", () => {
+    expect(getServerCookieConsentSnapshot()).toBeNull();
   });
 });
