@@ -92,7 +92,6 @@ describe("buildHeaders", () => {
   it("reenvía la IP, el agente y el referente de la petición original", async () => {
     requestHeaders.value = new Headers({
       "x-forwarded-for": "88.1.2.3",
-      "x-real-ip": "88.1.2.3",
       "user-agent": "Mozilla/5.0",
       referer: "https://imora.es/servicios",
       host: "imora.es",
@@ -101,9 +100,49 @@ describe("buildHeaders", () => {
     const headers = await buildHeaders();
 
     expect(headers.get("x-forwarded-for")).toBe("88.1.2.3");
-    expect(headers.get("x-real-ip")).toBe("88.1.2.3");
     expect(headers.get("user-agent")).toBe("Mozilla/5.0");
     expect(headers.get("referer")).toBe("https://imora.es/servicios");
+  });
+
+  /*
+   * Y reenvía **una sola** dirección: la que añadió nuestro proxy al final de la cadena.
+   *
+   * La cadena entera no vale, porque el principio lo escribe el visitante. Reenviándola tal cual, la API se
+   * quedaba con el valor inventado y el límite por IP dejaba de existir: cambiándolo en cada petición, cada
+   * intento parecía venir de alguien distinto.
+   */
+  it("se queda solo con el último salto de la cadena", async () => {
+    requestHeaders.value = new Headers({ "x-forwarded-for": "1.2.3.4, 203.0.113.7" });
+
+    const headers = await buildHeaders();
+
+    expect(headers.get("x-forwarded-for")).toBe("203.0.113.7");
+  });
+
+  it("no reenvía una IP inventada", async () => {
+    requestHeaders.value = new Headers({ "x-forwarded-for": "no-soy-una-ip" });
+
+    const headers = await buildHeaders();
+
+    expect(headers.get("x-forwarded-for")).toBeNull();
+  });
+
+  /** `x-real-ip` la controla el visitante igual que la cadena, y no hay forma de distinguirlo. */
+  it("no reenvía x-real-ip", async () => {
+    requestHeaders.value = new Headers({ "x-real-ip": "88.1.2.3" });
+
+    const headers = await buildHeaders();
+
+    expect(headers.get("x-real-ip")).toBeNull();
+  });
+
+  /** El agente acaba en `ClientPortalAccessLog`, así que no puede medir lo que quiera. */
+  it("recorta un user-agent desmedido", async () => {
+    requestHeaders.value = new Headers({ "user-agent": "A".repeat(5_000) });
+
+    const headers = await buildHeaders();
+
+    expect(headers.get("user-agent")).toHaveLength(512);
   });
 
   /** El `host` se reenvía con otro nombre: mandarlo como `Host` rompería el enrutado del backend. */

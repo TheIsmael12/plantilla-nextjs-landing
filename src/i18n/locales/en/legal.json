@@ -451,7 +451,8 @@
         "terceros": {
           "title": "4. Third-party cookies",
           "p1": "Some of our partners and service providers may place third-party cookies on your device. These third parties have their own privacy policies.",
-          "p2": "We do not control third-party cookies. For more information, please check each third party's privacy policy."
+          "p2": "We do not control third-party cookies. For more information, please check each third party's privacy policy.",
+          "p3": "On public forms we use Cloudflare Turnstile, a Cloudflare security service that tells humans from bots to prevent spam. It is required for the form to work and may store technical information on your device. Cloudflare acts as a third party with its own privacy policy."
         },
         "gestion": {
           "title": "5. How to manage cookies",

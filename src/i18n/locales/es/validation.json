@@ -5,6 +5,7 @@
       "emailInvalid": "Introduce un correo electrónico válido.",
       "emailOrPhoneRequired": "Indica al menos un correo electrónico o un teléfono.",
       "privacyRequired": "Debes aceptar la política de privacidad para continuar.",
+      "ageRequired": "Debes confirmar que eres mayor de edad para continuar.",
       "maxLength": "Este campo es demasiado largo.",
       "invalidOption": "Elige una de las opciones de la lista.",
       "invalidPropertiesCount": "Indica un número de fincas entre 1 y 5000."
@@ -29,7 +30,8 @@
       "passwordUppercase": "La contraseña debe incluir al menos una mayúscula.",
       "passwordNumber": "La contraseña debe incluir al menos un número.",
       "passwordSpecialChar": "La contraseña debe incluir al menos un carácter especial.",
-      "passwordsMustMatch": "Las contraseñas no coinciden."
+      "passwordsMustMatch": "Las contraseñas no coinciden.",
+      "privacyNoticeRequired": "Debes aceptar el aviso de privacidad para continuar."
     },
     "required": "Este campo es obligatorio.",
     "otpLength": "Introduce el código completo de 6 dígitos.",

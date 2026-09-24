@@ -36,7 +36,9 @@ const DEFAULT_DRAFT: Draft = DENIED_CONSENT;
  * cada categoría por separado, y persiste la elección con
  * `lib/cookieConsent.ts`, que además avisa a quien dependa de ella (la
  * medición de `GoogleTagManager`). Cerrar el panel sin elegir (la X o
- * Escape) equivale a aceptar todo.
+ * Escape) equivale a **aceptar todo** (decisión del sitio). Las cookies
+ * funcionales (p. ej. el mapa) se tratan como obligatorias y van siempre
+ * activas; solo la analítica es opcional.
  * También escucha el evento `na:open-cookie-consent` para poder reabrirse
  * desde otras partes de la app (p. ej. un enlace del footer).
  * @returns {JSX.Element | null} El banner de cookies renderizado, o `null` mientras está oculto
@@ -63,8 +65,10 @@ export default function CookieConsentController() {
     useEffect(() => {
         const handler = () => {
             const stored = readCookieConsent();
+            // `functional: true` siempre: es obligatoria, aunque un consentimiento
+            // antiguo la tuviera guardada como denegada.
             setDraft(stored
-                ? { analytics: stored.analytics, functional: stored.functional }
+                ? { analytics: stored.analytics, functional: true }
                 : DEFAULT_DRAFT,
             );
             setSaving(false);
@@ -85,8 +89,10 @@ export default function CookieConsentController() {
         persist({ analytics: true, functional: true, timestamp: Date.now() });
     }, [persist]);
 
+    // Las funcionales son obligatorias (van siempre activas), así que "solo lo
+    // esencial" mantiene `functional: true` y solo deniega la analítica.
     const acceptNecessary = useCallback(() => {
-        persist({ analytics: false, functional: false, timestamp: Date.now() });
+        persist({ analytics: false, functional: true, timestamp: Date.now() });
     }, [persist]);
 
     const saveSelection = useCallback(() => {
@@ -101,7 +107,7 @@ export default function CookieConsentController() {
     );
 
     // Focus trap: keeps keyboard focus inside the panel while it is open.
-    // Escape triggers acceptAll (dismiss-as-consent close), matching the X button behaviour.
+    // Escape triggers acceptAll (closing accepts everything), matching the X button behaviour.
     useFocusTrap({
         isActive: visible && !saving,
         ref: panelRef,
@@ -185,13 +191,13 @@ export default function CookieConsentController() {
                             />
                         </div>
 
-                        {/* Functional */}
-                        <div className="cookie-consent__pref">
+                        {/* Functional - obligatorias (mapa), always on, locked */}
+                        <div className="cookie-consent__pref cookie-consent__pref--locked">
                             <div className="cookie-consent__pref__info">
                                 <div>
                                     <span className="cookie-consent__pref__name">
                                         {t('functional')}
-                                        <Badge status="pending" value={t('optional')} />
+                                        <Badge status="success" value={t('alwaysOn')} />
                                     </span>
                                     <p className="cookie-consent__pref__desc">{t('functionalDesc')}</p>
                                 </div>
@@ -201,8 +207,9 @@ export default function CookieConsentController() {
                                 name="functional"
                                 label=""
                                 ariaLabel={t('functional')}
-                                checked={draft.functional}
-                                onChange={handleToggle('functional')}
+                                checked
+                                disabled
+                                onChange={() => { /* locked */ }}
                             />
                         </div>
 

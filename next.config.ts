@@ -39,6 +39,11 @@ if (problemasDeIdentidad.length > 0) {
 }
 
 const nextConfig: NextConfig = {
+	// Sin `X-Powered-By: Next.js` en cada respuesta. No abre ningún agujero por sí solo, pero decirle
+	// a cualquiera qué framework y qué familia de versiones hay detrás le ahorra el primer paso a
+	// quien busque a quién le sirve un CVE recién publicado. No cuesta nada quitarlo.
+	poweredByHeader: false,
+
 	// `babel-plugin-react-compiler` ya está instalado como devDependency:
 	// esta flag lo activa de verdad (si no, el paquete no hace nada).
 	reactCompiler: true,

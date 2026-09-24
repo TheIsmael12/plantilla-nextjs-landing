@@ -154,3 +154,27 @@
     }
   }
 }
+
+// Casilla del aviso de privacidad en la aceptación de invitación (art. 13 RGPD).
+.auth-form__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: $text-sm;
+
+  &-checkbox {
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    accent-color: var(--primary-color-active);
+  }
+
+  &-text {
+    line-height: 1.4;
+
+    a {
+      color: var(--primary-color-active);
+      text-decoration: underline;
+    }
+  }
+}

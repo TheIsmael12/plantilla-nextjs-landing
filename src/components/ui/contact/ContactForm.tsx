@@ -48,6 +48,7 @@ const INITIAL: ContactFormValues = {
     timeframe: '',
     managedPropertiesCount: '',
     privacyNoticeAcknowledged: false,
+    ageConfirmed: false,
     marketingConsent: false,
     attributionConsent: false,
     honeypot: '',
@@ -390,6 +391,31 @@ export default function ContactForm({
                 {formik.errors.privacyNoticeAcknowledged && formik.touched.privacyNoticeAcknowledged && (
                     <p className="label__error">
                         * {tValidations(formik.errors.privacyNoticeAcknowledged)}
+                    </p>
+                )}
+
+                {/*
+                    Declaración de mayoría de edad (art. 8 RGPD / art. 7 LOPDGDD): obligatoria, con el
+                    mismo patrón que la casilla de privacidad. Su error también se resuelve a mano contra
+                    `Validations`, igual que aquella.
+                */}
+                <div className="contact__form-consent">
+                    <input
+                        id="cf-age"
+                        name="ageConfirmed"
+                        type="checkbox"
+                        className="contact__form-checkbox"
+                        checked={formik.values.ageConfirmed}
+                        onChange={(e) => formik.setFieldValue('ageConfirmed', e.target.checked)}
+                        aria-label={t('consents.ageLabel')}
+                    />
+                    <label htmlFor="cf-age" className="contact__form-consent-text">
+                        {t('consents.ageLabel')} *
+                    </label>
+                </div>
+                {formik.errors.ageConfirmed && formik.touched.ageConfirmed && (
+                    <p className="label__error">
+                        * {tValidations(formik.errors.ageConfirmed)}
                     </p>
                 )}
 

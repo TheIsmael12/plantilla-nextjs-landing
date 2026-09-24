@@ -5,6 +5,7 @@ import { useFormatter, useTranslations } from 'next-intl';
 import { Form, Formik } from 'formik';
 import { CheckCircle, LockIcon, MailIcon, PhoneIcon, UserIcon } from 'lucide-react';
 
+import { Link } from '@/i18n/navigation';
 import Input from '@/components/ui/inputs/Input';
 import Button from '@/components/ui/buttons/Button';
 
@@ -22,9 +23,16 @@ interface AcceptValues {
   phone: string;
   newPassword: string;
   confirmPassword: string;
+  privacyNoticeAccepted: boolean;
 }
 
-const INITIAL: AcceptValues = { name: '', phone: '', newPassword: '', confirmPassword: '' };
+const INITIAL: AcceptValues = {
+  name: '',
+  phone: '',
+  newPassword: '',
+  confirmPassword: '',
+  privacyNoticeAccepted: false,
+};
 
 interface ResidentInvitationFormProps {
   token: string;
@@ -53,6 +61,7 @@ interface ResidentInvitationFormProps {
 export default function ResidentInvitationForm({ token, invitation }: ResidentInvitationFormProps) {
   const t = useTranslations('Views.Auth.Resident.Invitation');
   const tErrors = useTranslations('Common.Errors');
+  const tValidations = useTranslations('Validations');
   const format = useFormatter();
 
   const [error, setError] = useState<string | null>(null);
@@ -69,6 +78,8 @@ export default function ResidentInvitationForm({ token, invitation }: ResidentIn
       password: needsPassword ? values.newPassword : undefined,
       name: isNewAccount ? values.name.trim() : undefined,
       phone: isNewAccount ? values.phone.trim() || undefined : undefined,
+      // Prueba de consentimiento: solo se manda cuando se fija la forma de entrar (mismo caso en que se pide).
+      privacyNoticeAccepted: needsPassword ? values.privacyNoticeAccepted : undefined,
     });
 
     if (response.status === HTTPStatus.OK || response.status === HTTPStatus.CREATED) {
@@ -263,6 +274,31 @@ export default function ResidentInvitationForm({ token, invitation }: ResidentIn
                 icon={LockIcon}
                 className="input__full"
               />
+
+              {/*
+                Aviso de privacidad (art. 13 RGPD): obligatorio para completar el alta. El enlace lleva a
+                la política de privacidad. Sin marcarlo, el esquema (`residentAcceptInvitation*Schema`)
+                bloquea el envío.
+              */}
+              <div className="auth-form__consent">
+                <input
+                  id="privacyNoticeAccepted"
+                  name="privacyNoticeAccepted"
+                  type="checkbox"
+                  className="auth-form__consent-checkbox"
+                  checked={values.privacyNoticeAccepted}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  aria-label={t('privacyLabel')}
+                />
+                <label htmlFor="privacyNoticeAccepted" className="auth-form__consent-text">
+                  {t('privacyLabel')}{' '}
+                  <Link href="/privacy-policy">{t('privacyLink')}</Link> *
+                </label>
+              </div>
+              {errors.privacyNoticeAccepted && touched.privacyNoticeAccepted && (
+                <p className="auth-form__error">* {tValidations(errors.privacyNoticeAccepted)}</p>
+              )}
             </>
           )}
 

@@ -13,7 +13,7 @@ import ImageLogo from "@/components/ui/images/ImageLogo";
 import FooterThemeToggle from "@/components/ui/navigation/FooterThemeToggle";
 import FooterLocaleSwitcher from "@/components/ui/navigation/FooterLocaleSwitcher";
 
-import { MailIcon, MapIcon, PhoneIcon } from "lucide-react";
+import { Building2Icon, MailIcon, MapIcon, PhoneIcon } from "lucide-react";
 
 const ALL_SOCIALS = [
     { Icon: "linkedin", name: "LinkedIn", href: ENV.SOCIAL_LINKEDIN },
@@ -24,6 +24,19 @@ const ALL_SOCIALS = [
     { Icon: "facebook", name: "Facebook", href: ENV.SOCIAL_FACEBOOK },
 ];
 
+/**
+ * Si el CIF sale impreso en el pie.
+ *
+ * Apagado **a propósito y de momento**: la identidad fiscal de la empresa todavía no está cerrada
+ * —la denominación social y el CIF configurado no se corresponden entre sí—, y en el aviso legal un
+ * dato fiscal equivocado es peor que no ponerlo: identifica a otro.
+ *
+ * El bloque se queda en su sitio en vez de borrarse porque el art. 10 de la LSSI **obliga** a
+ * publicar la identificación fiscal: esto es una pausa, no una decisión. Se vuelve a encender
+ * poniéndolo en `true`, con `NEXT_PUBLIC_COMPANY_CIF` ya bien informado.
+ */
+const SHOW_CIF = false;
+
 const BRAND = {
     name: ENV.COMPANY_NAME,
     // Solo los perfiles con URL configurada en el .env aparecen en el footer.
@@ -32,6 +45,8 @@ const BRAND = {
         email: ENV.COMPANY_EMAIL,
         phone: ENV.COMPANY_PHONE,
         location: COMPANY_ADDRESS_FULL,
+        // Identificación fiscal (CIF/NIF), obligatoria en el aviso legal (art. 10 LSSI).
+        cif: ENV.COMPANY_CIF,
     }
 }
 
@@ -115,6 +130,14 @@ export default function Footer() {
                                 <MapIcon aria-hidden="true" /> {BRAND.contact.location}
                             </a>
                         </li>
+                        )}
+                        {/* CIF/NIF: dato legal exigido por el art. 10 LSSI. Oculto de momento, ver SHOW_CIF. */}
+                        {SHOW_CIF && BRAND.contact.cif && (
+                            <li>
+                                <span className="footer__contact__list-link">
+                                    <Building2Icon aria-hidden="true" /> {t("cif")}: {BRAND.contact.cif}
+                                </span>
+                            </li>
                         )}
                     </ul>
                 </div>

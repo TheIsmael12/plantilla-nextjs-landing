@@ -13,6 +13,7 @@
  * @property {string} timeframe - Selected timeframe, or empty when not answered.
  * @property {string} managedPropertiesCount - Number of managed properties, as typed. Only asked of property managers.
  * @property {boolean} privacyNoticeAcknowledged - Mandatory acknowledgement of the privacy notice.
+ * @property {boolean} ageConfirmed - Mandatory declaration of being of legal age (art. 8 GDPR / art. 7 LOPDGDD).
  * @property {boolean} marketingConsent - Optional, unchecked-by-default consent to receive marketing communications.
  * @property {boolean} attributionConsent - Optional consent to store attribution data (UTMs, referrer...).
  * @property {string} honeypot - Hidden trap field; the backend silently discards the submission if it arrives filled in.
@@ -37,6 +38,7 @@ interface ContactFormValues {
   timeframe: string;
   managedPropertiesCount: string;
   privacyNoticeAcknowledged: boolean;
+  ageConfirmed: boolean;
   marketingConsent: boolean;
   attributionConsent: boolean;
   honeypot: string;

@@ -63,6 +63,7 @@
     "email": "Email",
     "phone": "Phone",
     "location": "Location",
+    "cif": "Tax ID",
     "changeLanguage": "Change language",
     "changeTheme": "Change theme",
     "lightTheme": "Light theme",

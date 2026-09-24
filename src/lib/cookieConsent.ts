@@ -36,10 +36,17 @@ export const OPEN_COOKIE_CONSENT_EVENT = "na:open-cookie-consent";
 /** Evento que se emite, con las preferencias nuevas en `detail`, cada vez que el visitante las guarda. */
 export const COOKIE_CONSENT_CHANGED_EVENT = "na:cookie-consent-changed";
 
-/** Punto de partida mientras no haya decisión: nada opcional aceptado. */
+/**
+ * Punto de partida mientras no haya decisión.
+ *
+ * `functional: true` porque, por decisión del sitio, las cookies funcionales
+ * (p. ej. el mapa de contacto) se tratan como **necesarias/obligatorias**: no
+ * se pueden rechazar y van activas desde el primer momento. Solo la analítica
+ * queda por decidir, y arranca denegada.
+ */
 export const DENIED_CONSENT: CookieConsentCategories = {
   analytics: false,
-  functional: false,
+  functional: true,
 };
 
 /**
@@ -58,6 +65,44 @@ export function readCookieConsent(): CookieConsentData | null {
 }
 
 /**
+ * La decisión vigente, cacheada, para poder devolver **siempre la misma referencia** mientras no
+ * cambie.
+ *
+ * `readCookieConsent` interpreta el JSON en cada llamada, así que devuelve un objeto nuevo cada vez.
+ * Para una lectura suelta da igual, pero `useSyncExternalStore` compara la referencia para decidir si
+ * repintar: con un objeto nuevo en cada lectura entra en un bucle infinito y React corta con «The
+ * result of getSnapshot should be cached».
+ *
+ * `undefined` significa «todavía no se ha leído del almacenamiento»; `null`, «leído y no hay
+ * decisión». Son dos estados distintos y por eso no vale con uno.
+ */
+let cachedConsent: CookieConsentData | null | undefined;
+
+/**
+ * La decisión vigente, con referencia estable entre lecturas.
+ *
+ * Pensada para `useSyncExternalStore` (ver `useCookieConsent`). Quien solo quiera leer una vez puede
+ * seguir usando {@link readCookieConsent}.
+ * @returns {CookieConsentData | null} Las preferencias, o `null` si el visitante no ha decidido
+ */
+export function getCookieConsentSnapshot(): CookieConsentData | null {
+  if (cachedConsent === undefined) cachedConsent = readCookieConsent();
+  return cachedConsent;
+}
+
+/**
+ * Lo que se sirve desde el servidor: no hay decisión.
+ *
+ * Tiene que ser una función aparte y devolver algo estable, porque en el servidor no hay
+ * `localStorage` y rellenar allí con otra cosa daría un HTML distinto al que pinta el navegador —un
+ * desajuste de hidratación—.
+ * @returns {null} Siempre `null`
+ */
+export function getServerCookieConsentSnapshot(): null {
+  return null;
+}
+
+/**
  * Persiste las preferencias y avisa a quien las esté escuchando.
  *
  * El evento se emite aunque `localStorage` falle (modo privado, cuota): la
@@ -73,6 +118,13 @@ export function writeCookieConsent(data: CookieConsentData): void {
   } catch {
     // Sin almacenamiento persistente, el consentimiento vale solo para esta visita.
   }
+
+  /*
+   * La caché se actualiza aquí y no releyendo el almacenamiento, precisamente por el caso de arriba:
+   * si el `setItem` falló, releer devolvería la decisión anterior y la nueva no se aplicaría en esta
+   * visita, que es justo lo que el `catch` quiere evitar.
+   */
+  cachedConsent = data;
 
   window.dispatchEvent(
     new CustomEvent<CookieConsentData>(COOKIE_CONSENT_CHANGED_EVENT, { detail: data }),
@@ -96,7 +148,12 @@ export function subscribeToCookieConsent(
 
   const handleOtherTab = (event: StorageEvent) => {
     if (event.key !== COOKIE_CONSENT_STORAGE_KEY) return;
+
     const consent = readCookieConsent();
+    // La decisión llega de fuera de esta pestaña, así que la caché se refresca aquí: quien lea el
+    // snapshot después del aviso tiene que ver lo que se aceptó en la otra.
+    cachedConsent = consent;
+
     if (consent) listener(consent);
   };
 

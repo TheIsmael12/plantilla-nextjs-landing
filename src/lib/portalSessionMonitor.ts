@@ -214,7 +214,6 @@ export function usePortalSessionMonitor(): null {
          * cumplían los 15 minutos de vida del token y aparecía un 401 sin explicación previa.
          */
         if (!cancelled) {
-          // eslint-disable-next-line no-console
           console.error("[portalSessionMonitor] Fallo comprobando la sesión", error);
         }
       }

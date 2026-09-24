@@ -63,6 +63,7 @@
     "email": "Correo electrónico",
     "phone": "Teléfono",
     "location": "Ubicación",
+    "cif": "CIF",
     "changeLanguage": "Cambiar idioma",
     "changeTheme": "Cambiar tema",
     "lightTheme": "Tema claro",
