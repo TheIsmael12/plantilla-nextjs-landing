@@ -119,6 +119,30 @@
     }
   }
 
+  // Aviso previo al consentimiento: el mapa carga teselas de un tercero (CARTO),
+  // así que no se monta hasta que el visitante lo pide. Ocupa el mismo hueco que
+  // el lienzo para que la tarjeta no dé un salto al cargarlo.
+  &-consent {
+    position: absolute;
+    inset: 0;
+    @include flex(column, center, center, 0.75rem);
+    @include px(1.5rem);
+    text-align: center;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+      color: var(--neutral-color);
+      flex-shrink: 0;
+    }
+
+    p {
+      max-width: 26rem;
+      font-size: $text-sm;
+      color: var(--neutral-color);
+    }
+  }
+
   // `!important`: mismo selector de una sola clase que `.leaflet-container` (`position: relative`
   // en `leaflet/dist/leaflet.css`), así que gana el que cargue después en el bundle — y ese orden
   // no está garantizado, el canvas se monta con `next/dynamic`. Sin esto el lienzo se queda con el

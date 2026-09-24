@@ -13,7 +13,7 @@ import ImageLogo from "@/components/ui/images/ImageLogo";
 import FooterThemeToggle from "@/components/ui/navigation/FooterThemeToggle";
 import FooterLocaleSwitcher from "@/components/ui/navigation/FooterLocaleSwitcher";
 
-import { MailIcon, MapIcon, PhoneIcon } from "lucide-react";
+import { Building2Icon, MailIcon, MapIcon, PhoneIcon } from "lucide-react";
 
 const ALL_SOCIALS = [
     { Icon: "linkedin", name: "LinkedIn", href: ENV.SOCIAL_LINKEDIN },
@@ -32,6 +32,8 @@ const BRAND = {
         email: ENV.COMPANY_EMAIL,
         phone: ENV.COMPANY_PHONE,
         location: COMPANY_ADDRESS_FULL,
+        // Identificación fiscal (CIF/NIF), obligatoria en el aviso legal (art. 10 LSSI).
+        cif: ENV.COMPANY_CIF,
     }
 }
 
@@ -115,6 +117,14 @@ export default function Footer() {
                                 <MapIcon aria-hidden="true" /> {BRAND.contact.location}
                             </a>
                         </li>
+                        )}
+                        {/* CIF/NIF: dato legal exigido por el art. 10 LSSI. Solo si está configurado. */}
+                        {BRAND.contact.cif && (
+                            <li>
+                                <span className="footer__contact__list-link">
+                                    <Building2Icon aria-hidden="true" /> {t("cif")}: {BRAND.contact.cif}
+                                </span>
+                            </li>
                         )}
                     </ul>
                 </div>

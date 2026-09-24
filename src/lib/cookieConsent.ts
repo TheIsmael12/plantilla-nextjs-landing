@@ -36,10 +36,17 @@ export const OPEN_COOKIE_CONSENT_EVENT = "na:open-cookie-consent";
 /** Evento que se emite, con las preferencias nuevas en `detail`, cada vez que el visitante las guarda. */
 export const COOKIE_CONSENT_CHANGED_EVENT = "na:cookie-consent-changed";
 
-/** Punto de partida mientras no haya decisión: nada opcional aceptado. */
+/**
+ * Punto de partida mientras no haya decisión.
+ *
+ * `functional: true` porque, por decisión del sitio, las cookies funcionales
+ * (p. ej. el mapa de contacto) se tratan como **necesarias/obligatorias**: no
+ * se pueden rechazar y van activas desde el primer momento. Solo la analítica
+ * queda por decidir, y arranca denegada.
+ */
 export const DENIED_CONSENT: CookieConsentCategories = {
   analytics: false,
-  functional: false,
+  functional: true,
 };
 
 /**

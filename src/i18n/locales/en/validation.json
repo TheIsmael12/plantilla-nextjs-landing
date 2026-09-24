@@ -5,6 +5,7 @@
       "emailInvalid": "Please enter a valid email address.",
       "emailOrPhoneRequired": "Please provide at least an email address or a phone number.",
       "privacyRequired": "You must accept the privacy policy to continue.",
+      "ageRequired": "You must confirm that you are of legal age to continue.",
       "maxLength": "This field is too long.",
       "invalidOption": "Choose one of the options in the list.",
       "invalidPropertiesCount": "Enter a number of properties between 1 and 5000."
@@ -29,7 +30,8 @@
       "passwordUppercase": "Password must include at least one uppercase letter.",
       "passwordNumber": "Password must include at least one number.",
       "passwordSpecialChar": "Password must include at least one special character.",
-      "passwordsMustMatch": "Passwords do not match."
+      "passwordsMustMatch": "Passwords do not match.",
+      "privacyNoticeRequired": "You must accept the privacy notice to continue."
     },
     "required": "This field is required.",
     "otpLength": "Enter the complete 6-digit code.",

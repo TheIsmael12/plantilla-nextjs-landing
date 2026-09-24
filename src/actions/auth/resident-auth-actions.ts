@@ -70,6 +70,7 @@ export async function acceptResidentInvitation(input: {
   name?: string;
   phone?: string;
   language?: string;
+  privacyNoticeAccepted?: boolean;
 }): Promise<{ status: number; message?: string }> {
   return fetchData<null, typeof input & { deviceId: string }>("residents/auth/accept-invitation", "POST", {
     ...input,

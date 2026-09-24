@@ -15,6 +15,7 @@ import PortalMfaVerifyModal from '@/views/auth/PortalMfaVerifyModal';
 
 import { loginSchema } from '@/schemas/auth.schema';
 import { decodeMfaChallenge, decodePasswordChangeRequired } from '@/utils/mfaUtils';
+import { sanitizeCallbackUrl } from '@/utils/callbackUrlUtils';
 
 import '@/styles/04-components/auth/authForm.scss';
 
@@ -77,16 +78,18 @@ export default function LoginForm() {
     /*
      * El destino sale de la URL, así que se comprueba antes de obedecerlo.
      *
-     * Tiene que ser una ruta de este sitio (`/algo`, no `//otro.sitio` ni `http://…`) y no puede ser otra
-     * pantalla de identificación: un `callbackUrl` apuntando al propio login devolvía al login recién
-     * identificado, y eso se veía como «entro y no entro». Cualquier otra cosa, a la portada del área
-     * privada, que es donde se quiere estar tras identificarse.
+     * Tiene que ser una ruta de este sitio y no otra pantalla de identificación: un `callbackUrl`
+     * apuntando al propio login devolvía al login recién identificado, y eso se veía como «entro y no
+     * entro». Cualquier otra cosa, a la portada del área privada, que es donde se quiere estar tras
+     * identificarse.
+     *
+     * Que sea de este sitio lo decide {@link sanitizeCallbackUrl}, y no un `startsWith` escrito aquí:
+     * el que había se saltaba con una contrabarra. El porqué está en esa función.
      */
-    const callbackUrl = searchParams.get('callbackUrl') ?? '';
-    const isInternal = callbackUrl.startsWith('/') && !callbackUrl.startsWith('//');
-    const isAuthScreen = AUTH_PATH_HINTS.some((hint) => callbackUrl.includes(hint));
+    const callbackUrl = sanitizeCallbackUrl(searchParams.get('callbackUrl'));
+    const isAuthScreen = !!callbackUrl && AUTH_PATH_HINTS.some((hint) => callbackUrl.includes(hint));
 
-    const target = isInternal && !isAuthScreen ? callbackUrl : '/private-area';
+    const target = callbackUrl && !isAuthScreen ? callbackUrl : '/private-area';
     router.push(target as AnyHref);
 
     /*

@@ -1050,6 +1050,7 @@
       "consents": {
         "privacyLabel": "He leído y acepto la",
         "privacyLink": "política de privacidad",
+        "ageLabel": "Declaro ser mayor de edad",
         "marketingLabel": "Quiero recibir novedades y ofertas comerciales por email",
         "attributionLabel": "Permite guardar el origen de esta consulta (campañas, referidos) para mejorar nuestro servicio de atención"
       },
@@ -1091,7 +1092,10 @@
       "schedule": "Horario",
       "cta": "Cómo llegar",
       "viewOnMaps": "Ver en Maps",
-      "emergencyLabel": "Urgencias 24h"
+      "emergencyLabel": "Urgencias 24h",
+      "consentTitle": "Mapa de la oficina",
+      "consentText": "El mapa carga contenido de un tercero (CARTO). Se cargará cuando lo pidas, y al hacerlo aceptas las cookies funcionales.",
+      "loadMap": "Cargar mapa"
     },
     "departments": {
       "eyebrow": "Departamentos",
@@ -2187,7 +2191,9 @@
           "expiresAt": "Caduca el {date}",
           "existingAccountNotice": "Ya tienes una cuenta de vecino con este correo. Confirma para unirte a esta comunidad.",
           "successTitle": "Invitación aceptada",
-          "successMessage": "Ya formas parte de la comunidad. Entra desde la app con tu correo y contraseña."
+          "successMessage": "Ya formas parte de la comunidad. Entra desde la app con tu correo y contraseña.",
+          "privacyLabel": "He leído y acepto el aviso de privacidad y el tratamiento de mis datos.",
+          "privacyLink": "aviso de privacidad"
         }
       }
     },

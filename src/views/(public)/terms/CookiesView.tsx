@@ -117,6 +117,7 @@ export default async function CookiesView() {
                 <LegalSection id="terceros" title={ps('terceros.title')}>
                     <p className="legal__section__text">{ps('terceros.p1')}</p>
                     <p className="legal__section__text">{ps('terceros.p2')}</p>
+                    <p className="legal__section__text">{ps('terceros.p3')}</p>
                 </LegalSection>
 
                 {/* 5. Gestión */}

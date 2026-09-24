@@ -70,6 +70,10 @@ export const residentAcceptInvitationSchema = Yup.object({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("newPassword")], "auth.passwordsMustMatch")
     .required("auth.passwordRequired"),
+  // Aviso de privacidad (art. 13 RGPD): hay que aceptarlo para darse de alta.
+  privacyNoticeAccepted: Yup.boolean()
+    .oneOf([true], "auth.privacyNoticeRequired")
+    .required("auth.privacyNoticeRequired"),
 });
 
 /**
@@ -83,4 +87,8 @@ export const residentAcceptInvitationNewAccountSchema = Yup.object({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("newPassword")], "auth.passwordsMustMatch")
     .required("auth.passwordRequired"),
+  // Aviso de privacidad (art. 13 RGPD): hay que aceptarlo para darse de alta.
+  privacyNoticeAccepted: Yup.boolean()
+    .oneOf([true], "auth.privacyNoticeRequired")
+    .required("auth.privacyNoticeRequired"),
 });

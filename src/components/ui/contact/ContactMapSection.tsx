@@ -69,6 +69,11 @@ export default function ContactMapSection({
         ? buildMapsHref(fullAddress, COMPANY_COORDINATES)
         : buildFallbackMapsHref(fullAddress, COMPANY_COORDINATES);
 
+    /*
+     * El mapa incrusta teselas de un tercero (CARTO). Por decisión del sitio, la
+     * categoría funcional es **obligatoria** (ver `CookieConsentController`), así
+     * que el mapa se monta siempre, sin condicionarlo a un consentimiento aparte.
+     */
     return (
 
         <div className="contact__map">

@@ -1050,6 +1050,7 @@
       "consents": {
         "privacyLabel": "I have read and accept the",
         "privacyLink": "privacy policy",
+        "ageLabel": "I declare that I am of legal age",
         "marketingLabel": "I want to receive news and commercial offers by email",
         "attributionLabel": "Allow us to store how you found us (campaigns, referrals) to improve our customer service"
       },
@@ -1091,7 +1092,10 @@
       "schedule": "Hours",
       "cta": "Get Directions",
       "viewOnMaps": "View on Maps",
-      "emergencyLabel": "24h emergencies"
+      "emergencyLabel": "24h emergencies",
+      "consentTitle": "Office map",
+      "consentText": "The map loads content from a third party (CARTO). It will load when you ask it to, and doing so accepts functional cookies.",
+      "loadMap": "Load map"
     },
     "departments": {
       "eyebrow": "Departments",
@@ -2187,7 +2191,9 @@
           "expiresAt": "Expires on {date}",
           "existingAccountNotice": "You already have a resident account with this email. Confirm to join this community.",
           "successTitle": "Invitation accepted",
-          "successMessage": "You're now part of the community. Sign in from the app with your email and password."
+          "successMessage": "You're now part of the community. Sign in from the app with your email and password.",
+          "privacyLabel": "I have read and accept the privacy notice and the processing of my data.",
+          "privacyLink": "privacy notice"
         }
       }
     },

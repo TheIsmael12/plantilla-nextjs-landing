@@ -451,7 +451,8 @@
         "terceros": {
           "title": "4. Cookies de terceros",
           "p1": "Algunos de nuestros socios y proveedores pueden colocar cookies de terceros en tu dispositivo. Estos terceros tienen sus propias políticas de privacidad.",
-          "p2": "No controlamos las cookies de terceros. Para más información, consulta las políticas de privacidad de cada tercero."
+          "p2": "No controlamos las cookies de terceros. Para más información, consulta las políticas de privacidad de cada tercero.",
+          "p3": "En los formularios públicos usamos Cloudflare Turnstile, un servicio de seguridad de Cloudflare que distingue a las personas de los bots para evitar el spam. Es imprescindible para que el formulario funcione y puede almacenar información técnica en tu dispositivo. Cloudflare actúa como tercero con su propia política de privacidad."
         },
         "gestion": {
           "title": "5. Cómo gestionar las cookies",

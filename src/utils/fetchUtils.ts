@@ -29,6 +29,65 @@ export function resolveBackendAssetUrl(path: string | null | undefined): string 
   return `${ENV.BACKEND_ORIGIN}${path.startsWith("/") ? "" : "/"}${path}`;
 }
 
+/** Longitud a la que se recorta una cabecera de texto libre antes de reenviarla a la API. */
+const MAX_FORWARDED_HEADER_LENGTH = 512;
+
+/** IPv4 en notación decimal, con o sin puerto (`1.2.3.4` / `1.2.3.4:5678`). */
+const IPV4 = /^(\d{1,3}\.){3}\d{1,3}(:\d{1,5})?$/;
+
+/** IPv6, incluida la forma entre corchetes con puerto y la mapeada de IPv4 (`::ffff:1.2.3.4`). */
+const IPV6 = /^\[?[0-9a-f:]+(\.\d{1,3}){0,3}\]?(:\d{1,5})?$/i;
+
+/**
+ * Resuelve la IP del visitante a partir de las cabeceras del request entrante.
+ *
+ * **Esto es una frontera de confianza, no un simple reenvío.** `x-forwarded-for`
+ * la puede escribir cualquiera: basta un `curl -H 'X-Forwarded-For: 1.2.3.4'`
+ * contra esta misma web. El proxy que tenemos delante *añade* la IP real al
+ * final de la lista, así que de toda la cadena solo la última entrada la ha
+ * puesto alguien de casa; las anteriores son las que traía el visitante.
+ *
+ * Antes se reenviaba la cabecera entera tal cual, y eso anulaba por completo el
+ * `trust proxy: 1` de la API: la API se queda con la última entrada de la lista
+ * que le llega, que era la que el visitante había escrito. Con eso se falseaba
+ * la IP de cada login del portal y la del formulario de contacto —el rate limit
+ * va por IP, así que cambiándola en cada petición no saltaba nunca— y el log de
+ * accesos del portal guardaba direcciones inventadas.
+ *
+ * Así que se reenvía **una sola dirección**, la que vouchea nuestro proxy, y
+ * solo si tiene forma de IP. `x-real-ip` no se mira: quien esté delante la
+ * sobrescribe o no la pone, y no hay forma de distinguir un valor suyo de uno
+ * del visitante.
+ * @param {Headers} requestHeaders - Cabeceras del request entrante
+ * @returns {string | null} La IP del visitante, o `null` si no hay ninguna fiable
+ */
+function clientAddressFromHeaders(requestHeaders: Headers): string | null {
+  const chain = requestHeaders.get("x-forwarded-for");
+  if (!chain) return null;
+
+  const hops = chain.split(",");
+  const candidate = hops[hops.length - 1]?.trim() ?? "";
+
+  if (!candidate || candidate.length > 45) return null;
+  if (!IPV4.test(candidate) && !IPV6.test(candidate)) return null;
+
+  return candidate;
+}
+
+/**
+ * Recorta una cabecera de texto libre del visitante antes de reenviarla.
+ * Nada obliga a que un `user-agent` mida lo razonable, y ese valor acaba en la
+ * base de datos (`ClientPortalAccessLog` lo parsea para guardar
+ * dispositivo/SO/navegador de cada login), así que se limita aquí en vez de
+ * confiar en que el ancho de la columna aguante.
+ * @param {string | null} value - Valor recibido del visitante
+ * @returns {string | null} El valor recortado, o `null` si venía vacío
+ */
+function boundedHeader(value: string | null): string | null {
+  if (!value) return null;
+  return value.slice(0, MAX_FORWARDED_HEADER_LENGTH);
+}
+
 /**
  * Reenvía al backend las cabeceras del request original que le interesan
  * para auditoría/seguridad (IP real, user agent, referer, host): tanto el
@@ -36,6 +95,9 @@ export function resolveBackendAssetUrl(path: string | null | undefined): string 
  * log de accesos del portal (`ClientPortalAccessLog`, que parsea `user-agent`
  * para guardar dispositivo/SO/navegador de cada login) dependen de que estas
  * cabeceras sean las del visitante real y no las del servidor de Next.js.
+ *
+ * Lo que llega del visitante se valida antes de pasarlo: la IP vía
+ * {@link clientAddressFromHeaders} y los textos libres vía {@link boundedHeader}.
  * Nunca lanza: si `headers()` no está disponible en el contexto actual,
  * simplemente no se añade ninguna cabecera adicional.
  * @param {Headers} target - Cabeceras de la petición a la API, mutadas in-place
@@ -45,14 +107,14 @@ async function forwardRequestHeaders(target: Headers): Promise<void> {
   try {
     const requestHeaders = await nextHeaders();
 
-    const forwardedFor = requestHeaders.get("x-forwarded-for");
-    const realIp = requestHeaders.get("x-real-ip");
-    const userAgent = requestHeaders.get("user-agent");
-    const referer = requestHeaders.get("referer");
-    const host = requestHeaders.get("host");
+    const clientAddress = clientAddressFromHeaders(requestHeaders);
+    const userAgent = boundedHeader(requestHeaders.get("user-agent"));
+    const referer = boundedHeader(requestHeaders.get("referer"));
+    const host = boundedHeader(requestHeaders.get("host"));
 
-    if (forwardedFor) target.set("x-forwarded-for", forwardedFor);
-    if (realIp) target.set("x-real-ip", realIp);
+    // Una sola entrada, no la cadena recibida: la API confía en el último salto
+    // (`trust proxy: 1`) y ese salto somos nosotros.
+    if (clientAddress) target.set("x-forwarded-for", clientAddress);
     if (userAgent) target.set("user-agent", userAgent);
     if (referer) target.set("referer", referer);
     if (host) target.set("x-original-host", host);
