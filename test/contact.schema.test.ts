@@ -10,6 +10,8 @@ const valid = {
   phone: "",
   message: "Quiero información sobre conserjería.",
   privacyNoticeAcknowledged: true,
+  // Sin esto todos los casos «válidos» dejan de serlo: el esquema exige confirmar la mayoría de edad.
+  ageConfirmed: true,
   marketingConsent: false,
   attributionConsent: false,
   honeypot: "",
@@ -41,6 +43,16 @@ async function errorsOf(values: Record<string, unknown>): Promise<string[]> {
 describe("contactSchema", () => {
   it("acepta un envío correcto", async () => {
     await expect(errorsOf(valid)).resolves.toEqual([]);
+  });
+
+  /*
+   * La confirmación de mayoría de edad es un `oneOf([true])`, no un `required`: dejarla sin marcar
+   * manda `false`, que es un booleano presente y pasaría un `required` sin enterarse.
+   */
+  it("exige confirmar la mayoría de edad", async () => {
+    await expect(errorsOf({ ...valid, ageConfirmed: false })).resolves.toContain(
+      "contact.ageRequired",
+    );
   });
 
   it("exige el nombre", async () => {
