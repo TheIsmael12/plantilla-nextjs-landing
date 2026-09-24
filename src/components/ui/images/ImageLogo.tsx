@@ -65,11 +65,17 @@ export default function ImageLogo({
   };
 
   if (!isMounted) {
+    // Sin `aria-hidden` y con el `alt` real (no vacío): este es el HTML que
+    // recibe cualquiera que no ejecute JS todavía —el propio SSR, un lector
+    // de pantalla antes de la hidratación, un crawler— y suele envolver un
+    // `<Link>` sin más texto (`Navbar.tsx`: `nav__logo`). Con `alt=""` aquí,
+    // ese enlace no tenía ningún nombre accesible en el HTML servido
+    // (auditoría externa, "Interactive element names").
     return (
-      <span className="image-logo image-logo__placeholder" aria-hidden>
+      <span className="image-logo image-logo__placeholder">
         <Image
           src="/images/logo.png"
-          alt=""
+          alt={alt}
           fill
           sizes={LOGO_SIZES}
           quality={LOGO_QUALITY}
