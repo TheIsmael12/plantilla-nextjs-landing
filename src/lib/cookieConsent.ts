@@ -39,10 +39,15 @@ export const COOKIE_CONSENT_CHANGED_EVENT = "na:cookie-consent-changed";
 /**
  * Punto de partida mientras no haya decisión.
  *
- * `functional: true` porque, por decisión del sitio, las cookies funcionales
- * (p. ej. el mapa de contacto) se tratan como **necesarias/obligatorias**: no
- * se pueden rechazar y van activas desde el primer momento. Solo la analítica
- * queda por decidir, y arranca denegada.
+ * `functional: true` porque lo que hay detrás de esa categoría es el idioma y
+ * el tema: personalización de la interfaz que el propio visitante ha pedido,
+ * que el art. 22.2 de la LSSI exceptúa del consentimiento. Por eso van
+ * activas desde el primer momento y el panel las enseña bloqueadas, igual que
+ * las esenciales. Lo que **no** hay detrás es el mapa: sus teselas las sirve
+ * un tercero (Esri) en cuanto se pinta la página, sin pasar por aquí — está
+ * declarado en la política de cookies, no gobernado por esta categoría.
+ *
+ * Solo la analítica queda por decidir, y arranca denegada.
  */
 export const DENIED_CONSENT: CookieConsentCategories = {
   analytics: false,
@@ -50,15 +55,37 @@ export const DENIED_CONSENT: CookieConsentCategories = {
 };
 
 /**
- * Lee las preferencias guardadas.
- * @returns {CookieConsentData | null} Las preferencias, o `null` si el visitante todavía no ha decidido (o el almacenamiento no está disponible)
+ * Cuánto vale una decisión antes de volver a preguntar: 24 meses.
+ *
+ * Es el plazo que fija la guía de cookies de la AEPD, y la política de cookies lo publica. Sin esto,
+ * el `timestamp` que se guardaba con cada decisión no lo leía nadie: un «acepto» de 2026 seguía
+ * valiendo en 2031, que es justo lo que el plazo existe para evitar.
+ */
+export const COOKIE_CONSENT_MAX_AGE_MS = 24 * 30 * 24 * 60 * 60 * 1000;
+
+/**
+ * Lee las preferencias guardadas, si siguen vigentes.
+ *
+ * Una decisión con más de {@link COOKIE_CONSENT_MAX_AGE_MS} se trata como si no existiera: se
+ * devuelve `null`, el banner vuelve a salir y hasta que el visitante conteste no se activa nada
+ * opcional. No se borra del almacenamiento —la sobrescribe la respuesta nueva—, porque borrarla
+ * aquí convertiría una lectura en una escritura.
+ * @returns {CookieConsentData | null} Las preferencias vigentes, o `null` si el visitante todavía no ha decidido, si su decisión ha caducado, o si el almacenamiento no está disponible
  */
 export function readCookieConsent(): CookieConsentData | null {
   if (typeof window === "undefined") return null;
 
   try {
     const raw = window.localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as CookieConsentData) : null;
+    if (!raw) return null;
+
+    const consent = JSON.parse(raw) as CookieConsentData;
+
+    // Una decisión sin marca de tiempo es de una versión anterior: se da por caducada.
+    if (!consent.timestamp) return null;
+    if (Date.now() - consent.timestamp > COOKIE_CONSENT_MAX_AGE_MS) return null;
+
+    return consent;
   } catch {
     return null;
   }

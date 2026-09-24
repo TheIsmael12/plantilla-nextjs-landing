@@ -35,10 +35,19 @@ const DEFAULT_DRAFT: Draft = DENIED_CONSENT;
  * guardadas, permite aceptar todo, aceptar solo las necesarias, o ajustar
  * cada categoría por separado, y persiste la elección con
  * `lib/cookieConsent.ts`, que además avisa a quien dependa de ella (la
- * medición de `GoogleTagManager`). Cerrar el panel sin elegir (la X o
- * Escape) equivale a **aceptar todo** (decisión del sitio). Las cookies
- * funcionales (p. ej. el mapa) se tratan como obligatorias y van siempre
- * activas; solo la analítica es opcional.
+ * medición de `GoogleTagManager`). Las cookies funcionales —el idioma y el
+ * tema— van siempre activas por estar exceptuadas del consentimiento
+ * (art. 22.2 LSSI); solo la analítica es opcional.
+ *
+ * **Cerrar el panel sin elegir no acepta nada.** La X y Escape solo lo
+ * esconden: no se guarda ninguna decisión, la analítica sigue denegada y el
+ * banner vuelve a salir en la siguiente visita. Antes equivalían a «aceptar
+ * todo», y eso es exactamente lo que la guía de cookies de la AEPD y el CEPD
+ * dicen que no puede tratarse como consentimiento — además de contradecir al
+ * texto publicado en `/politica-cookies`, que promete que hasta que se acepte
+ * no se instala nada. Rechazar tiene su propio botón, «Solo lo esencial», al
+ * mismo nivel visual que el de aceptar.
+ *
  * También escucha el evento `na:open-cookie-consent` para poder reabrirse
  * desde otras partes de la app (p. ej. un enlace del footer).
  * @returns {JSX.Element | null} El banner de cookies renderizado, o `null` mientras está oculto
@@ -65,8 +74,8 @@ export default function CookieConsentController() {
     useEffect(() => {
         const handler = () => {
             const stored = readCookieConsent();
-            // `functional: true` siempre: es obligatoria, aunque un consentimiento
-            // antiguo la tuviera guardada como denegada.
+            // `functional: true` siempre: está exceptuada del consentimiento, aunque una
+            // decisión antigua la tuviera guardada como denegada.
             setDraft(stored
                 ? { analytics: stored.analytics, functional: true }
                 : DEFAULT_DRAFT,
@@ -89,8 +98,18 @@ export default function CookieConsentController() {
         persist({ analytics: true, functional: true, timestamp: Date.now() });
     }, [persist]);
 
-    // Las funcionales son obligatorias (van siempre activas), así que "solo lo
-    // esencial" mantiene `functional: true` y solo deniega la analítica.
+    /*
+     * Cerrar sin elegir: se esconde el banner y no se guarda nada. Sin decisión almacenada, el
+     * arranque de GTM mantiene todas las señales opcionales denegadas y se vuelve a preguntar en la
+     * siguiente visita. No pasa por `persist` a propósito: persistir aquí sería registrar una
+     * decisión que el visitante no ha tomado, en un sentido o en el otro.
+     */
+    const dismiss = useCallback(() => {
+        setVisible(false);
+    }, []);
+
+    // Las funcionales están exceptuadas del consentimiento (van siempre activas), así que
+    // rechazar las opcionales mantiene `functional: true` y solo deniega la analítica.
     const acceptNecessary = useCallback(() => {
         persist({ analytics: false, functional: true, timestamp: Date.now() });
     }, [persist]);
@@ -107,11 +126,11 @@ export default function CookieConsentController() {
     );
 
     // Focus trap: keeps keyboard focus inside the panel while it is open.
-    // Escape triggers acceptAll (closing accepts everything), matching the X button behaviour.
+    // Escape cierra sin guardar nada, igual que la X: cerrar no es consentir.
     useFocusTrap({
         isActive: visible && !saving,
         ref: panelRef,
-        onEscape: acceptAll,
+        onEscape: dismiss,
     });
 
     if (!visible) return null;
@@ -137,7 +156,7 @@ export default function CookieConsentController() {
                 </div>
                 <button
                     className="cookie-consent__close"
-                    onClick={acceptAll}
+                    onClick={dismiss}
                     aria-label={t('closeAriaLabel')}
                     type="button"
                 >
@@ -191,7 +210,7 @@ export default function CookieConsentController() {
                             />
                         </div>
 
-                        {/* Functional - obligatorias (mapa), always on, locked */}
+                        {/* Funcionales - idioma y tema: exceptuadas del consentimiento, siempre activas */}
                         <div className="cookie-consent__pref cookie-consent__pref--locked">
                             <div className="cookie-consent__pref__info">
                                 <div>

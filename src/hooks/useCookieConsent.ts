@@ -13,8 +13,16 @@ import {
  * Lee, ya en el navegador, la decisión de cookies guardada y la mantiene al
  * día. Comparte la misma fuente que el banner ({@link CookieConsentController})
  * y el arranque de Google Tag Manager (`lib/cookieConsent.ts`), así que un
- * componente que dependa de una categoría —p. ej. el mapa de contacto, que
- * carga teselas de un tercero— reacciona sin su propia copia de la clave.
+ * componente que dependa de una categoría reacciona sin su propia copia de la
+ * clave.
+ *
+ * Hoy no lo usa nadie: el único consumidor del consentimiento es el arranque
+ * de GTM, que lee `lib/cookieConsent.ts` directamente porque tiene que hacerlo
+ * antes de que React monte nada. Se deja aquí para el primer componente que
+ * necesite condicionar algo a una categoría. Lo que **no** es —lo decía este
+ * comentario y era falso— es la puerta del mapa de contacto: sus teselas las
+ * sirve Esri en cuanto se pinta la página, sin pasar por ninguna categoría;
+ * está declarado como tercero en la política de cookies.
  *
  * Devuelve `null` mientras el visitante no ha decidido (o el almacenamiento no
  * está disponible), que quien lo consume trata como «nada opcional aceptado».

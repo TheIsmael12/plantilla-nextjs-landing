@@ -148,7 +148,17 @@ export default async function TermsView() {
                     <p className="legal__section__text">{ps('contacto.intro')}</p>
                     <LegalContactCard>
                         <p><strong>{ENV.COMPANY_NAME}</strong></p>
-                        <p>{ps('contacto.cifLabel')} {ENV.COMPANY_CIF}</p>
+                        {/*
+                            CIF y datos registrales, que el art. 10.1 de la LSSI exige para una entidad
+                            inscrita en un registro público. Condicionados porque en un entorno sin las
+                            variables puestas lo que se publicaría es la etiqueta seguida de nada.
+                        */}
+                        {ENV.COMPANY_CIF && (
+                            <p>{ps('contacto.cifLabel')} {ENV.COMPANY_CIF}</p>
+                        )}
+                        {ENV.COMPANY_REGISTRY && (
+                            <p>{ps('contacto.registryLabel')} {ENV.COMPANY_REGISTRY}</p>
+                        )}
                         <p>
                             {ps('contacto.emailLabel')}{' '}
                             <a href={`mailto:${ENV.COMPANY_LEGAL_EMAIL}`} className="legal__link">

@@ -14,6 +14,7 @@ import LegalContactCard from '@/components/ui/legal/LegalContactCard';
 import ManageCookiesButton from '@/components/ui/legal/ManageCookiesButton';
 
 
+type BoldItem = { strong: string; rest: string };
 type CookieType = { type: string; color: string; canDisable: boolean; purpose: string; examples: string };
 type TableRow = { name: string; type: string; duration: string; purpose: string };
 type Browser = { label: string; url: string };
@@ -63,6 +64,7 @@ export default async function CookiesView() {
                     <LegalHighlight variant="info">
                         <p>{ps('que_son.highlight')}</p>
                     </LegalHighlight>
+                    <p className="legal__section__text">{ps('que_son.p3')}</p>
                 </LegalSection>
 
                 {/* 2. Tipos */}
@@ -115,9 +117,13 @@ export default async function CookiesView() {
 
                 {/* 4. Terceros */}
                 <LegalSection id="terceros" title={ps('terceros.title')}>
-                    <p className="legal__section__text">{ps('terceros.p1')}</p>
-                    <p className="legal__section__text">{ps('terceros.p2')}</p>
-                    <p className="legal__section__text">{ps('terceros.p3')}</p>
+                    <p className="legal__section__text">{ps('terceros.intro')}</p>
+                    <ul className="legal__section__list">
+                        {(t.raw('Cookies.sections.terceros.list') as BoldItem[]).map((item, i) => (
+                            <li key={i}><strong>{item.strong}</strong>{item.rest}</li>
+                        ))}
+                    </ul>
+                    <p className="legal__section__text">{ps('terceros.outro')}</p>
                 </LegalSection>
 
                 {/* 5. Gestión */}
@@ -125,6 +131,7 @@ export default async function CookiesView() {
                     <h3 className="legal__section__subtitle">{ps('gestion.sub1')}</h3>
                     <p className="legal__section__text">{ps('gestion.manageIntro')}</p>
                     <ManageCookiesButton label={ps('gestion.manageBtnLabel')} />
+                    <p className="legal__section__text">{ps('gestion.withdrawNote')}</p>
                     <h3 className="legal__section__subtitle">{ps('gestion.sub2')}</h3>
                     <p className="legal__section__text">{ps('gestion.browserIntro')}</p>
                     <div className="legal__browser-list">

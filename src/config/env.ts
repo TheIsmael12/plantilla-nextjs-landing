@@ -53,7 +53,20 @@ export const ENV = {
    */
   COMPANY_CIF: process.env.NEXT_PUBLIC_COMPANY_CIF || "",
   COMPANY_NAME: process.env.NEXT_PUBLIC_COMPANY_NAME || "Imora Servicios S.L.",
-  
+
+  /*
+   * Los datos de inscripción en el Registro Mercantil (tomo, folio, hoja), en una sola cadena.
+   *
+   * Los pide el art. 10.1.b de la LSSI para toda entidad inscrita en un registro público, y hasta ahora
+   * no estaban en ninguna parte del sitio. Va suelto y **sin comprobación de placeholder**, al revés que
+   * el CIF: no hay forma de inventarse un tomo y un folio que parezcan de verdad, así que el riesgo que
+   * `companyIdentity.ts` vigila —publicar un dato de ejemplo creyendo que es el bueno— aquí no existe. Lo
+   * que sí puede pasar es que falte, y por eso las páginas legales lo pintan solo si tiene contenido, en
+   * vez de dejar la etiqueta «Datos registrales:» seguida de un hueco.
+   */
+  COMPANY_REGISTRY: process.env.NEXT_PUBLIC_COMPANY_REGISTRY || "",
+
+
   // Contact information
   COMPANY_EMAIL: process.env.NEXT_PUBLIC_COMPANY_EMAIL || "info@imora.es",
   COMPANY_PHONE: process.env.NEXT_PUBLIC_COMPANY_PHONE || "",

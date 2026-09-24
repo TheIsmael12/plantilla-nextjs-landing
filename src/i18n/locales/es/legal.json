@@ -5,12 +5,15 @@
       "toc": "En esta página",
       "optional": "Opcional",
       "required": "Requerida",
-      "examples": "Ejemplos:"
+      "examples": "Ejemplos:",
+      "purpose": "Finalidad",
+      "legalBasis": "Base legal",
+      "retention": "Plazo de conservación"
     },
     "Terms": {
       "title": "Condiciones de uso",
       "subtitle": "Estas condiciones regulan el uso de esta web y de las áreas privadas a las que se accede desde ella. Los servicios contratados se rigen por su propio contrato.",
-      "updatedDate": "27 de agosto de 2026",
+      "updatedDate": "24 de septiembre de 2026",
       "tocAriaLabel": "Índice de las Condiciones de uso",
       "toc": [
         {
@@ -169,180 +172,340 @@
         },
         "contacto": {
           "title": "11. Contacto",
-          "intro": "Si tienes alguna pregunta sobre estos Términos y Condiciones, puedes ponerte en contacto con nosotros:",
+          "intro": "Estos son los datos identificativos del titular de la web, que se publican en cumplimiento del art. 10 de la Ley 34/2002 de servicios de la sociedad de la información:",
           "cifLabel": "CIF:",
           "emailLabel": "Email legal:",
-          "addressLabel": "Dirección:"
+          "addressLabel": "Dirección:",
+          "registryLabel": "Datos registrales:"
         }
       }
     },
     "Privacy": {
       "title": "Política de Privacidad",
-      "subtitle": "Tu privacidad es nuestra prioridad. Aquí encontrarás toda la información sobre cómo recopilamos, usamos y protegemos tus datos personales.",
-      "updatedDate": "17 de agosto de 2026",
+      "subtitle": "Cómo tratamos los datos personales de quien visita esta web, escribe por el formulario de contacto, se presenta a una oferta de empleo, usa el canal de reclamaciones o entra al área privada.",
+      "updatedDate": "24 de septiembre de 2026",
       "tocAriaLabel": "Índice de Política de Privacidad",
       "toc": [
         {
+          "href": "#responsable",
+          "label": "1. Quién trata tus datos"
+        },
+        {
           "href": "#recopilacion",
-          "label": "1. Datos que recopilamos"
+          "label": "2. Datos que recopilamos"
         },
         {
           "href": "#uso",
-          "label": "2. Cómo usamos tus datos"
+          "label": "3. Para qué los usamos y con qué base legal"
         },
         {
           "href": "#compartir",
-          "label": "3. Compartir información"
-        },
-        {
-          "href": "#cookies",
-          "label": "4. Cookies"
-        },
-        {
-          "href": "#seguridad",
-          "label": "5. Seguridad"
-        },
-        {
-          "href": "#derechos",
-          "label": "6. Tus derechos"
-        },
-        {
-          "href": "#retencion",
-          "label": "7. Retención de datos"
+          "label": "4. Con quién los compartimos"
         },
         {
           "href": "#transferencias",
-          "label": "8. Transferencias internacionales"
+          "label": "5. Transferencias internacionales"
+        },
+        {
+          "href": "#retencion",
+          "label": "6. Cuánto tiempo los conservamos"
+        },
+        {
+          "href": "#derechos",
+          "label": "7. Tus derechos"
+        },
+        {
+          "href": "#menores",
+          "label": "8. Menores de edad"
+        },
+        {
+          "href": "#cookies",
+          "label": "9. Cookies"
+        },
+        {
+          "href": "#seguridad",
+          "label": "10. Seguridad"
         },
         {
           "href": "#contacto",
-          "label": "9. Contacto"
+          "label": "11. Contacto"
         }
       ],
       "sections": {
+        "responsable": {
+          "title": "1. Quién trata tus datos",
+          "intro": "El responsable del tratamiento —quien decide para qué y cómo se usan tus datos— es:",
+          "nameLabel": "Responsable:",
+          "taxIdLabel": "NIF:",
+          "registryLabel": "Datos registrales:",
+          "addressLabel": "Domicilio:",
+          "emailLabel": "Correo de protección de datos:",
+          "dpoLabel": "Protección de datos:",
+          "dpo": "Las consultas sobre esta política y el ejercicio de derechos se atienden en la dirección de correo anterior. Si en algún momento se designa un Delegado de Protección de Datos, sus datos de contacto se publicarán aquí y se comunicarán a la Agencia Española de Protección de Datos."
+        },
         "recopilacion": {
-          "title": "1. Datos que recopilamos",
-          "intro": "Recopilamos información que nos proporcionas directamente al solicitar un presupuesto o contratar nuestros servicios, y datos generados por el uso de la web.",
+          "title": "2. Datos que recopilamos",
+          "intro": "Recogemos lo que nos facilitas en cada formulario y lo que genera el uso de la web. Nada más: no compramos listas ni obtenemos tus datos de fuentes de terceros.",
           "sub1": "Datos que nos proporcionas",
           "list1": [
             {
               "strong": "Solicitud de presupuesto o contacto: ",
-              "rest": "nombre, nombre de la comunidad o empresa, email y/o teléfono, y el mensaje que nos escribas a través del formulario de contacto."
+              "rest": "nombre, nombre de la comunidad o empresa, correo y/o teléfono, y el mensaje que nos escribas. Si las contestas —son voluntarias— también las preguntas de cualificación: perfil (comunidad, administrador de fincas o empresa), servicio que te interesa, zona, plazo previsto y número de fincas que gestionas."
             },
             {
               "strong": "Comunicaciones comerciales: ",
-              "rest": "si marcas la casilla correspondiente al enviar el formulario, tu consentimiento para recibir información comercial sobre nuestros servicios."
+              "rest": "si marcas esa casilla, tu consentimiento para recibir información comercial sobre nuestros servicios. Va en una casilla propia y separada del resto."
+            },
+            {
+              "strong": "Origen de la consulta: ",
+              "rest": "si marcas la casilla correspondiente, los parámetros de campaña de la dirección por la que llegaste (utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid), la página de entrada y el sitio desde el que nos enlazaron. Sin esa casilla marcada no se recogen ni se envían."
+            },
+            {
+              "strong": "Candidaturas de empleo: ",
+              "rest": "nombre y apellidos, correo, teléfono, localidad, carta de presentación, perfil de LinkedIn si lo indicas y el currículum en PDF. No se pide fotografía, ni fecha de nacimiento, ni nacionalidad, ni número de documento de identidad."
+            },
+            {
+              "strong": "Canal de reclamaciones: ",
+              "rest": "los hechos que relates y, si decides identificarte, tu nombre y tu correo. Puedes presentar la comunicación de forma anónima."
             },
             {
               "strong": "Clientes con área privada: ",
-              "rest": "si contratas un servicio, los datos de tu cuenta en el área de cliente (nombre, email, comunidad o edificio gestionado, presupuestos, facturas e incidencias asociadas a tu contrato)."
+              "rest": "los datos de tu cuenta (nombre, correo, comunidad o edificio gestionado) y los presupuestos, facturas e incidencias asociados a tu contrato."
+            },
+            {
+              "strong": "Aplicación del vecino: ",
+              "rest": "tu cuenta, la unidad que ocupas en la comunidad y las incidencias que comuniques desde ella."
             }
           ],
           "sub2": "Datos recopilados automáticamente",
           "list2": [
             {
               "strong": "Datos de uso: ",
-              "rest": "páginas visitadas, tiempo de permanencia y acciones realizadas, cuando aceptas las cookies analíticas."
+              "rest": "páginas visitadas, tiempo de permanencia y acciones realizadas, solo si aceptas las cookies analíticas."
             },
             {
               "strong": "Datos del dispositivo: ",
               "rest": "tipo de dispositivo, sistema operativo y navegador."
             },
             {
-              "strong": "Datos de ubicación aproximada: ",
-              "rest": "país y región inferidos a partir de la dirección IP, para saber desde qué zona nos visitan potenciales clientes."
+              "strong": "Ubicación aproximada: ",
+              "rest": "país y región inferidos de la dirección IP, para saber desde qué zona nos visitan posibles clientes. No es tu ubicación exacta y no se obtiene del GPS."
+            },
+            {
+              "strong": "Protección de los formularios: ",
+              "rest": "al enviar cualquier formulario público, Cloudflare Turnstile recibe tu dirección IP y datos técnicos del navegador para distinguir a las personas de los envíos automatizados. Es imprescindible para que el formulario funcione."
+            },
+            {
+              "strong": "Mapas: ",
+              "rest": "las páginas que muestran un mapa piden las imágenes a un proveedor externo (Esri), que recibe tu dirección IP al servirlas. Ocurre en cuanto se pinta el mapa, forma parte de mostrar la página y no instala cookies."
             }
           ]
         },
         "uso": {
-          "title": "2. Cómo usamos tus datos",
-          "intro": "Utilizamos la información recopilada para los siguientes propósitos:",
-          "list": [
-            "Responder a tu solicitud de presupuesto o consulta, y prepararte una propuesta de servicio.",
-            "Prestar y gestionar el servicio contratado (conserjería, limpieza, mantenimiento, jardinería, piscinas o seguridad) y darte acceso al área privada de cliente.",
-            "Enviarte comunicaciones comerciales sobre nuestros servicios, solo si diste tu consentimiento expreso al enviar el formulario de contacto.",
-            "Analizar el uso de la web de forma agregada, cuando aceptas las cookies analíticas, para mejorar el contenido y detectar qué zonas o servicios generan más interés.",
-            "Cumplir con las obligaciones legales aplicables, incluida la normativa de protección de datos."
+          "title": "3. Para qué los usamos y con qué base legal",
+          "intro": "Cada finalidad tiene su propia base legal y su propio plazo. Esta es la relación completa:",
+          "headers": {
+            "purpose": "Finalidad",
+            "basis": "Base legal",
+            "retention": "Conservación"
+          },
+          "rows": [
+            {
+              "purpose": "Atender tu solicitud de presupuesto o consulta y prepararte una propuesta.",
+              "basis": "Tu consentimiento, art. 6.1.a del RGPD.",
+              "retention": "1 año desde el último contacto, salvo que la consulta acabe en contrato."
+            },
+            {
+              "purpose": "Enviarte comunicaciones comerciales sobre nuestros servicios.",
+              "basis": "Tu consentimiento expreso, en casilla aparte: art. 6.1.a del RGPD y art. 21 de la LSSI.",
+              "retention": "Hasta que te des de baja, desde el enlace que lleva cada correo."
+            },
+            {
+              "purpose": "Guardar el origen de la consulta (campaña, referente) para saber qué canales funcionan.",
+              "basis": "Tu consentimiento expreso, en casilla aparte: art. 6.1.a del RGPD.",
+              "retention": "El mismo que la consulta a la que acompaña."
+            },
+            {
+              "purpose": "Valorar tu candidatura en un proceso de selección.",
+              "basis": "Medidas precontractuales a petición tuya, art. 6.1.b del RGPD.",
+              "retention": "El currículum, 6 meses; el resto de la candidatura, 1 año."
+            },
+            {
+              "purpose": "Conservar tu candidatura para futuros procesos (bolsa de talento).",
+              "basis": "Tu consentimiento expreso, art. 6.1.a del RGPD.",
+              "retention": "12 meses desde que lo das."
+            },
+            {
+              "purpose": "Tramitar una comunicación del canal de reclamaciones.",
+              "basis": "Obligación legal, art. 6.1.c del RGPD y Ley 2/2023.",
+              "retention": "3 meses desde la recepción si no se abren actuaciones; si se abren, lo que duren y el tiempo necesario para justificarlas."
+            },
+            {
+              "purpose": "Prestar y gestionar el servicio contratado y darte acceso al área privada.",
+              "basis": "Ejecución del contrato, art. 6.1.b del RGPD.",
+              "retention": "Mientras dure el contrato y, después, los plazos de prescripción que correspondan."
+            },
+            {
+              "purpose": "Cumplir las obligaciones contables, fiscales y de facturación.",
+              "basis": "Obligación legal, art. 6.1.c del RGPD.",
+              "retention": "6 años por el Código de Comercio y 4 por la Ley General Tributaria, desde el cierre del ejercicio."
+            },
+            {
+              "purpose": "Registrar accesos y operaciones para poder investigar un incidente de seguridad.",
+              "basis": "Interés legítimo en proteger la plataforma y los datos que custodiamos, art. 6.1.f del RGPD.",
+              "retention": "Registro de auditoría 1 año; accesos al área privada 6 meses; sesiones inactivas 30 días."
+            },
+            {
+              "purpose": "Medir de forma agregada el uso de la web para mejorarla.",
+              "basis": "Tu consentimiento en el banner, art. 6.1.a del RGPD y art. 22.2 de la LSSI.",
+              "retention": "Lo que indica la política de cookies."
+            },
+            {
+              "purpose": "Evitar el envío automatizado de formularios.",
+              "basis": "Interés legítimo en protegernos del spam y del abuso, art. 6.1.f del RGPD.",
+              "retention": "El que aplique el proveedor del servicio de verificación."
+            }
           ],
-          "highlightLabel": "Base legal:",
-          "highlight": "El tratamiento de tus datos se basa en tu consentimiento (formulario de contacto, comunicaciones comerciales, cookies no esenciales), la ejecución del contrato de servicio (clientes con área privada) y el interés legítimo o la obligación legal, según corresponda a cada finalidad."
+          "obligationLabel": "¿Estás obligado a darnos estos datos?",
+          "obligation": "Los campos marcados con asterisco son los necesarios para lo que pides: sin ellos no podemos responder a tu consulta ni tramitar tu candidatura. El resto son voluntarios y dejarlos en blanco no tiene ninguna consecuencia.",
+          "automatedLabel": "Decisiones automatizadas:",
+          "automated": "No tomamos decisiones automatizadas ni elaboramos perfiles que produzcan efectos jurídicos sobre ti o te afecten de modo similarmente significativo. Lo que se decide sobre tu solicitud, tu candidatura o tu incidencia lo decide una persona.",
+          "highlightLabel": "Retirar el consentimiento:",
+          "highlight": "Cuando la base sea tu consentimiento puedes retirarlo en cualquier momento, escribiéndonos al correo de protección de datos o, en el caso de las cookies, desde el panel de preferencias. Retirarlo es tan fácil como darlo y no afecta a la licitud del tratamiento hecho antes de la retirada."
         },
         "compartir": {
-          "title": "3. Compartir información",
-          "intro": "No vendemos ni alquilamos tus datos personales. Podemos compartir información con:",
+          "title": "4. Con quién los compartimos",
+          "intro": "No vendemos ni alquilamos tus datos personales. Acceden a ellos, solo para prestarnos su servicio y con un contrato de encargado del tratamiento firmado conforme al art. 28 del RGPD:",
           "list": [
             {
-              "strong": "Proveedores tecnológicos: ",
-              "rest": "empresas que nos ayudan a operar la web y el área de cliente (alojamiento del sitio, envío de correos electrónicos, medición analítica), sujetas a sus propios compromisos de confidencialidad."
+              "strong": "Alojamiento e infraestructura: ",
+              "rest": "quien aloja la web, el área privada y la base de datos."
+            },
+            {
+              "strong": "Envío de correo electrónico: ",
+              "rest": "el servicio por el que salen los avisos, las confirmaciones y las comunicaciones comerciales."
+            },
+            {
+              "strong": "Almacenamiento de ficheros: ",
+              "rest": "donde se guardan los documentos adjuntos, las fotos de una incidencia y los currículums."
+            },
+            {
+              "strong": "Medición analítica: ",
+              "rest": "Google, solo si aceptas las cookies analíticas."
+            },
+            {
+              "strong": "Protección de formularios: ",
+              "rest": "Cloudflare, que verifica que quien envía un formulario es una persona."
             },
             {
               "strong": "Personal técnico asignado a tu servicio: ",
-              "rest": "si eres cliente, el personal de Imora (conserjería, mantenimiento, limpieza u otro) que necesite tus datos de contacto o los de tu comunidad para prestar el servicio contratado."
+              "rest": "si eres cliente, el personal de Imora —conserjería, mantenimiento, limpieza u otro— que necesite tus datos de contacto o los de tu comunidad para prestar el servicio contratado."
             },
             {
-              "strong": "Cumplimiento legal: ",
-              "rest": "autoridades competentes cuando lo exija la ley o para proteger derechos."
+              "strong": "Administraciones y autoridades: ",
+              "rest": "Agencia Tributaria, Tesorería General de la Seguridad Social, Fuerzas y Cuerpos de Seguridad y juzgados, cuando una norma nos obligue a facilitárselos."
             }
-          ]
-        },
-        "cookies": {
-          "title": "4. Cookies",
-          "text": "Utilizamos cookies y tecnologías similares. Consulta nuestra",
-          "linkLabel": "Política de Cookies",
-          "textAfter": "para obtener información detallada sobre los tipos de cookies que usamos y cómo gestionarlas."
-        },
-        "seguridad": {
-          "title": "5. Seguridad",
-          "intro": "Implementamos medidas técnicas y organizativas adecuadas para proteger tus datos:",
-          "list": [
-            "Cifrado SSL/TLS para todas las comunicaciones con la web y el área de cliente.",
-            "Almacenamiento cifrado de la contraseña de acceso al área de cliente.",
-            "Acceso restringido a los datos de tu comunidad o contrato solo al personal de Imora que lo necesita para prestarte el servicio."
           ],
-          "outro": "Para notificar un incidente de seguridad, contacta con nuestro equipo en"
+          "outro": "El proveedor de los mapas (Esri) no es un encargado del tratamiento: es un tercero que recibe tu dirección IP al servir las imágenes del mapa, igual que cualquier servidor al que el navegador pide un archivo. Fuera de lo anterior no hay ninguna cesión de datos. Si en el futuro la hubiera, se anunciará en esta página antes de que ocurra."
+        },
+        "transferencias": {
+          "title": "5. Transferencias internacionales",
+          "intro": "Algunos de los proveedores anteriores están en Estados Unidos, así que parte del tratamiento supone una transferencia internacional de datos. Estas son las que hay y con qué garantía:",
+          "list": [
+            {
+              "strong": "Google (medición analítica): ",
+              "rest": "solo si aceptas las cookies analíticas. Google LLC está certificada en el Marco de Privacidad de Datos UE-EE. UU., al que la Comisión Europea reconoció un nivel de protección adecuado por decisión de 10 de julio de 2023, y además hay cláusulas contractuales tipo como garantía adicional."
+            },
+            {
+              "strong": "Cloudflare (protección de formularios): ",
+              "rest": "recibe tu dirección IP y datos técnicos del navegador al enviar un formulario. Cloudflare, Inc. está certificada en el mismo Marco de Privacidad de Datos y tiene firmadas cláusulas contractuales tipo."
+            },
+            {
+              "strong": "Esri (mapas): ",
+              "rest": "recibe tu dirección IP al servir las imágenes del mapa, en las páginas que muestran uno. La transferencia se ampara en cláusulas contractuales tipo aprobadas por la Comisión Europea."
+            }
+          ],
+          "outro": "Fuera de estos casos no transferimos datos personales fuera del Espacio Económico Europeo. Puedes pedirnos una copia de las garantías aplicadas escribiendo al correo de protección de datos."
+        },
+        "retencion": {
+          "title": "6. Cuánto tiempo los conservamos",
+          "p1": "El plazo de cada tratamiento está en la tabla del apartado 3. Como criterio general, conservamos los datos mientras dure la finalidad para la que se recogieron y, después, bloqueados durante los plazos de prescripción de las responsabilidades que puedan derivarse —cuatro años en materia tributaria, seis en materia mercantil y los que correspondan en materia laboral—, disponibles solo a requerimiento de jueces, tribunales o administraciones.",
+          "p2": "Pasados esos plazos los suprimimos o los anonimizamos de forma que ya no sea posible identificarte a partir de ellos."
         },
         "derechos": {
-          "title": "6. Tus derechos",
-          "intro": "Como usuario dentro del ámbito del RGPD, tienes los siguientes derechos:",
+          "title": "7. Tus derechos",
+          "intro": "Sobre tus datos personales puedes ejercer, gratuitamente, estos derechos:",
           "list": [
             {
               "strong": "Acceso: ",
-              "rest": "solicitar una copia de los datos personales que tenemos sobre ti."
+              "rest": "saber qué datos tuyos tratamos y obtener una copia."
             },
             {
               "strong": "Rectificación: ",
-              "rest": "corregir datos inexactos o incompletos."
+              "rest": "corregir datos inexactos o completar los que falten."
             },
             {
               "strong": "Supresión: ",
-              "rest": "solicitar la eliminación de tus datos («derecho al olvido»)."
+              "rest": "pedir que los eliminemos cuando ya no sean necesarios («derecho al olvido»)."
+            },
+            {
+              "strong": "Limitación del tratamiento: ",
+              "rest": "pedir que los conservemos pero dejemos de usarlos mientras se resuelve una impugnación o una oposición."
             },
             {
               "strong": "Portabilidad: ",
-              "rest": "recibir tus datos en un formato estructurado y de uso común."
+              "rest": "recibir los que nos diste en un formato estructurado y de uso común, o que se los enviemos a otro responsable."
             },
             {
               "strong": "Oposición: ",
-              "rest": "oponerte al tratamiento de tus datos en determinadas circunstancias."
+              "rest": "oponerte al tratamiento basado en nuestro interés legítimo, y en cualquier caso al envío de comunicaciones comerciales."
+            },
+            {
+              "strong": "Retirada del consentimiento: ",
+              "rest": "retirar en cualquier momento el que hayas dado, sin que eso afecte a la licitud del tratamiento anterior."
             }
           ],
-          "outro": "Para ejercer cualquiera de estos derechos, envíanos un correo a",
-          "outroEnd": "Responderemos en un plazo máximo de 30 días."
+          "outro": "Para ejercer cualquiera de ellos escríbenos a",
+          "outroEnd": "indicando qué derecho ejerces. Podemos pedirte que acredites tu identidad si tenemos dudas razonables sobre quién presenta la solicitud.",
+          "deadlineLabel": "Plazo de respuesta:",
+          "deadline": "un mes desde que recibimos tu solicitud. Si es especialmente compleja o se acumulan varias, ese plazo puede ampliarse dos meses más, y te lo diremos dentro del primer mes explicando por qué.",
+          "complaintLabel": "Reclamar ante la autoridad de control:",
+          "complaint": "si crees que no hemos atendido bien tu solicitud, o que tratamos tus datos de forma indebida, puedes reclamar ante la Agencia Española de Protección de Datos (C/ Jorge Juan 6, 28001 Madrid). No hace falta que nos reclames antes a nosotros, aunque nos gustaría poder resolverlo primero.",
+          "complaintLinkLabel": "www.aepd.es",
+          "complaintLinkUrl": "https://www.aepd.es"
         },
-        "retencion": {
-          "title": "7. Retención de datos",
-          "p1": "Conservamos tus datos personales durante el tiempo necesario para cumplir con los fines descritos en esta política, incluyendo el cumplimiento de obligaciones legales.",
-          "p2": "Cuando tus datos ya no sean necesarios, los eliminaremos o anonimizaremos de forma segura."
+        "menores": {
+          "title": "8. Menores de edad",
+          "p1": "Esta web no está dirigida a menores. En España, a partir de los catorce años una persona puede consentir por sí sola el tratamiento de sus datos (art. 7 de la LOPDGDD); por debajo de esa edad hace falta el consentimiento de quien tenga la patria potestad o la tutela.",
+          "p2": "Aun así, el formulario de contacto pide declarar la mayoría de edad: lo que se solicita por ahí es un servicio que se contrata para una comunidad, un edificio o una empresa, y no tiene sentido tramitarlo con un menor. Si detectamos que hemos recibido datos de un menor sin el consentimiento necesario, los suprimimos en cuanto lo sabemos."
         },
-        "transferencias": {
-          "title": "8. Transferencias internacionales",
-          "p1": "Si aceptas las cookies analíticas, los datos de uso agregados que recoge Google Analytics pueden transferirse a Estados Unidos. Google se acoge a las cláusulas contractuales tipo aprobadas por la Comisión Europea como salvaguarda para estas transferencias. Fuera de este caso, no transferimos tus datos personales a países fuera del Espacio Económico Europeo."
+        "cookies": {
+          "title": "9. Cookies",
+          "text": "Utilizamos cookies y tecnologías similares. Consulta nuestra",
+          "linkLabel": "Política de Cookies",
+          "textAfter": "para ver el detalle de cuáles usamos, cuánto duran y cómo aceptarlas, rechazarlas o cambiar de opinión más tarde."
+        },
+        "seguridad": {
+          "title": "10. Seguridad",
+          "intro": "Aplicamos medidas técnicas y organizativas apropiadas al riesgo, conforme al art. 32 del RGPD:",
+          "list": [
+            "Cifrado SSL/TLS en todas las comunicaciones con la web y con el área privada.",
+            "Las contraseñas no se guardan: se almacena un resumen criptográfico del que no se puede volver atrás.",
+            "Verificación en dos pasos disponible en los accesos internos.",
+            "Acceso por roles: cada persona ve lo que necesita para su trabajo y nada más.",
+            "Registro de quién consulta o modifica qué, para poder reconstruir lo ocurrido ante un incidente.",
+            "Análisis antivirus de todos los ficheros que se suben antes de guardarlos.",
+            "Copias de seguridad periódicas y pruebas de restauración."
+          ],
+          "breachLabel": "Si algo sale mal:",
+          "breach": "llevamos un registro interno de las violaciones de seguridad. Si una de ellas supone un riesgo para tus derechos, la notificamos a la Agencia Española de Protección de Datos dentro de las 72 horas que exige el art. 33 del RGPD y, cuando el riesgo sea alto, te lo comunicamos también a ti.",
+          "outro": "Para notificar un incidente de seguridad, escribe a"
         },
         "contacto": {
-          "title": "9. Contacto con el responsable",
-          "intro": "Para cualquier consulta sobre esta política o para ejercer tus derechos, contacta con nuestro responsable de privacidad:",
-          "dpo": "Responsable de Privacidad",
-          "emailLabel": "Email:",
+          "title": "11. Contacto",
+          "intro": "Para cualquier consulta sobre esta política o para ejercer tus derechos, escríbenos:",
+          "dpo": "Protección de datos",
+          "emailLabel": "Correo:",
           "addressLabel": "Dirección:"
         }
       }
@@ -350,7 +513,7 @@
     "Cookies": {
       "title": "Política de Cookies",
       "subtitle": "Utilizamos cookies y tecnologías similares para mejorar tu experiencia. Aquí te explicamos qué son, cómo las usamos y cómo puedes gestionarlas.",
-      "updatedDate": "17 de agosto de 2026",
+      "updatedDate": "24 de septiembre de 2026",
       "tocAriaLabel": "Índice de Política de Cookies",
       "toc": [
         {
@@ -383,7 +546,8 @@
           "title": "1. ¿Qué son las cookies?",
           "p1": "Las cookies son pequeños archivos de texto que los sitios web colocan en tu dispositivo cuando los visitas. Se utilizan para hacer que los sitios funcionen de manera más eficiente.",
           "p2": "Las cookies permiten al sitio web recordar tus acciones y preferencias, para que no tengas que volver a introducirlas cada vez que regreses.",
-          "highlight": "Según la normativa europea (RGPD y directiva ePrivacy), es necesario que consientas el uso de cookies no esenciales antes de que las instalemos en tu dispositivo."
+          "highlight": "El art. 22.2 de la LSSI-CE —la norma española que traspone la directiva ePrivacy— y el RGPD exigen tu consentimiento antes de instalar en tu dispositivo cualquier cookie que no sea estrictamente necesaria. Hasta que lo das, no se instala ninguna.",
+          "p3": "Rechazar es tan sencillo como aceptar: el banner tiene un botón «Solo lo esencial» al mismo nivel que el de aceptar. Cerrar el banner sin elegir no equivale a aceptar —no se activa nada y se te vuelve a preguntar— y tu decisión se guarda 24 meses, pasados los cuales se te pregunta otra vez."
         },
         "tipos": {
           "title": "2. Tipos de cookies que utilizamos",
@@ -393,28 +557,28 @@
               "type": "Cookies esenciales",
               "color": "blue",
               "canDisable": false,
-              "purpose": "Necesarias para el funcionamiento básico del sitio web.",
-              "examples": "Sesión de usuario, preferencias de idioma."
+              "purpose": "Necesarias para que el sitio funcione y para protegerlo de envíos automatizados. No requieren consentimiento.",
+              "examples": "Sesión de usuario, verificación de formularios."
+            },
+            {
+              "type": "Cookies de personalización",
+              "color": "purple",
+              "canDisable": false,
+              "purpose": "Recuerdan el idioma y el tema que eliges. Están exceptuadas del consentimiento porque son la personalización de la interfaz que tú mismo has pedido, y por eso aparecen siempre activas en el panel.",
+              "examples": "Idioma preferido, tema claro u oscuro."
             },
             {
               "type": "Cookies analíticas",
               "color": "green",
               "canDisable": true,
-              "purpose": "Nos ayudan a entender cómo interactúas con el sitio para mejorarlo.",
+              "purpose": "Nos ayudan a entender cómo se usa el sitio para mejorarlo. Son las únicas que dependen de tu consentimiento, y van denegadas hasta que lo das.",
               "examples": "Google Analytics."
-            },
-            {
-              "type": "Cookies funcionales",
-              "color": "purple",
-              "canDisable": true,
-              "purpose": "Recuerdan tus preferencias para ofrecerte una experiencia personalizada.",
-              "examples": "Tema oscuro/claro, idioma preferido."
             }
           ]
         },
         "tabla": {
           "title": "3. Listado de cookies utilizadas",
-          "intro": "Tu elección en el panel de preferencias de cookies no se guarda en una cookie, sino en el almacenamiento local de tu navegador (localStorage), que cumple la misma función pero no se envía en cada petición al servidor.",
+          "intro": "Tu elección en el panel de preferencias no se guarda en una cookie, sino en el almacenamiento local del navegador (localStorage), que cumple la misma función pero no se envía en cada petición al servidor. Esto es todo lo que se guarda en tu dispositivo:",
           "headers": {
             "name": "Nombre",
             "type": "Tipo",
@@ -423,41 +587,66 @@
           },
           "rows": [
             {
+              "name": "na:cookie-consent",
+              "type": "Esencial (localStorage)",
+              "duration": "24 meses",
+              "purpose": "Guarda qué cookies has aceptado y cuándo, para no volver a preguntártelo en cada visita."
+            },
+            {
               "name": "NEXT_LOCALE",
-              "type": "Esencial",
+              "type": "Personalización",
               "duration": "1 año",
-              "purpose": "Guarda el idioma preferido del usuario."
+              "purpose": "Guarda el idioma que has elegido."
             },
             {
               "name": "next-auth.session-token",
               "type": "Esencial",
               "duration": "Sesión",
-              "purpose": "Mantiene la sesión autenticada del usuario."
+              "purpose": "Mantiene tu sesión iniciada en el área privada. Solo se crea si inicias sesión."
+            },
+            {
+              "name": "Cloudflare Turnstile",
+              "type": "Esencial (seguridad)",
+              "duration": "Mientras dura la comprobación",
+              "purpose": "Verifica que quien envía el formulario es una persona. Cloudflare puede guardar información técnica en tu dispositivo durante esa comprobación."
             },
             {
               "name": "_ga",
               "type": "Analítica",
               "duration": "2 años",
-              "purpose": "Identificador único de Google Analytics."
+              "purpose": "Identificador que Google Analytics usa para distinguir visitantes. Solo se instala si aceptas las analíticas."
             },
             {
-              "name": "_ga_XXXXXX",
+              "name": "_ga_<contenedor>",
               "type": "Analítica",
               "duration": "2 años",
-              "purpose": "Persiste el estado de la sesión en Google Analytics."
+              "purpose": "Mantiene el estado de la sesión de Google Analytics. El sufijo es el identificador de nuestra propiedad de medición."
             }
           ]
         },
         "terceros": {
-          "title": "4. Cookies de terceros",
-          "p1": "Algunos de nuestros socios y proveedores pueden colocar cookies de terceros en tu dispositivo. Estos terceros tienen sus propias políticas de privacidad.",
-          "p2": "No controlamos las cookies de terceros. Para más información, consulta las políticas de privacidad de cada tercero.",
-          "p3": "En los formularios públicos usamos Cloudflare Turnstile, un servicio de seguridad de Cloudflare que distingue a las personas de los bots para evitar el spam. Es imprescindible para que el formulario funcione y puede almacenar información técnica en tu dispositivo. Cloudflare actúa como tercero con su propia política de privacidad."
+          "title": "4. Cookies y servicios de terceros",
+          "intro": "Estos son los terceros que intervienen, qué reciben y dónde consultar su política. Cada uno es responsable de su propio tratamiento:",
+          "list": [
+            {
+              "strong": "Google (Google Analytics vía Google Tag Manager): ",
+              "rest": "solo si aceptas las cookies analíticas. El contenedor se carga siempre, pero arranca con todas las señales de consentimiento denegadas, de modo que hasta que aceptas no escribe cookies ni envía identificadores. Las señales de publicidad van denegadas siempre, porque no hay ninguna etiqueta de anuncios instalada en este sitio."
+            },
+            {
+              "strong": "Cloudflare (Turnstile): ",
+              "rest": "está en todos los formularios públicos. Recibe tu dirección IP y datos técnicos del navegador, y puede almacenar información en tu dispositivo mientras dura la comprobación. Es imprescindible para que el formulario funcione, así que entra en la excepción de las cookies estrictamente necesarias."
+            },
+            {
+              "strong": "Esri (mapas): ",
+              "rest": "las páginas con mapa piden las imágenes a sus servidores, que reciben tu dirección IP al servirlas. No instala cookies: es una petición de imagen como cualquier otra, pero conviene que lo sepas porque implica un tercero."
+            }
+          ],
+          "outro": "No hay ningún otro tercero. En particular, no hay píxeles de redes sociales, ni etiquetas de remarketing, ni cookies publicitarias de ningún tipo."
         },
         "gestion": {
           "title": "5. Cómo gestionar las cookies",
           "sub1": "Panel de preferencias",
-          "manageIntro": "Puedes gestionar tus preferencias de cookies en cualquier momento a través de nuestro panel:",
+          "manageIntro": "Puedes cambiar tu decisión —o retirarla del todo— en cualquier momento desde el panel, sin dar ninguna explicación y con el mismo esfuerzo con el que la diste:",
           "manageBtnLabel": "Gestionar preferencias de cookies",
           "sub2": "Configuración del navegador",
           "browserIntro": "También puedes controlar las cookies desde la configuración de tu navegador:",
@@ -478,7 +667,8 @@
               "label": "Microsoft Edge",
               "url": "https://support.microsoft.com/microsoft-edge/delete-cookies-in-microsoft-edge-63947406"
             }
-          ]
+          ],
+          "withdrawNote": "Retirar el consentimiento no afecta a la licitud de lo que se midió mientras estaba dado. Si lo retiras, las cookies analíticas dejan de instalarse; las que ya estén en tu dispositivo puedes borrarlas desde la configuración del navegador, como se explica debajo."
         },
         "contacto": {
           "title": "6. Contacto",
@@ -490,7 +680,7 @@
     "Complaints": {
       "title": "Canal de reclamaciones",
       "subtitle": "Un canal directo y confidencial para comunicar incumplimientos, irregularidades o conductas contrarias a la normativa relacionadas con nuestra actividad.",
-      "updatedDate": "27 de agosto de 2026",
+      "updatedDate": "24 de septiembre de 2026",
       "tocAriaLabel": "Índice del canal de reclamaciones",
       "toc": [
         {
@@ -514,14 +704,23 @@
           "label": "5. Garantías"
         },
         {
+          "href": "#canal-externo",
+          "label": "6. Canal externo"
+        },
+        {
+          "href": "#datos",
+          "label": "7. Protección de datos"
+        },
+        {
           "href": "#contacto",
-          "label": "6. Contacto"
+          "label": "8. Contacto"
         }
       ],
       "sections": {
         "queEs": {
           "title": "Qué es este canal",
-          "intro": "El canal de reclamaciones es el cauce interno de Imora para comunicar de forma directa cualquier incumplimiento normativo, irregularidad o conducta contraria a la ética profesional detectada en el desarrollo de nuestra actividad, conforme a la Ley 2/2023 reguladora de la protección de las personas que informen sobre infracciones normativas."
+          "intro": "El canal de reclamaciones es el Sistema interno de información de Imora: el cauce para comunicar cualquier incumplimiento normativo, irregularidad o conducta contraria a la ética profesional detectada en el desarrollo de nuestra actividad, conforme a la Ley 2/2023 reguladora de la protección de las personas que informen sobre infracciones normativas.",
+          "p2": "El sistema ha sido aprobado por el órgano de administración de la empresa, que ha designado a una persona responsable de su gestión con autonomía e independencia, y cuenta con un procedimiento interno escrito que regula cómo se tramita cada comunicación."
         },
         "quienPuedeUsarlo": {
           "title": "Quién puede usarlo",
@@ -573,10 +772,12 @@
         },
         "comoComunicar": {
           "title": "Cómo comunicarlo",
-          "intro": "Puedes presentar tu comunicación a través de nuestro asistente guiado, detallando los hechos con el mayor detalle posible: qué ha ocurrido, cuándo, quién está implicado y si dispones de alguna evidencia. Puedes hacerlo con tu nombre y email, para que te confirmemos que la hemos recibido, o marcar que prefieres no identificarte.",
+          "intro": "Puedes presentar tu comunicación por escrito, a través del asistente guiado, detallando los hechos con el mayor detalle posible: qué ha ocurrido, cuándo, quién está implicado y si dispones de alguna evidencia. Puedes hacerlo con tu nombre y correo, para que te confirmemos que la hemos recibido, o marcar que prefieres no identificarte.",
           "formButton": "Presentar una reclamación",
           "highlightLabel": "Confidencialidad:",
-          "highlight": "La identidad de quien presenta la comunicación y la de cualquier tercero mencionado se tratan de forma confidencial durante todo el proceso, con acceso restringido únicamente al personal encargado de su gestión."
+          "highlight": "La identidad de quien presenta la comunicación y la de cualquier tercero mencionado se tratan de forma confidencial durante todo el proceso, con acceso restringido únicamente al personal encargado de su gestión. No se revela a la persona afectada por la comunicación ni a nadie ajeno al procedimiento.",
+          "verbalLabel": "También verbalmente:",
+          "verbal": "puedes comunicarlo de viva voz escribiendo al correo del responsable del sistema para pedir que te llamemos, o solicitando una reunión presencial: si la pides, se celebra dentro de los siete días siguientes. De lo que se hable se deja constancia por escrito, o mediante grabación si tú lo autorizas, y en ambos casos se te ofrece comprobarlo, rectificarlo y firmarlo."
         },
         "garantias": {
           "title": "Garantías",
@@ -584,31 +785,81 @@
           "list": [
             {
               "strong": "Confidencialidad: ",
-              "rest": "la identidad de la persona informante no se revela sin su consentimiento expreso."
+              "rest": "la identidad de la persona informante no se revela a terceros sin su consentimiento expreso, salvo que sea una obligación legal en el marco de una investigación judicial o administrativa, en cuyo caso se le avisa antes."
             },
             {
               "strong": "Prohibición de represalias: ",
-              "rest": "no se admite ninguna forma de represalia contra quien comunique de buena fe."
+              "rest": "no se admite ninguna forma de represalia —despido, cambio de funciones, exclusión de procesos, daño reputacional— contra quien comunique de buena fe, ni contra su entorno. Quien lo haga responde de ello."
             },
             {
               "strong": "Acuse de recibo: ",
-              "rest": "se confirma la recepción de la comunicación en un plazo máximo de 7 días."
+              "rest": "se confirma la recepción de la comunicación en un plazo máximo de 7 días naturales, salvo que eso pudiera poner en riesgo la confidencialidad."
             },
             {
               "strong": "Plazo de respuesta: ",
-              "rest": "la investigación y respuesta se resuelven en un plazo máximo de 3 meses."
+              "rest": "la investigación y la respuesta se resuelven en un plazo máximo de 3 meses desde el acuse de recibo, ampliable a 3 meses más en casos de especial complejidad, avisándote de la prórroga y de sus motivos."
             },
             {
-              "strong": "Protección de datos: ",
-              "rest": "los datos personales tratados se limitan a los estrictamente necesarios para la investigación."
+              "strong": "Derecho a ser oído: ",
+              "rest": "la persona a la que se refieren los hechos es informada y puede dar su versión, con presunción de inocencia y sin que se le revele quién ha informado."
+            },
+            {
+              "strong": "Libro-registro: ",
+              "rest": "todas las comunicaciones quedan anotadas en un libro-registro confidencial, que solo se pone a disposición de la autoridad competente cuando lo requiera de forma motivada."
+            }
+          ]
+        },
+        "canalExterno": {
+          "title": "Canal externo",
+          "intro": "No estás obligado a usar este canal antes que ningún otro, ni a agotarlo. Puedes dirigirte directamente a:",
+          "list": [
+            {
+              "strong": "La Autoridad Independiente de Protección del Informante, A.A.I.: ",
+              "rest": "el canal externo previsto en la Ley 2/2023, al que se puede acudir con o sin comunicación interna previa, y también de forma anónima."
+            },
+            {
+              "strong": "La autoridad autonómica que corresponda: ",
+              "rest": "las comunidades autónomas que hayan creado su propia autoridad de protección del informante son competentes en su ámbito."
+            },
+            {
+              "strong": "Las instituciones y organismos de la Unión Europea: ",
+              "rest": "cuando la infracción afecte al Derecho de la Unión."
+            }
+          ],
+          "outro": "Usar el canal externo no te hace perder ninguna de las protecciones de la Ley 2/2023. Si los hechos pudieran ser constitutivos de delito, la comunicación se remite al Ministerio Fiscal."
+        },
+        "datos": {
+          "title": "Protección de datos",
+          "intro": "El tratamiento de los datos de este canal se rige por la Ley 2/2023 y por el RGPD, con estas particularidades:",
+          "list": [
+            {
+              "strong": "Base legal: ",
+              "rest": "el cumplimiento de una obligación legal (art. 6.1.c del RGPD), no tu consentimiento. Por eso no se te pide."
+            },
+            {
+              "strong": "Datos mínimos: ",
+              "rest": "solo se tratan los estrictamente necesarios para la investigación. Los que no lo sean se suprimen de inmediato, y no se conservan los que se faciliten por error."
+            },
+            {
+              "strong": "Plazo de conservación: ",
+              "rest": "los datos se conservan únicamente durante el tiempo imprescindible. Si a los tres meses de la recepción no se han iniciado actuaciones de investigación, la comunicación se suprime y solo queda constancia anonimizada en el libro-registro."
+            },
+            {
+              "strong": "Acceso limitado: ",
+              "rest": "solo accede a los datos la persona responsable del sistema y, en su caso, quien instruya el expediente; y el responsable de recursos humanos o el servicio jurídico cuando proceda adoptar medidas."
+            },
+            {
+              "strong": "Tus derechos: ",
+              "rest": "puedes ejercer los derechos de acceso, rectificación, supresión, limitación, portabilidad y oposición en los términos de la política de privacidad, con la limitación de que no dan acceso a la identidad de la persona informante."
             }
           ]
         },
         "contacto": {
           "title": "Contacto",
-          "responsible": "Responsable del canal",
+          "responsible": "Responsable del Sistema interno de información",
           "emailLabel": "Correo electrónico:",
-          "addressLabel": "Dirección postal:"
+          "addressLabel": "Dirección postal:",
+          "intro": "Para cualquier duda sobre el funcionamiento del canal, o para pedir una reunión presencial:"
         }
       }
     }
