@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Building2 } from 'lucide-react';
 
 import type { ZoneSlug } from '@/config/zones';
@@ -21,11 +21,21 @@ interface ZoneContextProps {
  * vez de leerse como una sección. Ahora tiene su propia tarjeta de contenido: icono, ancho de
  * lectura limitado (`zone-context__text`, ~65ch) y un fondo sutil que la distingue del blanco
  * del hero de encima y de "Servicios disponibles" de debajo.
+ *
+ * Debajo va la lista de barrios del municipio. No es relleno: quien busca «conserjería en El
+ * Bercial» o «piscinas en Las Matas» no escribe el nombre del municipio, y hasta ahora ninguna
+ * página los nombraba. Se unen con `Intl.ListFormat` para que el «y» final salga en el idioma
+ * de la página y no escrito a mano en cada traducción.
  * @param {ZoneContextProps} props - El slug de la zona a mostrar
  * @returns {JSX.Element} El párrafo de contexto renderizado
  */
 export default function ZoneContext({ slug }: ZoneContextProps) {
   const t = useTranslations(`Zones.items.${slug}`);
+  const tZones = useTranslations('Zones');
+  const locale = useLocale();
+
+  const neighborhoods = t.raw('neighborhoods') as string[];
+  const areas = new Intl.ListFormat(locale, { style: 'long', type: 'conjunction' }).format(neighborhoods);
 
   return (
     <section className="zone-context">
@@ -34,7 +44,10 @@ export default function ZoneContext({ slug }: ZoneContextProps) {
           <span className="zone-context__icon">
             <Building2 size={20} aria-hidden="true" />
           </span>
-          <p className="zone-context__text">{t('context')}</p>
+          <div className="zone-context__body">
+            <p className="zone-context__text">{t('context')}</p>
+            <p className="zone-context__text">{tZones('coverage', { zone: t('name'), areas })}</p>
+          </div>
         </div>
       </div>
     </section>

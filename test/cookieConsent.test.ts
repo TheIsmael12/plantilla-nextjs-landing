@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
   COOKIE_CONSENT_CHANGED_EVENT,
+  COOKIE_CONSENT_MAX_AGE_MS,
   COOKIE_CONSENT_STORAGE_KEY,
   getCookieConsentSnapshot,
   getServerCookieConsentSnapshot,
@@ -11,10 +12,16 @@ import {
   type CookieConsentData,
 } from "@/lib/cookieConsent";
 
+/*
+ * La marca de tiempo es «ahora» y no una constante fija porque la decisión **caduca** a los 24
+ * meses (`COOKIE_CONSENT_MAX_AGE_MS`). Con una fecha escrita a mano, estas pruebas se rompen solas
+ * el día en que esa fecha queda fuera del plazo, y el fallo parece un fallo del código en vez de lo
+ * que sería: una decisión vieja tratada como vieja, que es justo lo correcto.
+ */
 const ONLY_ANALYTICS: CookieConsentData = {
   analytics: true,
   functional: false,
-  timestamp: 1_700_000_000_000,
+  timestamp: Date.now(),
 };
 
 beforeEach(() => {
@@ -37,6 +44,39 @@ describe("readCookieConsent", () => {
     writeCookieConsent(ONLY_ANALYTICS);
 
     expect(readCookieConsent()).toEqual(ONLY_ANALYTICS);
+  });
+
+  /*
+   * La guía de cookies de la AEPD pide renovar el consentimiento como mucho cada 24 meses, y la
+   * política de cookies publica ese plazo. Una decisión más vieja se trata como si no existiera:
+   * vuelve a salir el banner y, mientras tanto, no se activa nada opcional.
+   */
+  it("da por caducada una decisión de hace más de 24 meses", () => {
+    window.localStorage.setItem(
+      COOKIE_CONSENT_STORAGE_KEY,
+      JSON.stringify({ ...ONLY_ANALYTICS, timestamp: Date.now() - COOKIE_CONSENT_MAX_AGE_MS - 1 }),
+    );
+
+    expect(readCookieConsent()).toBeNull();
+  });
+
+  it("mantiene una decisión que aún está dentro del plazo", () => {
+    window.localStorage.setItem(
+      COOKIE_CONSENT_STORAGE_KEY,
+      JSON.stringify({ ...ONLY_ANALYTICS, timestamp: Date.now() - COOKIE_CONSENT_MAX_AGE_MS + 1000 }),
+    );
+
+    expect(readCookieConsent()).not.toBeNull();
+  });
+
+  /** Lo guardado por una versión anterior no llevaba marca de tiempo: sin ella no se puede saber si sigue valiendo. */
+  it("da por caducada una decisión sin marca de tiempo", () => {
+    window.localStorage.setItem(
+      COOKIE_CONSENT_STORAGE_KEY,
+      JSON.stringify({ analytics: true, functional: true }),
+    );
+
+    expect(readCookieConsent()).toBeNull();
   });
 });
 

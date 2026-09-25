@@ -29,7 +29,7 @@ import '@/styles/04-components/contact/contactForm.scss';
 /**
  * Los cuatro campos que gobierna un desplegable de cualificación.
  *
- * Escritos aquí y no como `keyof ContactFormValues`: el formulario tiene además tres booleanos de
+ * Escritos aquí y no como `keyof ContactFormValues`: el formulario tiene además dos booleanos de
  * consentimiento, y con la clave abierta el valor del desplegable pasaba a ser `string | boolean`.
  */
 type QualificationSelectField = 'contactProfile' | 'serviceInterest' | 'zone' | 'timeframe';
@@ -48,9 +48,7 @@ const INITIAL: ContactFormValues = {
     timeframe: '',
     managedPropertiesCount: '',
     privacyNoticeAcknowledged: false,
-    ageConfirmed: false,
     marketingConsent: false,
-    attributionConsent: false,
     honeypot: '',
 };
 
@@ -66,8 +64,10 @@ const INITIAL: ContactFormValues = {
  * leerse cada mensaje, pero exigirlos convertiría un formulario de contacto en un cuestionario.
  *
  * Incluye lo que exige el backend público de leads (RGPD/LSSI): nombre,
- * email o teléfono, checkbox de privacidad obligatorio, checkboxes
- * opcionales de marketing/atribución sin premarcar, un campo trampa oculto
+ * email o teléfono, y **dos casillas como mucho**: una obligatoria —privacidad y mayoría de edad en la
+ * misma frase— y otra opcional y sin premarcar para las comunicaciones comerciales (art. 21 LSSI). La
+ * atribución no es una casilla: la decide el banner de cookies (ver `ContactViewPage`). Además, un campo
+ * trampa oculto
  * (honeypot, nunca recibe foco real) y el widget de Turnstile.
  * @param {ContactFormProps} props - Propiedades del formulario
  * @returns {JSX.Element} El formulario de contacto renderizado
@@ -379,7 +379,8 @@ export default function ContactForm({
                     />
                     <label htmlFor="cf-privacy" className="contact__form-consent-text">
                         {t('consents.privacyLabel')}{' '}
-                        <Link href="/privacy-policy">{t('consents.privacyLink')}</Link> *
+                        <Link href="/privacy-policy">{t('consents.privacyLink')}</Link>{' '}
+                        {t('consents.ageLabel')} *
                     </label>
                 </div>
                 {/*
@@ -391,31 +392,6 @@ export default function ContactForm({
                 {formik.errors.privacyNoticeAcknowledged && formik.touched.privacyNoticeAcknowledged && (
                     <p className="label__error">
                         * {tValidations(formik.errors.privacyNoticeAcknowledged)}
-                    </p>
-                )}
-
-                {/*
-                    Declaración de mayoría de edad (art. 8 RGPD / art. 7 LOPDGDD): obligatoria, con el
-                    mismo patrón que la casilla de privacidad. Su error también se resuelve a mano contra
-                    `Validations`, igual que aquella.
-                */}
-                <div className="contact__form-consent">
-                    <input
-                        id="cf-age"
-                        name="ageConfirmed"
-                        type="checkbox"
-                        className="contact__form-checkbox"
-                        checked={formik.values.ageConfirmed}
-                        onChange={(e) => formik.setFieldValue('ageConfirmed', e.target.checked)}
-                        aria-label={t('consents.ageLabel')}
-                    />
-                    <label htmlFor="cf-age" className="contact__form-consent-text">
-                        {t('consents.ageLabel')} *
-                    </label>
-                </div>
-                {formik.errors.ageConfirmed && formik.touched.ageConfirmed && (
-                    <p className="label__error">
-                        * {tValidations(formik.errors.ageConfirmed)}
                     </p>
                 )}
 
@@ -434,20 +410,6 @@ export default function ContactForm({
                     </label>
                 </div>
 
-                <div className="contact__form-consent">
-                    <input
-                        id="cf-attribution"
-                        name="attributionConsent"
-                        type="checkbox"
-                        className="contact__form-checkbox"
-                        checked={formik.values.attributionConsent}
-                        onChange={(e) => formik.setFieldValue('attributionConsent', e.target.checked)}
-                        aria-label={t('consents.attributionLabel')}
-                    />
-                    <label htmlFor="cf-attribution" className="contact__form-consent-text">
-                        {t('consents.attributionLabel')}
-                    </label>
-                </div>
             </fieldset>
 
             <Captcha

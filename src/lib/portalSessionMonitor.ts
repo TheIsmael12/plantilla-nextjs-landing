@@ -187,9 +187,13 @@ export function usePortalSessionMonitor(): null {
            * lo escribe un `useEffect` aparte al re-renderizar con la sesión nueva, y no hay garantía de
            * que ya haya corrido justo cuando esta promesa resuelve — depender de él aquí arriesgaba un
            * falso negativo (dar la renovación por fallida habiéndola conseguido). El valor que devuelve
-           * `update()` es la sesión ya actualizada, sin esa carrera.
+           * `update()` es la sesión ya actualizada, sin esa carrera. También cuenta como fallo si el
+           * callback `jwt` marcó `RefreshAccessTokenError` aunque la caducidad se moviera, igual que en la
+           * intranet.
            */
-          const refreshed = (updated?.user?.accessTokenExpires ?? expiresAt) !== expiresAt;
+          const refreshed =
+            (updated?.user?.accessTokenExpires ?? expiresAt) !== expiresAt &&
+            updated?.error !== "RefreshAccessTokenError";
           consecutiveRefreshFailuresRef.current = refreshed
             ? 0
             : consecutiveRefreshFailuresRef.current + 1;
@@ -212,8 +216,17 @@ export function usePortalSessionMonitor(): null {
          * silencio: sin este `catch`, la promesa rechazada no paraba el `setInterval` pero tampoco se veía
          * en ningún sitio, así que un fallo de renovación repetido pasaba por "todo va bien" hasta que se
          * cumplían los 15 minutos de vida del token y aparecía un 401 sin explicación previa.
+         *
+         * Y el fallo **cuenta**, como en la intranet. Antes solo se escribía en la consola: si cada
+         * latido reventaba, el contador no subía nunca y el área de cliente se quedaba congelada —pintada,
+         * pero con todas las llamadas devolviendo 401— en vez de mandar al login.
          */
         if (!cancelled) {
+          consecutiveRefreshFailuresRef.current += 1;
+          if (consecutiveRefreshFailuresRef.current >= SESSION_REFRESH_MAX_CONSECUTIVE_FAILURES) {
+            await leaveToLogin(locale, "expired");
+            return;
+          }
           console.error("[portalSessionMonitor] Fallo comprobando la sesión", error);
         }
       }

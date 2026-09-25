@@ -15,11 +15,20 @@ import LegalContactCard from '@/components/ui/legal/LegalContactCard';
 import '@/styles/04-components/legal/legal.scss';
 
 type BoldItem = { strong: string; rest: string };
+type PurposeRow = { purpose: string; basis: string; retention: string };
 
 /**
- * Página de política de privacidad: cabecera, tabla de contenidos y las
- * secciones legales (recopilación, uso, derechos, retención...), con el
+ * Página de política de privacidad: cabecera, tabla de contenidos y las once
+ * secciones que exigen los artículos 13 y 14 del RGPD —responsable, datos,
+ * finalidades con su base legal y su plazo, destinatarios, transferencias,
+ * conservación, derechos, menores, cookies, seguridad y contacto—, con el
  * contenido traducido vía `next-intl`.
+ *
+ * El apartado de finalidades va en **tabla** y no en lista porque el art. 13
+ * pide tres cosas a la vez por cada tratamiento (para qué, con qué base y
+ * durante cuánto tiempo), y en prosa eso se lee como un bloque en el que no
+ * se encuentra nada. Los plazos no son una redacción: salen de la
+ * configuración del backend que los aplica de verdad.
  * @returns {Promise<JSX.Element>} La vista de política de privacidad renderizada
  */
 export default async function PrivacyView() {
@@ -29,6 +38,8 @@ export default async function PrivacyView() {
     const ps = (k: string) => t(`Privacy.sections.${k}`);
 
     const toc = t.raw('Privacy.toc') as Array<{ href: string; label: string }>;
+    const purposeHeaders = t.raw('Privacy.sections.uso.headers') as Record<string, string>;
+    const purposeRows = t.raw('Privacy.sections.uso.rows') as PurposeRow[];
 
     return (
         <main className="legal">
@@ -50,7 +61,35 @@ export default async function PrivacyView() {
                     />
                 }
             >
-                {/* 1. Recopilación */}
+                {/* 1. Responsable (art. 13.1.a RGPD) */}
+                <LegalSection id="responsable" title={ps('responsable.title')}>
+                    <p className="legal__section__text">{ps('responsable.intro')}</p>
+                    <LegalContactCard>
+                        <p>{ps('responsable.nameLabel')} <strong>{ENV.COMPANY_NAME}</strong></p>
+                        {/*
+                            NIF y datos registrales solo si los hay: en un entorno sin las variables puestas,
+                            la alternativa sería publicar «NIF:» y nada detrás, que engaña más que omitirlo.
+                        */}
+                        {ENV.COMPANY_CIF && (
+                            <p>{ps('responsable.taxIdLabel')} {ENV.COMPANY_CIF}</p>
+                        )}
+                        {ENV.COMPANY_REGISTRY && (
+                            <p>{ps('responsable.registryLabel')} {ENV.COMPANY_REGISTRY}</p>
+                        )}
+                        <p>{ps('responsable.addressLabel')} {COMPANY_ADDRESS_SHORT}</p>
+                        <p>
+                            {ps('responsable.emailLabel')}{' '}
+                            <a href={`mailto:${ENV.COMPANY_PRIVACY_EMAIL}`} className="legal__link">
+                                {ENV.COMPANY_PRIVACY_EMAIL}
+                            </a>
+                        </p>
+                    </LegalContactCard>
+                    <LegalHighlight variant="info">
+                        <p><strong>{ps('responsable.dpoLabel')}</strong> {ps('responsable.dpo')}</p>
+                    </LegalHighlight>
+                </LegalSection>
+
+                {/* 2. Recopilación */}
                 <LegalSection id="recopilacion" title={ps('recopilacion.title')}>
                     <p className="legal__section__text">{ps('recopilacion.intro')}</p>
                     <h3 className="legal__section__subtitle">{ps('recopilacion.sub1')}</h3>
@@ -67,20 +106,41 @@ export default async function PrivacyView() {
                     </ul>
                 </LegalSection>
 
-                {/* 2. Uso */}
+                {/* 3. Finalidades, bases legales y plazos (art. 13.1.c, 13.1.d y 13.2.a) */}
                 <LegalSection id="uso" title={ps('uso.title')}>
                     <p className="legal__section__text">{ps('uso.intro')}</p>
-                    <ul className="legal__section__list">
-                        {(t.raw('Privacy.sections.uso.list') as string[]).map((item, i) => (
-                            <li key={i}>{item}</li>
-                        ))}
-                    </ul>
+                    <div className="legal__table-wrap">
+                        <table className="legal__table">
+                            <thead>
+                                <tr>
+                                    <th>{purposeHeaders.purpose}</th>
+                                    <th>{purposeHeaders.basis}</th>
+                                    <th>{purposeHeaders.retention}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {purposeRows.map((row, i) => (
+                                    <tr key={i}>
+                                        <td>{row.purpose}</td>
+                                        <td>{row.basis}</td>
+                                        <td>{row.retention}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <p className="legal__section__text">
+                        <strong>{ps('uso.obligationLabel')}</strong> {ps('uso.obligation')}
+                    </p>
+                    <p className="legal__section__text">
+                        <strong>{ps('uso.automatedLabel')}</strong> {ps('uso.automated')}
+                    </p>
                     <LegalHighlight variant="info">
                         <p><strong>{ps('uso.highlightLabel')}</strong> {ps('uso.highlight')}</p>
                     </LegalHighlight>
                 </LegalSection>
 
-                {/* 3. Compartir */}
+                {/* 4. Destinatarios (art. 13.1.e) */}
                 <LegalSection id="compartir" title={ps('compartir.title')}>
                     <p className="legal__section__text">{ps('compartir.intro')}</p>
                     <ul className="legal__section__list">
@@ -88,34 +148,27 @@ export default async function PrivacyView() {
                             <li key={i}><strong>{item.strong}</strong>{item.rest}</li>
                         ))}
                     </ul>
+                    <p className="legal__section__text">{ps('compartir.outro')}</p>
                 </LegalSection>
 
-                {/* 4. Cookies */}
-                <LegalSection id="cookies" title={ps('cookies.title')}>
-                    <p className="legal__section__text">
-                        {ps('cookies.text')}{' '}
-                        <Link href="/cookies-policy" className="legal__link">{ps('cookies.linkLabel')}</Link>{' '}
-                        {ps('cookies.textAfter')}
-                    </p>
-                </LegalSection>
-
-                {/* 5. Seguridad */}
-                <LegalSection id="seguridad" title={ps('seguridad.title')}>
-                    <p className="legal__section__text">{ps('seguridad.intro')}</p>
+                {/* 5. Transferencias internacionales (art. 13.1.f) */}
+                <LegalSection id="transferencias" title={ps('transferencias.title')}>
+                    <p className="legal__section__text">{ps('transferencias.intro')}</p>
                     <ul className="legal__section__list">
-                        {(t.raw('Privacy.sections.seguridad.list') as string[]).map((item, i) => (
-                            <li key={i}>{item}</li>
+                        {(t.raw('Privacy.sections.transferencias.list') as BoldItem[]).map((item, i) => (
+                            <li key={i}><strong>{item.strong}</strong>{item.rest}</li>
                         ))}
                     </ul>
-                    <p className="legal__section__text">
-                        {ps('seguridad.outro')}{' '}
-                        <a href={`mailto:${ENV.COMPANY_SECURITY_EMAIL}`} className="legal__link">
-                            {ENV.COMPANY_SECURITY_EMAIL}
-                        </a>.
-                    </p>
+                    <p className="legal__section__text">{ps('transferencias.outro')}</p>
                 </LegalSection>
 
-                {/* 6. Derechos */}
+                {/* 6. Conservación */}
+                <LegalSection id="retencion" title={ps('retencion.title')}>
+                    <p className="legal__section__text">{ps('retencion.p1')}</p>
+                    <p className="legal__section__text">{ps('retencion.p2')}</p>
+                </LegalSection>
+
+                {/* 7. Derechos (art. 13.2.b, 13.2.c y 13.2.d) */}
                 <LegalSection id="derechos" title={ps('derechos.title')}>
                     <p className="legal__section__text">{ps('derechos.intro')}</p>
                     <ul className="legal__section__list">
@@ -127,22 +180,62 @@ export default async function PrivacyView() {
                         {ps('derechos.outro')}{' '}
                         <a href={`mailto:${ENV.COMPANY_PRIVACY_EMAIL}`} className="legal__link">
                             {ENV.COMPANY_PRIVACY_EMAIL}
-                        </a>. {ps('derechos.outroEnd')}
+                        </a>{' '}
+                        {ps('derechos.outroEnd')}
+                    </p>
+                    <p className="legal__section__text">
+                        <strong>{ps('derechos.deadlineLabel')}</strong> {ps('derechos.deadline')}
+                    </p>
+                    <LegalHighlight variant="warning">
+                        <p>
+                            <strong>{ps('derechos.complaintLabel')}</strong> {ps('derechos.complaint')}{' '}
+                            <a
+                                href={ps('derechos.complaintLinkUrl')}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="legal__link"
+                            >
+                                {ps('derechos.complaintLinkLabel')}
+                            </a>
+                        </p>
+                    </LegalHighlight>
+                </LegalSection>
+
+                {/* 8. Menores (art. 8 RGPD / art. 7 LOPDGDD) */}
+                <LegalSection id="menores" title={ps('menores.title')}>
+                    <p className="legal__section__text">{ps('menores.p1')}</p>
+                    <p className="legal__section__text">{ps('menores.p2')}</p>
+                </LegalSection>
+
+                {/* 9. Cookies */}
+                <LegalSection id="cookies" title={ps('cookies.title')}>
+                    <p className="legal__section__text">
+                        {ps('cookies.text')}{' '}
+                        <Link href="/cookies-policy" className="legal__link">{ps('cookies.linkLabel')}</Link>{' '}
+                        {ps('cookies.textAfter')}
                     </p>
                 </LegalSection>
 
-                {/* 7. Retención */}
-                <LegalSection id="retencion" title={ps('retencion.title')}>
-                    <p className="legal__section__text">{ps('retencion.p1')}</p>
-                    <p className="legal__section__text">{ps('retencion.p2')}</p>
+                {/* 10. Seguridad (art. 32) y notificación de brechas (art. 33) */}
+                <LegalSection id="seguridad" title={ps('seguridad.title')}>
+                    <p className="legal__section__text">{ps('seguridad.intro')}</p>
+                    <ul className="legal__section__list">
+                        {(t.raw('Privacy.sections.seguridad.list') as string[]).map((item, i) => (
+                            <li key={i}>{item}</li>
+                        ))}
+                    </ul>
+                    <p className="legal__section__text">
+                        <strong>{ps('seguridad.breachLabel')}</strong> {ps('seguridad.breach')}
+                    </p>
+                    <p className="legal__section__text">
+                        {ps('seguridad.outro')}{' '}
+                        <a href={`mailto:${ENV.COMPANY_SECURITY_EMAIL}`} className="legal__link">
+                            {ENV.COMPANY_SECURITY_EMAIL}
+                        </a>.
+                    </p>
                 </LegalSection>
 
-                {/* 8. Transferencias */}
-                <LegalSection id="transferencias" title={ps('transferencias.title')}>
-                    <p className="legal__section__text">{ps('transferencias.p1')}</p>
-                </LegalSection>
-
-                {/* 9. Contacto */}
+                {/* 11. Contacto */}
                 <LegalSection id="contacto" title={ps('contacto.title')}>
                     <p className="legal__section__text">{ps('contacto.intro')}</p>
                     <LegalContactCard>

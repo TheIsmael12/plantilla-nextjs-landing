@@ -8,6 +8,24 @@ import { ENV_SERVER } from "@/config/env.server";
 import { buildContentSecurityPolicy } from "@/config/csp";
 
 /**
+ * Convierte en permanente (308) la redirección temporal (307) que devuelve next-intl.
+ *
+ * next-intl redirige con 307 cuando la URL no es la canónica del idioma: `/zones/getafe` →
+ * `/zonas/getafe`, `/privacy-policy` → `/politica-privacidad`, `/es/...` → `/...`. Con un 307 Google
+ * entiende que la URL de origen sigue viva, así que las indexó como páginas aparte (salían en Search
+ * Console junto a las buenas). Con `localeDetection: false` ninguna de esas redirecciones depende del
+ * visitante —ni de su cookie ni de su navegador—, así que son permanentes de verdad y el 308 es la
+ * respuesta correcta. Se conservan todas las cabeceras, cookies incluidas.
+ * @param {NextResponse} response - Respuesta de `handleI18nRouting`
+ * @returns {NextResponse} La misma respuesta, con 308 si era un 307
+ */
+function asPermanentRedirect(response: NextResponse): NextResponse {
+  if (response.status !== 307) return response;
+
+  return new NextResponse(null, { status: 308, headers: response.headers });
+}
+
+/**
  * Vuelve a poner la cookie de idioma que escribe next-intl, añadiéndole `httpOnly`.
  *
  * El `localeCookie` del middleware cubre `secure`, pero **no admite `httpOnly`**: next-intl no lo
@@ -91,7 +109,7 @@ export default async function middleware(request: NextRequest) {
   // reproducirse en producción con los formularios del CRM).
   request.headers.set("x-nonce", nonce);
 
-  const response = handleI18nRouting(request);
+  const response = asPermanentRedirect(handleI18nRouting(request));
 
   hardenLocaleCookie(response);
 

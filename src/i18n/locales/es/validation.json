@@ -4,8 +4,7 @@
       "nameRequired": "El nombre es obligatorio.",
       "emailInvalid": "Introduce un correo electrónico válido.",
       "emailOrPhoneRequired": "Indica al menos un correo electrónico o un teléfono.",
-      "privacyRequired": "Debes aceptar la política de privacidad para continuar.",
-      "ageRequired": "Debes confirmar que eres mayor de edad para continuar.",
+      "privacyRequired": "Debes aceptar la política de privacidad y confirmar que eres mayor de edad para continuar.",
       "maxLength": "Este campo es demasiado largo.",
       "invalidOption": "Elige una de las opciones de la lista.",
       "invalidPropertiesCount": "Indica un número de fincas entre 1 y 5000."

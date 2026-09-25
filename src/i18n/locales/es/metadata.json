@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "default": {
-      "title": "Imora Servicios S.L.",
+      "title": "Imora",
       "description": "Empresa de servicios integrales para empresas, comunidades de propietarios, edificios y centros comerciales en Madrid.",
       "keywords": "Imora, servicios para empresas y comunidades, conserjería, videovigilancia, limpieza, mantenimiento"
     },
@@ -93,7 +93,7 @@
       },
       "/conditions": {
         "title": "Condiciones de uso",
-        "description": "Términos y condiciones de uso del sitio web y los servicios de Imora Servicios S.L.",
+        "description": "Términos y condiciones de uso del sitio web y los servicios de Imora",
         "keywords": "condiciones de uso Imora, términos legales, aviso legal"
       },
       "/cookies-policy": {
@@ -252,109 +252,114 @@
         "keywords": ""
       },
       "/zones/madrid": {
-        "title": "Empresa de conserjería en Madrid: los 21 distritos",
-        "description": "Conserjería, limpieza, videovigilancia y mantenimiento para comunidades de propietarios, oficinas y centros comerciales en los 21 distritos de Madrid capital.",
-        "keywords": "empresa de conserjería Madrid, servicios de conserjería Madrid, conserjes para urbanizaciones Madrid, mantenimiento de edificios Madrid, empresa multiservicios Madrid capital"
+        "title": "Conserjería, limpieza y mantenimiento en Madrid",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Madrid. En los 21 distritos, del Centro a Barajas.",
+        "keywords": "conserjería Madrid, limpieza de comunidades Madrid, mantenimiento de comunidades Madrid, piscinas comunitarias Madrid"
       },
       "/zones/pozuelo-de-alarcon": {
-        "title": "Mantenimiento de piscinas en Pozuelo y Somosaguas",
-        "description": "Mantenimiento de piscinas con socorrista titulado, jardinería y conserjería para las urbanizaciones de Somosaguas y las torres residenciales de Pozuelo.",
-        "keywords": "mantenimiento de piscinas Pozuelo de Alarcón, jardinería Somosaguas, conserjería Pozuelo de Alarcón"
+        "title": "Conserjería y mantenimiento en Pozuelo de Alarcón",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Pozuelo de Alarcón. De Somosaguas a las torres junto a la Casa de Campo.",
+        "keywords": "conserjería Pozuelo de Alarcón, limpieza de comunidades Pozuelo de Alarcón, mantenimiento de comunidades Pozuelo de Alarcón, piscinas comunitarias Pozuelo de Alarcón"
       },
       "/zones/alcorcon": {
-        "title": "Mantenimiento técnico de comunidades en Alcorcón",
-        "description": "Fontanería, electricidad, cerrajería y limpieza de zonas comunes para las comunidades de Alcorcón, con equipo técnico propio y respuesta rápida ante averías.",
-        "keywords": "mantenimiento de comunidades Alcorcón, limpieza de comunidades Alcorcón, fontanería y electricidad Alcorcón"
+        "title": "Conserjería, limpieza y mantenimiento en Alcorcón",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Alcorcón. Para los bloques de los años 60 a 90 y el Ensanche Sur.",
+        "keywords": "conserjería Alcorcón, limpieza de comunidades Alcorcón, mantenimiento de comunidades Alcorcón, piscinas comunitarias Alcorcón"
       },
       "/zones/majadahonda": {
-        "title": "Seguridad y control de accesos en Majadahonda",
-        "description": "Control de accesos, videovigilancia y mantenimiento de piscinas y jardines para urbanizaciones y comunidades cerradas de Majadahonda.",
-        "keywords": "control de accesos Majadahonda, seguridad urbanizaciones Majadahonda, mantenimiento piscinas Majadahonda"
+        "title": "Conserjería, limpieza y mantenimiento en Majadahonda",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Majadahonda. Urbanizaciones cerradas y centro urbano.",
+        "keywords": "conserjería Majadahonda, limpieza de comunidades Majadahonda, mantenimiento de comunidades Majadahonda, piscinas comunitarias Majadahonda"
       },
       "/zones/las-rozas": {
-        "title": "Videovigilancia en Las Rozas y su entorno comercial",
-        "description": "Videovigilancia, control de accesos y mantenimiento de zonas verdes para urbanizaciones y comunidades cerca del entorno comercial de Las Rozas.",
-        "keywords": "videovigilancia Las Rozas de Madrid, seguridad comunidades Las Rozas, CCTV Las Rozas"
+        "title": "Conserjería, limpieza y mantenimiento en Las Rozas",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Las Rozas de Madrid. Urbanizaciones, Las Matas y zonas comerciales.",
+        "keywords": "conserjería Las Rozas de Madrid, limpieza de comunidades Las Rozas de Madrid, mantenimiento de comunidades Las Rozas de Madrid, piscinas comunitarias Las Rozas de Madrid"
       },
       "/zones/boadilla-del-monte": {
-        "title": "Piscinas y jardinería para chalets en Boadilla",
-        "description": "Mantenimiento de piscinas, jardinería y seguridad para las pequeñas comunidades de chalets adosados y urbanizaciones de Boadilla del Monte.",
-        "keywords": "mantenimiento de piscinas Boadilla del Monte, jardinería comunidades Boadilla, seguridad chalets Boadilla del Monte"
+        "title": "Conserjería y mantenimiento en Boadilla del Monte",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Boadilla del Monte. Comunidades de chalets adosados con zonas comunes.",
+        "keywords": "conserjería Boadilla del Monte, limpieza de comunidades Boadilla del Monte, mantenimiento de comunidades Boadilla del Monte, piscinas comunitarias Boadilla del Monte"
       },
       "/zones/alcobendas": {
-        "title": "Conserjería para empresas en el parque de Alcobendas",
-        "description": "Conserjería y seguridad para sedes corporativas del parque empresarial de la Chaparral y limpieza para comunidades de propietarios de Alcobendas.",
-        "keywords": "conserjería empresas Alcobendas, parque empresarial Alcobendas, seguridad oficinas Alcobendas"
+        "title": "Conserjería, limpieza y mantenimiento en Alcobendas",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Alcobendas. Comunidades de vecinos y sedes de empresa.",
+        "keywords": "conserjería Alcobendas, limpieza de comunidades Alcobendas, mantenimiento de comunidades Alcobendas, piscinas comunitarias Alcobendas"
       },
       "/zones/san-sebastian-de-los-reyes": {
-        "title": "Jardinería en las nuevas zonas de San Sebastián de los Reyes",
-        "description": "Jardinería y mantenimiento de zonas comunes para las promociones de reciente construcción y el núcleo urbano de San Sebastián de los Reyes.",
-        "keywords": "jardinería San Sebastián de los Reyes, mantenimiento zonas comunes San Sebastián de los Reyes, comunidades nuevas San Sebastián de los Reyes"
+        "title": "Conserjería y mantenimiento en San Sebastián de los Reyes",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de San Sebastián de los Reyes. Promociones nuevas y casco urbano.",
+        "keywords": "conserjería San Sebastián de los Reyes, limpieza de comunidades San Sebastián de los Reyes, mantenimiento de comunidades San Sebastián de los Reyes, piscinas comunitarias San Sebastián de los Reyes"
       },
       "/zones/tres-cantos": {
-        "title": "Jardinería en el municipio planificado de Tres Cantos",
-        "description": "Jardinería, riego automático y mantenimiento de las amplias zonas verdes comunitarias de Tres Cantos, municipio planificado desde los años 70.",
-        "keywords": "jardinería Tres Cantos, mantenimiento zonas verdes Tres Cantos, riego automático Tres Cantos"
+        "title": "Conserjería, limpieza y mantenimiento en Tres Cantos",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Tres Cantos. Comunidades con mucha zona verde entre bloques.",
+        "keywords": "conserjería Tres Cantos, limpieza de comunidades Tres Cantos, mantenimiento de comunidades Tres Cantos, piscinas comunitarias Tres Cantos"
       },
       "/zones/getafe": {
-        "title": "Seguridad y control de accesos en Getafe",
-        "description": "Control de accesos, videovigilancia y conserjería para comunidades y naves del entorno industrial y universitario de Getafe.",
-        "keywords": "seguridad Getafe, control de accesos Getafe, conserjería comunidades Getafe"
+        "title": "Conserjería, limpieza y mantenimiento en Getafe",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Getafe. Del centro a El Bercial, Getafe Norte y el Sector III.",
+        "keywords": "conserjería Getafe, limpieza de comunidades Getafe, mantenimiento de comunidades Getafe, piscinas comunitarias Getafe"
       },
       "/zones/leganes": {
-        "title": "Limpieza de comunidades densas en Leganés",
-        "description": "Limpieza de zonas comunes y mantenimiento de instalaciones para las comunidades de propietarios de Leganés, municipio de alta densidad y sede universitaria.",
-        "keywords": "limpieza de comunidades Leganés, mantenimiento de instalaciones Leganés, conserjería Leganés"
+        "title": "Conserjería, limpieza y mantenimiento en Leganés",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Leganés. De Zarzaquemada a Leganés Norte.",
+        "keywords": "conserjería Leganés, limpieza de comunidades Leganés, mantenimiento de comunidades Leganés, piscinas comunitarias Leganés"
       },
       "/zones/fuenlabrada": {
-        "title": "Mantenimiento técnico continuo en Fuenlabrada",
-        "description": "Mantenimiento técnico continuo y limpieza con frecuencia ajustable para las comunidades de Fuenlabrada, construidas en su mayoría durante su expansión de los 70-90.",
-        "keywords": "mantenimiento de comunidades Fuenlabrada, limpieza de comunidades Fuenlabrada, fontanería Fuenlabrada"
+        "title": "Conserjería, limpieza y mantenimiento en Fuenlabrada",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Fuenlabrada. Bloques de los años 70-90 y Loranca.",
+        "keywords": "conserjería Fuenlabrada, limpieza de comunidades Fuenlabrada, mantenimiento de comunidades Fuenlabrada, piscinas comunitarias Fuenlabrada"
       },
       "/zones/mostoles": {
-        "title": "Conserjería en Móstoles, 2º municipio más poblado",
-        "description": "Conserjería y limpieza de zonas comunes para las comunidades de propietarios de Móstoles, el municipio más poblado de la región tras Madrid capital.",
-        "keywords": "conserjería Móstoles, limpieza de comunidades Móstoles, empresa multiservicios Móstoles"
+        "title": "Conserjería, limpieza y mantenimiento en Móstoles",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Móstoles. Todo el municipio, del centro al PAU 4.",
+        "keywords": "conserjería Móstoles, limpieza de comunidades Móstoles, mantenimiento de comunidades Móstoles, piscinas comunitarias Móstoles"
       },
       "/zones/torrejon-de-ardoz": {
-        "title": "Seguridad junto a la base aérea de Torrejón",
-        "description": "Control de accesos y seguridad para comunidades y polígonos del entorno logístico e industrial de Torrejón de Ardoz, junto a su histórica base aérea.",
-        "keywords": "seguridad Torrejón de Ardoz, control de accesos Torrejón, base aérea Torrejón de Ardoz, empresa multiservicios Torrejón"
+        "title": "Conserjería y mantenimiento en Torrejón de Ardoz",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Torrejón de Ardoz. Comunidades en bloque y Soto Henares.",
+        "keywords": "conserjería Torrejón de Ardoz, limpieza de comunidades Torrejón de Ardoz, mantenimiento de comunidades Torrejón de Ardoz, piscinas comunitarias Torrejón de Ardoz"
       },
       "/zones/coslada": {
-        "title": "Seguridad en los polígonos y comunidades de Coslada",
-        "description": "Control de accesos y seguridad para los polígonos industriales y comunidades de Coslada, uno de los mayores nudos logísticos ferroviarios del sur de Europa.",
-        "keywords": "seguridad Coslada, control de accesos polígono Coslada, nudo logístico Coslada, conserjería Coslada"
+        "title": "Conserjería, limpieza y mantenimiento en Coslada",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Coslada. Comunidades de bloque junto al nudo logístico.",
+        "keywords": "conserjería Coslada, limpieza de comunidades Coslada, mantenimiento de comunidades Coslada, piscinas comunitarias Coslada"
       },
       "/zones/rivas-vaciamadrid": {
-        "title": "Mantenimiento de piscinas en Rivas-Vaciamadrid",
-        "description": "Mantenimiento de piscinas comunitarias y jardinería para las comunidades de construcción reciente de Rivas-Vaciamadrid, el municipio más nuevo de la cobertura.",
-        "keywords": "mantenimiento de piscinas Rivas-Vaciamadrid, jardinería Rivas-Vaciamadrid, conserjería Rivas-Vaciamadrid"
+        "title": "Conserjería y mantenimiento en Rivas-Vaciamadrid",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Rivas-Vaciamadrid. Promociones con piscina y zonas verdes.",
+        "keywords": "conserjería Rivas-Vaciamadrid, limpieza de comunidades Rivas-Vaciamadrid, mantenimiento de comunidades Rivas-Vaciamadrid, piscinas comunitarias Rivas-Vaciamadrid"
       },
       "/zones/colmenar-viejo": {
-        "title": "Jardinería en el casco y periferia de Colmenar Viejo",
-        "description": "Jardinería y mantenimiento para el casco histórico ganadero y las urbanizaciones periféricas de Colmenar Viejo, junto a la dehesa, en la corona norte.",
-        "keywords": "jardinería Colmenar Viejo, mantenimiento de comunidades Colmenar Viejo, urbanizaciones Colmenar Viejo"
+        "title": "Conserjería y mantenimiento en Colmenar Viejo",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Colmenar Viejo. Casco histórico y urbanizaciones de la periferia.",
+        "keywords": "conserjería Colmenar Viejo, limpieza de comunidades Colmenar Viejo, mantenimiento de comunidades Colmenar Viejo, piscinas comunitarias Colmenar Viejo"
       },
       "/zones/torrelodones": {
-        "title": "Seguridad en las urbanizaciones de Torrelodones",
-        "description": "Videovigilancia, control de accesos, jardinería y mantenimiento de piscinas privadas para las urbanizaciones de renta alta de Torrelodones, junto a la sierra.",
-        "keywords": "seguridad urbanizaciones Torrelodones, videovigilancia Torrelodones, jardinería Torrelodones"
+        "title": "Conserjería y mantenimiento en Torrelodones",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Torrelodones. Urbanizaciones de chalets hacia la sierra.",
+        "keywords": "conserjería Torrelodones, limpieza de comunidades Torrelodones, mantenimiento de comunidades Torrelodones, piscinas comunitarias Torrelodones"
       },
       "/zones/collado-villalba": {
-        "title": "Mantenimiento técnico en Collado Villalba y la sierra",
-        "description": "Mantenimiento técnico con equipo propio para las comunidades de Collado Villalba, el municipio más distante de nuestra cobertura, nudo hacia la Sierra de Guadarrama.",
-        "keywords": "mantenimiento de comunidades Collado Villalba, empresa multiservicios Collado Villalba, sierra de Guadarrama"
+        "title": "Conserjería y mantenimiento en Collado Villalba",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Collado Villalba. Bloques y urbanizaciones, con equipo propio.",
+        "keywords": "conserjería Collado Villalba, limpieza de comunidades Collado Villalba, mantenimiento de comunidades Collado Villalba, piscinas comunitarias Collado Villalba"
       },
       "/zones/arganda-del-rey": {
-        "title": "Limpieza y electricidad en el casco de Arganda",
-        "description": "Limpieza y mantenimiento eléctrico para el casco antiguo vitivinícola y las zonas de expansión de Arganda del Rey, en la vega del Jarama.",
-        "keywords": "limpieza de comunidades Arganda del Rey, mantenimiento eléctrico Arganda del Rey, casco antiguo Arganda"
+        "title": "Conserjería y mantenimiento en Arganda del Rey",
+        "description": "Conserjería, limpieza, mantenimiento, piscinas y jardinería para comunidades de Arganda del Rey. Casco antiguo y zonas de expansión.",
+        "keywords": "conserjería Arganda del Rey, limpieza de comunidades Arganda del Rey, mantenimiento de comunidades Arganda del Rey, piscinas comunitarias Arganda del Rey"
       },
       "/careers": {
         "title": "Trabaja con nosotros",
         "description": "Ofertas de empleo en conserjería, limpieza, jardinería, seguridad y mantenimiento en la Comunidad de Madrid. Busca por ciudad y presenta tu candidatura.",
         "keywords": "trabajo, empleo, ofertas de trabajo, conserje, limpieza, jardinería, Madrid"
+      },
+      "/blog": {
+        "title": "Blog sobre gestión de comunidades y edificios",
+        "description": "Guías prácticas sobre conserjería, limpieza, mantenimiento, piscinas y seguridad para comunidades de propietarios y administradores de fincas en Madrid.",
+        "keywords": "blog comunidades de propietarios, administradores de fincas Madrid, mantenimiento de comunidades, conserjería"
       }
     }
   }
