@@ -1,5 +1,9 @@
 import { GTM_CONSENT_WAIT_FOR_UPDATE_MS } from "@/config/settings";
-import { COOKIE_CONSENT_STORAGE_KEY, type CookieConsentCategories } from "@/lib/cookieConsent";
+import {
+  COOKIE_CONSENT_STORAGE_KEY,
+  DENIED_CONSENT,
+  type CookieConsentCategories,
+} from "@/lib/cookieConsent";
 
 /**
  * Capa de datos de Google Tag Manager y traducción del banner de cookies al
@@ -190,11 +194,15 @@ export function buildGtmBootstrap(containerId: string): string {
   try { stored = JSON.parse(w.localStorage.getItem(${JSON.stringify(COOKIE_CONSENT_STORAGE_KEY)}) || 'null'); } catch (e) { stored = null; }
 
   var rules = ${JSON.stringify(CONSENT_SIGNAL_RULE)};
+  // Sin decisión guardada, el mismo punto de partida que el banner (DENIED_CONSENT): la
+  // categoría funcional va concedida desde el principio (art. 22.2 LSSI) y solo la analítica
+  // arranca denegada.
+  var defaults = ${JSON.stringify(DENIED_CONSENT)};
   var consent = { wait_for_update: ${GTM_CONSENT_WAIT_FOR_UPDATE_MS} };
   for (var signal in rules) {
     var rule = rules[signal];
     var fixed = rule === 'granted' || rule === 'denied';
-    consent[signal] = fixed ? rule : ((stored && stored[rule]) ? 'granted' : 'denied');
+    consent[signal] = fixed ? rule : ((stored ? stored[rule] : defaults[rule]) ? 'granted' : 'denied');
   }
 
   w.gtag('consent', 'default', consent);
