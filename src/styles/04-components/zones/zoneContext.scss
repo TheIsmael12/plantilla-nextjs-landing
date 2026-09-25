@@ -37,3 +37,9 @@
   color: var(--color);
   line-height: 1.65;
 }
+
+// El contexto y la lista de barrios, apilados: dos párrafos dentro de la misma tarjeta.
+.zone-context__body {
+  display: grid;
+  gap: 0.75rem;
+}

@@ -342,7 +342,7 @@
     "hero": {
       "eyebrow": "Coverage area",
       "cta": "Request a quote",
-      "title": "Services for communities and buildings in {zone}"
+      "title": "Concierge, cleaning, maintenance and pool services for communities in {zone}"
     },
     "index": {
       "eyebrow": "Coverage areas",
@@ -370,7 +370,7 @@
       "madrid": {
         "name": "Madrid",
         "areaLabel": "Madrid city",
-        "heroSubtitle": "24-hour concierge cover, security and maintenance for communities, offices and shopping centres across Madrid city's 21 districts.",
+        "heroSubtitle": "Concierge, cleaning, maintenance, pool care and security for residential communities, offices and shopping centres in all 21 districts of Madrid.",
         "context": "Madrid city brings together 21 very different districts: from the dense residential blocks over 60 years old in Centro, Chamberí or Tetuán, to the office towers of the central business area and the newer developments in districts such as Vicálvaro or Villa de Vallecas. That diversity means the same provider has to handle a traditional entrance hall with long-standing residents and a corporate headquarters with electronic access control in the same neighbourhood.",
         "faq": [
           {
@@ -384,6 +384,10 @@
           {
             "question": "How do you run the service in a city-centre building with no loading bay or vehicle access?",
             "answer": "With materials and equipment sized to come in through the front door, and hours agreed with the community so as not to clash with residents coming and going. Inside the M-30 that is the norm: the work is done first thing, with hand trolleys, not from a van parked at the façade."
+          },
+          {
+            "question": "What concierge hours can you cover in Madrid?",
+            "answer": "Anything from a half-day or split shift to full cover from 6 am to midnight, depending on what each community or building needs. We cover the concierge’s sick leave and holidays with another professional of the same profile, at no extra cost and without leaving the post empty."
           }
         ],
         "serviceNotes": {
@@ -393,12 +397,35 @@
           "cleaning": "In the buildings over 60 years old in Centro, Chamberí or Tetuán, the entrance, stairs and lift see far more daily traffic than in a peripheral district, so cleaning frequency tends to be higher.",
           "gardening": "Interior courtyards and communal gardens are common in districts with larger blocks, such as Chamartín or Salamanca, while in historic Centro a building's own green space is the exception rather than the rule.",
           "maintenance": "Coordinating plumbing, electrics and locksmithing with a single provider means a community in Centro over 60 years old doesn't need to call a different technician for every fault."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Arganzuela",
+          "Retiro",
+          "Salamanca",
+          "Chamartín",
+          "Tetuán",
+          "Chamberí",
+          "Fuencarral-El Pardo",
+          "Moncloa-Aravaca",
+          "Latina",
+          "Carabanchel",
+          "Usera",
+          "Puente de Vallecas",
+          "Moratalaz",
+          "Ciudad Lineal",
+          "Hortaleza",
+          "Villaverde",
+          "Villa de Vallecas",
+          "Vicálvaro",
+          "San Blas-Canillejas",
+          "Barajas"
+        ]
       },
       "pozuelo-de-alarcon": {
         "name": "Pozuelo de Alarcón",
         "areaLabel": "North-western area",
-        "heroSubtitle": "Pool maintenance and gardening for the Somosaguas developments and the rest of Pozuelo de Alarcón, 14 km from Madrid.",
+        "heroSubtitle": "Concierge, pool care, gardening and maintenance for the estates of Somosaguas and the rest of Pozuelo de Alarcón, 14 km from Madrid.",
         "context": "Along with Boadilla, Pozuelo de Alarcón has the highest average declared income in the Community of Madrid, with developments like Somosaguas sitting alongside high-rise residential towers near the Casa de Campo park. That mix means a single portfolio of communities can include a detached house with its own pool and a tower with a concierge and several shared pools.",
         "faq": [
           {
@@ -412,6 +439,10 @@
           {
             "question": "Can you run a detached-housing development and a residential tower block at the same time?",
             "answer": "Yes, and in Pozuelo the two sit close together. They are different plans: the development needs internal roads, gardens and access control across several entrances, while the tower needs the entrance hall, lifts and garage. The point of contact is the same; the proposal is not."
+          },
+          {
+            "question": "Do you look after community pools in Pozuelo, lifeguard included?",
+            "answer": "Yes. We handle water chemistry and cleaning throughout the season, plus opening and closing. If Community of Madrid rules require a lifeguard because of the pool’s surface area or capacity, we provide one with a valid qualification; we check this before quoting and tell you in writing whether it applies."
           }
         ],
         "serviceNotes": {
@@ -421,12 +452,21 @@
           "cleaning": "In high-rise residential towers, cleaning covers several entrances and lifts under one community, while in the house developments it focuses on shared access points and communal areas.",
           "gardening": "A private garden per plot is common in Somosaguas, while in high-rise towers green areas are managed as shared space across several entrances.",
           "maintenance": "Between the Somosaguas plots and the high-rise residential towers, technical maintenance in Pozuelo covers everything from individual house installations to shared areas in multi-entrance communities."
-        }
+        },
+        "neighborhoods": [
+          "Pozuelo Pueblo",
+          "Pozuelo Estación",
+          "Somosaguas",
+          "Húmera",
+          "La Cabaña",
+          "Monteclaro",
+          "Avenida de Europa"
+        ]
       },
       "alcorcon": {
         "name": "Alcorcón",
         "areaLabel": "Southern area",
-        "heroSubtitle": "Technical maintenance and cleaning for the communities of Alcorcón, a former industrial town 14 km from Madrid.",
+        "heroSubtitle": "Concierge, cleaning and technical maintenance for residential communities in Alcorcón, a former industrial town 14 km from Madrid.",
         "context": "Alcorcón grew rapidly between the 1960s and 1990s around one of the oldest industrial estates in southern Madrid, leaving behind a stock of medium and large block communities with several decades of use. In that type of building, installations (plumbing, electrics, entry phones) are starting to need renovations that a more recently built property doesn't require yet.",
         "faq": [
           {
@@ -440,6 +480,10 @@
           {
             "question": "What do you check first in a 1970s or 1980s block in Alcorcón?",
             "answer": "Downpipes, roof and the main electrical panel. In the blocks that grew alongside the industrial estate, those three are what have gone longest untouched and what generate the most call-outs later. The first preventive visit focuses there before proposing anything else."
+          },
+          {
+            "question": "How is concierge service organised in an Alcorcón community?",
+            "answer": "The shift is set to suit the community, from half a day to cover from 6 am to midnight. Anything the concierge cannot solve on the spot goes into a daily report that reaches the property manager the same day, and sick leave and holidays are covered by another professional of the same profile."
           }
         ],
         "serviceNotes": {
@@ -449,12 +493,21 @@
           "cleaning": "Alcorcón has a good number of medium and large blocks with several decades of daily use behind them. In communal areas with that kind of wear we match the cleaning frequency to each entrance's actual footfall, rather than applying the same routine across the whole building.",
           "gardening": "In the blocks built during the municipality's industrial growth, green areas tend to be smaller than in a housing development, but still need regular upkeep.",
           "maintenance": "The plumbing, electrical and entry-phone installations of buildings from the 1960s to the 90s are starting to need periodic renewal. In Alcorcón, where the housing stock grew alongside the industrial estate, maintenance is usually framed as a phased plan rather than as isolated faults."
-        }
+        },
+        "neighborhoods": [
+          "Casco Antiguo",
+          "San José de Valderas",
+          "Parque Lisboa",
+          "Parque Oeste",
+          "Campodón",
+          "Las Retamas",
+          "Ensanche Sur"
+        ]
       },
       "majadahonda": {
         "name": "Majadahonda",
         "areaLabel": "North-western area",
-        "heroSubtitle": "Security and access control for the gated developments of Majadahonda, 17 km north-west of Madrid.",
+        "heroSubtitle": "Security, concierge, pool care and gardening for the gated estates and town centre of Majadahonda, 17 km north-west of Madrid.",
         "context": "Majadahonda has one of the highest shares of single-family housing in north-western Madrid, with gated developments surrounding a town centre whose shopping streets get busy at weekends. Since most properties are developments with several access points and internal roads, controlling who comes and goes weighs more heavily on service demand than in a conventional block-housing municipality.",
         "faq": [
           {
@@ -468,6 +521,10 @@
           {
             "question": "How do you cover a gated development with several entrances and its own internal roads?",
             "answer": "With access control at each entrance and a concierge patrol along the internal roads, rather than a fixed post at a single gate. Most developments in Majadahonda have more than one way in, and covering only the main one leaves the rest unattended."
+          },
+          {
+            "question": "Can you also look after the estate’s pool and gardens?",
+            "answer": "Yes. Pool water chemistry and cleaning during the season, opening and closing, and gardening of the common areas can be taken together or separately, with a single point of contact for the whole estate."
           }
         ],
         "serviceNotes": {
@@ -477,12 +534,19 @@
           "cleaning": "Beyond the communal areas of block communities, in gated developments with several internal roads cleaning tends to extend to shared pedestrian and vehicle access points.",
           "gardening": "Majadahonda's gated developments have their own landscaped areas and green roads. We maintain them with scheduled visits, and can fold the communal pool into the same plan.",
           "maintenance": "Without an entrance hall or lift like an urban block, technical maintenance in Majadahonda focuses on perimeter fencing, internal roads and the development's own installations."
-        }
+        },
+        "neighborhoods": [
+          "Town centre",
+          "Roza Martín",
+          "Los Satélites",
+          "El Plantío",
+          "Valle de la Oliva"
+        ]
       },
       "las-rozas": {
         "name": "Las Rozas de Madrid",
         "areaLabel": "North-western area",
-        "heroSubtitle": "Video surveillance and security for the developments and the retail and tech hub of Las Rozas, 20 km from Madrid.",
+        "heroSubtitle": "CCTV, concierge, pool care and maintenance for the estates and retail areas of Las Rozas, 20 km from Madrid.",
         "context": "Las Rozas combines large residential developments with a significant retail and office presence, with large shopping centres and business parks that draw traffic from outside the municipality on weekends and during working hours. That external footfall gives video surveillance and access control a different weight than in a purely residential municipality, both in the developments and in communities near those commercial areas.",
         "faq": [
           {
@@ -496,6 +560,10 @@
           {
             "question": "Do you also serve business parks and retail units, not just residential communities?",
             "answer": "Yes. In Las Rozas we work both residential communities and offices and retail units, with the difference that in the retail setting the extra cleaning and concierge cover is concentrated at weekends, when the out-of-town footfall arrives."
+          },
+          {
+            "question": "Do you look after community pools in Las Rozas and Las Matas, lifeguard included?",
+            "answer": "Yes. We handle water chemistry and cleaning throughout the season, plus opening and closing. If Community of Madrid rules require a lifeguard because of the pool’s surface area or capacity, we provide one with a valid qualification; we check this before quoting and tell you in writing whether it applies."
           }
         ],
         "serviceNotes": {
@@ -505,12 +573,21 @@
           "cleaning": "In block communities near the municipality's retail and office hub, cleaning of communal areas is requested at a frequency similar to any established urban community.",
           "gardening": "The larger developments in Las Rozas have considerably more shared landscaped surface than a community near the retail hub, so the gardening plan and the visit frequency are set separately in each case.",
           "maintenance": "Between the larger developments and the block communities near the retail and office hub, technical maintenance in Las Rozas covers very different profiles within the same municipality."
-        }
+        },
+        "neighborhoods": [
+          "Las Rozas centre",
+          "Las Matas",
+          "El Pinar",
+          "Molino de la Hoz",
+          "Monte Rozas",
+          "Európolis",
+          "La Marazuela"
+        ]
       },
       "boadilla-del-monte": {
         "name": "Boadilla del Monte",
         "areaLabel": "North-western area",
-        "heroSubtitle": "Pool and garden care for the terraced-house communities of Boadilla del Monte, 19 km west of Madrid.",
+        "heroSubtitle": "Pool care, gardening, cleaning and maintenance for the terraced-house communities of Boadilla del Monte, 19 km west of Madrid.",
         "context": "Boadilla del Monte, one of the municipalities with the highest average income in the region, has an almost entirely low-density layout of terraced houses grouped into small communities, with very little of the vertical block housing typical of other towns in the metropolitan area. These small communities usually share landscaped areas and a pool from the moment they're set up.",
         "faq": [
           {
@@ -524,6 +601,10 @@
           {
             "question": "Is it worth hiring services if the community is only ten or twelve houses?",
             "answer": "Yes, and in Boadilla that is the most common size. For small communities we adjust the frequency rather than assign permanent staff: fortnightly gardening, weekly cleaning of communal areas and monthly preventive maintenance work out at a manageable cost per home."
+          },
+          {
+            "question": "What does opening and closing the community pool involve?",
+            "answer": "Before opening we check pumps, filters and the dosing system, and give the pool a deep clean after winter. At closing we cover the pool and protect the machinery from damp and cold. Dates follow the calendar the community sets."
           }
         ],
         "serviceNotes": {
@@ -533,12 +614,20 @@
           "cleaning": "In Boadilla's low-density developments, cleaning of communal areas focuses less on entrance halls and more on shared access points, the pool and collective-use areas of small communities.",
           "gardening": "In Boadilla's terraced-house communities, landscaped communal areas are the norm, not the exception. We maintain them at whatever frequency each garden calls for, and can take on the pool as well.",
           "maintenance": "With several terraced houses sharing the same pool installation or access point in small communities, a single technical fault in Boadilla can affect the whole community rather than one isolated home."
-        }
+        },
+        "neighborhoods": [
+          "Historic centre",
+          "Las Lomas",
+          "Valdecabañas",
+          "Monte Príncipe",
+          "Parque Boadilla",
+          "Olivar de Mirabal"
+        ]
       },
       "alcobendas": {
         "name": "Alcobendas",
         "areaLabel": "Northern area",
-        "heroSubtitle": "Concierge and security for the offices of the Chaparral business park and the communities of Alcobendas, 15 km from Madrid.",
+        "heroSubtitle": "Concierge, security, cleaning and maintenance for residential communities and company offices in Alcobendas, 15 km north of Madrid.",
         "context": "Alcobendas hosts one of the largest business parks in the Community of Madrid, with major company headquarters alongside medium-to-high-rise residential communities. That mix makes Alcobendas one of the few towns in the metropolitan area where concierge and security services for corporate premises generate as much demand as services for residential communities.",
         "faq": [
           {
@@ -552,6 +641,10 @@
           {
             "question": "Can you maintain a company's headquarters and the residential communities next door at once?",
             "answer": "Yes. Alcobendas has one of the region's largest business parks right up against block-housing neighbourhoods, and running both on the same route brings travel costs down. The contracts stay separate, with different hours and service levels."
+          },
+          {
+            "question": "Do you cover the concierge’s sick leave and holidays in Alcobendas?",
+            "answer": "Yes, with another professional of the same profile, at no extra cost and without leaving the post empty. The same applies to a residential community and to a company reception desk."
           }
         ],
         "serviceNotes": {
@@ -561,12 +654,20 @@
           "cleaning": "Both the business park's corporate premises and Alcobendas' medium-to-high-rise residential communities request ongoing cleaning, though with different needs depending on whether it's an office or a residential communal area.",
           "gardening": "Maintenance of green areas in Alcobendas is split between the residential block communities and the outdoor spaces of the municipality's corporate premises.",
           "maintenance": "Technical maintenance in Alcobendas covers both office installations, given the weight of its business park, and callouts from medium-to-high-rise residential communities."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Fuentelucha",
+          "Valdelasfuentes",
+          "Arroyo de la Vega",
+          "La Moraleja",
+          "El Soto de La Moraleja"
+        ]
       },
       "san-sebastian-de-los-reyes": {
         "name": "San Sebastián de los Reyes",
         "areaLabel": "Northern area",
-        "heroSubtitle": "Gardening and communal area maintenance for the new developments of San Sebastián de los Reyes, 20 km north of Madrid.",
+        "heroSubtitle": "Gardening, pool care, cleaning and concierge for the new developments and old town of San Sebastián de los Reyes, 20 km north of Madrid.",
         "context": "San Sebastián de los Reyes has seen intense urban growth over the last two decades, with new residential neighbourhoods that have more than doubled its population since the 1990s, alongside a more established town centre with traditional block communities. The developments from that recent expansion usually include landscaped areas and a pool from year one, while the historic centre retains a housing stock from another era.",
         "faq": [
           {
@@ -580,6 +681,10 @@
           {
             "question": "Does maintenance differ between the new neighbourhoods and the old centre of San Sebastián de los Reyes?",
             "answer": "Quite a lot. In the developments of the last two decades the work goes into garages, large communal areas and irrigation systems; in the established centre it goes into downpipes, entrance halls and joinery. We assess it on the visit rather than applying the same plan to both."
+          },
+          {
+            "question": "Do you look after community pools in San Sebastián de los Reyes, lifeguard included?",
+            "answer": "Yes. We handle water chemistry and cleaning throughout the season, plus opening and closing. If Community of Madrid rules require a lifeguard because of the pool’s surface area or capacity, we provide one with a valid qualification; we check this before quoting and tell you in writing whether it applies."
           }
         ],
         "serviceNotes": {
@@ -589,12 +694,20 @@
           "cleaning": "Cleaning of communal areas in San Sebastián de los Reyes is split between the traditional town centre and the new residential neighbourhoods that have more than doubled the municipality's population since the 1990s.",
           "gardening": "With urban growth that has more than doubled the population since the 1990s, San Sebastián de los Reyes' new developments usually include landscaped areas from year one, more so than the historic centre.",
           "maintenance": "Maintenance of communal areas covers both the developments from the most recent expansion and the traditional block communities of San Sebastián de los Reyes' established town centre."
-        }
+        },
+        "neighborhoods": [
+          "Old town",
+          "Dehesa Vieja",
+          "Tempranales",
+          "Moscatelares",
+          "Club de Campo",
+          "Fuente del Fresno"
+        ]
       },
       "tres-cantos": {
         "name": "Tres Cantos",
         "areaLabel": "Northern area",
-        "heroSubtitle": "Gardening and green area maintenance in Tres Cantos, a low-density planned town 24 km north of Madrid.",
+        "heroSubtitle": "Gardening, concierge, cleaning and maintenance for residential communities in Tres Cantos, a low-density planned town 24 km from Madrid.",
         "context": "Tres Cantos was built from scratch as a planned town in the 1970s, with a low-density layout, plenty of open space between blocks and protected natural land across much of its area. With so much shared green space built into the design, garden maintenance tends to weigh more heavily on a Tres Cantos community's budget than in a conventional urban block elsewhere in the metropolitan area.",
         "faq": [
           {
@@ -608,6 +721,10 @@
           {
             "question": "How do you maintain so much green space between blocks without the cost running away?",
             "answer": "By grouping mowing and pruning into longer, less frequent visits, and checking the irrigation before summer so no water is wasted. Tres Cantos was planned with a lot of open space between buildings, and gardening weighs more here than in a block between party walls."
+          },
+          {
+            "question": "How do we report a fault in a Tres Cantos community?",
+            "answer": "By phone, by email or through the concierge if you also have that service, and the technician reviews it within the agreed time. For anything that cannot wait until the next day there is a 24-hour emergency line."
           }
         ],
         "serviceNotes": {
@@ -617,12 +734,21 @@
           "cleaning": "Cleaning of communal areas in Tres Cantos goes hand in hand with maintaining the town's abundant green spaces, which many communities manage as a single coordinated service.",
           "gardening": "With so much shared green space from the town's original urban design, garden maintenance weighs more heavily on a Tres Cantos community's budget than in a conventional urban block elsewhere.",
           "maintenance": "Technical maintenance in Tres Cantos goes alongside the upkeep of communal landscaped areas, which in this town planned since the 1970s cover more ground than the average in the northern metropolitan area."
-        }
+        },
+        "neighborhoods": [
+          "Nuevo Tres Cantos",
+          "Soto de Viñuelas",
+          "Foresta",
+          "Descubridores",
+          "Embarcaciones",
+          "Pintores",
+          "Músicos"
+        ]
       },
       "getafe": {
         "name": "Getafe",
         "areaLabel": "Southern area",
-        "heroSubtitle": "Security and access control for facilities and communities in Getafe, an industrial and university town 14 km south of Madrid.",
+        "heroSubtitle": "Concierge, cleaning, maintenance and access control for residential communities and industrial units in Getafe, an industrial and university town 14 km south of Madrid.",
         "context": "Getafe combines an extensive stock of block communities with a historic industrial and aerospace presence and its own university campus. That means we work here both in residential communities and on access control for industrial facilities, and on video surveillance for communities near areas with university foot traffic.",
         "faq": [
           {
@@ -636,6 +762,10 @@
           {
             "question": "Is access control for an industrial unit run the same way as for a residential community?",
             "answer": "No. An industrial unit or facility has vehicle entry, loading hours and external staff rotating through, so control is organised by time slot and by type of access. We provide both services in Getafe, but as separate projects."
+          },
+          {
+            "question": "Besides concierge, do you handle cleaning and maintenance for communities in Getafe?",
+            "answer": "Yes. Each service can be taken on its own or with the others: cleaning of entrances, stairwells and garages as often as the community needs, and plumbing, electrical and locksmith maintenance by our own technical team, with a 24-hour emergency line."
           }
         ],
         "serviceNotes": {
@@ -645,12 +775,24 @@
           "cleaning": "Cleaning of communal areas in Getafe is requested continuously across the municipality's extensive stock of block communities, many of them large.",
           "gardening": "Green areas in Getafe's communities vary a great deal between traditional blocks and the more recently built residential complexes; we set the visit frequency to match what each one has.",
           "maintenance": "In large blocks like those that dominate Getafe, coordinating concierge and technical maintenance with a single provider means each fault doesn't need to go through a different contact."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Getafe Norte",
+          "El Bercial",
+          "Sector III",
+          "Juan de la Cierva",
+          "Perales del Río",
+          "Los Molinos",
+          "Buenavista",
+          "Las Margaritas",
+          "La Alhóndiga"
+        ]
       },
       "leganes": {
         "name": "Leganés",
         "areaLabel": "Southern area",
-        "heroSubtitle": "Cleaning and maintenance for the communities of Leganés, one of the region's most densely built towns and home to a university campus, 13 km from Madrid.",
+        "heroSubtitle": "Cleaning, concierge and maintenance for residential communities in Leganés, one of the most densely built towns in the region, 13 km from Madrid.",
         "context": "Leganés is one of the towns with the highest density of residential communities in the Community of Madrid, with buildings from very different decades sitting side by side in the same neighbourhood, from the old town to areas near the Carlos III University campus. That density and mix of ages means cleaning of communal areas and maintenance of installations see a higher volume of requests per square metre than towns in the metropolitan area with more space per community.",
         "faq": [
           {
@@ -664,6 +806,10 @@
           {
             "question": "Can you look after buildings from very different decades within the same neighbourhood?",
             "answer": "Yes, and in Leganés that is the norm: the old town and recent developments on the same street. Each property has its own maintenance plan based on the age of its installations, even though the team looking after them and the point of contact are the same."
+          },
+          {
+            "question": "What concierge hours can you cover in Leganés?",
+            "answer": "Anything from a half-day or split shift to full cover from 6 am to midnight, depending on what each community or building needs. We cover the concierge’s sick leave and holidays with another professional of the same profile, at no extra cost and without leaving the post empty."
           }
         ],
         "serviceNotes": {
@@ -673,12 +819,22 @@
           "cleaning": "Leganés is one of the region's most densely built municipalities in terms of residential communities. That density lets us group cleaning routes between nearby properties, which shows most when covering an absence at no notice.",
           "gardening": "Garden maintenance in Leganés varies a lot depending on the building's decade of construction: the more recent complexes near the university campus tend to have more landscaped area than those in the traditional town centre.",
           "maintenance": "In Leganés, buildings from very different decades sit on the same street, so plumbing and electrical maintenance is planned property by property according to the age of its installations, even though the team and the point of contact are the same."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Zarzaquemada",
+          "San Nicasio",
+          "El Carrascal",
+          "La Fortuna",
+          "Leganés Norte",
+          "Arroyo Culebro",
+          "Solagua"
+        ]
       },
       "fuenlabrada": {
         "name": "Fuenlabrada",
         "areaLabel": "Southern area",
-        "heroSubtitle": "Ongoing technical maintenance for the communities of Fuenlabrada, one of the fastest-growing towns in southern Madrid, 22 km from the capital.",
+        "heroSubtitle": "Concierge, technical maintenance and cleaning for residential communities in Fuenlabrada, one of the largest towns south of Madrid, 22 km from the capital.",
         "context": "Fuenlabrada's population multiplied several times over between the 1970s and 90s, growing from a farming village into one of the most populous towns in the southern metropolitan area in barely two decades, leaving a housing stock dominated by medium and large blocks built during that period of rapid expansion. That growth concentrated into a few decades means much of its communities' installations are of a similar age and need renewing in parallel.",
         "faq": [
           {
@@ -692,6 +848,10 @@
           {
             "question": "What is a phased renewal plan, and why does it fit Fuenlabrada?",
             "answer": "It means spreading the big items — entrance halls, downpipes, lighting, roof — across several years instead of taking them all on at once. It fits here because much of the town was built within a few decades and many installations reach the same age at the same time."
+          },
+          {
+            "question": "What concierge hours can you cover in Fuenlabrada?",
+            "answer": "Anything from a half-day or split shift to full cover from 6 am to midnight, depending on what each community or building needs. We cover the concierge’s sick leave and holidays with another professional of the same profile, at no extra cost and without leaving the post empty."
           }
         ],
         "serviceNotes": {
@@ -701,12 +861,21 @@
           "cleaning": "Much of Fuenlabrada was built within a few decades, so many communities have installations of a similar age. We set the frequency of communal area cleaning to what each property needs, and combine it with technical maintenance where that makes sense.",
           "gardening": "Maintenance of green areas in Fuenlabrada is unevenly spread across the town's blocks, depending on the green surface of each community built during the 1970s-to-90s expansion.",
           "maintenance": "With much of Fuenlabrada built within a few decades, many installations reach the same age at once and need renewing in parallel. That is why ongoing technical maintenance here usually goes hand in hand with a phased renewal plan."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "El Naranjo",
+          "Loranca",
+          "El Vivero",
+          "Belén",
+          "La Avanzada",
+          "Parque Miraflores"
+        ]
       },
       "mostoles": {
         "name": "Móstoles",
         "areaLabel": "Southern area",
-        "heroSubtitle": "Concierge and cleaning for communities in Móstoles, the most populous town in the Community of Madrid after the capital, 18 km south-west.",
+        "heroSubtitle": "Concierge, cleaning and maintenance for residential communities in Móstoles, the most populous town in the Community of Madrid after the capital, 18 km south-west.",
         "context": "Móstoles is the most populous town in the region after Madrid city, with a very large stock of residential communities and the south metropolitan area's second public university, Rey Juan Carlos, among its amenities. That volume of population concentrated in a relatively compact area means concierge and cleaning of communal areas are requested with a steadiness few towns in the southern metropolitan area match.",
         "faq": [
           {
@@ -720,6 +889,10 @@
           {
             "question": "Can cleaning and concierge services be combined across several communities in the same neighbourhood?",
             "answer": "Yes, and in Móstoles it pays off because of how densely the communities sit. Each property keeps its own contract and its own invoice, but being close together means routes and extra cover are shared — which shows most in last-minute absence cover."
+          },
+          {
+            "question": "Do you handle emergency repairs for communities in Móstoles?",
+            "answer": "Yes, through the 24-hour emergency line for anything that cannot wait until the next day. A lock problem on a shared entrance, for example, is always treated as urgent because it compromises the building’s security."
           }
         ],
         "serviceNotes": {
@@ -729,12 +902,21 @@
           "cleaning": "The volume of block housing in Móstoles means communal area cleaning is organised by frequency: daily in the busiest entrances, weekly or fortnightly in garages and lower-use areas.",
           "gardening": "Shared green areas in Móstoles vary a great deal from one community to another; we schedule gardening visits according to what each residential complex has.",
           "maintenance": "Technical maintenance in Móstoles goes alongside the high demand for concierge and cleaning typical of the Community of Madrid's second most populous town."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "El Soto",
+          "Estoril",
+          "Villafontana",
+          "Pradillo",
+          "Parque Coimbra",
+          "PAU 4"
+        ]
       },
       "torrejon-de-ardoz": {
         "name": "Torrejón de Ardoz",
         "areaLabel": "Eastern area",
-        "heroSubtitle": "Security and access control for communities and industrial estates near the air base and logistics hub of Torrejón de Ardoz, 21 km from Madrid.",
+        "heroSubtitle": "Security, concierge, cleaning and maintenance for residential communities and industrial estates in Torrejón de Ardoz, 21 km east of Madrid.",
         "context": "Torrejón de Ardoz combines block residential communities with a significant industrial and logistics presence, plus a historic air base that has shaped the town's life for decades. That combination of residential housing and logistics and industrial activity gives security and access control a greater weight here than in a purely residential town of similar size.",
         "faq": [
           {
@@ -748,6 +930,10 @@
           {
             "question": "Do you work in industrial units and logistics buildings as well as residential communities?",
             "answer": "Yes. Torrejón combines block housing with a substantial industrial and logistics base, and we provide cleaning, maintenance and access control in both settings. What changes is the timing: in logistics, the work usually falls outside the operating window."
+          },
+          {
+            "question": "What concierge hours can you cover in Torrejón de Ardoz?",
+            "answer": "Anything from a half-day or split shift to full cover from 6 am to midnight, depending on what each community or building needs. We cover the concierge’s sick leave and holidays with another professional of the same profile, at no extra cost and without leaving the post empty."
           }
         ],
         "serviceNotes": {
@@ -757,12 +943,20 @@
           "cleaning": "Cleaning of communal areas in Torrejón de Ardoz is requested continuously in a town that combines block housing with significant industrial and logistics activity.",
           "gardening": "Maintenance of green areas in Torrejón de Ardoz is mostly limited to residential communities, with less weight in the town's industrial and logistics area.",
           "maintenance": "Technical maintenance of communal areas in Torrejón de Ardoz goes alongside a significant industrial and logistics environment, historically reinforced by the town's air base."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Soto Henares",
+          "Parque Cataluña",
+          "Fresnos",
+          "Veredillas",
+          "Juncal"
+        ]
       },
       "coslada": {
         "name": "Coslada",
         "areaLabel": "Eastern area",
-        "heroSubtitle": "Security and access control for the industrial estates and communities of Coslada, a rail logistics hub 14 km from Madrid.",
+        "heroSubtitle": "Security, concierge and maintenance for the residential communities and industrial estates of Coslada, a rail logistics hub 14 km from Madrid.",
         "context": "Coslada is home to one of the most important rail freight and logistics hubs in southern Europe, with extensive industrial estates sitting alongside a residential stock of medium-sized blocks well connected to Madrid city. That concentration of logistics activity next to residential areas gives security and access control a different weight here than in a purely residential town in the eastern metropolitan area.",
         "faq": [
           {
@@ -776,6 +970,10 @@
           {
             "question": "How does traffic from the industrial estates affect Coslada's residential communities?",
             "answer": "Mainly access control and outdoor cleaning, because of the through traffic and the dust. In the communities near the freight hub we step up cleaning of entrance halls and access points, and check that the garage closers stand up to the use they get."
+          },
+          {
+            "question": "Is technical maintenance for Coslada communities done by your own team?",
+            "answer": "Yes, day-to-day work (plumbing, electrics, locksmithing and small repairs) is done by our own technical team. Materials and parts are quoted before any work starts, and for jobs that need specific certification, such as gas or high voltage, we work with accredited specialists."
           }
         ],
         "serviceNotes": {
@@ -785,12 +983,20 @@
           "cleaning": "Cleaning of communal areas in Coslada is requested continuously in the town's medium-sized blocks, well connected to Madrid city.",
           "gardening": "Maintenance of green areas in Coslada is more common in the larger communities, with shared green spaces of their own, away from the town's industrial estates.",
           "maintenance": "Technical maintenance in Coslada is coordinated with concierge services in the town's medium-sized blocks, where both services are usually contracted together."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Barrio del Puerto",
+          "Valleaguado",
+          "La Espinilla",
+          "Ciudad 70",
+          "El Esparragal"
+        ]
       },
       "rivas-vaciamadrid": {
         "name": "Rivas-Vaciamadrid",
         "areaLabel": "Eastern area",
-        "heroSubtitle": "Pool maintenance and gardening for the recently built developments of Rivas-Vaciamadrid, 18 km south-east of Madrid.",
+        "heroSubtitle": "Pool care, gardening, cleaning and maintenance for the residential developments of Rivas-Vaciamadrid, 18 km south-east of Madrid.",
         "context": "Of the 20 towns in this coverage area, Rivas-Vaciamadrid has the most recent urban growth: virtually its entire residential stock has been built since the 1990s, with planned developments that include landscaped areas and a communal pool from day one. Without an old town carrying buildings from another era, its maintenance profile is more uniform than in most towns in the eastern metropolitan area.",
         "faq": [
           {
@@ -804,6 +1010,10 @@
           {
             "question": "What needs watching in developments built since the nineties?",
             "answer": "Irrigation, garage pumps and outdoor communal areas, which in Rivas are extensive and part of almost every development. These are installations that are not yet showing their age, but that degrade fast if nobody checks them each season."
+          },
+          {
+            "question": "How is the water in a Rivas community pool kept in check?",
+            "answer": "It is measured daily. Spain’s Royal Decree 742/2013 allows a pH of 7.2 to 8.0 and free residual chlorine of 0.5 to 2 mg/l; we aim for the lower part of the pH range (7.2–7.6), where chlorine works best, and adjust the dose to how much the pool was used that day."
           }
         ],
         "serviceNotes": {
@@ -813,12 +1023,20 @@
           "cleaning": "Cleaning of communal areas in Rivas-Vaciamadrid is requested from the community's formation, given that virtually the entire municipality's residential stock is recently built.",
           "gardening": "There is barely any old town in Rivas-Vaciamadrid: almost every community includes a garden from the development's own construction. We maintain green areas and irrigation systems with scheduled visits.",
           "maintenance": "Technical maintenance in Rivas-Vaciamadrid is needed from the community's formation, since the installations of its developments, almost all post-1990s, are new alongside the rest of the services."
-        }
+        },
+        "neighborhoods": [
+          "Covibar",
+          "Rivas Centro",
+          "Rivas Oeste",
+          "Rivas Futura",
+          "Rivas Urbanizaciones",
+          "Old town"
+        ]
       },
       "colmenar-viejo": {
         "name": "Colmenar Viejo",
         "areaLabel": "Northern area",
-        "heroSubtitle": "Gardening and maintenance for the historic centre and outlying developments of Colmenar Viejo, next to open grazing land, 29 km north of Madrid.",
+        "heroSubtitle": "Gardening, cleaning and maintenance for the historic centre and estates of Colmenar Viejo, 29 km north of Madrid.",
         "context": "Colmenar Viejo keeps a historic centre with a cattle-farming tradition surrounded by open grazing land and hillside, with streets of low-rise stairwell buildings, alongside more recently built developments on its outskirts with more single-family housing and landscaped areas. It's the town furthest from Madrid city in the northern metropolitan area, and that mix of traditional centre and greener outskirts shapes a different pattern of service demand than other towns in the same area.",
         "faq": [
           {
@@ -832,6 +1050,10 @@
           {
             "question": "How do you work in the low-rise walk-up buildings of the old town?",
             "answer": "With no lift and narrow stairs, cleaning is done with lightweight equipment and maintenance is organised floor by floor. In Colmenar Viejo that old town sits alongside more recent developments on the outskirts, and the two are quoted separately."
+          },
+          {
+            "question": "What does community cleaning in Colmenar Viejo include?",
+            "answer": "Entrance, stairwells and garage, plus outdoor areas if the community has them, as often as each building needs. Low-rise buildings in the historic centre usually need less frequent visits than a large block, and the schedule is set accordingly."
           }
         ],
         "serviceNotes": {
@@ -841,12 +1063,16 @@
           "cleaning": "Cleaning in Colmenar Viejo adapts to two very different building profiles within the same town: the low-rise historic centre and the newer outlying developments.",
           "gardening": "With open grazing land and hillside surrounding the town, garden maintenance carries more weight in Colmenar Viejo's outlying developments than in the historic centre with its cattle-farming tradition.",
           "maintenance": "Technical maintenance in Colmenar Viejo covers both low-rise stairwell buildings in the historic centre and communities in the outlying developments, each with different needs."
-        }
+        },
+        "neighborhoods": [
+          "Historic centre",
+          "the outlying estates"
+        ]
       },
       "torrelodones": {
         "name": "Torrelodones",
         "areaLabel": "North-western area",
-        "heroSubtitle": "Video surveillance and gardening for the developments of Torrelodones, at the foot of the mountains, 27 km north-west of Madrid.",
+        "heroSubtitle": "CCTV, gardening, pool care and maintenance for the housing estates of Torrelodones, at the foot of the sierra, 27 km north-west of Madrid.",
         "context": "Torrelodones has a layout dominated by single-family housing developments and detached houses, spread between the town centre and the slopes towards the Guadarrama mountains. In that kind of scattered development we mainly work on access control and on maintaining gardens and communal pools.",
         "faq": [
           {
@@ -860,6 +1086,10 @@
           {
             "question": "Do you cover developments away from the centre, up on the slopes towards the mountains?",
             "answer": "Yes. It is the most common profile in the town, and we plan around it: visits are grouped so as not to chain together short trips between scattered developments, and the gardening schedule is adjusted to the mountain climate."
+          },
+          {
+            "question": "Do you look after community pools in Torrelodones, lifeguard included?",
+            "answer": "Yes. We handle water chemistry and cleaning throughout the season, plus opening and closing. If Community of Madrid rules require a lifeguard because of the pool’s surface area or capacity, we provide one with a valid qualification; we check this before quoting and tell you in writing whether it applies."
           }
         ],
         "serviceNotes": {
@@ -869,12 +1099,19 @@
           "cleaning": "In Torrelodones' developments, cleaning focuses more on shared access points and communal areas than individual block entrance halls, uncommon in this municipality.",
           "gardening": "The single-family developments of Torrelodones, at the foot of the Guadarrama mountains, have their own gardens and green areas. We maintain them on a schedule adjusted to the mountain climate.",
           "maintenance": "Technical maintenance in Torrelodones covers the communal installations of the single-family housing developments spread between the town centre and the slopes towards the mountains."
-        }
+        },
+        "neighborhoods": [
+          "Torrelodones Pueblo",
+          "La Colonia",
+          "Los Peñascales",
+          "El Gasco",
+          "Las Marías"
+        ]
       },
       "collado-villalba": {
         "name": "Collado Villalba",
         "areaLabel": "Southern area",
-        "heroSubtitle": "Technical maintenance for communities in Collado Villalba, the furthest town in our coverage, a transport hub for the Guadarrama mountains.",
+        "heroSubtitle": "Technical maintenance, cleaning and concierge for residential communities in Collado Villalba, the transport hub of the Sierra de Guadarrama, 36 km from Madrid.",
         "context": "Collado Villalba, 36 km from Madrid city, is the furthest town in our coverage area and works as a gateway and transport hub towards the Guadarrama mountains, with its own long-distance and commuter rail station. Its housing stock mixes block communities and developments, and the mountain climate — more rain and colder winters than Madrid city — shapes the schedule for outdoor work. Because of the distance, we run technical maintenance here with our own team on a scheduled route, rather than relying on third parties who take time to travel out.",
         "faq": [
           {
@@ -888,6 +1125,10 @@
           {
             "question": "Does it take you longer to attend an emergency, being the furthest town?",
             "answer": "That is exactly why maintenance here runs with our own team on a scheduled route, rather than calling in a third party who has to travel out from Madrid. The incident hotline answers just as it does across the rest of the coverage area; what is planned differently is the route."
+          },
+          {
+            "question": "What concierge hours can you cover in Collado Villalba?",
+            "answer": "Anything from a half-day or split shift to full cover from 6 am to midnight, depending on what each community or building needs. We cover the concierge’s sick leave and holidays with another professional of the same profile, at no extra cost and without leaving the post empty."
           }
         ],
         "serviceNotes": {
@@ -897,12 +1138,17 @@
           "cleaning": "Cleaning in Collado Villalba is split between block communities and developments, with different frequencies for each type of property. As the furthest town in our coverage, we combine it with technical maintenance on the same visit wherever possible.",
           "gardening": "Green areas in Collado Villalba are mostly in the developments rather than in traditional block communities. The gardening schedule is adjusted to the colder mountain climate.",
           "maintenance": "Collado Villalba is the town furthest from Madrid city in our whole coverage area, so we run technical maintenance here with our own team on a scheduled route, rather than relying on third parties who take time to travel out."
-        }
+        },
+        "neighborhoods": [
+          "Villalba Pueblo",
+          "Villalba Estación",
+          "the estates around the town"
+        ]
       },
       "arganda-del-rey": {
         "name": "Arganda del Rey",
         "areaLabel": "Eastern area",
-        "heroSubtitle": "Cleaning and electrical maintenance for the old town and expansion areas of Arganda del Rey, in the Jarama river valley, 27 km south-east of Madrid.",
+        "heroSubtitle": "Pool care, cleaning and maintenance for the old town and newer districts of Arganda del Rey, in the Jarama valley, 27 km south-east of Madrid.",
         "context": "Arganda del Rey, located in the Jarama river valley, combines a traditional town centre with a wine-growing heritage and residential expansion areas built over recent decades towards the south of the municipality. In the old town's buildings, where electrical and plumbing installations are older, cleaning and technical maintenance tend to require a different frequency than in the newer developments on the outskirts.",
         "faq": [
           {
@@ -916,6 +1162,10 @@
           {
             "question": "Is a building in the old centre of Arganda run the same way as one in the southern expansion?",
             "answer": "No. In the traditional centre the weight falls on joinery, courtyards and old downpipes; in the expansion of recent decades, on garages, irrigation and outdoor communal areas. It is the same team, but with two different maintenance plans."
+          },
+          {
+            "question": "Do you look after community pools in Arganda del Rey, lifeguard included?",
+            "answer": "Yes. We handle water chemistry and cleaning throughout the season, plus opening and closing. If Community of Madrid rules require a lifeguard because of the pool’s surface area or capacity, we provide one with a valid qualification; we check this before quoting and tell you in writing whether it applies."
           }
         ],
         "serviceNotes": {
@@ -925,11 +1175,17 @@
           "cleaning": "Cleaning in the old town buildings of Arganda del Rey, with older installations, tends to require a different frequency than the new developments on the outskirts towards the south of the municipality.",
           "gardening": "Garden maintenance carries more weight in the more recent residential expansion areas of Arganda del Rey than in the municipality's traditional town centre, in the Jarama valley.",
           "maintenance": "Electrical maintenance in the old town buildings of Arganda del Rey, with older installations, tends to require different attention than the new developments on the outskirts."
-        }
+        },
+        "neighborhoods": [
+          "Old town",
+          "La Poveda",
+          "the newer districts to the south"
+        ]
       }
     },
     "ctaManagersPrefix": "Do you manage buildings in {zone}?",
-    "ctaManagersLink": "See the proposal for property managers"
+    "ctaManagersLink": "See the proposal for property managers",
+    "coverage": "We cover the whole of {zone}: {areas}."
   },
   "Complaints": {
     "wizard": {
@@ -1614,7 +1870,8 @@
             "title": "Businesses and shopping centres",
             "description": "Reception and access control adapt to a business's visitor and supplier volume, not a residential building's rhythm: more traffic at peak times, parcel logging, and attending customers or staff."
           }
-        }
+        },
+        "heroTitle": "Concierge and access control for residential communities in Madrid"
       },
       "security": {
         "tag": "Service 02",
@@ -1695,7 +1952,8 @@
             "title": "Businesses and shopping centres",
             "description": "The security project is designed around a commercial premises or office's real access points (public entrances, loading area, storage), with cards or codes that can be limited to specific time slots."
           }
-        }
+        },
+        "heroTitle": "CCTV and access control for communities and buildings in Madrid"
       },
       "pools": {
         "tag": "Service 03",
@@ -1776,7 +2034,8 @@
             "title": "Businesses and shopping centres",
             "description": "A semi-public pool (hotel, development with a commercial area) has different regulations and swimming volume than a residential community's, and the maintenance plan is adjusted to that real use."
           }
-        }
+        },
+        "heroTitle": "Community pool maintenance in Madrid, with qualified lifeguards"
       },
       "cleaning": {
         "tag": "Service 04",
@@ -1857,7 +2116,8 @@
             "title": "Businesses and shopping centres",
             "description": "Cleaning for a business or shopping centre is scheduled outside opening hours when requested, and covers areas a residential community doesn't have: shop windows, loading areas or high-traffic common spaces."
           }
-        }
+        },
+        "heroTitle": "Community cleaning in Madrid: entrances, stairwells and garages"
       },
       "gardening": {
         "tag": "Service 05",
@@ -1938,7 +2198,8 @@
             "title": "Businesses and shopping centres",
             "description": "A shopping centre or business premises' green areas tend to be more publicly visible than a residential community's, so maintenance prioritises them looking good year-round, not just being tended to."
           }
-        }
+        },
+        "heroTitle": "Gardening and green areas for residential communities in Madrid"
       },
       "maintenance": {
         "tag": "Service 06",
@@ -2019,7 +2280,8 @@
             "title": "Businesses and shopping centres",
             "description": "Technical maintenance for a business or shopping centre is scheduled to minimise impact on activity (outside opening hours when possible), and covers installations a residential community doesn't have, like commercial climate control."
           }
-        }
+        },
+        "heroTitle": "Building maintenance in Madrid: plumbing, electrics and locksmithing"
       }
     },
     "detail": {

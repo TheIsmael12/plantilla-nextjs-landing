@@ -35,7 +35,12 @@ export default function ServiceDetailHero({ slug }: ServiceDetailHeroProps) {
           </Link>
 
           <p className="services__detail-hero-tag">{itemT('tag')}</p>
-          <h1 className="services__detail-hero-title">{itemT('title')}</h1>
+          {/*
+            El H1 dice qué, para quién y dónde («… para comunidades en Madrid»); `title` se queda corto
+            para eso y además es el nombre del servicio en las tarjetas y el menú, que no deben crecer.
+            Por eso el encabezado tiene su propia clave (`heroTitle`, sacada de `keyword-map.md`).
+          */}
+          <h1 className="services__detail-hero-title">{itemT('heroTitle')}</h1>
           <p className="services__text-muted services__detail-hero-description">{itemT('description')}</p>
 
           <div className="services__detail-hero-actions">

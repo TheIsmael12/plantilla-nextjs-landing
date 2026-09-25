@@ -254,14 +254,37 @@ async function buildCareersSitemapEntries(): Promise<MetadataRoute.Sitemap> {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
 
+  const [blogPostEntries, careersEntries] = await Promise.all([
+    buildBlogPostSitemapEntries(),
+    buildCareersSitemapEntries(),
+  ]);
+
+  /*
+   * El listado del blog solo entra en los idiomas que tienen algún artículo publicado.
+   *
+   * Sin artículos, `/blog` sale `noindex` (ver `blog/page.tsx`), y declarar en el sitemap una URL
+   * marcada `noindex` es justo el aviso «URL enviada marcada como noindex» de Search Console. El
+   * idioma de cada artículo se deduce de su URL, que es como la construye `buildBlogPostSitemapEntries`.
+   */
+  const localesWithPosts = new Set(
+    locales.filter((locale) =>
+      blogPostEntries.some((entry) =>
+        entry.url.startsWith(`${BASE_URL}${locale === DEFAULT_LOCALE ? "" : `/${locale}`}/blog/`),
+      ),
+    ),
+  );
+
   const staticEntries: MetadataRoute.Sitemap = SITEMAP_ROUTES.flatMap(
     ({ pathname, priority, changeFrequency }) => {
-      const languages = locales.reduce<Record<string, string>>((acc, locale) => {
+      const routeLocales: (typeof locales)[number][] =
+        pathname === "/blog" ? locales.filter((l) => localesWithPosts.has(l)) : [...locales];
+
+      const languages = routeLocales.reduce<Record<string, string>>((acc, locale) => {
         acc[locale] = `${BASE_URL}${localizedPathFor(pathname, locale)}`;
         return acc;
       }, {});
 
-      return locales.map((locale) => ({
+      return routeLocales.map((locale) => ({
         url: `${BASE_URL}${localizedPathFor(pathname, locale)}`,
         lastModified,
         changeFrequency,
@@ -271,18 +294,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             // Mismo `x-default` fijo (el locale por defecto) que usa
             // `generateMetadata.ts`, para que ambas fuentes de hreflang
             // coincidan y los buscadores no descarten el canonical.
-            "x-default": languages[DEFAULT_LOCALE],
+            "x-default": languages[DEFAULT_LOCALE] ?? Object.values(languages)[0],
             ...languages,
           },
         },
       }));
     },
   );
-
-  const [blogPostEntries, careersEntries] = await Promise.all([
-    buildBlogPostSitemapEntries(),
-    buildCareersSitemapEntries(),
-  ]);
 
   return [...staticEntries, ...blogPostEntries, ...careersEntries];
 }

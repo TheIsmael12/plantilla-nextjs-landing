@@ -342,7 +342,7 @@
     "hero": {
       "eyebrow": "Zona de cobertura",
       "cta": "Solicitar presupuesto",
-      "title": "Servicios para comunidades y edificios en {zone}"
+      "title": "Conserjería, limpieza, mantenimiento y piscinas para comunidades en {zone}"
     },
     "index": {
       "eyebrow": "Zonas de cobertura",
@@ -370,7 +370,7 @@
       "madrid": {
         "name": "Madrid",
         "areaLabel": "Madrid capital",
-        "heroSubtitle": "Conserjería 24 horas, seguridad y mantenimiento para comunidades, oficinas y centros comerciales en los 21 distritos de Madrid capital.",
+        "heroSubtitle": "Conserjería, limpieza, mantenimiento, piscinas y seguridad para comunidades, oficinas y centros comerciales en los 21 distritos de Madrid capital.",
         "context": "Madrid capital reúne 21 distritos muy distintos entre sí: desde el bloque residencial denso y de más de 60 años del Centro, Chamberí o Tetuán, hasta las torres de oficinas de la almendra central y los desarrollos más recientes de distritos como Vicálvaro o Villa de Vallecas. Esa diversidad obliga a que el mismo proveedor sepa atender un portal clásico con vecinos de toda la vida y una sede corporativa con control de accesos electrónico en el mismo barrio.",
         "faq": [
           {
@@ -384,6 +384,10 @@
           {
             "question": "¿Cómo organizáis el servicio en un edificio del centro sin plaza de carga ni acceso rodado?",
             "answer": "Con material y maquinaria dimensionados para entrar por el portal y horarios pactados con la comunidad para no chocar con el tránsito de vecinos. En los distritos del interior de la M-30 es lo habitual: se trabaja a primera hora y con carros de mano, no con furgón aparcado a pie de fachada."
+          },
+          {
+            "question": "¿Qué horarios de conserjería podéis cubrir en Madrid capital?",
+            "answer": "Desde media jornada o turno partido hasta cobertura completa de 6 a 24 horas, según lo que necesite cada comunidad o edificio. Las bajas y las vacaciones del conserje las cubrimos con otro profesional del mismo perfil, sin coste adicional y sin dejar el puesto vacío."
           }
         ],
         "serviceNotes": {
@@ -393,12 +397,35 @@
           "cleaning": "En los edificios de más de 60 años del Centro, Chamberí o Tetuán, portal, escaleras y ascensor reciben un tránsito diario muy superior al de un distrito periférico, así que la frecuencia de limpieza suele ajustarse al alza.",
           "gardening": "Los patios interiores y jardines comunitarios son habituales en los distritos con manzanas más grandes, como Chamartín o Salamanca, mientras que en el Centro histórico las zonas verdes propias de un edificio son la excepción.",
           "maintenance": "Coordinar fontanería, electricidad y cerrajería con un mismo proveedor evita que una comunidad del Centro con más de 60 años de antigüedad tenga que llamar a un técnico distinto para cada avería."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Arganzuela",
+          "Retiro",
+          "Salamanca",
+          "Chamartín",
+          "Tetuán",
+          "Chamberí",
+          "Fuencarral-El Pardo",
+          "Moncloa-Aravaca",
+          "Latina",
+          "Carabanchel",
+          "Usera",
+          "Puente de Vallecas",
+          "Moratalaz",
+          "Ciudad Lineal",
+          "Hortaleza",
+          "Villaverde",
+          "Villa de Vallecas",
+          "Vicálvaro",
+          "San Blas-Canillejas",
+          "Barajas"
+        ]
       },
       "pozuelo-de-alarcon": {
         "name": "Pozuelo de Alarcón",
         "areaLabel": "Corona noroeste",
-        "heroSubtitle": "Mantenimiento de piscinas y jardinería para las urbanizaciones de la Somosaguas y el resto de Pozuelo de Alarcón, a 14 km de Madrid.",
+        "heroSubtitle": "Conserjería, piscinas, jardinería y mantenimiento para las urbanizaciones de Somosaguas y el resto de Pozuelo de Alarcón, a 14 km de Madrid.",
         "context": "Pozuelo de Alarcón es, junto con Boadilla, el municipio con la renta media declarada más alta de la Comunidad de Madrid, con urbanizaciones como Somosaguas conviviendo con torres residenciales de bloque alto cerca de la Casa de Campo. Esa combinación hace que una misma cartera de comunidades pueda incluir tanto un chalet con piscina propia como una torre con conserjería y varias piscinas compartidas.",
         "faq": [
           {
@@ -412,6 +439,10 @@
           {
             "question": "¿Podéis llevar a la vez una urbanización de chalets y una torre residencial de bloque?",
             "answer": "Sí, y en Pozuelo conviven las dos cosas a poca distancia. Son planes distintos: la urbanización pide viales, jardín y control de accesos con varias entradas, y la torre pide portal, ascensores y garaje. El interlocutor es el mismo, la propuesta no."
+          },
+          {
+            "question": "¿Os encargáis de la piscina comunitaria en Pozuelo, también del socorrista?",
+            "answer": "Sí. Llevamos el mantenimiento químico y la limpieza del vaso durante toda la temporada, y la apertura y el cierre. Si la normativa de la Comunidad de Madrid exige socorrista por la superficie o el aforo de la piscina, lo aportamos con el título en vigor; lo comprobamos antes de presupuestar y te decimos por escrito si os obliga o no."
           }
         ],
         "serviceNotes": {
@@ -421,12 +452,21 @@
           "cleaning": "En las torres residenciales de bloque alto, la limpieza cubre varios portales y ascensores bajo una misma comunidad, mientras que en las urbanizaciones de chalet se centra en accesos y zonas comunes compartidas.",
           "gardening": "El jardín propio de cada parcela es habitual en Somosaguas, mientras que en las torres de bloque alto las zonas verdes se gestionan como zona común compartida entre varios portales.",
           "maintenance": "Entre las parcelas de Somosaguas y las torres residenciales de bloque alto, el mantenimiento técnico en Pozuelo cubre desde instalaciones individuales de chalet hasta zonas comunes de comunidades de varios portales."
-        }
+        },
+        "neighborhoods": [
+          "Pozuelo Pueblo",
+          "Pozuelo Estación",
+          "Somosaguas",
+          "Húmera",
+          "La Cabaña",
+          "Monteclaro",
+          "Avenida de Europa"
+        ]
       },
       "alcorcon": {
         "name": "Alcorcón",
         "areaLabel": "Corona sur",
-        "heroSubtitle": "Mantenimiento técnico y limpieza para las comunidades de Alcorcón, municipio industrial reconvertido a 14 km de Madrid.",
+        "heroSubtitle": "Conserjería, limpieza y mantenimiento técnico para las comunidades de Alcorcón, municipio industrial reconvertido a 14 km de Madrid.",
         "context": "Alcorcón creció con fuerza entre los años 60 y 90 al calor de su polígono industrial, uno de los más antiguos del sur de Madrid, lo que dejó un parque de bloques de comunidad de tamaño medio y grande con varias décadas de uso a sus espaldas. En ese tipo de edificio, las instalaciones (fontanería, electricidad, portero automático) empiezan a necesitar renovaciones que un edificio de construcción más reciente todavía no requiere.",
         "faq": [
           {
@@ -440,6 +480,10 @@
           {
             "question": "¿Qué revisáis primero en un bloque de los años 70 u 80 de Alcorcón?",
             "answer": "Bajantes, cubierta y cuadro eléctrico. En los bloques que crecieron con el polígono, esas tres partidas son las que llevan más años sin tocarse y las que más avisos generan después. La primera visita preventiva se centra ahí antes de proponer nada más."
+          },
+          {
+            "question": "¿Cómo se organiza la conserjería en una comunidad de Alcorcón?",
+            "answer": "El turno se ajusta a la comunidad, desde media jornada hasta cobertura de 6 a 24 horas. Lo que el conserje no puede resolver en el momento queda en un parte diario que llega a la administración de fincas ese mismo día, y las bajas y vacaciones se cubren con otro profesional del mismo perfil."
           }
         ],
         "serviceNotes": {
@@ -449,12 +493,21 @@
           "cleaning": "Alcorcón tiene un buen número de bloques de tamaño medio y grande con varias décadas de uso diario a sus espaldas. En zonas comunes con ese desgaste ajustamos la frecuencia de limpieza al tránsito real de cada portal, en vez de aplicar la misma pauta a todo el edificio.",
           "gardening": "En los bloques construidos durante el crecimiento industrial del municipio, las zonas ajardinadas suelen ser más reducidas que en una urbanización, pero igualmente necesitan mantenimiento periódico.",
           "maintenance": "Las instalaciones de fontanería, electricidad y portero automático de los edificios de los años 60 a 90 empiezan a necesitar renovaciones periódicas. En Alcorcón, donde el parque creció al calor del polígono, el mantenimiento suele plantearse como un plan por fases más que como averías sueltas."
-        }
+        },
+        "neighborhoods": [
+          "Casco Antiguo",
+          "San José de Valderas",
+          "Parque Lisboa",
+          "Parque Oeste",
+          "Campodón",
+          "Las Retamas",
+          "Ensanche Sur"
+        ]
       },
       "majadahonda": {
         "name": "Majadahonda",
         "areaLabel": "Corona noroeste",
-        "heroSubtitle": "Seguridad y control de accesos para las urbanizaciones cerradas de Majadahonda, a 17 km al noroeste de Madrid.",
+        "heroSubtitle": "Seguridad, conserjería, piscinas y jardinería para las urbanizaciones cerradas y el centro de Majadahonda, a 17 km al noroeste de Madrid.",
         "context": "Majadahonda tiene una de las proporciones de vivienda unifamiliar más altas del noroeste de Madrid, con urbanizaciones cerradas que rodean un centro urbano de calles comerciales muy transitadas los fines de semana. Al tratarse mayoritariamente de urbanizaciones con varios accesos y viales internos, el control de quién entra y sale pesa más en la demanda de servicios que en un municipio de bloque urbano convencional.",
         "faq": [
           {
@@ -468,6 +521,10 @@
           {
             "question": "¿Cómo se cubre una urbanización cerrada con varias entradas y viales propios?",
             "answer": "Con control de accesos en cada entrada y una ronda del conserje por los viales, en lugar de un puesto fijo en una única puerta. En Majadahonda la mayoría de las urbanizaciones tienen más de un acceso, y cubrir solo el principal deja el resto sin control."
+          },
+          {
+            "question": "¿Podéis llevar también la piscina y los jardines de la urbanización?",
+            "answer": "Sí. El mantenimiento químico y la limpieza de la piscina durante la temporada, su apertura y cierre, y la jardinería de las zonas comunes se contratan juntos o por separado, con un solo interlocutor para toda la urbanización."
           }
         ],
         "serviceNotes": {
@@ -477,12 +534,19 @@
           "cleaning": "Además de las zonas comunes de los bloques de comunidad, en las urbanizaciones cerradas con varios viales internos la limpieza suele extenderse a accesos peatonales y de vehículos compartidos.",
           "gardening": "Las urbanizaciones cerradas de Majadahonda tienen zonas ajardinadas y viales verdes propios. Los mantenemos con visitas programadas, y podemos llevar en el mismo plan la piscina comunitaria.",
           "maintenance": "Al no depender de un portal ni un ascensor como en un bloque urbano, en Majadahonda el mantenimiento técnico se centra en el vallado perimetral, los viales internos y las instalaciones de la propia urbanización."
-        }
+        },
+        "neighborhoods": [
+          "Casco urbano",
+          "Roza Martín",
+          "Los Satélites",
+          "El Plantío",
+          "Valle de la Oliva"
+        ]
       },
       "las-rozas": {
         "name": "Las Rozas de Madrid",
         "areaLabel": "Corona noroeste",
-        "heroSubtitle": "Videovigilancia y seguridad para las urbanizaciones y el entorno comercial y tecnológico de Las Rozas, a 20 km de Madrid.",
+        "heroSubtitle": "Videovigilancia, conserjería, piscinas y mantenimiento para las urbanizaciones y el entorno comercial de Las Rozas, a 20 km de Madrid.",
         "context": "Las Rozas combina grandes urbanizaciones residenciales con un entorno comercial y de oficinas relevante, con centros de gran superficie y parques empresariales que atraen tránsito de fuera del municipio los fines de semana y en horario laboral. Esa afluencia externa hace que la videovigilancia y el control de accesos tengan un peso distinto al de un municipio puramente residencial, tanto en las urbanizaciones como en las zonas próximas a los espacios comerciales.",
         "faq": [
           {
@@ -496,6 +560,10 @@
           {
             "question": "¿Dais servicio también a parques empresariales y locales comerciales, no solo a comunidades?",
             "answer": "Sí. En Las Rozas trabajamos tanto la comunidad residencial como oficinas y locales, con la diferencia de que en el entorno comercial el refuerzo de limpieza y de conserjería se concentra en fin de semana, que es cuando entra el tránsito de fuera del municipio."
+          },
+          {
+            "question": "¿Os encargáis de la piscina comunitaria en Las Rozas y Las Matas, también del socorrista?",
+            "answer": "Sí. Llevamos el mantenimiento químico y la limpieza del vaso durante toda la temporada, y la apertura y el cierre. Si la normativa de la Comunidad de Madrid exige socorrista por la superficie o el aforo de la piscina, lo aportamos con el título en vigor; lo comprobamos antes de presupuestar y te decimos por escrito si os obliga o no."
           }
         ],
         "serviceNotes": {
@@ -505,12 +573,21 @@
           "cleaning": "En las comunidades de bloque cercanas al entorno comercial y de oficinas del municipio, la limpieza de zonas comunes se pide con una frecuencia similar a la de cualquier comunidad urbana consolidada.",
           "gardening": "Las urbanizaciones más extensas de Las Rozas tienen bastante más superficie ajardinada compartida que una comunidad cercana al entorno comercial, así que el plan de jardinería y la frecuencia de las visitas se plantean por separado en cada caso.",
           "maintenance": "Entre las urbanizaciones extensas y las comunidades de bloque cerca del entorno comercial y de oficinas, el mantenimiento técnico en Las Rozas cubre perfiles muy distintos dentro del mismo municipio."
-        }
+        },
+        "neighborhoods": [
+          "Las Rozas centro",
+          "Las Matas",
+          "El Pinar",
+          "Molino de la Hoz",
+          "Monte Rozas",
+          "Európolis",
+          "La Marazuela"
+        ]
       },
       "boadilla-del-monte": {
         "name": "Boadilla del Monte",
         "areaLabel": "Corona noroeste",
-        "heroSubtitle": "Piscinas y jardinería para las comunidades de chalets adosados de Boadilla del Monte, a 19 km al oeste de Madrid.",
+        "heroSubtitle": "Piscinas, jardinería, limpieza y mantenimiento para las comunidades de chalets adosados de Boadilla del Monte, a 19 km al oeste de Madrid.",
         "context": "Boadilla del Monte, uno de los municipios con la renta media más alta de la región, tiene un urbanismo dominado casi por completo por urbanizaciones de baja densidad y chalets adosados agrupados en pequeñas comunidades, con muy poco peso del bloque de vivienda vertical típico de otros municipios de la corona. Esas comunidades pequeñas suelen compartir zonas comunes ajardinadas y piscina desde el momento en que se constituyen.",
         "faq": [
           {
@@ -524,6 +601,10 @@
           {
             "question": "¿Merece la pena contratar servicios si la comunidad es de solo diez o doce chalets?",
             "answer": "Sí, y en Boadilla es el tamaño más frecuente. Para comunidades pequeñas ajustamos la frecuencia en lugar de poner personal fijo: jardinería quincenal, limpieza semanal de zonas comunes y mantenimiento preventivo mensual salen a un coste asumible por vivienda."
+          },
+          {
+            "question": "¿Qué incluye la apertura y el cierre de la piscina de la comunidad?",
+            "answer": "Antes de abrir revisamos bombas, filtros y el sistema de dosificación, y limpiamos a fondo tras el invierno. Al cerrar, cubrimos el vaso y protegemos la maquinaria de la humedad y el frío. Las fechas se ajustan al calendario que decida la comunidad."
           }
         ],
         "serviceNotes": {
@@ -533,12 +614,20 @@
           "cleaning": "En las urbanizaciones de baja densidad de Boadilla, la limpieza de zonas comunes se centra menos en portales y más en accesos compartidos, piscina y zonas de uso colectivo de comunidades pequeñas.",
           "gardening": "En las comunidades de chalets adosados de Boadilla las zonas comunes ajardinadas son la norma, no la excepción. Las mantenemos con la frecuencia que pida cada jardín, y podemos llevar también la piscina.",
           "maintenance": "Con varios chalets adosados compartiendo la misma instalación de piscina o el mismo acceso en comunidades pequeñas, en Boadilla una sola avería técnica puede afectar a toda la comunidad en lugar de a una vivienda aislada."
-        }
+        },
+        "neighborhoods": [
+          "Casco histórico",
+          "Las Lomas",
+          "Valdecabañas",
+          "Monte Príncipe",
+          "Parque Boadilla",
+          "Olivar de Mirabal"
+        ]
       },
       "alcobendas": {
         "name": "Alcobendas",
         "areaLabel": "Corona norte",
-        "heroSubtitle": "Conserjería y seguridad para las sedes de empresa del parque empresarial de la Chaparral y las comunidades de Alcobendas, a 15 km de Madrid.",
+        "heroSubtitle": "Conserjería, seguridad, limpieza y mantenimiento para las comunidades y las sedes de empresa de Alcobendas, a 15 km al norte de Madrid.",
         "context": "Alcobendas alberga uno de los mayores parques empresariales de la Comunidad de Madrid, con sedes de grandes compañías junto a comunidades de vivienda en bloque de tamaño medio-alto. Esa mezcla convierte a Alcobendas en uno de los pocos municipios de la corona donde la conserjería y la seguridad para sedes corporativas generan tanta demanda como los servicios para comunidades de vecinos.",
         "faq": [
           {
@@ -552,6 +641,10 @@
           {
             "question": "¿Podéis mantener a la vez la sede de una empresa y las comunidades de vivienda de al lado?",
             "answer": "Sí. Alcobendas tiene uno de los mayores parques empresariales de la región pegado a barrios de bloque, y llevar los dos en la misma ruta abarata los desplazamientos. Los contratos van separados, con horarios y niveles de servicio distintos."
+          },
+          {
+            "question": "¿Cubrís las bajas y vacaciones del conserje en Alcobendas?",
+            "answer": "Sí, con otro profesional del mismo perfil, sin coste adicional y sin que el puesto quede vacío. Vale igual para una comunidad de vecinos que para la recepción de una sede de empresa."
           }
         ],
         "serviceNotes": {
@@ -561,12 +654,20 @@
           "cleaning": "Tanto las sedes corporativas del parque empresarial como las comunidades de vecinos de tamaño medio-alto de Alcobendas piden limpieza con continuidad, aunque con necesidades distintas según sea oficina o zona común residencial.",
           "gardening": "El mantenimiento de zonas ajardinadas en Alcobendas se reparte entre las comunidades de vivienda en bloque y los espacios exteriores de las sedes empresariales del municipio.",
           "maintenance": "El mantenimiento técnico en Alcobendas cubre tanto instalaciones de oficina, por el peso de su parque empresarial, como avisos de comunidades de vecinos de tamaño medio-alto."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Fuentelucha",
+          "Valdelasfuentes",
+          "Arroyo de la Vega",
+          "La Moraleja",
+          "El Soto de La Moraleja"
+        ]
       },
       "san-sebastian-de-los-reyes": {
         "name": "San Sebastián de los Reyes",
         "areaLabel": "Corona norte",
-        "heroSubtitle": "Jardinería y mantenimiento de zonas comunes para las promociones nuevas de San Sebastián de los Reyes, a 20 km al norte de Madrid.",
+        "heroSubtitle": "Jardinería, piscinas, limpieza y conserjería para las promociones nuevas y el casco de San Sebastián de los Reyes, a 20 km al norte de Madrid.",
         "context": "San Sebastián de los Reyes ha vivido una expansión urbanística intensa en las últimas dos décadas, con nuevos barrios residenciales que han más que duplicado su población desde los años 90, junto a un núcleo urbano más consolidado con bloques de comunidad tradicionales. Las promociones de esa expansión reciente suelen incluir zonas ajardinadas y piscina desde el primer año, mientras que el centro histórico conserva un parque de vivienda de otra época.",
         "faq": [
           {
@@ -580,6 +681,10 @@
           {
             "question": "¿Cambia el mantenimiento entre los barrios nuevos y el casco de San Sebastián de los Reyes?",
             "answer": "Bastante. En las promociones de las dos últimas décadas el trabajo va a garajes, zonas comunes amplias y sistemas de riego; en el núcleo consolidado va a bajantes, portales y carpintería. Lo valoramos en la visita, no aplicamos el mismo plan a los dos."
+          },
+          {
+            "question": "¿Os encargáis de la piscina comunitaria en San Sebastián de los Reyes, también del socorrista?",
+            "answer": "Sí. Llevamos el mantenimiento químico y la limpieza del vaso durante toda la temporada, y la apertura y el cierre. Si la normativa de la Comunidad de Madrid exige socorrista por la superficie o el aforo de la piscina, lo aportamos con el título en vigor; lo comprobamos antes de presupuestar y te decimos por escrito si os obliga o no."
           }
         ],
         "serviceNotes": {
@@ -589,12 +694,20 @@
           "cleaning": "La limpieza de zonas comunes en San Sebastián de los Reyes se reparte entre el núcleo urbano tradicional y los nuevos barrios residenciales que han más que duplicado la población del municipio desde los años 90.",
           "gardening": "Con una expansión urbanística que ha más que duplicado la población desde los años 90, las promociones nuevas de San Sebastián de los Reyes suelen incluir zonas ajardinadas desde el primer año, más que en el núcleo histórico.",
           "maintenance": "El mantenimiento de zonas comunes cubre tanto las promociones de la expansión más reciente como los bloques de comunidad tradicionales del núcleo urbano consolidado de San Sebastián de los Reyes."
-        }
+        },
+        "neighborhoods": [
+          "Casco urbano",
+          "Dehesa Vieja",
+          "Tempranales",
+          "Moscatelares",
+          "Club de Campo",
+          "Fuente del Fresno"
+        ]
       },
       "tres-cantos": {
         "name": "Tres Cantos",
         "areaLabel": "Corona norte",
-        "heroSubtitle": "Jardinería y mantenimiento de zonas verdes en Tres Cantos, municipio planificado de baja densidad a 24 km al norte de Madrid.",
+        "heroSubtitle": "Jardinería, conserjería, limpieza y mantenimiento para las comunidades de Tres Cantos, municipio planificado de baja densidad a 24 km de Madrid.",
         "context": "Tres Cantos nació en los años 70 como municipio planificado desde cero, con una trama urbana de baja densidad, mucho espacio abierto entre bloques y un entorno natural protegido en buena parte de su término. Con tanta superficie verde compartida por diseño, el mantenimiento de jardines suele pesar más en el presupuesto de una comunidad de Tres Cantos que en uno de bloque urbano convencional de otros municipios de la corona.",
         "faq": [
           {
@@ -608,6 +721,10 @@
           {
             "question": "¿Cómo se mantiene tanta zona verde entre bloques sin disparar el coste?",
             "answer": "Agrupando la siega y la poda en visitas más largas y menos frecuentes, y revisando el riego antes del verano para que no se pierda agua. Tres Cantos se planificó con mucho espacio abierto entre edificios, y ahí la jardinería pesa más que en un bloque entre medianeras."
+          },
+          {
+            "question": "¿Cómo se avisa de una avería en una comunidad de Tres Cantos?",
+            "answer": "Por teléfono, por email o a través del conserje si también lo tenéis contratado, y el técnico revisa el aviso en el plazo acordado. Para lo que no puede esperar al día siguiente hay un teléfono de urgencias 24 horas."
           }
         ],
         "serviceNotes": {
@@ -617,12 +734,21 @@
           "cleaning": "La limpieza de zonas comunes en Tres Cantos convive con el mantenimiento de las abundantes zonas verdes del municipio, que muchas comunidades gestionan como un único servicio coordinado.",
           "gardening": "Con tanta superficie verde compartida por el diseño urbano original del municipio, el mantenimiento de jardines pesa más en el presupuesto de una comunidad de Tres Cantos que en uno de bloque urbano convencional.",
           "maintenance": "El mantenimiento técnico en Tres Cantos convive con el cuidado de las zonas ajardinadas comunitarias, que en este municipio planificado desde los años 70 ocupan más superficie que en la media de la corona norte."
-        }
+        },
+        "neighborhoods": [
+          "Nuevo Tres Cantos",
+          "Soto de Viñuelas",
+          "Foresta",
+          "Descubridores",
+          "Embarcaciones",
+          "Pintores",
+          "Músicos"
+        ]
       },
       "getafe": {
         "name": "Getafe",
         "areaLabel": "Corona sur",
-        "heroSubtitle": "Seguridad y control de accesos para naves y comunidades de Getafe, municipio industrial y universitario a 14 km al sur de Madrid.",
+        "heroSubtitle": "Conserjería, limpieza, mantenimiento y control de accesos para comunidades y naves de Getafe, municipio industrial y universitario a 14 km al sur de Madrid.",
         "context": "Getafe combina un extenso parque de bloques de comunidad con un peso industrial y aeronáutico histórico y un campus universitario propio. Eso hace que aquí trabajemos tanto en comunidades de propietarios como en el control de accesos de naves e instalaciones, y en la videovigilancia de comunidades cercanas a las zonas de tránsito universitario.",
         "faq": [
           {
@@ -636,6 +762,10 @@
           {
             "question": "¿El control de accesos de una nave se lleva igual que el de una comunidad?",
             "answer": "No. En una nave o instalación hay entrada de vehículos, horarios de carga y personal externo rotando, así que el control se organiza por franjas y por tipo de acceso. En Getafe damos los dos servicios, pero con proyectos distintos."
+          },
+          {
+            "question": "¿Además de conserjería, lleváis la limpieza y el mantenimiento de la comunidad en Getafe?",
+            "answer": "Sí. Cada servicio se contrata por separado o junto con los demás: limpieza de portal, escaleras y garaje con la frecuencia que necesite la comunidad, y mantenimiento de fontanería, electricidad y cerrajería con equipo técnico propio y teléfono de urgencias 24 horas."
           }
         ],
         "serviceNotes": {
@@ -645,12 +775,24 @@
           "cleaning": "La limpieza de zonas comunes en Getafe se pide con continuidad en el amplio parque de bloques de comunidad del municipio, muchos de ellos de tamaño grande.",
           "gardening": "Las zonas ajardinadas de las comunidades de Getafe cambian mucho entre el bloque tradicional y los conjuntos residenciales más recientes; ajustamos la frecuencia de las visitas a lo que tenga cada una.",
           "maintenance": "En bloques grandes como los que predominan en Getafe, coordinar la conserjería y el mantenimiento técnico con un mismo proveedor evita que cada avería pase por un contacto distinto."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Getafe Norte",
+          "El Bercial",
+          "Sector III",
+          "Juan de la Cierva",
+          "Perales del Río",
+          "Los Molinos",
+          "Buenavista",
+          "Las Margaritas",
+          "La Alhóndiga"
+        ]
       },
       "leganes": {
         "name": "Leganés",
         "areaLabel": "Corona sur",
-        "heroSubtitle": "Limpieza y mantenimiento para las comunidades de Leganés, uno de los municipios con más densidad de vivienda de la región y sede universitaria, a 13 km de Madrid.",
+        "heroSubtitle": "Limpieza, conserjería y mantenimiento para las comunidades de Leganés, uno de los municipios con más densidad de vivienda de la región, a 13 km de Madrid.",
         "context": "Leganés es uno de los municipios con mayor densidad de comunidades de propietarios de la Comunidad de Madrid, con edificios de muy distintas décadas de construcción conviviendo en el mismo barrio, desde el casco antiguo hasta zonas junto al campus universitario de la Carlos III. Esa densidad y variedad de antigüedades hace que la limpieza de zonas comunes y el mantenimiento de instalaciones tengan un volumen de solicitudes por metro cuadrado superior al de municipios de la corona con más superficie por comunidad.",
         "faq": [
           {
@@ -664,6 +806,10 @@
           {
             "question": "¿Podéis llevar edificios de décadas muy distintas dentro del mismo barrio?",
             "answer": "Sí, y en Leganés es lo normal: casco antiguo y promociones recientes en la misma calle. Cada finca lleva su propio plan de mantenimiento según la edad de sus instalaciones, aunque el equipo que las atiende y el interlocutor sean los mismos."
+          },
+          {
+            "question": "¿Qué horarios de conserjería podéis cubrir en Leganés?",
+            "answer": "Desde media jornada o turno partido hasta cobertura completa de 6 a 24 horas, según lo que necesite cada comunidad o edificio. Las bajas y las vacaciones del conserje las cubrimos con otro profesional del mismo perfil, sin coste adicional y sin dejar el puesto vacío."
           }
         ],
         "serviceNotes": {
@@ -673,12 +819,22 @@
           "cleaning": "Leganés es uno de los municipios con más densidad de comunidades de propietarios de la región. Esa densidad permite agrupar rutas de limpieza entre fincas cercanas, lo que se nota sobre todo al cubrir una baja sin avisar con días de antelación.",
           "gardening": "El mantenimiento de jardinería en Leganés varía mucho según la década de construcción del edificio: los conjuntos más recientes cerca del campus universitario suelen tener más superficie ajardinada que los del casco urbano tradicional.",
           "maintenance": "En Leganés conviven edificios de décadas muy distintas en la misma calle, así que el mantenimiento de fontanería y electricidad se plantea finca a finca según la edad de sus instalaciones, aunque el equipo y el interlocutor sean los mismos."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Zarzaquemada",
+          "San Nicasio",
+          "El Carrascal",
+          "La Fortuna",
+          "Leganés Norte",
+          "Arroyo Culebro",
+          "Solagua"
+        ]
       },
       "fuenlabrada": {
         "name": "Fuenlabrada",
         "areaLabel": "Corona sur",
-        "heroSubtitle": "Mantenimiento técnico continuo para las comunidades de Fuenlabrada, uno de los municipios de mayor crecimiento poblacional del sur de Madrid, a 22 km de la capital.",
+        "heroSubtitle": "Conserjería, mantenimiento técnico y limpieza para las comunidades de Fuenlabrada, uno de los grandes municipios del sur de Madrid, a 22 km de la capital.",
         "context": "Fuenlabrada multiplicó su población varias veces entre los años 70 y 90, pasando de pueblo agrícola a uno de los municipios más poblados de la corona sur en apenas dos décadas, lo que dejó un parque residencial dominado por bloques de vivienda de tamaño medio y grande construidos en ese periodo de expansión acelerada. Ese crecimiento concentrado en pocas décadas hace que buena parte de las instalaciones de sus comunidades tengan una antigüedad similar y necesiten renovaciones en paralelo.",
         "faq": [
           {
@@ -692,6 +848,10 @@
           {
             "question": "¿Qué es un plan de renovación por fases y por qué encaja en Fuenlabrada?",
             "answer": "Es repartir por años las partidas grandes —portales, bajantes, alumbrado, cubierta— en vez de afrontarlas de golpe. Encaja aquí porque buena parte del municipio se construyó en pocas décadas y muchas instalaciones llegan a la misma edad a la vez."
+          },
+          {
+            "question": "¿Qué horarios de conserjería podéis cubrir en Fuenlabrada?",
+            "answer": "Desde media jornada o turno partido hasta cobertura completa de 6 a 24 horas, según lo que necesite cada comunidad o edificio. Las bajas y las vacaciones del conserje las cubrimos con otro profesional del mismo perfil, sin coste adicional y sin dejar el puesto vacío."
           }
         ],
         "serviceNotes": {
@@ -701,12 +861,21 @@
           "cleaning": "Buena parte de Fuenlabrada se construyó en pocas décadas, así que muchas comunidades tienen instalaciones de antigüedad parecida. Ajustamos la frecuencia de la limpieza de zonas comunes a lo que necesite cada finca, y la combinamos con el mantenimiento técnico cuando interesa.",
           "gardening": "El mantenimiento de zonas ajardinadas en Fuenlabrada se reparte de forma desigual entre los distintos bloques del municipio, según la superficie verde de cada comunidad construida durante la expansión de los años 70 a 90.",
           "maintenance": "Al haberse construido gran parte de Fuenlabrada en pocas décadas, muchas instalaciones llegan a la misma edad a la vez y necesitan renovaciones en paralelo. Por eso aquí el mantenimiento técnico continuo suele ir de la mano de un plan de renovación por fases."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "El Naranjo",
+          "Loranca",
+          "El Vivero",
+          "Belén",
+          "La Avanzada",
+          "Parque Miraflores"
+        ]
       },
       "mostoles": {
         "name": "Móstoles",
         "areaLabel": "Corona sur",
-        "heroSubtitle": "Conserjería y limpieza de comunidades en Móstoles, el municipio más poblado de la Comunidad de Madrid tras la capital, a 18 km al suroeste.",
+        "heroSubtitle": "Conserjería, limpieza y mantenimiento de comunidades en Móstoles, el municipio más poblado de la Comunidad de Madrid tras la capital, a 18 km al suroeste.",
         "context": "Móstoles es el municipio más poblado de la región después de Madrid capital, con un parque de comunidades de propietarios muy amplio y una segunda universidad pública del sur metropolitano, la Rey Juan Carlos, entre sus equipamientos. Ese volumen de población concentrada en un territorio relativamente compacto hace que la conserjería y la limpieza de zonas comunes se pidan con una constancia que pocos municipios de la corona sur igualan.",
         "faq": [
           {
@@ -720,6 +889,10 @@
           {
             "question": "¿Se puede unificar la limpieza y la conserjería de varias comunidades del mismo barrio?",
             "answer": "Sí, y en Móstoles sale a cuenta por la densidad de comunidades. Cada finca mantiene su contrato y su factura, pero al estar cerca se comparten rutas y refuerzos, lo que se nota sobre todo en las sustituciones de última hora."
+          },
+          {
+            "question": "¿Atendéis averías urgentes en las comunidades de Móstoles?",
+            "answer": "Sí, a través del teléfono de urgencias 24 horas para lo que no puede esperar al día siguiente. Un problema de cerrajería en un acceso común, por ejemplo, se trata siempre como urgente porque compromete la seguridad del edificio."
           }
         ],
         "serviceNotes": {
@@ -729,12 +902,21 @@
           "cleaning": "El volumen de vivienda en bloque de Móstoles hace que la limpieza de zonas comunes se organice por frecuencias: diaria en los portales con más tránsito, y semanal o quincenal en garajes y zonas de menos uso.",
           "gardening": "Las zonas verdes compartidas de Móstoles cambian mucho de una comunidad a otra; programamos las visitas de jardinería según lo que tenga cada conjunto residencial.",
           "maintenance": "El mantenimiento técnico en Móstoles convive con la alta demanda de conserjería y limpieza propia del segundo municipio más poblado de la Comunidad de Madrid."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "El Soto",
+          "Estoril",
+          "Villafontana",
+          "Pradillo",
+          "Parque Coimbra",
+          "PAU 4"
+        ]
       },
       "torrejon-de-ardoz": {
         "name": "Torrejón de Ardoz",
         "areaLabel": "Corona este",
-        "heroSubtitle": "Seguridad y control de accesos para comunidades y polígonos junto a la base aérea y el entorno logístico de Torrejón de Ardoz, a 21 km de Madrid.",
+        "heroSubtitle": "Seguridad, conserjería, limpieza y mantenimiento para comunidades y polígonos de Torrejón de Ardoz, a 21 km al este de Madrid.",
         "context": "Torrejón de Ardoz combina comunidades de vivienda en bloque con un entorno industrial y logístico relevante, además de una histórica base aérea que ha marcado la vida del municipio durante décadas. Esa combinación de vivienda residencial y actividad logística e industrial hace que la seguridad y el control de accesos tengan aquí un peso mayor que en un municipio puramente residencial de tamaño similar.",
         "faq": [
           {
@@ -748,6 +930,10 @@
           {
             "question": "¿Trabajáis en naves y edificios logísticos además de en comunidades?",
             "answer": "Sí. Torrejón combina vivienda en bloque con un tejido industrial y logístico importante, y damos limpieza, mantenimiento y control de accesos en los dos entornos. Lo que cambia son los horarios: en logística, el servicio suele ir fuera de la franja de operación."
+          },
+          {
+            "question": "¿Qué horarios de conserjería podéis cubrir en Torrejón de Ardoz?",
+            "answer": "Desde media jornada o turno partido hasta cobertura completa de 6 a 24 horas, según lo que necesite cada comunidad o edificio. Las bajas y las vacaciones del conserje las cubrimos con otro profesional del mismo perfil, sin coste adicional y sin dejar el puesto vacío."
           }
         ],
         "serviceNotes": {
@@ -757,12 +943,20 @@
           "cleaning": "La limpieza de zonas comunes en Torrejón de Ardoz se pide con continuidad en un municipio que combina vivienda en bloque con actividad industrial y logística relevante.",
           "gardening": "El mantenimiento de zonas ajardinadas en Torrejón de Ardoz se limita sobre todo a las comunidades residenciales, con menos peso en el entorno industrial y logístico del municipio.",
           "maintenance": "El mantenimiento técnico de zonas comunes en Torrejón de Ardoz convive con un entorno industrial y logístico relevante, reforzado históricamente por la presencia de la base aérea del municipio."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Soto Henares",
+          "Parque Cataluña",
+          "Fresnos",
+          "Veredillas",
+          "Juncal"
+        ]
       },
       "coslada": {
         "name": "Coslada",
         "areaLabel": "Corona este",
-        "heroSubtitle": "Seguridad y control de accesos para los polígonos industriales y comunidades de Coslada, nudo logístico ferroviario a 14 km de Madrid.",
+        "heroSubtitle": "Seguridad, conserjería y mantenimiento para las comunidades y los polígonos de Coslada, nudo logístico ferroviario a 14 km de Madrid.",
         "context": "Coslada alberga uno de los nudos logísticos ferroviarios y de mercancías más importantes del sur de Europa, con extensos polígonos industriales conviviendo con un parque residencial de bloques de vivienda de tamaño medio y buena conexión con Madrid capital. Esa concentración de actividad logística junto a zonas residenciales hace que la seguridad y el control de accesos tengan aquí un peso distinto al de un municipio puramente residencial de la corona este.",
         "faq": [
           {
@@ -776,6 +970,10 @@
           {
             "question": "¿Cómo afecta el tránsito de los polígonos a las comunidades de Coslada?",
             "answer": "Sobre todo al control de accesos y a la limpieza de exteriores, por el tránsito de paso y el polvo. En las comunidades cercanas al nudo logístico reforzamos la limpieza de portales y accesos y revisamos que los cierres de garaje aguanten el uso."
+          },
+          {
+            "question": "¿El mantenimiento técnico de las comunidades de Coslada lo hace equipo propio?",
+            "answer": "Sí, el del día a día (fontanería, electricidad, cerrajería y pequeñas obras) lo lleva nuestro propio equipo técnico. Los materiales y las piezas se presupuestan antes de intervenir, y para trabajos que exigen una habilitación específica, como gas o alta tensión, trabajamos con especialistas acreditados."
           }
         ],
         "serviceNotes": {
@@ -785,12 +983,20 @@
           "cleaning": "La limpieza de zonas comunes en Coslada se pide con continuidad en los bloques de tamaño medio del municipio, con buena conexión con Madrid capital.",
           "gardening": "El mantenimiento de zonas ajardinadas en Coslada es más habitual en las comunidades de mayor tamaño, con zonas verdes compartidas propias del bloque, alejadas de los polígonos industriales del municipio.",
           "maintenance": "El mantenimiento técnico en Coslada se coordina con la conserjería en los bloques de tamaño intermedio del municipio, donde ambos servicios suelen contratarse juntos."
-        }
+        },
+        "neighborhoods": [
+          "Centro",
+          "Barrio del Puerto",
+          "Valleaguado",
+          "La Espinilla",
+          "Ciudad 70",
+          "El Esparragal"
+        ]
       },
       "rivas-vaciamadrid": {
         "name": "Rivas-Vaciamadrid",
         "areaLabel": "Corona este",
-        "heroSubtitle": "Mantenimiento de piscinas y jardinería para las promociones de reciente construcción de Rivas-Vaciamadrid, a 18 km al sureste de Madrid.",
+        "heroSubtitle": "Piscinas, jardinería, limpieza y mantenimiento para las promociones de Rivas-Vaciamadrid, a 18 km al sureste de Madrid.",
         "context": "Rivas-Vaciamadrid es, de los 20 municipios de esta cobertura, el de crecimiento urbanístico más reciente: prácticamente todo su parque residencial se ha construido desde los años 90, con promociones planificadas que incluyen zonas ajardinadas y piscina comunitaria desde el primer día. Al no arrastrar un casco histórico con edificios de otra época, el perfil de mantenimiento es más homogéneo que en la mayoría de municipios de la corona este.",
         "faq": [
           {
@@ -804,6 +1010,10 @@
           {
             "question": "¿Qué hay que vigilar en promociones construidas desde los noventa?",
             "answer": "El riego, las bombas de garaje y las zonas comunes exteriores, que en Rivas son amplias y forman parte de casi todas las promociones. Son instalaciones que aún no dan problemas de edad, pero que se degradan rápido si nadie las revisa cada temporada."
+          },
+          {
+            "question": "¿Cómo se controla el agua de la piscina de una comunidad en Rivas?",
+            "answer": "Se mide a diario. El Real Decreto 742/2013 admite un pH de 7,2 a 8,0 y un cloro libre residual de 0,5 a 2 mg/l; nosotros apuntamos a la parte baja de la horquilla de pH (7,2-7,6), que es donde el cloro rinde más, y ajustamos la dosis al uso que ha tenido la piscina ese día."
           }
         ],
         "serviceNotes": {
@@ -813,12 +1023,20 @@
           "cleaning": "La limpieza de zonas comunes en Rivas-Vaciamadrid se pide desde la constitución de la comunidad, dado que prácticamente todo el parque residencial del municipio es de construcción reciente.",
           "gardening": "En Rivas-Vaciamadrid apenas hay casco histórico: casi todas las comunidades incluyen jardín desde la propia construcción de la promoción. Mantenemos zonas verdes y sistemas de riego con visitas programadas.",
           "maintenance": "El mantenimiento técnico en Rivas-Vaciamadrid empieza a necesitarse desde la constitución de la comunidad, dado que las instalaciones de sus promociones, casi todas posteriores a los años 90, se estrenan junto al resto de servicios."
-        }
+        },
+        "neighborhoods": [
+          "Covibar",
+          "Rivas Centro",
+          "Rivas Oeste",
+          "Rivas Futura",
+          "Rivas Urbanizaciones",
+          "Casco Antiguo"
+        ]
       },
       "colmenar-viejo": {
         "name": "Colmenar Viejo",
         "areaLabel": "Corona norte",
-        "heroSubtitle": "Jardinería y mantenimiento para el casco histórico y las urbanizaciones periféricas de Colmenar Viejo, junto a la dehesa, a 29 km al norte de Madrid.",
+        "heroSubtitle": "Jardinería, limpieza y mantenimiento para el casco histórico y las urbanizaciones de Colmenar Viejo, a 29 km al norte de Madrid.",
         "context": "Colmenar Viejo conserva un casco histórico de tradición ganadera rodeado de dehesa y monte, con calles de edificios de escalera de baja altura, junto a urbanizaciones de crecimiento más reciente en su periferia con más presencia de vivienda unifamiliar y zonas ajardinadas. Es el municipio con más distancia a Madrid capital de la corona norte, y esa combinación de casco tradicional y periferia más verde marca una demanda de servicios distinta a la de otros municipios de la misma corona.",
         "faq": [
           {
@@ -832,6 +1050,10 @@
           {
             "question": "¿Cómo se trabaja en edificios de escalera de baja altura del casco histórico?",
             "answer": "Sin ascensor y con escaleras estrechas, la limpieza va con material ligero y el mantenimiento se organiza por plantas. En Colmenar Viejo conviven ese casco con urbanizaciones de la periferia, y las dos cosas se presupuestan por separado."
+          },
+          {
+            "question": "¿Qué incluye la limpieza de una comunidad en Colmenar Viejo?",
+            "answer": "Portal, escaleras y garaje, y las zonas exteriores si la comunidad las tiene, con la frecuencia que necesite cada edificio. En los edificios de escalera de baja altura del casco la frecuencia suele ser menor que en un bloque grande, y se ajusta a eso."
           }
         ],
         "serviceNotes": {
@@ -841,12 +1063,16 @@
           "cleaning": "La limpieza en Colmenar Viejo se adapta a dos perfiles de edificio muy distintos dentro del mismo municipio: el casco histórico de baja altura y las urbanizaciones periféricas más nuevas.",
           "gardening": "Con un entorno de dehesa y monte alrededor del municipio, el mantenimiento de jardinería tiene más peso en las urbanizaciones periféricas de Colmenar Viejo que en el casco histórico de tradición ganadera.",
           "maintenance": "El mantenimiento técnico en Colmenar Viejo cubre tanto edificios de escalera de baja altura del casco histórico como comunidades de las urbanizaciones periféricas, cada una con necesidades distintas."
-        }
+        },
+        "neighborhoods": [
+          "Casco histórico",
+          "las urbanizaciones de la periferia"
+        ]
       },
       "torrelodones": {
         "name": "Torrelodones",
         "areaLabel": "Corona noroeste",
-        "heroSubtitle": "Videovigilancia y jardinería para las urbanizaciones de Torrelodones, al pie de la sierra, a 27 km al noroeste de Madrid.",
+        "heroSubtitle": "Videovigilancia, jardinería, piscinas y mantenimiento para las urbanizaciones de Torrelodones, al pie de la sierra, a 27 km al noroeste de Madrid.",
         "context": "Torrelodones tiene un urbanismo dominado por urbanizaciones de vivienda unifamiliar y chalets, repartidos entre el núcleo urbano y las laderas hacia la sierra de Guadarrama. En ese tipo de urbanización dispersa trabajamos sobre todo el control de accesos y el mantenimiento de jardines y piscinas comunitarias.",
         "faq": [
           {
@@ -860,6 +1086,10 @@
           {
             "question": "¿Cubrís urbanizaciones alejadas del núcleo, ya en la ladera hacia la sierra?",
             "answer": "Sí. Es el perfil más habitual del municipio, y lo tenemos en cuenta al planificar: las visitas se agrupan para no encadenar desplazamientos cortos entre urbanizaciones dispersas, y el calendario de jardinería va ajustado al clima de sierra."
+          },
+          {
+            "question": "¿Os encargáis de la piscina comunitaria en Torrelodones, también del socorrista?",
+            "answer": "Sí. Llevamos el mantenimiento químico y la limpieza del vaso durante toda la temporada, y la apertura y el cierre. Si la normativa de la Comunidad de Madrid exige socorrista por la superficie o el aforo de la piscina, lo aportamos con el título en vigor; lo comprobamos antes de presupuestar y te decimos por escrito si os obliga o no."
           }
         ],
         "serviceNotes": {
@@ -869,12 +1099,19 @@
           "cleaning": "En las urbanizaciones de Torrelodones, la limpieza se centra más en accesos y zonas comunes compartidas que en portales individuales de bloque, poco habituales en este municipio.",
           "gardening": "Las urbanizaciones de vivienda unifamiliar de Torrelodones, al pie de la sierra de Guadarrama, tienen jardín y zonas verdes propias. Las mantenemos con un calendario ajustado al clima de sierra.",
           "maintenance": "El mantenimiento técnico en Torrelodones cubre las instalaciones comunes de las urbanizaciones de vivienda unifamiliar y chalets repartidas entre el núcleo urbano y las laderas hacia la sierra."
-        }
+        },
+        "neighborhoods": [
+          "Torrelodones Pueblo",
+          "La Colonia",
+          "Los Peñascales",
+          "El Gasco",
+          "Las Marías"
+        ]
       },
       "collado-villalba": {
         "name": "Collado Villalba",
         "areaLabel": "Corona sur",
-        "heroSubtitle": "Mantenimiento técnico de comunidades en Collado Villalba, el municipio más distante de la cobertura, nudo de comunicaciones de la Sierra de Guadarrama.",
+        "heroSubtitle": "Mantenimiento técnico, limpieza y conserjería para las comunidades de Collado Villalba, nudo de comunicaciones de la Sierra de Guadarrama, a 36 km de Madrid.",
         "context": "Collado Villalba, a 36 km de Madrid capital, es el municipio más alejado de nuestra cobertura y funciona como puerta de entrada y nudo de comunicaciones hacia la Sierra de Guadarrama, con estación de tren de largo recorrido y cercanías propia. Su parque de vivienda mezcla bloques de comunidad y urbanizaciones, y el clima de sierra —con más lluvia e inviernos más fríos que en Madrid capital— condiciona el calendario de los trabajos exteriores. Por distancia, aquí el mantenimiento técnico lo llevamos con equipo propio y ruta programada, sin depender de terceros que tarden en desplazarse.",
         "faq": [
           {
@@ -888,6 +1125,10 @@
           {
             "question": "¿Tardáis más en atender una urgencia por ser el municipio más lejano?",
             "answer": "Por eso aquí el mantenimiento va con equipo propio y ruta programada, en lugar de avisar a un tercero que tenga que desplazarse desde Madrid. El teléfono de incidencias atiende igual que en el resto de la cobertura; lo que se planifica distinto es la ruta."
+          },
+          {
+            "question": "¿Qué horarios de conserjería podéis cubrir en Collado Villalba?",
+            "answer": "Desde media jornada o turno partido hasta cobertura completa de 6 a 24 horas, según lo que necesite cada comunidad o edificio. Las bajas y las vacaciones del conserje las cubrimos con otro profesional del mismo perfil, sin coste adicional y sin dejar el puesto vacío."
           }
         ],
         "serviceNotes": {
@@ -897,12 +1138,17 @@
           "cleaning": "La limpieza en Collado Villalba se reparte entre bloques de comunidad y urbanizaciones, con frecuencias distintas para cada tipo de finca. Al ser el municipio más distante de la cobertura, la combinamos con el mantenimiento técnico en la misma visita siempre que se puede.",
           "gardening": "Las zonas ajardinadas de Collado Villalba están sobre todo en las urbanizaciones, más que en los bloques de comunidad tradicionales. El calendario de jardinería va ajustado al clima más frío de la sierra.",
           "maintenance": "Collado Villalba es el municipio más distante de Madrid capital de toda nuestra cobertura, así que el mantenimiento técnico lo llevamos con equipo propio y ruta programada, sin depender de terceros que tarden en desplazarse."
-        }
+        },
+        "neighborhoods": [
+          "Villalba Pueblo",
+          "Villalba Estación",
+          "las urbanizaciones del término"
+        ]
       },
       "arganda-del-rey": {
         "name": "Arganda del Rey",
         "areaLabel": "Corona este",
-        "heroSubtitle": "Limpieza y mantenimiento eléctrico para el casco antiguo y las zonas de expansión de Arganda del Rey, en la vega del Jarama, a 27 km al sureste de Madrid.",
+        "heroSubtitle": "Piscinas, limpieza y mantenimiento para el casco antiguo y las zonas de expansión de Arganda del Rey, en la vega del Jarama, a 27 km al sureste de Madrid.",
         "context": "Arganda del Rey, situado en la vega del río Jarama, combina un núcleo urbano tradicional de tradición vitivinícola con zonas de expansión residencial construidas en las últimas décadas hacia el sur del municipio. En los edificios del casco antiguo, donde las instalaciones eléctricas y de fontanería tienen más años, la limpieza y el mantenimiento técnico suelen requerir una frecuencia distinta a la de las promociones nuevas de la periferia.",
         "faq": [
           {
@@ -916,6 +1162,10 @@
           {
             "question": "¿Se lleva igual un edificio del casco de Arganda que uno de la expansión sur?",
             "answer": "No. En el casco tradicional pesan la carpintería, los patios y las bajantes antiguas; en la expansión de las últimas décadas, los garajes, el riego y las zonas comunes exteriores. Es el mismo equipo, pero con dos planes de mantenimiento distintos."
+          },
+          {
+            "question": "¿Os encargáis de la piscina comunitaria en Arganda del Rey, también del socorrista?",
+            "answer": "Sí. Llevamos el mantenimiento químico y la limpieza del vaso durante toda la temporada, y la apertura y el cierre. Si la normativa de la Comunidad de Madrid exige socorrista por la superficie o el aforo de la piscina, lo aportamos con el título en vigor; lo comprobamos antes de presupuestar y te decimos por escrito si os obliga o no."
           }
         ],
         "serviceNotes": {
@@ -925,11 +1175,17 @@
           "cleaning": "La limpieza en los edificios del casco antiguo de Arganda del Rey, con instalaciones de más años, suele requerir una frecuencia distinta a la de las promociones nuevas de la periferia hacia el sur del municipio.",
           "gardening": "El mantenimiento de jardinería tiene más peso en las zonas de expansión residencial más reciente de Arganda del Rey que en el núcleo urbano tradicional del municipio, en la vega del Jarama.",
           "maintenance": "El mantenimiento eléctrico en los edificios del casco antiguo de Arganda del Rey, con instalaciones de más años, suele requerir una atención distinta a la de las promociones nuevas de la periferia."
-        }
+        },
+        "neighborhoods": [
+          "Casco antiguo",
+          "La Poveda",
+          "las zonas de expansión del sur"
+        ]
       }
     },
     "ctaManagersPrefix": "¿Administras fincas en {zone}?",
-    "ctaManagersLink": "Mira la propuesta para administradores"
+    "ctaManagersLink": "Mira la propuesta para administradores",
+    "coverage": "Damos servicio en todo {zone}: {areas}."
   },
   "Complaints": {
     "wizard": {
@@ -1614,7 +1870,8 @@
             "title": "Empresas y centros comerciales",
             "description": "La recepción y el control de accesos se adaptan al volumen de visitas y proveedores de un negocio, no al ritmo de un portal residencial: más tránsito en hora punta, registro de paquetería y atención a clientes o empleados."
           }
-        }
+        },
+        "heroTitle": "Conserjería y control de accesos para comunidades en Madrid"
       },
       "security": {
         "tag": "Servicio 02",
@@ -1695,7 +1952,8 @@
             "title": "Empresas y centros comerciales",
             "description": "El proyecto de seguridad se diseña según los puntos de acceso reales de un local comercial o una oficina (accesos de público, zona de carga, almacén), con tarjetas o códigos que pueden limitarse a franjas horarias concretas."
           }
-        }
+        },
+        "heroTitle": "Videovigilancia CCTV y control de accesos para comunidades en Madrid"
       },
       "pools": {
         "tag": "Servicio 03",
@@ -1776,7 +2034,8 @@
             "title": "Empresas y centros comerciales",
             "description": "Una piscina de uso semi-público (hotel, urbanización con zona comercial) tiene una normativa y un volumen de baño distintos a los de una comunidad de vecinos, y el plan de mantenimiento se ajusta a ese uso real."
           }
-        }
+        },
+        "heroTitle": "Mantenimiento de piscinas comunitarias en Madrid, con socorrista titulado"
       },
       "cleaning": {
         "tag": "Servicio 04",
@@ -1857,7 +2116,8 @@
             "title": "Empresas y centros comerciales",
             "description": "La limpieza de un negocio o un centro comercial se coordina fuera del horario de apertura al público cuando así se pide, y cubre zonas que una comunidad de vecinos no tiene: escaparates, zonas de carga o áreas comunes de mucho tránsito."
           }
-        }
+        },
+        "heroTitle": "Limpieza de comunidades en Madrid: portales, escaleras y garajes"
       },
       "gardening": {
         "tag": "Servicio 05",
@@ -1938,7 +2198,8 @@
             "title": "Empresas y centros comerciales",
             "description": "Las zonas ajardinadas de un centro comercial o una sede de empresa suelen ser más visibles de cara al público que las de una comunidad de vecinos, así que el mantenimiento prioriza que luzcan bien todo el año, no solo que estén cuidadas."
           }
-        }
+        },
+        "heroTitle": "Jardinería y zonas verdes para comunidades en Madrid"
       },
       "maintenance": {
         "tag": "Servicio 06",
@@ -2019,7 +2280,8 @@
             "title": "Empresas y centros comerciales",
             "description": "El mantenimiento técnico de un negocio o un centro comercial se programa para minimizar el impacto en la actividad (fuera de horario de apertura cuando se puede), y cubre instalaciones que una comunidad de vecinos no tiene, como climatización comercial."
           }
-        }
+        },
+        "heroTitle": "Mantenimiento de edificios en Madrid: fontanería, electricidad y cerrajería"
       }
     },
     "detail": {
