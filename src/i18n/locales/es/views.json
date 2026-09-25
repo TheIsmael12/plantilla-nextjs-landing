@@ -1050,9 +1050,8 @@
       "consents": {
         "privacyLabel": "He leído y acepto la",
         "privacyLink": "política de privacidad",
-        "ageLabel": "Declaro ser mayor de edad",
-        "marketingLabel": "Quiero recibir novedades y ofertas comerciales por email",
-        "attributionLabel": "Permite guardar el origen de esta consulta (campañas, referidos) para mejorar nuestro servicio de atención"
+        "ageLabel": "y declaro ser mayor de edad",
+        "marketingLabel": "Quiero recibir novedades y ofertas comerciales por email"
       },
       "submit": "Enviar mensaje",
       "submitting": "Enviando…",

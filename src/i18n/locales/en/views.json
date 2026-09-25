@@ -1050,9 +1050,8 @@
       "consents": {
         "privacyLabel": "I have read and accept the",
         "privacyLink": "privacy policy",
-        "ageLabel": "I declare that I am of legal age",
-        "marketingLabel": "I want to receive news and commercial offers by email",
-        "attributionLabel": "Allow us to store how you found us (campaigns, referrals) to improve our customer service"
+        "ageLabel": "and declare that I am of legal age",
+        "marketingLabel": "I want to receive news and commercial offers by email"
       },
       "submit": "Send message",
       "submitting": "Sending...",

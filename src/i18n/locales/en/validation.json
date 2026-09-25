@@ -4,8 +4,7 @@
       "nameRequired": "Name is required.",
       "emailInvalid": "Please enter a valid email address.",
       "emailOrPhoneRequired": "Please provide at least an email address or a phone number.",
-      "privacyRequired": "You must accept the privacy policy to continue.",
-      "ageRequired": "You must confirm that you are of legal age to continue.",
+      "privacyRequired": "You must accept the privacy policy and confirm that you are of legal age to continue.",
       "maxLength": "This field is too long.",
       "invalidOption": "Choose one of the options in the list.",
       "invalidPropertiesCount": "Enter a number of properties between 1 and 5000."

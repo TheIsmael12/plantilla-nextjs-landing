@@ -183,7 +183,7 @@
     "Privacy": {
       "title": "Privacy Policy",
       "subtitle": "How we handle the personal data of anyone who visits this site, writes through the contact form, applies for a job, uses the whistleblowing channel or signs in to the private area.",
-      "updatedDate": "24 September 2026",
+      "updatedDate": "25 September 2026",
       "tocAriaLabel": "Privacy Policy index",
       "toc": [
         {
@@ -258,7 +258,7 @@
             },
             {
               "strong": "Source of the enquiry: ",
-              "rest": "if you tick the corresponding box, the campaign parameters of the address you arrived from (utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid), the landing page and the site that linked to us. Without that box ticked they are neither collected nor sent."
+              "rest": "if you accepted analytics cookies in the cookie notice, the campaign parameters of the address you arrived from (utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid), the landing page and the site that linked to us. If you did not accept them, they are neither collected nor sent."
             },
             {
               "strong": "Job applications: ",
@@ -322,7 +322,7 @@
             },
             {
               "purpose": "Recording where the enquiry came from (campaign, referrer) to see which channels work.",
-              "basis": "Your express consent, in a separate box: art. 6(1)(a) GDPR.",
+              "basis": "Your consent, given by accepting analytics cookies: art. 6(1)(a) GDPR and art. 22.2 LSSI.",
               "retention": "The same as the enquiry it belongs to."
             },
             {

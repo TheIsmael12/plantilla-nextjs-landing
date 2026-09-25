@@ -102,18 +102,14 @@ export const contactSchema = () =>
             otherwise: (schema) => schema.strip(),
         }),
 
+        // Lleva dentro la declaración de mayoría de edad (art. 8 RGPD / art. 7 LOPDGDD): va en la misma
+        // frase de la casilla, así que no hay un campo aparte que validar.
         privacyNoticeAcknowledged: Yup.boolean()
             .oneOf([true], 'contact.privacyRequired')
             .required('contact.privacyRequired'),
 
-        // Declaración de mayoría de edad (art. 8 RGPD / art. 7 LOPDGDD): obligatoria, como la de
-        // privacidad. Un menor no puede consentir por sí solo el tratamiento de sus datos.
-        ageConfirmed: Yup.boolean()
-            .oneOf([true], 'contact.ageRequired')
-            .required('contact.ageRequired'),
 
         marketingConsent: Yup.boolean().default(false),
-        attributionConsent: Yup.boolean().default(false),
 
         honeypot: Yup.string(),
     });

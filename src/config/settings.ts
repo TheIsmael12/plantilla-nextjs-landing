@@ -123,7 +123,7 @@ export const LANGUAGES: LanguageOption[] = SUPPORTED_LOCALES.map((locale) => ({
  * el texto legal de `/privacy-policy` hay que subir esta versión**, o el
  * histórico dirá que aceptó un texto que nunca vio.
  */
-export const PRIVACY_NOTICE_VERSION = "privacidad-2026-09";
+export const PRIVACY_NOTICE_VERSION = "privacidad-2026-09-25";
 
 /**
  * Nombre del campo trampa del formulario de contacto público: si llega con

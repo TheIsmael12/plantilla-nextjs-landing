@@ -183,7 +183,7 @@
     "Privacy": {
       "title": "Política de Privacidad",
       "subtitle": "Cómo tratamos los datos personales de quien visita esta web, escribe por el formulario de contacto, se presenta a una oferta de empleo, usa el canal de reclamaciones o entra al área privada.",
-      "updatedDate": "24 de septiembre de 2026",
+      "updatedDate": "25 de septiembre de 2026",
       "tocAriaLabel": "Índice de Política de Privacidad",
       "toc": [
         {
@@ -258,7 +258,7 @@
             },
             {
               "strong": "Origen de la consulta: ",
-              "rest": "si marcas la casilla correspondiente, los parámetros de campaña de la dirección por la que llegaste (utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid), la página de entrada y el sitio desde el que nos enlazaron. Sin esa casilla marcada no se recogen ni se envían."
+              "rest": "si aceptaste las cookies de analítica en el aviso de cookies, los parámetros de campaña de la dirección por la que llegaste (utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid), la página de entrada y el sitio desde el que nos enlazaron. Si no las aceptaste, no se recogen ni se envían."
             },
             {
               "strong": "Candidaturas de empleo: ",
@@ -322,7 +322,7 @@
             },
             {
               "purpose": "Guardar el origen de la consulta (campaña, referente) para saber qué canales funcionan.",
-              "basis": "Tu consentimiento expreso, en casilla aparte: art. 6.1.a del RGPD.",
+              "basis": "Tu consentimiento, dado al aceptar las cookies de analítica: art. 6.1.a del RGPD y art. 22.2 de la LSSI.",
               "retention": "El mismo que la consulta a la que acompaña."
             },
             {

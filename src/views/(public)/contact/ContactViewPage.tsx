@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { submitContactLead } from '@/actions/leads/leads-actions';
+import { useCookieConsent } from '@/hooks/useCookieConsent';
 import {
     isContactProfile,
     isServiceInterest,
@@ -42,6 +43,15 @@ export default function ContactViewPage() {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [formError, setFormError] = useState<string | undefined>();
+
+    /*
+     * La atribución (UTM, referente) viaja solo si aceptó las cookies de analítica en el banner.
+     *
+     * Antes era una casilla más del formulario, pero pedir dos veces el mismo permiso sobraba: el
+     * backend la define justo así —`true` solo con las cookies de analítica aceptadas (art. 22.2 LSSI)—,
+     * y el formulario queda en una casilla obligatoria y otra opcional. Sin decisión, `null`: no viaja.
+     */
+    const attributionConsent = useCookieConsent()?.analytics === true;
 
     /**
      * Envía los datos del formulario de contacto al backend y actualiza el
@@ -90,10 +100,10 @@ export default function ContactViewPage() {
             privacyNoticeVersion: PRIVACY_NOTICE_VERSION,
             privacyNoticeAcknowledged: values.privacyNoticeAcknowledged,
             marketingConsent: values.marketingConsent,
-            attributionConsent: values.attributionConsent,
+            attributionConsent,
             captchaToken,
             honeypot: values.honeypot || undefined,
-            ...(values.attributionConsent ? readAttribution() : {}),
+            ...(attributionConsent ? readAttribution() : {}),
         });
 
         setLoading(false);
