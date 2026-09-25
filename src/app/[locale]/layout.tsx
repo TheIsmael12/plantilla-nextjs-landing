@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 import { headers } from "next/headers";
 
@@ -56,6 +56,18 @@ export async function generateMetadata({
     const { locale } = await params;
     return generateTranslatedMetadata({ locale });
 }
+
+/**
+ * `theme-color` por esquema de color: sin él, el chrome del navegador móvil
+ * (barra de estado/dirección) cae al gris por defecto en vez de
+ * `--primary-color` de cada tema (`00-settings/_colors.scss`).
+ */
+export const viewport: Viewport = {
+    themeColor: [
+        { media: "(prefers-color-scheme: light)", color: "#1e3a5f" },
+        { media: "(prefers-color-scheme: dark)", color: "#3b6ea5" },
+    ],
+};
 
 /**
  * Layout raíz por locale: fija el idioma de la petición, carga los mensajes
