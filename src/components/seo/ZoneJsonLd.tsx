@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { ENV } from '@/config/env';
 import { getZoneBySlug, type ZoneSlug } from '@/config/zones';
 import { getPathname, type AnyHref } from '@/i18n/navigation';
+import { safeJsonLd } from '@/utils/jsonLdUtils';
 
 interface ZoneJsonLdProps {
   slug: ZoneSlug;
@@ -51,6 +52,6 @@ export default async function ZoneJsonLd({ slug, locale }: ZoneJsonLdProps) {
   };
 
   return (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
   );
 }

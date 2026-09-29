@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import type {
   ClientServiceDetail,
   ClientServiceListItem,
@@ -38,7 +39,7 @@ export async function getClientServices(
   query: ClientServicesQuery = {},
 ): Promise<FetchResponse<PaginatedResult<ClientServiceListItem>>> {
   return fetchDataToken<PaginatedResult<ClientServiceListItem>, never>(
-    `client/me/services${buildQueryString({ ...query })}`,
+    apiPath`client/me/services` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -54,7 +55,7 @@ export async function getClientServiceDetail(
   id: string,
 ): Promise<FetchResponse<ClientServiceDetail>> {
   return fetchDataToken<ClientServiceDetail, never>(
-    `client/me/services/${encodeURIComponent(id)}`,
+    apiPath`client/me/services/${id}`,
     "GET",
   );
 }
@@ -71,7 +72,7 @@ export async function getClientServiceQuotes(
   query: ClientServiceSubResourceQuery = {},
 ): Promise<FetchResponse<PaginatedResult<QuoteListItem>>> {
   return fetchDataToken<PaginatedResult<QuoteListItem>, never>(
-    `client/me/services/${encodeURIComponent(id)}/quotes${buildQueryString({ ...query })}`,
+    apiPath`client/me/services/${id}/quotes` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -88,7 +89,7 @@ export async function getClientServicePriceRevisions(
   query: ClientServiceSubResourceQuery = {},
 ): Promise<FetchResponse<PaginatedResult<ClientServicePriceRevision>>> {
   return fetchDataToken<PaginatedResult<ClientServicePriceRevision>, never>(
-    `client/me/services/${encodeURIComponent(id)}/price-revisions${buildQueryString({ ...query })}`,
+    apiPath`client/me/services/${id}/price-revisions` + buildQueryString({ ...query }),
     "GET",
   );
 }

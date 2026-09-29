@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import type {
   CreateCommunityAnnouncementDto,
   PortalCommunity,
@@ -32,7 +33,7 @@ export async function getCommunityConfig(
   serviceId: string,
 ): Promise<FetchResponse<PortalCommunityConfig>> {
   return fetchDataToken<PortalCommunityConfig, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/config`,
+    apiPath`client/me/communities/${serviceId}/config`,
     "GET",
   );
 }
@@ -50,7 +51,7 @@ export async function getCommunityAnnouncements(
   serviceId: string,
 ): Promise<FetchResponse<PortalCommunityAnnouncement[]>> {
   return fetchDataToken<PortalCommunityAnnouncement[], never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/announcements`,
+    apiPath`client/me/communities/${serviceId}/announcements`,
     "GET",
   );
 }
@@ -67,7 +68,7 @@ export async function createCommunityAnnouncement(
   dto: CreateCommunityAnnouncementDto,
 ): Promise<FetchResponse<PortalCommunityAnnouncement>> {
   return fetchDataToken<PortalCommunityAnnouncement, CreateCommunityAnnouncementDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/announcements`,
+    apiPath`client/me/communities/${serviceId}/announcements`,
     "POST",
     dto,
   );
@@ -87,7 +88,7 @@ export async function updateCommunityAnnouncement(
   dto: UpdateCommunityAnnouncementDto,
 ): Promise<FetchResponse<PortalCommunityAnnouncement>> {
   return fetchDataToken<PortalCommunityAnnouncement, UpdateCommunityAnnouncementDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/announcements/${encodeURIComponent(announcementId)}`,
+    apiPath`client/me/communities/${serviceId}/announcements/${announcementId}`,
     "PATCH",
     dto,
   );
@@ -105,7 +106,7 @@ export async function removeCommunityAnnouncement(
   announcementId: string,
 ): Promise<FetchResponse<void>> {
   return fetchDataToken<void, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/announcements/${encodeURIComponent(announcementId)}`,
+    apiPath`client/me/communities/${serviceId}/announcements/${announcementId}`,
     "DELETE",
   );
 }
@@ -124,7 +125,7 @@ export async function updateCommunityConfig(
   dto: UpdatePortalCommunityConfigDto,
 ): Promise<FetchResponse<PortalCommunityConfig>> {
   return fetchDataToken<PortalCommunityConfig, UpdatePortalCommunityConfigDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/config`,
+    apiPath`client/me/communities/${serviceId}/config`,
     "PUT",
     dto,
   );

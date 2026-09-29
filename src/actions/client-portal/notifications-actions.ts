@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import { ENV_SERVER as ENV } from "@/config/env.server";
 import type {
   MarkAllReadResponse,
@@ -40,7 +41,7 @@ export async function getClientNotifications(
   query: QueryNotificationsQuery = {},
 ): Promise<FetchResponse<PaginatedResult<NotificationResponseDto>>> {
   return fetchDataToken<PaginatedResult<NotificationResponseDto>, never>(
-    `client/notifications${buildQueryString({ ...query })}`,
+    apiPath`client/notifications` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -81,7 +82,7 @@ export async function markNotificationAsRead(
   id: string,
 ): Promise<FetchResponse<NotificationResponseDto>> {
   return fetchDataToken<NotificationResponseDto, never>(
-    `client/notifications/${encodeURIComponent(id)}/read`,
+    apiPath`client/notifications/${id}/read`,
     "PATCH",
   );
 }

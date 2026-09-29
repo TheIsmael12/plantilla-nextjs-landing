@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import type {
   CommunityListQuery,
   CommunitySite,
@@ -48,7 +49,7 @@ export async function getCommunityKeyringsPaginated(
   query: CommunityListQuery = {},
 ): Promise<FetchResponse<PaginatedResult<LockGroup>>> {
   return fetchDataToken<PaginatedResult<LockGroup>, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/keyrings${buildQueryString({ ...query })}`,
+    apiPath`client/me/communities/${serviceId}/keyrings` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -80,7 +81,7 @@ export async function createCommunityKeyring(
   dto: CreateLockGroupDto,
 ): Promise<FetchResponse<LockGroup>> {
   return fetchDataToken<LockGroup, CreateLockGroupDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/keyrings`,
+    apiPath`client/me/communities/${serviceId}/keyrings`,
     "POST",
     dto,
   );
@@ -101,7 +102,7 @@ export async function updateCommunityKeyring(
   dto: UpdateLockGroupDto,
 ): Promise<FetchResponse<LockGroup>> {
   return fetchDataToken<LockGroup, UpdateLockGroupDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/keyrings/${encodeURIComponent(keyringId)}`,
+    apiPath`client/me/communities/${serviceId}/keyrings/${keyringId}`,
     "PATCH",
     dto,
   );
@@ -119,7 +120,7 @@ export async function deleteCommunityKeyring(
   keyringId: string,
 ): Promise<FetchResponse<void>> {
   return fetchDataToken<void, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/keyrings/${encodeURIComponent(keyringId)}`,
+    apiPath`client/me/communities/${serviceId}/keyrings/${keyringId}`,
     "DELETE",
   );
 }
@@ -135,7 +136,7 @@ export async function getCommunityKeyMatrix(
   serviceId: string,
 ): Promise<FetchResponse<KeyMatrix>> {
   return fetchDataToken<KeyMatrix, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/key-matrix`,
+    apiPath`client/me/communities/${serviceId}/key-matrix`,
     "GET",
   );
 }
@@ -153,7 +154,7 @@ export async function getCommunitySites(
   serviceId: string,
 ): Promise<FetchResponse<CommunitySite[]>> {
   return fetchDataToken<CommunitySite[], never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/sites`,
+    apiPath`client/me/communities/${serviceId}/sites`,
   );
 }
 
@@ -169,7 +170,7 @@ export async function getCommunitySchedules(
   serviceId: string,
 ): Promise<FetchResponse<LockSchedule[]>> {
   return fetchDataToken<LockSchedule[], never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/lock-schedules`,
+    apiPath`client/me/communities/${serviceId}/lock-schedules`,
   );
 }
 
@@ -184,7 +185,7 @@ export async function createLockSchedule(
   dto: CreateLockScheduleDto,
 ): Promise<FetchResponse<LockSchedule>> {
   return fetchDataToken<LockSchedule, CreateLockScheduleDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/lock-schedules`,
+    apiPath`client/me/communities/${serviceId}/lock-schedules`,
     "POST",
     dto,
   );
@@ -205,7 +206,7 @@ export async function updateLockSchedule(
   dto: UpdateLockScheduleDto,
 ): Promise<FetchResponse<LockSchedule>> {
   return fetchDataToken<LockSchedule, UpdateLockScheduleDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/lock-schedules/${encodeURIComponent(scheduleId)}`,
+    apiPath`client/me/communities/${serviceId}/lock-schedules/${scheduleId}`,
     "PATCH",
     dto,
   );
@@ -224,7 +225,7 @@ export async function removeLockSchedule(
   scheduleId: string,
 ): Promise<FetchResponse<void>> {
   return fetchDataToken<void, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/lock-schedules/${encodeURIComponent(scheduleId)}`,
+    apiPath`client/me/communities/${serviceId}/lock-schedules/${scheduleId}`,
     "DELETE",
   );
 }

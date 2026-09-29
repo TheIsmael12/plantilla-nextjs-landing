@@ -134,6 +134,17 @@ function resolveBackendWebSocketOrigin(): string {
 }
 
 /**
+ * Orígenes de terceros de los que la política Trusted Types `default` (`[locale]/layout.tsx`) acepta URLs
+ * de script, además del propio origen: los mismos que `script-src`, para que las dos capas digan lo mismo.
+ * @returns {string[]} Los orígenes (pueden llevar comodín de subdominio, `https://*.dominio`)
+ */
+export function trustedScriptOrigins(): string[] {
+  const analyticsEnabled = Boolean(process.env.NEXT_PUBLIC_GTM_ID);
+
+  return [TURNSTILE_ORIGIN, ...(analyticsEnabled ? GOOGLE_MEASUREMENT_ORIGINS : [])];
+}
+
+/**
  * Construye la cabecera `Content-Security-Policy` para una petición dada.
  * @param {string} nonce - Nonce único de esta petición, ya generado por `proxy.ts`
  * @returns {string} El valor completo de la cabecera `Content-Security-Policy`

@@ -44,10 +44,12 @@ function loadScript(url: string): Promise<void> {
 /**
  * Widget de Cloudflare Turnstile del formulario de contacto público.
  *
- * **Si no hay `NEXT_PUBLIC_TURNSTILE_SITE_KEY` configurada, este componente
- * no pinta nada** y no estorba: el backend acepta envíos sin `captchaToken`
- * (solo lo valida si se envía), así que el formulario sigue funcionando en
- * desarrollo sin captcha configurado. Tampoco bloquea el envío si el script
+ * **Si no hay `NEXT_PUBLIC_TURNSTILE_SITE_KEY` configurada, o se ha desactivado
+ * con `NEXT_PUBLIC_TURNSTILE_DISABLED=true`, este componente no pinta nada** y no
+ * estorba: en desarrollo el backend corre con `CAPTCHA_PROVIDER=none` y acepta
+ * envíos sin `captchaToken`. En producción no se llega a este caso por olvido:
+ * `next.config.ts` corta el build si falta la clave y no se ha desactivado a
+ * propósito (`config/turnstile.ts`). Tampoco bloquea el envío si el script
  * falla al cargar (CDN caído, bloqueador de contenido...): se avisa por
  * consola y se deja pasar — es el backend quien decide si un envío sin
  * token es aceptable.
@@ -58,7 +60,7 @@ export default function Captcha({ onVerify, onExpire, className }: CaptchaProps)
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
 
-  const isEnabled = ENV.TURNSTILE_SITE_KEY.length > 0;
+  const isEnabled = !ENV.TURNSTILE_DISABLED && ENV.TURNSTILE_SITE_KEY.length > 0;
 
   useEffect(() => {
     if (!isEnabled) return;

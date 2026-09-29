@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getServerSession } from "next-auth";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import { HTTPStatus } from "@/constants/httpStatus";
 import { authOptions } from "@/lib/authOptions";
 import type { FetchResponse } from "@/types/responses";
@@ -62,7 +63,7 @@ export async function getPortalSessionStatus(): Promise<PortalSessionStatus> {
  * @returns {Promise<FetchResponse<void>>} Éxito o el error de la API
  */
 export async function revokeSession(id: string): Promise<FetchResponse<void>> {
-  const response = await fetchDataToken<void, never>(`client/me/sessions/${id}`, "DELETE");
+  const response = await fetchDataToken<void, never>(apiPath`client/me/sessions/${id}`, "DELETE");
 
   if (isSuccess(response.status)) revalidatePath(SESSIONS_PATH);
 

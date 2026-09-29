@@ -20,7 +20,6 @@ export interface Session {
     phone?: string | null;
     image?: string | null;
     accessTokenExpires?: number;
-    backendTokens?: { accessToken: string; refreshToken: string };
   };
   expires?: string;
 }

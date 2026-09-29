@@ -4,3 +4,23 @@ allowBuilds:
   esbuild: true
   sharp: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@next/env@16.3.7'
+  - '@next/swc-darwin-arm64@16.3.7'
+  - '@next/swc-darwin-x64@16.3.7'
+  - '@next/swc-linux-arm64-gnu@16.3.7'
+  - '@next/swc-linux-arm64-musl@16.3.7'
+  - '@next/swc-linux-x64-gnu@16.3.7'
+  - '@next/swc-linux-x64-musl@16.3.7'
+  - '@next/swc-win32-arm64-msvc@16.3.7'
+  - '@next/swc-win32-x64-msvc@16.3.7'
+  - next@16.3.7
+  - '@next/eslint-plugin-next@16.3.7'
+  - eslint-config-next@16.3.7
+# Fuerza versiones parcheadas de dependencias transitivas con avisos de seguridad
+# (GHSA-73wf-gq98-2v4g en browserslist y GHSA-w5vr-8v7q-w6rv en baseline-browser-mapping).
+# next/@babel las fijan con rangos que aún resuelven a versiones vulnerables.
+overrides:
+  browserslist: '>=4.28.7'
+  baseline-browser-mapping: '>=2.11.0'
+  sharp: '>=0.35.4'

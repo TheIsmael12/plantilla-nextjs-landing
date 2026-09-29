@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 
 import { ENV } from '@/config/env';
 import { GTM_PAGE_TITLE_TIMEOUT_MS } from '@/config/settings';
+import { useIsMounted } from '@/hooks/useIsMounted';
 import { subscribeToCookieConsent } from '@/lib/cookieConsent';
 import {
   buildGtmBootstrap,
@@ -14,6 +15,12 @@ import {
   pushConsentUpdate,
   pushToDataLayer,
 } from '@/lib/gtm';
+import {
+  isAnalyticsExcludedPath,
+  sanitizeAnalyticsPathname,
+  sanitizeAnalyticsSearch,
+  sanitizeAnalyticsUrl,
+} from '@/utils/analyticsUrlUtils';
 
 /**
  * Contenedor de Google Tag Manager de las páginas públicas.
@@ -36,6 +43,12 @@ import {
  * - No se incluye el `<noscript>` con el iframe de GTM: ese no puede llevar
  *   señal de consentimiento, así que dispararía las etiquetas sin permiso
  *   justo para quien no puede ni ver el banner.
+ * - Las URLs con token: en las páginas a las que se llega desde un email con
+ *   un token (candidatura, baja) el contenedor **no se carga** y no se empuja
+ *   `page_view`, y toda URL que se manda (`page_location`, `page_path`,
+ *   `page_referrer`) pasa antes por `utils/analyticsUrlUtils.ts`. El script de
+ *   arranque se pinta ya montado en cliente porque es ahí donde se conoce la
+ *   URL real que hay que sanear; con `afterInteractive` no se retrasa nada.
  * @returns {JSX.Element | null} El script de arranque del contenedor, o `null` si no hay contenedor configurado
  */
 export default function GoogleTagManager() {
@@ -43,6 +56,8 @@ export default function GoogleTagManager() {
   const isEnabled = isValidGtmContainerId(containerId);
 
   const pathname = usePathname();
+  const isMounted = useIsMounted();
+  const isExcluded = isAnalyticsExcludedPath(pathname);
   const isFirstView = useRef(true);
   const measuredTitle = useRef('');
 
@@ -55,6 +70,20 @@ export default function GoogleTagManager() {
   useEffect(() => {
     if (!isEnabled) return;
 
+    /*
+     * La URL saneada se fija en cada navegación, también en las excluidas: si el contenedor ya estaba
+     * cargado, cualquier etiqueta que se dispare por su cuenta (p. ej. una de «cambio de historial») usa
+     * esta y no `document.location`.
+     */
+    window.gtag?.('set', {
+      page_location: sanitizeAnalyticsUrl(window.location.href),
+      page_path: `${sanitizeAnalyticsPathname(pathname)}${sanitizeAnalyticsSearch(window.location.search)}`,
+    });
+
+    // En una página con token no se mide nada. Tampoco cuenta como «primera vista»: si el contenedor no se
+    // cargó aquí, lo hará en la siguiente página normal, y de esa ya se encarga su etiqueta de configuración.
+    if (isExcluded) return;
+
     if (isFirstView.current) {
       isFirstView.current = false;
       measuredTitle.current = document.title;
@@ -66,8 +95,8 @@ export default function GoogleTagManager() {
 
       pushToDataLayer({
         event: 'page_view',
-        page_path: `${pathname}${window.location.search}`,
-        page_location: window.location.href,
+        page_path: `${sanitizeAnalyticsPathname(pathname)}${sanitizeAnalyticsSearch(window.location.search)}`,
+        page_location: sanitizeAnalyticsUrl(window.location.href),
         page_title: document.title,
       });
     };
@@ -101,15 +130,25 @@ export default function GoogleTagManager() {
       observer.disconnect();
       clearTimeout(timeout);
     };
-  }, [isEnabled, pathname]);
+  }, [isEnabled, isExcluded, pathname]);
 
-  if (!isEnabled) return null;
+  /*
+   * Sin montar no se conoce la URL que sanear, y en una página con token no se carga. Desmontar el `<Script>`
+   * al entrar en una de ellas no descarga el contenedor (ni hace falta: la URL ya va saneada), y volver a
+   * montarlo al salir no lo ejecuta dos veces: `next/script` recuerda los `id` que ya cargó.
+   */
+  if (!isEnabled || !isMounted || isExcluded) return null;
 
   return (
     <Script
       id="gtm-bootstrap"
       strategy="afterInteractive"
-      dangerouslySetInnerHTML={{ __html: buildGtmBootstrap(containerId) }}
+      dangerouslySetInnerHTML={{
+        __html: buildGtmBootstrap(containerId, {
+          location: sanitizeAnalyticsUrl(window.location.href),
+          referrer: sanitizeAnalyticsUrl(document.referrer),
+        }),
+      }}
     />
   );
 }

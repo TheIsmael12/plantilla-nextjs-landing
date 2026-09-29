@@ -2,6 +2,7 @@ import { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 import { checkCompanyIdentity } from './src/config/companyIdentity';
+import { checkTurnstileConfig } from './src/config/turnstile';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -36,6 +37,48 @@ if (problemasDeIdentidad.length > 0) {
 			`\n⚠  Identidad legal incompleta (en producción esto cortaría el build):\n${detalle}\n`,
 		);
 	}
+}
+
+/*
+ * El captcha de los formularios públicos, con el mismo criterio: en producción una site key que falta corta
+ * el build (se incrusta en él, y el backend de producción exige captcha), salvo que se haya desactivado a
+ * propósito con `NEXT_PUBLIC_TURNSTILE_DISABLED=true`. Ver `config/turnstile.ts`.
+ */
+const problemasDeCaptcha = checkTurnstileConfig();
+
+if (problemasDeCaptcha.length > 0) {
+	const detalle = problemasDeCaptcha.map((problema) => `  - ${problema}`).join('\n');
+
+	if (process.env.NODE_ENV === 'production') {
+		throw new Error(
+			`Captcha sin configurar. No se publica una web con los formularios rotos:\n${detalle}\n`,
+		);
+	}
+
+	if (isDevelopment) {
+		console.warn(`\n⚠  Captcha sin configurar (en producción esto cortaría el build):\n${detalle}\n`);
+	}
+}
+
+/**
+ * Valor de `Strict-Transport-Security`.
+ *
+ * `includeSubDomains` y `preload` ya no van fijos: `preload` apunta el dominio a la lista que los navegadores
+ * traen de serie, y salir de ella tarda meses; con `includeSubDomains` además cualquier subdominio que aún
+ * sirva algo por HTTP (un panel antiguo, una herramienta interna) deja de abrirse. Son decisiones del dueño
+ * del dominio, no de una plantilla, así que por defecto solo va `max-age` y cada una se activa a propósito:
+ *
+ * - `HSTS_INCLUDE_SUBDOMAINS=true` añade `includeSubDomains`.
+ * - `HSTS_PRELOAD=true` añade `preload` (y también `includeSubDomains`, que la lista de preload exige).
+ * @returns {string} El valor de la cabecera
+ */
+function buildHstsHeader(): string {
+	const preload = process.env.HSTS_PRELOAD === 'true';
+	const includeSubDomains = preload || process.env.HSTS_INCLUDE_SUBDOMAINS === 'true';
+
+	return ['max-age=63072000', includeSubDomains && 'includeSubDomains', preload && 'preload']
+		.filter(Boolean)
+		.join('; ');
 }
 
 const nextConfig: NextConfig = {
@@ -85,12 +128,20 @@ const nextConfig: NextConfig = {
 			: {}),
 	},
 	images: {
+		/*
+		 * Orígenes de los que el optimizador de imágenes acepta descargar, acotados por ruta.
+		 *
+		 * Las únicas imágenes remotas que pasan por `next/image` son las portadas y avatares del blog, que el
+		 * backend sirve públicas en `/media/blog/**` (`main.ts` de plantilla-nestjs; lo firmado de `/uploads`
+		 * no pasa por aquí). Sin `pathname`, `/_next/image` servía de proxy para **cualquier** ruta del
+		 * backend, y el de `localhost:5000` —el backend de desarrollo— se quedaba abierto también en
+		 * producción, donde apunta al propio servidor.
+		 */
 		remotePatterns: [
-			// Backend en desarrollo, sirve las portadas/avatares del blog en
-			// `/media/blog/**` (URLs absolutas, sin firma).
-			{ protocol: 'http', hostname: 'localhost', port: '5000' },
-			// TODO: añadir aquí el hostname real del backend en producción.
-			{ protocol: 'https', hostname: 'api.imora.es' },
+			...(isDevelopment
+				? [{ protocol: 'http' as const, hostname: 'localhost', port: '5000', pathname: '/media/blog/**' }]
+				: []),
+			{ protocol: 'https', hostname: 'api.imora.es', pathname: '/media/blog/**' },
 		],
 		// Next.js solo sirve las calidades declaradas aquí; cualquier `quality`
 		// que pida un componente y no esté en esta lista se ignora en
@@ -126,10 +177,7 @@ const nextConfig: NextConfig = {
 						? []
 						: [
 								{ key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
-								{
-									key: 'Strict-Transport-Security',
-									value: 'max-age=63072000; includeSubDomains; preload',
-								},
+								{ key: 'Strict-Transport-Security', value: buildHstsHeader() },
 							]),
 				],
 			},

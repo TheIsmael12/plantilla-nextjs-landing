@@ -4,6 +4,7 @@ import { ENV } from '@/config/env';
 import { getPathname, type AnyHref } from '@/i18n/navigation';
 import type { ServiceSlug } from '@/config/routing';
 import { ZONES } from '@/config/zones';
+import { safeJsonLd } from '@/utils/jsonLdUtils';
 
 interface ServiceJsonLdProps {
   slug: ServiceSlug;
@@ -44,6 +45,6 @@ export default async function ServiceJsonLd({ slug, locale }: ServiceJsonLdProps
   };
 
   return (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
   );
 }

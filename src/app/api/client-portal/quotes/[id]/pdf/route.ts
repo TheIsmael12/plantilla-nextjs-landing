@@ -1,9 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getServerSession } from "next-auth/next";
 
 import { ENV_SERVER as ENV } from "@/config/env.server";
 import { HTTPStatus } from "@/constants/httpStatus";
-import { authOptions } from "@/lib/authOptions";
+import { getPortalAccessToken } from "@/lib/portalBackendTokens";
+import { isSafePathSegment } from "@/utils/apiPathUtils";
 
 /**
  * Proxy autenticado del PDF de un presupuesto. Existe porque el backend
@@ -19,17 +19,24 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse> {
-  const session = await getServerSession(authOptions);
+  // El token se lee en servidor del JWT de la cookie: la sesión ya no lo lleva (ver `lib/portalBackendTokens.ts`).
+  const accessToken = await getPortalAccessToken();
 
-  if (!session?.user.backendTokens?.accessToken) {
+  if (!accessToken) {
     return new NextResponse(null, { status: HTTPStatus.UNAUTHORIZED });
   }
 
   const { id } = await params;
 
+  // El id va a la ruta del backend: con `.`/`..` (o `%2e%2e`) el parser de URLs lo resolvería saliéndose de
+  // `client/me/...`, así que lo que no tenga forma de identificador no llega a pedirse.
+  if (!isSafePathSegment(id)) {
+    return new NextResponse(null, { status: HTTPStatus.NOT_FOUND });
+  }
+
   const backendResponse = await fetch(
     `${ENV.BACKEND_URL}/client/me/quotes/${encodeURIComponent(id)}/pdf`,
-    { headers: { Authorization: `Bearer ${session.user.backendTokens.accessToken}` } },
+    { headers: { Authorization: `Bearer ${accessToken}` } },
   );
 
   if (!backendResponse.ok) {

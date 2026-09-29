@@ -1,6 +1,18 @@
 "use server";
 
 import { fetchData } from "@/actions/fetch";
+import { HTTPStatus } from "@/constants/httpStatus";
+import { apiPath } from "@/utils/apiPathUtils";
+
+/**
+ * `true` si el valor falta o es una cadena de como mucho `max` caracteres.
+ * @param {unknown} value - Valor recibido
+ * @param {number} max - Longitud máxima
+ * @returns {boolean} Si es válido
+ */
+function isOptionalString(value: unknown, max: number): value is string | undefined {
+  return value === undefined || (typeof value === "string" && value.length <= max);
+}
 
 /** Una comunidad tal y como la ofrece la API de vecino, en la previsualización de la invitación. */
 export interface ResidentRoleValue {
@@ -37,7 +49,7 @@ export async function previewResidentInvitation(
   token: string,
 ): Promise<{ status: number; message?: string; data?: ResidentInvitationPreview }> {
   return fetchData<ResidentInvitationPreview, never>(
-    `residents/auth/invitation/${encodeURIComponent(token)}`,
+    apiPath`residents/auth/invitation/${token}`,
     "GET",
   );
 }
@@ -72,8 +84,26 @@ export async function acceptResidentInvitation(input: {
   language?: string;
   privacyNoticeAccepted?: boolean;
 }): Promise<{ status: number; message?: string }> {
+  // Acción pública: el cuerpo se monta campo a campo y con su tipo, en vez de propagar `...input` con lo que
+  // quiera que traiga quien la llame.
+  if (!isOptionalString(input?.token, 2048) || !input.token) return { status: HTTPStatus.BAD_REQUEST };
+  if (
+    !isOptionalString(input.password, 256) ||
+    !isOptionalString(input.name, 255) ||
+    !isOptionalString(input.phone, 32) ||
+    !isOptionalString(input.language, 8) ||
+    (input.privacyNoticeAccepted !== undefined && typeof input.privacyNoticeAccepted !== "boolean")
+  ) {
+    return { status: HTTPStatus.BAD_REQUEST };
+  }
+
   return fetchData<null, typeof input & { deviceId: string }>("residents/auth/accept-invitation", "POST", {
-    ...input,
+    token: input.token,
+    password: input.password,
+    name: input.name,
+    phone: input.phone,
+    language: input.language,
+    privacyNoticeAccepted: input.privacyNoticeAccepted,
     deviceId: WEB_DEVICE_ID,
   });
 }
@@ -87,5 +117,12 @@ export async function resetResidentPassword(input: {
   token: string;
   password: string;
 }): Promise<{ status: number; message?: string }> {
-  return fetchData<null, typeof input>("residents/auth/reset-password", "POST", input);
+  if (!isOptionalString(input?.token, 2048) || !input.token || !isOptionalString(input.password, 256) || !input.password) {
+    return { status: HTTPStatus.BAD_REQUEST };
+  }
+
+  return fetchData<null, typeof input>("residents/auth/reset-password", "POST", {
+    token: input.token,
+    password: input.password,
+  });
 }

@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import type { PendingContract } from "@/types/client-portal/contracts";
 import type { FetchResponse } from "@/types/responses";
 
@@ -33,7 +34,7 @@ export async function uploadSignedContract(
   formData: FormData,
 ): Promise<FetchResponse<PendingContract[]>> {
   return fetchDataToken<PendingContract[], FormData>(
-    `client/me/contracts/${encodeURIComponent(contractId)}/signed-document`,
+    apiPath`client/me/contracts/${contractId}/signed-document`,
     "POST",
     formData,
   );

@@ -1,5 +1,6 @@
 import { ENV } from '@/config/env';
 import { getPathname, type AnyHref } from '@/i18n/navigation';
+import { safeJsonLd } from '@/utils/jsonLdUtils';
 
 /**
  * Datos estructurados `JobPosting` de una oferta (requisitos-empleo.md, sección 5.1).
@@ -91,7 +92,7 @@ export default function JobPostingJsonLd({ job, locale }: JobPostingJsonLdProps)
     return (
         <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
         />
     );
 }

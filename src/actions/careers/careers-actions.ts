@@ -1,6 +1,11 @@
 "use server";
 
+import * as Yup from "yup";
+
 import { fetchData } from "@/actions/fetch";
+import { serverText, validatePublicPayload } from "@/actions/publicPayloadValidation";
+import { jobApplicationSchema } from "@/schemas/careers.schema";
+import { apiPath } from "@/utils/apiPathUtils";
 
 import type { FetchResponse, PaginatedResult } from "@/types/responses";
 
@@ -93,7 +98,7 @@ export async function getPublicJobs(
    * minuto.
    */
   return fetchData<PaginatedResult<PublicJobListItem>, never>(
-    `public/careers/jobs${buildJobsQuery(params)}`,
+    apiPath`public/careers/jobs` + buildJobsQuery(params),
     "GET",
   );
 }
@@ -110,7 +115,7 @@ export async function getPublicJobFilters(
   locale: string,
 ): Promise<FetchResponse<PublicJobFilters>> {
   // Sin caché, por lo mismo que el listado: las ciudades y sus contadores salen de las ofertas vigentes.
-  return fetchData<PublicJobFilters, never>(`public/careers/filters?locale=${locale}`, "GET");
+  return fetchData<PublicJobFilters, never>(apiPath`public/careers/filters?locale=${locale}`, "GET");
 }
 
 /**
@@ -147,7 +152,7 @@ export async function getPublicJob(
   locale: string,
 ): Promise<FetchResponse<PublicJobDetail>> {
   return fetchData<PublicJobDetail, never>(
-    `public/careers/jobs/${encodeURIComponent(slug)}?locale=${locale}`,
+    apiPath`public/careers/jobs/${slug}?locale=${locale}`,
     "GET",
     undefined,
     { revalidate: CAREERS_REVALIDATE_SECONDS, tags: ["careers-jobs"] },
@@ -166,7 +171,7 @@ export async function getCareersSitemapEntries(
   locale: string,
 ): Promise<FetchResponse<PublicJobSitemapEntry[]>> {
   return fetchData<PublicJobSitemapEntry[], never>(
-    `public/careers/sitemap?locale=${locale}`,
+    apiPath`public/careers/sitemap?locale=${locale}`,
     "GET",
     undefined,
     { revalidate: CAREERS_REVALIDATE_SECONDS, tags: ["careers-sitemap"] },
@@ -191,7 +196,7 @@ export async function getApplicationStatus(
   locale: string,
 ): Promise<FetchResponse<JobApplicationTracking>> {
   return fetchData<JobApplicationTracking, never>(
-    `public/careers/applications/${encodeURIComponent(token)}?locale=${locale}`,
+    apiPath`public/careers/applications/${token}?locale=${locale}`,
     "GET",
   );
 }
@@ -206,7 +211,7 @@ export async function getApplicationStatus(
  */
 export async function withdrawApplication(token: string): Promise<FetchResponse<null>> {
   return fetchData<null, never>(
-    `public/careers/applications/${encodeURIComponent(token)}/withdraw`,
+    apiPath`public/careers/applications/${token}/withdraw`,
     "POST",
   );
 }
@@ -232,20 +237,41 @@ export async function withdrawApplication(token: string): Promise<FetchResponse<
  * formulario. Los dos booleanos van como `"true"`/`"false"` explícitos y no como la presencia del campo,
  * porque el backend los lee con un parser estricto que solo acepta un sí explícito: es lo que evita que una
  * casilla sin marcar se convierta en un consentimiento.
- * @param {JobApplicationPayload} payload - Datos de la candidatura y el fichero del CV
+ * @param {JobApplicationPayload} values - Datos de la candidatura y el fichero del CV
  * @returns {Promise<FetchResponse<null>>} Vacío en éxito, o el error de la API
  */
 export async function submitJobApplication(
-  payload: JobApplicationPayload,
+  values: JobApplicationPayload,
 ): Promise<FetchResponse<null>> {
+  // Endpoint público: se valida aquí con el mismo esquema del formulario (CV incluido: tipo y tamaño) y
+  // solo se reenvían los campos que siguen. Ver `actions/publicPayloadValidation.ts`.
+  const validation = await validatePublicPayload<JobApplicationPayload>(
+    jobApplicationSchema().shape({
+      jobCode: Yup.string().trim().matches(/^[A-Za-z0-9-]{1,64}$/, {
+        message: "common.invalid",
+        excludeEmptyString: true,
+      }),
+      citySlug: Yup.string().trim().matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
+        message: "common.invalid",
+        excludeEmptyString: true,
+      }),
+      privacyNoticeVersion: serverText(50).required("common.required"),
+      talentPoolConsent: Yup.boolean(),
+      captchaToken: serverText(4096),
+    }),
+    values,
+  );
+  if (!validation.ok) return validation.response;
+
+  const payload = validation.value;
   const formData = new FormData();
 
   formData.set("firstName", payload.firstName);
   formData.set("lastName", payload.lastName);
   formData.set("email", payload.email);
   formData.set("privacyNoticeVersion", payload.privacyNoticeVersion);
-  formData.set("privacyNoticeAcknowledged", String(payload.privacyNoticeAcknowledged));
-  formData.set("talentPoolConsent", String(payload.talentPoolConsent));
+  formData.set("privacyNoticeAcknowledged", String(payload.privacyNoticeAcknowledged === true));
+  formData.set("talentPoolConsent", String(payload.talentPoolConsent === true));
   formData.set("cv", payload.cv);
 
   // Los opcionales solo viajan si tienen valor: un campo vacío en un `multipart` llega como cadena vacía,

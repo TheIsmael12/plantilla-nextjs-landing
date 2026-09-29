@@ -39,12 +39,16 @@ declare module "next-auth" {
 
   /**
    * Sesión expuesta a los Server/Client Components vía `useSession()`/`getServerSession()`.
+   *
+   * **Sin `backendTokens`**: esta forma es la que NextAuth sirve por HTTP al navegador, así que los tokens
+   * de la API se quedan en el JWT (ver `lib/portalBackendTokens.ts`). Quitarlos también del tipo hace que
+   * cualquier intento de volver a leerlos de la sesión sea un error de compilación.
    * @interface Session
-   * @property {User} user - Cliente autenticado, con los campos propios de este dominio
+   * @property {Omit<User, "backendTokens">} user - Cliente autenticado, con los campos propios de este dominio salvo los tokens
    * @property {string} [error] - `"RefreshAccessTokenError"` si la renovación automática del `accessToken` falló (`lib/authOptions.ts`)
    */
   interface Session {
-    user: DefaultSession["user"] & User;
+    user: DefaultSession["user"] & Omit<User, "backendTokens">;
     error?: string;
   }
 }

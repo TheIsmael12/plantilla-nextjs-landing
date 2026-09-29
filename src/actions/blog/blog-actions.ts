@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchData } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import { resolveBackendAssetUrl } from "@/utils/fetchUtils";
 import type {
   BlogAuthorWithPosts,
@@ -61,7 +62,7 @@ export async function getBlogPosts(
   params: BlogPostsQuery,
 ): Promise<FetchResponse<PaginatedResult<BlogPostListItem>>> {
   const response = await fetchData<PaginatedResult<BlogPostListItem>, never>(
-    `blog/posts${buildBlogPostsQuery(params)}`,
+    apiPath`blog/posts` + buildBlogPostsQuery(params),
     "GET",
     undefined,
     { revalidate: BLOG_REVALIDATE_SECONDS, tags: ["blog-posts"] },
@@ -82,7 +83,7 @@ export async function getBlogPostBySlug(
   locale: string,
 ): Promise<FetchResponse<BlogPostDetail>> {
   const response = await fetchData<BlogPostDetail, never>(
-    `blog/posts/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`,
+    apiPath`blog/posts/${slug}?locale=${locale}`,
     "GET",
     undefined,
     { revalidate: BLOG_REVALIDATE_SECONDS, tags: [`blog-post-${slug}`] },
@@ -113,7 +114,7 @@ export async function getRelatedBlogPosts(
   limit = 3,
 ): Promise<FetchResponse<BlogPostListItem[]>> {
   const response = await fetchData<BlogPostListItem[], never>(
-    `blog/posts/${encodeURIComponent(slug)}/related?locale=${encodeURIComponent(locale)}&limit=${limit}`,
+    apiPath`blog/posts/${slug}/related?locale=${locale}&limit=${limit}`,
     "GET",
     undefined,
     { revalidate: BLOG_REVALIDATE_SECONDS },
@@ -132,7 +133,7 @@ export async function getBlogCategories(
   locale: string,
 ): Promise<FetchResponse<BlogTaxonomy[]>> {
   return fetchData<BlogTaxonomy[], never>(
-    `blog/categories?locale=${encodeURIComponent(locale)}`,
+    apiPath`blog/categories?locale=${locale}`,
     "GET",
     undefined,
     { revalidate: BLOG_REVALIDATE_SECONDS, tags: ["blog-categories"] },
@@ -148,7 +149,7 @@ export async function getBlogTags(
   locale: string,
 ): Promise<FetchResponse<BlogTaxonomy[]>> {
   return fetchData<BlogTaxonomy[], never>(
-    `blog/tags?locale=${encodeURIComponent(locale)}`,
+    apiPath`blog/tags?locale=${locale}`,
     "GET",
     undefined,
     { revalidate: BLOG_REVALIDATE_SECONDS },
@@ -166,7 +167,7 @@ export async function getBlogAuthor(
   locale: string,
 ): Promise<FetchResponse<BlogAuthorWithPosts>> {
   const response = await fetchData<BlogAuthorWithPosts, never>(
-    `blog/authors/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`,
+    apiPath`blog/authors/${slug}?locale=${locale}`,
     "GET",
     undefined,
     { revalidate: BLOG_REVALIDATE_SECONDS },
@@ -197,7 +198,7 @@ export async function resolveBlogSlug(
   slug: string,
 ): Promise<FetchResponse<BlogResolveResult>> {
   return fetchData<BlogResolveResult, never>(
-    `blog/resolve?locale=${encodeURIComponent(locale)}&slug=${encodeURIComponent(slug)}`,
+    apiPath`blog/resolve?locale=${locale}&slug=${slug}`,
   );
 }
 
@@ -216,7 +217,7 @@ export async function getBlogSitemapEntries(
   page = 1,
 ): Promise<FetchResponse<PaginatedResult<BlogSitemapEntry>>> {
   return fetchData<PaginatedResult<BlogSitemapEntry>, never>(
-    `blog/sitemap-entries?locale=${encodeURIComponent(locale)}&page=${page}`,
+    apiPath`blog/sitemap-entries?locale=${locale}&page=${page}`,
     "GET",
     undefined,
     { revalidate: BLOG_REVALIDATE_SECONDS, tags: ["blog-sitemap"] },
@@ -233,7 +234,7 @@ export async function getBlogTaxonomySitemap(
   locale: string,
 ): Promise<FetchResponse<BlogTaxonomySitemap>> {
   return fetchData<BlogTaxonomySitemap, never>(
-    `blog/sitemap-entries/taxonomy?locale=${encodeURIComponent(locale)}`,
+    apiPath`blog/sitemap-entries/taxonomy?locale=${locale}`,
     "GET",
     undefined,
     { revalidate: BLOG_REVALIDATE_SECONDS },
@@ -251,7 +252,7 @@ export async function getBlogFeedEntries(
   limit = 20,
 ): Promise<FetchResponse<BlogFeedEntry[]>> {
   const response = await fetchData<BlogFeedEntry[], never>(
-    `blog/feed-entries?locale=${encodeURIComponent(locale)}&limit=${limit}`,
+    apiPath`blog/feed-entries?locale=${locale}&limit=${limit}`,
     "GET",
     undefined,
     { revalidate: BLOG_REVALIDATE_SECONDS, tags: ["blog-feed"] },

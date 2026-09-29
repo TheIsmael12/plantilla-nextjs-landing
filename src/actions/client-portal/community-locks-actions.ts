@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import type {
   CommunityListQuery,
   CommunityLock,
@@ -43,7 +44,7 @@ export async function getCommunityLocksPaginated(
   query: CommunityListQuery = {},
 ): Promise<FetchResponse<PaginatedResult<CommunityLock>>> {
   return fetchDataToken<PaginatedResult<CommunityLock>, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/locks${buildQueryString({ ...query })}`,
+    apiPath`client/me/communities/${serviceId}/locks` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -76,7 +77,7 @@ export async function getCommunityAccessSummary(
   serviceId: string,
 ): Promise<FetchResponse<LockAccessSummary[]>> {
   return fetchDataToken<LockAccessSummary[], never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/access-log`,
+    apiPath`client/me/communities/${serviceId}/access-log`,
     "GET",
   );
 }
@@ -100,7 +101,7 @@ export async function getCommunityAccessLog(
   filters?: LockAccessLogQuery,
 ): Promise<FetchResponse<LockAccessLogEntry[]>> {
   return fetchDataToken<LockAccessLogEntry[], never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/access-log-detail${buildQueryString({ ...filters })}`,
+    apiPath`client/me/communities/${serviceId}/access-log-detail` + buildQueryString({ ...filters }),
     "GET",
   );
 }

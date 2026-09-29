@@ -109,14 +109,6 @@ export default async function middleware(request: NextRequest) {
   // reproducirse en producción con los formularios del CRM).
   request.headers.set("x-nonce", nonce);
 
-  const response = asPermanentRedirect(handleI18nRouting(request));
-
-  hardenLocaleCookie(response);
-
-  if (process.env.NODE_ENV === "production") {
-    response.headers.set("Content-Security-Policy", buildContentSecurityPolicy(nonce));
-  }
-
   // Si el usuario tiene cookie de locale Y la URL no tiene ya ese locale,
   // no redirigimos — solo anotamos el locale resuelto para request.ts
   // El locale real de la URL lo detecta next-intl internamente
@@ -134,6 +126,31 @@ export default async function middleware(request: NextRequest) {
 
   const canonicalPathname = resolveCanonicalPathname(localizedPathname, resolvedLocale);
 
+  /*
+   * Las cabeceras de contexto van en la PETICIÓN, sobrescribiendo lo que traiga el cliente.
+   *
+   * Antes solo se ponían en la respuesta, y `headers()` en un Server Component lee las de la petición: lo
+   * que veían `BreadcrumbJsonLd`, `generateMetadata` y el layout del área privada era lo que hubiera mandado
+   * el navegador —cualquiera puede enviar `x-canonical-pathname: /lo-que-sea`— y con eso se elegían las
+   * migas de pan y la metadata servidas (y cacheables). Se borran primero para que un valor del cliente no
+   * sobreviva cuando aquí no hay ninguno que poner (ruta sin clave canónica, camino al 404).
+   */
+  request.headers.set("x-pathname", pathname);
+  request.headers.set("x-resolved-locale", resolvedLocale);
+  request.headers.delete("x-canonical-pathname");
+  if (canonicalPathname) {
+    request.headers.set("x-canonical-pathname", canonicalPathname);
+  }
+
+  const response = asPermanentRedirect(handleI18nRouting(request));
+
+  hardenLocaleCookie(response);
+
+  if (process.env.NODE_ENV === "production") {
+    response.headers.set("Content-Security-Policy", buildContentSecurityPolicy(nonce));
+  }
+
+  // También en la respuesta, como antes (útil para depurar); los componentes leen las de la petición.
   response.headers.set("x-pathname", pathname);
   response.headers.set("x-resolved-locale", resolvedLocale);
   // Ruta canónica (p. ej. "/services/concierge") independiente del idioma y

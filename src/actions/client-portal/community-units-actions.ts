@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import type {
   CommunityUnit,
   CommunityUnitsQuery,
@@ -45,7 +46,7 @@ export async function getCommunityUnitsPaginated(
   query: CommunityUnitsQuery = {},
 ): Promise<FetchResponse<PaginatedResult<CommunityUnit>>> {
   return fetchDataToken<PaginatedResult<CommunityUnit>, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/units${buildQueryString({ ...query })}`,
+    apiPath`client/me/communities/${serviceId}/units` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -76,7 +77,7 @@ export async function createCommunityUnit(
   dto: CreateCommunityUnitDto,
 ): Promise<FetchResponse<CommunityUnit>> {
   return fetchDataToken<CommunityUnit, CreateCommunityUnitDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/units`,
+    apiPath`client/me/communities/${serviceId}/units`,
     "POST",
     dto,
   );
@@ -96,7 +97,7 @@ export async function updateCommunityUnit(
   dto: UpdateCommunityUnitDto,
 ): Promise<FetchResponse<CommunityUnit>> {
   return fetchDataToken<CommunityUnit, UpdateCommunityUnitDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/units/${encodeURIComponent(unitId)}`,
+    apiPath`client/me/communities/${serviceId}/units/${unitId}`,
     "PATCH",
     dto,
   );
@@ -114,7 +115,7 @@ export async function deleteCommunityUnit(
   unitId: string,
 ): Promise<FetchResponse<void>> {
   return fetchDataToken<void, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/units/${encodeURIComponent(unitId)}`,
+    apiPath`client/me/communities/${serviceId}/units/${unitId}`,
     "DELETE",
   );
 }
@@ -132,7 +133,7 @@ export async function importCommunityUnits(
   rows: PortalUnitImportRow[],
 ): Promise<FetchResponse<CommunityUnit[]>> {
   return fetchDataToken<CommunityUnit[], ImportPortalUnitsDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/units/import`,
+    apiPath`client/me/communities/${serviceId}/units/import`,
     "POST",
     { rows },
   );

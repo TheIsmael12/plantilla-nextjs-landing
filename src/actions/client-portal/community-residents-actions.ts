@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import type {
   CommunityInvitationsQuery,
   CommunityResidentsQuery,
@@ -47,7 +48,7 @@ export async function getCommunityResidentsPaginated(
   query: CommunityResidentsQuery = {},
 ): Promise<FetchResponse<PaginatedResult<PortalResident>>> {
   return fetchDataToken<PaginatedResult<PortalResident>, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/residents${buildQueryString({ ...query })}`,
+    apiPath`client/me/communities/${serviceId}/residents` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -80,7 +81,7 @@ export async function getCommunityInvitations(
   query: CommunityInvitationsQuery = {},
 ): Promise<FetchResponse<PaginatedResult<ResidentInvitation>>> {
   return fetchDataToken<PaginatedResult<ResidentInvitation>, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/invitations${buildQueryString({ ...query })}`,
+    apiPath`client/me/communities/${serviceId}/invitations` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -98,7 +99,7 @@ export async function createCommunityInvitations(
   dto: CreateResidentInvitationsDto,
 ): Promise<FetchResponse<ResidentInvitation[]>> {
   return fetchDataToken<ResidentInvitation[], CreateResidentInvitationsDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/invitations`,
+    apiPath`client/me/communities/${serviceId}/invitations`,
     "POST",
     dto,
   );
@@ -114,7 +115,7 @@ export async function resendCommunityInvitation(
   invitationId: string,
 ): Promise<FetchResponse<ResidentInvitation>> {
   return fetchDataToken<ResidentInvitation, never>(
-    `client/me/communities/invitations/${encodeURIComponent(invitationId)}/resend`,
+    apiPath`client/me/communities/invitations/${invitationId}/resend`,
     "POST",
   );
 }
@@ -129,7 +130,7 @@ export async function revokeCommunityInvitation(
   invitationId: string,
 ): Promise<FetchResponse<ResidentInvitation>> {
   return fetchDataToken<ResidentInvitation, never>(
-    `client/me/communities/invitations/${encodeURIComponent(invitationId)}/revoke`,
+    apiPath`client/me/communities/invitations/${invitationId}/revoke`,
     "POST",
   );
 }
@@ -146,7 +147,7 @@ export async function updateCommunityMembership(
   dto: UpdateResidentMembershipDto,
 ): Promise<FetchResponse<PortalResident>> {
   return fetchDataToken<PortalResident, UpdateResidentMembershipDto>(
-    `client/me/communities/memberships/${encodeURIComponent(membershipId)}`,
+    apiPath`client/me/communities/memberships/${membershipId}`,
     "PATCH",
     dto,
   );
@@ -167,7 +168,7 @@ export async function updateCommunityResidentAccount(
   dto: UpdateResidentAccountDto,
 ): Promise<FetchResponse<PortalResident>> {
   return fetchDataToken<PortalResident, UpdateResidentAccountDto>(
-    `client/me/communities/memberships/${encodeURIComponent(membershipId)}/account`,
+    apiPath`client/me/communities/memberships/${membershipId}/account`,
     "PATCH",
     dto,
   );
@@ -183,7 +184,7 @@ export async function revokeCommunityMembership(
   membershipId: string,
 ): Promise<FetchResponse<void>> {
   return fetchDataToken<void, never>(
-    `client/me/communities/memberships/${encodeURIComponent(membershipId)}`,
+    apiPath`client/me/communities/memberships/${membershipId}`,
     "DELETE",
   );
 }

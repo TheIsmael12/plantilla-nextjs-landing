@@ -10,12 +10,11 @@
 // aparezca en tiempo de ejecución.
 import "server-only";
 
-import { getServerSession } from "next-auth/next";
-
-import { authOptions } from "@/lib/authOptions";
+import { getPortalAccessToken } from "@/lib/portalBackendTokens";
 import { ENV_SERVER as ENV } from "@/config/env.server";
 import { HTTPStatus } from "@/constants/httpStatus";
 import type { FetchResponse, FetchResponseWithBlob } from "@/types/responses";
+import { isSafeApiEndpoint } from "@/utils/apiPathUtils";
 import { buildHeaders, networkError, parseError, parseSuccess } from "@/utils/fetchUtils";
 import { getTranslations } from "next-intl/server";
 
@@ -64,6 +63,22 @@ function cacheOptions(revalidate?: number, tags?: string[]): RequestInit {
 const baseURL = ENV.BACKEND_URL;
 
 /**
+ * Respuesta para un endpoint que no pasa la red de seguridad de rutas.
+ *
+ * Las acciones montan las rutas con `apiPath` (`utils/apiPathUtils.ts`), que ya rechaza ids con `.`/`..`;
+ * esto es la segunda capa, por si alguna ruta se monta a mano: un segmento `..` (también `%2e%2e`) lo
+ * resuelve el parser de URLs y la petición —con el token del cliente— acabaría en otro endpoint. Se
+ * responde un 400 sin llegar a llamar a la API, y se deja traza porque es o un bug o alguien probando.
+ * @param {string} endpoint - Endpoint rechazado
+ * @returns {Promise<FetchResponse<never>>} Un 400 con el mensaje genérico
+ */
+async function rejectUnsafeEndpoint(endpoint: string): Promise<FetchResponse<never>> {
+  console.error("[fetch] endpoint rechazado por contener segmentos no válidos:", endpoint.slice(0, 200));
+  const t = await getTranslations("Common.Errors");
+  return { status: HTTPStatus.BAD_REQUEST, message: t("generic") };
+}
+
+/**
  * Ejecuta una petición contra la API pública del backend (blog, contacto,
  * unsubscribe...), sin adjuntar ningún token de sesión. Para peticiones
  * autenticadas contra el portal de cliente, ver {@link fetchDataToken}.
@@ -84,6 +99,8 @@ export async function fetchData<T, Y>(
   data?: Partial<Y> | FormData,
   options?: FetchDataOptions,
 ): Promise<FetchResponse<T>> {
+  if (!isSafeApiEndpoint(endpoint)) return rejectUnsafeEndpoint(endpoint);
+
   /*
    * Un `FormData` se manda tal cual y **sin** `Content-Type`, igual que ya hacía `fetchDataToken`: el
    * runtime añade el `multipart/form-data; boundary=...` correcto, que un `JSON.stringify` rompería.
@@ -137,7 +154,8 @@ export interface FetchTokenOptions {
 /**
  * Ejecuta una petición autenticada contra la API del portal de cliente.
  * Resuelve el token en este orden: `options.token` explícito, o si no se
- * indica, la sesión activa de NextAuth (`getServerSession`). Igual que
+ * indica, el de la sesión activa, leído en servidor del JWT de NextAuth
+ * (`lib/portalBackendTokens.ts`; la sesión que ve el navegador ya no lo lleva). Igual que
  * {@link fetchData}, nunca lanza: todo fallo se normaliza a {@link FetchResponse}.
  * @template T - Forma de `data` en la respuesta de éxito
  * @template Y - Forma del cuerpo enviado (`data`)
@@ -153,15 +171,17 @@ export async function fetchDataToken<T, Y>(
   data?: Partial<Y> | FormData,
   options?: FetchTokenOptions & FetchDataOptions,
 ): Promise<FetchResponse<T> | FetchResponseWithBlob<T>> {
+  if (!isSafeApiEndpoint(endpoint)) return rejectUnsafeEndpoint(endpoint);
+
   let accessToken = options?.token;
 
   if (!accessToken) {
-    const session = await getServerSession(authOptions);
-    if (!session?.user.backendTokens?.accessToken) {
+    const sessionAccessToken = await getPortalAccessToken();
+    if (!sessionAccessToken) {
       const t = await getTranslations("Common.Errors");
       return { status: HTTPStatus.UNAUTHORIZED, message: t("unauthenticated") };
     }
-    accessToken = session.user.backendTokens.accessToken;
+    accessToken = sessionAccessToken;
   }
 
   const isFormData = data instanceof FormData;

@@ -4,6 +4,7 @@ import {
   DENIED_CONSENT,
   type CookieConsentCategories,
 } from "@/lib/cookieConsent";
+import { safeJsonLd } from "@/utils/jsonLdUtils";
 
 /**
  * Capa de datos de Google Tag Manager y traducción del banner de cookies al
@@ -169,7 +170,23 @@ export function pushLeadGenerated(formId: string, leadType: string): void {
 }
 
 /**
+ * La página tal y como se le presenta a la analítica: ya saneada (`utils/analyticsUrlUtils.ts`).
+ * @interface GtmPageContext
+ * @property {string} location - `page_location`, sin tokens
+ * @property {string} referrer - `page_referrer`, sin tokens (vacío si no hay)
+ */
+export interface GtmPageContext {
+  location: string;
+  referrer: string;
+}
+
+/**
  * Script de arranque del contenedor, para inyectar en línea.
+ *
+ * `url_passthrough` **no** se activa: sirve para que las conversiones de Google Ads sobrevivan sin cookies
+ * decorando los enlaces internos con `gclid`/`wbraid`, y aquí no hay publicidad (las tres señales de anuncios
+ * van fijadas a `denied`, ver {@link CONSENT_SIGNAL_RULE}). Lo único que hacía era reescribir URLs y
+ * propagar parámetros de la URL de entrada de página en página. El día que haya campañas se valora de nuevo.
  *
  * Hace tres cosas **en este orden**, que es lo que obliga a que sea un solo
  * script y no varios: prepara la capa de datos, declara el consentimiento
@@ -182,10 +199,21 @@ export function pushLeadGenerated(formId: string, leadType: string): void {
  * aquí, en el script, y no en un efecto de React, porque un efecto correría
  * después y su `update` podría quedar por detrás de este `default` en la
  * cola de la capa de datos, dejando el consentimiento en denegado.
+ *
+ * Con `page`, fija además `page_location`/`page_referrer` **antes** de cargar `gtm.js`, para que la etiqueta
+ * de configuración de GA4 no lea `document.location`/`document.referrer` por su cuenta: son URLs que pueden
+ * llevar un token (la página anterior pudo ser la de baja o la de candidatura). Van serializadas con
+ * `safeJsonLd`, que escapa lo que permitiría salirse del `<script>`.
  * @param {string} containerId - Identificador del contenedor (`GTM-XXXXXXX`)
+ * @param {GtmPageContext} [page] - URL y referrer ya saneados de la página en la que arranca el contenedor
  * @returns {string} El código del script de arranque
  */
-export function buildGtmBootstrap(containerId: string): string {
+export function buildGtmBootstrap(containerId: string, page?: GtmPageContext): string {
+  const pageFields = page
+    ? `
+  w.gtag('set', ${safeJsonLd({ page_location: page.location, page_referrer: page.referrer })});`
+    : "";
+
   return `(function (w, d, s, l, i) {
   w[l] = w[l] || [];
   w.gtag = w.gtag || function () { w[l].push(arguments); };
@@ -206,8 +234,7 @@ export function buildGtmBootstrap(containerId: string): string {
   }
 
   w.gtag('consent', 'default', consent);
-  w.gtag('set', 'ads_data_redaction', true);
-  w.gtag('set', 'url_passthrough', true);
+  w.gtag('set', 'ads_data_redaction', true);${pageFields}
 
   w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
 

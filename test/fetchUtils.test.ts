@@ -19,8 +19,15 @@ vi.mock("next-intl/server", () => ({
   getTranslations: () => Promise.resolve((key: string) => `Common.Errors.${key}`),
 }));
 
-const { buildHeaders, networkError, parseError, parseSuccess, resolveBackendAssetUrl } =
-  await import("@/utils/fetchUtils");
+const {
+  buildHeaders,
+  networkError,
+  normalizeClientAddress,
+  parseError,
+  parseSuccess,
+  resolveBackendAssetUrl,
+  resolveClientAddress,
+} = await import("@/utils/fetchUtils");
 
 beforeEach(() => {
   requestHeaders.value = null;
@@ -176,6 +183,72 @@ describe("buildHeaders", () => {
     const headers = await buildHeaders();
 
     expect(headers.get("Accept-Language")).toBe("es");
+  });
+});
+
+describe("normalizeClientAddress", () => {
+  it.each([
+    ["203.0.113.7", "203.0.113.7"],
+    [" 203.0.113.7 ", "203.0.113.7"],
+    ["203.0.113.7:5678", "203.0.113.7"],
+    ["2001:db8::1", "2001:db8::1"],
+    ["[2001:db8::1]:443", "2001:db8::1"],
+    ["::ffff:203.0.113.7", "::ffff:203.0.113.7"],
+  ])("acepta %s", (raw, expected) => {
+    expect(normalizeClientAddress(raw)).toBe(expected);
+  });
+
+  /** La expresión regular de antes dejaba pasar `999.1.1.1` y `::::`; `net.isIP` no. */
+  it.each(["999.1.1.1", "::::", "no-soy-una-ip", "", "1.2.3.4, 5.6.7.8", "[1.2.3.4]:80"])(
+    "rechaza %s",
+    (raw) => {
+      expect(normalizeClientAddress(raw)).toBeNull();
+    },
+  );
+});
+
+describe("resolveClientAddress", () => {
+  const chain = new Headers({ "x-forwarded-for": "6.6.6.6, 198.51.100.1, 203.0.113.7" });
+
+  it("con un proxy de confianza (por defecto) se queda con el último salto", () => {
+    expect(resolveClientAddress(chain, { trustedHops: 1 })).toBe("203.0.113.7");
+  });
+
+  it("con dos proxies de confianza se queda con el penúltimo", () => {
+    expect(resolveClientAddress(chain, { trustedHops: 2 })).toBe("198.51.100.1");
+  });
+
+  /*
+   * Con menos entradas que proxies no hay ninguna fiable: quedarse con la primera sería quedarse con la que
+   * ha escrito el visitante.
+   */
+  it("si la cadena es más corta que los proxies de confianza, no devuelve nada", () => {
+    expect(
+      resolveClientAddress(new Headers({ "x-forwarded-for": "6.6.6.6" }), { trustedHops: 2 }),
+    ).toBeNull();
+  });
+
+  it("con una cabecera de confianza la lee a ella e ignora la cadena", () => {
+    const headers = new Headers({
+      "x-forwarded-for": "6.6.6.6",
+      "cf-connecting-ip": "203.0.113.9",
+    });
+
+    expect(
+      resolveClientAddress(headers, { trustedHops: 1, trustedHeader: "cf-connecting-ip" }),
+    ).toBe("203.0.113.9");
+  });
+
+  it("una cabecera de confianza con basura no cae a la cadena", () => {
+    const headers = new Headers({ "x-forwarded-for": "203.0.113.7", "cf-connecting-ip": "basura" });
+
+    expect(
+      resolveClientAddress(headers, { trustedHops: 1, trustedHeader: "cf-connecting-ip" }),
+    ).toBeNull();
+  });
+
+  it("sin cabeceras no hay IP", () => {
+    expect(resolveClientAddress(new Headers(), { trustedHops: 1 })).toBeNull();
   });
 });
 

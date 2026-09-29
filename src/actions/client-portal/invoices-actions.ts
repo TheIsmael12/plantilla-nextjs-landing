@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import { downloadPortalDocument, type PortalDocumentFile } from "@/lib/portalDocuments";
 import type {
   ClientInvoicesQuery,
@@ -38,7 +39,7 @@ export async function getClientInvoices(
   query: ClientInvoicesQuery = {},
 ): Promise<FetchResponse<PaginatedResult<InvoiceListItem>>> {
   return fetchDataToken<PaginatedResult<InvoiceListItem>, never>(
-    `client/me/invoices${buildQueryString({ ...query })}`,
+    apiPath`client/me/invoices` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -53,7 +54,7 @@ export async function getClientInvoiceDetail(
   id: string,
 ): Promise<FetchResponse<InvoiceDetail>> {
   return fetchDataToken<InvoiceDetail, never>(
-    `client/me/invoices/${encodeURIComponent(id)}`,
+    apiPath`client/me/invoices/${id}`,
     "GET",
   );
 }
@@ -71,7 +72,7 @@ export async function getClientInvoiceDetail(
 export async function downloadClientInvoicePdf(
   id: string,
 ): Promise<FetchResponse<PortalDocumentFile>> {
-  return downloadPortalDocument(`client/me/invoices/${encodeURIComponent(id)}/pdf`);
+  return downloadPortalDocument(apiPath`client/me/invoices/${id}/pdf`);
 }
 
 /**

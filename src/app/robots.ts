@@ -11,23 +11,35 @@ const BASE_URL = ENV.APP_URL;
  * patrón para cubrir el prefijo de locale (`/es/area-privada/...`, `/en/private-area/...`) sin
  * enumerar cada ruta hija ni cada idioma por separado.
  */
-const PRIVATE_ROUTE_PATTERNS = [
-  "/*/private-area/",
-  "/*/area-privada/",
-  "/*/login",
-  "/*/iniciar-sesion",
-  "/*/forgot-password",
-  "/*/recuperar-acceso",
-  "/*/reset-password",
-  "/*/recuperar-contrasena",
-  "/*/change-password",
-  "/*/cambiar-contrasena",
-  "/*/verify-email",
-  "/*/verificar-email",
+const PRIVATE_ROUTES = [
+  "/private-area/",
+  "/area-privada/",
+  "/login",
+  "/iniciar-sesion",
+  "/forgot-password",
+  "/recuperar-acceso",
+  "/reset-password",
+  "/recuperar-contrasena",
+  "/change-password",
+  "/cambiar-contrasena",
+  "/verify-email",
+  "/verificar-email",
   // Enlaces de un solo uso para un vecino de la app móvil (invitación, restablecer
   // contraseña), nunca pensados para llegar por búsqueda.
-  "/*/resident/",
+  "/resident/",
+  // Baja de comunicaciones: solo se llega desde el enlace del email, con un token en la query.
+  "/unsubscribe",
+  "/darse-de-baja",
 ];
+
+/*
+ * Cada ruta en sus dos formas, sin prefijo y con comodín de locale.
+ *
+ * Solo con `/*` delante no bastaba: `localePrefix: "as-needed"` sirve el idioma por defecto **sin** prefijo,
+ * y `/*` + `/iniciar-sesion` exige dos barras, así que `/iniciar-sesion` —la URL real en español— no casaba
+ * con ningún patrón. Es el mismo arreglo que ya tenían las rutas de candidatura, abajo.
+ */
+const PRIVATE_ROUTE_PATTERNS = PRIVATE_ROUTES.flatMap((route) => [route, `/*${route}`]);
 
 /**
  * Enlace de seguimiento de una candidatura (`/empleo/candidatura/<token>`,
@@ -48,6 +60,33 @@ const APPLICATION_TRACKING_PATTERNS = [
   "/*/empleo/candidatura/",
   "/careers/applications/",
   "/*/careers/applications/",
+];
+
+/**
+ * Rastreadores de IA a los que se abre el contenido público (GEO). Todos con **las mismas** exclusiones que
+ * los buscadores: antes solo tenían `/api/` y las candidaturas, así que el área privada, el login y los
+ * enlaces de un solo uso quedaban anunciados como rastreables para ellos.
+ */
+const AI_CRAWLERS = [
+  "GPTBot",
+  "ChatGPT-User",
+  "OAI-SearchBot",
+  "ClaudeBot",
+  "Claude-User",
+  "Claude-SearchBot",
+  "anthropic-ai",
+  "Claude-Web",
+  "Google-Extended",
+  "PerplexityBot",
+  "Perplexity-User",
+  "YouBot",
+];
+
+/** Lo que ningún rastreador que se admite debe recorrer. */
+const DISALLOWED_FOR_ALLOWED_CRAWLERS = [
+  "/api/",
+  ...PRIVATE_ROUTE_PATTERNS,
+  ...APPLICATION_TRACKING_PATTERNS,
 ];
 
 /**
@@ -80,47 +119,12 @@ export default function robots(): MetadataRoute.Robots {
       // Se permite el contenido público para que los LLMs puedan responder
       // preguntas sobre la empresa, servicios, blog, etc.
       // Las rutas privadas siguen bloqueadas.
-      {
-        userAgent: "GPTBot",
+      ...AI_CRAWLERS.map((userAgent) => ({
+        userAgent,
         allow: ["/"],
-        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
-      },
-      {
-        userAgent: "ChatGPT-User",
-        allow: ["/"],
-        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
-      },
-      {
-        userAgent: "OAI-SearchBot",
-        allow: ["/"],
-        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
-      },
-      {
-        userAgent: "anthropic-ai",
-        allow: ["/"],
-        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
-      },
-      {
-        userAgent: "Claude-Web",
-        allow: ["/"],
-        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
-      },
-      {
-        userAgent: "Google-Extended",
-        allow: ["/"],
-        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
-      },
-      {
-        userAgent: "PerplexityBot",
-        allow: ["/"],
-        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
-      },
-      {
-        userAgent: "YouBot",
-        allow: ["/"],
-        disallow: ["/api/", ...APPLICATION_TRACKING_PATTERNS],
-      },
-      
+        disallow: DISALLOWED_FOR_ALLOWED_CRAWLERS,
+      })),
+
       // ── Scrapers genéricos sin valor GEO — seguir bloqueando ──────────
 
       { userAgent: "CCBot", disallow: ["/"] },
@@ -132,14 +136,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "Googlebot",
         allow: ["/"],
-        disallow: ["/api/", ...PRIVATE_ROUTE_PATTERNS, ...APPLICATION_TRACKING_PATTERNS],
+        disallow: DISALLOWED_FOR_ALLOWED_CRAWLERS,
       },
 
       // ── Permitir explícitamente Bingbot ────────────────────────────────
       {
         userAgent: "Bingbot",
         allow: ["/"],
-        disallow: ["/api/", ...PRIVATE_ROUTE_PATTERNS, ...APPLICATION_TRACKING_PATTERNS],
+        disallow: DISALLOWED_FOR_ALLOWED_CRAWLERS,
       },
     ],
 

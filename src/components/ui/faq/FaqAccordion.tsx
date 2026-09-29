@@ -3,6 +3,7 @@ import { Plus } from 'lucide-react';
 
 import '@/styles/04-components/help/helpBase.scss';
 import '@/styles/04-components/faq/faqAccordion.scss';
+import { safeJsonLd } from '@/utils/jsonLdUtils';
 
 interface FaqItem {
   question: string;
@@ -71,7 +72,7 @@ export default function FaqAccordion() {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
     </section>
   );

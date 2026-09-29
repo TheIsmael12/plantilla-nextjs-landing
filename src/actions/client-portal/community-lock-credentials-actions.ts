@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import type {
   AssignKeysDto,
   AssignKeysResult,
@@ -55,7 +56,7 @@ export async function getCommunityLockCredentials(
   query: CommunityCredentialsQuery = {},
 ): Promise<FetchResponse<PaginatedResult<LockCredential>>> {
   return fetchDataToken<PaginatedResult<LockCredential>, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/lock-credentials${buildQueryString({ ...query })}`,
+    apiPath`client/me/communities/${serviceId}/lock-credentials` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -75,7 +76,7 @@ export async function createCommunityLockCredential(
   dto: CreateLockCredentialDto,
 ): Promise<FetchResponse<LockCredentialCreated>> {
   return fetchDataToken<LockCredentialCreated, CreateLockCredentialDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/lock-credentials`,
+    apiPath`client/me/communities/${serviceId}/lock-credentials`,
     "POST",
     dto,
   );
@@ -97,7 +98,7 @@ export async function createCommunityLockCredentialsBatch(
   dto: BatchCreateLockCredentialsDto,
 ): Promise<FetchResponse<LockCredentialBatchResult>> {
   return fetchDataToken<LockCredentialBatchResult, BatchCreateLockCredentialsDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/lock-credentials/batch`,
+    apiPath`client/me/communities/${serviceId}/lock-credentials/batch`,
     "POST",
     dto,
   );
@@ -123,7 +124,7 @@ export async function assignCommunityKeys(
   dto: AssignKeysDto,
 ): Promise<FetchResponse<AssignKeysResult>> {
   return fetchDataToken<AssignKeysResult, AssignKeysDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/keys/assign`,
+    apiPath`client/me/communities/${serviceId}/keys/assign`,
     "POST",
     dto,
   );
@@ -145,7 +146,7 @@ export async function getKeyringMembers(
   keyringId: string,
 ): Promise<FetchResponse<KeyringMember[]>> {
   return fetchDataToken<KeyringMember[], never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/keyrings/${encodeURIComponent(keyringId)}/members`,
+    apiPath`client/me/communities/${serviceId}/keyrings/${keyringId}/members`,
   );
 }
 
@@ -161,7 +162,7 @@ export async function getKeyringMemberDetail(
   residentMembershipId: string,
 ): Promise<FetchResponse<MemberDetail>> {
   return fetchDataToken<MemberDetail, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/members/${encodeURIComponent(residentMembershipId)}/keyring-detail`,
+    apiPath`client/me/communities/${serviceId}/members/${residentMembershipId}/keyring-detail`,
   );
 }
 
@@ -181,7 +182,7 @@ export async function revokeKeyringMember(
   keyringMembershipId: string,
 ): Promise<FetchResponse<null>> {
   return fetchDataToken<null, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/keyring-members/${encodeURIComponent(keyringMembershipId)}`,
+    apiPath`client/me/communities/${serviceId}/keyring-members/${keyringMembershipId}`,
     "DELETE",
   );
 }
@@ -198,7 +199,7 @@ export async function updateCommunityLockCredential(
   dto: UpdateLockCredentialDto,
 ): Promise<FetchResponse<LockCredential>> {
   return fetchDataToken<LockCredential, UpdateLockCredentialDto>(
-    `client/me/communities/lock-credentials/${encodeURIComponent(credentialId)}`,
+    apiPath`client/me/communities/lock-credentials/${credentialId}`,
     "PATCH",
     dto,
   );
@@ -218,7 +219,7 @@ export async function revokeCommunityLockCredential(
   reason?: string,
 ): Promise<FetchResponse<LockCredential>> {
   return fetchDataToken<LockCredential, RevokeLockCredentialDto>(
-    `client/me/communities/lock-credentials/${encodeURIComponent(credentialId)}/revoke`,
+    apiPath`client/me/communities/lock-credentials/${credentialId}/revoke`,
     "POST",
     { reason },
   );
@@ -236,7 +237,7 @@ export async function enrollCommunityCard(
   nfcUid: string,
 ): Promise<FetchResponse<LockCredential>> {
   return fetchDataToken<LockCredential, EnrollCardDto>(
-    `client/me/communities/lock-credentials/${encodeURIComponent(credentialId)}/enroll-card`,
+    apiPath`client/me/communities/lock-credentials/${credentialId}/enroll-card`,
     "POST",
     { nfcUid },
   );
@@ -253,7 +254,7 @@ export async function getCommunityBypassReport(
   serviceId: string,
 ): Promise<FetchResponse<LockCredential[]>> {
   return fetchDataToken<LockCredential[], never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/bypass-report`,
+    apiPath`client/me/communities/${serviceId}/bypass-report`,
     "GET",
   );
 }
@@ -275,7 +276,7 @@ export async function updateKeyringMembership(
   dto: UpdateKeyringMembershipDto,
 ): Promise<FetchResponse<MemberDetail>> {
   return fetchDataToken<MemberDetail, UpdateKeyringMembershipDto>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/keyring-members/${encodeURIComponent(keyringMembershipId)}`,
+    apiPath`client/me/communities/${serviceId}/keyring-members/${keyringMembershipId}`,
     "PATCH",
     dto,
   );
@@ -296,7 +297,7 @@ export async function issueResidentMagicLink(
   residentMembershipId: string,
 ): Promise<FetchResponse<{ link: string }>> {
   return fetchDataToken<{ link: string }, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/members/${encodeURIComponent(residentMembershipId)}/magic-link`,
+    apiPath`client/me/communities/${serviceId}/members/${residentMembershipId}/magic-link`,
     "POST",
   );
 }
@@ -316,7 +317,7 @@ export async function revokeResidentMagicLinks(
   residentMembershipId: string,
 ): Promise<FetchResponse<{ revoked: number }>> {
   return fetchDataToken<{ revoked: number }, never>(
-    `client/me/communities/${encodeURIComponent(serviceId)}/members/${encodeURIComponent(residentMembershipId)}/magic-links`,
+    apiPath`client/me/communities/${serviceId}/members/${residentMembershipId}/magic-links`,
     "DELETE",
   );
 }
@@ -335,7 +336,7 @@ export async function revealCredentialPin(
   credentialId: string,
 ): Promise<FetchResponse<{ pin: string }>> {
   return fetchDataToken<{ pin: string }, never>(
-    `client/me/communities/lock-credentials/${encodeURIComponent(credentialId)}/reveal-pin`,
+    apiPath`client/me/communities/lock-credentials/${credentialId}/reveal-pin`,
     "POST",
   );
 }
@@ -353,7 +354,7 @@ export async function resyncLockCredential(
   credentialId: string,
 ): Promise<FetchResponse<LockCredential>> {
   return fetchDataToken<LockCredential, never>(
-    `client/me/communities/lock-credentials/${encodeURIComponent(credentialId)}/resync`,
+    apiPath`client/me/communities/lock-credentials/${credentialId}/resync`,
     "POST",
   );
 }

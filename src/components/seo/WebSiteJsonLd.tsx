@@ -1,4 +1,5 @@
 import { ENV } from '@/config/env';
+import { safeJsonLd } from '@/utils/jsonLdUtils';
 
 /**
  * Datos estructurados (JSON-LD) `WebSite`: identifica el sitio como entidad propia (distinta
@@ -25,6 +26,6 @@ export default function WebSiteJsonLd() {
   };
 
   return (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
   );
 }

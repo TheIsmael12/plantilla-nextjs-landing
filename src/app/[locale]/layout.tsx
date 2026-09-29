@@ -3,6 +3,9 @@ import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 
 import { getServerSession } from "next-auth/next";
+
+import { trustedScriptOrigins } from "@/config/csp";
+import { buildTrustedTypesPolicyScript } from "@/lib/trustedTypesPolicy";
 import { ThemeProvider } from "next-themes";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale, getMessages } from "next-intl/server";
@@ -124,19 +127,14 @@ export default async function LocaleLayout({
                   automáticamente para cualquier asignación que no pase ya por una política explícita.
                   Se define aquí y no en un componente cliente: un componente se ejecuta después de la
                   hidratación, que es justo lo que hay que cubrir.
+
+                  Ya no es una política de paso: rechaza el HTML con vectores de ejecución y solo admite
+                  URLs de script del propio origen y de los de `script-src`. Ver `lib/trustedTypesPolicy.ts`.
                 */}
                 <script
                     nonce={nonce}
                     dangerouslySetInnerHTML={{
-                        __html: `if (window.trustedTypes && window.trustedTypes.createPolicy) {
-  try {
-    window.trustedTypes.createPolicy("default", {
-      createHTML: (s) => s,
-      createScript: (s) => s,
-      createScriptURL: (s) => s,
-    });
-  } catch (e) {}
-}`,
+                        __html: buildTrustedTypesPolicyScript(trustedScriptOrigins()),
                     }}
                 />
                 <WebSiteJsonLd />

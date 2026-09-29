@@ -1,3 +1,5 @@
+import { isTurnstileDisabled } from "@/config/turnstile";
+
 /**
  * Variables de entorno **públicas**: todas leídas de `NEXT_PUBLIC_*`, seguras
  * de importar desde un Client Component — un bundle de cliente se descompila,
@@ -28,8 +30,11 @@ export const ENV = {
   APP_VERSION: process.env.NEXT_PUBLIC_APP_VERSION || "1.0.0",
   PORT: process.env.PORT || 3000,
 
-  // Captcha (Cloudflare Turnstile) — site key pública, se monta en cliente.
+  // Captcha (Cloudflare Turnstile) — site key pública, se monta en cliente. En producción el build se corta
+  // si falta y no se ha desactivado a propósito con `NEXT_PUBLIC_TURNSTILE_DISABLED=true` (ver
+  // `config/turnstile.ts`).
   TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+  TURNSTILE_DISABLED: isTurnstileDisabled(process.env.NEXT_PUBLIC_TURNSTILE_DISABLED),
 
   // SEO & GEO
   APP_URL: process.env.NEXT_PUBLIC_APP_URL || "https://imora.es",

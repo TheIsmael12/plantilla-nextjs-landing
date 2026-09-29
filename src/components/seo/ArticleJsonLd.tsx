@@ -1,5 +1,6 @@
 import { ENV } from '@/config/env';
 import type { BlogPostDetail } from '@/types/blog/blog';
+import { safeJsonLd } from '@/utils/jsonLdUtils';
 
 interface ArticleJsonLdProps {
   post: BlogPostDetail;
@@ -54,6 +55,6 @@ export default function ArticleJsonLd({ post, locale }: ArticleJsonLdProps) {
   };
 
   return (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
   );
 }

@@ -6,37 +6,26 @@ import { authOptions } from "@/lib/authOptions";
 
 const handler = NextAuth(authOptions);
 
-/**
- * Ruta de NextAuth, con el `GET /api/auth/session` filtrado.
- *
- * La sesión que construye el callback `session` de `authOptions` incluye
- * `user.backendTokens` (el `accessToken` y el `refreshToken` del portal), porque
- * `actions/fetch.ts` los necesita en servidor para autenticar cada llamada. Ese
- * mismo objeto es el que NextAuth devuelve por HTTP a `useSession()`, así que
- * sin este filtro los tokens de la API quedaban al alcance de cualquier script
- * del navegador — y con ellos, un XSS o una extensión maliciosa podría hablar
- * con la API en nombre del cliente, saltándose que la cookie sea `httpOnly`.
- *
- * Y el `refreshToken` es el peor de los dos: dura siete días y se puede canjear
- * por pares nuevos, así que quien lo copie mantiene el acceso aunque el cliente
- * cierre sesión en su navegador.
- *
- * El cliente no usa esos tokens en ningún punto (todas las llamadas salen de
- * Server Actions), así que se recortan solo de la respuesta HTTP: en servidor,
- * `getServerSession` no pasa por esta ruta y los sigue viendo.
- *
- * Es el mismo filtro que ya tenía la intranet (`plantilla-nextjs`), que es donde
- * se detectó primero; aquí faltaba.
- * @param {NextRequest} request - Petición entrante a `/api/auth/*`
- * @param {{ params: Promise<{ nextauth: string[] }> }} context - Contexto de la ruta, que NextAuth necesita para resolver la acción
- * @returns {Promise<Response>} La respuesta de NextAuth, sin los tokens de la API cuando es la de sesión
- */
-export async function GET(
-  request: NextRequest,
-  context: { params: Promise<{ nextauth: string[] }> },
-): Promise<Response> {
-  const response = await handler(request, context);
+/** Contexto de la ruta, que NextAuth necesita para resolver la acción (`session`, `csrf`, `callback`...). */
+type NextAuthRouteContext = { params: Promise<{ nextauth: string[] }> };
 
+/**
+ * Quita `user.backendTokens` de la respuesta de `/api/auth/session`, si por lo que sea llegara a llevarlos.
+ *
+ * **Hoy no debería hacer nada**: el callback `session` de `authOptions` ya no copia los tokens de la API a
+ * la sesión (el servidor los lee del JWT, ver `lib/portalBackendTokens.ts`). Se mantiene como defensa en
+ * profundidad, porque el día que alguien vuelva a meterlos en la sesión —"los necesito en este componente"—
+ * este objeto es exactamente lo que NextAuth devuelve por HTTP al navegador, y con el `refreshToken` (siete
+ * días, canjeable por pares nuevos) un XSS o una extensión mantendría el acceso aunque el cliente cerrara
+ * sesión.
+ *
+ * Se aplica a `GET` **y a `POST`**: `useSession().update()` es un `POST /api/auth/session` que devuelve la
+ * misma sesión, y antes ese verbo se exportaba sin filtrar.
+ * @param {NextRequest} request - Petición entrante a `/api/auth/*`
+ * @param {Response} response - Respuesta que ha generado NextAuth
+ * @returns {Promise<Response>} La misma respuesta, o una reconstruida sin los tokens
+ */
+async function stripBackendTokens(request: NextRequest, response: Response): Promise<Response> {
   if (!request.nextUrl.pathname.endsWith("/session")) return response;
 
   const session = await response
@@ -61,4 +50,22 @@ export async function GET(
   return filtered;
 }
 
-export { handler as POST };
+/**
+ * `GET /api/auth/*` de NextAuth (sesión, CSRF, proveedores...), con la sesión filtrada.
+ * @param {NextRequest} request - Petición entrante
+ * @param {NextAuthRouteContext} context - Contexto de la ruta
+ * @returns {Promise<Response>} La respuesta de NextAuth, sin tokens de la API
+ */
+export async function GET(request: NextRequest, context: NextAuthRouteContext): Promise<Response> {
+  return stripBackendTokens(request, await handler(request, context));
+}
+
+/**
+ * `POST /api/auth/*` de NextAuth (login, logout, `update()` de la sesión), con la sesión filtrada.
+ * @param {NextRequest} request - Petición entrante
+ * @param {NextAuthRouteContext} context - Contexto de la ruta
+ * @returns {Promise<Response>} La respuesta de NextAuth, sin tokens de la API
+ */
+export async function POST(request: NextRequest, context: NextAuthRouteContext): Promise<Response> {
+  return stripBackendTokens(request, await handler(request, context));
+}

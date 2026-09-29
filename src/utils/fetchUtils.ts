@@ -3,6 +3,8 @@
 // un fallo silencioso en tiempo de ejecución.
 import "server-only";
 
+import { isIP } from "node:net";
+
 import { headers as nextHeaders } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
 
@@ -32,20 +34,57 @@ export function resolveBackendAssetUrl(path: string | null | undefined): string 
 /** Longitud a la que se recorta una cabecera de texto libre antes de reenviarla a la API. */
 const MAX_FORWARDED_HEADER_LENGTH = 512;
 
-/** IPv4 en notación decimal, con o sin puerto (`1.2.3.4` / `1.2.3.4:5678`). */
-const IPV4 = /^(\d{1,3}\.){3}\d{1,3}(:\d{1,5})?$/;
+/** Longitud máxima razonable de una entrada (IPv6 completa entre corchetes y con puerto). */
+const MAX_ADDRESS_ENTRY_LENGTH = 53;
 
-/** IPv6, incluida la forma entre corchetes con puerto y la mapeada de IPv4 (`::ffff:1.2.3.4`). */
-const IPV6 = /^\[?[0-9a-f:]+(\.\d{1,3}){0,3}\]?(:\d{1,5})?$/i;
+/**
+ * Opciones de {@link resolveClientAddress}: a quién se cree para saber la IP del visitante.
+ * @interface ClientAddressOptions
+ * @property {number} trustedHops - Proxies de confianza delante de la app (`TRUSTED_PROXY_HOPS`)
+ * @property {string} [trustedHeader] - Cabecera propia del proxy con la IP del visitante (`TRUSTED_IP_HEADER`), en minúsculas
+ */
+export interface ClientAddressOptions {
+  trustedHops: number;
+  trustedHeader?: string;
+}
+
+/**
+ * Normaliza una entrada de IP y la valida con `net.isIP`: quita espacios, los corchetes de IPv6 y un puerto
+ * final (`1.2.3.4:5678`, `[2001:db8::1]:443`), que algunos proxies incluyen. Lo que no sea una IP válida
+ * devuelve `null`.
+ *
+ * `net.isIP` y no una expresión regular: la que había aceptaba cosas como `999.1.1.1` o `::::`, y lo que
+ * sale de aquí acaba en el rate limit y en el log de accesos de la API.
+ * @param {string | null | undefined} raw - Entrada recibida
+ * @returns {string | null} La IP, sin puerto ni corchetes, o `null` si no lo es
+ */
+export function normalizeClientAddress(raw: string | null | undefined): string | null {
+  const value = raw?.trim() ?? "";
+  if (!value || value.length > MAX_ADDRESS_ENTRY_LENGTH) return null;
+
+  // `[IPv6]` o `[IPv6]:puerto`
+  const bracketed = /^\[([^\]]+)\](?::\d{1,5})?$/.exec(value);
+  if (bracketed) return isIP(bracketed[1]) === 6 ? bracketed[1] : null;
+
+  if (isIP(value)) return value;
+
+  // `IPv4:puerto`. Una IPv6 sin corchetes no puede llevar puerto sin ambigüedad, así que no se intenta.
+  const withPort = /^([\d.]+):\d{1,5}$/.exec(value);
+  if (withPort && isIP(withPort[1]) === 4) return withPort[1];
+
+  return null;
+}
 
 /**
  * Resuelve la IP del visitante a partir de las cabeceras del request entrante.
  *
  * **Esto es una frontera de confianza, no un simple reenvío.** `x-forwarded-for`
  * la puede escribir cualquiera: basta un `curl -H 'X-Forwarded-For: 1.2.3.4'`
- * contra esta misma web. El proxy que tenemos delante *añade* la IP real al
- * final de la lista, así que de toda la cadena solo la última entrada la ha
- * puesto alguien de casa; las anteriores son las que traía el visitante.
+ * contra esta misma web. Cada proxy que tenemos delante *añade* la IP de quien
+ * le habla al final de la lista, así que de toda la cadena solo son de fiar las
+ * últimas `trustedHops` entradas; las anteriores son las que traía el visitante.
+ * Con un único proxy (el caso por defecto, `TRUSTED_PROXY_HOPS=1`) la IP del
+ * visitante es la última; con dos (p. ej. CDN + balanceador), la penúltima.
  *
  * Antes se reenviaba la cabecera entera tal cual, y eso anulaba por completo el
  * `trust proxy: 1` de la API: la API se queda con la última entrada de la lista
@@ -54,24 +93,36 @@ const IPV6 = /^\[?[0-9a-f:]+(\.\d{1,3}){0,3}\]?(:\d{1,5})?$/i;
  * va por IP, así que cambiándola en cada petición no saltaba nunca— y el log de
  * accesos del portal guardaba direcciones inventadas.
  *
- * Así que se reenvía **una sola dirección**, la que vouchea nuestro proxy, y
- * solo si tiene forma de IP. `x-real-ip` no se mira: quien esté delante la
+ * Si la cadena tiene **menos** entradas que proxies de confianza, no hay ninguna
+ * fiable (la petición no ha pasado por todos, o la configuración no cuadra con el
+ * despliegue) y se devuelve `null` en vez de quedarse con la primera, que sería
+ * la del visitante.
+ *
+ * Con `trustedHeader` (p. ej. `cf-connecting-ip` detrás de Cloudflare) se lee esa
+ * cabecera y no la cadena: el proxy la sobrescribe siempre, así que no hay saltos
+ * que contar. `x-real-ip` no se mira por defecto: quien esté delante la
  * sobrescribe o no la pone, y no hay forma de distinguir un valor suyo de uno
- * del visitante.
+ * del visitante; si en un despliegue sí es fiable, se configura como `trustedHeader`.
  * @param {Headers} requestHeaders - Cabeceras del request entrante
+ * @param {ClientAddressOptions} options - Saltos de confianza y cabecera propia del proxy
  * @returns {string | null} La IP del visitante, o `null` si no hay ninguna fiable
  */
-function clientAddressFromHeaders(requestHeaders: Headers): string | null {
+export function resolveClientAddress(
+  requestHeaders: Headers,
+  options: ClientAddressOptions,
+): string | null {
+  if (options.trustedHeader) {
+    return normalizeClientAddress(requestHeaders.get(options.trustedHeader));
+  }
+
   const chain = requestHeaders.get("x-forwarded-for");
   if (!chain) return null;
 
   const hops = chain.split(",");
-  const candidate = hops[hops.length - 1]?.trim() ?? "";
+  const trustedHops = Math.max(1, Math.floor(options.trustedHops));
+  if (hops.length < trustedHops) return null;
 
-  if (!candidate || candidate.length > 45) return null;
-  if (!IPV4.test(candidate) && !IPV6.test(candidate)) return null;
-
-  return candidate;
+  return normalizeClientAddress(hops[hops.length - trustedHops]);
 }
 
 /**
@@ -97,7 +148,7 @@ function boundedHeader(value: string | null): string | null {
  * cabeceras sean las del visitante real y no las del servidor de Next.js.
  *
  * Lo que llega del visitante se valida antes de pasarlo: la IP vía
- * {@link clientAddressFromHeaders} y los textos libres vía {@link boundedHeader}.
+ * {@link resolveClientAddress} y los textos libres vía {@link boundedHeader}.
  * Nunca lanza: si `headers()` no está disponible en el contexto actual,
  * simplemente no se añade ninguna cabecera adicional.
  * @param {Headers} target - Cabeceras de la petición a la API, mutadas in-place
@@ -107,13 +158,17 @@ async function forwardRequestHeaders(target: Headers): Promise<void> {
   try {
     const requestHeaders = await nextHeaders();
 
-    const clientAddress = clientAddressFromHeaders(requestHeaders);
+    const clientAddress = resolveClientAddress(requestHeaders, {
+      trustedHops: ENV.TRUSTED_PROXY_HOPS,
+      trustedHeader: ENV.TRUSTED_IP_HEADER,
+    });
     const userAgent = boundedHeader(requestHeaders.get("user-agent"));
     const referer = boundedHeader(requestHeaders.get("referer"));
     const host = boundedHeader(requestHeaders.get("host"));
 
     // Una sola entrada, no la cadena recibida: la API confía en el último salto
-    // (`trust proxy: 1`) y ese salto somos nosotros.
+    // (`trust proxy: 1`) y ese salto somos nosotros. Por eso la API no tiene
+    // que saber cuántos proxies hay delante de esta app: le llega uno solo.
     if (clientAddress) target.set("x-forwarded-for", clientAddress);
     if (userAgent) target.set("user-agent", userAgent);
     if (referer) target.set("referer", referer);

@@ -5,6 +5,7 @@ import { ENV } from '@/config/env';
 import { SERVICE_SLUGS } from '@/config/routing';
 import { ZONES } from '@/config/zones';
 import { COMPANY_COORDINATES } from '@/utils/companyAddressUtils';
+import { safeJsonLd } from '@/utils/jsonLdUtils';
 
 interface OrganizationJsonLdProps {
   locale: string;
@@ -99,7 +100,7 @@ export default async function OrganizationJsonLd({ locale }: OrganizationJsonLdP
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
     />
   );
 }

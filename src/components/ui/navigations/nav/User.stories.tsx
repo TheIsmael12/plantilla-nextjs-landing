@@ -55,7 +55,6 @@ const sessionAuthenticated: Session = {
       theme: "light",
     },
     accessTokenExpires: 4102444800000,
-    backendTokens: { accessToken: "mock", refreshToken: "mock" },
   },
   expires: "2099-01-01T00:00:00.000Z",
 };
@@ -80,7 +79,6 @@ const sessionNoName: Session = {
       theme: "light",
     },
     accessTokenExpires: 4102444800000,
-    backendTokens: { accessToken: "mock", refreshToken: "mock" },
   },
   expires: "2099-01-01T00:00:00.000Z",
 };

@@ -1,6 +1,7 @@
 "use server";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import { downloadPortalDocument, type PortalDocumentFile } from "@/lib/portalDocuments";
 import type {
   AcceptQuoteDto,
@@ -36,7 +37,7 @@ export async function getClientQuotes(
   query: ClientQuotesQuery = {},
 ): Promise<FetchResponse<PaginatedResult<QuoteListItem>>> {
   return fetchDataToken<PaginatedResult<QuoteListItem>, never>(
-    `client/me/quotes${buildQueryString({ ...query })}`,
+    apiPath`client/me/quotes` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -48,7 +49,7 @@ export async function getClientQuotes(
  * @returns {Promise<FetchResponse<QuoteDetail>>} El presupuesto, o `status: 404` si no pertenece al cliente
  */
 export async function getClientQuoteDetail(id: string): Promise<FetchResponse<QuoteDetail>> {
-  return fetchDataToken<QuoteDetail, never>(`client/me/quotes/${encodeURIComponent(id)}`, "GET");
+  return fetchDataToken<QuoteDetail, never>(apiPath`client/me/quotes/${id}`, "GET");
 }
 
 /**
@@ -64,7 +65,7 @@ export async function acceptClientQuote(
   dto: AcceptQuoteDto = {},
 ): Promise<FetchResponse<QuoteDetail>> {
   return fetchDataToken<QuoteDetail, AcceptQuoteDto>(
-    `client/me/quotes/${encodeURIComponent(id)}/accept`,
+    apiPath`client/me/quotes/${id}/accept`,
     "POST",
     dto,
   );
@@ -78,7 +79,7 @@ export async function acceptClientQuote(
  */
 export async function rejectClientQuote(id: string): Promise<FetchResponse<QuoteDetail>> {
   return fetchDataToken<QuoteDetail, never>(
-    `client/me/quotes/${encodeURIComponent(id)}/reject`,
+    apiPath`client/me/quotes/${id}/reject`,
     "POST",
   );
 }
@@ -94,5 +95,5 @@ export async function rejectClientQuote(id: string): Promise<FetchResponse<Quote
 export async function downloadClientQuotePdf(
   id: string,
 ): Promise<FetchResponse<PortalDocumentFile>> {
-  return downloadPortalDocument(`client/me/quotes/${encodeURIComponent(id)}/pdf`);
+  return downloadPortalDocument(apiPath`client/me/quotes/${id}/pdf`);
 }

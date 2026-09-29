@@ -5,6 +5,7 @@ import type { ZoneSlug } from '@/config/zones';
 
 import '@/styles/04-components/services/servicesBase.scss';
 import '@/styles/04-components/services/serviceDetailFaq.scss';
+import { safeJsonLd } from '@/utils/jsonLdUtils';
 
 interface FaqItem {
   question: string;
@@ -63,7 +64,7 @@ export default function ZoneFaq({ slug }: ZoneFaqProps) {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
     </section>
   );

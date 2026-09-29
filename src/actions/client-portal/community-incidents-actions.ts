@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { fetchDataToken } from "@/actions/fetch";
+import { apiPath } from "@/utils/apiPathUtils";
 import type {
   CommunityIncident,
   CommunityIncidentsQuery,
@@ -45,7 +46,7 @@ export async function getCommunityIncidents(
   query: CommunityIncidentsQuery = {},
 ): Promise<FetchResponse<PaginatedResult<CommunityIncident>>> {
   return fetchDataToken<PaginatedResult<CommunityIncident>, never>(
-    `client/me/incidents${buildQueryString({ ...query })}`,
+    apiPath`client/me/incidents` + buildQueryString({ ...query }),
     "GET",
   );
 }
@@ -122,7 +123,7 @@ export async function closeIncident(
   dto: PortalCloseIncidentInput,
 ): Promise<FetchResponse<CommunityIncident>> {
   const response = await fetchDataToken<CommunityIncident, PortalCloseIncidentInput>(
-    `client/me/incidents/${encodeURIComponent(incidentId)}/close`,
+    apiPath`client/me/incidents/${incidentId}/close`,
     "POST",
     dto,
   );
@@ -148,7 +149,7 @@ export async function createIncidentComment(
     IncidentCommentResponse,
     PortalCreateIncidentCommentInput
   >(
-    `client/me/incidents/${encodeURIComponent(incidentId)}/comments`,
+    apiPath`client/me/incidents/${incidentId}/comments`,
     "POST",
     dto,
   );
@@ -169,7 +170,7 @@ export async function getIncidentComments(
   incidentId: string,
 ): Promise<FetchResponse<IncidentCommentResponse[]>> {
   return fetchDataToken<IncidentCommentResponse[], never>(
-    `client/me/incidents/${encodeURIComponent(incidentId)}/comments`,
+    apiPath`client/me/incidents/${incidentId}/comments`,
     "GET",
   );
 }
@@ -186,7 +187,7 @@ export async function getIncidentAttachments(
   incidentId: string,
 ): Promise<FetchResponse<IncidentAttachment[]>> {
   return fetchDataToken<IncidentAttachment[], never>(
-    `client/me/incidents/${encodeURIComponent(incidentId)}/attachments`,
+    apiPath`client/me/incidents/${incidentId}/attachments`,
     "GET",
   );
 }
@@ -203,7 +204,7 @@ export async function uploadIncidentAttachment(
   formData: FormData,
 ): Promise<FetchResponse<IncidentAttachment>> {
   const response = await fetchDataToken<IncidentAttachment, FormData>(
-    `client/me/incidents/${encodeURIComponent(incidentId)}/attachments`,
+    apiPath`client/me/incidents/${incidentId}/attachments`,
     "POST",
     formData,
   );
@@ -243,7 +244,7 @@ export async function downloadIncidentAttachment(
   const query = variant === "thumbnail" ? "?variant=thumbnail" : "";
 
   const response = await fetchDataToken<never, never>(
-    `client/me/incidents/${encodeURIComponent(incidentId)}/attachments/${encodeURIComponent(attachmentId)}/download${query}`,
+    apiPath`client/me/incidents/${incidentId}/attachments/${attachmentId}/download` + query,
     "GET",
     undefined,
     { blob: true },

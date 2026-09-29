@@ -16,6 +16,7 @@ import { AUTH_TOKEN_REFRESH_MARGIN_MS } from "@/config/settings";
 import type { PortalLoginActionResult } from "@/types/auth/login";
 
 import { encodeMfaChallenge, encodePasswordChangeRequired } from "@/utils/mfaUtils";
+import { sanitizeSessionUpdate } from "@/utils/sessionUpdateUtils";
 
 /**
  * Renueva el `accessToken` del `token` si ha caducado o está a punto de
@@ -23,10 +24,13 @@ import { encodeMfaChallenge, encodePasswordChangeRequired } from "@/utils/mfaUti
  * falla, conserva los tokens antiguos pero marca `token.error` para que el
  * resto de la app pueda forzar el cierre de sesión en vez de dejar que las
  * siguientes llamadas a la API fallen en silencio con un 401.
+ *
+ * Exportada porque la usa también `lib/portalBackendTokens.ts`: los tokens ya no viajan en la sesión y el
+ * servidor los lee del JWT, así que tiene que poder renovarlos igual que hace aquí el callback `jwt`.
  * @param {JWT} token - Token de sesión actual
  * @returns {Promise<JWT>} El mismo token (sin cambios, renovado, o con `error`)
  */
-async function ensureFreshAccessToken(token: JWT): Promise<JWT> {
+export async function ensureFreshAccessToken(token: JWT): Promise<JWT> {
   if (Date.now() < token.accessTokenExpires - AUTH_TOKEN_REFRESH_MARGIN_MS) {
     return token;
   }
@@ -191,8 +195,15 @@ export const authOptions: AuthOptions = {
         return token;
       }
 
+      /*
+       * `update(data)` llega del navegador (`POST /api/auth/session`) con el cuerpo que el script quiera, así
+       * que no se funde tal cual con el token: solo pasan las preferencias, validadas campo a campo. Ver
+       * `utils/sessionUpdateUtils.ts`. Después sigue el camino normal (renovación incluida): el `update()`
+       * sin datos del latido de `portalSessionMonitor` llega aquí con `session` vacío.
+       */
       if (trigger === "update" && session) {
-        return { ...token, ...session };
+        const accepted = sanitizeSessionUpdate(token.preferences ?? null, session);
+        if (accepted) token.preferences = accepted.preferences;
       }
 
       return ensureFreshAccessToken(token);
@@ -213,7 +224,12 @@ export const authOptions: AuthOptions = {
        * la cookie de sesión.
        */
       session.user.accessTokenExpires = token.accessTokenExpires;
-      session.user.backendTokens = token.backendTokens;
+      /*
+       * `backendTokens` NO se copia a la sesión: este objeto es lo que NextAuth devuelve por HTTP a
+       * `useSession()`/`update()`, y con él cualquier script del navegador podía llevarse el `refreshToken`
+       * (siete días, canjeable por pares nuevos). El servidor los lee del JWT cifrado de la cookie con
+       * `lib/portalBackendTokens.ts`; en el navegador no hacen falta en ningún punto.
+       */
       session.error = token.error;
       return session;
     },

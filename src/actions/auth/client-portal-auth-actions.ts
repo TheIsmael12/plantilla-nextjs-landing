@@ -1,8 +1,18 @@
 "use server";
 
 import { fetchData, fetchDataToken } from "@/actions/fetch";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/authOptions";
+import { HTTPStatus } from "@/constants/httpStatus";
+import { getPortalBackendTokens } from "@/lib/portalBackendTokens";
+
+/**
+ * `true` si el valor es una cadena no vacía de como mucho `max` caracteres.
+ * @param {unknown} value - Valor recibido
+ * @param {number} max - Longitud máxima
+ * @returns {boolean} Si es una cadena válida
+ */
+function isBoundedString(value: unknown, max: number): value is string {
+  return typeof value === "string" && value.length > 0 && value.length <= max;
+}
 
 /**
  * Solicita el enlace de recuperación de contraseña. Siempre responde con
@@ -13,7 +23,14 @@ import { authOptions } from "@/lib/authOptions";
 export async function forgotClientPortalPassword(
   taxId: string,
 ): Promise<{ status: number; message?: string }> {
-  return fetchData<null, { taxId: string }>("client/auth/forgot-password", "POST", { taxId });
+  // Acción pública: se reenvía solo el campo esperado y con su tipo, no lo que llegue.
+  if (typeof taxId !== "string" || taxId.trim().length === 0 || taxId.length > 32) {
+    return { status: HTTPStatus.BAD_REQUEST };
+  }
+
+  return fetchData<null, { taxId: string }>("client/auth/forgot-password", "POST", {
+    taxId: taxId.trim(),
+  });
 }
 
 /**
@@ -26,7 +43,15 @@ export async function resetClientPortalPassword(input: {
   token: string;
   newPassword: string;
 }): Promise<{ status: number; message?: string }> {
-  return fetchData<null, typeof input>("client/auth/reset-password", "POST", input);
+  // Cuerpo explícito: esta acción es pública y el objeto recibido podría traer claves de más.
+  if (!isBoundedString(input?.token, 2048) || !isBoundedString(input?.newPassword, 256)) {
+    return { status: HTTPStatus.BAD_REQUEST };
+  }
+
+  return fetchData<null, typeof input>("client/auth/reset-password", "POST", {
+    token: input.token,
+    newPassword: input.newPassword,
+  });
 }
 
 /**
@@ -47,13 +72,12 @@ export async function changeClientPortalPassword(input: {
  * de la sesión activa (best-effort, no bloquea si falla) antes de que el
  * componente cliente destruya la sesión local con `signOut()` de
  * `next-auth/react`. Sin parámetros a propósito: resuelve el `refreshToken`
- * server-side a partir de la sesión de NextAuth para no exponerlo nunca al
+ * server-side a partir del JWT de NextAuth para no exponerlo nunca al
  * bundle de cliente.
  * @returns {Promise<void>} No devuelve nada
  */
 export async function logoutCurrentClientPortalSession(): Promise<void> {
-  const session = await getServerSession(authOptions);
-  const refreshToken = session?.user.backendTokens?.refreshToken;
+  const refreshToken = (await getPortalBackendTokens())?.refreshToken;
 
   if (!refreshToken) return;
 

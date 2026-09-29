@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { getPathname, type AnyHref } from '@/i18n/navigation';
 import { ENV } from '@/config/env';
 import type { StaticPathname } from '@/types/route';
+import { safeJsonLd } from '@/utils/jsonLdUtils';
 
 interface BreadcrumbJsonLdProps {
   locale: string;
@@ -94,6 +95,6 @@ export default async function BreadcrumbJsonLd({ locale }: BreadcrumbJsonLdProps
   };
 
   return (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
   );
 }

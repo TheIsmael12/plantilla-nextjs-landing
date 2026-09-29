@@ -177,4 +177,44 @@ describe("buildGtmBootstrap", () => {
       expect.objectContaining({ analytics_storage: "denied" }),
     ]);
   });
+
+  /*
+   * `url_passthrough` decoraba los enlaces con los parámetros de la URL de entrada, y aquí no hay publicidad
+   * que lo justifique.
+   */
+  it("no activa `url_passthrough`", () => {
+    expect(bootstrap).not.toContain("url_passthrough");
+  });
+
+  it("fija la URL y el referrer ya saneados antes de pedir el contenedor", () => {
+    const withPage = buildGtmBootstrap("GTM-ABC1234", {
+      location: "https://imora.es/servicios",
+      referrer: "https://imora.es/darse-de-baja?token=REDACTED",
+    });
+
+    window.localStorage.removeItem(COOKIE_CONSENT_STORAGE_KEY);
+    new Function(withPage)();
+
+    const setPage = (window.dataLayer as IArguments[]).find(
+      (entry) => entry[0] === "set" && typeof entry[1] === "object",
+    );
+
+    expect(Array.from(setPage ?? [])).toEqual([
+      "set",
+      {
+        page_location: "https://imora.es/servicios",
+        page_referrer: "https://imora.es/darse-de-baja?token=REDACTED",
+      },
+    ]);
+    expect(withPage.indexOf("page_location")).toBeLessThan(withPage.indexOf("gtm.js"));
+  });
+
+  it("no deja cerrar el `<script>` con lo que traiga la URL", () => {
+    const withPage = buildGtmBootstrap("GTM-ABC1234", {
+      location: "https://imora.es/</script><script>alert(1)</script>",
+      referrer: "",
+    });
+
+    expect(withPage).not.toContain("</script>");
+  });
 });
