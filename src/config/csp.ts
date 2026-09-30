@@ -89,6 +89,14 @@ const GOOGLE_MEASUREMENT_ORIGINS = [
   "https://*.analytics.google.com",
 ];
 
+/**
+ * Endpoints de Google Ads / consent mode que monta el contenedor de GTM (`/ccm/collect`, visto en
+ * producción en `imora.es`: `pagead2.googlesyndication.com/ccm/collect?...en=page_view`). Solo hacen falta
+ * en `connect-src` e `img-src` (el envío sale como `fetch` y, si falla, como píxel): no se mezclan con
+ * `GOOGLE_MEASUREMENT_ORIGINS` para no admitirlos también como origen de scripts.
+ */
+const GOOGLE_ADS_ORIGINS = ["https://pagead2.googlesyndication.com"];
+
 /*
  * Las teselas de los tres mapas salen de `config/mapTiles`, que es de donde las leen ellos.
  *
@@ -184,9 +192,9 @@ export function buildContentSecurityPolicy(nonce: string): string {
     // de conversiones— GA4 manda el evento como imagen contra `/g/collect`, y sin esto ese envío
     // se bloquea con el mismo silencio que el resto: para Google es indistinguible de que no haya
     // tráfico.
-    `img-src 'self' data: blob: ${MAP_TILES_ORIGIN}${backendOrigin ? ` ${backendOrigin}` : ""}${analyticsEnabled ? ` ${GOOGLE_MEASUREMENT_ORIGINS.join(" ")}` : ""}`,
+    `img-src 'self' data: blob: ${MAP_TILES_ORIGIN}${backendOrigin ? ` ${backendOrigin}` : ""}${analyticsEnabled ? ` ${[...GOOGLE_MEASUREMENT_ORIGINS, ...GOOGLE_ADS_ORIGINS].join(" ")}` : ""}`,
     "font-src 'self' data:",
-    `connect-src 'self'${backendOrigin ? ` ${backendOrigin}` : ""}${backendWebSocketOrigin ? ` ${backendWebSocketOrigin}` : ""}${analyticsEnabled ? ` ${GOOGLE_MEASUREMENT_ORIGINS.join(" ")}` : ""}`,
+    `connect-src 'self'${backendOrigin ? ` ${backendOrigin}` : ""}${backendWebSocketOrigin ? ` ${backendWebSocketOrigin}` : ""}${analyticsEnabled ? ` ${[...GOOGLE_MEASUREMENT_ORIGINS, ...GOOGLE_ADS_ORIGINS].join(" ")}` : ""}`,
     `frame-src 'self' ${TURNSTILE_ORIGIN} ${GOOGLE_MAPS_EMBED_ORIGIN}`,
     "object-src 'none'",
     "base-uri 'self'",

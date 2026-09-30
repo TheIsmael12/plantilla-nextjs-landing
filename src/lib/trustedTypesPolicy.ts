@@ -67,7 +67,12 @@ function registerDefaultTrustedTypesPolicy(allowedOrigins: string[]): void {
 
   try {
     trustedTypes.createPolicy("default", {
-      createHTML: (value) => (dangerousHtml.some((pattern) => pattern.test(value)) ? null : value),
+      // Sin `<` no hay markup: el valor es texto plano (típicamente el JSON-LD de un post, que `safeJsonLd`
+      // ya deja sin `<`) y no puede crear elementos. Pasarle las regex de abajo daba falsos positivos con
+      // texto del artículo («javascript:», « on x = »...) y React reventaba con «requires 'TrustedHTML'
+      // assignment» al hidratar la página.
+      createHTML: (value) =>
+        value.indexOf("<") === -1 || !dangerousHtml.some((pattern) => pattern.test(value)) ? value : null,
       createScript: (value) => value,
       createScriptURL: (value) => {
         try {
