@@ -71,8 +71,17 @@ function registerDefaultTrustedTypesPolicy(allowedOrigins: string[]): void {
       // ya deja sin `<`) y no puede crear elementos. Pasarle las regex de abajo daba falsos positivos con
       // texto del artículo («javascript:», « on x = »...) y React reventaba con «requires 'TrustedHTML'
       // assignment» al hidratar la página.
+      //
+      // Excepción exacta: React crea CADA `<script>` en el cliente con
+      // `div.innerHTML = "<script></script>"` (react-dom, `createElement`, caso "script") para que el
+      // navegador no lo ejecute. Es un elemento vacío y sin atributos: inocuo, y bloquearlo tumba la
+      // hidratación de toda página con JSON-LD o con el arranque de GTM.
       createHTML: (value) =>
-        value.indexOf("<") === -1 || !dangerousHtml.some((pattern) => pattern.test(value)) ? value : null,
+        value === "<script></script>" ||
+        value.indexOf("<") === -1 ||
+        !dangerousHtml.some((pattern) => pattern.test(value))
+          ? value
+          : null,
       createScript: (value) => value,
       createScriptURL: (value) => {
         try {
