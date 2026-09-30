@@ -52,6 +52,8 @@ function registerDefaultTrustedTypesPolicy(allowedOrigins: string[]): void {
     /data\s*:\s*text\/html/i,
   ];
 
+  const emptyScriptElement = /^<script><\/script>$/;
+
   const isAllowedOrigin = (url: URL): boolean => {
     if (url.origin === window.location.origin) return true;
 
@@ -73,11 +75,15 @@ function registerDefaultTrustedTypesPolicy(allowedOrigins: string[]): void {
       // assignment» al hidratar la página.
       //
       // Excepción exacta: React crea CADA `<script>` en el cliente con
-      // `div.innerHTML = "<script></script>"` (react-dom, `createElement`, caso "script") para que el
+      // `div.innerHTML` con un script vacío (react-dom, `createElement`, caso "script") para que el
       // navegador no lo ejecute. Es un elemento vacío y sin atributos: inocuo, y bloquearlo tumba la
       // hidratación de toda página con JSON-LD o con el arranque de GTM.
+      //
+      // OJO: esta función se serializa dentro de un `<script>` inline, así que aquí no puede aparecer el texto de
+      // cierre de script literal —cerraría la etiqueta a mitad de la política y daría «Invalid or unexpected token»—.
+      // Por eso es una regex con la barra escapada y no una comparación de cadenas.
       createHTML: (value) =>
-        value === "<script></script>" ||
+        emptyScriptElement.test(value) ||
         value.indexOf("<") === -1 ||
         !dangerousHtml.some((pattern) => pattern.test(value))
           ? value
