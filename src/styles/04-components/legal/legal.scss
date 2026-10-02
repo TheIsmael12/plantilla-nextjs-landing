@@ -6,6 +6,7 @@
 .legal {
   margin: 0 auto;
   max-width: var(--max-width);
+  overflow-wrap: break-word;
   @include py(2rem);
   @include px(1.25rem);
   @include screen(md) {
@@ -22,6 +23,9 @@
   text-underline-offset: 3px;
   transition: color 0.2s ease;
   font-weight: $font-medium;
+  // Correos y URLs son una sola "palabra": sin esto empujan la tarjeta de contacto fuera de
+  // la pantalla en móvil.
+  overflow-wrap: anywhere;
 }
 
 // Enlace con pinta de botón, mismo patrón que `help__btn` (helpBase.scss): la sección "Cómo
@@ -30,8 +34,11 @@
 .legal__btn {
   @include flex(row, center, center, 0.55rem);
   @include px(1.6rem);
-  height: 3rem;
+  @include py(0.75rem);
+  min-height: 3rem;
   width: fit-content;
+  max-width: 100%;
+  text-align: center;
   font-size: $text-sm;
   font-weight: $font-semibold;
   text-decoration: none;
@@ -63,8 +70,12 @@
   position: relative;
   margin-bottom: 2rem;
   @include rounded();
-  @include py(2rem);
-  @include px(2rem);
+  @include py(1.5rem);
+  @include px(1.25rem);
+  @include screen(md) {
+    @include py(2rem);
+    @include px(2rem);
+  }
 
   // Decorative orbs
   &__orb {
@@ -122,6 +133,8 @@
     background-color: rgba(var(--info-color-rgb), 0.2);
     font-size: $text-sm;
     width: fit-content;
+    max-width: 100%;
+    flex-wrap: wrap;
     @include rounded();
     @include px(1rem);
     @include py(0.5rem);
@@ -187,14 +200,16 @@
 // ── Layout ───────────────────────────────────────────────────────────────────
 
 .legal__layout {
-  @include grid(1fr, 2rem, 1, start);
+  // `minmax(0, 1fr)` y no `1fr`: el mínimo de `1fr` es el ancho de su contenido, así que
+  // las tablas ensanchaban la columna (y la página entera) en móvil en vez de ajustarse.
+  @include grid(minmax(0, 1fr), 2rem, 1, start);
 
   @include screen(lg) {
-    grid-template-columns: 16rem 1fr;
+    grid-template-columns: 16rem minmax(0, 1fr);
   }
 
   @include screen(xl) {
-    grid-template-columns: 18rem 1fr;
+    grid-template-columns: 18rem minmax(0, 1fr);
   }
 }
 
@@ -250,6 +265,7 @@
 // ── Body ─────────────────────────────────────────────────────────────────────
 
 .legal__body {
+  min-width: 0;
   @include flex(column, flex-start, flex-start, 1.5rem);
 }
 
@@ -283,7 +299,10 @@
   }
 
   &__list {
-    @include pl(2rem);
+    @include pl(1.25rem);
+    @include screen(md) {
+      @include pl(2rem);
+    }
 
     li {
       font-size: $text-sm;
@@ -380,6 +399,7 @@
 
   &__header {
     margin-bottom: 0.75rem;
+    flex-wrap: wrap;
     @include flex(row, space-between, center, 0.5rem);
   }
 
@@ -483,12 +503,64 @@
   tbody tr:hover td {
     background-color: var(--neutral-color-light);
   }
+
+  // En móvil cuatro columnas no caben: cada fila pasa a ser una tarjeta y cada celda muestra
+  // su cabecera (`data-label`) encima del valor.
+  @include screen(md, max) {
+    thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+    }
+
+    tr {
+      border-bottom: 1px solid var(--border-color);
+      @include py(0.5rem);
+    }
+
+    tr:last-child {
+      border-bottom: none;
+    }
+
+    td {
+      border-bottom: none;
+      @include py(0.35rem);
+
+      code {
+        overflow-wrap: anywhere;
+      }
+
+      &::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.15rem;
+        font-size: $text-xs;
+        font-weight: $font-semibold;
+        color: var(--neutral-color);
+      }
+    }
+
+    tbody tr:hover td {
+      background-color: transparent;
+    }
+  }
 }
 
 // ── Browser list ─────────────────────────────────────────────────────────────
 
 .legal__browser-list {
-  @include flex(wrap, flex-start, flex-start, 1.5rem);
+  flex-wrap: wrap;
+  @include flex(row, flex-start, flex-start, 0.75rem 1.5rem);
 
   &__link {
     text-decoration: none;

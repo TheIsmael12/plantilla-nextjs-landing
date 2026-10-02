@@ -121,9 +121,9 @@ export default async function PrivacyView() {
                             <tbody>
                                 {purposeRows.map((row, i) => (
                                     <tr key={i}>
-                                        <td>{row.purpose}</td>
-                                        <td>{row.basis}</td>
-                                        <td>{row.retention}</td>
+                                        <td data-label={purposeHeaders.purpose}>{row.purpose}</td>
+                                        <td data-label={purposeHeaders.basis}>{row.basis}</td>
+                                        <td data-label={purposeHeaders.retention}>{row.retention}</td>
                                     </tr>
                                 ))}
                             </tbody>

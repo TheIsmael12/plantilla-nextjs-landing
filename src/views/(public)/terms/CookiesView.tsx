@@ -104,10 +104,10 @@ export default async function CookiesView() {
                             <tbody>
                                 {tableRows.map((row, i) => (
                                     <tr key={i}>
-                                        <td><code>{row.name}</code></td>
-                                        <td>{row.type}</td>
-                                        <td>{row.duration}</td>
-                                        <td>{row.purpose}</td>
+                                        <td data-label={tableHeaders.name}><code>{row.name}</code></td>
+                                        <td data-label={tableHeaders.type}>{row.type}</td>
+                                        <td data-label={tableHeaders.duration}>{row.duration}</td>
+                                        <td data-label={tableHeaders.purpose}>{row.purpose}</td>
                                     </tr>
                                 ))}
                             </tbody>
