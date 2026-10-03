@@ -13,6 +13,7 @@ import {
 const NOTHING_ACCEPTED: CookieConsentCategories = {
   analytics: false,
   functional: false,
+  marketing: false,
 };
 
 beforeEach(() => {
@@ -58,15 +59,26 @@ describe("toGoogleConsentState", () => {
     expect(state.ad_personalization).toBe("denied");
   });
 
-  it("aceptarlo todo tampoco concede publicidad: no hay categoría que la gobierne", () => {
-    const state = toGoogleConsentState({ analytics: true, functional: true });
+  /*
+   * Si las tres señales `ad_*` no siguieran a ninguna categoría, irían denegadas para todo el mundo y
+   * GTM avisaría de una tasa de consentimiento del 0 % aunque el visitante lo aceptara todo.
+   */
+  it("aceptarlo todo concede también la publicidad", () => {
+    const state = toGoogleConsentState({ analytics: true, functional: true, marketing: true });
 
     expect(state.analytics_storage).toBe("granted");
     expect(state.functionality_storage).toBe("granted");
     expect(state.personalization_storage).toBe("granted");
-    expect(state.ad_storage).toBe("denied");
-    expect(state.ad_user_data).toBe("denied");
-    expect(state.ad_personalization).toBe("denied");
+    expect(state.ad_storage).toBe("granted");
+    expect(state.ad_user_data).toBe("granted");
+    expect(state.ad_personalization).toBe("granted");
+  });
+
+  it("la publicidad no arrastra a la analítica", () => {
+    const state = toGoogleConsentState({ ...NOTHING_ACCEPTED, marketing: true });
+
+    expect(state.ad_storage).toBe("granted");
+    expect(state.analytics_storage).toBe("denied");
   });
 
   it("`security_storage` va concedida siempre, no es opcional", () => {
@@ -92,7 +104,7 @@ describe("pushToDataLayer", () => {
 
 describe("pushConsentUpdate", () => {
   it("manda el `consent update` a Google y deja el evento en la capa", () => {
-    pushConsentUpdate({ analytics: true, functional: true });
+    pushConsentUpdate({ analytics: true, functional: true, marketing: false });
 
     const [update, event] = window.dataLayer as [IArguments, Record<string, unknown>];
 
@@ -149,6 +161,23 @@ describe("buildGtmBootstrap", () => {
     ]);
   });
 
+  it("arranca con la publicidad concedida para quien la aceptó en una visita anterior", () => {
+    window.localStorage.setItem(
+      COOKIE_CONSENT_STORAGE_KEY,
+      JSON.stringify({ analytics: true, functional: true, marketing: true, timestamp: 1 }),
+    );
+
+    new Function(bootstrap)();
+    const [consentDefault] = window.dataLayer as IArguments[];
+
+    expect(Array.from(consentDefault)).toEqual([
+      "consent",
+      "default",
+      expect.objectContaining({ analytics_storage: "granted", ad_storage: "granted", ad_user_data: "granted" }),
+    ]);
+  });
+
+  // Una decisión de antes de que existiera `marketing` no la trae: la publicidad sigue denegada.
   it("arranca ya concedido para quien aceptó en una visita anterior", () => {
     window.localStorage.setItem(
       COOKIE_CONSENT_STORAGE_KEY,

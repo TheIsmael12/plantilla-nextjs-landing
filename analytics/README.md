@@ -39,9 +39,13 @@ Son variables de tipo constante justamente para esto: el ID de GA4 se cambia
 en **un** sitio y lo heredan las cinco etiquetas.
 
 > **Si el ID se queda en `G-XXXXXXXXXX`, no se mide nada.** Las cinco etiquetas
-> disparan contra una propiedad que no existe, y GTM lo acaba reportando en
-> *Calidad del contenedor* como una tasa de consentimiento del 0%: no es que los
-> visitantes rechacen, es que no llega ningún dato a ninguna parte.
+> disparan contra una propiedad que no existe y no llega ningún dato a ninguna
+> parte.
+
+> **El aviso «tasa de consentimiento del 0 %» de *Calidad del contenedor*** sale
+> cuando las señales `ad_*` van denegadas para todo el mundo. Así estaban antes
+> de que el banner tuviera la categoría de publicidad, y por eso salía. Ver
+> [Consentimiento](#consentimiento).
 
 Las tres etiquetas de Google Ads vienen **en pausa** porque hoy no hay
 campañas. Ver más abajo qué hace falta el día que las haya.
@@ -93,12 +97,22 @@ El banner de cookies traduce sus categorías a las señales del Consent Mode v2
 (`lib/gtm.ts`).
 
 **Las tres señales de publicidad (`ad_storage`, `ad_user_data`,
-`ad_personalization`) van denegadas siempre.** No es un olvido: el banner ya no
-pregunta por marketing, porque hoy no hay instalado ningún script de publicidad
-y un interruptor sin nada detrás obligaba al texto legal a describir
-proveedores que no existen en el sitio. Sin categoría que las gobierne, nadie
-puede concederlas, y ninguna etiqueta de anuncios podría escribir nada aunque
-se le quitara la pausa. El contenedor está montado en **modo avanzado**: las
+`ad_personalization`) siguen a la categoría «Publicidad» (`marketing`) del
+banner.** «Aceptar todo» las concede y «Rechazar las opcionales» las deniega.
+No las fijes a `denied`. GTM calcula con ellas su tasa de consentimiento, y
+fijadas marca el 100 % de las señales como rechazadas aunque el visitante
+acepte todo. Eso es justo el aviso «Verifique si se ha configurado el modo de
+consentimiento» que se veía antes.
+
+Las decisiones guardadas antes de que existiera la categoría no traen
+`marketing`, así que la publicidad sigue denegada para quien ya había
+contestado al banner.
+
+Con la publicidad concedida Google puede llamar a dominios de anuncios que no
+están en la CSP. Tras aceptar todo, revisa la consola en producción por si hay
+bloqueos.
+
+El contenedor está montado en **modo avanzado**: las
 etiquetas de GA4 se disparan siempre y es el propio Consent Mode quien decide
 qué se puede enviar. Sin consentimiento manda pings sin cookies ni
 identificadores, que es lo que permite que GA4 modele después lo que no pudo
@@ -172,13 +186,8 @@ El objetivo es saber cuánto genera cada anuncio, y eso no se resuelve
 quitando la pausa a tres etiquetas. Hacen falta cinco cosas, en este orden:
 
 1. ~~Que exista `generate_lead`~~. Hecho: lo empuja la página de contacto.
-2. **Devolver la categoría `marketing` al banner.** Es la condición que se
-   dejó escrita al quitarla: vuelve junto con la integración de publicidad, no
-   antes. Toca `CookieConsentCategories` (`lib/cookieConsent.ts`), el
-   interruptor del banner, sus textos en `cookies.json`, la tabla de la
-   política de cookies, y devolver las tres señales `ad_*` de
-   `CONSENT_SIGNAL_RULE` (`lib/gtm.ts`) a esa categoría. Sin este paso las
-   etiquetas de Ads no se disparan aunque se les quite la pausa.
+2. ~~Devolver la categoría `marketing` al banner~~. Hecho: las tres señales
+   `ad_*` la siguen.
 3. **Un valor por lead.** Para que la pregunta sea "cuánto genera" y no
    "cuántos formularios llegan", el evento debe llevar un valor —aunque sea
    uno estimado y fijo por tipo de lead. Sin valor solo se cuentan envíos.

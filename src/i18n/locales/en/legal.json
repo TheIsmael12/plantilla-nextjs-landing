@@ -513,7 +513,7 @@
     "Cookies": {
       "title": "Cookies Policy",
       "subtitle": "We use cookies and similar technologies to improve your experience. Here we explain what they are, how we use them and how you can manage them.",
-      "updatedDate": "24 September 2026",
+      "updatedDate": "3 October 2026",
       "tocAriaLabel": "Cookies Policy index",
       "toc": [
         {
@@ -571,8 +571,15 @@
               "type": "Analytics cookies",
               "color": "green",
               "canDisable": true,
-              "purpose": "Help us understand how the site is used so we can improve it. They are the only ones that depend on your consent, and they stay denied until you give it.",
+              "purpose": "Help us understand how the site is used so we can improve it. They depend on your consent, and they stay denied until you give it.",
               "examples": "Google Analytics."
+            },
+            {
+              "type": "Advertising cookies",
+              "color": "amber",
+              "canDisable": true,
+              "purpose": "Let Google know whether you arrived from one of our ads, so we can measure which campaigns work, and show you related ads later. They depend on your consent and stay denied until you give it.",
+              "examples": "Google Ads."
             }
           ]
         },
@@ -621,6 +628,12 @@
               "type": "Analytics",
               "duration": "2 years",
               "purpose": "Keeps the Google Analytics session state. The suffix is the identifier of our measurement property."
+            },
+            {
+              "name": "_gcl_au",
+              "type": "Advertising",
+              "duration": "90 days",
+              "purpose": "Used by Google to tell whether you arrived from one of our ads and credit the visit to it. Only placed if you accept advertising."
             }
           ]
         },
@@ -630,7 +643,7 @@
           "list": [
             {
               "strong": "Google (Google Analytics via Google Tag Manager): ",
-              "rest": "only if you accept analytics cookies. The container always loads, but it starts with every consent signal denied, so until you accept it writes no cookies and sends no identifiers. The advertising signals are denied at all times, because there is no advertising tag installed on this site."
+              "rest": "only if you accept analytics or advertising cookies. The container always loads, but it starts with every consent signal denied, so until you accept it writes no cookies and sends no identifiers. The advertising signals are only granted if you accept advertising cookies; in that case Google may use the data from your visit to measure our campaigns and to show you personalised ads."
             },
             {
               "strong": "Cloudflare (Turnstile): ",
@@ -641,7 +654,7 @@
               "rest": "pages with a map request the imagery from its servers, which receive your IP address when serving it. It sets no cookies: it is an image request like any other, but you should know about it because a third party is involved."
             }
           ],
-          "outro": "There is no other third party. In particular, there are no social network pixels, no remarketing tags and no advertising cookies of any kind."
+          "outro": "There is no other third party. In particular, there are no social network pixels."
         },
         "gestion": {
           "title": "5. How to manage cookies",
@@ -668,7 +681,7 @@
               "url": "https://support.microsoft.com/microsoft-edge/delete-cookies-in-microsoft-edge-63947406"
             }
           ],
-          "withdrawNote": "Withdrawing consent does not affect the lawfulness of what was measured while it was given. If you withdraw it, analytics cookies stop being placed; any already on your device can be deleted from your browser settings, as explained below."
+          "withdrawNote": "Withdrawing consent does not affect the lawfulness of what was measured while it was given. If you withdraw it, analytics or advertising cookies stop being placed; any already on your device can be deleted from your browser settings, as explained below."
         },
         "contacto": {
           "title": "6. Contact",

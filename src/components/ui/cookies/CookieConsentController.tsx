@@ -37,10 +37,10 @@ const DEFAULT_DRAFT: Draft = DENIED_CONSENT;
  * `lib/cookieConsent.ts`, que además avisa a quien dependa de ella (la
  * medición de `GoogleTagManager`). Las cookies funcionales —el idioma y el
  * tema— van siempre activas por estar exceptuadas del consentimiento
- * (art. 22.2 LSSI); solo la analítica es opcional.
+ * (art. 22.2 LSSI); la analítica y la publicidad son opcionales.
  *
  * **Cerrar el panel sin elegir no acepta nada.** La X y Escape solo lo
- * esconden: no se guarda ninguna decisión, la analítica sigue denegada y el
+ * esconden: no se guarda ninguna decisión, lo opcional sigue denegado y el
  * banner vuelve a salir en la siguiente visita. Antes equivalían a «aceptar
  * todo», y eso es exactamente lo que la guía de cookies de la AEPD y el CEPD
  * dicen que no puede tratarse como consentimiento — además de contradecir al
@@ -77,7 +77,7 @@ export default function CookieConsentController() {
             // `functional: true` siempre: está exceptuada del consentimiento, aunque una
             // decisión antigua la tuviera guardada como denegada.
             setDraft(stored
-                ? { analytics: stored.analytics, functional: true }
+                ? { analytics: stored.analytics, functional: true, marketing: stored.marketing === true }
                 : DEFAULT_DRAFT,
             );
             setSaving(false);
@@ -95,7 +95,7 @@ export default function CookieConsentController() {
     }, []);
 
     const acceptAll = useCallback(() => {
-        persist({ analytics: true, functional: true, timestamp: Date.now() });
+        persist({ analytics: true, functional: true, marketing: true, timestamp: Date.now() });
     }, [persist]);
 
     /*
@@ -109,9 +109,9 @@ export default function CookieConsentController() {
     }, []);
 
     // Las funcionales están exceptuadas del consentimiento (van siempre activas), así que
-    // rechazar las opcionales mantiene `functional: true` y solo deniega la analítica.
+    // rechazar las opcionales mantiene `functional: true` y deniega la analítica y la publicidad.
     const acceptNecessary = useCallback(() => {
-        persist({ analytics: false, functional: true, timestamp: Date.now() });
+        persist({ analytics: false, functional: true, marketing: false, timestamp: Date.now() });
     }, [persist]);
 
     const saveSelection = useCallback(() => {
@@ -250,6 +250,27 @@ export default function CookieConsentController() {
                                 ariaLabel={t('analytics')}
                                 checked={draft.analytics}
                                 onChange={handleToggle('analytics')}
+                            />
+                        </div>
+
+                        {/* Publicidad - gobierna las señales `ad_*` de Google (lib/gtm.ts) */}
+                        <div className="cookie-consent__pref">
+                            <div className="cookie-consent__pref__info">
+                                <div>
+                                    <span className="cookie-consent__pref__name">
+                                        {t('marketing')}
+                                        <Badge status="pending" value={t('optional')} />
+                                    </span>
+                                    <p className="cookie-consent__pref__desc">{t('marketingDesc')}</p>
+                                </div>
+                            </div>
+                            <Toggle
+                                id="cc-marketing"
+                                name="marketing"
+                                label=""
+                                ariaLabel={t('marketing')}
+                                checked={draft.marketing}
+                                onChange={handleToggle('marketing')}
                             />
                         </div>
 

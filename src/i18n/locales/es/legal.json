@@ -513,7 +513,7 @@
     "Cookies": {
       "title": "Política de Cookies",
       "subtitle": "Utilizamos cookies y tecnologías similares para mejorar tu experiencia. Aquí te explicamos qué son, cómo las usamos y cómo puedes gestionarlas.",
-      "updatedDate": "24 de septiembre de 2026",
+      "updatedDate": "3 de octubre de 2026",
       "tocAriaLabel": "Índice de Política de Cookies",
       "toc": [
         {
@@ -571,8 +571,15 @@
               "type": "Cookies analíticas",
               "color": "green",
               "canDisable": true,
-              "purpose": "Nos ayudan a entender cómo se usa el sitio para mejorarlo. Son las únicas que dependen de tu consentimiento, y van denegadas hasta que lo das.",
+              "purpose": "Nos ayudan a entender cómo se usa el sitio para mejorarlo. Dependen de tu consentimiento, y van denegadas hasta que lo das.",
               "examples": "Google Analytics."
+            },
+            {
+              "type": "Cookies de publicidad",
+              "color": "amber",
+              "canDisable": true,
+              "purpose": "Permiten a Google saber si llegaste desde uno de nuestros anuncios, para medir qué campañas funcionan, y mostrarte después anuncios relacionados. Dependen de tu consentimiento y van denegadas hasta que lo das.",
+              "examples": "Google Ads."
             }
           ]
         },
@@ -621,6 +628,12 @@
               "type": "Analítica",
               "duration": "2 años",
               "purpose": "Mantiene el estado de la sesión de Google Analytics. El sufijo es el identificador de nuestra propiedad de medición."
+            },
+            {
+              "name": "_gcl_au",
+              "type": "Publicidad",
+              "duration": "90 días",
+              "purpose": "Lo usa Google para saber si llegaste desde uno de nuestros anuncios y atribuirle la visita. Solo se instala si aceptas la publicidad."
             }
           ]
         },
@@ -630,7 +643,7 @@
           "list": [
             {
               "strong": "Google (Google Analytics vía Google Tag Manager): ",
-              "rest": "solo si aceptas las cookies analíticas. El contenedor se carga siempre, pero arranca con todas las señales de consentimiento denegadas, de modo que hasta que aceptas no escribe cookies ni envía identificadores. Las señales de publicidad van denegadas siempre, porque no hay ninguna etiqueta de anuncios instalada en este sitio."
+              "rest": "solo si aceptas las cookies analíticas o las de publicidad. El contenedor se carga siempre, pero arranca con todas las señales de consentimiento denegadas, de modo que hasta que aceptas no escribe cookies ni envía identificadores. Las señales de publicidad solo se conceden si aceptas las cookies de publicidad; en ese caso Google puede usar los datos de tu visita para medir nuestras campañas y para mostrarte anuncios personalizados."
             },
             {
               "strong": "Cloudflare (Turnstile): ",
@@ -641,7 +654,7 @@
               "rest": "las páginas con mapa piden las imágenes a sus servidores, que reciben tu dirección IP al servirlas. No instala cookies: es una petición de imagen como cualquier otra, pero conviene que lo sepas porque implica un tercero."
             }
           ],
-          "outro": "No hay ningún otro tercero. En particular, no hay píxeles de redes sociales, ni etiquetas de remarketing, ni cookies publicitarias de ningún tipo."
+          "outro": "No hay ningún otro tercero. En particular, no hay píxeles de redes sociales."
         },
         "gestion": {
           "title": "5. Cómo gestionar las cookies",
@@ -668,7 +681,7 @@
               "url": "https://support.microsoft.com/microsoft-edge/delete-cookies-in-microsoft-edge-63947406"
             }
           ],
-          "withdrawNote": "Retirar el consentimiento no afecta a la licitud de lo que se midió mientras estaba dado. Si lo retiras, las cookies analíticas dejan de instalarse; las que ya estén en tu dispositivo puedes borrarlas desde la configuración del navegador, como se explica debajo."
+          "withdrawNote": "Retirar el consentimiento no afecta a la licitud de lo que se midió mientras estaba dado. Si lo retiras, las cookies analíticas o de publicidad dejan de instalarse; las que ya estén en tu dispositivo puedes borrarlas desde la configuración del navegador, como se explica debajo."
         },
         "contacto": {
           "title": "6. Contacto",

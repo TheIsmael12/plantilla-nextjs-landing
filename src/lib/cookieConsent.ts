@@ -10,16 +10,19 @@
 /**
  * Categorías de cookies que el visitante acepta o rechaza por separado en el banner.
  *
- * **Sin categoría `marketing`**: hoy no hay instalado ningún script de
- * publicidad (Google Ads, Meta Pixel...), y un interruptor sin nada detrás
- * obligaba al texto legal a describir proveedores que no existen en el sitio.
- * Cuando haya una integración de publicidad real se reintroduce junto con
- * ella, y con ella vuelven a colgar las señales `ad_*` de `lib/gtm.ts`, que
- * mientras tanto van denegadas siempre.
+ * `marketing` gobierna las tres señales de publicidad de Google (`ad_*`, ver
+ * `lib/gtm.ts`). Sin esa categoría iban denegadas siempre, y GTM lo leía como
+ * una tasa de consentimiento del 0 % («100 % de señales rechazadas») aunque el
+ * visitante pulsara «Aceptar todo».
+ *
+ * Una decisión guardada antes de que existiera `marketing` no la trae: se lee
+ * como `undefined`, es decir, denegada, que es lo único que ese visitante
+ * llegó a decidir sobre publicidad.
  */
 export interface CookieConsentCategories {
   analytics: boolean;
   functional: boolean;
+  marketing: boolean;
 }
 
 /** Preferencias de cookies aceptadas por el usuario, con la fecha del consentimiento. */
@@ -47,11 +50,12 @@ export const COOKIE_CONSENT_CHANGED_EVENT = "na:cookie-consent-changed";
  * un tercero (Esri) en cuanto se pinta la página, sin pasar por aquí — está
  * declarado en la política de cookies, no gobernado por esta categoría.
  *
- * Solo la analítica queda por decidir, y arranca denegada.
+ * La analítica y la publicidad quedan por decidir, y arrancan denegadas.
  */
 export const DENIED_CONSENT: CookieConsentCategories = {
   analytics: false,
   functional: true,
+  marketing: false,
 };
 
 /**

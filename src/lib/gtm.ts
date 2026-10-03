@@ -46,12 +46,11 @@ export type GoogleConsentState = Record<
  *
  * - `"granted"` — siempre concedida. `security_storage` cubre cosas como la
  *   prevención de fraude: no es opcional y no requiere consentimiento.
- * - `"denied"` — siempre denegada, porque **no hay categoría que la
- *   gobierne**. Es el caso de las tres señales de publicidad: el banner ya no
- *   pregunta por marketing (ver `lib/cookieConsent.ts`), así que nadie puede
- *   concederlas y ninguna etiqueta de anuncios puede escribir nada. El día que
- *   haya una integración de publicidad real, vuelven a apuntar a la categoría
- *   que se reintroduzca.
+ * - `"denied"` — siempre denegada. Hoy no hay ninguna así.
+ *
+ * Las tres señales de publicidad siguen a `marketing`. **No las fijes a
+ * `"denied"`**: GTM calcula su tasa de consentimiento con ellas, y fijadas
+ * marca el 100 % de las visitas como rechazo aunque se acepte todo.
  *
  * Es la **única** definición del mapeo: la usan tanto la traducción en
  * cliente ({@link toGoogleConsentState}) como el script de arranque
@@ -61,9 +60,9 @@ export const CONSENT_SIGNAL_RULE: Record<
   keyof GoogleConsentState,
   keyof CookieConsentCategories | ConsentSignal
 > = {
-  ad_storage: "denied",
-  ad_user_data: "denied",
-  ad_personalization: "denied",
+  ad_storage: "marketing",
+  ad_user_data: "marketing",
+  ad_personalization: "marketing",
   analytics_storage: "analytics",
   functionality_storage: "functional",
   personalization_storage: "functional",
@@ -184,8 +183,8 @@ export interface GtmPageContext {
  * Script de arranque del contenedor, para inyectar en línea.
  *
  * `url_passthrough` **no** se activa: sirve para que las conversiones de Google Ads sobrevivan sin cookies
- * decorando los enlaces internos con `gclid`/`wbraid`, y aquí no hay publicidad (las tres señales de anuncios
- * van fijadas a `denied`, ver {@link CONSENT_SIGNAL_RULE}). Lo único que hacía era reescribir URLs y
+ * decorando los enlaces internos con `gclid`/`wbraid`, y hoy no hay ninguna campaña activa (las etiquetas de Ads
+ * del contenedor van en pausa). Lo único que hacía era reescribir URLs y
  * propagar parámetros de la URL de entrada de página en página. El día que haya campañas se valora de nuevo.
  *
  * Hace tres cosas **en este orden**, que es lo que obliga a que sea un solo
@@ -223,8 +222,8 @@ export function buildGtmBootstrap(containerId: string, page?: GtmPageContext): s
 
   var rules = ${JSON.stringify(CONSENT_SIGNAL_RULE)};
   // Sin decisión guardada, el mismo punto de partida que el banner (DENIED_CONSENT): la
-  // categoría funcional va concedida desde el principio (art. 22.2 LSSI) y solo la analítica
-  // arranca denegada.
+  // categoría funcional va concedida desde el principio (art. 22.2 LSSI) y la analítica
+  // y la publicidad arrancan denegadas.
   var defaults = ${JSON.stringify(DENIED_CONSENT)};
   var consent = { wait_for_update: ${GTM_CONSENT_WAIT_FOR_UPDATE_MS} };
   for (var signal in rules) {
